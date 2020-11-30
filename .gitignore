@@ -1,4 +1,5 @@
 LDA/venv/*
+venv/*
 LDA/.idea/*
 .idea/*
 
