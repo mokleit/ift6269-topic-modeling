@@ -2,8 +2,7 @@ import numpy as np
 import Cupy as cp
 import random
 
-from Utils import Utils
-import settings.py
+from .Utils import Utils
 
 """
 follow the  blei implementation in C: 
@@ -12,7 +11,7 @@ with the structure of scikit learn library in python
 https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/decomposition/_lda.py#L31
 """
 
-class LatentDirichletAllocation():
+class LdaEstimate:
     """
     
     Latent Dirichlet Allocation 
