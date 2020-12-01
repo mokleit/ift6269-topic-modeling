@@ -1,5 +1,5 @@
 import numpy as np
-from Utils import Utils
+from .Utils import Utils
 
 
 class LdaAlpha:
@@ -24,7 +24,7 @@ class LdaAlpha:
 
     # Implement Newton's method
     def opt_alpha(self, ss, D, K):
-        a, log_a, init_a = 100
+        a = log_a = init_a = 100
         iter = 0
         while True:
             iter += 1
