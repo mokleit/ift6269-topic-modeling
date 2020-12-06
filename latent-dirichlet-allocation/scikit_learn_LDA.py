@@ -39,7 +39,7 @@ with open('Sample_Blei.txt') as f:
 
 
 # vectorize the documents 
-print("Extracting tf-idf features for NMF...")
+print("Extracting tf features for NMF...")
 tf_vectorizer = CountVectorizer(max_df=max_treshold, min_df=min_treshold,
                                    max_features=n_features,
                                    stop_words='english')
