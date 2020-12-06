@@ -7,23 +7,24 @@ from scipy.special import digamma
 from math import lgamma
 from scipy import special
 import math
-
+import os 
 #import resource
 
-
+os.chdir('C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data')
 #inputs; 
 n_features = 1000 #build a vocabulary that only consider the top max_features ordered by term frequency across the corpus.
 n_components = 10 #Number of topics.
 n_top_words = 20 #for prints
 max_treshold = 0.95 # high frequency words
 min_treshold = 2 #low frequency words
+
 # For debugging
 debug = False
 
 #Read data
 documents = []
 
-with open('Sample_Blei.txt') as f:
+with open('samples.txt') as f:
     for line in f:
         inner_list = [elt.strip() for elt in line.split( r'\n')]
         # in alternative, if you need to use the file content as numbers
@@ -102,7 +103,7 @@ for d in range(M):
 #functions
 
 def log_gamma( x):
-        return math.lgamma(x)
+        return  special.loggamma(x)
     
 def psi( x):
     '''
@@ -129,7 +130,7 @@ def gradient(alpha,gamma ):
 
     ss = sufficient_statistic(gamma)
     
-    D_alpha=  M * (psi(alpha.sum(keepdims=True))-psi(alpha)) + ss[:,np.newaxis]
+    D_alpha=  M * (psi(alpha.sum())-psi(alpha)) + ss
     return D_alpha
 
 def sufficient_statistic(x):
@@ -153,66 +154,129 @@ def hessian(alpha,M) :
         
     return D2_alpha*M
 
-
-
-def update_alpha(alpha,gamma):
+# =============================================================================
+# 
+# 
+# def update_alpha(alpha,gamma):
+#     '''
+#     newton update 
+#     see annexe A.2 for derivation
+#     '''
+#     
+# 
+#     N_doc= gamma.shape[0]
+# 
+#     D1_alpha = gradient(alpha,gamma )
+#     D2_alpha= hessian(alpha,N_doc)
+#     
+# 
+#     print('D1:',D1_alpha[0])
+#     print("D2",D2_alpha[0,0])
+#     #using the formula in the paper, need to inverse the hessian so it might create issue
+#     # update =  np.inv(D2_alpha) @ D1_alpha 
+#     # formula seen in class
+#     update =np.linalg.lstsq(D2_alpha ,D1_alpha,rcond=None)[0] 
+#     return alpha +update
+# 
+# =============================================================================
+def update_alpha_hessian_trick(alpha,gamma):
     '''
     newton update 
     see annexe A.2 for derivation
     '''
-    
-
+    N_doc= gamma.shape[0]
     D1_alpha = gradient(alpha,gamma )
-    D2_alpha= hessian(alpha,gamma.shape[0])
     
+    D2_alpha_diagonal=  psi_2(alpha)*N_doc
+    
+    z=  psi_2(alpha.sum())*N_doc
 
-    print('D1:',D1_alpha[0])
-    print("D2",D2_alpha[0,0])
-    #using the formula in the paper, need to inverse the hessian so it might create issue
-    # update =  np.inv(D2_alpha) @ D1_alpha 
-    # formula seen in class
-    update =np.linalg.lstsq(D2_alpha ,D1_alpha,rcond=None)[0] 
-    return alpha +update
+    c= (D1_alpha/D2_alpha_diagonal).sum() / (1/z + 1/D2_alpha_diagonal.sum())
 
+    update =  (D2_alpha_diagonal-c)/D1_alpha
+    
+        
 
-def lda_compute_likelihood(self, doc, lda_model, phi, var_gamma):
+    return alpha - update
+
+test= update_alpha_hessian_trick(np.ones((K)), optimal_gamma)
+
+# =============================================================================
+# def lda_compute_likelihood(self, doc, lda_model, phi, var_gamma):
+#   #counts: number of occurences for nth word in counts
+#   #words: nth word of vocabulary
+#   likelihood = 0
+#   digsum = 0
+#   var_gamma_sum = 0
+#   K = lda_model.num_topics
+#   alpha = lda_model.alpha
+#   N = doc.length
+# 
+#   #Initialize
+#   dig = digamma(var_gamma)
+#   var_gamma_sum = np.sum(var_gamma)
+#   digsum = digamma(var_gamma_sum)
+# 
+#   l1 = lgamma(alpha * K)
+#   l2 = (K * lgamma(alpha))
+#   l3 = lgamma(var_gamma_sum)
+#   likelihood =  l1 - l2 - l3
+# 
+#   for k in range(K):
+#     ll1 = (alpha-1) * (dig[k] - digsum)
+#     ll2 = lgamma(var_gamma[k])
+#     ll3 = (var_gamma[k] - 1) * (dig[k] - digsum)
+#     likelihood += ll1 + ll2 - ll3
+#   
+#     for n in range(N):
+#       if phi[n][k] > 0:
+#           lll1 = phi[n][k] * ((dig[k] - digsum) - np.log(phi[n][k]))
+#           lll2 = doc.counts[n]* ll1 + lda_model.log_prob_w[k, doc.words[n]]
+#   
+#   return likelihood
+# =============================================================================
+def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
   #counts: number of occurences for nth word in counts
   #words: nth word of vocabulary
   likelihood = 0
   digsum = 0
   var_gamma_sum = 0
-  K = lda_model.num_topics
-  alpha = lda_model.alpha
-  N = doc.length
+  K = optimal_alpha.shape[0]
+  N = len(doc)
 
-  #Initialize
+
   dig = digamma(var_gamma)
   var_gamma_sum = np.sum(var_gamma)
   digsum = digamma(var_gamma_sum)
 
-  l1 = lgamma(alpha * K)
-  l2 = (K * lgamma(alpha))
-  l3 = lgamma(var_gamma_sum)
-  likelihood =  l1 - l2 - l3
-
-  for k in range(K):
-    ll1 = (alpha-1) * (dig[k] - digsum)
-    ll2 = lgamma(var_gamma[k])
-    ll3 = (var_gamma[k] - 1) * (dig[k] - digsum)
-    likelihood += ll1 + ll2 - ll3
+  l_alpha_1 = log_gamma(alpha.sum())
+  l_alpha_2 = log_gamma(alpha).sum()
   
-    for n in range(N):
-      if phi[n][k] > 0:
-          lll1 = phi[n][k] * ((dig[k] - digsum) - np.log(phi[n][k]))
-          lll2 = doc.counts[n]* ll1 + lda_model.log_prob_w[k, doc.words[n]]
+  l_gamma_1 = log_gamma(var_gamma_sum)
+  l_gamma_2 = log_gamma(var_gamma).sum()
+  l_gamma_3 = ((dig-1) * (dig - digsum)).sum()
+
+  
+  l_alpha_gamma = ((alpha-1) * (dig - digsum)).sum()
+  
+
+  l_phi = (np.log(phi)*phi).sum()
+  
+  l_phi_gamma = (phi* (dig-digsum)).sum()
+    
+  
+  w = np.zeros((N,V))
+  w[np.arange(N), doc] = 1
+
+  l_phi_beta = (np.matmul(phi.T,w)*beta).sum()
+    
+  likelihood = l_alpha_1 - l_alpha_2 +l_alpha_gamma +l_phi_gamma  +l_phi_gamma -l_gamma_1 +l_gamma_2 -l_gamma_3 - l_phi_beta
   
   return likelihood
 
-#a faire
-def variational_em(beta_0 ,alpha_0 ,words):
+#test =lda_compute_likelihood(Doc_words[0],optimal_phi[0], optimal_gamma[0], optimal_alpha,optimal_beta, V   )
 
-  
-  return estimated_beta,estimated_alpha
+
 
 
 def e_step(beta_t ,alpha_t ,N ,words):
@@ -228,11 +292,9 @@ def e_step(beta_t ,alpha_t ,N ,words):
   optimal_phi = []
   optimal_gamma = np.multiply(np.ones((M,K)),alpha_t.T)
   converged = False
-
+  print('alpha shape:',alpha_t.shape)
   for d in range(M):
-    if (d % 100 == 0):
-      print("iteration = "+str(d))
-      #print('Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) 
+       #print('Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) 
 
     optimal_gamma[d] += N[d]/K
     optimal_phi_doc = 1/K * np.ones((N[d],K))
@@ -249,7 +311,7 @@ def e_step(beta_t ,alpha_t ,N ,words):
       
       # update gamma
       #optimal_gamma_doc = np.asnumpy(alpha_t.T + np.sum(optimal_phi_doc,axis = 0))
-      optimal_gamma[d] = alpha_t.T + np.sum(optimal_phi_doc,axis = 0)
+      optimal_gamma[d] = alpha_t[np.newaxis, :]  + np.sum(optimal_phi_doc,axis = 0)
 
       # check convergence
       if (np.linalg.norm(optimal_gamma[d] - old_optimal_gamma) < 10e-3 and np.linalg.norm(optimal_phi_doc - old_optimal_phi_doc) < 10e-3):
@@ -259,7 +321,7 @@ def e_step(beta_t ,alpha_t ,N ,words):
   return optimal_phi,optimal_gamma  
 
 
-def m_step(phi_t ,gamma_t ,V ,words, N):
+def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
   '''
   an iteration computation of optimal beta and alpha
   beta   : [K x V]
@@ -268,7 +330,7 @@ def m_step(phi_t ,gamma_t ,V ,words, N):
 
   M, K = gamma_t.shape
   optimal_beta = np.zeros((K,V))
-  optimal_alpha = np.zeros((K,1))
+  optimal_alpha= Innial_alpha
 
   # update beta
   beta_per_doc = np.zeros((M,K,V))
@@ -293,21 +355,59 @@ def m_step(phi_t ,gamma_t ,V ,words, N):
   I = 0
   converged = False
   while not converged:
+     # print("alpha:" ,optimal_alpha[0])
+      
       optimal_alpha_old= optimal_alpha
-      optimal_alpha =update_alpha(optimal_alpha ,gamma_t)
+      optimal_alpha =update_alpha_hessian_trick(optimal_alpha ,gamma_t)
       I +=1
       delta = np.linalg.norm(optimal_alpha- optimal_alpha_old) 
-      #print("iteration:" ,I,delta)
-      print("alpha:" ,optimal_alpha[0])
-      if (delta < 10e-3):
+
+
+      if (delta < 10e-3 or I >100):
           converged = True   
-          
+          print('stoped after:',I,'iterations')
   return optimal_beta,optimal_alpha
 
-# test
-beta_t = 1/V * np.ones((K,V))
-alpha_t = 1/K * np.ones((K,1))
 
-optimal_phi , optimal_gamma = e_step(beta_t,alpha_t,N,Doc_words) 
-# Memory Problem
+def run_em(N,Doc_words,Innial_alpha):
+
+    optimal_beta = 1/V * np.ones((K,V))
+    optimal_alpha = Innial_alpha
+    likelihood=-10000000000
+    converged = False
+    I = 0
+    while not converged:
+         likelihood_old =likelihood
+
+         #E-step
+         print("E-Step, iteration:",I)
+         optimal_phi , optimal_gamma = e_step(optimal_beta,optimal_alpha, N,Doc_words) 
+         print("M-Step, iteration:",I)
+         #M-step
+         optimal_beta , optimal_alpha = m_step(optimal_phi, optimal_gamma, Innial_alpha, V, Doc_words, N)
+         
+         likelihood = 0
+         for J in range(len(Doc_words)):
+             likelihood += lda_compute_likelihood(Doc_words[J],optimal_phi[J], optimal_gamma[J], optimal_alpha,optimal_beta, V   )
+         
+            
+         ll_delta = (likelihood_old - likelihood) / (likelihood_old)
+         print('log likelihood before:',likelihood_old)
+         print('log likelihood after:',likelihood)
+         print('log likelihood change:',ll_delta)
+         if (ll_delta < 10e-3  or I >100):
+             print('CONVERGED')
+             converged = True
+         I+=1
+    return   optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma
+
+
+# test
+#beta_t = 1/V * np.ones((K,V))
+#alpha_t = 1/K * np.ones((K,1))
+
+optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma =run_em(N,Doc_words,np.ones(K))
+
+#optimal_phi , optimal_gamma = e_step(beta_t,alpha_t,N,Doc_words) 
+
 optimal_beta , optimal_alpha = m_step(optimal_phi, optimal_gamma, V, Doc_words, N)
