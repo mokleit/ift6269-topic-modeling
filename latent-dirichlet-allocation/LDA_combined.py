@@ -3,11 +3,11 @@ import numpy as np
 from sklearn.feature_extraction.text import  CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 from time import time
-from scipy.special import digamma
-from math import lgamma
 from scipy import special
 import math
 import os 
+from nltk import word_tokenize          
+from nltk.stem import WordNetLemmatizer 
 #import resource
 
 os.chdir('C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data')
@@ -207,15 +207,16 @@ def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
     V: n_features
     """
     
-
+    #innitialization
     likelihood = 0
     digsum = 0
     var_gamma_sum = 0
     N = len(doc)
     
-    dig = digamma(var_gamma)
+    #compute each term of log likelihood
+    dig = psi(var_gamma)
     var_gamma_sum = np.sum(var_gamma)
-    digsum = digamma(var_gamma_sum)
+    digsum = psi(var_gamma_sum)
     
     l_alpha_1 = log_gamma(alpha.sum())
     l_alpha_2 = log_gamma(alpha).sum()
@@ -235,7 +236,7 @@ def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
     w[np.arange(N), doc] = 1
     l_phi_beta = (np.matmul(phi.T,w)*beta).sum()
     
-    
+    #sum the loglikelihood
     likelihood = l_alpha_1 - l_alpha_2 + l_alpha_gamma + l_phi_gamma  -l_gamma_1 +l_gamma_2 -l_gamma_3 - l_phi_beta-l_phi
     
     return likelihood
@@ -300,7 +301,7 @@ def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
      words: list of  list of word index present in each of the document ,shape = N document X N words  (vary per document)
      
   '''
-
+  #innitilization
   M, K = gamma_t.shape
   optimal_beta = np.zeros((K,V))
   optimal_alpha= Innial_alpha
@@ -324,7 +325,7 @@ def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
     print("The next array should contain only ones")
     print(np.sum(optimal_beta,axis = 1))
     
-      # update alpha : we use Newton Raphson method
+  # update alpha : we use Newton Raphson method
   I = 0
   converged = False
   while not converged:
@@ -372,11 +373,12 @@ def run_em(N,Doc_words,Innial_alpha,V):
          #M-step
          optimal_beta , optimal_alpha = m_step(optimal_phi, optimal_gamma, Innial_alpha, V, Doc_words, N)
          
+         #compute likelihood
          likelihood = 0
          for J in range(len(Doc_words)):
              likelihood += lda_compute_likelihood(Doc_words[J],optimal_phi[J], optimal_gamma[J], optimal_alpha,optimal_beta, V   )
          
-            
+         #compare previous iteration likelihood with current itteration, stop if converged   
          ll_delta = (likelihood_old - likelihood) / (likelihood_old)
          print('log likelihood before:',likelihood_old)
          print('log likelihood after:',likelihood)
