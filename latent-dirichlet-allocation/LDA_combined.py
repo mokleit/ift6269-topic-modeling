@@ -140,45 +140,6 @@ def sufficient_statistic(x):
     ss= (psi(x)-psi(x.sum(axis=1,keepdims=True))).sum(axis=0)
     return ss
 
-def hessian(alpha,M) :
-    '''
-    Called d_alhood in the Blei-C  implementation
-    see annexe A.4.2 for derivation
-    '''
-    K = alpha.shape[0]
-    
-    D2_alpha= np.full( ( K, K) , psi_2(alpha.sum()) ) 
-    
-    np.fill_diagonal(D2_alpha, D2_alpha.diagonal() - psi_2(alpha) )
-    
-        
-    return D2_alpha*M
-
-# =============================================================================
-# 
-# 
-# def update_alpha(alpha,gamma):
-#     '''
-#     newton update 
-#     see annexe A.2 for derivation
-#     '''
-#     
-# 
-#     N_doc= gamma.shape[0]
-# 
-#     D1_alpha = gradient(alpha,gamma )
-#     D2_alpha= hessian(alpha,N_doc)
-#     
-# 
-#     print('D1:',D1_alpha[0])
-#     print("D2",D2_alpha[0,0])
-#     #using the formula in the paper, need to inverse the hessian so it might create issue
-#     # update =  np.inv(D2_alpha) @ D1_alpha 
-#     # formula seen in class
-#     update =np.linalg.lstsq(D2_alpha ,D1_alpha,rcond=None)[0] 
-#     return alpha +update
-# 
-# =============================================================================
 def update_alpha_hessian_trick(alpha,gamma):
     '''
     newton update 
@@ -234,44 +195,50 @@ def update_alpha_hessian_trick(alpha,gamma):
 #   return likelihood
 # =============================================================================
 def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
-  #counts: number of occurences for nth word in counts
-  #words: nth word of vocabulary
-  likelihood = 0
-  digsum = 0
-  var_gamma_sum = 0
-  K = optimal_alpha.shape[0]
-  N = len(doc)
-
-
-  dig = digamma(var_gamma)
-  var_gamma_sum = np.sum(var_gamma)
-  digsum = digamma(var_gamma_sum)
-
-  l_alpha_1 = log_gamma(alpha.sum())
-  l_alpha_2 = log_gamma(alpha).sum()
-  
-  l_gamma_1 = log_gamma(var_gamma_sum)
-  l_gamma_2 = log_gamma(var_gamma).sum()
-  l_gamma_3 = ((dig-1) * (dig - digsum)).sum()
-
-  
-  l_alpha_gamma = ((alpha-1) * (dig - digsum)).sum()
-  
-
-  l_phi = (np.log(phi)*phi).sum()
-  
-  l_phi_gamma = (phi* (dig-digsum)).sum()
+    """
+    compute the log likelihood  of 1 document
     
-  
-  #to to check
-  w = np.zeros((N,V))
-  w[np.arange(N), doc] = 1
-
-  l_phi_beta = (np.matmul(phi.T,w)*beta).sum()
+    input:
+    doc : list of word index present in the document ,shape = n words 
+    phi: matrix of phi parameter in the document, shape  =n words X n topics
+    var_gamma: vector of gamma parameter for the document, shape  = n topics
+    alpha:  vector of gamma parameter for the document, shape  = n topics 
+    beta : matrix of beta   parameter for the document , shape = n topic X n_features !!!double check if this is okk!!!
+    V: n_features
+    """
     
-  likelihood = l_alpha_1 - l_alpha_2 +l_alpha_gamma +l_phi_gamma  +l_phi_gamma -l_gamma_1 +l_gamma_2 -l_gamma_3 - l_phi_beta-l_phi
-  
-  return likelihood
+
+    likelihood = 0
+    digsum = 0
+    var_gamma_sum = 0
+    N = len(doc)
+    
+    dig = digamma(var_gamma)
+    var_gamma_sum = np.sum(var_gamma)
+    digsum = digamma(var_gamma_sum)
+    
+    l_alpha_1 = log_gamma(alpha.sum())
+    l_alpha_2 = log_gamma(alpha).sum()
+    
+    l_gamma_1 = log_gamma(var_gamma_sum)
+    l_gamma_2 = log_gamma(var_gamma).sum()
+    l_gamma_3 = ((dig-1) * (dig - digsum)).sum()
+    
+    l_alpha_gamma = ((alpha-1) * (dig - digsum)).sum()
+    
+    l_phi = (np.log(phi)*phi).sum()
+    
+    l_phi_gamma = (phi* (dig-digsum)).sum()
+    
+    #to to check
+    w = np.zeros((N,V))
+    w[np.arange(N), doc] = 1
+    l_phi_beta = (np.matmul(phi.T,w)*beta).sum()
+    
+    
+    likelihood = l_alpha_1 - l_alpha_2 + l_alpha_gamma + l_phi_gamma  -l_gamma_1 +l_gamma_2 -l_gamma_3 - l_phi_beta-l_phi
+    
+    return likelihood
 
 #test =lda_compute_likelihood(Doc_words[0],optimal_phi[0], optimal_gamma[0], optimal_alpha,optimal_beta, V   )
 
@@ -324,6 +291,14 @@ def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
   an iteration computation of optimal beta and alpha
   beta   : [K x V]
   alpha  : dirichlet parameter [K,]
+  
+  inputs:
+     phi_t : phi paramters from the E-step, shape = [M x N[d] x K] (vary per document)
+     gamma_t: matrix of gamma parameter from the E-step,  shape  =N document X N topics
+     Innial_alpha: matrix of gamma parameter from the E-step,  shape  =N document X N topics
+     V: n_features
+     words: list of  list of word index present in each of the document ,shape = N document X N words  (vary per document)
+     
   '''
 
   M, K = gamma_t.shape
@@ -367,13 +342,26 @@ def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
   return optimal_beta,optimal_alpha
 
 
-def run_em(N,Doc_words,Innial_alpha):
+def run_em(N,Doc_words,Innial_alpha,V):
+    '''
+    run the E-step and M-Step itteratively until the log likelihood converges
+    returns the final parameters
+    
+    inputs:
+        N: number of words in each document 
+        Doc_words: list of  list of word index present in each of the document ,shape = N document X N words  
+        Innial_alpha: innital alpha parameters used
+        V: n_features
+    '''
 
+    #innitialisation
     optimal_beta = 1/V * np.ones((K,V))
     optimal_alpha = Innial_alpha
     likelihood=-10000000000
     converged = False
     I = 0
+    
+    #Run EM Algorithm
     while not converged:
          likelihood_old =likelihood
 
@@ -404,8 +392,8 @@ def run_em(N,Doc_words,Innial_alpha):
 #beta_t = 1/V * np.ones((K,V))
 #alpha_t = 1/K * np.ones((K,1))
 
-optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma =run_em(N,Doc_words,np.ones(K))
+optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma =run_em(N,Doc_words,np.ones(K),V)
 
 #optimal_phi , optimal_gamma = e_step(beta_t,alpha_t,N,Doc_words) 
 
-optimal_beta , optimal_alpha = m_step(optimal_phi, optimal_gamma, V, Doc_words, N)
+#optimal_beta , optimal_alpha = m_step(optimal_phi, optimal_gamma, V, Doc_words, N)
