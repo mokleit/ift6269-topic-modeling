@@ -77,6 +77,7 @@ if debug:
   
   
   
+#to do: check if needed
   ''' 
 Doc_words :list of words for each document d (words are represented by their index in Vocabulary) [M x N[d]]
 N :list of size of each document (number of words)
@@ -95,7 +96,6 @@ for d in range(M):
   N.append(len(words_list))
 # generators
 #print('Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) 
-
 
 
   
@@ -193,13 +193,11 @@ def update_alpha_hessian_trick(alpha,gamma):
 
     c= (D1_alpha/D2_alpha_diagonal).sum() / (1/z + 1/D2_alpha_diagonal.sum())
 
-    update =  (D2_alpha_diagonal-c)/D1_alpha
+    update =  (D1_alpha -c)/D2_alpha_diagonal
     
         
 
     return alpha - update
-
-test= update_alpha_hessian_trick(np.ones((K)), optimal_gamma)
 
 # =============================================================================
 # def lda_compute_likelihood(self, doc, lda_model, phi, var_gamma):
@@ -265,12 +263,13 @@ def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
   l_phi_gamma = (phi* (dig-digsum)).sum()
     
   
+  #to to check
   w = np.zeros((N,V))
   w[np.arange(N), doc] = 1
 
   l_phi_beta = (np.matmul(phi.T,w)*beta).sum()
     
-  likelihood = l_alpha_1 - l_alpha_2 +l_alpha_gamma +l_phi_gamma  +l_phi_gamma -l_gamma_1 +l_gamma_2 -l_gamma_3 - l_phi_beta
+  likelihood = l_alpha_1 - l_alpha_2 +l_alpha_gamma +l_phi_gamma  +l_phi_gamma -l_gamma_1 +l_gamma_2 -l_gamma_3 - l_phi_beta-l_phi
   
   return likelihood
 
@@ -292,7 +291,6 @@ def e_step(beta_t ,alpha_t ,N ,words):
   optimal_phi = []
   optimal_gamma = np.multiply(np.ones((M,K)),alpha_t.T)
   converged = False
-  print('alpha shape:',alpha_t.shape)
   for d in range(M):
        #print('Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) 
 
@@ -305,13 +303,13 @@ def e_step(beta_t ,alpha_t ,N ,words):
 
       # update phi
       for n in range(N[d]):
-        sufficient_stats = np.array(special.polygamma(1,optimal_gamma[d].tolist()))
+        sufficient_stats = np.array(special.polygamma(1,optimal_gamma[d].tolist())) # sufficient_statistic(optimal_gamma[d]) 
         optimal_phi_doc[n] = np.multiply(beta_t[:,words[d][n]],np.exp(sufficient_stats)) #cp.array
         optimal_phi_doc[n]= optimal_phi_doc[n] / np.sum(optimal_phi_doc[n])
       
       # update gamma
       #optimal_gamma_doc = np.asnumpy(alpha_t.T + np.sum(optimal_phi_doc,axis = 0))
-      optimal_gamma[d] = alpha_t[np.newaxis, :]  + np.sum(optimal_phi_doc,axis = 0)
+      optimal_gamma[d] = alpha_t  + np.sum(optimal_phi_doc,axis = 0)
 
       # check convergence
       if (np.linalg.norm(optimal_gamma[d] - old_optimal_gamma) < 10e-3 and np.linalg.norm(optimal_phi_doc - old_optimal_phi_doc) < 10e-3):
