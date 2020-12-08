@@ -152,7 +152,7 @@ def update_alpha_hessian_trick(alpha,gamma):
     
     z=  psi_2(alpha.sum())*N_doc
 
-    c= (D1_alpha/D2_alpha_diagonal).sum() / (1/z + 1/D2_alpha_diagonal.sum())
+    c= (D1_alpha/D2_alpha_diagonal).sum() / (1/z +  (1/D2_alpha_diagonal).sum())
 
     update =  (D1_alpha -c)/D2_alpha_diagonal
     
@@ -160,6 +160,30 @@ def update_alpha_hessian_trick(alpha,gamma):
 
     return alpha - update
 
+def newton_alpha(alpha,gamma):
+    ''' 
+    run newton update until convergence of parameter
+    input: 
+    gamma matrix from the m step
+        
+    '''
+    I = 0
+    converged = False
+    optimal_alpha= alpha
+    while not converged:
+      
+      optimal_alpha_old= optimal_alpha
+      optimal_alpha =update_alpha_hessian_trick(optimal_alpha ,gamma)
+      I +=1
+      delta = np.linalg.norm(optimal_alpha- optimal_alpha_old) 
+
+
+      if (delta < 10e-3 or I >100):
+          converged = True   
+          print('stoped after:',I,'iterations')
+          
+    return optimal_alpha
+	
 # =============================================================================
 # def lda_compute_likelihood(self, doc, lda_model, phi, var_gamma):
 #   #counts: number of occurences for nth word in counts
@@ -248,50 +272,68 @@ def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
 
 def e_step(beta_t ,alpha_t ,N ,words):
   '''
+  Input:
+      beta_t: K x V matrix
+      alpha_t: M x K matrix
+      N: M X 1 list with the length of each document
+      
+  
   an iteration computation of optimal phi and gamma
   phi   : variational multinomial_parameters [M x N[d] x K]
   gamma : variational dirichlet parameter [M x K]
-
   N  : list of number of words in each document
   '''
+  
   M = len(N)
-  K = alpha_t.shape[0]
+  K = alpha_t.shape[1]
+  
+  #Innitialization
   optimal_phi = []
-  optimal_gamma = np.multiply(np.ones((M,K)),alpha_t.T)
-  converged = False
+  optimal_gamma = np.zeros((M,K))
+  
+  #itterate for each document
   for d in range(M):
-       #print('Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) 
 
-    optimal_gamma[d] += N[d]/K
-    optimal_phi_doc = 1/K * np.ones((N[d],K))
+    #initialization for  each document
+    optimal_phi_doc = 1/K * np.ones((N[d],K))#(1)
+    optimal_gamma[d] += alpha_t[d]+ np.max((N[d]/K,0.2))  #(2) added a minimum value so that the spi doesnt create overflow
+    converged = False
+
     while not converged:
 
       old_optimal_gamma = optimal_gamma[d]
       old_optimal_phi_doc = optimal_phi_doc
 
       # update phi
-      for n in range(N[d]):
-        sufficient_stats = np.array(special.polygamma(1,optimal_gamma[d].tolist())) # sufficient_statistic(optimal_gamma[d]) 
-        optimal_phi_doc[n] = np.multiply(beta_t[:,words[d][n]],np.exp(sufficient_stats)) #cp.array
-        optimal_phi_doc[n]= optimal_phi_doc[n] / np.sum(optimal_phi_doc[n])
+      for n in range(N[d]): #(4)
+
+        #optimal_phi_doc[n] = np.multiply(beta_t[:,words[d][n]], np.exp( psi(optimal_gamma[d]))) #(6)
+        optimal_phi_doc[n] = np.multiply(beta_t[:,words[d][n]], np.exp(psi(optimal_gamma[d])-psi(optimal_gamma[d].sum()))) #(6)
+  
+        
+        optimal_phi_doc[n]= optimal_phi_doc[n] / np.sum(optimal_phi_doc[n]) #(7)
       
       # update gamma
-      #optimal_gamma_doc = np.asnumpy(alpha_t.T + np.sum(optimal_phi_doc,axis = 0))
-      optimal_gamma[d] = alpha_t  + np.sum(optimal_phi_doc,axis = 0)
-
+      optimal_gamma[d] = alpha_t[d]  + np.sum(optimal_phi_doc,axis = 0) # (8)
       # check convergence
       if (np.linalg.norm(optimal_gamma[d] - old_optimal_gamma) < 10e-3 and np.linalg.norm(optimal_phi_doc - old_optimal_phi_doc) < 10e-3):
         converged = True
     optimal_phi.append(optimal_phi_doc)
+    print('document:', d)
+    print('optimal_phi_doc:',optimal_phi_doc)
+
 
   return optimal_phi,optimal_gamma  
+
+
 
 
 def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
   '''
   an iteration computation of optimal beta and alpha
   beta   : [K x V]
-  alpha  : dirichlet parameter [K,]
+  alpha  : dirichlet parameter [M,K]
+  words:  list of words in each documents
   
   inputs:
      phi_t : phi paramters from the E-step, shape = [M x N[d] x K] (vary per document)
@@ -304,7 +346,7 @@ def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
   #innitilization
   M, K = gamma_t.shape
   optimal_beta = np.zeros((K,V))
-  optimal_alpha= Innial_alpha
+  optimal_alpha=  np.zeros((Innial_alpha.shape)) 
 
   # update beta
   beta_per_doc = np.zeros((M,K,V))
@@ -314,7 +356,7 @@ def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
     w = np.zeros((N[d],V))
     w[np.arange(N[d]),words[d]] = 1
 
-    beta_per_doc[d] = np.matmul(phi_t[d].T,w)
+    beta_per_doc= np.matmul(phi_t[d].T,w)
 
   optimal_beta = np.sum(beta_per_doc, axis=0)
   #Normalization of beta  
@@ -325,23 +367,12 @@ def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
     print("The next array should contain only ones")
     print(np.sum(optimal_beta,axis = 1))
     
-  # update alpha : we use Newton Raphson method
-  I = 0
-  converged = False
-  while not converged:
-     # print("alpha:" ,optimal_alpha[0])
+  # update alpha : we use Newton Raphson method one document at the time
+  for d in range(M):
+      optimal_alpha[d]= newton_alpha(Innial_alpha[d],gamma_t)
       
-      optimal_alpha_old= optimal_alpha
-      optimal_alpha =update_alpha_hessian_trick(optimal_alpha ,gamma_t)
-      I +=1
-      delta = np.linalg.norm(optimal_alpha- optimal_alpha_old) 
-
-
-      if (delta < 10e-3 or I >100):
-          converged = True   
-          print('stoped after:',I,'iterations')
   return optimal_beta,optimal_alpha
-
+    
 
 def run_em(N,Doc_words,Innial_alpha,V):
     '''
@@ -390,11 +421,9 @@ def run_em(N,Doc_words,Innial_alpha,V):
     return   optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma
 
 
-# test
-#beta_t = 1/V * np.ones((K,V))
-#alpha_t = 1/K * np.ones((K,1))
 
-optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma =run_em(N,Doc_words,np.ones(K),V)
+Innit_alpha = np.ones((M,K))*1/K
+optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma =run_em(N,Doc_words,Innit_alpha,V)
 
 #optimal_phi , optimal_gamma = e_step(beta_t,alpha_t,N,Doc_words) 
 
