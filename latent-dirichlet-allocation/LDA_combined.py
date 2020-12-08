@@ -10,7 +10,7 @@ from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer 
 #import resource
 
-os.chdir('C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data')
+os.chdir('C:/Users/hp/Desktop/ift6269_topic_modeling/latent_dirichlet_allocation/data')
 #inputs; 
 n_features = 1000 #build a vocabulary that only consider the top max_features ordered by term frequency across the corpus.
 n_components = 10 #Number of topics.
@@ -19,7 +19,7 @@ max_treshold = 0.95 # high frequency words
 min_treshold = 2 #low frequency words
 
 # For debugging
-debug = False
+debug = True
 
 #Read data
 documents = []
@@ -31,9 +31,6 @@ with open('samples.txt') as f:
         # inner_list = [int(elt.strip()) for elt in line.split(',')]
         documents.append(inner_list[0])
         
-
-
-
 #Prepare data
 cv = CountVectorizer(max_df=max_treshold, min_df=min_treshold,
                        max_features=n_features,
@@ -48,37 +45,13 @@ Vocab_per_Doc_count = DOC.toarray()
 
 # Number of Documents M/ Size of Vocabulary V 
 M , V = DOC.shape
-K = 100
-
+K = 10
 
 if debug:
   print("shape of matrix counts for (doc,word)= "+ str(Vocab_per_Doc_count.shape))
   print("size of vocabulary set = "+ str(len(Vocabulary)))
 
-#lemmatizationnot ready yet
-# =============================================================================
-# documents = clean_data(documents)
-# documents = remove_stop_words(documents)
-# documents = remove_empty(documents)
-# 
-# 
-# # Lemmatization
-# from nltk import word_tokenize          
-# from nltk.stem import WordNetLemmatizer 
-# class LemmaTokenizer:
-#   def __init__(self):
-#     self.wnl = WordNetLemmatizer()
-#   def __call__(self, doc):
-#     return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
-# 
-#         
-# =============================================================================
-  
-  
-  
-  
-#to do: check if needed
-  ''' 
+''' 
 Doc_words :list of words for each document d (words are represented by their index in Vocabulary) [M x N[d]]
 N :list of size of each document (number of words)
 '''
@@ -94,14 +67,10 @@ for d in range(M):
   Doc_words.append(words_list)
   # add the number of words in document d
   N.append(len(words_list))
-# generators
-#print('Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) 
 
-
+#===========================================================================================================
+#===========================================================================================================
   
-#Parameter estimation
-#functions
-
 def log_gamma( x):
         return  special.loggamma(x)
     
@@ -146,9 +115,10 @@ def update_alpha_hessian_trick(alpha,gamma):
     see annexe A.2 for derivation
     '''
     N_doc= gamma.shape[0]
-    D1_alpha = gradient(alpha,gamma )
     
-    D2_alpha_diagonal=  psi_2(alpha)*N_doc
+    D1_alpha = gradient(alpha,gamma ) 
+    
+    D2_alpha_diagonal =  - psi_2(alpha)*N_doc
     
     z=  psi_2(alpha.sum())*N_doc
 
@@ -156,8 +126,6 @@ def update_alpha_hessian_trick(alpha,gamma):
 
     update =  (D1_alpha -c)/D2_alpha_diagonal
     
-        
-
     return alpha - update
 
 def newton_alpha(alpha,gamma):
@@ -172,52 +140,118 @@ def newton_alpha(alpha,gamma):
     optimal_alpha= alpha
     while not converged:
       
-      optimal_alpha_old= optimal_alpha
-      optimal_alpha =update_alpha_hessian_trick(optimal_alpha ,gamma)
-      I +=1
+      optimal_alpha_old = optimal_alpha
+      optimal_alpha = update_alpha_hessian_trick(optimal_alpha ,gamma)
       delta = np.linalg.norm(optimal_alpha- optimal_alpha_old) 
-
-
+      
       if (delta < 10e-3 or I >100):
           converged = True   
           print('stoped after:',I,'iterations')
-          
+      I += 1
+      
     return optimal_alpha
-	
-# =============================================================================
-# def lda_compute_likelihood(self, doc, lda_model, phi, var_gamma):
-#   #counts: number of occurences for nth word in counts
-#   #words: nth word of vocabulary
-#   likelihood = 0
-#   digsum = 0
-#   var_gamma_sum = 0
-#   K = lda_model.num_topics
-#   alpha = lda_model.alpha
-#   N = doc.length
-# 
-#   #Initialize
-#   dig = digamma(var_gamma)
-#   var_gamma_sum = np.sum(var_gamma)
-#   digsum = digamma(var_gamma_sum)
-# 
-#   l1 = lgamma(alpha * K)
-#   l2 = (K * lgamma(alpha))
-#   l3 = lgamma(var_gamma_sum)
-#   likelihood =  l1 - l2 - l3
-# 
-#   for k in range(K):
-#     ll1 = (alpha-1) * (dig[k] - digsum)
-#     ll2 = lgamma(var_gamma[k])
-#     ll3 = (var_gamma[k] - 1) * (dig[k] - digsum)
-#     likelihood += ll1 + ll2 - ll3
-#   
-#     for n in range(N):
-#       if phi[n][k] > 0:
-#           lll1 = phi[n][k] * ((dig[k] - digsum) - np.log(phi[n][k]))
-#           lll2 = doc.counts[n]* ll1 + lda_model.log_prob_w[k, doc.words[n]]
-#   
-#   return likelihood
-# =============================================================================
+
+#==========================================================================================================
+#==========================================================================================================
+
+def e_step(beta_t ,alpha_t ,N ,words):
+  '''
+  Input:
+      beta_t: [K x V] matrix (beta_i,j = p(w^j=1|z^i=1))
+      alpha_t: [1 x K] vector 
+      N: [M x 1] list with the length of each document
+      
+  
+  an iteration computation of optimal phi and gamma
+  phi   : variational multinomial_parameters [M x N[d] x K]
+  gamma : variational dirichlet parameter [M x K]
+  N  : list of number of words in each document
+  '''
+  
+  M = len(N)
+  K = alpha_t.shape[1]
+  
+  #Initialization
+  optimal_phi = []
+  optimal_gamma = np.zeros((M,K))
+  
+  #iterate for each document
+  for d in range(M):
+
+    #initialization for  each document
+    optimal_phi_doc = 1/K * np.ones((N[d],K))#(1)
+    optimal_gamma[d] = alpha_t + np.max((N[d]/K,0.2))  #(2) added a minimum value so that the psi doesnt create overflow
+    converged = False
+
+    while not converged:
+
+      old_optimal_gamma = optimal_gamma[d]
+      old_optimal_phi_doc = optimal_phi_doc
+
+      # update phi
+      for n in range(N[d]): #(4)
+
+        #optimal_phi_doc[n] = np.multiply(beta_t[:,words[d][n]], np.exp( psi(optimal_gamma[d]))) #(6)
+        optimal_phi_doc[n] = beta_t[:,words[d][n]] * np.exp(psi(optimal_gamma[d])-psi(optimal_gamma[d].sum())) #(6)
+        optimal_phi_doc[n] = optimal_phi_doc[n] / np.sum(optimal_phi_doc[n]) #(7)
+      
+      # update gamma
+      optimal_gamma[d] = alpha_t + np.sum(optimal_phi_doc,axis = 0) # (8)
+      # check convergence
+      if (np.linalg.norm(optimal_gamma[d] - old_optimal_gamma) < 10e-3 and np.linalg.norm(optimal_phi_doc - old_optimal_phi_doc) < 10e-3):
+        converged = True
+    optimal_phi.append(optimal_phi_doc)
+    
+  return optimal_phi,optimal_gamma
+
+def m_step(phi_t ,gamma_t ,initial_alpha, V ,words, N):
+  '''
+  an iteration computation of optimal beta and alpha
+  beta   : [K x V]
+  alpha  : dirichlet parameter [M,K]
+  words:  list of words in each documents
+  
+  inputs:
+     phi_t : phi paramters from the E-step, shape = [M x N[d] x K] (vary per document)
+     gamma_t: matrix of gamma parameter from the E-step,  shape  = 1 x K
+     initial_alpha: matrix of gamma parameter from the E-step,  shape  =N document X N topics
+     V: n_features
+     words: list of  list of word index present in each of the document ,shape = M document X N[d] words  (vary per document)
+     
+  '''
+  #initialization
+  M, K = gamma_t.shape
+  optimal_beta = np.zeros((K,V))
+  optimal_alpha =  np.zeros((1,K))
+
+  # update beta
+  beta_per_doc = np.zeros((M,K,V))
+  for d in range(M):
+
+    # w = One hot encoding of words 
+    w = np.zeros((N[d],V))
+    w[np.arange(N[d]),words[d]] = 1
+
+    beta_per_doc[d] = np.matmul(phi_t[d].T,w)
+  
+  optimal_beta = np.sum(beta_per_doc, axis=0)
+  #Normalization of beta  
+  optimal_beta = optimal_beta / (np.sum(optimal_beta, axis= 1))[:,np.newaxis]
+
+  if debug:
+    print(optimal_beta.shape)
+    print("The next array should contain only ones")
+    print(np.sum(optimal_beta,axis = 1))
+    print(optimal_alpha.shape)
+    
+  # update alpha : we use Newton Raphson method to update alpha
+  optimal_alpha = newton_alpha(initial_alpha,gamma_t)
+      
+  return optimal_beta,optimal_alpha
+
+#=============================================================================================================
+#=============================================================================================================
+  
 def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
     """
     compute the log likelihood  of 1 document
@@ -231,7 +265,7 @@ def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
     V: n_features
     """
     
-    #innitialization
+    #initialization
     likelihood = 0
     digsum = 0
     var_gamma_sum = 0
@@ -265,130 +299,24 @@ def lda_compute_likelihood( doc, phi, var_gamma,alpha,beta,V):
     
     return likelihood
 
-#test =lda_compute_likelihood(Doc_words[0],optimal_phi[0], optimal_gamma[0], optimal_alpha,optimal_beta, V   )
-
-
-
-
-def e_step(beta_t ,alpha_t ,N ,words):
-  '''
-  Input:
-      beta_t: K x V matrix
-      alpha_t: M x K matrix
-      N: M X 1 list with the length of each document
-      
+#=============================================================================================================
+#=============================================================================================================
   
-  an iteration computation of optimal phi and gamma
-  phi   : variational multinomial_parameters [M x N[d] x K]
-  gamma : variational dirichlet parameter [M x K]
-  N  : list of number of words in each document
-  '''
-  
-  M = len(N)
-  K = alpha_t.shape[1]
-  
-  #Innitialization
-  optimal_phi = []
-  optimal_gamma = np.zeros((M,K))
-  
-  #itterate for each document
-  for d in range(M):
-
-    #initialization for  each document
-    optimal_phi_doc = 1/K * np.ones((N[d],K))#(1)
-    optimal_gamma[d] += alpha_t[d]+ np.max((N[d]/K,0.2))  #(2) added a minimum value so that the spi doesnt create overflow
-    converged = False
-
-    while not converged:
-
-      old_optimal_gamma = optimal_gamma[d]
-      old_optimal_phi_doc = optimal_phi_doc
-
-      # update phi
-      for n in range(N[d]): #(4)
-
-        #optimal_phi_doc[n] = np.multiply(beta_t[:,words[d][n]], np.exp( psi(optimal_gamma[d]))) #(6)
-        optimal_phi_doc[n] = np.multiply(beta_t[:,words[d][n]], np.exp(psi(optimal_gamma[d])-psi(optimal_gamma[d].sum()))) #(6)
-  
-        
-        optimal_phi_doc[n]= optimal_phi_doc[n] / np.sum(optimal_phi_doc[n]) #(7)
-      
-      # update gamma
-      optimal_gamma[d] = alpha_t[d]  + np.sum(optimal_phi_doc,axis = 0) # (8)
-      # check convergence
-      if (np.linalg.norm(optimal_gamma[d] - old_optimal_gamma) < 10e-3 and np.linalg.norm(optimal_phi_doc - old_optimal_phi_doc) < 10e-3):
-        converged = True
-    optimal_phi.append(optimal_phi_doc)
-    print('document:', d)
-    print('optimal_phi_doc:',optimal_phi_doc)
-
-
-  return optimal_phi,optimal_gamma  
-
-
-
-
-def m_step(phi_t ,gamma_t ,Innial_alpha, V ,words, N):
-  '''
-  an iteration computation of optimal beta and alpha
-  beta   : [K x V]
-  alpha  : dirichlet parameter [M,K]
-  words:  list of words in each documents
-  
-  inputs:
-     phi_t : phi paramters from the E-step, shape = [M x N[d] x K] (vary per document)
-     gamma_t: matrix of gamma parameter from the E-step,  shape  =N document X N topics
-     Innial_alpha: matrix of gamma parameter from the E-step,  shape  =N document X N topics
-     V: n_features
-     words: list of  list of word index present in each of the document ,shape = N document X N words  (vary per document)
-     
-  '''
-  #innitilization
-  M, K = gamma_t.shape
-  optimal_beta = np.zeros((K,V))
-  optimal_alpha=  np.zeros((Innial_alpha.shape)) 
-
-  # update beta
-  beta_per_doc = np.zeros((M,K,V))
-  for d in range(M):
-
-    # w = One hot encoding of words 
-    w = np.zeros((N[d],V))
-    w[np.arange(N[d]),words[d]] = 1
-
-    beta_per_doc= np.matmul(phi_t[d].T,w)
-
-  optimal_beta = np.sum(beta_per_doc, axis=0)
-  #Normalization of beta  
-  optimal_beta = optimal_beta / np.expand_dims(np.sum(optimal_beta, axis= 1), axis=1)
-
-  if debug:
-    print(optimal_beta.shape)
-    print("The next array should contain only ones")
-    print(np.sum(optimal_beta,axis = 1))
-    
-  # update alpha : we use Newton Raphson method one document at the time
-  for d in range(M):
-      optimal_alpha[d]= newton_alpha(Innial_alpha[d],gamma_t)
-      
-  return optimal_beta,optimal_alpha
-    
-
-def run_em(N,Doc_words,Innial_alpha,V):
+def run_em(N,Doc_words,initial_alpha,V):
     '''
-    run the E-step and M-Step itteratively until the log likelihood converges
+    run the E-step and M-Step iteratively until the log likelihood converges
     returns the final parameters
     
     inputs:
         N: number of words in each document 
-        Doc_words: list of  list of word index present in each of the document ,shape = N document X N words  
-        Innial_alpha: innital alpha parameters used
+        Doc_words: list of  list of word index present in each of the document ,shape = M document X N words  
+        Initial_alpha: initial alpha parameters used
         V: n_features
     '''
 
-    #innitialisation
+    #initialisation
     optimal_beta = 1/V * np.ones((K,V))
-    optimal_alpha = Innial_alpha
+    optimal_alpha = initial_alpha
     likelihood=-10000000000
     converged = False
     I = 0
@@ -400,9 +328,10 @@ def run_em(N,Doc_words,Innial_alpha,V):
          #E-step
          print("E-Step, iteration:",I)
          optimal_phi , optimal_gamma = e_step(optimal_beta,optimal_alpha, N,Doc_words) 
+         print(optimal_gamma.shape)
          print("M-Step, iteration:",I)
          #M-step
-         optimal_beta , optimal_alpha = m_step(optimal_phi, optimal_gamma, Innial_alpha, V, Doc_words, N)
+         optimal_beta , optimal_alpha = m_step(optimal_phi, optimal_gamma, initial_alpha, V, Doc_words, N)
          
          #compute likelihood
          likelihood = 0
@@ -419,12 +348,6 @@ def run_em(N,Doc_words,Innial_alpha,V):
              converged = True
          I+=1
     return   optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma
-
-
-
-Innit_alpha = np.ones((M,K))*1/K
-optimal_beta , optimal_alpha,  optimal_phi , optimal_gamma =run_em(N,Doc_words,Innit_alpha,V)
-
-#optimal_phi , optimal_gamma = e_step(beta_t,alpha_t,N,Doc_words) 
-
-#optimal_beta , optimal_alpha = m_step(optimal_phi, optimal_gamma, V, Doc_words, N)
+# test
+phi,gamma = e_step(1/V * np.ones((K,V)),np.ones((1,K)),N,Doc_words)
+beta,alpha = m_step(phi,gamma,np.ones((1,K)),V,Doc_words,N)
