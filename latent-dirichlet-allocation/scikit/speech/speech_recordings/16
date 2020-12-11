@@ -1,0 +1,1805 @@
+Lacoste-Julien Simon
+00:00:04
+It's recording. Alright so today.
+00:00:09
+We're going to look at influence
+user avatar
+Unknown Speaker
+00:00:15
+As I mentioned last time.
+user avatar
+Lacoste-Julien Simon
+00:00:17
+Will do in France in
+00:00:21
+Data graphical model and particular will see the graph eliminate algorithm.
+00:00:31
+Which is basically a generic way to compute marginals in your under it a graphical model.
+00:00:41
+And then we'll see later.
+00:00:45
+How to efficiently do it for trees using something called as some product algorithm. But Griffin even aid can be used in any graph, it doesn't need to be a tree. So that's kind of like the most generic
+00:00:56
+Formulation
+00:00:57
+So perhaps just before I start in France. If me just recall a bit the general themes in this class.
+00:01:10
+In this case,
+00:01:14
+So,
+00:01:16
+I mentioned that there were three things I will often come talk about. So one is
+00:01:22
+Oops.
+00:01:25
+Is representation
+00:01:28
+How to
+00:01:31
+Overcome represent a family of distribution. And so we've seen already, the director graphical model family and the under to graphical model family. There's other families. That's the main one we looked at in this class.
+00:01:47
+And then there's also a question of not just how to have
+00:01:54
+A set of distributions. There's a question also of how to patronize the individual member of the set of distribution. So this is parameter ization parameter ization
+00:02:09
+And
+00:02:11
+This comes, we'll talk about it when we talk about the exponential Femi
+00:02:19
+Particular how to define features on the graph.
+00:02:23
+And so that will give us ways to penetrate these these conditions, in particular for these graphical model.
+00:02:30
+And the whole point of all this was, okay, how do we model.
+00:02:35
+high dimensional distribution.
+00:02:39
+in an efficient manner. Right.
+00:02:44
+So already,
+00:02:47
+With
+00:02:49
+The
+00:02:51
+Doctor graphical model new GM you saw that we were able to reduce the number of conditions or the number of cameras. We need to specify for mothering a joint because of conditional independence assumption.
+00:03:03
+And
+00:03:04
+Then we still haven't I apart just saying specifying the whole conditional. I didn't tell you how to penetrate the conditional. And we'll look at that, when we talk about six months off me.
+00:03:16
+But then the thing we're going to talk about today is in France. Right. So once we are we have some pasteurization and representation of our distributions, we would like to be able to compute say the proximity of
+00:03:33
+Set of variables which are queried given some evidence right so this is kind of the query.
+00:03:41
+And this would be the evidence.
+00:03:45
+And
+00:03:48
+How do we compute that efficiently. Right. And so today.
+00:03:52
+What we'll see is the elimination algorithm.
+00:03:59
+Which depends on the ordering of variables that you eliminate meaning that you actually some of them out in the marginalization.
+00:04:08
+And the thing about the limitation algorithm is that it will depend on the the efficiency of your argument will depend on the quality of the ordering that you choose and already as
+00:04:19
+Scoop it's empty. Hard to find the best ordering in general. So, so there's a bit of trickiness there.
+00:04:26
+But when you have a tree. There's a clever ordering, which is basically eliminate the leaves. First, and that's what that will also bring something called the some product algorithm.
+00:04:42
+Which is an efficient implementation of marginalization for for trees. And so this is for trees.
+00:04:51
+And then we'll also. And it's also called belief propagation
+00:04:56
+Because it's propagating beliefs on a graph propagation
+00:05:03
+And
+00:05:05
+We'll also have later approximate and France.
+00:05:13
+So some product and the division algorithm or exact algorithm. But we can
+00:05:21
+Instead, to have approximation to compute this distribute this quantities and we'll see Markov Chain Monte Carlo sampling and version of methods.
+user avatar
+Unknown Speaker
+00:05:32
+Very
+user avatar
+Unknown Speaker
+00:05:34
+Emotional methods.
+user avatar
+Lacoste-Julien Simon
+00:05:43
+So that's for in France. And finally, another important aspect is how to do statistical estimation
+00:05:54
+That is to call it a lunch or where I'm having trouble writing
+00:06:04
+That is tickle.
+user avatar
+Unknown Speaker
+00:06:08
+Estimation
+user avatar
+Lacoste-Julien Simon
+00:06:13
+Or basically learn it also just called learning and machine learning.
+00:06:19
+And so then, there were different principle I mentioned in the past like maximum likelihood estimation
+00:06:26
+Will see soon maximum entropy as a different principle.
+00:06:32
+And the method of moments.
+00:06:37
+So we'll see. We'll talk about that after the exponential Femi
+00:06:42
+And we'll see also later how to estimate the parameters for a graphical model.
+00:06:48
+As well as to learn the graph itself that's model selection. Okay, so that's kind of good. The big picture of these three three themes. And so today, we'll focus on in France. And so let's motivate a bit the problem of influence.
+00:07:04
+And its background. So let's talk about influence hoops.
+user avatar
+Unknown Speaker
+00:07:12
+Like
+user avatar
+Lacoste-Julien Simon
+00:07:35
+Okay and so
+00:07:38
+It's a bit of motivation. So we want to compute
+00:07:49
+Either the marginal. So let's say for example, they could be the marginal
+00:07:56
+P of X subscript capital F.
+00:08:00
+For some
+00:08:03
+F subsets of the
+00:08:07
+Okay, and I use F like the final note or something. The final query nodes.
+00:08:13
+Or we could also want to compute a conditional
+00:08:21
+Like
+00:08:25
+Except for access given X evidence
+00:08:30
+So as I mentioned, this is the
+00:08:33
+The nodes, we're acquiring
+00:08:36
+And this would be what we observe
+00:08:44
+And we'll see, for example, in a medical diagnostics a scenario that could be interesting and also by the way we also want to compute the normalization constant in a under Africa model. So for for under to Africa model, there's this partition function.
+00:09:05
+Z right
+00:09:07
+So z is the some overall XV of the product over your clicks of your potential right so that's the joint something for something to join and this is an experiential some
+00:09:22
+So in general.
+00:09:25
+It's intractable to compute. So you need to be clever about how to organize your computation to avoid the exponential some
+00:09:36
+To be able to compute it. Then why do you need it. Well, because otherwise you cannot compute. What's the priority of any event in your
+00:09:43
+Joint because you only know the up to a normalization constant, right. So if I say, Okay, here's an assignment of my variable. For example, my Isaac model. I say, what's the probability. Well, what you do is you will
+00:09:58
+Multiply all the
+00:10:01
+You will multiply other potential together for this assignment, but then you don't know if it's a big or small number because you also need the normalization conference.
+00:10:13
+And so that's important also to compute and will see that the algorithm find friends that we define can also be used to compute. In addition, constant
+00:10:27
+So,
+00:10:29
+More concrete example of why we want to compute these quantities.
+00:10:35
+And so an example is to fill in missing data.
+user avatar
+Unknown Speaker
+00:10:46
+Data
+user avatar
+Lacoste-Julien Simon
+00:10:49
+So for example, I could have a model and then I could compute, what's the probability of my unobserved variable, given my observed variable.
+00:11:00
+Like my latent variable. And once I complete this proteins, then I can either perhaps make prediction.
+00:11:08
+Using this policy statement because I don't know what that they are, but I, I could use their expectation. I could use some of their properties to still make prediction about the world.
+00:11:18
+Or I could fill it in right by just looking at what would be the another variable which maximize this conditional. But before this, I will need to compute this condition. And so an example.
+00:11:30
+From computer vision is
+00:11:34
+In filling task. So let's say I have an image this called the in filling
+00:11:41
+Task where you have something that you've observed, and then there's occlusion somewhere.
+00:11:50
+Whoops, I'm not very good at drawing
+00:11:54
+A mathematician and not
+00:11:57
+A painter. But yeah, let's see, this would be the missing.
+00:12:06
+Pixels.
+00:12:08
+Perhaps because somebody took a picture of put their thumb in front of the camera, and then you miss part of the picture, right.
+00:12:15
+And so if you have a model on images on how what are realistic images. You could compute this property of the mixing pixels, given the observed pixels to try to fill in to perhaps replace them when they're more likely component of perhaps their expectation
+00:12:32
+Is that could be a way to fill in things that have not been observed
+00:12:38
+Another example is to do prediction.
+00:12:44
+And so you could have a model and you want to predict what's going to happen in the future, given the past that has been observed, right. So let's say you have a model for financial
+00:13:00
+Product the stock market. For example, usually not that great. By the way, it's quite
+00:13:05
+Random very noisy, but you know, you could have a model and say, oh, is a stock going up or down. And actually, the more information you have about this, the better you can make a prediction as well like you'd say, Okay, I have observed that this is our company was it's an oil company.
+00:13:22
+That's not great for the environment but spices oil company and you've just found a new all field. So yeah, I think this tech was going to go up.
+00:13:33
+And so he's asking, can we take prediction, as in France discussion discuss about exactly. These are all examples of inference problem so prediction is also in in France problem is that exactly what I'm giving examples of
+00:13:51
+And then another example of application would be to figure out the latent
+00:13:58
+Cause, which explains the observation. So for example, I could have the probability of some cause
+00:14:08
+I want to know what's the process of quality and cost given some observation.
+00:14:13
+This is not in a causal really complete causal way but
+00:14:20
+I mean, if you had a causal graphical model, this would be your true cause, but where does this come from, is for example in this Q Mr network where you have
+00:14:31
+The quick medical reference where you have all the diseases as on observe. Then you have the symptoms.
+00:14:39
+Which are observed. Right. So we have a bunch of symptoms like Oh, do I have a runny nose, do I have fever, you have a rash or my teeth falling and then you have
+00:14:53
+Some experts who came up with these
+00:14:57
+You know, potentially conditional property that oh, well, if you have the flu with some property, you will observe the symptoms and if you have
+00:15:07
+coven then with some of these, you have this symptoms. And so now what I want is given the observed symptoms. What's the problem to on Mike diseases because it's important for diagnostic and perhaps going quarantine if it's coming.
+00:15:23
+Right quite relevant question.
+00:15:33
+Is always asking about the in filling problem of computer vision. In this case, your graph would represent the lattice structure of the pixels and your potential function would be on
+00:15:44
+Sort of clusters. I guess you would design them to have some nice image like properties. A year rotations covariance. Correct.
+00:15:51
+Yes.
+00:15:53
+So the grid like or the neighborhood structure like graph is the simplest for this kind of image.
+00:15:59
+Though more modern models will actually use a yard vehicle idea because you can think of a scene that's composed of multiple objects. And then these objects will have specific appearance and
+00:16:10
+So you could have now the the factors between objects, rather than pixels that make more sense. But yes, that's kind of the general idea.
+00:16:20
+I mean, also making nicer model and images is a whole field by itself. And it's, it's definitely non trivial and outside the scope of this class, but that's a drink idea.
+00:16:32
+And alright so that's that's basically some example of what we're trying to do with this and France and also I would like to mention that
+00:16:40
+Related to in France. So normally in France is talking about competing these properties but also related. And actually, it turns out that
+00:16:50
+The same algorithm style can be used is to find the maximum the maximum Iser of these properties. So if I want to compute the art max over x F of probability of x F given x E. Okay. And in this case, f
+00:17:13
+Could be big in terms. You could have a lot of variables there.
+00:17:19
+So for example, if you do speech recognition.
+00:17:23
+Right Speech recognition, you could have that the observer variables is the is the sound.
+00:17:33
+And the sound waves and the latent variable that you're trying to query is what it was said. And so you could have multiple for every
+00:17:42
+Word what it said. Or you could even have, for I think normally it's using full names instead
+00:17:48
+And so you would like to to decode you would like to give him the observation. Fine. The, the sequence of findings or words which is the most likely given your observation. So you need to compute this art max.
+00:18:00
+And you just don't want to compute the project. You also want to complete our max and this is an art max over an exponential number of possibilities. So, you know, you need to be efficient about doing it.
+00:18:09
+And we'll see, by the way, already scoop. So the sun product or within can be used to compute
+00:18:16
+All the marginals in a all the simple marginals in a tree graphical model. And then there's the max product which which can actually be compute
+00:18:26
+Be used to compute efficiently the these maximizers I'm talking about guess we'll see, and then we'll see that it has the same structure in the message passing algorithm, but
+00:18:35
+We'll see that next class. Okay, this is just to give you a general idea. And then so so completing the art max Israel in France, and also note that in France is needed.
+00:18:50
+During estimation is also needed
+00:18:56
+During
+00:18:58
+Estimation
+00:19:03
+And so, for example, when you do, Emily.
+00:19:10
+Emily.
+00:19:12
+And so for under from Africa model, you'll need to compute the partition function to do the maximum likelihood estimate. And so the partition function. We were crying and friends, or if you do em. So for example, if you do em, then we'll do the hmm learning, you will see that
+00:19:30
+During the East step you needed to compute the posterior over the latent variable given X PFC given right
+00:19:39
+So to compute that you need influence
+00:19:44
+Okay, so that's the background.
+00:19:47
+Let's
+00:19:49
+Talk about the first all Griffin graph eliminate
+00:19:59
+And oh, and just before I present
+00:20:06
+So the shack is asking is learning also an inference problem as we infer weights, given the data.
+00:20:14
+So you have to be careful about the semantic here in France can mean multiple things and
+00:20:21
+So in. So if you say inferring ways from data. That sounds like an inference problem. So if you're a frequent this, you're not inferring weights, you're actually estimating the weights.
+00:20:30
+So you're it's a learning problem. So it's actually a different it's it's it's seen as a different problem than in France, it's it's statistical estimation
+00:20:40
+If you're a Bayesian everything is a probability. And so the weights will also have uncertainty. So you need to compute the probability over the weights, ie the posterior over your parameters. And so if you're a Bayesian
+00:20:54
+There's nothing as estimation, everything is just entrance. So as a beige and everything is in France. So that would be true, but for non vision for frequent is
+00:21:03
+Learning or estimating the parameters is a different type of problem then computing probably t's in your model. Okay.
+00:21:12
+So, good question. Alright, so the last point I wanted to mention was that we, I will present
+00:21:20
+The algorithm.
+00:21:22
+The inference algorithms.
+00:21:25
+In this class for a undirected graphical model. Okay. And this is for simplicity
+00:21:35
+And more generally t
+00:21:43
+Generic
+00:21:45
+Li t
+00:21:51
+But I'd like to mention that
+00:21:57
+So, but note.
+00:21:59
+That sometimes it's more efficient.
+00:22:03
+That sometimes
+00:22:08
+It's more efficient to work directly on the DGA
+00:22:21
+So for example, if I'm marginalizing out a leaf in a D GM
+00:22:27
+I don't need to do anything. I just remove it and i know i don't need to compute because I know I just removed the factor. The rest is the marginal
+00:22:35
+Whereas if I factor out if I maximize out the leaf in Eugene, it's not just removing the potential. You need to do a bit of computation.
+00:22:43
+Okay. And so if I know that something is the GM. There are some marginals, which are much more efficient to obtain by using the fact that the Daejeon
+00:22:52
+But these are very specific cases which is why I'm saying it's a bit more general to to work with the new GM and generality, because I won't make use of the special structure that oh I query the leaf and in the GM, for example, because that's why me
+00:23:09
+And so how do we do that. So that's actually very important. So we will make
+00:23:14
+D GM
+00:23:17
+As a subset of a huge GM
+00:23:22
+Using moralization
+00:23:29
+Alright and so
+00:23:32
+IE. Suppose that P isn't a D GM
+00:23:39
+Then p will be written as the product.
+00:23:44
+Of its conditional given the parent
+00:23:49
+And so this I can rewrite it in a huge em form as just one over z.
+00:23:56
+Product over I have sigh CI X CI.
+00:24:06
+Where
+00:24:10
+Basically you define. See, I see your moralize
+00:24:16
+The graph, you just defined see as I with all their parents, right, so I've connected all the parents in the underground Africa models, I get a big clique. And so then I can define my potential and see. I guess this is CI.
+00:24:36
+Define my potential
+00:24:39
+Over x API, just as the conditional of x i given x by then. So this is
+00:24:48
+A function of the variables on the clicks and it's positive. So, that's fine. So it's a valid potential
+00:24:57
+And the magic here is that because it's already normalized like for a D GM, the product of these potential already some to one I have that the partition function with these potential is just one right so I don't need to compute it.
+00:25:13
+And so I will define how to marginalize out distribution. Suppose I have these potential
+00:25:20
+Formulation, and you can apply the same algorithm on the D GM by just defining these potential to be the conditional
+00:25:30
+With the correct size and not worrying about the partition function, the partition function is one. Okay.
+00:25:46
+Okay. So Jacob is asking, well, now we're using if I moralized there's multiple distribution which could give the same new gym and that's correct. So, so that's why. First of all, here.
+00:25:58
+I'm putting that it's an inclusion. It's not an equality. So, so in general.
+00:26:04
+My D GM is a subset. When I moralize if I get something
+00:26:09
+Which is bigger than the original the GM and as a set of distributions. And also, I am not using the particular properties of my D GM
+00:26:18
+Okay, so that's why I'm saying also that we will work with a huge GN so if you already have a huge gym, then it's fine if you don't have, if you have a distribution which belongs to the GM, making it find a new GM which works. In this case, we just moralize that the GM
+00:26:35
+And then run the algorithm on this distribution as if it wasn't a huge GM and this will be sometimes less efficient than if we had
+00:26:43
+You known that it was a DJ. Right. But that's because presenting algorithms for both the gym and the gym, just make things more complicated and more hairy. So, it exists, but I have presented in this
+00:26:58
+Module, which was asking again the wise, it's called moralizing I explained it in great depth in the last class.
+00:27:07
+in the right place at the notes disappointed, but it's basically because you married the parents. So there are now moral
+user avatar
+Unknown Speaker
+00:27:16
+That's the idea.
+user avatar
+Lacoste-Julien Simon
+00:27:21
+The compensation cost of moralizing the GM is not very expensive. It's basically just changing your structure that you add a bunch of edges to every node. So it's basically
+00:27:33
+The size of the parents times since the some of the size of the parents, in some sense, that would be seen for every i you basically just create a clique, which is this which is the size of i plus by right so
+00:27:52
+I so
+00:27:57
+So such simple as asking that, in this case the gym, we define represent the same P as there is not the gym. Right. So again, let's be clear. Did you have a new gems or set of distributions.
+00:28:11
+And so here I what I did is I consider
+00:28:17
+Either the GM as a set of distributions and then for all the elements of them I made them part of a huge GM and so for any specific distribution when I do the transformation. I don't change the distribution. So, that's correct.
+00:28:31
+But when I moralize I could get a bigger family of distributions, in theory, and so it's not true that the new GM represent the exact same set of decision as the the geometric can represent more
+00:28:44
+But let's say for example you don't care about working on multiple distribution. You'd only care about a specific distribution and say,
+00:28:51
+Compute the margin off of this distribution. Well, then the idea is you, you take the same distribution and you write it in a form that is a new GM, but it's still the same distribution. So that's what we
+00:29:08
+Okay, so, so that's an important point. By the way how to make your distribution, which was presented by the GM in a huge em form so
+00:29:19
+It's the same distribution. It's just that now I wrote, write it with these potentials and z z is equal to one. In this case, it's not super interesting but still will use the alright so now let's talk about the graph eliminate our give them
+00:29:36
+A graph elimination
+00:29:40
+Algorithm.
+00:29:43
+And this is for instance.
+00:29:46
+I mean, it turns out that the graph emission algorithm is actually a graph, our rhythm, which has nothing to do with in France. But in our case will use it for instance.
+00:29:58
+Alright, so
+00:30:00
+So the setup is we consider some distribution, which is in a huge em.
+00:30:08
+So g is undirected.
+00:30:13
+I he does. We have the p of x is a product over clicks of potentials
+00:30:21
+And clicks and then I have a normalization.
+00:30:25
+OK, and now we will define an algorithm to compute the marginal
+00:30:32
+So we don't talk about conditional yet. We'll just do the marginal with see how we can do conditional with a trick but. So say we want to compute the marginal on x F for some f which is subset of V and these are called the query notes.
+00:30:55
+And so before presenting the generic algorithm. I'll give you the the main trick that the algorithm is implementing and I will provide illustrating examples is just to use the distributive at
+00:31:13
+This tree booty VT.
+00:31:20
+Of plus over
+00:31:24
+prod multiplication.
+00:31:26
+So that's something I mentioned earlier in the class, basically the main trick of graphical model is to use this to be the beauty of plus over product. So what I mean by that. So if I have see time. A plus B. This is the same thing as c times a plus c times b.
+00:31:49
+And so for example if I have the summation over x one x two of f of x one times g of x two. So, I have a summation of our quadratic number of assignments, but because it's factor is here. Well, this is just the same thing as summation over x one of f of x one.
+00:32:12
+Times summation of x two of f of x of g of x two. Okay, so that's just by applying disability multiple times.
+00:32:27
+So convinced yourself that this is true if it's not obvious.
+00:32:33
+You can just expand it and then apply this to be the money. So for example, the first term of this
+00:32:41
+Of the sum
+00:32:43
+Of x one would be
+00:32:46
+Summation.
+00:32:48
+Over x to have f of x one equals to say some value.
+00:32:56
+Then g of x do
+00:32:59
+Alright so that by taking the first term of the of the left, plus the whole parent Asus and then applying this to BT. BT. I can just multiply F of X one.
+00:33:10
+Its value with all the g of x to. That's what I get. So that's the first term.
+00:33:21
+Of product.
+00:33:25
+Okay, and then you repeat that multiple times and then you'll get summation of x one submission to execute right so you get back this thing here today said it was equal to
+00:33:38
+Okay, so that's the main trick. And so when we have factorization.
+00:33:42
+And we have some nations. Well, we can then move the some around to make things more efficient because note here that I had a summation of our quadratic number of objects that said just k values for x one and key values for x two.
+00:33:55
+There's case square some summon here. This is something case square thing was here. It's order k to compute this in order
+00:34:03
+To compute this, and in order one to take the product of these two scheduler, so I can compute the whole thing in order k times right on an older case square. So, I made a big game and you can generalize that to now bigger products. So that's the whole trick.
+user avatar
+Unknown Speaker
+00:34:21
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:34:25
+And so, more generally,
+00:34:30
+You would have that the summation over x one up to n have a product over I have if I have excited
+00:34:39
+Is the same Xing thing as the product over I have the summation over x i have f of x, right. So, buddy.
+00:34:50
+That's why it's just the translation of these two terms. And so here, if key. If x add K values. The first one has some over a k race to the end. So an exponential number of terms. Was this the second thing here.
+00:35:07
+Each some is only order k and then product is just order n. So I can compute the whole thing in order n plus key right so so basically
+00:35:18
+This thing here is this is order basically k to the n times n mean the end, we don't really care that much was this is order k plus and
+00:35:31
+So each huge game just by moving things around because things were a factor x
+00:35:38
+And so what we do with the graphing dominion over them is just a juror ization of this for more complicated factorization coming from the graph right
+00:35:47
+And so, in particular, let's do this concrete example. Let's say my graph is this nice grid.
+00:35:54
+I would have 123 and four, and let's see my query set F will be just the node for case I want to compute the marginal on x four.
+user avatar
+Unknown Speaker
+00:36:09
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:36:11
+And so I will have that the marginal p of x four, by definition, will be the summation of all x two, x three, x four off the john sorry, x one, x two, x three of the job.
+00:36:25
+And so it's one over z summation over x one, x two, x three of the joint. What's the joint here a test for potential
+00:36:37
+Right as I won't put the index of their clique, because it's not super important. So you have a potential on X one, X two.
+00:36:45
+I have a potential x two x four.
+00:36:51
+I have one on X one and X three
+00:36:57
+And I have one on x three x four.
+00:37:11
+Ok and now. So that's the some I have. So, normally I would need to some overall but over the, let's say this key values for x one, x two, x three, so it's K Cuba.
+00:37:25
+summons of this product.
+00:37:39
+Okay, so each man is saying why is this order k plus n rather than key times n.
+00:37:48
+You're correct. I have order key. And I do that n times so you're right that is cadence.
+user avatar
+Unknown Speaker
+00:37:58
+This
+user avatar
+Unknown Speaker
+00:37:59
+Correct.
+user avatar
+Unknown Speaker
+00:38:01
+Thank you.
+user avatar
+Lacoste-Julien Simon
+00:38:03
+The other one was when there was only two terms to us to to K and to the constants. I forgot about it. But here, there's an end is not a conference. Thank you for that. Alright, so, so now what we do.
+00:38:17
+Is we will use distributive et of the some to push the some inside the farthest I can buy reorganizing the summation. Okay. And so now the trick is to think about one variable that that will some first. Okay. And so the first variable I will some in this case would be, for example, one
+00:38:39
+So what I do is I put all the potential which has the variable one on the right. So let's say there will be five sine of x one, x two, x three, and then sigh of X one, X two. So, these two potentials. Oops.
+00:38:59
+So the both have
+00:39:02
+The variable one was all the other ones. So, this one doesn't have one, and this one doesn't have one so I don't need them when I send over one. So then I could put summation here.
+00:39:17
+Oops. Okay. Okay, well let's keep it in purple. I can put the summation of x one here because there's no x one in the other one. And so actually output, then the one with x two remaining here.
+00:39:34
+And then I have summation over x two.
+00:39:37
+And then I'm left with the one with x three, which was remaining which is x three x four and then I was some over x four.
+00:39:49
+I know extreme because mix for is the thing I'm competing Marshall, and I want to. Okay.
+00:39:57
+So that's using basically disability and I'm just pushing as much as I can. The some inside
+00:40:05
+And I need to put all these parentheses. Okay, so that's the reorganization of the computation using the subjectivity and notice that this summation here of the product of the potential an X one, X two and potential of x one, x three.
+00:40:25
+Had that both x one, x two, x three, appearing in it. I'm sending out x one. So, next one is now not a function anymore. So, this you could call it basically a function of x to an extreme.
+00:40:39
+Which I actually use em for messages.
+00:40:42
+And I'll use one because it's coming from eliminating the variable one
+00:40:48
+And so this will call this message.
+00:40:55
+Because it will be sent to the neighbors in the graph, okay. And first of all, so it depends on x two, x three, so I he for any possible value of x to an extreme.
+00:41:07
+I will get a result which is a summation over x one of the product of this potential with extreme, extreme fix. Okay, so you can think of this now as storing this as a table right
+00:41:21
+So now for every value of extreme, extreme value which is the result of the competition there. I will store that that can be seen as a new potential
+00:41:30
+Okay, because in the next computation that I do.
+00:41:36
+I will have this potential times this potential which I call em one x two x three.
+00:41:43
+So it's also like could be seen as a new potential. And so from the, the, the, so basically, when I removed the the node.
+00:41:54
+Oops, I don't need this. So when I remove when I marginalized that x one, I'm creating a new potential in my, in my product.
+00:42:05
+And in particular, this depends on both Extreme, extreme. So in some sense, you could think of adding an edge between the extreme, extreme
+00:42:12
+Which, by the way, if you remember when you might as well as other Nolan, are you GM. I said, it's still in the GM when you connect all the neighbors. So here you connect Extreme, extreme
+00:42:24
+And. All right. And so then you can compute the summation over x to have the potential x two x four times this m one of x two x three. Right. And again here.
+00:42:43
+That's the variables extended I will eliminate with energizing out and I will get a new message which will be called coming from emanating know to. That's why I called him to and it depends on which variable. It depends on the on x three x four.
+00:43:03
+And so from the graph, I'm when I eliminate x two, I get a message to which depends on the on x four and x three.
+user avatar
+Unknown Speaker
+00:43:15
+OK.
+user avatar
+Lacoste-Julien Simon
+00:43:16
+And now.
+00:43:19
+You could say that the summation over x three of the potential. So, summation over x three of the potential and extreme x four times this message on extra next bar.
+00:43:31
+This is also a new message which is only a function of the remaining variable extreme as being some doubt it will be export right so you could see that what you get at the end.
+00:43:44
+Will be one of z. And then there will be this message which comes from eliminating know three. Oops, I forgot about this. Let's remove this
+00:43:55
+So what you get at the end is one of z message coming for a meeting or three which is only a function of export.
+00:44:05
+Okay. And basically this game when I then eliminated. No three, and it's a message, you could think as being passed to the node for this only depends on export.
+00:44:20
+And now I don't. And then and now I have something which is proportional to my marginal. Okay.
+00:44:29
+And so the last message that I'm left. So the message which are coming to the query node is basically proportional to the marginal. So the last message here.
+00:44:42
+Is proportional
+00:44:48
+To the marginal
+00:44:52
+Pls for and to compute the exact marginal. I just need to normalize I need to compute z. And so I can just some over x for the message three of x four.
+00:45:04
+And by definition, this should give Z because it's supposed to something what right so this gives me. And so by summing the last message I get basically z. And now I got a can.
+00:45:15
+Define my marginal I got the competition on my marginal is just one of receipt times this message. And that's what I wanted. Okay.
+00:45:27
+So that's the general idea is, is you choose an order of note that you will sum up you gather all the potential which depend on the node that you're summing up
+00:45:38
+And then what once you eliminated the node you created a new potential which you will call it a message that you will then reuse in your next computation. So that's kind of the idea of the graph in it or rhythm.
+00:45:52
+So let me write it in general. And then let's see if there's some question or we can already yeah that's that's me right there are women in general. And then let's see if there's questions.
+00:46:04
+OK. So the general algorithm.
+00:46:07
+Which is just a systematic ization of what I've just done.
+00:46:12
+Which is called the graph eliminate algorithm.
+00:46:22
+So the first thing you do you initialize the algorithm.
+00:46:27
+So you will choose a elimination organ. Sorry, and elimination ordering
+00:46:35
+You need me nation.
+00:46:38
+Or during
+00:46:41
+Such that
+00:46:44
+F are the last nodes.
+00:46:49
+So the nodes in F or all the last in your ordering. So if there's only one though like I just did. Well, you just found that
+00:46:57
+The last know the the note that you care about this. The last ordering. If there's multiple nodes you just put them all. Last of the order and the order doesn't matter anyway because you won't be eliminated.
+00:47:08
+And then what you do is you put all the potentials
+00:47:13
+In a data structure that we call the active list.
+user avatar
+Unknown Speaker
+00:47:18
+So the
+user avatar
+Lacoste-Julien Simon
+00:47:19
+The active list basically just keep track of things that will appear in the sun.
+user avatar
+Unknown Speaker
+00:47:26
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:47:28
+All right. And so then, so that's the initialization.
+00:47:33
+And then the algorithm where you actually now do the update part of the algorithm.
+00:47:42
+You will repeat the following repeat in order of variables to eliminate
+00:48:06
+So what do you do when you eliminate the variable, okay.
+00:48:11
+And eliminating a variable just mean something getting out like something marginalizing out right and so say for notation x i is the variable.
+user avatar
+Unknown Speaker
+00:48:22
+To eliminate
+user avatar
+Lacoste-Julien Simon
+00:48:28
+Then, the first thing you do is you remove
+00:48:32
+All factors.
+00:48:37
+From the active list which contain exile. Right.
+00:48:45
+With
+00:48:46
+X i in it and you take their product.
+00:48:57
+Okay, so basically you will have a product
+00:49:01
+Of
+00:49:03
+Clicks or alphas such that I belong to alpha and say alpha of x of alpha
+00:49:16
+Will be the so you can think of the activities. These are potentials each potential depends on the clique and when i belongs to a clique, you need to take this and you take all their product.
+00:49:29
+And that's what we've done here, right, by the way. So I, for example, when I wanted to eliminate x one, I looked at all the potential which had x one together and then I took their product.
+00:49:41
+So that's and that's what we do in step one and step two we will summit out right. So step two.
+00:49:49
+You some
+00:49:51
+X i to guess over x i, to get a new factor, a new potential
+00:50:02
+Which I'll call em. I have x
+00:50:06
+Si.
+00:50:17
+Or you could think of this
+00:50:21
+As upside of SI X of SI right so to to have the potential notation I would use it the clique as a clique, as the set, but because I want to make this link with the messages that I talked about that also use the message notation.
+00:50:40
+And so
+00:50:42
+First of all, what is si, si, si or all variables.
+00:50:50
+In these factors.
+00:50:54
+Except I i because the message does not depend on exciting more because it's some doubt.
+user avatar
+Unknown Speaker
+00:51:04
+Right, so you get
+user avatar
+Lacoste-Julien Simon
+00:51:07
+That the message as a function of x as I, by definition, it's the summation over x i have the product that I mentioned about was product over alpha such that it belongs to alpha
+00:51:26
+upside of x of of
+00:51:31
+Okay.
+00:51:37
+And so this thing, as I mentioned, you can think of it as a new. It's like I need a new click
+00:51:44
+To some
+00:51:46
+Over and the click would have SI and then also I
+00:51:52
+Right. And when I added edges in my graph that's to represent this new click right so in some sense here when I remove x one.
+00:52:04
+I had to sum over a product of a potential over one and two and one and three. So in some sense, it's a potential over one, two, and three. So it's a click.
+00:52:15
+Over three nodes, which is why I added this edgy.
+00:52:26
+Yet, so that's the clicks that are kind of like have mentored and as I said as I was, by definition, the Union over alpha of alpha such that i belongs to alpha and then every move is
+00:52:48
+OK.
+00:52:50
+And so
+00:52:53
+So then the last step is you put back this factor.
+00:52:59
+And I have x as I in activists.
+00:53:09
+Or, as I said, if you want the notation, because you want them sigh of alpha, this basically will be a upside of SI x
+00:53:22
+And so that's what you repeat at the reiteration pick the next node and you're ordering. Look at all the factors which contain this node take their product. Some this product over xi, then you get a new
+00:53:38
+A new message and you factor which depends on all these variable except xi and that becomes a new potential our new message and you put it back in the activists then repeat
+user avatar
+Unknown Speaker
+00:53:50
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:53:52
+And then once you remove all the variables that you had to remove. Then the last step is to normalize
+00:54:02
+So basically the steady. Is that the last factor left
+00:54:14
+The last factor.
+00:54:19
+Left.
+00:54:20
+I guess the last product.
+00:54:26
+Of factors.
+00:54:30
+Left.
+00:54:32
+As only x F in them. And so basically what you get is something proportional
+00:54:42
+To the marginal and access right so you can sum over all of the acts of value to get the nomination constant and then
+00:54:51
+This gives you the
+00:54:53
+The, the marginal
+00:54:57
+Okay, so that's the graph eliminate all rhythm.
+user avatar
+Unknown Speaker
+00:55:03
+I guess and took too much space. Hey,
+user avatar
+Lacoste-Julien Simon
+00:55:21
+So there is asking, can we choose any arbitrary ordering. Yes. And the arbitrage during will be valid to compute, but some ordering will give really really bad computation complexity and some will be very good. So we'll look at that very soon.
+00:55:43
+And so, in particular, if we look at the memory that we need
+00:55:48
+While running the algorithm, you need to store these potentials
+00:55:54
+So it's roughly
+00:55:57
+Related to to see the maximum size.
+00:56:04
+Of si
+00:56:07
+Right, like the message basically needs.
+00:56:11
+Suppose there's only two variables, not so the key and suppose that every variable has only two values for simplicity. So basically, a table on key elements will take two to the key.
+00:56:24
+Storage. And here I had these messages which dependent I needed to some them. So I needed to compute this product over
+00:56:35
+Yes. So, si does not have I write this, I said here that I need to store these messages on the active list. And so this takes order to to the
+00:56:47
+Size of exercise storage. Okay, and so and so in terms of complexity, I can look at the maximum one which has been created and I can multiply that by the number of factors, and that gives me some kind of upper bound on the
+00:57:04
+Memory, I need to implement this algorithm. So you don't need to see that much memory because some will be smaller, but just as an upper bound, and then the computational cast
+00:57:15
+Computational cast
+00:57:19
+Is
+00:57:21
+Related to when you had to some both over si plus one, right, because there was the
+00:57:28
+The, the excited dependence and I need to do that for every variables or
+00:57:35
+Basically times and supposing access is order one.
+00:57:42
+And so we will see later.
+00:57:46
+That this quantity
+00:57:51
+Is related to what is called a tree with of the graph.
+00:58:02
+Basically the tree width of a graph is the size of the biggest clique, which has been formed during this graph and immediate ordering
+00:58:11
+Over all possible ordering so you sorry the minimum size of the biggest peak, you can get when you try all the possible ordering. So the best ordering will give you the smallest to gets click
+00:58:22
+And the size of this biggest key would be the tree with minus one. I think there's there's always a plus one minus one that I forget to my notes later.
+00:58:32
+Think it's minus one. So that's the size minus one because the truth of a tree has kicked off sites to and you subtract by one. It gives one of the truth of a treatment.
+00:58:41
+But we'll get back to that. And so to answer your question, indeed, the better the ordering the Lord the both the competition on the memory cost is. OK, so the question is what's the biggest si that I get, depending on the ordering
+00:58:56
+And that's what we study after the break.
+00:58:59
+But is there any question about the algorithm. In the meantime,
+00:59:17
+No question. Or you can think about over the break, see if it makes a lot of sense.
+00:59:27
+But basically this I think this this running example illustrates really what we're trying to do we choose an ordering. In this case I chose the ordering, one, two, and three, in terms of elimination and
+00:59:40
+We're basically now just systematized this creating a new factor, taking the product of these new factors sending them out and then creating a new factor digital
+00:59:50
+Okay. Alright, so now it is three no to 34 to 34. So let's come back at 244
+user avatar
+Unknown Speaker
+01:00:07
+Let's post it.
+user avatar
+Lacoste-Julien Simon
+01:00:26
+I will tell my wife.
+01:00:34
+Alright, so
+01:00:37
+So keep in mind that this is the generic algorithm. So if you want to compute their marginal have any joint distribution, you can just some over all the other variables. That's like the brute force approach. So the graph eliminate algorithm is a way to be more efficient.
+01:00:54
+It's usually more efficient, unless you choose us to be dog ordering. But even with the best ordering. Sometimes it can also be not very efficient.
+01:01:03
+And so that's what we'll talk about now, in particular, using some notions from graph theory. Okay, so let's do that. So the first thing is, we'll talk about the notion of augmented graph.
+01:01:18
+So the augmented graph is basically the graph, you get during the graph eliminate algorithm by adding all the extra edges which appeared with your messages. Right. So this is the graph.
+01:01:36
+Obtain
+01:01:39
+By running
+01:01:43
+Graph eliminate
+01:01:50
+Plus for a fixed ordering of course so so depending on the ordering you'll get different method graph.
+01:01:58
+So fix the algorithm fix the ordering and then run graffiti mean eight
+01:02:05
+And then keep track
+01:02:09
+Of all the extra edges added
+01:02:16
+And that gives you one augmented graph.
+01:02:21
+So, for example,
+01:02:26
+Let's do a graph, let's do an example. Here's a graph. And now, suppose that f was this node.
+01:02:39
+And then
+01:02:41
+That suppose that I eliminate this one first, then this one then this one and this one and this one. So, and then five. So when enemy. The one I connect all the neighbors, I get this extra edge and then when I eliminate three I connect
+01:03:00
+For an F together so that gives me an extra edge when you made for
+01:03:08
+There's only five an F left. So it's already connected. And then when we made five is on the left. So, all right. So these are the two edges that I will have added by using this ignition ordering. OK.
+01:03:21
+And the augmented graph.
+01:03:28
+After running graph eliminate
+01:03:32
+When the last node is a singleton right so this case we're only looking at singleton last node.
+01:03:40
+If actually has some property. It's always something that we call a triangulating graph.
+01:03:49
+It's now we're getting into interesting
+01:03:52
+graph theoretic notion and their relationship with graphical model. So this is called a triangle that graph.
+01:04:04
+It will see this is important when we talk about the junction three algorithm. So what's a triangle graph. So a triangle dated graph, by definition, it's a graph.
+01:04:16
+With no cycle.
+01:04:21
+Of size four or more
+01:04:28
+That cannot be broken.
+01:04:33
+By a cord.
+01:04:41
+And a cord right so that's what the triangle, a big graph is and a cord is an edge.
+01:04:50
+Between two
+01:04:53
+Neighboring notes.
+01:05:10
+In the cycle.
+01:05:18
+Okay, so for example.
+01:05:20
+This is a cycle of size for
+01:05:25
+This cycle have no edge kind of cutting it.
+01:05:32
+In triangles, in some sense, right. So, so if I add. So this is not trying related
+01:05:42
+Whereas now, if I just add discord. Now this is a train good graph because either a cycle websites three or if I look at the full cycle of length, for there is a cord here. This is a cord which breaks it. Okay, so that's what we mean by having a quote
+01:06:03
+So this would be trying to do that.
+01:06:07
+In some sense, when you look at a graph, which is triangulate it looks like it's made of all these little triangles. That's also where the name come from.
+01:06:14
+And so you can see here that this graph here is strangulated so if I looked at this cycle. There's a chord, if I looked at the full cycle here.
+01:06:28
+There is discord here. There's also discord. There's a lot of course actually breaking it.
+01:06:33
+So there's no cycle of links for more you can build this graph, which is not broken by a court. So this try and get into growth, which is what I've said, you know, when you run graffiti beneath you always create a triangle.
+user avatar
+Unknown Speaker
+01:06:48
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:06:56
+In this example of six nodes. Why is it for F and not to F after merchandise on those three. Okay, so that's a good question. And so
+01:07:10
+I marginalizing out x one, I add this note when I remove the node three. Why am I not adding
+01:07:19
+The this edge or because to was already gone. So these two nodes were already gone when I Mars and extract. So you only connect the neighbors in the remaining graph, not in the original guess that's it's a very important point.
+01:07:34
+When you add these edges. It's all the remaining nodes.
+01:07:48
+Okay, so that's the definition of a train good at the graph.
+01:07:52
+And another notion that we talk about.
+01:07:57
+And and the notion of triangulation right now. I was like, okay, why did I talk about that. Well, it's just an interesting property after running rest of unique
+01:08:04
+But when we talk about the junction tree algorithm, which is a translation of the algorithm for trees to non trees. This will be important.
+01:08:13
+But the thing that is important for the computational complexity of graph eliminate is the notion of a tree width of a graph.
+01:08:21
+The tree with of a graph.
+01:08:27
+Is by definition the minimum the minimum
+01:08:33
+The men over all possible
+01:08:38
+Ordering so it's over all possible elimination ordering
+user avatar
+Unknown Speaker
+01:08:46
+Elimination
+user avatar
+Lacoste-Julien Simon
+01:08:49
+Ordering
+01:08:52
+Of the size hoops.
+01:08:55
+Of the biggest clique formed
+01:08:59
+Or the biggest click in the augmented graph.
+01:09:12
+Then just minus one.
+01:09:16
+So that's the tree with
+01:09:21
+And the minus one. It's just a convention, so that the minus one here is a convention saw that the tree with of a tree is one
+01:09:36
+Because the biggest click in a tree is actually to
+01:09:41
+There's a way if you are, if you remove all the leaves. First, there's a way to make sure that there is no new edges added. And so then the minute graph is the same as the original tree and the biggest clique, a size two. So the tree with is one because it's two minus one.
+01:09:59
+And so both the memory hoops.
+01:10:05
+So both hoops.
+01:10:09
+Both the memory.
+01:10:13
+And running time.
+01:10:18
+Of graph eliminate
+01:10:25
+Is dominated
+01:10:30
+By
+01:10:32
+Two to the size
+01:10:35
+Of biggest click
+01:10:41
+So it's exponential in the size of the biggest key.
+01:10:45
+And and the best ordering
+01:10:49
+Will give you
+01:10:52
+Basically to to the tree with plus one.
+01:11:00
+So the tree will tell you what's the best you could
+01:11:05
+OK. And now let's illustrate that not all ordering things are good.
+01:11:15
+Right. So, for example, suppose that I have this star shaped tree.
+01:11:24
+If I remove
+01:11:28
+The center node. First I need to connect all the neighbors, then I'm left with a huge click where all these nodes are connected
+01:11:44
+Alright, so that's really bad.
+01:11:48
+This is actually a tree. The tree with there's an ordering. Like if I eliminate this first. You know, there's only one neighbor. So there's no the edge. So if I just eliminate all the leaves first
+01:11:58
+Then the tree with is one. There's no unique form. But if I remove this one first, then everything becomes connected then that's a really bad idea.
+01:12:08
+That's why some orders are bad some orders are good. And so let me tell you, bad news and good news. So the bad news.
+01:12:18
+Is both that it is empty hard
+01:12:23
+To compute
+01:12:26
+The tree with
+01:12:28
+Of a general graph.
+01:12:37
+So there's no
+01:12:40
+No point in time algorithm for that and equivalent Lee also to get to find the best
+01:12:50
+Ordering
+01:12:52
+So the number of ordering is like the number of permutations. So that's pretty big. It's morning exponential
+01:13:01
+And searching over all the ordering the one which gives you the best the smallest biggest clique is empty heart in general, that's a bit of a bummer.
+01:13:13
+And related to that, it is also NP hard something sticky related to that. But it's, it turns out it also be hard to do exact
+01:13:27
+In France.
+01:13:29
+In a general undirected graphical model.
+01:13:36
+Okay. And so because it's NPR to do exactly in France in the journal you GM that will motivate the need for approximate methods that will see later in the term when we talk about sampling and virtual instance
+user avatar
+Unknown Speaker
+01:13:53
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:13:55
+But let me give you a very simple example of I told you already, the Isaac model was an example of that. So,
+01:14:03
+So if I looked at a grid.
+01:14:09
+Let me make a grid.
+01:14:16
+Alright, so this is a grid.
+01:14:21
+All right. And it turns out that the tree with of a grid is actually growing as the side of the grid.
+01:14:32
+So the tree with
+01:14:36
+Of a grid.
+01:14:39
+Is actually roughly
+01:14:41
+The square root of the number of notes. Okay, so the size of the grid.
+01:14:46
+So basically this the size of this grid.
+01:14:55
+Is basically the tree width of the grid.
+01:15:02
+So there's no way to eliminate all the nodes without creating a click of size side of the grid.
+01:15:09
+And so let's say now, you were talking about a an image you GM on an image where you connect all these pixels using a grid. So that means let's say the images like 1000 by 1000 pixels. The tree with would be 1000
+01:15:24
+And so to to raise the thousand. That's a pretty big number. I think it's bigger than number of the atoms in the universe. So, you know, it's still the intractable to do exact influence in this in this graph in general. So that's a bit problematic.
+01:15:41
+Already just for the simple grids and so assignment five, you will actually use good sampling and rational methods to compute the marginals in such a great graph and gives good approximation, but to do exact quantity. It's not tractable.
+01:15:56
+So that's the bad news. What about the good news. Well, the good news is that for trees, things are great.
+01:16:03
+Alright. So the good news is that the inference is linear.
+01:16:12
+Time.
+01:16:14
+For trees.
+01:16:21
+Linear meaning the size of the nodes and size of number of edges.
+01:16:26
+And in this case, the tree with is one
+01:16:30
+So there is a good ordering and not only it is one. It's actually pretty trivial to find it just need the leafs first
+01:16:38
+And in particular, will see in a few minutes. The some product algorithm, which is an efficient dynamic programming implementation of
+01:16:47
+It to compute all the marginals integral in a tree. Okay. And so we'll use that for doing in France in the hidden Markov model. And when we talk about Markov chain, etc.
+01:17:03
+So, at least, there are four trees, things are efficient. So that's good.
+01:17:08
+And it's also efficient.
+01:17:12
+So efforts in France is also efficient for small tree with grief.
+01:17:25
+Right. So if the truth is bounded then by definition.
+01:17:29
+It's not something which varies in the complexity, then it becomes a constant into your complexity and so things are pulling on you. So, for example, here's a graph.
+01:17:41
+Where it's basic. It looks like a tree of clicks.
+01:17:47
+And
+01:17:49
+And so basically you could actually also run a generalization of the Sun product algorithm for that which is called the junction tree algorithm.
+01:18:01
+Which will see later, and the complexity of that is the
+01:18:10
+Truth. It's essentially the truth, but because the truth is small. It's still fine.
+01:18:25
+Okay.
+01:18:27
+That's a good news. So first we'll talk about how to do some trees and then we'll generates to these junction trees.
+01:18:35
+And actually, I need a scribe, I realized that I didn't have a scribe notes for the part about trees. So for gravity me, Nate. I have scribe notes. I just still need to put them online, but they don't have them for the inference entry. So can I get
+01:18:50
+Two volunteers to describe notes for the part about some product algorithm. So it's basically the end of today's class and
+01:19:00
+The beginning of the next class until we get to the hmm
+01:19:06
+With some productive max product. So I have one volunteered. Can I have another volunteer. All right, I have to volunteer, you should matter. And then, and then. Yeah. And then the shortening. Thanks. Great.
+01:19:22
+So I'll send you an email about this.
+01:19:25
+Alright, so in France on trees.
+01:19:37
+So basically if you run graph eliminate
+01:19:45
+Mean eight
+01:19:48
+On a tree.
+01:19:55
+There are some orders which are stupid and some orders which are good because this, this was a tree and eliminating the central node. First is really stupid. So as I mentioned, a good order for trees is to eliminate the leaf first
+01:20:10
+So the good order.
+01:20:14
+Is to eliminate
+01:20:19
+The leaves.
+01:20:22
+First
+01:20:24
+And so once you remove leave, then a new node become a leaf and that you can remove it as well and stretch until you get back to
+01:20:32
+The non leads
+01:20:39
+And so suppose that your
+01:20:46
+Your distribution is from a under a tree and I will use this augmented
+01:20:56
+petrol stations. I don't only use the maximum click, as I mentioned before, because it's convenient. So I will have these
+01:21:04
+Node potential. And I also have these edge potential excited extreme. Okay, so that's the form of my distribution. And now let's do eliminate in this. So, for example, here's a tree.
+01:21:20
+Here's my last node. And so what I would eliminate first as far as the leaves. So this is a leaf. And this is another leaf. And then this will be a leaf. Once I removed the other two. So that would be an ordering
+01:21:33
+And then what happened is, I'm not adding new edges, while I use this graph eliminate so that's convenient.
+01:21:39
+And it looks like when I eliminate this one I will get a message, which is a function of x three. When I eliminate the know to I'll get the message, which is a function of extreme again because it's to disappear. And then when I eliminate
+01:21:56
+The node three. I'll get just a function of x.
+01:22:00
+So these are the
+01:22:03
+Messages. And actually, I will use a notation one sending a message to three because there's only
+01:22:12
+One parent to this case. So this is to sending a message to three and this is three sending a message to F. Okay.
+01:22:26
+And so that's kind of the idea
+01:22:30
+And so
+01:22:32
+In more general, what you do is you
+01:22:35
+The order you choose.
+01:22:38
+Is you make a directed tree.
+01:22:45
+Because this was an under a tree. So you make a directory tree by using
+01:22:51
+X f as a route. And in this case, by the way, for, for now, F will always be assumed to be a singleton
+01:23:02
+Will explain what can we can do when it's not so good to later but for now it's a singleton. So, for example, here's a tree.
+01:23:10
+Which is undirected. And now, suppose this is access. So, what I want is I orient the edges all away from the from access. So this is a route. So that means I go away from it. So I mean, do the arrows like this.
+01:23:30
+That's what it means to make a route you make the pass away from the roots.
+01:23:35
+And so what you do then is you will first eliminate the leave so 1234 and then the parents of the leaves. So that will be five and six.
+01:23:45
+That would be the diminishing ordering. And so if you look at how the message will be transmitted in the structure so that the leaf will send a message to their parent and then the same thing here, leave to their parents.
+01:24:00
+And then once the parent as receive all the message from the children it's allowed to send a message, it's allowed to eliminate be eliminated and send a message to their parent
+01:24:08
+So that would be the other message or done and the rule, the update rule would be that the message from a child in this directory tree to a parent. So Jay, would be a parent.
+01:24:24
+This is a parent.
+01:24:27
+This is a function on the of the parent variable so exchange, by definition, this will be the summation over x i, the verbal of the of the child.
+01:24:38
+And what will be the potential in the activity. Well, you'll have all the nodes which have X in it. So you will have the node si x i, you will have the edge potential. Next I xj and then you'll have all the incoming messages.
+01:24:57
+From the children of it. So K belong to the children have I
+01:25:04
+Have the message from key to I wish depends on pics
+user avatar
+Unknown Speaker
+01:25:11
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:25:13
+So these were basically the new factors.
+01:25:19
+Which contained I in the
+user avatar
+Unknown Speaker
+01:25:25
+Activities.
+user avatar
+Lacoste-Julien Simon
+01:25:30
+So that's basically the update rule for running graph eliminate on a tree in the right order. So this is just the implementation of gravity mean eight, when the correct order for a tree.
+user avatar
+Breandan Considine
+01:25:49
+Simon. I have a question about
+01:25:54
+We try to understand the motivation here, are we
+01:25:59
+Removing the observed variables to to and when do we stop the this rewriting process of elimination process.
+01:26:11
+Yeah.
+user avatar
+Unknown Speaker
+01:26:12
+So,
+user avatar
+Lacoste-Julien Simon
+01:26:15
+Basically
+01:26:18
+In order to to kind of like run. These are the more implement is that you find in fashion. I first present how to do just the monetization. So I suppose a nap conditioning and anything and then you can easily run the exact same algorithm with conditioning.
+01:26:36
+By putting
+01:26:38
+Basically
+01:26:41
+A deterministic. How could I say a direct potential under observed variable.
+01:26:46
+To make sure that the only keep when you some over all possible values for variable. If this variable supposed to be observed. You're not allowed to summon because it's it's fixed and so you can do that with a trick of like using a credit card delta function or what's the
+01:27:04
+Kind of
+01:27:06
+The direct delta is for continuous and critical delta is for this week. We use a credit card delta function. I'll explain to that very
+01:27:14
+But so yeah so so just being marginals is not a super interesting. But it's still also interesting.
+01:27:21
+But we can also conditioned by just fixing their value.
+01:27:27
+Why do we need sigh xi.
+01:27:34
+In yeah so good questions. Good. Eric so filmmakers asking. Oh, why did I use the over characterization
+01:27:43
+Why do I have this thing. Okay, well,
+01:27:47
+We'll see that it's convenient for some formalism. So for example, in the hmm, you can think of. Hmm, as I have observed the
+01:27:56
+The so in hmm, you will have these these these know like this. Right. And then what happened is you could think of.
+01:28:05
+These observed variables at the bottom as defining a node potential in just a simple chain graph.
+01:28:12
+Okay, and so I have the standard transition probably T on my, on my Markov chain which are Perez potential, but then the node potential. You could think of coming from the observation. So that's one way to still treat it directly without having to
+01:28:29
+Kind of like run
+01:28:32
+But
+01:28:34
+But, but it's it's mainly just more generally, sometimes it's convenient to just have this note potential
+01:28:41
+Because it's true. You can always absorb this in an edge potential and then forget that these exist right but it's just convenient also know how it happens.
+01:28:52
+Yeah.
+01:28:54
+Okay, so that's the graph eliminate the. Now let's talk about the some product algorithm.
+01:29:00
+So the some product algorithm.
+01:29:07
+And this is for trees. This is an algorithm to four trees and the sun product is a bit similar to the graph eliminate but it's also doing a bit more. So this is an algorithm.
+01:29:21
+To get
+01:29:22
+All the marginals
+01:29:27
+Okay, I'll say all the node.
+01:29:31
+And the edge.
+01:29:33
+marginals
+01:29:39
+Cheaply
+01:29:43
+On a tree by using done any programming. So you will actually do storing
+01:29:50
+Or cashing, if you will.
+01:29:54
+And reusing messages.
+01:30:00
+So if I care about is to compute the probability of X one, for example, then just run graph eliminate like I've just told you, with the right order.
+01:30:10
+But if I want to compute the quality of x, y and the quality of x to the property of extreme as marginals
+01:30:15
+You don't want to run Gretchen emanates multiple times, because it will compute a lot of the same messages. Okay. And so here, the idea is basically to use dynamic programming to save on the computation. So you will store some of the message, which are reuse for multiple
+user avatar
+Unknown Speaker
+01:30:36
+Computation.
+user avatar
+Lacoste-Julien Simon
+01:30:49
+So for example, if I go back to this example here suppose that instead of
+01:30:58
+Instead of computing the marginal for access. I wanted to compute the marginal x five right so then I say, okay, well the graphical idea would be to have expired as the route which means I would need to slip this edge, the direction. Okay.
+01:31:17
+And so then in terms of message being sent these two message would be exactly the same as before.
+01:31:24
+These two message would also be exactly the same as before. This one will be the same as before. The only difference is that instead of having a message. This way I would now have a message this
+01:31:35
+So in terms of computation all the message or the same except one.
+01:31:39
+And so if I compute. I wanted to compute both the marginal. The next F animals on x five, I wouldn't want to just compute separately. These two
+01:31:47
+These two set of messages, because a lot of them are overlapping. So instead, if I store these messages, then I can reuse them to compute multiple margins. So that's the idea of some product.
+user avatar
+Unknown Speaker
+01:31:58
+OK.
+user avatar
+Lacoste-Julien Simon
+01:32:01
+So the idea of some product is basically to get all the directions, all the message, you need to complete all marginals, and so the idea is to have these two phase. So let's say this is the it is the root of my
+01:32:18
+Graph.
+01:32:22
+Of my directed tree. And so what you do is you will have to collect phase where you compute all these messages like if I was trying to compute the marginal on the route.
+user avatar
+Unknown Speaker
+01:32:36
+This is a root tea.
+user avatar
+Lacoste-Julien Simon
+01:32:40
+Okay, so in red here is called collect phase.
+01:32:45
+And then the distribution phase is just now to go from the route back to the leaf. So I could compute this messages and then these messages.
+01:32:56
+So this is call the distribute face.
+01:33:05
+And so notice now that if I wanted to compute the marginal on this node.
+01:33:12
+I have, you know, the message in red. That could be us.
+01:33:18
+And one message in green, which was the missing message. And so by having both the green and the red messages I can actually compute the marginal any node.
+01:33:29
+And so here the goal.
+01:33:33
+Is to for all edges in your graph.
+01:33:40
+You will want
+01:33:43
+To go
+01:33:45
+For all edges in your graph, you will want to compute the messages in both directions. You want to compute the message going from i to j, which is a function of exchange and the message from Jay to i, which is a function of excited
+01:34:05
+And the rule in order for this to be a valid computation, I can only send a message to Jay
+01:34:16
+Message to the neighbor.
+01:34:22
+Jay, when it has collected all the messages from its other neighbors. It has received
+01:34:32
+All messages.
+01:34:36
+From the other neighbors.
+01:34:48
+And distribute collect face their collect distribute phase I just told you is a way to organize the competition to make sure that this is satisfied.
+01:34:59
+Okay, but the general update will be all right. There's a
+01:35:04
+There's a note I there's a neighbor. Jay, and then I have a bunch of neighbors have I
+01:35:12
+That's called them with index k. And I want to compute the message going from i to j as a function of extreme
+01:35:23
+Well, the rule is if all these messages have been computed, then I can compute this message and its value will be as before the day not to invisible ink.
+01:35:39
+And so the update rule. So I will have the message from i to Jay as a function of xj.
+01:35:50
+Will be summation over x i.
+01:35:53
+The nodes, the potentials, which have excited. So that's as before. Excited sigh J x i exchange. And then I have the product.
+01:36:06
+The product.
+01:36:10
+Over all the neighbors have i minus j
+01:36:16
+I because God is in the competition already. So these are the neighbors.
+01:36:21
+Of the message from K to I, as a function of excited
+01:36:27
+So that's the update true. Okay, so this is basically the same update rule as I've done here. But here there was a specific ordering and I already had a query node was now what I'm doing is I'm
+01:36:43
+Considering all the possible direction of messages. And so then I have this generate Trevor's hold of the tree.
+01:36:57
+And we'll talk about some product schedule very soon. But first, let's just recap what we get. So at the end.
+01:37:07
+Of this all rhythm.
+01:37:11
+Then we both have the node marginal right
+01:37:17
+We can get the node marginal
+01:37:21
+So we have that p of x i is proportional to all the remaining factors which contain excited, like in graph eliminate which would be product over all the neighbors have I
+01:37:35
+Have a message going from Jay to I excited because it's a function of excited. And there's also a sigh of exile, which still has not been eliminated because it only has excited
+01:37:51
+So that gives you the marginal and then you can normalize it.
+01:37:57
+To compute see
+01:38:00
+You can just some for overexcited of this thing, right.
+01:38:08
+But you only need to compute the ones you don't need to compete it on all marginals was this only this is true for all marginals
+01:38:17
+So that gives you the norm marginal. It turns out you can also get the edge marginal, as I mentioned,
+01:38:25
+So the edge marginal if you you run graph eliminate you would have that the two nodes on an edge.
+01:38:32
+Or in the last in the elimination ordering. So you need to get all the messages from the rest. So from a, from a little drawing perspective, you would have an edge between i and j
+01:38:42
+And then you have all the messages coming from over there.
+01:38:45
+All the messages coming from over there. And what's the meaning of these messages, it's me, it's what's the influence of something out all the other variables from from this part of the graphics all the potential. That's what its meaning.
+01:38:57
+And then you would have that the marginal an x and x j
+01:39:02
+Is just one of z.
+01:39:05
+And then all the remaining active factors. So I would have sigh of x i say Jay of xj. I would have sigh g of x and x j and then I would have the incoming messages. So it will be
+01:39:25
+Product.
+01:39:28
+Product over the neighbors of I minus j
+01:39:36
+Of message going from key to I, as a function of i and i also have product over key prime neighbor of G minus i.
+01:39:49
+Have a message going from keep trying to Jay as a function of extreme right so that's how you get
+01:39:59
+So you get the marginal
+01:40:03
+The emotional and the edge on to nose.
+01:40:07
+And so during the sun product or rhythm. You basically compute with the right order. All these messages and once you have all these messages you can compute all these marginals, like a just mentioned.
+01:40:21
+And so one thing to mention, which is important is that, let's say this is a tree.
+01:40:29
+Let's say I have this tree.
+01:40:37
+And let's say I want to compute
+01:40:41
+The marginal on those two notes right
+01:40:45
+Then you can do it with just some product.
+01:40:50
+Okay, because what happens here is any elimination ordering where those two nodes are the end will add new engines. So for example, let's say I choose I eliminate the leaf first
+01:40:59
+Well, then perhaps I will eliminate this will. This will add this new edge between these two nodes. And so now I'm getting a bigger click so
+01:41:09
+And some product only allows like edge potential. And so to compute this margin, all you would need. So here you would need graph eliminate that you will need the more general algorithm.
+01:41:27
+But if all the marginals you want or either on the edge, or no, then you're fine with some product.
+01:41:34
+Okay, so let me conclude with the schedules that you can use for some product.
+01:41:42
+Because basically, the rule is you can only transmit messages when all the incoming messages have been computed. So how do you make sure that this work. So I already told you that
+01:41:55
+You could actually use as above the distribute collect schedule.
+01:42:06
+Actually or collect first and then distribute. But anyway, you can do both. Either one first.
+01:42:14
+Actually it's a collect distribute sorry because you need to start a relief.
+01:42:17
+So collect and then distribute schedule.
+01:42:24
+So that's what I explained above, but there's something else you can do, which is called the flooding parallel strict schedule.
+01:42:41
+And so this is a bit weird, but
+01:42:46
+It's important to mention, and especially I'm talking about it because it's an it's a it leads to an algorithm called loopy belief propagation
+01:42:54
+And so what you do in the parallel schedule is you actually initialize all the potential also all the messages to a uniform distribution. So all the messages in all directions Ajay messages.
+01:43:14
+To a constant. So, to a uniform distribution.
+01:43:20
+Mean these don't have to be some to one, because we don't care about the normalization constant. So this is for all
+01:43:28
+I j, such that i j is an inch
+01:43:37
+So you also look at both direction. Right. So because the message is going both directions. So you start to you you you initialize them to a constant value. It's the old table over X i and you just or xj so constant value and then what you do is, at every step.
+01:43:57
+In parallel, so you can actually implement this algorithm as a parallel algorithm, you will compute
+01:44:05
+The new messages.
+01:44:10
+As a function of exchange.
+01:44:12
+As if
+01:44:15
+The neighbor messaging than neighbor.
+01:44:19
+Message were correctly computed
+01:44:33
+Okay.
+01:44:34
+So originally, it doesn't make any sense because you started with unit for message which has nothing to do with the potential, but you can actually prove easily
+01:44:46
+That after the diameter
+01:44:51
+Of the tree.
+01:44:54
+Which is the longest path in the tree. After this number of steps.
+01:45:04
+All messages are correct.
+01:45:09
+Or correctly.
+01:45:12
+Computed
+01:45:16
+And this is only true for freedom.
+01:45:23
+And you can think of it as Dr. Fixed point
+01:45:29
+What I mean by fixed point. Well, if I look at
+01:45:35
+This rule here.
+01:45:37
+Right, so I have
+01:45:42
+Whoops.
+01:45:44
+So I will have that all these are my neighbor messaging messages I have an update rule to compute the value of this message, but this message already had a value before
+01:45:55
+Which is used to compute the value of the message for the neighbors. And when this is currently computed. It turns out that
+01:46:05
+The new value for this will be the same as the old garden because it doesn't change, right, because if these measures as unique value up to the magician constant. But if there. We don't change their position constant during the algorithm.
+01:46:16
+So it turns out that this will have the correct message shape. If I had done the correct order and. And the reason this is true. It's actually not super hard and I will conclude with this, or perhaps I'll mention
+01:46:38
+I'll yell. I'll do the looky BP after in next class. But basically, here's a tree.
+user avatar
+Unknown Speaker
+01:46:47
+Teck Teck Teck here's another tree.
+user avatar
+Lacoste-Julien Simon
+01:46:52
+All right, and I'll connected. So the point is
+01:46:56
+If I would do the the collectors to breed phase I would do a sequential fashion and all the message will be correct, right. So now when you do the the the flooding kind of our rhythm.
+01:47:09
+The message which will be sent in this direction will be correct at iteration one
+01:47:17
+Because note that
+01:47:20
+These No don't have any parents. So while I do the computation of this message. It's already the correct message because New Orleans.
+01:47:30
+So after one step. These messages will be correct. And now, because all these incoming messages are correct, then the next time.
+01:47:41
+The next time I will compute this message at step two. It will also be correct. So now in red or correct message which are fixed.
+01:47:49
+And so then the next iteration, the neighbors of these will be correct. So these will be correct. And then the last at the four step. These will be correct.
+01:48:02
+And so you see that after four iterations of this flooding algorithm all the messages are correct and the diameter of this tree is actually for so that makes sense.
+01:48:12
+So that's the explanation why this works.
+01:48:16
+Okay, well I'm already over time. So is there any questions. So the next class. I'll finish up will be I will mention loopy buddy propagation, as well as how to get the conditional and start to talk about
+01:48:30
+Max product.
+01:48:32
+So I need. Yeah. Brendan
+user avatar
+Breandan Considine
+01:48:34
+Can you recommend a software library that implements say graph elimination or
+01:48:41
+Some product or one of these algorithms.
+01:48:45
+Kind of, are you aware of any stable ones.
+user avatar
+Lacoste-Julien Simon
+01:48:47
+Uh, yeah, I forgot the name of these libraries, but I can put them in Slack.
+01:48:54
+So there's there's Unfortunately though, these libraries were before pi torch and this kind of stuff. So you were like in MATLAB or something. So I'll have also to see if there's a more modernized version, which
+01:49:06
+Can also be using Python but I mean I'm sure there's also Python libraries, it's fine. But yeah, I'll
+user avatar
+Breandan Considine
+01:49:12
+put this up on Slack.
+user avatar
+Lacoste-Julien Simon
+01:49:15
+So Jacob is asking, what do I mean by correct i mean the the
+01:49:21
+That the represent something that will be used to compute the the correct marginals, right. So, because
+01:49:30
+Basically this update rule.
+01:49:36
+You know this update rule was obtained from the graph eliminate are within dynamics.
+01:49:42
+To actually compute the correct summation over all possible other nodes for computing and marginal. Okay.
+01:49:48
+Now, if instead of putting the correct incoming messages I put random quantity, then this is not the city of correct message. That's what I mean by that.
+01:49:57
+Right. But what happens is that when you start the flooding schedule some nodes, what have any incoming messages you will all be have this part because their leaves.
+01:50:06
+And so then these message will actually be the correct computation you would have done if you did a sequential algorithm.
+01:50:13
+Like a flooding scan normal sequential scans and so then these message will be the normal correct message. And so then the next step. The, the message computed for the numbers will also be correct, etc, etc.
+01:50:28
+But originally, you just initialize all these message to a constant or it could be anything. By the way, you don't have to miss it to initiate enter constant
+01:50:35
+You could entice them to say half and half. If you want, or sorry, a half and half. But that's a half on one though, then a third, a third on the other node is just constant is a more like
+01:50:46
+regularize initialization. As long as you don't put zeros, then you're fine for this argument.
+01:50:57
+Okay.
+user avatar
+Abdelrahman Zayed
+01:50:58
+This is very fine. I just have one
+01:51:01
+From what I understood in flooding. We have to start from somewhere where we don't have any incoming messages. Right.
+user avatar
+Lacoste-Julien Simon
+01:51:09
+Yes. Well, so in flooding. Basically, you're so the flooding our idea is, is kind of a
+01:51:18
+First wasting computation, because it's competing, a lot of messages which don't make any sense. But on their hands done in parallel. And so you can go kind of like
+01:51:32
+It's a bit like you don't have to worry how you implement the order of the messages. So in the standard or with them, you need to first just collect
+01:51:41
+Complete the message and collect order and then you compute the messages in the discovery order.
+01:51:47
+Was in flooding. You can think of, oh, each node will will have their own CPU in parallel to compute their message and I do all of that in parallel.
+01:51:57
+And it's actually a synchronize all women, which means that iteration one everybody compute their message from there using the neighboring message which are junk.
+01:52:06
+That's. Step two. You repeat. And it turns out that the nodes which are dead leaves after one step already correct their message. The computer is correct.
+01:52:14
+And then I stepped to the their neighbors will be corrected with retro but everybody's always computing new messages and it's kind of stupid because
+01:52:21
+We're simple believes it will conclude their, their message. And then the next time it will compute the exact same message. So it's kind of like wasting computation. But from an implementation perspective, it's kind of like simpler. You don't have to worry about which one is correct wins.
+user avatar
+Abdelrahman Zayed
+01:52:36
+Thank you.
+user avatar
+Unknown Speaker
+01:52:38
+And we'll see that
+user avatar
+Lacoste-Julien Simon
+01:52:40
+When the graph is not a tree. This all rhythm can compute an approximation of the marginal which is called the new people. Each publication.
+01:52:48
+Idea and that's why I'm talking about this because it's kind of since kind of a stupid algorithm because it's wasting a lot of computation, but it kind of motivates the good people, the propagation approximation.
+01:53:02
+Yeah. So similarly, that's getting the managers of this is that each message can be completed in parallel.
+01:53:06
+Yes, and also that it motivates the loopy belief propagation algorithm.
+01:53:18
+Sure you could also make more clever implementation to not have to whisk computation, but then it's just more complicated to implement
+01:53:31
+Okay, so I think I haven't answered all the questions in. So I will stop the recording and
+01:53:39
+I remind you that
+01:53:43
+There's a small get her town, social, and actually I have gotten information and how to exit the gator town got through town, and though I haven't had the time yet so perhaps next time I'll be able to do it. But yeah, so I encourage you to come to gather town if
+01:54:02
+You're

@@ -1,0 +1,1668 @@
+00:00:05
+Recording. So, today we will
+00:00:12
+What are we doing today we're going to do a bit of provocation and then I will do something called the max product algorithm, also known as Vitor be
+00:00:26
+Which is how to find the maximizing assignment for the distribution and then will generate the some product algorithm to arbitrary graph with the junction tree algorithm. And then if we have time, we'll start to talk about how to do in France in hmm
+00:00:46
+As a specific application of the Sun protocol green
+00:00:50
+That's the plan.
+00:00:52
+And so first
+00:00:55
+Let's talk about loopy belief propagation
+00:01:00
+loopy
+00:01:02
+Belief.
+00:01:04
+Propagation which I started talking about in the last lecture.
+00:01:15
+And so
+00:01:18
+So what's this loopy verification. So it's also called loopy BP for vacation. This is to do approximate
+00:01:31
+In France.
+00:01:34
+For graphs.
+00:01:37
+Where you have cycles.
+00:01:47
+Okay, so we're talking about underrated graph right so we're there. There's no fee structure or anything. So if you're not a tree then one node will have to, in some sense,
+00:02:02
+Will have a clique of size more than two. So three and the peak of size three is a cycle right
+00:02:07
+And so you can run some product because it's not a tree, but you can do as if it was a tree, run the parallel version of some product and then you get an approximation.
+00:02:21
+So that's just recall what we saw last time that we're on the same page. So first of all, if you remember, that was the update rule in in the some product algorithm.
+00:02:35
+Which is basically
+00:02:37
+If you recall, this is running graph eliminate Gravity minute algorithm is a way to just compute
+00:02:44
+marginalization marginals in the arbitrary graphical under 50 Africa model. And then what I did is I I specialize the graphing immediate algorithm to trees with a specific information ordering, which was clever and that gave us basically the these this kind of update rule.
+00:03:05
+Where
+00:03:07
+When I when I compute the new potential that I put in my active list in the graph limits our rhythm, which are message basically going from one node to another.
+00:03:21
+This is marginalizing all the potentials, which have exciting it so it's the note potential the edge potential and includes all the other incoming messages.
+00:03:33
+Which has already been computed. OK. So the idea of the Sun Protocol version was to do a specific ordering for both the graphics or rhythm and store them in these messages memory so that you can reuse the messages. Oops, you can reuse the messages.
+00:03:56
+When you compute any marginals right and so
+00:04:06
+And so in order for this computation to be computing the correct message I needed to have that these message has already been completed, which is why in a standard some product schedule, you need to start at the leaf because the leaf don't have any
+00:04:23
+Basically children so you don't have any of these incoming messages so you can already just compute the message to
+00:04:32
+The parent of the leaf by just marginalizing out the the potential. Okay, so basically, that was this this distribute collect phase which way I told you how to organize a competition and a tree.
+00:04:46
+But then at the end of the class. I mentioned. Okay. Well, we can also do a parallel type of optimization of some product.
+00:04:52
+Which instead of waiting that these messages are already meaningful. We actually initialize them to some arbitrarily non zero value. So I suggested the constant I use. It's basically like a uniform distribution, in some sense, because
+00:05:08
+You can think of them as when you normalize them. This gives you a distribution. And so that was the this flooding parallel schedule but I mentioned last time, where you just initialize all the message to a constant.
+00:05:25
+And then at every step in parallel, you compute a new value of the messages using basically
+00:05:33
+This formula. So here you have new and here you would have old and you do that in parallel, because you know
+00:05:46
+The there's no dependencies between the values. So, so there's there's no new on the right hand side.
+00:05:54
+And so I can compute all the new messages by in any order in this case doesn't really matter. And that's what you can do it in parallel.
+00:06:03
+And I told you that at the beginning, this doesn't the messages that you compute don't really make much sense.
+00:06:09
+except the one and beliefs, because the leafs don't really have neighbors. So, so then you only have this piece. And so it's the correct computation. And I told you that as the algorithm run as you do multiple steps of this flooding schedule more and more messages become
+00:06:27
+First of all this. The become fixed point, they are not updated anymore. The state. The state, the same as they were before, because the basically satisfy the correct
+00:06:37
+Property that the new message on this side is the product. If I put also the new message on this side. So it's a fixed point of this update and after diameter of the tree number of iterations all the messages are correctly computed. Okay, so that's what I explained last time. Okay.
+00:06:57
+And
+00:06:59
+And and I gave you the rational widest Western right so this was basically here, you had the you had the
+00:07:07
+The display that after iteration one these messages in green or correctly computed
+00:07:13
+And so I think duration to
+00:07:15
+The messages which depend on the correctly computer message or also correct so that the message and two are correct. And it's a threat three are correct. And then for after four steps all the messages are correct and for here was a demo. OK.
+00:07:29
+So now up believe propagation. It does the same thing. The parallel schedule.
+00:07:34
+But not worrying that perhaps the graph is not a tree so that these messages might not be correct in some sense okay and so
+00:07:42
+loopy believe propagation update what you do. Let's go back here. So what you said you will. It's the same idea as the flooding schedule so you will have these messages for every
+00:07:56
+Edge and then I will compute my new message. I will just say, oh, it will be some summation over xi xi xi say i j x i exchange and then product over the neighbors have i minus j
+00:08:18
+Of the messages.
+00:08:21
+Incoming to i, which depends on the size and the good thing that the thing here is I use the old value of the messages. Right. So it's, it's an iterative process. So you could think of it as
+00:08:32
+The message at time iteration T dependent. The message at iteration t minus one, but I'm using old except of t minus one and new for t
+00:08:44
+So you just compute these
+00:08:47
+And
+00:08:49
+If the tree was if the graph is a tree. This would convert to a fixed point and it's all fine. If the traffic. If the graph is not a tree. This could also converge. If you're lucky.
+00:08:59
+But to make it more robust to actually make the algorithm more robust what you, what you do is you add something which is called a step size.
+00:09:10
+In some sense in the log domain. So what you do is you will take a convex combination in the log domain between the old messages and the new message right so you'll say,
+00:09:22
+Instead of moving all the way to this update I will basically raise the old
+00:09:32
+The old
+00:09:34
+Message to the alpha and then they will have the update for the new message race to one minus alpha and they take this combination in here alpha belongs to
+00:09:48
+01 and you can think of this as a step size in the log domain right if I think the log of that I would get alpha log of the old message plus one minus alpha log of the update and so I'm thinking of conducts combination between those two.
+00:10:06
+And this actually stabilize the updates to make sure that it converts to some fixed
+user avatar
+Unknown Speaker
+00:10:13
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:10:15
+And this is called basically
+00:10:19
+This idea of using a step size is called dumping.
+00:10:23
+The dynamics because instead of making the update to the old new message, but what you could get as you could get this association behavior and it
+00:10:31
+Doesn't really converge. So what you do is you take a combination between those two things in between. So it actually helps you to to stabilize the dynamic that's intuitively, that's what's happening. There's actually a whole formalization of these from a vision perspective, etc, etc.
+00:10:53
+Yeah, so this is a product here between the parent assists. So if you take the log it would become a son that's why I'm saying
+00:11:01
+And so what's happening here is that this gives
+00:11:07
+Exactly exact answer on tree.
+00:11:14
+Okay I III, at some point, this will converge to a fixed point
+00:11:19
+And the fixed point yields the correct
+00:11:24
+marginals
+user avatar
+Unknown Speaker
+00:11:29
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:11:32
+Even if you do the damping, it's still, it's still fine for trees and then when you have a graph, which is not too loopy I he doesn't have too much big
+00:11:47
+Big loops.
+00:11:50
+You'll get that these
+00:11:53
+Fixed point that this algorithm reaches which depends on your initialization of the messages, by the way, they will be
+00:12:00
+approximate solution to the marginals, in some sense there because this update that you compute this marginalisation update
+00:12:08
+Is something which makes sense from a, from a consistency perspective of like computing the margin, all of a distribution.
+00:12:15
+But because of the of the loop aspect. It's actually not
+00:12:19
+Fully rigorous approach, but you can still often get marginals, which are not too far from the true marginals, because this is an empirical
+00:12:26
+Observation. So people made a lot of experiments, sometimes in the end it's not it doesn't give you that far approximation.
+00:12:33
+Can you get guarantees on this approximation, it's really, really hard. It actually I don't even know if this
+00:12:37
+loopy believe propagation give guarantees apart dark guarantees in terms of convergence, but I don't think there are guarantees in terms of the quality of the approximate solution, you get more Eucharistic
+00:12:50
+And sort of fact asked in general graph with cycle. There can be multiple fixed point. Correct. It depends on initialization. So there is
+00:12:59
+In the book by
+00:13:02
+Rain right in Jordan. So there's actually
+00:13:07
+So we'll talk a bit about virtual methods later in class, but there is an interpretation of the loopy belief propagation as an optimization method basically implementing a very rational approach. And so you can
+00:13:27
+Show that this algorithm is basically approximating and optimization process, but which is non-complex so the minimization of problem is non convicts, which is why there's multiple story points.
+00:13:41
+Right, so that's up BB
+00:13:49
+Alright. So somebody's calling me hit me hung up.
+00:13:56
+And the other thing I didn't do last time was how to do conditioning right so in some product. I only told you how to get the marginals, so to recall so that we're all on the same page.
+00:14:11
+You compute all the messages with the rules. I told you. And then at the end of the day to get the the marginal the node you just take the product of all its incoming messages to this node you add the note potential and you read normalize my because this is proportional
+user avatar
+Unknown Speaker
+00:14:28
+Oops, I forgot the invisible.
+user avatar
+Lacoste-Julien Simon
+00:14:32
+But what about if I want to, instead of getting a marginal in a node, I would like to
+00:14:41
+I would like to get the conditions.
+00:14:45
+So that's explained that
+user avatar
+Unknown Speaker
+00:14:48
+Getting conditional
+user avatar
+Lacoste-Julien Simon
+00:14:59
+And so I told you that, basically, we will use a semantic trick. The idea is when you have conditional
+00:15:09
+It's proportional to the joint. And so let's use a bit of notation action. First of all, the notation. So let's say I want to compute the margin. The conditional on node x i given some evidence node and I will actually use the bar notation to indicate that these will be
+00:15:28
+The values that were conditioning.
+00:15:33
+Indicates values.
+00:15:39
+We are conditioning.
+00:15:45
+So why am I introducing this annotation. Well, because when you compute the
+00:15:50
+The messages in the sub chronic algorithm, you're often something out a variable, right. So in some senses variable should be dummy.
+00:15:58
+But you want to distinguish when you're sending out a variable versus something which is fixed. Okay. And so that's why I use the bar notation for something which is fixed. And so we have that
+00:16:11
+The conditional to excited given x bar is proportional to the joint on X i and XE bar right so this means X. He is equal to x the bar right that's the notation here.
+00:16:30
+So have to know which variables are we talking about when we talk about XE bar. Well, it's just a variable without the bar.
+00:16:40
+And so
+00:16:42
+We want to compute this this this marginal and we can do that by just not something out the variable which are conditioning right if we don't send out the stay in the joint. So if I run the graph really mean our rhythm I some overall variables, except the one which are conditioner. Right.
+00:17:04
+And so when you don't send out. It means you keep them fixed so you keep this fixed
+00:17:12
+During
+00:17:14
+marginalization.
+00:17:20
+For each
+00:17:23
+Jay belongings to eat. So what happened is when you're on the sun product algorithm. Sometimes you will you will you will complete a message, which should normally some over x j where x g is observed node.
+00:17:41
+And so what you do is you want that you don't want to some over the observed know because they're fixed. And so we actually use a formal trick.
+00:17:51
+Just to have the same update you could, by the way, just have an if statement in your son product algorithm will grasp it in that order them, which says
+00:17:59
+If the variables observed don't send it out. But there's a neat way to actually not have to worry about which variables are absorbed are not in your message update is to just
+00:18:11
+Add new potentials. And so that's the trick and talking here and that's also highlight a bit the usefulness of having note potential is you will have you will redefine the note potential I'll use the tilde notation to talk about the new potential. So it will be the, the old potential
+00:18:33
+And then multiply by a connector delta function on xj.
+00:18:40
+Which depends on the observed value. Right. And so this delta here.
+00:18:46
+Remember that we're talking about discrete random variables. That's why we have
+00:18:52
+The connector delta, if you had continuous you would use the direct delta which is a bit more complicated, but the grantor delta function.
+00:19:01
+It's a function of two arguments and basically
+00:19:06
+Its definition is just, it's one perhaps I'll use the
+00:19:12
+Delta A B is defined as one. If a is equal to be and zero otherwise.
+00:19:21
+So it has two arguments. When the two arguments are equal. It's one when the two arguments are different than zero. So it's just make sure that the two arguments or equal
+00:19:31
+Which means that when you marginalize say the first argument over all possible value when you somehow one possible value because it's only one when this is equal to the second argument. It's basically selecting your value. Right.
+00:19:47
+And so when you are summing over x j. This potential
+00:19:55
+And then press time some function of x j and X i. So, when you compute this message going from Jay to I
+00:20:10
+Normally you would be something over xj when your condition when xj belongs to the evidence set. You want to fix it. So you don't want to send it out. Well, this is what's going to happen when you use this trick because
+00:20:22
+This is equal by the because of the direct delta part to say g of x j bar right because it's zero otherwise. And then
+00:20:33
+I have basically replaced xj, the sum over xj with just the correct value and conditioning.
+00:20:42
+And so that's the trick to do conditioning is just fix the variables that your conditioning on in when you are sending out all the other variables. And at the end of the day, what you get is the
+00:20:58
+The, the joint on exile and the observed variable. So at the end.
+00:21:06
+The result of some product.
+00:21:13
+Will give
+00:21:16
+The margin all the next I N on X E bar, which has been fixed.
+00:21:25
+And so this will be basically proportional. So there's a professional constant which is z which is and then there's sigh.
+00:21:41
+So I have x i.
+00:21:46
+And then they will be product. Overall, the neighbors have empty to I have x i.
+00:21:53
+And in order to get the marginal in the x bar, you just normalize this over exact right you re normalize
+00:22:07
+Over x i.
+00:22:11
+To get the conditional because
+00:22:20
+Okay.
+00:22:23
+So that's it for conditioning.
+00:22:25
+So when you run some product or graph or even a just don't send out the variable that you're observing. That's it. It's not very complicated.
+00:22:35
+So we use a trick here that the conditional is proportional to the joint and then that's why there's no complicated division apart at the end when you re normalize
+00:22:46
+So is there any question about this.
+00:23:05
+No.
+00:23:09
+Alright, so if there is no question
+00:23:12
+Let me move on to the max product algorithm.
+00:23:17
+Okay, so some product was to compute the marginal
+00:23:21
+Then max product is to compute the art max of the joint.
+00:23:28
+Which I told you was important. Let's say you do speech recognition. You want to decode the the speech given the observed the sound. So if you can. You want to compute the art max over to probably T of the speech given the observation. So it's a big art max.
+00:23:49
+And it comes from a interesting observation that for some product.
+00:23:57
+To run the some product algorithm.
+00:24:02
+The main property I use was that for graph eliminate for that matter, the main property we use was to use the disability law, right. So the main property used was the disability.
+00:24:24
+Of plus over product.
+user avatar
+Unknown Speaker
+00:24:29
+Right.
+user avatar
+Lacoste-Julien Simon
+00:24:31
+And
+00:24:33
+So by using this video I could push. I could to reorganize the competition and push all the some inside and instead of keeping in
+00:24:44
+At outside where you had an exponential something right so that's kind of a trick.
+00:24:48
+And so when you have distributed et la basically there's a name in algebra call or ring. So with a ring you have normally two operations and one is actually a group with an inverse and the other one.
+00:25:05
+Is not to see it doesn't see the habit inverse. And then there's a distributed VT. Okay. And in our case, we actually don't need the the inverse. So
+00:25:16
+All we need is
+00:25:19
+That
+00:25:22
+What you're competing on where you have the plus operation and the product operation is called a semi ring.
+00:25:36
+So semi ring is a ring where you don't have. You don't need an additive inverse. So the plus operation is not
+00:25:45
+A group with an inverse. I mean, it's not a full group don't need additive in verses
+00:25:56
+So okay, so am I talking about the semi ring. So the point is that you can do a some product like our rhythm and other semi right where you just replace the plus operation with something else.
+00:26:07
+And the product operation was something else. But you read you you reuse the same kind of idea. Okay.
+00:26:15
+And so that was a neat operation to generalize this trick to other structures. So you can do some product.
+00:26:25
+On other semi rings.
+00:26:34
+So what are there are some earrings. It could be if I look at the real number, I could now look at instead of the plus i use Macs and sort of product I use plus. Okay. Okay. So why is this still distributive it well I have that the max of A plus B and A plus C.
+00:26:57
+Is the same thing as
+00:27:00
+A plus max of B and C. So there was this a in common in the plus
+00:27:09
+Which replaced that when you had a times b and a time. See, and then you factor out the A for the distributive de la so here it's it's it's the max which is kind of like
+00:27:22
+It's the plus, which is factored out
+00:27:25
+Okay, so that's the example of disability another one you can do is if I look on the positive number. I could have max and then product. Okay. And in this case, I have that max of A times B a time see is the same thing as a times max of the NC
+00:27:50
+Okay.
+00:27:52
+And when we run some product on this semi ring structure, what we get is Max product.
+00:28:00
+Okay, see we get max product.
+00:28:05
+And to kind of like reuse an analogy that I made last time. So if remember I started by doing summation of products. So if I have a factorization. Right.
+00:28:17
+I have a bunch of potentials which factor is only over node potentials. Before I looked at the some the exponential some of this thing. Now I can look at the exponential max.
+00:28:27
+Right. So if I want to max over all my variable. This product by to this to BT. BT. This is the same thing as just the product over I have the simple individual node maximization.
+00:28:41
+So that's the direct analog of having pushing my some insights. So here I pushed the max inside
+00:28:49
+So even though the original problem here had the maximization over an exponential number of
+00:28:55
+Assignments here for every i it's only say order k. And then I have any of these. So this is order n timescale instead of order key race to the right. So it's, it, it's a big game. Okay.
+00:29:12
+And so when we run max product we compute these messages. The same way we did in the in the sun product algorithm. But we replace the summation with maximisation right so if I compute the message which go from it. Jay, which is a function of
+00:29:33
+X James case. So why do they flip it.
+00:29:38
+Normally I had to. I know.
+00:29:42
+We see it. See if I screwed up at the being in the class.
+00:29:48
+I know I always had extra
+00:29:51
+Good, yeah alright so message from it. J to function of x j. And so this will be defined as the max over x i, which replace the subtle Rick's I have my potentials, which depends on the size I have potential over I have x i.
+00:30:13
+Put the show i j x i xj.
+00:30:18
+Then I have the product over all my neighbors.
+00:30:23
+Have I minus g
+00:30:26
+And then I have message from key to i, which depends on that side. Right. So this is the so I've just replace
+00:30:36
+The some with the max right so
+00:30:41
+The some became a max.
+00:30:45
+But the rest of the same idea.
+00:30:48
+And so that's the update for the max product algorithm and the same idea you you need to schedule to compute the message, you need to have all the other messages already Pre compute
+00:31:06
+And so the point, though, is
+00:31:09
+Unlike the the
+00:31:15
+Unlike the marginalization over every node, which we want to compute in some product here it's. We don't want to compute the maximization over every node, because the value is. It's just a big max.
+00:31:29
+Over the whole joint. So there's not there's not actually difference if I compute the max.
+00:31:35
+For have one message versus the max of the next message will always be the global max because there's no difference. Okay, so basically
+00:31:45
+We're in a setup where we're more thinking in terms of graph eliminate with a clever order. So let's say this is my variable 12345 I start at a leaf, which could be, let's say x five and then you want to compute these messages like this.
+user avatar
+Unknown Speaker
+00:32:04
+Up to me one.
+user avatar
+Unknown Speaker
+00:32:07
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:32:11
+And so to compute
+00:32:14
+The message from one to two, you would
+00:32:19
+So one doesn't have
+00:32:22
+Doesn't have any neighbors. So this would disappear, you would just do this maximization like that.
+00:32:28
+Over x one.
+00:32:34
+Or I guess here. I'm doing it the other way around. Yeah. So I'm starting at five. Correct. So I'm keeping the message from five to four. So you could think of maximizing over x for the
+00:32:47
+This product.
+00:32:49
+Over
+00:32:52
+Which this doesn't appear at four x five because there's no neighbors. It's a nice
+00:32:58
+OK, so now the point is
+00:33:01
+If I want to compute the max over the variable x one up to five of my new GM
+00:33:11
+Joint. So this is because we're clique.
+00:33:15
+Of this thing. Well, this is the same thing as one over z the max over x one of the message to going to one of x one right as before the marginal was the last messages coming to the note here the last maximization is done on the last message. Okay, so let's kind of do
+user avatar
+Breandan Considine
+00:33:43
+A quick question.
+00:33:44
+I i am i'm curious, you mentioned that it has this this semi ring property. If you had like a non linearity between between the the message passing when it goes from one to the other, would that violate the
+00:34:00
+The, the dish.
+00:34:03
+Some kind of like a soft max or another non linear functions are
+user avatar
+Lacoste-Julien Simon
+00:34:07
+Wearing already put the non linearity.
+user avatar
+Breandan Considine
+00:34:09
+After well we're the say with the max is if you wanted to.
+00:34:16
+Have like a sigmoid or
+00:34:18
+Logistic
+user avatar
+Lacoste-Julien Simon
+00:34:19
+Function. Yeah, well, well then you definitely don't have distributed beauty right you can have pushed the max inside when you have an ordinary
+00:34:26
+Yeah, this to be Pvt of max over product in this case is because there's no non-interfering
+user avatar
+Unknown Speaker
+00:34:34
+Uh huh.
+user avatar
+Breandan Considine
+00:34:35
+Okay, yeah, that makes sense. I guess so.
+00:34:40
+Okay, thank you.
+user avatar
+Lacoste-Julien Simon
+00:34:42
+Yeah. And bingo. She is asking
+00:34:44
+Whether what I'm describing max product is for trees on me.
+00:34:51
+Well, you could still do the graph eliminate algorithm. If you don't have a tree and just instead of replacing having you have an evaluation ordering
+00:35:02
+And then instead of just summing things you're just maximizing. And so you could also run that for non trees, but the the the update I gave you here, which already only had
+00:35:13
+Edge potential is only valid for trees, indeed, right. So this is the direct analogy and a log of the Sun product algorithm for
+user avatar
+Unknown Speaker
+00:35:23
+Max product.
+user avatar
+Lacoste-Julien Simon
+00:35:25
+But the thing I want to mention is that we actually don't care that much on the maximize of the, what's the maximum value is where we care is what is the argument of the art max. Right. And so in this case we we need to store to do a bit of
+00:35:45
+How could I say in English, you need to keep track of things you need to write down a bunch of things you need to store things so to
+00:35:56
+To get the art max. So, for
+00:36:00
+Getting
+00:36:02
+The arg max.
+00:36:06
+You need to store.
+00:36:10
+The argument.
+00:36:15
+Of this maximisation
+00:36:19
+The value of the max depend on xj. So the, the maximizing value will also depend an extract right so it's it's a function
+00:36:30
+Of x g. OK, so for every possible that you have xj. You both have what's the maximum value that you could get by maximizing over excited. And what's the art max. What's the maximizers
+00:36:43
+Okay, so you said it's kind of another message, but now these message as to do about keeping track of the maximizers
+00:36:50
+And then what you do is you do backtracking to get our next right so
+00:36:58
+So let's kind of like, see how you implemented backtracking.
+00:37:05
+And so
+00:37:09
+Let's say I want to compute the message from I 2G right
+00:37:15
+And so
+00:37:18
+Let's see, this is my variable x i.
+00:37:21
+And then I will have a bunch of possible values for x i and then I have a bunch of possible values for exchange.
+00:37:31
+And we'll use the values of x j as indices. So I would have 012 blah, blah, blah.
+user avatar
+Unknown Speaker
+00:37:41
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:37:43
+And so in this entry here you will start the message from i to Jay, which depends on exchange. Right. So for each value of x, Jane, let's say value zero, you will have
+00:37:56
+One value and then for a value one, you will have a different value, etc. Okay. And this was computed for a specific xj by maximizing the, this, this, this object here.
+00:38:11
+Overall excite. Okay. And so what you do is in the other entry, you have another array where here what you store is the art max.
+00:38:31
+The art max for this value.
+00:38:40
+OK, so the silver excited, ie what your computing is basically the art max over x. I have some function which depend on xi and xj, which in this case was fixed right
+00:38:57
+And so you can think here.
+00:39:00
+This is kind of a pointer to a previous value of x i.
+00:39:09
+And basically,
+00:39:12
+Here I would have the message from K to i, which is a function of x i, which was using the computation.
+00:39:25
+And actually this is because I don't have a tree structure. So this is a sequence structures. If you have a tree, you would have multiple messages, but here I'm just having a sequence structure. And so these are basically the message data structure.
+00:39:43
+And this would be the art max.
+00:39:46
+Data structure.
+00:39:52
+And so what you could do, for example, is run things forward to compute all the messages with all the arg max stored until the end of the sequence, for example.
+00:40:05
+And then you compute the actual
+00:40:08
+Maximizing value for the, the last variable. Then once you find that you can follow the pointer back for all the other variables which we're maximizing and that gives you the assignment of all the variables, which gave you this maximization. Right. So in other words,
+00:40:29
+To get the art max over all your variable of the joint of X one up to n.
+00:40:39
+And you can do the same thing for a conditional by just fixing some very right. So, and this is called decoding.
+00:40:49
+So what you do is you run
+00:40:52
+The max product.
+00:40:57
+All over them.
+00:40:59
+And in this case, you only need the forward messages.
+00:41:05
+So you don't need to. So in some product you were competing messages in both directions because you want to compute all the marginals, but here, like I said that you only need the margin, all of the message at one of the last node or the first node.
+00:41:19
+And so all you need is just to run the algorithm forward and then you do a backtracking you backtrack.
+00:41:30
+The art max pointers.
+00:41:36
+To get the full art max.
+00:41:42
+And if there's some ties. So sometimes, for example, there's multiple values which give there's multiple variables which give the same value.
+00:41:51
+Well, you could follow any of these right so you could actually keep track of these ties and so then there could be multiple times. So that's a way to also get multiple
+00:42:02
+Joint assignment which which give the the art max and and this algorithm, which is basically max product and then decoding by backtracking is also called the, also known as the visitor be algorithm.
+00:42:19
+So it's an old algorithm. And it was figured out much before these semi ring trick.
+00:42:27
+And it was actually also rediscovered in multiple setup and signal processing and and other fields. I'm pretty sure
+00:42:35
+And now basically the idea is you can have a unifying perspective and all these algorithms that oh, there are just special case of this, like, kind of like graph eliminate idea where you use a distributed beauty of one operation over the other one. And then that's some product max product.
+00:42:55
+Okay.
+00:42:57
+So is there any question about the B2B algorithm.
+00:43:02
+Or max product.
+user avatar
+Breandan Considine
+00:43:06
+Can you express this as a matrix matrix product. If you were to use like a different operator for the multiplication.
+00:43:18
+Instead of here you're defining it like on a node level right that the node and its neighbors.
+00:43:28
+If you could if you could
+00:43:30
+Have another algebra on on the matrix because if you have a matrix instead of like a real number here that would also be a semi rain. Right.
+user avatar
+Lacoste-Julien Simon
+00:43:41
+Yeah, so the so so the marginalization operation. So if I
+00:43:46
+Keep the some here, this could be a matrix.
+00:43:49
+Product. So this is basically a vector. And then I would have, I would have a matrix multiplying all these to get the some I could get matrix time Victor
+00:43:59
+And now you're saying if instead of of defining my matrix vector product as some over product development, I would do this max operation and it's I just use a different operation that could still use matrix vector operations. I think so. Yeah.
+00:44:19
+And actually, so later in the class would talk about the hmm. And then, hmm, normally you do all do these matrix vector product because for the the some product, but indeed you could instead. You could also use the same kind of matrix structure for other operations like use it. Sure.
+user avatar
+Breandan Considine
+00:44:40
+Thanks.
+user avatar
+Lacoste-Julien Simon
+00:44:42
+Any other question.
+00:44:48
+Okay, so perhaps just before going to the break.
+00:44:52
+Let me
+00:44:55
+Introduce a property for the you GN which will be useful for the junction tree perspective. Okay, so let's talk about a property.
+00:45:09
+Of tree underrated graphical model.
+00:45:16
+So if p belongs to a
+00:45:25
+undeterred graphical model over a tree.
+00:45:29
+With non zero marginals
+00:45:38
+Then you can actually write p
+00:45:42
+Only with its marginals in this very elegant form. So it's the product over the marginal of xi and then the product over i, j
+00:45:54
+In my edge set of the joint over my edge. So it's my edge marginal divided by my node marginals
+user avatar
+Unknown Speaker
+00:46:07
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:46:12
+And so now I have
+00:46:15
+For you, right.
+00:46:19
+Which, by the way, this is kind of like you can think of.
+00:46:27
+It. See, so you can think of these as being sigh of exciting and these as being say i j of x i exchange. Right, so they're only function of exciting. So, but now I have written my potential in such a way as the only take these marginals in them. So it's kind of a very nice way.
+00:46:52
+And so the way you can prove that
+00:47:01
+Is you can show that
+00:47:05
+Similar to a and directed graphical model.
+00:47:11
+You can use these factor to define a giant. So for any set
+00:47:17
+Of factors.
+00:47:21
+And I will use. So I will have pairwise factors on X X, Jay.
+00:47:29
+And node factors. If I have x i.
+00:47:34
+Such that the
+00:47:36
+They're all positive.
+00:47:40
+And the satisfied, something which is called the local consistency property.
+00:47:51
+And by this I mean that the the basically behave as marginals right in the GM we had these factors which behave like conditions.
+00:48:01
+Here we want these factors to behave as marginals, which means that if I'm marginalizing out over xj. The factor which depends on the exciting xj. Well then I get the marginal overexcited which is the factor excited. Right. So this is true for all excited
+00:48:21
+And then I can also marginalize out over X science dead on the first argument.
+00:48:28
+And this will be equal to the other marginals, which is f g of x j for all exchange.
+00:48:35
+And you have that the node marginals, the node factors are basically something to one.
+00:48:44
+Okay, so you suppose that you have a bunch of factors.
+00:48:51
+Which
+00:48:54
+That which basically behave like marginals, and they're consistent with each other. Because again, when I marginalized out but joining them to variable that should get the marginal in the node.
+00:49:04
+Then you can say
+00:49:07
+If you can consider defining the joint or a joint as p of x with these product, product over i, f x i product over edges.
+00:49:25
+Of these big X i xj divided by f of x i and f g of x j
+00:49:38
+So you you start from that to say, okay, let's suppose I define a joint like this, then you can show that each of these factors are the correct marginal
+00:49:48
+And okay and this is actually, whoops. Oh, I can move this thing. Interesting. Ah.
+00:49:57
+Ha.
+00:49:59
+Sorry. So I had this annoying.
+00:50:05
+Bars a button in the middle of where was raining and this has been like a few lectures like that. Each time I was like, Oh, this is so annoying. Now realize that can actually move it around. And so I put it backwards should be which is at the bottom.
+00:50:18
+And I guess at some point I just moving in the middle, without knowing and I didn't know I could move it back so magic. Now, finally, I can see what I'm writing
+00:50:26
+Okay. Well, anyway, so yeah, so I was saying that this is only valid for tree.
+00:50:34
+If you have loops you this won't be a valid joint and then you can show that we get
+00:50:41
+The correct marginals
+00:50:47
+IE, you can show that the marginal and Xi is actually just the node.
+00:50:53
+Potential etc etc.
+00:50:58
+Okay, so that's a way to prove that
+00:51:03
+If you have a huge GM, you can just rewrite it this way.
+00:51:17
+So somebody is saying, oh, it's similar to one of the proof. We didn't in your homework.
+00:51:22
+Yes, indeed, though, you know, in a homework, you would work directly with the conditional, not the marginals, and because here you have multiplication by p of x. So you have both.
+00:51:39
+You know p of x i here and you have p of x i there so
+00:51:47
+That's where there's a problem that if this is zero, you get a zero divide by zero, which is a bit annoying. How do you manage that. So instead, you can choose a direction for your tree and then just work with the conditional everything's
+00:52:02
+Okay, so that's actually a very convenient.
+00:52:06
+Form. So each time you have a huge lemon tree, you can just rewrite it this way, with its marginals, okay. And there's actually a very useful when you want to compute with see later, the mutual information between two distribution when they are
+00:52:19
+The they are in under two graphical mala which is a tree because then you know you can actually work with these simple marginals, and some over to marginals, which is much easier than something over the whole joint which is an exponential. So
+00:52:35
+Oh, yeah. So Jacob, it's normal that you're confused. This is not the proof I said that
+00:52:42
+Reusing similar arguments we did for the GM, we could
+00:52:47
+We could show
+00:52:52
+That you will get the correct marginals yeah i didn't i didn't show that you've got the correct marginals, I say we could show that you get the correct marginals, which means that, then the the GM has this form right
+00:53:10
+Because basically, these factors. They're just any valid potential. So, yeah.
+00:53:18
+Okay, so, and why am I talking about this. Well, because we will use the generalization of this for arbitrary graph which are not trees and that's using the junction tree algorithm, which we will see after the break. If there's no question. Is there any other question about this.
+00:53:40
+If not, let's
+user avatar
+Jacob Louis Hoover
+00:53:42
+Have a question. Yeah, you talk you speaking of these as factors.
+00:53:48
+And so in in we speak, we refer to the
+00:53:53
+Parts of
+00:53:55
+By definition, the parts of the undirected graphical model as potentials and they have certain requirement. Right. So are these potentials with an added
+00:54:08
+Like with the consistency property. And so then we call them factors is or
+00:54:13
+Confused with that.
+user avatar
+Unknown Speaker
+00:54:14
+Yeah, so, so
+user avatar
+Lacoste-Julien Simon
+00:54:17
+The factors. Let's see, so the fact, those are not potential directly because
+00:54:25
+Normally what you would have is sigh g of x i. Exactly right. You wouldn't have these extra term at the bottom. So you could just define if you want this whole thing as sigh J excites J. Right.
+00:54:42
+So, so this combination of factors together gives you a potential in your GM if you want. And these could be your, your node potential, this would be your edge potential and these would be your note potential
+00:54:55
+The only requirement on potentials. Is that the only depend on the correct variables and their positive was these factors, I'd be indeed these extra requirement that you have satisfied consistency.
+user avatar
+Jacob Louis Hoover
+00:55:10
+So if such factors exist, then we can do this.
+user avatar
+Lacoste-Julien Simon
+00:55:16
+So,
+00:55:21
+So, so if you define any
+00:55:23
+Factor any edge factor.
+00:55:27
+Which
+00:55:30
+Yeah, that's fair point. So, if such factors exist, then you're fine.
+00:55:37
+It's not too hard.
+00:55:41
+Yeah, that's a fair point that you would need also to show that
+00:55:44
+It's a non trivial set
+00:55:46
+But the point is, you can start by just defining that the edge factor.
+00:55:51
+Now you have a constraint that once you define one edge factor and you have a common node you can define the other edge factor arbitrary because they need to agree on the on the note potential, but there's still a lot of flexibility.
+user avatar
+Unknown Speaker
+00:56:08
+Any other question.
+user avatar
+Lacoste-Julien Simon
+00:56:14
+Okay, so let's take a break. It is 331 so let's start again at 343 to 232
+00:56:24
+Degrees. So at 342
+00:56:35
+Zoom recording
+00:56:41
+So what is the local constancy property that I wrote.
+00:56:45
+So to be clear what I wrote was not for a D GM. It was for these factors.
+00:56:52
+But basically
+00:56:55
+If this is the joint. If this as the semantic of the joint overexcited xj. I want that when I marginalize out over
+00:57:05
+xj. For example, I get the marginal over x i. Right. And so this is this, this has a semantic of the marginal of excited this as a semantic of a joint over x and x j. So, for these to be the correct probabilities. You have to have this consistency properties. So that's what me
+00:57:26
+And we'll look back when we talk about version and France, this, this will come back also important.
+00:57:35
+When these factors. Good. Now the approximate to the marginals, and we'll try to update them and they will need to be locally consistent to make sense.
+00:57:44
+Okay, so
+00:57:48
+Now let's talk about the junction tree algorithm.
+00:57:52
+Junction three
+00:57:55
+All over them. So I won't give all the details.
+00:58:00
+In the interest of time.
+00:58:03
+But I will give you the gist of it and the general idea and a very useful generalization.
+00:58:11
+Sorry, of this
+00:58:13
+Expression for general graph. So basically using a junction tree structure, I can write an arbitrary joint into something analog to this kind of formulation
+00:58:27
+And and that's what we use in the junction tree algorithm.
+00:58:32
+And what's the junction three algorithm. It's a generalization.
+00:58:37
+Of the some product algorithm.
+00:58:42
+To a structure which is called a click tree.
+00:58:47
+To a
+00:58:49
+Click
+00:58:51
+Oops. Click tree, which is a tree over clicks and this click tree has to have a property, which is called the junction tree.
+00:59:04
+Property which I will describe various. Okay. And so now that we have things organized in a tree. You can do this message passing over them again.
+00:59:17
+Alright, so let's
+00:59:21
+Let's see how we get a junction three. So let's talk. Let's say I have this graph here.
+00:59:33
+And so the problem is to work with a junk to build a junction tree you actually need to triangulate the graph.
+00:59:42
+So if you remember the triangulation. So let's say these are my nodes 13456. This is not a triangle that graph because I can create a chord. I have here a cycle, which has size for which is not split by
+01:00:00
+accorded the middle. Okay. So, to try and create it. I can do graphic midnight, and then, the augmented graph is try and get a dead. So for example, if I eliminate one I will add this edge here. And if I eliminate
+01:00:16
+Three later. Oh, whoops. Let's see.
+01:00:23
+So if I need one. I will add this edge, and if I only three later I will connect the neighbors, which is four and five. So I will add this edge and actually this is now are trying to get across.
+01:00:34
+And so suppose I start with a triangular graph, if it's not trying to triangulate first then look at all the clicks in the graph. So this is a clique 123 I'll call it a bit. Click a would be the click B which is 234 C and D. Okay.
+01:00:54
+And so now what's right click three. Well, it's just I will each node is a click.
+01:01:02
+And so let's say I put these four clicks as my nodes in my tree. So I have clicked a be click see
+user avatar
+Unknown Speaker
+01:01:13
+And
+user avatar
+Lacoste-Julien Simon
+01:01:17
+Click D.
+01:01:19
+And I can also put the content of my click inside it. So the click a contains an old 123 be I said was 234 C is three, four and five and D was four, five and six.
+01:01:40
+Alright, so now and then a key trick is just a tree on the cake. So that's me. Let's say I put these edges here.
+01:01:52
+And
+01:01:56
+There's this thing that we will use later, which are called the separator set. So, we will put
+01:02:02
+On these edge other sets.
+01:02:07
+Which contains the intersection of the two neighboring clicks in the tree right so the intersection between click in the, in this case is the note two and three.
+01:02:16
+And the intersection between B and C is the node three and four and the intersection between C and D is the node four and five. So these two nodes or in both kicks. And so these are call the separator set
+01:02:35
+You can think of. So in the victory. You don't need a separate or set the victory is just
+01:02:42
+A bunch of edges between clicks, which form a tree.
+01:02:46
+But you can we will use it in the junction three already moved us a super receptive and now and so above. So this click tree is a click tree. It's a tree and click
+01:03:01
+With something which is called the running intersection of property.
+01:03:10
+The running
+01:03:13
+Intersection.
+01:03:21
+Property
+01:03:30
+And what's the running intersection property. They're running a destruction property means that
+01:03:38
+If there is a node in the original graph which belongs to two clicks.
+01:03:46
+So, for example, and what's a good example here.
+01:03:54
+I'm let's say three
+01:03:58
+Let's say three here. It belongs in click a and b along in click see
+01:04:04
+Okay, well they're running into a certain property will say that this is a treat. There's two nodes, there's a unique passed between two nodes in a tree.
+01:04:14
+The running into certain property is that for all clicks on the path between those two nodes. The, the, the intersection between those two. Click will have to also be there.
+01:04:25
+Okay. And so here, if I look at the path between A and see there's this this node here, and indeed three belongs to it.
+user avatar
+Unknown Speaker
+01:04:35
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:04:37
+And it's true here for all parents of clicks. Right. So, for example, there's
+01:04:43
+Let's see another one which is interesting. This for here in this for there, and indeed for appears here.
+01:04:58
+So let me give you an example.
+01:05:08
+Which would not satisfy the running intersection property.
+01:05:20
+Yeah. So, for example,
+01:05:23
+Let's say if instead
+01:05:26
+I would connect
+01:05:31
+As it. This is not
+01:05:35
+Let's say I put a concert this edge instead between A and C and the super set is only three
+01:05:46
+And let's say that my
+01:05:48
+That the tree. I'm considering instead would be. Oops.
+01:05:54
+It said this would be these two edge. Okay, so I remove this one.
+01:06:01
+Okay, so let's say this is also a tree over clicks. And now if I look at the there's two here and there's two
+01:06:09
+But the path between these two nodes of this click here, which doesn't have to. So this doesn't satisfy the running intercession property. So that's a different tree. Another click tree. I could have built
+01:06:21
+On my nodes, but it doesn't satisfy the running industrial property. And so when you have a click tree which satisfy the running a decision property you call this junction tree.
+01:06:36
+As it
+01:06:42
+Is a junction
+user avatar
+Unknown Speaker
+01:06:44
+Tree.
+user avatar
+Lacoste-Julien Simon
+01:06:49
+Right, so somebody is asking to write down the running intersection property.
+01:06:54
+So the renovation property basically says that
+01:06:59
+If
+01:07:02
+Jay belongs to see one intersections see to
+01:07:09
+Then Jay belongs to say Jay for all
+01:07:19
+CJ along the path from see one to see two okay so i mean i i'm a bit quickly writing it now.
+01:07:34
+Because the notation is a bit abuse here. But the point is that if there's a node which belongs to two clicks, then it has to belong in all the clicks along the path between those two nodes in the tree in a clique tree.
+01:07:46
+Okay.
+01:07:50
+This answer your question.
+01:07:52
+Simon or civil
+01:07:58
+Assignment, or is it simple.
+01:08:06
+Okay.
+01:08:09
+All the calls you see man like everybody calls me now. Sorry. Call you Simon are
+01:08:17
+All right, so somebody say, oh, well, is there a trick to build junction tree from the graph. Yes, there is. So how do you build a junction tree. So to build
+01:08:27
+A junction tree.
+01:08:30
+On a truncated graph.
+01:08:34
+So the first thing you do is you use the maximum
+01:08:42
+Weight
+01:08:45
+Spanning
+01:08:48
+tree algorithm.
+01:08:52
+On the graph.
+01:09:00
+Where the size of the separator a set set or the weeds with size of separator.
+01:09:11
+Set
+01:09:13
+As the weight on the edges.
+01:09:20
+Okay, let me
+01:09:22
+Kind of like explain this. So here I have my for kicks the click graph is basically a graph with edges. So the nodes or clicks now and there's an edge between
+01:09:43
+Two clicks. When the share some notes together. Right. And so for example here. A and B, the share than those three and threw together. So they're adjusting. So there's an edge between them.
+01:09:57
+And the edge and actually this edge is this one and then the weight on the edge will be the number of nodes and comments. So here it would be a way to have to because it has two nodes and comment.
+01:10:10
+And A is also adjustment to see because the share three together. So that's another edge that I could have in my key graph. And here, in this case, the weight would only be one because it has
+01:10:23
+On the one edge and comments. So if I complete the key graph.
+01:10:27
+So there's also the only missing edge here so Baeza just into C and B is adjustment to D.
+01:10:38
+With a weight of one because there's only the note for. Okay, so this is the superset. Okay. And so what I've just dropped here. So, all these edges that I've drawn
+01:10:50
+This is the key graph. So it's not necessarily a tree anymore because you have cycles and everything. And now I want to find a spanning tree I eat a tree which connects all the nodes.
+01:11:01
+And I want the one which maximize the sum of the weights of the edges in a tree.
+01:11:07
+In this case, the weights are the number of nodes and comments. I'm just want to find a way. I want to find a tree.
+01:11:14
+Spanning tree which maximize the number of nodes in common. Right. And so all these nodes, all these edges have two nodes in common. These two have only one. And so the
+01:11:25
+The maximum weight spanning tree is actually the one I've drawn. So this was the maximum weight spanning tree in this graph. And actually, it's the only one so unique solution. And that's actually interesting. The, the only junction tree.
+01:11:36
+The only spanning tree on the click graph which satisfy the junction. They're running intersection property. Okay, that's it. That's how you can construct a junction tree on the transitive graph, okay. And it turns out there's a theorem which says that there exists a junction tree.
+01:11:59
+If and only if the graph.
+01:12:03
+There exists a junction tree if and only if the train good at the graph is trained related
+01:12:15
+Which is also known as the compostable
+01:12:19
+On the possible graph is the same thing as being transmitted infection.
+01:12:25
+So if the graph is not regulated. There is no way you can construct a junction tree on the structure, you'll have some problems because there's some kinks, which will be missing.
+01:12:35
+And
+01:12:37
+You can always get a graph to be translated by adding some edges by running graffiti meaning right so
+01:12:46
+Okay, so here we're making a lot of interesting graph theoretic eliminate
+01:12:57
+In the Nate.
+01:13:00
+So we're
+01:13:03
+So we're making another interesting relationships between graph properties and graphical model and then Jacob is asking that when you build a junction tree.
+01:13:13
+Much oh yeah so so basically the missing part is that when you run the maximum weight spanning tree algorithm on the graph. And the graph strangulated this will actually imply that
+01:13:29
+The
+01:13:31
+Has the running intersection property.
+01:13:35
+By using the fact that it's a maximum weight spanning tree with the way defined this way you can show that it has the running intersection property, meaning that if
+01:13:46
+There's a edge, there's a path between two nodes which share a node where it doesn't belong in some of the clique, you can show that there is a difference spanning tree which has higher total weight so that you can argue by contradiction that it has satisfied that running intersection
+01:14:09
+Okay, so
+01:14:15
+So I told you how to construct a junction tree. Now, why do we care about the junction tree. Well, once you have a junction three
+01:14:23
+You can show the following property when you have a junction tree.
+01:14:29
+One can show
+01:14:32
+That the joint over all your variables can be written as the product over your clicks the marginal over the clique divided by the product over disappear eaters. The marginal on the separator.
+01:14:48
+Okay, where these
+01:14:52
+Are the separator sets see Ray sets.
+01:14:58
+In
+01:15:00
+The junction three. Okay, so that's, I told you the cigarettes. That would be important. That's where they come from.
+01:15:11
+An exercise to the reader, you can apply this on a simple tree and define the separator set and you will get back the exact same formulation as this.
+01:15:28
+As this one here. The thing is, you can cancel. Some of these and then you're left only with one node for the separator. Second, so you just need to choose where you will do the cancellation. But basically this kind of form.
+01:15:42
+Really looks similar.
+01:15:44
+To this one when the kickoff size through and the separator set in this case is on the size one, right.
+01:15:56
+OK, so now basically we can show that the germ can always be written this way. And so what is the junction tree algorithm.
+01:16:06
+The high level idea hoops. So the junction tree.
+01:16:11
+Hoops it's the junction tree.
+01:16:15
+I like
+01:16:16
+The Jungian tree algorithm.
+01:16:20
+The idea is you actually reconstruct the above formulation
+01:16:30
+Because if you have the factorization above you have the correct marginal right peel back see
+01:16:38
+What. So how do you reconstruct the the above situation you start
+01:16:46
+By starting with
+01:16:53
+The joint
+01:16:56
+Is a court because it's a huge GM. It's one of our Z product over see click potentials and then you can divide by some potentials over the separator sets and you only define this separator potential
+01:17:15
+As one just constant at initialization.
+user avatar
+Unknown Speaker
+01:17:25
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:17:27
+So you start with that.
+01:17:29
+And then what you do is you actually do updates on the click trees. You basically do message passing
+01:17:40
+Message passing
+01:17:43
+On the junction tree to update these potentials
+01:17:50
+Like if
+01:17:51
+They were correct marginals, how you could compute the
+01:17:57
+The new marginals of the of the neighbors. So you would have you basically get a new potential. And you also get a new separator potential
+01:18:08
+Using these message passing I'll read them the update. I won't give it to you.
+01:18:15
+So that is asking is, say s access equals one. It's actually find this case so FI S access equal to one. There's no so so
+01:18:29
+This is five, the society so so so these were not in the original formulation of the GM. So this is just the standard joint and then I introduced these by just saying there one at the beginning. But while I'll run the algorithm. I will update them and then they won't be one anymore. Right.
+01:18:48
+So you update these these these these potential by running marginalization and the neighbors on the on the graph. And the click tree. Sorry. And it turns out that at convergence.
+01:19:02
+At the end
+01:19:06
+What you get is
+01:19:11
+So at the end you'll get that, what is the potential new will be the actual marginals, and the potential on the separate set will become the marginal on the
+user avatar
+Unknown Speaker
+01:19:28
+Super others.
+user avatar
+Lacoste-Julien Simon
+01:19:29
+Okay, so that's the high level idea.
+01:19:34
+But for the details, see the the pointers. I put on a website.
+01:19:40
+So is there any question about the high level idea for the junction Thiago
+01:19:52
+And so the the junction tree structure is to identify the correct supporters right that's the, that's the only place where the
+01:20:03
+The junction tree structure is is coming from.
+01:20:11
+And then in the algorithm itself also these updates will use the neighbors in the in the tree to actually
+01:20:19
+Complete things properly. So that's also the click tree will be important.
+01:20:25
+And if
+01:20:27
+You don't have a junction tree with the running into certain property, then this the composition is not valid. Right. So this is only valid when these separator sets are coming from a junction
+01:20:44
+Okay, so if there is no question about the junction tree algorithms.
+01:20:50
+I will now move to the hmm
+01:20:57
+Okay so sad Simone is asking, in which scenarios would you use this algorithm.
+01:21:07
+So this scenario. So, these, these message passing
+01:21:14
+Will basically margin. So when you do the the message passing. You basically do the summation over X on the separate or set of like
+01:21:27
+Okay. Well, anyway, that's fine. So, you will have summation over access, then you will have basically your side see of X see in this kind of stuff. So, so if the separator set are really, really big you'll have these huge exponential summation right so you so as long as the maximal click
+01:21:47
+When you triangulate in your graph is small, then the complexity of this algorithm is just exponential in the biggest key right and so
+01:22:00
+So the junction tree algorithm is just, again, a system that's ization of the graph. We made our rhythm. And in this case, you can think that you got a good order by building your junction tree and then using the tree, kind of like structure to make sure you don't create big clicks.
+01:22:21
+But again, there's multiple ways to triangulate a graph.
+01:22:25
+And I said, you can get the triangulation by you're running rapidly at once. So some sense you know it's a
+01:22:32
+It's a chicken and egg problem, right. So you could have just run grapheme you need to do the in France, but the junction tree algorithm gives you all the marginals right in this case you get
+01:22:41
+All the marginals for all clicks. So that's why it's the analog of some product. So the dictionary algorithm is to do exactly in France in a gruff underground graphic model and get all the clicks.
+01:22:54
+marginals efficiently using caching of these messages. And so basically these becomes the new messages and
+01:23:04
+It will be efficient, only if the biggest clique is small. I mean, if the biggest clique is, you know, size 100 well then you need to do something special and hundreds of that will be efficient.
+01:23:20
+And the other question.
+01:23:31
+Okay, so for the describe the people who were describing this is where it ends for the describing of last class in this class. Now we'll start the hmm, which actually I also already have scribe notes.
+01:23:45
+So let's talk about implementing the some product Origanum on for the hidden Markov model.
+01:23:52
+And that's what you'll do in the assignment for
+01:23:57
+It then mark of
+user avatar
+Unknown Speaker
+01:24:00
+Model.
+user avatar
+Lacoste-Julien Simon
+01:24:05
+Alright so I'm reminded of what's the structure. So it's a directive graphical model where you have these latent variable whichever dependency between them over time.
+01:24:22
+Is it three
+01:24:24
+Blah, blah, blah. Up to season T and then I have my observation x one.
+01:24:33
+X two.
+01:24:36
+X three
+01:24:38
+And then
+01:24:41
+60
+01:24:45
+And so, said it for now we'll be discreet
+01:24:50
+Random variables. So say things that you want up to. Okay, so I have k state.
+01:24:57
+And x day XT could be either continuous
+01:25:03
+So, for example,
+01:25:06
+In speech recognition XT could be the sound.
+01:25:12
+Recording so speech signal.
+01:25:18
+This case, the speed the z's are the four names.
+01:25:25
+And it could also be discreet in other applications. So for example in conditional biology. It could be the DNA sequence.
+01:25:37
+And later when we talk about Goshen.
+01:25:41
+Random network so graphical models where the variables are gushing distributed, we will use ZTE which is a Gaussian
+01:25:53
+And what we get with the hmm structure is something called a cabin filter, which is basically one of the simplest model on time series model for us for state space model.
+01:26:06
+So, Zeke would represent the position of an airplane and X would be the observation on your radar and then you want to track where the airplane is right for the object and then you can use a common filter for that.
+01:26:19
+And as I mentioned,
+01:26:22
+When we talked about the Gaussian Mixture Model. So the hmm can be seen as a generalization of the mixture model.
+01:26:36
+Alright, so
+01:26:38
+In the assignment three you work with the Gaussian Mixture Model, where you had this plate structure, you had the latent variable. Then you have the observation extinct. And now, what you do is you add dependence in time on the latent variable.
+01:26:59
+And so instead, what you get is now these Z's cities which depends on each other.
+01:27:07
+So you can still think of it as a mixture model, but now there's some time dependence on the mixture component
+01:27:18
+And actually, that's what you will do an assignment for whereas Simon for will be the exact same data that you use for assignment three, but instead of using a Gaussian Mixture Model, you actually use hmm model with Yashin observation.
+01:27:31
+Model and try to fit the data.
+01:27:36
+Okay, so that's the hmm. So now let's write it as a directed graphical model in the formulation. So I have that the joint on my observed variables and my latent variables.
+01:27:52
+Is factoring as a bunch of conditional which respect the graph. So I have the marginal on that one, which is a
+01:28:01
+As no parent, then I have the product over time.
+01:28:06
+Up to t of the observation. So x t givens at T
+01:28:14
+Then I have the product over T of my
+01:28:20
+Transition probabilities between my latent variable.
+01:28:27
+And so in terminology
+01:28:30
+These will be called the emission
+01:28:34
+Probability.
+01:28:38
+I could probably t given a latent variable. What's the priority over your observer variable. So, for example, given the position of my plane was the priority of my readings on my radar or
+01:28:53
+Given that I have a coding region in my, in my gene was what's the property of observational specific code Don's, for example.
+01:29:06
+So that's different models and this is called the transition property because it's modeling how the cluster component, the mixture come the yeah the discrete component various over time.
+01:29:26
+And
+01:29:28
+Often, not always, but often we will have model where these emission and transition policy don't depend on time.
+01:29:38
+So often the emission
+01:29:42
+And transition
+01:29:46
+Probability.
+01:29:48
+Or where we say homogeneous environment.
+01:29:57
+That's just basically means don't depend on time.
+01:30:03
+I he
+01:30:05
+Do not
+user avatar
+Unknown Speaker
+01:30:08
+Depend
+user avatar
+Lacoste-Julien Simon
+01:30:10
+On time.
+01:30:12
+And so in this case, that means that the conditional. And if I put a subscription fee. Just to highlight that it could depend on time of x t givens a tee. This is the mission property. We'll just call it some function of X t given ZTE where dysfunction something one
+01:30:35
+And
+01:30:37
+We'll revisit represent the
+01:30:41
+Transition probability
+01:30:45
+That t equals i. Given that t minus one equals j, because this is the street, we'll just call this a j where A is a matrix which collects all these numbers together.
+01:31:01
+And so a some sense it's a matrix and it tells me, what's the priority of going from a state j to a state i. And we organize it that each column.
+01:31:17
+Basic in this case gives you. What's the conditional probably to you over I, given that I started in Jay and so the sum over. So this could be, for example, some I so this, this is a distribution.
+01:31:33
+Over that
+01:31:36
+It's attached to some to one, right. So, summation over i have a i j is equal to one for all three.
+01:31:46
+And this is called a stochastic matrix.
+01:31:50
+Because its present
+01:31:52
+A transition probability
+01:31:55
+I each of its column sums to one.
+01:32:00
+Note, be aware that in some books or in some places you use at transpose of A. Instead, you can organize the conditional from in rows and set of columns, then you just use it transports. I like this order because then marginalization.
+01:32:19
+To predict what's happening in the past. I do a victor. I do a matrix vector product. Whereas if you use a transpose, you need to do row matrix product which is a bit annoying. So you work with rose instead of columns and MATLAB and scientific Python were used to work with colors.
+01:32:40
+Star Trek is asking that. Was there some misery theoretic issue and standard the GM new GM for continuous case, which is why we stuck to completely destroy this case. Yeah, it was to simplify a lot of things because
+01:32:54
+When you start to talk about continuous distribution we talk about densities. You talk about what's the bays measure and you need to be careful. Now when you start to condition because conditioning.
+01:33:03
+In continuous world is is really weird object and and and really want to go into all these rigorous details now.
+01:33:12
+For a lot of specific case. So, for example, now I can see the emission probabilities are dashing in this structure. It's totally fine. I can do that.
+01:33:21
+What it means is that this is actually density, let's say x with respect to the back measure and that's fine. And these would just be PMS, as usual, and so that's, that's fine. Right. I can do that. These are kind of these weird hybrid the distribution
+01:33:48
+Okay, so I set up a bit of meditation. So let's say I have a transition matrix which are present my transition, probably to be discreet space and I have my emission probably T which could be a density or PM. If it doesn't really matter, ie
+01:34:05
+This thing here could be a PDF or a PDF depending on what's x, but x will be fixed anyway and observed in these things. So it doesn't really matter what this is. And now we will talk about how to compute some properties. Right. So we want to do some influence in this model.
+01:34:24
+So we first will talk about how to do in France, assuming we know the parameters in the model. And then in the next lecture, we will do maximum likelihood in hmm model, which means we'll have to use em because it's a latent variable model.
+01:34:38
+And then so will will derive what are the maximum likelihood updates in the hmm model to learn the patterns. And that's actually what you'll do you'll implement the assignment for
+01:34:49
+So what are the infant stats that we could care about. So things and a bit of getting a bit of terminology from signal processing. So this prediction I could see, I could try to complete the polity
+01:35:03
+Over my Layton variable, given my current observation which are in the past. Right, so I observe
+01:35:11
+Up to t minus one. And then I want to know, well, where will the plane be at time t. Right. So this is call prediction. Basically, I want to know where next the plane will be. There's this thing called filtering, it's, it's a very signal processing.
+01:35:29
+Terminology, which is computing the property of mallet and state given observation up to the same time step.
+01:35:37
+And this is basically asking. Okay, we're now. So where is my plane now.
+01:35:44
+Given my observations. And then there's this thing called smoothing
+01:35:50
+Which compute the product you over ZTE given x one up to capital T, where a capital T is bigger than little tea. So basically, here I have observation.
+01:36:02
+In the future, compared to where I want to know where the plane was so this is basically where in the past was the plane right in the past.
+01:36:13
+Was the plane.
+01:36:18
+And it's called smoothing because in terms of getting the value of a signal when you have more observations, you'll get a smoother estimate which varies less because you have more information.
+01:36:32
+Okay. And so now the plan is
+01:36:38
+And I'm a bit out of time. Let's see if I can manage to do that. So the plan is to implement the some product algorithm on this structure directly. So it's kind of like a
+01:36:50
+At the same time, it will read derive standard algorithms, called the alpha beta recursion. And then it's and at the same time, it gives you an example of how to use this product algorithm and the specific structure right hmm structure. So it's kind of a pedagogical example.
+01:37:08
+So there's this thing called the alpha recursion.
+01:37:15
+And you can derive it directly if you want and but we will derive it by using the supper. And so the idea is, we'll, we'll run some product.
+01:37:29
+To
+01:37:32
+To derive the alpha recursion in the hmm
+01:37:38
+Recursion.
+01:37:42
+To compute the polity
+01:37:49
+And so let's sure graphical model. And if you remember I derive some product on the GM formulation. And actually, in this case I will also run it as if it was a new GM, so I will just first make it as a new GM
+01:38:07
+But let's see, where does the some product, the alpha recursion come
+01:38:14
+Alright, so let's say this is my tree.
+01:38:21
+And this is x t and this is X t minus one.
+01:38:46
+I'm running.
+01:39:01
+Okay, so and so this is z t minus one and this is et
+01:39:09
+And so if I was to run the
+01:39:13
+Some product algorithm.
+01:39:16
+I would compute a message going from Z t minus one.
+01:39:23
+To ZTE and this is a function of ZTE
+01:39:27
+And I will compute a message going from x t to ZTE as. So as a function of city. Right. And if I want to compute the marginal overs et I would have that the marginal adversity is the product of those two messages, times the potential overs it
+user avatar
+Unknown Speaker
+01:39:45
+Right.
+user avatar
+Lacoste-Julien Simon
+01:39:46
+And so to compute
+01:39:51
+The filtering distribution. So, P of ZTE and the evidence from one up to tea.
+01:40:02
+This is proportional
+01:40:05
+To the conditional of ZTE given x one up to team.
+01:40:11
+And I use the bar notation here because the extra observed. Right. And so if I want to compute the filtering distribution front of compute this, this was the filtering distribution. I can instead compute this. And then we normalize right
+01:40:25
+And so now let's use the some product to compute this marginal
+01:40:31
+I said that the marginal on ZTE and x one up to t bar observed
+01:40:41
+This is proportion, it surely it would be
+01:40:46
+One over a z.
+01:40:50
+The potential
+01:40:52
+Which is one the note potential, which is one times the message going from Z t minus one to ZTE as a function of ZTE and the message going from x t Tuesday t
+01:41:10
+As a function of city. Okay, so I have first made my hmm as a huge GM by just saying that if I go back here so
+01:41:24
+This arm. This is my potential on ZTE and Zed Zed t minus one. This is my edge potential. I don't have any node potential in this case because these are all like edge potential. So I have a potential here potential there. It's just wretched wretched
+01:41:39
+And then z is just equal to one, right, because it's a game for me.
+01:41:44
+So these are the potential that using my message of date.
+01:41:48
+And so from that I know by the
+01:41:52
+The trick of the message passing algorithm that to get my marginal I just take the product at the last note. Okay.
+01:42:00
+So that because of the way I wrote my new GM we have that z is equal to one, right, because there was no no margin constant. Now let's compute the messages the message going from x t to ZTE as a function of ZTE well it's a fake message, right, because this is summation over at
+01:42:20
+The edge potential, which is observation of St givens et
+01:42:26
+Sorry, the property of expediency team. And then I had this credit card dub, dub potential because st has observed that, so this is a function of x, TI and XT bar. And so this is just p of x t
+01:42:40
+Bar given city.
+01:42:44
+So that's this message.
+01:42:46
+And now the other message, which is the interesting one. So I have the message going from Z t minus one.
+01:42:54
+To ZTE as a function of ZTE
+01:42:58
+This is the marginalization over z t minus one.
+01:43:03
+Of the edge the edge potential between them, which is a transition polity so if ZTE given city minus one.
+01:43:15
+And then I have the other product of messages so message.
+01:43:22
+Z T
+01:43:24
+Minus two going to see t minus one which is depending on z t minus one.
+01:43:31
+And the message.
+01:43:34
+Going from X t minus one to z t minus one, right. So these cycle here. I had a message coming like this message coming like that. And these are the messages I use to compute this message right
+01:43:54
+You were all the neighboring message and this depends on z t minus one.
+01:44:02
+And now if I call
+01:44:05
+This thing.
+01:44:09
+This joint here I would call it alpha t of the tea.
+01:44:15
+You notice that it's just a product of these two messages.
+01:44:22
+Right, because this is one, this is one
+01:44:25
+And so these two messages here. Oops.
+01:44:33
+And I'm almost done. And so these two messages here.
+01:44:38
+Product together is the same thing as alpha but i t minus one.
+user avatar
+Unknown Speaker
+01:44:47
+As I forgot the invisible ink.
+user avatar
+Unknown Speaker
+01:44:59
+And so
+user avatar
+Unknown Speaker
+01:45:03
+What we do
+user avatar
+Unknown Speaker
+01:45:07
+And so
+user avatar
+Lacoste-Julien Simon
+01:45:09
+These two messages together is just probably T of Zed t minus one and observation from one two t minus one. So,
+01:45:20
+If I don't care about the rest of the graph. So that's the magic of the the
+01:45:24
+The DGA I can remove the leaves and then I get just a smaller the GM and then I can still transfer me that as a GM. So I notice that these two messages in the in the smaller graph.
+01:45:35
+Is just basically the marginal on smaller things. And this is what well this is alpha t minus one of zero t minus one.
+01:45:45
+So the alpha recursion. Notice that you can just compute this alpha messages in the forward fashion is a recursive to compute that. Right. And so the alpha recursion just tells you that
+01:46:01
+I'll fatty of the tea can be computed by just taking the emission probably tea.
+01:46:08
+Given the tea and then something over t minus one.
+01:46:15
+The probably to transition
+01:46:20
+The t minus one times the previous alpha messages.
+01:46:29
+So that's his call the alpha recursion.
+01:46:35
+This called the alpha recursion.
+01:46:39
+Also known as the forward.
+01:46:44
+Recursion.
+01:46:48
+And it corresponds to the collect phase.
+01:46:55
+In a in the some product or window.
+01:47:00
+Where I start that the leaf and then go to the
+01:47:04
+In some product.
+01:47:20
+Okay. And I think now we're way out of time, so I will continue covering this in more details at next class, but basically the idea is
+01:47:31
+The alpha message. So this thing is the probability of that tea. It's the marginal of the tea and the observation up to and in order to compute that I can start with alpha zero of zero, which is basically
+01:47:54
+Just the
+01:47:57
+There's no alpha to compute it, you can just compete it from its emission probably t here.
+01:48:03
+And then you keep perpetuating forward these messages to compute up to the last time step. And that's where you can get the filtering distribution by re normalizing
+01:48:16
+Okay, so is there any question about that.
+01:48:32
+So I'll revisit this piece at the beginning of next class and talk about the time complexity of the algorithm and
+01:48:42
+How to implement this in a numerically stable way because what happens is these properties goes to
+01:48:51
+Will do under flow very fast.
+01:48:55
+Because you want to play another number of smiling one
+01:48:59
+And this is what you'll implement in the assignment. Cool. Alright, so see you on Friday.

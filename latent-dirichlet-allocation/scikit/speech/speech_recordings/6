@@ -1,0 +1,1503 @@
+Lacoste-Julien Simon
+00:00:06
+Okay, it is recording
+00:00:10
+So today did a zoom
+00:00:20
+Today we are going to go over some very fundamental stuff the statistical decision theory.
+00:00:32
+Decision.
+00:00:37
+Theory and talk about properties of this to me.
+00:00:47
+So perhaps to step back a bit. So, so far we I've done a bit of a review of policy and statistics talked about the maximum likelihood estimator.
+00:00:59
+Which was a one of the most that's a natural way to estimate parameters from data. So we're doing statistics and it will also an excuse to review interesting math with in particular, using Lagrangian multipliers for the, the method of leverage with the players to handle constraint.
+00:01:18
+So, and then at the end of last class I talked about the bias variance decomposition for the squared error term.
+00:01:25
+So that was a bit of a quick preview, which was useful for the assignment, but
+00:01:30
+The quick preview of what we will do today, which is a statistical this show that decision theory, which is the much more general framework of how to evaluate statistical procedure.
+00:01:39
+And so, in particular, if I tell you I have a learning algorithm. A and learning algorithm be which one is better. And usually, you cannot just answer this question in absolute
+00:01:51
+There are, in theory of statistics and machine learning. There are no free lunch theorems, which basically say, you can always find a data set.
+00:01:58
+For which a procedure learning algorithm. A will be better than our learning are going to be and then a different data set where it will be the other way around. So usually
+00:02:06
+You know, just make these statements in absolute but you can say for you can try to qualify. These statements in order to make sense of comparing different techniques. And so today, we'll see the the framework to do that. Okay, and
+00:02:25
+And that will help us to kind of like have a strong basis for just the theory of the class. And then in in later lectures will start to
+00:02:34
+To go with more concrete examples of statistical tests like linear regression or by notification. So, which are more centered machinery task. Okay.
+00:02:45
+So that's the plan. And if you take any if you read any statistics textbook, they will always start with statistical decision theory because that's kind of like the basic
+00:02:57
+formalization of what we're trying to do.
+00:03:00
+So what's the formal setup.
+00:03:05
+Welcome. First, I'm talking about. This is called the string theory. So
+00:03:09
+Statistical
+00:03:13
+Statistical and it's called decision theory because the idea is you need to make some
+00:03:19
+Decision with uncertain information about the world.
+00:03:25
+From say some random observation that you had
+00:03:29
+And
+00:03:31
+How can you evaluate these decision based decision theory.
+00:03:39
+Alright, so the formal setup for that.
+00:03:43
+And as usual, feel free to interrupt me at any point with questions.
+00:03:48
+And I'll put a bit of notation. So, we will have a random observation.
+00:03:56
+Which I'll use the for data.
+00:03:59
+So the is now a random variable, and it will be distributed according to some distribution peak, which we don't know. Okay, so, so this p here. I guess I use a big piece. So it's not a PMS. Now it's just a distribution.
+00:04:14
+This is an unknown distribution.
+00:04:18
+Which characterize the thing we're trying to model.
+00:04:25
+And the thing we could be trying to model is the result of a bunch of coin flips. Right. And so the will be the observation I made from a bunch of coin flips and P would be the distribution of the coin flips, which I don't
+00:04:39
+And so I say unknown distribution which models the world.
+00:04:45
+which models the world. What I mean by the world is. I mean, the world of interest. Right. The phenomenon we care about like the world the phenomenon.
+00:04:58
+And given that usually we'll think about parametric family often this p
+00:05:05
+Would be say
+00:05:07
+Identity or PMS and I will use as a subscription failure to highlight that you know it's defined by a parameters data. Okay.
+00:05:16
+But it doesn't have to be from a perfect family could be anything. I need distribution. Alright, so we have. And so that's that's the part which is random. So, so d is coming from a distribution that we don't know, and D is random.
+00:05:30
+Now, we also have an action space.
+00:05:34
+Which is why it's called decision theory. Right. So we need after seeing the observation D will need to make an action in the action space.
+00:05:44
+Which basically is our statistical decision. Okay. And when you do estimation from data, your action is basically a parameter
+00:05:54
+Okay, so that's what I had observed a bunch of coin flips. I use maximum likelihood estimation, to get a parameter for my coin flip. That's my action. Okay. And then we need to evaluate this action that's why we'll have a loss.
+00:06:09
+Which would tell us how good our action is so the last use capital L and it has two arguments. It has an argument. The unknown distribution which characterize the world.
+00:06:21
+And an action. Right. So this is the last. This is the statistical us just to use statistical just to make clear that we're in the context of a statistical problem.
+00:06:35
+And it's to distinguish to some losses we use machine learning later. So that's also why use that. So this is the statistical loss of doing
+00:06:45
+Action little A in our action space.
+00:06:50
+When the world.
+00:06:54
+Is capital P. Okay.
+00:06:58
+And I've put in quotes the world because
+00:07:02
+We're talking about the world with just a distribution, but that's kind of the idea
+00:07:07
+And
+00:07:10
+If we have a pet treadmill and, you know, we will often
+00:07:15
+Write this loss as theta a,
+00:07:21
+If
+00:07:23
+You know,
+00:07:25
+We have a parametric model.
+00:07:37
+IE, the big P was had a PDF or a PF
+00:07:45
+P little data for some
+00:07:49
+Data
+00:07:51
+In some parameter space. Okay. So the idea is
+00:07:56
+Either as my first argument they take this abstract distribution or if I have in in my this context of the task of trying to solve. I think of possible distribution which all has some parameter describing them, then it could just be a function of the parameter itself.
+00:08:13
+It's kind of the same idea.
+00:08:15
+And the important thing is that this loss is basically describing the goal, it does it's tell us what are we trying to accomplish, because it tells us how how do we evaluate our decisions describe the goal.
+00:08:31
+Or the task.
+user avatar
+Unknown Speaker
+00:08:34
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:08:36
+So those are the three main ingredients for statistical decision theory, we have a random observation we have some action space which is basically the decision we need to make. And we have a loss which tells us, given the unknown world and this action, how well this is
+00:08:54
+And then the last part is, well, we will, we want to make a decision. So normally will have a decision rule. And that's what we try to evaluate, so I'll use delta for a decision rule. These are mapping from the set of observations to the set of actions. Right.
+00:09:12
+And so this script D here is just the sample space for the random variable capital, right. So this is the observed possible observed data observation. The festival daily observation I can have
+00:09:27
+And so this is called the decision.
+00:09:34
+Okay, and that's it so super abstract
+00:09:38
+Oh, there's already some questions so super abstract and that will make it more concrete with some examples that that would become much clearer what would be the difference between the and a random variable.
+00:09:54
+Okay so capital D is a random variable. And I use the notation, the squiggly
+00:10:00
+capital P. So, this thing here just to specify that this random variable was add the distribution capital P. So that's the distribution of my random variable like the same way. I said, capital X is a binomial Ed P, for example, that just specifying the distribution
+00:10:20
+Oh, and I should perhaps read all the chat so Umar I'd already had answered a question.
+00:10:26
+Yeah, but yes. Now I have inserted for everyone.
+00:10:31
+Thanks for more. That was the correct answer.
+00:10:33
+So let's do examples. Because right now, it's, it's kind of abstract
+00:10:41
+Ah, yes, I will give a concrete example now.
+00:10:45
+And the decision rule could also be penetrates. Sure. So the same way that I have capital P which is distribution and I have delta for this general
+00:10:55
+But I could decide that I will penetrate my decision rule, I would have a parametric family of decision rules and I will just use a parameter. Instead, same way I could have a Patrick family of distribution, but
+00:11:10
+Notation. Alright, so that's the examples because right now. And this is super abstract
+00:11:15
+Let's do example so
+00:11:18
+First example is a parameter estimation, but we have already talked about when we talked about maximum likelihood estimator Power Meter estimation
+00:11:32
+So,
+00:11:34
+Our action space in this case will be the set of parameters for a parametric
+00:11:44
+Family
+00:11:45
+Of distribution that I'll use a script P data for that.
+00:11:52
+And then
+00:11:56
+Delta.
+00:11:58
+Is a parameter
+00:12:03
+Estimator
+00:12:06
+From data.
+00:12:10
+Right, so an example of very standard setup is I will have that d
+00:12:17
+You don't have to have that right but that's, you know, the standard estimation problem, you will typically have that D or ID observation.
+00:12:26
+I would have, like, say, an observation where so that's like the training set where usually
+00:12:36
+You would have that x eyes or ID.
+00:12:42
+From some PII data.
+00:12:46
+And data is unknown. Right.
+00:12:49
+Because we don't know what generated data.
+00:12:53
+Okay and so
+00:12:56
+So in this setup.
+00:12:58
+I have my I defined. Now the distribution and my data capital D, which is just ID samples from us fix distribution p of little theta. That's my world.
+00:13:09
+And now my action is from this data, guess what should be the correct parameter which generated the data.
+00:13:19
+Okay, which we could say instead of prime
+00:13:22
+And then I need to define a loss to say, How well am I doing. So a typical us that people will use is a square loss. And so the last when the true distribution is p of data and my action was a here is a family. Right. So you can think of data prime
+00:13:41
+This is good, you know, a here belongs to the action space, which in this case is just the same set as the parameters.
+00:13:50
+And so I could use the LT norm. So I will say, well, how well I'm doing will be measured by the Ultra distance between my guests parameter and the true parameter is A squared loss.
+00:14:06
+But it's not the only one. So another example of last you could use when you try to estimate densities or parameters could be the KL divergence. So other loss.
+00:14:20
+Could be used
+00:14:23
+And so, for example, you could use the kale divergence between P of theta and your guests distribution. That's another
+00:14:32
+Way to measure how well you're doing. Does not the same thing of the L to error, but if
+00:14:40
+So, so if you don't know what the kale divergence. Don't worry, we will go over them much more detail with me to information theory and this kind of stuff.
+00:14:50
+For now, you can just think of it as a measure of the this similarity between two distributions. But if the two distributions, our oceans.
+00:14:59
+And if they have the same variance and they just have different means. Then the kale divergence between them will also be
+00:15:06
+Something like a scaled L to error so that the LT norm between the parameter will be very similar than the kale divergence when discussion, but if it's not gushing and it's, it might be different.
+00:15:20
+Okay, so that's parameter estimation
+00:15:24
+What about hypothesis testing. So that's a different statistical task.
+00:15:30
+In hypothesis testing.
+00:15:35
+Oh, before I go to that. But it's testing. So at the end of last class I did the, the, I looked at the expectation of the square there for a general estimator.
+00:15:49
+Data hat. Right, so that I had for presented the so you know that notation normally would be theta hat is applying my decision rule on the observer.
+00:16:00
+Of their observation, right. So, delta right so that's what we had and so last time we looked at the expectation of the squared error for that.
+00:16:11
+And we side it was decomposing as two terms the bias square and the violence of the data. Okay, so that was can be they. So this was the the completion of the expectation of the, the loss when the expectation is over the random training data.
+00:16:29
+And we come back later on this very soon. When we talk about summarizing the the the property administrator
+00:16:41
+Okay, so, Mr is asking
+00:16:46
+Okay, so if we use the kale divergence, the action spaces different
+00:16:52
+So if we
+00:16:54
+Start. So the assumption here is the action space is a parameter, but in the company. If I want to be able to use the kale divergence it these parameters have to be associated with a
+00:17:06
+Property Distribution. So we need it will be a Patrick family if I don't have a parametric family in mind doesn't make sense. Talk about the killed average. So, indeed.
+00:17:14
+There's a bit of an assumption there to use a key leverage
+00:17:18
+Was the norm.
+00:17:20
+You could. You could even have different parameters set for the action space. So you could have that
+00:17:27
+This set of parameter here is different than the parameters which are used to describe the real data as long as the but they have to be in the same space, though, to make sense of Dale to so
+00:17:41
+I'll, could you redefine the ok so somebody says that you could if you remember tries things the square, this would be a different values that the problem. Yes, that is a problem.
+00:17:53
+Indeed, the square less is not invariant to remember translation. So if I just multiply my parameter, bye bye skater. For example, it doesn't change normally
+00:18:05
+I could just decide that sort of prioritizing the mean I could prioritize by the mean divide by to write a Gaussian. I will just use the media by my
+00:18:14
+And that's, that's my new parameters and then still use the correct meaning that. Gotcha. And then the LT norm will be different. Yeah.
+00:18:22
+But the kale wouldn't be different. So that's the nice adventure of the kill divergences of this is in various to how you prioritize thing because it only depends on the distribution, not our penetration
+00:18:32
+But the alto norm is basically measuring how well you've estimated a parameter. And if you care about these precise pressurization then it makes sense if you think this participation is is
+00:18:44
+is arbitrary. Well, then it doesn't make much sense.
+00:18:59
+So yes, in the setting action space and parameter space are the same thing.
+00:19:04
+In the one I just presented
+00:19:07
+This is called the also the well specified setting in the sense that the the thing where you know that the true parameter which describe the
+00:19:18
+Real world distribution is actually belonging in the family that you're considering of actions. So in particular, if you get the right parameter, you could have a zero L to norm.
+00:19:30
+But in margin are all sending you could assume that you, you might not even have the right to correct Patrick family and in this case the could be different.
+00:19:40
+And then somebody asked a question of how well the data. The idea assumption work in the real world.
+00:19:49
+And how does the estimation method change when the data is an ID. Okay, so that's that's a bit
+00:19:56
+We'll come back to this later because that's a complicated question to answer. So a when you do independent experiments like I do have been to find coin flip. It is really good. Okay. If I have a industry and. And so if we play. Let's say you're modeling a factory and you're looking at
+00:20:18
+failures of the machine. Right. Well, sometimes these failure might be correlated, right, because there might be. It's not like each time you make an observation of all as it failed or not.
+00:20:29
+And it's not like it's
+00:20:32
+flipping a new coin. So in this case, the independence assumption might not be a good one. So you want to introduce some correlation and the graphical model terminology is one way to model to represent these correlations. Like you could have a chain coronation will see that later.
+00:20:50
+But the idea is, is kind of like the the
+00:20:55
+It's like thinking doing physics with assuming friction is not present right so it's a nice idealization which work in some setting. Very well.
+00:21:12
+Alright, last question from Jacob. We don't know theta. And we're guessing a that is close to theta as we can get. Right.
+00:21:20
+That's the idea. So the idea is
+00:21:24
+I mean, an example of a parameter estimator is the maximum necklace.
+00:21:29
+Okay. And so now we're saying is the maximum and accurate estimate close to the true value. And that's the square, which measure that
+00:21:38
+And and the assignment, you're basically showing that for some examples. The Emily might be
+00:21:45
+And actually we will show at the end of this class that the Emily is consistent usually under a rigorous conditions, which means that the bias and aspirants will go to zero as NGOs and feet. So the base will reduce in the various reduce as angles.
+00:22:00
+And actually usually there are often on base as well, but not always.
+00:22:05
+Okay, so
+00:22:09
+This is testing. So there was parameters Commission second example is I will just have two actions either zero or one. Okay. And this is often call hypothesis testing.
+00:22:25
+In statistics,
+00:22:29
+Because one might be that the hypothesis is false and zero is true, or the other way around, I guess. One is the opposite is true and zero. It's false. And so you're testing whether the hypothesis should be true or false.
+00:22:42
+And delta. In this case it is. This is what we call the statistical disk.
+00:22:52
+That this is that is the call test.
+00:22:58
+Okay, like for example like
+00:23:02
+An example of statistical test is you want to know if
+00:23:05
+Two random variable or distributed the same or they're not a dispute the same or
+00:23:13
+That's a bit complicated as well. So let's say you suppose that you have to gushing random variable. And you want to know whether the mean is the same or not.
+00:23:22
+Okay. And an example of that would be all i modeling the, the, the result of of how can the outcome of a medic medication.
+00:23:34
+And perhaps the mean represent like the the concentration of something in the blood and you want to know whether
+00:23:42
+Doing medication. A versus medication be changed anything I either concentration will be different in average or it doesn't do anything. So there are the same.
+00:23:51
+So it's a test of is a different or is it the same and so normally what you would have is, you will have some
+00:23:57
+You will compute some statistics from the data. And if the statistics as a bigger value than something you'll say, oh I reject the hypothesis or accept the hypothesis. So that's basically the two decision of zero and one.
+00:24:13
+And then the last in this case will be
+00:24:17
+It's usually the 001 last so you'll see
+00:24:26
+I have theta.
+00:24:28
+Have a
+00:24:32
+So fade out basically represent like was the hypothesis is true or false. And he is, you know, I suppose it is true or false. And you just say are your right. Right. So it's you'll get an error of one
+00:24:48
+When they're not equal.
+00:24:51
+And so when they die is not equal to a and you'll get an error of zero. If you're right. Right. Okay.
+00:24:59
+And and if you're familiar with the terminology of statistical tests. There's type one error and type two errors which are different type of errors.
+00:25:08
+But they're basically related to, you know, the expectation of this last because if I take the expectation of that respect the priority of saying the correct things, then you'll get the you know the the proportion of time you will you will screw up.
+00:25:25
+Here, but we want, you know, this is quite statistical thinking we won't go through tests in this class, but it's just to give you another example of how sensical decision theory work.
+user avatar
+Unknown Speaker
+00:25:36
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:25:38
+And the third example. And that's the most important for us because that's very related well as also important. But see, this is what we do in machine learning.
+00:25:47
+And so when you do prediction.
+00:25:50
+I mean, there's many destination learning as well. By the way, but let's do basically supervised learning things prediction in machine learning. Okay.
+00:26:02
+So what I mean my prediction. I mean just classification. So this is learning
+00:26:07
+A prediction function.
+00:26:12
+In supervised learning
+00:26:19
+So, or position function or classifier or regression function depends if you do regression or classification and you could think of this as doing estimation. So you're trying to estimate a parameter, but the parameter is actually a function, right. So this is like function estimation
+00:26:34
+Okay, so what's the setup so that the setup would be that the training set would be
+00:26:42
+Input, output pairs.
+00:26:45
+You know, an observation of x and y. Right, x could be an image. Why the label or X could be an individual and why it could be their height right so that's, you know, the supervisor data.
+00:26:57
+And so x i will belong to some input space. I'll call this script x. So that's the input space and why i belongs to some output space.
+00:27:11
+Is here and when you you're doing machine learning in this provides context. You're trying to learn the input output relationship right
+00:27:19
+And so, if y is 01 or discrete. This is called classification
+00:27:29
+Is actually binary classification and if why for example is the real number, then this is called regression, you're trying to
+00:27:38
+Find a continuous value associated with the input.
+00:27:45
+Alright, so that's my observation.
+00:27:49
+And sold the distribution
+00:27:54
+On
+00:27:56
+X, y, we will call it P of failure. So, for example, like PA theta. So here I'm I'm abusing a bit the notation and you'll see why. So, but it's called PA theta, the joint.
+00:28:10
+On x, y is it tells you how x and y are related. OK, now the distribution characterizing my my training set.
+00:28:23
+Which I use P is a if I assume that the data is ID, then P is just a product of POS data, right, so this will be p of theta product PA theta blah blah blah PF data enzymes.
+00:28:40
+Because that's all I'm saying here is that the joint on x one, x, x one white one, two, x and y n which is characterizing capital D is just by independence is just a product of the joint on every x
+00:28:59
+Ray construction.
+00:29:01
+But this is also to clarify the terminology and the notation that capital P is really characterizing the whole observation and it could be made of multiple pieces in terms of distribution.
+00:29:15
+Okay, so that's my the what characterize the data set and now in the classification or regression, while we want to learn is a mapping function. So it's a set of function. So, it will be
+00:29:29
+The action space could be the set of function or you could have a subset of that right. If you want to prioritize your, your functions, but in general, you could have the function from X to Y and in mathematical notation. It's script why race to do script x. This is the set of functions.
+00:29:50
+From script x to y.
+00:29:56
+So that's my actions. Okay.
+00:30:01
+And now.
+00:30:05
+Papa, Papa. Now, what's the statistical last that we use in machine learning.
+00:30:11
+Machine learning
+00:30:14
+Machine learning
+00:30:16
+What we use as a no should available elation of our classifier or aggressor is basically the prediction air right
+00:30:27
+So what do we mean by the prediction era. So the last supposing that may true world with PR theta and for a prediction function, I will use f
+00:30:39
+Is usually
+00:30:42
+The generalization air and prediction air was that the expectation of the on the true distribution that I don't know, have some costs that they use little L for the cost of predicting f of x. When the truth West capital Y.
+00:31:03
+Si. That's the expectation is, that's the transition Arabic
+00:31:08
+So this thing here.
+00:31:12
+In mission earning. This is call the generalization error.
+00:31:21
+Now, or if you do castigation, it could be called the classification air.
+00:31:27
+Etc. Etc. There's multiple names for that.
+00:31:31
+And alright so a bit of notation.
+00:31:40
+So what we mean by expectation with little pure feta means that we think the expectation over a random variable. When the come from POS data. So the expectation is on capital X and given away.
+00:31:52
+And this little l
+00:31:55
+Here is called the prediction loss.
+00:32:00
+Not to be confused with the statistical us the statistical less is the capital L. The prediction last is just how we evaluate individual predictions. Like, here's an image.
+00:32:13
+Of something and then you say it's a cat. But actually it was a tiger. Okay, then how do we, how bad is that right, then you put a number for that. Okay. And then for an example of classification US could be the 011 error. If you do
+00:32:29
+Was upon classification. A typical
+00:32:33
+Prediction last that you will use his little l of capital Y F of capital X is just this one error, right, is why not equal to capital. The prediction, you made.
+00:32:49
+Is that zoo. One was the one there.
+00:32:53
+But let's say you do machine translation perhaps
+00:32:57
+So so so you're trying to you predict a set of words a sequence of words and you had a gold translation.
+00:33:04
+Which was provided to you, perhaps with your use instead of just are the equal you'll just say we'll use a blue score between that. So it's a much more structured notion of air.
+00:33:16
+Okay, so that's the generalization there.
+00:33:20
+And
+00:33:23
+Importantly,
+00:33:25
+in machine learning.
+00:33:31
+This statistical loss is often called the risk
+00:33:42
+Because in statistics, a risk is basically the expectation of some loss with respect to some distribution and this is indeed the expectation of a prediction loss with respect to distribution. Okay.
+00:33:57
+And when we talk about empirical risk minimization is basically minimizing the empirical version of this expectation, because actually this expedition can be computed because we don't know what PFA it is
+00:34:09
+But if we have training set, we could approximate the true PA feta, with its empirical distribution from the data and then we just try to find the function f, which minimize the empirical version of the risk, which is basically the training. Okay, so that's pretty standard machine learning.
+00:34:26
+And it's called the risk okay but me.
+00:34:30
+Just to distinguish it to another risk that will sue very see that very that will see very soon, which is called the frequent this risk. I will. I call this
+00:34:41
+The vet Nick risk.
+00:34:47
+Because basically
+00:34:49
+Then you may have let that Nick, who wrote a very famous test text books on statistical learning theory and support vector machines and all this kind of stuff. And he was a big
+00:35:00
+Kind of like a proponent and it kind of like popularize the terminology like structural risk musician from the empirical risk musician principle and stuff like that. So, so the risk is talking about is this
+00:35:14
+This expectation here. So this last this ethical us. So I call it the epic risk to differentiate it or to distinguish it
+00:35:26
+From the frequent is risk that will see very soon.
+00:35:33
+The frequent this
+00:35:36
+Risk
+00:35:40
+Risk
+00:35:43
+Actually, that's right, the frequent this risk and then I'll answer some questions. So basically, the decision rule.
+00:35:56
+Is mapping
+00:35:59
+The observation to a function. So I'll use f hat as the submission of my function. Right. And so in terms of terminology for machine learning.
+00:36:08
+You can think of delta. It takes a training set and output. The output of a learning algorithm, which is basically a classifier right or regression function.
+00:36:18
+So, so that that here is the learning algorithm, right, because it takes a training set as input and it gives you an output some kind of classifier of some sort.
+00:36:30
+And have had will be the prediction function.
+00:36:36
+So this is basically the prediction function, you could call it the prediction function or, you know, the classifier or the aggressors, right. So that's what it's called.
+00:36:51
+And what is the frequent this risk the frequency is risk.
+00:36:57
+Is where we computed when he did the virus virus decomposition
+00:37:01
+It's the expectation of the statistical us
+00:37:10
+Over to a random observation.
+00:37:15
+So I will have
+00:37:18
+P i guess P of theta, just to make it
+00:37:22
+Like theta and then
+00:37:25
+The randomization. Oh no, sorry, I need to make my decisions so
+00:37:32
+I have the action that I would take if the observation was the and then I think the expectation of that respect to all possible ramifications.
+00:37:42
+Okay, now there's a lot of questions. Let's see what you see
+00:37:50
+In practice, how do you assign a distribution of Theta.
+00:37:58
+So let's skip this question for now we're doing theory. There's no practice here it's theory and putting a theoretical framework and then we'll get back to how does the theory relate to practice.
+00:38:11
+And if I have not answered it. He's asking it.
+00:38:24
+If P equals the product of the joint p or an approximation. Yeah, capital P in this case was the product of the the the joint on X i. Why I given by piece data.
+00:38:50
+Okay, so, so now there's a long discussion about the notation. So I said, like, you know, usually
+00:38:58
+These pairs of observation or ID from some distribution and now somebody confused. I probably from is GD because or something because they say well,
+00:39:10
+In practice, you go over the whole data sets. So it's more sampling without replacement. So I'm expanding here how to generate the data set.
+00:39:18
+Again, and, for example, like that. So it could be the result of a bunch of coin flips and you know I can repeat the same observation I could have that the coin flips were the same, right. So, you know, I could repeat the observation.
+00:39:31
+Hopefully that will clarify this.
+00:39:37
+How do you calculate the frequent as risk would be if data is not known.
+00:39:41
+Very good question. So that, again, that's the the notion of
+00:39:47
+Theory versus practice right so in theory when practice, you don't know POS data. So you can have to compute the frequent asterisk.
+00:39:54
+In theory you could consider a different setup and analyze what different countries risk would be in this setup.
+00:40:01
+And then you could say, oh, well actually an estimator is better than another one. And actually, that's what we start to talk about now already is to try to compare estimators in theory.
+00:40:11
+But in practice, you can estimate the frequencies risk of an estimator, actually, you can actually estimate it frequently. It's really hard and you will need to have a lot of observations of training sets.
+00:40:23
+And so you can estimate the statistical loss.
+00:40:28
+For a specific action by evaluating that you know the trainer or the validation error or you have a different training set, right. So that's an approximation of their risk.
+00:40:39
+Or the web link risk. But if you want to estimate the framing of this risk, then you need to generate a lot of data sets.
+00:40:45
+And then evaluate run your, your learning algorithm on each data set. Get decision rule evaluate its last but
+00:40:54
+You need to know the truth for that, so perhaps you could evaluate its tester and the hell out test set. So that would be one way. So you could have held our test set.
+00:41:02
+Where. Or how about validation set to be more safe and then you just train your, your learning algorithm on multiple training sets you evaluate undervaluation set and you take the average overall that that's just an estimation of your frequent this risk.
+00:41:22
+Okay, so now
+00:41:24
+Let's talk about comparing procedure because that's that's the whole point of this theory.
+00:41:30
+Okay, so
+00:41:33
+Yeah, so there's nothing practical yet, right. So this is theory comparing procedure.
+00:41:41
+But, but the whole point of statistical theory is to also encode what we mean by the performance of a statistical procedure. Okay.
+00:41:51
+So let's say I have procedure one and I have procedure to
+00:41:58
+Okay.
+00:42:05
+And so as I mentioned the frequent this risk.
+00:42:12
+Of a procedure.
+00:42:14
+I'll use annotation.
+00:42:16
+Are and the first argument would be either PR PR feta, depending on the fiber pat tries to me of my world.
+00:42:25
+And the second parameter will be the second argument will be the actual procedure that I'm evaluating the frequency and by definition, this will be the expectation over possible training set.
+00:42:39
+Of the last statistical loss of
+00:42:45
+Doing delta on the training set. So capital D.
+00:42:52
+When the true world was given to us guess
+00:42:59
+That's the frequency with
+00:43:01
+Which is not the only way to evaluate a procedure, I will see other ways are very so okay
+00:43:08
+So basically as a frequent is you can compute different properties of your procedure and you compare these properties for different procedure and that's how you you can try to understand better how the procedure be
+00:43:22
+So the issue here is you don't know capital P
+00:43:26
+You don't know what's the world. So what you will do normal easy. We'll get something called a risk profile.
+00:43:38
+Okay, so basically
+00:43:41
+If I looked at here at the possible set of world of distribution, for example, I could have p one here and two different distribution.
+00:43:50
+Then I compare how does my frequent this risk of procedure one varies with a distribution and that could be the kind of risk profile, you get. So that would be the risk the frequent is risk as a function of
+00:44:05
+Of
+00:44:07
+Of the distribution for procedure one. Okay. And here's procedure to that's its risk profile.
+00:44:14
+Okay.
+00:44:18
+So basically here.
+00:44:22
+I have two different estimator or learn like
+00:44:28
+Yeah, two different estimator, and I'm trying to compare their performance, but their performance our functions function of what function of the unknown world. And so if I asked you is delta one or delta two is better, which one you choose. So how many people would choose that the one
+00:44:47
+Say yes.
+00:44:50
+How many people would choose the other two.
+00:44:57
+And somebody says, it depends on where the world is. Yeah. That's a good point. That's a very good point yet. So if, if the world I care about or that I see in practice is in this region. Well, don't they want is clearly better because it's better
+00:45:12
+If the world can be anywhere. And I don't like to be to have really bad loss and perhaps that that too is better.
+00:45:19
+But, you know, and there's no absolute answer in this case, right, because when you have two functions. You cannot compare to function in general like they're incompatible.
+00:45:29
+Unless one is strictly below the other one, then, okay, you could say one is below the other one but usually the cross and whatever, then there's there's no real winner. Okay. And so then what happened is in statistics. People have transform these risk profile.
+00:45:49
+To a scanner.
+00:45:55
+And so there's this thing called media max analysis, she might have heard and statistics.
+00:46:02
+Were in this case, you look at the worst case performance over a set of distribution. So, if you look at the max overall P in a family of distribution of your frequent this risk. Okay, so this is really a worst case.
+00:46:17
+So when you say that
+00:46:24
+Worst case. So that's the max and what you want is you want to minimize that max of the risks. So you want to minimize the worst case of that. So that's why when you say that an estimator is meaning max. That means it's actually minimizing the worst case behavior over a class of distribution.
+00:46:42
+And so in this case delta to from a worst case behavior would be better than delta long because it has lower worst case so that enables you to compare procedure, but why are you caring about the worst case.
+00:46:55
+Right, perhaps the worst case never happens in practice. So who cares.
+00:47:00
+So another thing you can do instead is to do a weighted average.
+00:47:07
+Weighted average
+00:47:10
+As you take the integral over possible world. Let's say we prioritize that this the world with a
+00:47:17
+With a with parameters data. So then I would look at the risk when the true world is described by pure theta and for procedure and then I have some prior or waiting over my partner or my distributions. Right.
+00:47:36
+So this has kind of a, of a Bayesian feel right.
+00:47:44
+And very soon, we will see that, indeed, you can relate the Bayesian viewpoint and the frequent his viewpoint by using these weighted average.
+00:47:57
+Hey, but this is also the idea of like, well, there's some distribution and I care more about to for the performance of my procedure and so I would say procedure, one is better and procedure to when I take this weighted average of the frequencies risk overall possible
+00:48:12
+World with some weight. Okay.
+00:48:17
+That. Yeah. So Jacob rephrase exactly what I said so. So did the choice of this waiting could be seen as the choice of a prior
+user avatar
+Unknown Speaker
+00:48:29
+Huh.
+user avatar
+Lacoste-Julien Simon
+00:48:33
+Yeah, so, so perhaps
+00:48:36
+The better terminology would be p of theta here. So I would have a parametric family of possible worlds and contrast by theta.
+00:48:51
+Okay.
+00:49:00
+Somebody is still say Is this still assuming we want practically be able to get RP of the well. So, for example,
+00:49:11
+We could just say, oh alright I'm doing maximum likelihood estimation of a Gaussian parameter that could say, all right, suppose my data is gushing with this parameter, what would be the frequent this risk of the Emily.
+00:49:26
+And now for every possible. Gosh, and parameter you will have a different fitness risk for it.
+00:49:31
+And then you will summarize that by saying some distribution over to the possible Goshen, and then it will become one number. So you can actually compute this whole thing right
+user avatar
+Unknown Speaker
+00:49:42
+So, so
+user avatar
+Lacoste-Julien Simon
+00:49:45
+Because here. We're not saying, oh, I know, for I don't I know which distribution during my data here was saying considered these possible distribution during my data. How well in average will my procedure do
+00:50:07
+Alright, so last topic. Well not actually. But let's say the last topic before the break. Just to highlight
+00:50:14
+Different ways to analyze things and different conventions, also in different fields.
+00:50:23
+pie in the weighted average is the waiting in the weighted average. So that's, that's the, that's the week.
+00:50:34
+But it could be seen as a prior sometimes okay so
+00:50:40
+Let's talk about the pack.
+00:50:45
+Theory.
+00:50:48
+Versus the frequent this risk.
+00:50:56
+So frequent. This was the very standard way to analyze a procedure in statistics. It's the expectation
+00:51:04
+Of over the the possible observations wasn't in computer science and machine learning because machine learning is coming, coming out a bit of computer science mainly depends how you talk how you do the history, but
+00:51:18
+Computer Science like to have these worst case.
+00:51:23
+Guarantees because expectation is not the same thing as the worst case right when you talk about the complexity of an algorithm.
+00:51:29
+You know, you want to know, how bad does it doing the worst case or how long is it taking the worst case, the same thing as doing an average case analysis original worst is not a thing.
+00:51:39
+But there's something in the log in terms of like performance of a statistical procedure where instead of looking at how well it does an average you look at how well it does somewhat in the world's worst case. So in machine learning.
+00:51:52
+You usually look
+00:51:54
+I mean, usually I think now is a bit less true but two years ago, which was more this kind of analysis.
+00:52:02
+But the thing is you look at our call tell bounds.
+00:52:08
+At tell bounds.
+00:52:12
+For the distribution
+00:52:16
+Of
+00:52:19
+The statistical last
+00:52:26
+Where the training set is random.
+user avatar
+Unknown Speaker
+00:52:31
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:52:33
+So pack.
+00:52:35
+Theory.
+00:52:37
+Stands for
+00:52:39
+Probably
+00:52:42
+approximately correct probably approximately correct
+00:52:49
+And they're kind of statement, you would have is that the probability that you're a statistical decision loss.
+00:52:57
+In the context of the unknown world p
+00:53:02
+For whatever your procedure is. So for example, let's say we would do a pack analysis of support vector machine that's an example of an algorithm.
+00:53:12
+That would say, okay, delta would be the support vector machine classifier. And we say, well, the transition error of our classifier will actually be
+00:53:23
+Upper bonded by some quantity. So what we say is that the property that
+user avatar
+Blain-Montesano Yves
+00:57:12
+Depends.
+user avatar
+Lacoste-Julien Simon
+00:57:43
+Okay, so I lost my internet internet connection.
+00:57:49
+So right now I'm using my cell phone. So I suggest we go on a 10 minutes break and hopefully my internet will come back in the meantime. Sounds good. Alright, see you in 10 minutes at three to 3044
+00:58:24
+Okay, we're back.
+00:58:32
+I got interrupted in explaining the the pack theory to probably the approximately correct. So, what was I saying, so I was saying that
+00:58:43
+in machine learning. Often we talked about these generalization air about. So what do we mean is will say that the generalization era. So the statistical last four predictor will be upper bounded by some value.
+00:58:56
+With high probability. Okay, so that's why they're called probably approximately correct, right. So the idea is it's the bound is not always true, because there's some quality that they're not holding quality over what
+00:59:08
+Probably T overtraining said you could have a training set for which you are very unlucky. And then you're bound doesn't hold. Okay. But the idea is you will have the property of the bounce failing is small, which will be little delta. And usually this delta will appear in the back.
+00:59:24
+And so you would have something like the the the
+00:59:29
+The transition error of your classifier will be upper bounded by its training air plus some kind of complexity term error and something which depends on the the delta which is the property of failing of your guess what, that's the kind of
+00:59:46
+Analysis that people did in machine learning and let me now just do a little doodle have a drawing to differentiate this kind of analysis with the frequencies risk. Okay, so let's have the probably t
+01:00:03
+Then city.
+01:00:05
+Here.
+01:00:07
+And on the excesses. I have my generalization air. Okay.
+01:00:15
+So this is basically the tester.
+01:00:17
+The transition there.
+01:00:20
+And now, why am I talking about property density. Well, the thing is d the training set is random. Right.
+01:00:27
+So you could be lucky and get a good test error or you could be unlucky and get a bad tester for your algorithm.
+01:00:33
+So now we're just characterizing. What's the shape of the tester. And so you could have something which is like this. So that's what the, the distribution over possible test there for your algorithm. So this is the distribution
+01:00:52
+Over
+01:00:54
+Possible.
+01:00:57
+Test there for your learning algorithm. Okay.
+01:01:02
+So, you know, here the test error is small, because I'm. Oops.
+user avatar
+Unknown Speaker
+01:01:09
+And
+user avatar
+Lacoste-Julien Simon
+01:01:13
+So in this region here. I'm quite to the left so that the test. There is small and I have some property here to test her is high and here that this URL is in the middle.
+01:01:24
+And the frequent this risk. What it does it take the expectation of the test their overall possible training set. And so what you're looking is just had the mean of this distribution. So this would be
+01:01:37
+The frequencies risk, which is the expectation of the thing. So this is the frequencies risk.
+01:01:45
+So it's the meat of the distribution.
+01:01:48
+The pack analysis doesn't look at the mean it looks at a nice upper bound
+01:01:56
+Such that the mass above the upper bound is smaller. That's why it's called a tail bound. It's bounding the tail of the distribution. Okay. And so the mass here will be smaller than some small value delta, Tim. Right. So that's the. That was the whole point.
+01:02:16
+Of this statement here says the quality of the tester being to be bigger than some value is small. Okay, so, so this would be the this here would be the pack bound
+01:02:29
+So you find some value such that, oh no, I forgot to that this is the
+01:02:37
+Pack bound
+01:02:40
+So the idea of the pack analysis as they find some kind of upper bound on my test there which is true with high probability. Okay.
+01:02:48
+And so this is kind of a more worst case guarantee it's much stronger guaranteed mean because it means that with high priority, your performance will be always better than this bound
+01:02:57
+And so that's actually a very nice certificate in does the kind of thing that usually use in machine learning and more like traditional Colt style learning theory analysis.
+01:03:20
+OK, so now the few questions.
+01:03:25
+In the frequencies should be the mean over D, not the last, so the frequent this risk is the expectation of the test there.
+01:03:36
+Of the statistical loss. Right. So the expectation of L. So, it is expectation over de de right so the randomness come from the D. But what I'm averaging is not this is, I mean, what I'm averaging is is the last itself.
+01:03:55
+And is the distribution over training sets our test sets the distribution is over training set distribution is over.
+01:04:03
+But we are evaluating so this capital L a machine learning will be the tester right so it would be
+01:04:12
+This thing here. This expectation of over a distribution that I don't even know. So that's why, you know, I call it a test there and you know because you could use a test set to evaluate it to approximate it
+01:04:25
+And what we do is we look when the training set varies
+01:04:30
+How, how, what's the distribution over my possible test there. And so that's that's what I meant here. So the. This is a test air which depends on a training set.
+01:04:46
+Can we see that backbones, do some form of a scientific analysis. Nope. So pack bound do some kind of worst case analysis with high quality.
+01:04:54
+There's no notion of aesthetics here yet the ascent ethics is when you know look at how does the germination area bound or the frequent this risk varies when I change the size of my training set. When a very deep end. Sorry. When I very M and and indeed.
+01:05:15
+Standard traditional statistical analysis will do some tactics mean when n goes to infinity, you'll get something, but when it is finite, you would have not good idea
+01:05:25
+But when you look at generalization air and computer science. Usually the also do finite training set analysis that you will have a generalization, about which will also depend on n
+01:05:34
+And if n is too small. For example, if n is too small compared to the dimension of your problem, the bound will be useless. It will be bigger than one. And we always know for example, if I have
+01:05:46
+If my, my last was the 01 error, then it's always smaller equal to one. So if I give you about have to. What does mean anything.
+01:05:59
+But I can't read the word inside the property L bigger stuff. It says stuff.
+01:06:04
+This is stuff.
+01:06:06
+Which just mean some complicated expression of
+01:06:16
+Stuff, but like as an example of
+01:06:23
+Why is this disappearing. So stuff is
+01:06:29
+So an example of a generalization about
+01:06:38
+Would be that the
+01:06:43
+The test air.
+01:06:56
+Of
+01:07:00
+If hat would be bounded by the trainer.
+01:07:10
+Plus some kind of
+01:07:13
+One over a square with n, for example, that's the standard example of where the
+01:07:20
+Dependence on the number of training simple would appear of square root of
+01:07:26
+Complexity.
+01:07:30
+Of a hat.
+01:07:33
+And then there will be usually some kind of log of one over delta
+01:07:41
+Us.
+01:07:43
+And so I'm not actually being very specific here I'm just getting into shape. So, for example, like the complexity of a hat could be the VC dimension of a set of distribution. So that's the kind of
+01:07:55
+Generic balance that people but we won't go into these too much in in this class. This is just to give you a high level overview of the and also because you could have a you know a whole set of lectures on just this topic.
+01:08:08
+Learning Theory is actually very vast it's just to give you the the terminology and the high level understanding of the different ways you can analyze these procedures.
+01:08:18
+In my adventure trip prediction and optimization. I go in more details. Because I will do these kind of analysis for a stricter prediction methods.
+01:08:28
+Okay. Any more question on pack analysis or frequent this risk analysis. Now we will talk about quickly about vision, mission theory.
+01:08:39
+And why the frequent this perspective.
+01:08:45
+Can explain also why Beijing procedure work well.
+01:09:03
+Their last equation.
+01:09:06
+That's your question.
+01:09:08
+Or what's the question about the last equation.
+01:09:14
+The last equation was saying.
+01:09:18
+I can bound my test error which is just this
+01:09:26
+Statistical Russ, such as a set a different word f hat was the output of my learning procedure and I can say, here's the stuff that was the stuff that I was talking about. So that's an example of bounce right
+01:09:44
+And the problem here is that the trainer depends on the training set. So that's a random quantity but
+01:09:50
+You're allowed to put
+01:09:53
+You're allowed to put on this right hand side. So this d is random. You can also put some function of the of the D here also, because it's just a problem statement.
+01:10:05
+How is empirical risk different from the tremendous risk. Yes. So that's what I was explaining here with the VAT Nick risk. So the Vedic risk.
+01:10:15
+Is the test. They're actually from a machine learning perspective. Okay, and I cannot compute the true test there because I don't have access to the true distribution.
+user avatar
+Unknown Speaker
+01:10:29
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:10:30
+And so
+01:10:32
+What you can do is you can approximate the true distribution with the training data. Right. You can just say, Well, suppose my training data was my distribution and then you can compute the empirical
+01:10:44
+Error on your training set and that's called the empirical risk.
+01:10:50
+So when you do and when we will come back to that when we do regression and least squares regression, because when you do the square regression, you're basically also minimizing the empirical L to error on your training set. That's how you estimate the parameters for your regressive
+01:11:09
+The frequent this risk is taking the expectation of this thing with respect to the
+01:11:17
+The well okay this thing doesn't have any randomness because
+01:11:22
+F here is fixed, but the frequent this risk now says okay, my, my function will be the output of a an estimation procedure and a random training set.
+01:11:32
+And I will now look at how well does this do on average over possible training sets. So that's this outside expectation. So this l was already an expectation, like this one. And I'm thinking, another expectation, but respect to the. So that's the frequency is risky.
+01:11:48
+Okay.
+01:11:51
+So let's do Beijing. This isn't theory now so I told you about.
+01:11:57
+Frequent disc risk. That's the expectation of the Sabbatical last it's the simplest analysis you can do tell bound does the pack analysis. And then you can also be a Bayesian
+01:12:08
+Which is very different. So when you're a frequent disk.
+01:12:12
+You were
+01:12:14
+Averaging or concentrating possible training set in your analysis. Right. So I was looking at the distribution of my performance when I change the training set.
+01:12:26
+When you're a Bayesian you don't care about other training set. When you're Bayesian you just try to act well with your current observation. Okay, so it's a very different
+01:12:38
+Philosophy instead of like averaging over the data, your conditioning on the data. So you're always conditioning data.
+01:12:50
+So as a Bayesian, what you do is you condition and data. If you remember as a Bayesian you would compute the posterior over the parameter mysterious conditioning on the data.
+01:13:00
+you condition on data. And so what if you are a Bayesian and you would try to do analysis, you would look at the quantity which is called a Bayesian posterior risk.
+01:13:16
+I will use invitation are subscript be for their Beijing risk.
+01:13:23
+And this is not a function of a procedure, it's it's it's for a specific action and its condition and an observation. Okay. And by definition, what it says.
+01:13:34
+This is the integral over the possible parameter of the last the statistical last suppose the world with data and I took action eight
+01:13:46
+And then what I think the expectation with. It's like a weighted average, but I actually use the posterior as my Wait, what's the posterior given my observation, the theta. Okay, so this is the
+01:14:00
+Hysteria
+01:14:03
+Over possible words.
+01:14:11
+And this is proportional
+01:14:14
+To the prior over to possible world times the likelihood of your observation given
+user avatar
+Unknown Speaker
+01:14:22
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:14:23
+And so that makes a lot of sense from an agent procedure because
+01:14:27
+Vision perspective, if you remember the vision philosophy is I have uncertainty I encode all my information of according to the the thing which aren't something with protein distribution.
+01:14:38
+And then I just use laws of properties to act. Okay. And so here, the thing is, I want to take action, a
+01:14:47
+And if I take action. A and the true world with data, I would have this loss.
+01:14:53
+Well as a Bayesian what is encoding the uncertainty about the the true world is all in the posterior because I've already saw the observation need. So now I look at the process. This is my belief about the pastor world.
+01:15:05
+And so my goal as a Bayesian will be to minimize the risk. Okay, so if you're at the bit and and the beauty of the Bayesian approach here is like the optimal thing to do is clear.
+01:15:20
+This is how I should act. But the nice thing is I should act is only a scanner, right. This is like the problem before was that I don't know Seta
+01:15:33
+I don't know, say that, but now I've integrated our data disappeared.
+01:15:37
+The thing I don't know is not there anymore. All I have is my action and the data. The data. I know, and the action. I know that I can take. So the optimal action is clear. So as a Bayesian you will actually minimize the vision for serious. So the Bayesian
+01:15:51
+Oops.
+01:15:53
+The Bayesian optimal action.
+01:16:00
+And will use in a frequent disk notation as a decision procedure if you're a Bayesian given the training set, what you would do is you will just minimize the perceived risk you'll do the admin over
+01:16:15
+The action, not the parameter
+01:16:18
+The action.
+01:16:21
+Of the vision perceived risk.
+01:16:26
+So that's why it's so cool to be a Bayesian from a philosophical points perspective, because the optimal thing to do is clear just computer posterior
+01:16:35
+Then take the expectation of the procedure respect to the take the expectation of the statistical loss for the different actions respective was there and minimize that. That's the optimal thing to do.
+01:16:48
+Because when you were a frequent disc, there was these risk profile are not comfortable so you don't know which one is better was here. There's no risk profile because theta has disappeared. I just integrated up
+01:17:00
+Okay, so let's do a, an example of a Bayesian approach here with more concrete aspect. So if I'm doing estimation. So in this case, the action space is a set of parameters. So we're doing estimation
+01:17:25
+Okay. The other question, I'll get back to the questions because there's too many questions.
+01:17:29
+Alright, so if I do estimation. This standard statistical last for that was the error.
+01:17:41
+Then exercise to the reader.
+01:17:47
+You can show that minimizing the Bayesian busty or risk.
+01:17:52
+When you use the L to norm.
+01:17:55
+You would need to take the bus the expectation of of the posterior so it's the person you will use as your estimate the the expectation over theta given the training set. So that's the posterior me
+01:18:10
+Which we already saw also by the way we looked at the binomial example in conflicts was also the disturb
+01:18:18
+But this is because I'm use the Altoona. If you use a different if you use the
+01:18:26
+For example, the, the absolute value that same were in one day to simplify
+01:18:32
+Let's say use the absolute value. So that's like the norm. But let's say we're in one day.
+01:18:38
+Then
+01:18:39
+The Bayesian estimator is not the place to your mean but it's the posterior media.
+01:18:48
+So the optimal action depends on the kind of last few years, right.
+01:18:57
+So when you do look at the when you look at the LT LT norm if you're very, very far you penalize much more than if you use the absolute value. Right. And so depending on whether you want to penalize more or not, you will use the mean or the median.
+01:19:24
+OK, so now let me relate the frequencies approach with the vision approach and then you can ask all these questions.
+user avatar
+Unknown Speaker
+01:19:35
+So,
+user avatar
+Lacoste-Julien Simon
+01:19:36
+To summarize, so we had this statistical less
+01:19:42
+Which depends on the unknown world data and the random data set d of our procedure.
+01:19:50
+And then what we can do is we can be a frequent this and we can take the expectation of that.
+01:19:55
+Was spec to the random training set.
+01:19:59
+And then when we get as a frequent this risk.
+user avatar
+Unknown Speaker
+01:20:03
+Groups.
+user avatar
+Lacoste-Julien Simon
+01:20:08
+Their frequencies risk.
+01:20:12
+Which I noted by r theta and delta. Okay.
+01:20:18
+And then the problem is that it depends on data, which we don't know which is super annoying. So while we talked about, oh, I could also do a weighted summary I could summarize the performance of my procedure over different data by taking the average
+01:20:34
+Theta according to some waiting function, right. So this is the weighted summary.
+01:20:41
+That I talked about. So I think a dig deep think Romain frequent this risk respect to some weight function by
+01:20:51
+Okay, so that's
+01:20:52
+One way to get the actual
+01:20:56
+Skylar out of my procedure.
+01:20:59
+Now, if I'm invasion. I don't want to average over data set. So what I do is I will actually first take the expectation over the unknown world according to make posterior
+01:21:12
+Okay, and what I get them is the Beijing mysterious
+01:21:16
+Of my action given the
+01:21:20
+This is the vision posture risk.
+01:21:23
+That I talked about
+01:21:27
+And then the procedure is clear, as you just minimize this vision perceived risk over all actions. And so now. A as a function of the
+01:21:39
+You will use the Bayesian procedure.
+01:21:44
+Which is minimizing this
+01:21:48
+And so now
+01:21:54
+Now, now, now, now this depends on the training set.
+01:21:59
+And so if I want to be frequent this again, I want to know how well does the agent procedure does when I change my training set.
+01:22:07
+I didn't let it sit. Because so so the Bayesian they don't really do.
+01:22:12
+Any analysis because the optimal thing to do is clear for in their mind. It's like, well, you have the right prior
+01:22:18
+If I mean you figure out the prior. How'd you figure out the prior you don't. That's the hard part. But if you know the prior and the everything then
+01:22:26
+What you need to do is clear, as you compute the steer and you you compute the perceived risk and you minimize that. And that's the optimal action and that's there's there's no notion of analyzing because you know that's the right thing to
+01:22:36
+Frequent this approach. I mentioned the consider different estimators the compute properties of these estimators and the compare them.
+01:22:43
+So, let's say, Now I put my frequent this hat. And I say, well, how well does the Bayesian procedure. Right. How does for this specific prior how well will this Beijing procedure do
+01:22:53
+So what I can do now is, what's the average of the vision for steer risk with respect to the training set, so I could take the expectation of that respect to
+01:23:07
+The training set and now there's the question of will. I can actually obtain the same weighted summary from the left.
+01:23:17
+If I use as my distribution. The marginal distribution. So, if this is the marginal distribution here.
+01:23:31
+To what I mean by the marginal so I will define the marginal over possible training set.
+01:23:39
+So here I'm using a bit of terminology. Usually I use a not a capital letter, when I talk about the density right but I already have capital D and I want to use little d because it all these like dimension so
+01:23:51
+So well perhaps that's put little d
+user avatar
+Unknown Speaker
+01:23:54
+Because
+user avatar
+Lacoste-Julien Simon
+01:23:59
+They use P over weird stuff in the best
+01:24:09
+No, I never did. Okay, let's do that.
+01:24:12
+I'll say
+01:24:19
+Let's do this.
+01:24:27
+Man.
+01:24:34
+All right, let's call it the marginal and so P marginal
+01:24:41
+P Marge.
+01:24:44
+Of d
+01:24:46
+Will be the integral over theta.
+01:24:50
+Of peace Ada
+user avatar
+Unknown Speaker
+01:24:53
+P
+user avatar
+Lacoste-Julien Simon
+01:24:54
+I guess I did use capital D. All right, I'll keep my big sorry about this is a bit of annoying Titian because I don't likely to be but
+01:25:07
+I'm not being super readers.
+01:25:11
+Anyway, so it's the marginal of the from the joint on both data and the random training set.
+01:25:21
+And the whole point. Now why am I putting those two this diamond is the idea is that if
+01:25:30
+The waiting function that I use my as my prior then the vision procedure will actually minimize the weighted summary. So the Bayesian procedure.
+01:25:44
+Database
+01:25:47
+Actually is optimal. So it will minimises mean it will minimize been preserved minimises the weighted summary.
+01:26:02
+When you use as your weight the prior function.
+01:26:15
+So you'll use by a theta will be just P of theta, the prior I used to define my procedure, procedure.
+01:26:34
+And so from a frequent this perspective.
+01:26:39
+If you care about.
+01:26:43
+The weighted summary of a frequent this risk.
+01:26:47
+Where do you have some put some weight function over the possible worlds. Well, then the best algorithm for from this perspective is actually the Beijing procedure.
+01:27:00
+Where you use the prior the correct prior over this the same that you use as the waiting function to the prior to Beijing prayer.
+01:27:11
+But if you care about the different weight functions was important. You're a frequent this and you care about.
+01:27:17
+To put more mass on say
+01:27:20
+Big variance in your Gaussian, but you were a Beijing and you believe that the the variance was small, so you put a high prior on the small well then this patient procedure won't be optimal because it
+01:27:32
+It won't do, as well as the because it has a mismatch between the weights function us TV things and the prior he's
+01:27:44
+Okay.
+01:27:47
+He
+01:27:55
+So there's a question.
+01:27:58
+The marginal of P capital T equals little d. Yeah. That's correct. That's what I meant by this notation here.
+01:28:07
+Yeah, so P marginal
+01:28:09
+You could think of.
+01:28:12
+I mean, to be clear, I could have said the p of capital T equals little d and blah, blah, blah, and then use capital T equals little the everywhere.
+01:28:21
+And we have been a bit more rigorous for more complex algorithm is the Bayesian approach tractable know
+01:28:28
+The main approaches almost never tractable, which is one of the why, you know, even though it's so beautiful in theory and practice. It's much more complicated. Okay, so, so in particular.
+01:28:40
+The optimal thing might be clear to do but it's tractable to do it to you do something else. Well then wins. You want to analyze how well does something else is doing.
+01:28:50
+Which is why the frequent is lens is very important to a piece, you know, analyze the properties of this approximate procedure that you do.
+01:28:58
+And then somebody asked if I was a frequent desert Asian right
+01:29:10
+So I'm actually
+01:29:12
+I think I'm a bit more frequent isn't the vision, but I'm a practical vision. So that means that I think the Bayesian approach is very powerful to to get good procedure.
+01:29:23
+But you still need to analyze this procedure with the frequency sense. Okay, so, so I would never just believe blindly my my prior
+01:29:32
+Which is what a subjective vision or religious subjective patient does
+01:29:42
+Yeah, I think it, what you're saying is correct.
+01:29:49
+Yeah. So I think, I think.
+01:29:57
+I think it's good to have both side like you you because the Beijing procedure actually have very good properties. It was with see that later when we talk about the legalization or the James Stein estimator.
+01:30:14
+But on the other hand, they're not practical. And you need to. Well, there are, I mean, you need to also have analysis tools to make sense of what you're doing, which is why the frequencies perspective kind of is useful.
+01:30:29
+But different kind of perspective doesn't tell you what to do it, just tell you
+01:30:33
+How to analyze things, which is why you can get ideas of what to do by being Asian, and then use the frequent this analysis to see how well they're doing. So let's give me the. I'll give you an example of estimators because
+01:30:47
+That's also the idea of a frequent this as well there's multiple ways to estimate things that's now analyze their properties.
+01:30:54
+Examples
+01:30:56
+Of estimators
+01:31:02
+Alright, so let's say I'm trying to estimate some parameters.
+01:31:07
+From data.
+01:31:09
+So I have a function, I want to fight. So the estimator will be a function from my observation to my parameter space.
+01:31:16
+So already talked about the maximum likelihood estimator. Another one is the map estimator. The message maximum plus series. So you have some prior and then you will instead of maximizing the likelihood you will maximize their likelihood times the price.
+01:31:31
+Then a third one which is different. It's called the method of moments.
+01:31:40
+I'd say em small capital.
+01:31:44
+And so the idea of the middle of moments.
+01:31:47
+Is you find and objective. So one to one.
+01:32:00
+From the parameter space.
+01:32:06
+To the moments of the random variable.
+01:32:14
+Okay, what are the moments. Well, the expectation expectation square. It's address. So these are unscented moment. You can also look at centered moment like the variance
+01:32:28
+Etc.
+01:32:30
+And so, and then once you have this mapping, which says, oh, if I have this parameter, then my moments are these you can invert them from the empirical moment.
+01:32:43
+you invert.
+01:32:47
+It from
+01:32:51
+The empirical moments.
+01:33:00
+To get data.
+01:33:02
+Right. So, so what are the empirical modern so the empirical moment of X is basically sort of a true expectation. It's just the empirical expectation. So it will be the empirical average of my exercise. And then if I have say d squared empirical moment was the same thing. Now, but
+01:33:25
+With the squared.
+01:33:29
+The average of the squares.
+01:33:32
+Etc. Okay.
+01:33:37
+So that's the idea. Okay.
+01:33:40
+So let's do an example.
+01:33:43
+So, for example,
+01:33:46
+Suppose I have a gash in
+01:33:49
+Let's say my observation is a gash in with mean new and very in sigma square
+01:34:01
+Right. So now I can look how am I, what are my moment. So the mean is just Mew. And then the squared is actually the variance, plus the means square
+01:34:16
+So that's the function from it's a function from my parameters to the moment and
+01:34:25
+It's actually 2D and it is objective.
+01:34:30
+Yeah.
+01:34:32
+And so I could say, Okay, if I know mew n sigma square
+01:34:38
+Then
+01:34:40
+I will get a
+01:34:44
+New ID sigma squared plus b squared, right. So that's my that's telling me what are, what should be the moment as a function of the parameter
+01:34:53
+And so now what I want, as my estimates is I will use well okay the estimator of new and the estimator of the variance will just be the inverse of my function.
+01:35:04
+And then, but I don't I don't have the true moment because if I had a true moment, then I would get the correct parameters. So what I have is I replaced my true moment with an approximation from the empirical moment. And so I will just use my empirical average and the empirical squared.
+01:35:23
+And I will apply the rest of my function to get my estimate of the pepper.
+01:35:28
+That's it.
+01:35:31
+Okay. And it turns out here by the way that here.
+01:35:37
+This estimator.
+01:35:42
+Is actually the same.
+01:35:45
+As
+01:35:47
+The maximum likelihood estimate, right, because you can see here that
+01:35:54
+inverting this piece is pretty simple, right.
+01:35:59
+Because now I'm just saying, well, I will set my estimate of the mean to the empirical beam and the empirical mean is the maximum likelihood estimate of a gotcha.
+01:36:11
+I guess I haven't derive that yet, but we will see how to derive that later. Alright. Press the assignment you might have to, I think you do that to the assignment.
+01:36:23
+Perhaps next assignment.
+01:36:26
+So, um, but this is not true in general. And this is actually a property. This is a general property in the exponential family.
+01:36:43
+So it turns out that the method of moments.
+01:36:47
+For the correctly defined moments is equivalent to maximum likelihood in when you suppose that the distribution is in in a specific exponential family.
+01:36:57
+And this relationship cannot actually be seen through the lens of leveraging duality. So that will be one of the most beautiful result in this fast where I will show you why.
+01:37:09
+maximum entropy with moment constraints which is a bit doing like them with a woman and maximum Ecuador equivalent
+01:37:18
+But when you're not an excellent show me.
+01:37:23
+The Muslim woman that is different and maximum next year. And actually it has in the last few years being quite useful for latent variable model.
+01:37:35
+For latent
+01:37:38
+Variable models.
+01:37:47
+And so
+01:37:50
+These are model where I have a latent variable z that I don't observe and I have a simple observation model like x, given z is a Gaussian
+01:38:01
+So when I marginalize out to z i get a mixture. Okay. So for example, this could be a mixture of gases. And if I want us to meet the parameters for a mixture of gal shins. Unfortunately, the log likelihood is not
+01:38:14
+convex or concave in this case. And so the finding the maximum negative parameter is actually very hard.
+01:38:23
+But instead of finding the maximum naked parameter. Instead, what you could do is just relate the the from the parameter of your mixture of Goshen, find a function to a bunch of moments which is objective and then just inverted and these are called spectral methods.
+01:38:49
+Because basically
+01:38:53
+You will create these
+01:38:56
+So, for example, that covariance is basically a matrix. So, you will recover these these these these inverse function, you will need to do
+01:39:06
+As video analysis of some kind of like matrix observations.
+01:39:19
+so starstruck asked, what do you do some moments not exists, well then you're in trouble. You can enter it into the, the, the method of moments, if, if you are using a distribution for which the mean doesn't even exist, the cushion distribution doesn't have a mean. I mean, it's not
+01:39:38
+Defined and so you can do the meta moment for that, I guess.
+01:39:46
+There's no perfect is the reflection function really
+01:39:51
+The universe function here is just
+01:39:56
+I didn't say what was the inverse of f. I just said, I will use as my estimate for my parameters the application of the inverse of f to this vector, but I'm too lazy to compute the inverse explicitly, I will need to think about it.
+01:40:13
+Actually, it's pretty probably pretty easy. It's, it's like
+01:40:19
+X squared minus the other one square right so basically this is equal to
+01:40:28
+I will have the empirical moments here.
+01:40:32
+And here I will take the empirical moment.
+01:40:36
+Of the square and I will just subtract the empirical moment square because there was
+01:40:42
+That's the
+01:40:45
+For the mess. At the moment, you have to guess the distribution. I have to dis, guess not. The distribution, but you have to have a parametric
+01:40:55
+Family characterizing your phenomenon and then so. So in this case, because we're doing estimation here. So we, we need to have a Patrick family and we want to figure out what are the parameters of my distribution.
+01:41:13
+Ah,
+01:41:15
+OK, so I remember already a bit out of time.
+01:41:21
+So I guess I'll have to continue next class in Access. I'll talk about a fourth example of estimator, which is the empirical risking position that we talked about and the James Stein estimator, which then means the ability
+01:41:38
+So somebody is asking me why the method of moments have been used. Recently, I didn't get why they are preferable to me. Okay, so when you have a latent variable model. First of all, the method of moment is different than the maximum flexibility.
+01:41:51
+When you have a latent variable model that can make sure if Gosh. And it turns out that the optimization problem, you need to solve to do Emily is intractable. Sometimes it can be NP hard to solve it. So even though the Emily might have nice property. You can even computed
+01:42:07
+The method of moments and in different there's a different
+01:42:11
+Procedure which in prints out for the latent variable that you can actually compute, sometimes you only need to do some as videos of matrix. And we have an efficient algorithm to compute as VCS. So then, the nice thing is you can actually analyze a different procedure, which is
+01:42:26
+computationally tractable and it's still consistent I eat when you have infinite data, it will convert to the right thing. So that's kind of the nice thing. The Emily is consistent, but you cannot compute it. In this case, so it's kind of useless.
+01:42:41
+Any other question.
+01:42:50
+Right so Abdullah I'm ask you a quick question.
+01:42:57
+Or well he's asking is, quick question.
+01:43:03
+The don't forget that there's an assignment God Tuesday.
+01:43:09
+And it will be you before the beginning of class so that you don't get all book done during the cast with the assignment and
+01:43:20
+Jose as office hour on Monday. From one to 2PM so do take advantage of that.
+01:43:28
+Ah, OK. The assignment. There's a question why why or no n is yes or no like call. And then he said, Cool. Alright, so I hope you enjoyed this abstract class. If you have trouble understanding some concept. Don't worry, it's non trivial I either go back over your notes or also i mean
+01:43:52
+This this class was men just to give you a general idea of these things that you don't have to master them yet, because these actually are tricky, tricky, tricky concept.
+01:44:00
+And in particular, there are mixing ideas from machine learning and statistics which are fun or a bit seem differently from different communities. Alright. Have a nice weekend.

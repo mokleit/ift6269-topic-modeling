@@ -1,0 +1,1863 @@
+Lacoste-Julien Simon
+00:00:12
+Okay, so somebody asked a question already. Is it recording. Yeah.
+00:00:19
+He has the person has trouble with the zoom app on Linux. Anybody else here who's using Linux and zoom app is working.
+00:00:34
+Okay, so we have a few people made the zoom app work on Linux. And some people have trouble. So I'd recommend that if people can help each other on Slack, for example, to debug this
+00:00:51
+So the because the question was, can we use
+00:00:55
+The browser instead to do that. And the problem is that it's not compatible with the registration.
+00:01:01
+So it's a feature that Zoom is supposed to do in the future where you would be able to have both registration and use the browser. But for now, when you have a registration for the class, then you can use the browser as far as I know, so
+00:01:13
+Hopefully we can have with the help of other students, you can make it work on Linux. Otherwise, we can revisit it like next week.
+00:01:24
+So yeah, so perhaps on Slack like on general channels, say hey you know like how do I make it work on Linux or something started a thread on this.
+00:01:35
+Any other question about the class.
+00:01:40
+Or the logistics. I think I went through most of it last class.
+user avatar
+Simon Demeule
+00:01:48
+Oh yeah, maybe, so I wish I could have asked you this last class, but I couldn't manage either
+00:01:56
+So I'm thinking in parallel to this if T 6390 which is kind of the intro class would you say it kind of makes sense to take these two classes in parallel or
+user avatar
+Lacoste-Julien Simon
+00:02:10
+So,
+00:02:12
+Do you have machine learning background already
+user avatar
+Simon Demeule
+00:02:14
+I've played around a bit with graphical models. Previously, and I love math. I don't mind going into some unknown territory and learning on my own. So
+user avatar
+Lacoste-Julien Simon
+00:02:25
+Yeah, so I think if you're really motivated to learn these things you could do it. So the what you'll have is that the the 6360 whatever the number is.
+00:02:38
+Will give you a wider view of machine learning because you have a lot of things that we don't cover. So it's more superficial, but it's it's more breath.
+00:02:46
+And then
+00:02:47
+Some of these, you'll see it again in much more depth in this class. And so
+00:02:55
+You know, there will be a bit of repetition for you, but at the same time, it will just come consolidate the material. So,
+00:03:01
+I think it's, it's
+00:03:03
+Like this, this other classes, not a prerequisite for our class.
+00:03:07
+So for this class. So, so, yeah.
+00:03:10
+So, if you don't mind a bit of duplication.
+user avatar
+Simon Demeule
+00:03:13
+I think it's doable. Okay, thank you.
+user avatar
+Lacoste-Julien Simon
+00:03:18
+Yeah, so a bit of background behind the class I'm teaching here. It was a like
+00:03:22
+This kind of class was
+00:03:24
+The, the graph. The first grad level machine learning class at Berkeley. That was when I was doing a PhD there, right. So, so basically the first main mission or interest. I took when I
+00:03:34
+When I was there and actually for the fun anecdote. I took the class first from Peter Bartlett.
+00:03:43
+And then I was a teaching assistant for Martin rain. Right. So I said, I get into class. And it was a very different way, the way it was thought
+00:03:51
+And then I said, again, just by curiosity, when Mike Jordan thought it because so in three different years. It goes through different teacher
+00:03:58
+It was, again, very different. So there was like a complimentary. And so what you'll get is a combination of those three things. Plus, also the pastas back version.
+00:04:07
+From France actually where we added a bit of stuff because in the US. It was three credits. Was this is for credits. Right. So there's a bit more material there.
+00:04:18
+Okay, so
+00:04:22
+Well,
+00:04:24
+Again, as a reminder, I will do like usually these class like 15 minutes an hour and then a 10 minute break. Then we finish. So what I'll do now is to continue
+00:04:36
+To present something I really wanted to present to you last time, but I didn't have time. Sorry, which is why are we talking about graphical models. Okay, so why do we need or why are we talking about graphical months.
+00:04:49
+Graphical so that was like the big punch line that I was so sad to
+00:04:56
+To not give you last time.
+00:04:59
+Let's see if it works. Yes, you see stuff and so
+00:05:03
+If you remember from from last lecture, I mentioned part of speech tagging with hmm as an application. So let's go back just to make things concrete. Let's say we wanted to solve but parts of speech tagging and we have as observation.
+00:05:20
+Actually this is we won't use the hmm model. But let's talk about the participants application, which is where we have a sequence of words. So that's our input.
+00:05:35
+And that mean make it more explicit. So I have x one, x two, blah, blah, blah. To x. So a vector of length t or t is the length of my sequence of words and I will use annotation.
+00:05:51
+X one collagen capital T.
+00:05:57
+In this class. So this is a bit like sci fi or MATLAB. So one column capital T could be seen as the set of numbers, one up to t.
+00:06:07
+And in this class will see often as a no nutritional shorthand will use set as index. Like, for example, I could say 135 if I wanted to. So x subscript 135
+00:06:20
+And basically this is to select component of a vector in a very, you know, shorthand way. So basically, this represents the, the vector x one, sorry.
+00:06:34
+With component, x one, x three x five and now there's a bit of a problem here because it's set is not ordered
+00:06:44
+Object a sentence just set of things. So there's no order, I could have also said 315 or 513 it's all the same set. And so when the victor is an order elements. So where does the order come from.
+00:06:59
+We will get back to that. But it doesn't really worry right now just think the order by default will be, you know, increasing index or something. But we'll get back to this notation all aspects and already. This gives you
+00:07:13
+A good example that there's a
+00:07:18
+There's a machine learning and especially in graphical model, there's a tremendous amount of notation that we use because we deal with complicated objects. And so you you need the patient to kind of talk about it.
+00:07:27
+And because these are complicated object it's takes a lot of
+00:07:31
+Stuff to describe them. And so often you'll use shorthand so often a lot of things will be implicit, it won't be explicit like here, there's a problem of, oh, what's the order they use for a vector. Well, it will be implicitly
+00:07:42
+Given. Okay. So one thing you'll develop in this class is also get this
+00:07:47
+This parsing skill of here's some equation or as an invitation and then you'll be able to make sense out of it, cookie, cookie by the beginning, it takes a bit of training. So feel free always to just, you know, raise your hand.
+00:08:01
+Asked me like I'm not sure what this means. And I can remind you what these things mean.
+00:08:07
+Alright, so we have a sequence.
+00:08:10
+Of words that will want to tag, for example, but let's say right now. We just think of it as a sequence of words and
+00:08:20
+We could represent every word. So I'll use x t here as one of the possible word as
+00:08:27
+Say discrete variable from with value one up to key right and so I let's say I have a fixed vocabulary. I could encode my vocabulary as the first word to the case word in my vocabulary and so
+00:08:48
+As an observation that could just tell you. Well, this is the first word in my dictionary. This is my third word in the dictionary instead of like spitting out the word you know with characters.
+00:08:56
+Okay, so that's just a nice mathematical encoding and let's say now we want to describe, we might describe a party distribution over these observations. Right. It's a
+00:09:08
+Good. This have it down so you can see more my hands do a bit of magic. So, so we want to model.
+00:09:18
+Let's say our goal is to define a distribution and later today. We'll do a lot of reviewing properties at distribution over x one up to it. So,
+00:09:28
+This is just a shorthand notation for this is a random vector X one up to 60 and I want to describe a distribution over these possible values. Okay.
+00:09:39
+So, so I said here just to be clear that K was the size of the vocabulary.
+00:09:47
+Which could be, I don't know 50,000
+00:09:50
+That's a standard vocabularies size. And so here the issue.
+00:09:55
+Is we want to describe their distribution over a lot of possibilities, right. So the present. The big issue here is that the state space, the number of possible values for my random variable is exponential in the size
+00:10:14
+Look at so you have an exponential size of state space.
+00:10:19
+Where the exponential is in
+00:10:23
+The length of the input.
+00:10:28
+Okay. Basically, the number of possible sequence when each word as K possible values is key, raise the capital T.
+00:10:40
+That's the number of possible sequence of key words. Right. And so if I want to describe the distribution over all these Cape race the tea possibilities. I need to say what's the priority of
+00:10:53
+The word this the sequence of words, let's say, da, da, da, da, da, da, da. And then I need to sell. So what's the probability of
+00:11:01
+That cat is in the bag or something. But you know, I have an expression number, so I need for each of them. I need to say was the property. The property since day one. So basically you need a race to the t minus one parameters.
+00:11:14
+In general, to describe this distribution.
+00:11:20
+To fully
+00:11:22
+Described
+user avatar
+Unknown Speaker
+00:11:27
+Distribution.
+user avatar
+Lacoste-Julien Simon
+00:11:34
+So that's easily 10 to the 23 and more right now like 10 to 23 I will get those number. It's a good number. That's a lot of things. So
+00:11:47
+Yes. How can you and so there's both the problem of how do you compute with a table with 10 to the 23 numbers. It's like, good luck, it doesn't fit in memory. You need to kind of do fancy stuff.
+00:11:59
+And there's also a question. If you remember from that, as I mentioned, statistics, if I have observation I can try to invert my process to find out what's the model with extremely observation.
+00:12:09
+So this, this statistic in particular here, it would be to estimate from observation and say I have a lot of observation of text that's basically by the way what GP.
+00:12:19
+GP D3 does is kind of train. It's called language model. So it's
+00:12:25
+Like, you know, billions and billions of sentences and it just tried to find a distribution of all these so that you can generate new sentences.
+00:12:33
+So in order to do that I need to estimate the parameters in my model. And here I have 10 to 23 parameters that there's no way with a even with a billion example I will be able just to make it to the 23 parameters, right. So that's the problem. And so
+00:12:51
+There's different way, you can work with that, in particular GP D3 use kind of like fancy neural networks structure to handle that. But
+00:13:02
+A much simpler approach and more. That's the older is to use
+00:13:09
+Factorization assumption and the distribution games. And that's what the graphical model ENCODE, so the trick. One trick to handle
+00:13:19
+This large number of possibilities is to make a factorization assumption about the distribution
+00:13:35
+About the distribution p
+00:13:39
+Okay, so for example.
+00:13:42
+We have, we want to define the distribution to join distribution on X one, two x t
+00:13:50
+And will say, Well, it's actually written as a product of functions. So, it will be there will be a term which only depend on the value of X one and then there will be a turn, which I index with two which depend on x two x one and I use the the the
+00:14:10
+Whatever it's called in English vertical bar notation.
+00:14:14
+Quite indicative of it's a conditional. And we'll, we'll see very soon, that it is a conditional. But right now, we'll just be a factor of two terms.
+00:14:24
+And then that will have f3, which is x three given X through
+00:14:29
+Blah, blah, blah. And let's say I have the last factor which is X t given X t minus one.
+user avatar
+Unknown Speaker
+00:14:37
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:14:38
+And so
+00:14:41
+Rather than having an arbitrary this function dependence on my team variables I have that the distribution
+00:14:50
+That we want to evaluate on a specific input x one x two to 60 can be written as a product of factors, where each factor depends on that most two variables, right. So this, this is what we call this thing will be. Oops, I want a new
+00:15:06
+This thing here will be called a factor.
+00:15:11
+And this only has two variables.
+00:15:18
+In this case, and so that implies that choose fully specified this factor which depends on the on two variables which each can only take k values I need at most taste square parameters to specify
+00:15:39
+And so if I have T factors in my model.
+00:15:44
+That gives me roughly tee times case square parameters.
+00:15:52
+Then why do I say roughly well because if you suppose that these are distribution. It's actually k square minus one.
+00:15:58
+And, you know, there was the first node that I kind of like is a factor of this thing is a factor of only one variable. But, you know,
+00:16:06
+This is just to give you the the gist of the how it grows and so with this assumption about how the distribution behave. I went from K raise the capital T parameters to only case square times t. So, this is polynomial in cake.
+00:16:26
+And it was K raised the tea is exponential in this case.
+00:16:35
+Yeah. And so this basically is some kind of assumption.
+00:16:43
+And we'll see very soon in class what the assumption means but
+00:16:48
+If we'll review probabilities later today. Basically, when the distribution factorization specific way. You have some kind of independence.
+00:16:57
+assumption about the random variable, okay. So saying that the distribution factor is this way is equivalent to saying it as some kind of conditional independence assumption.
+00:17:08
+And where does the graph come into play. Well, these factor will actually be represented as clique.
+00:17:16
+In a graphical model. So it's basically, you will represent them as as as set of edges in a graph.
+00:17:25
+And that's where the graph would come from.
+00:17:30
+And one theme in this class that will come back to is representation of distribution. So,
+00:17:39
+Is how to represent distributions in terms of like the grass structure and also for each of these factors like or the arbitrary tables or they could be also some kind of like structured function. And we'll come back to that. Okay.
+00:17:58
+Let's so
+00:17:59
+Here, the idea was just to give you a gist of the motivation for graphical model so already. Now, from this assumption we get that we have a small number of parameters to estimate or distribution, rather than exponential number of pounds so with finite data that's a few
+00:18:17
+Hundred thousand observation I could estimate TK square parameters, let's say, to 10 and key. I'd say is 1000 just to make it more manageable or that's that's 10 million parameters, I could estimate 10 million parameters.
+00:18:32
+So now it's manageable. And so now what about computation. Right. How can we compute with such a representation. Okay.
+00:18:43
+So now let's talk about computation.
+00:18:51
+So say I want to compute
+00:18:56
+The marginal distribution.
+00:18:59
+Over x one.
+00:19:03
+So I would write p of x one. Okay, so p of x one to exceed that's called a joint and we'll get back to that very soon. When I redefine all these terminology, so make sure we're on the same page.
+00:19:16
+If I looked at only one component. I want the marginal over this component. How do you get the marginal. Well, you get the marginal by summing over all the other possibilities, right. So you get the so this is called a marginal dimension.
+00:19:32
+So we have that the marginal and variable one
+00:19:36
+Is by definition the summation over all possible values of the other variable, which I will write like this.
+00:19:45
+Of the joint.
+00:19:47
+Right.
+00:19:52
+Okay, it's already like more. In addition, right. So, this by definition, there's some x one, x two, x three, x for what it means. This is shorthand for summation
+00:20:03
+Of X through all the possible values, it can acids one to Kate. Right. And then there's also summation of x three belonging to blah, blah, blah. And then I also have summation of x t belonging to one up to
+00:20:27
+Because there's a product structure here each variable can take all its values independently of each other. So this is actually
+00:20:34
+And some over an exponential number of possibilities, right, this, this is all the possible values of x one to exceed there's an exponential number because of this community explosion right there.
+00:20:43
+Keep us with us for every some and I'm always rerunning the whole some each time. So I get basically an exponential son. This is this thing here is an exponential some
+00:21:00
+And so if you would do it in a dumb way. You will need to some over 10 to the 23 values and their computer that will take a lot of time, even if you can do tend to the tenant like a millisecond of something that's 10 to 13 minutes. Second, that's still a lot of many seconds.
+00:21:17
+Okay, so that's the big problem.
+00:21:20
+And so
+00:21:23
+That's where the factorization is used. So what we do is we use the factorization. So this is summation over x to blah blah t
+00:21:35
+Of F1 x one x two x two given x one, blah, blah, blah. And then I have F T X t given X t minus one.
+00:21:50
+OK, and now the magic is we will use the distributive et of product over plus, right. So that's a key property I have that
+00:22:03
+This to be activity.
+user avatar
+Unknown Speaker
+00:22:08
+We I'm not writing very well.
+user avatar
+Unknown Speaker
+00:22:14
+This tree.
+user avatar
+Lacoste-Julien Simon
+00:22:18
+This tree beauty. Beauty.
+00:22:24
+And what it means is that A times B plus C is the same thing as a time c A b plus a time see right
+00:22:40
+That's the magic of product and plus. And so what happened is, if I have a times b plus a time. See, I can factor is the A out and get A times B policy right
+00:23:00
+And when we have downs down
+00:23:05
+When we have
+00:23:07
+Here.
+00:23:09
+Is basically the generalized version where I have multiple products. So this is kind of the can think of it as
+00:23:19
+YOU KNOW, I COULD HAVE A times B times d or something and then plus blah, blah, blah. Plus, so I have a big son of products and what I can do is I can just take the thing which don't depend on
+00:23:35
+So, for example, like this thing I can factor is out of the sun, right by this to be because there's no x one in the sun.
+00:23:42
+And same thing this I can factor eyes for all the some which don't have extra next one in it. Okay. And so basically what you can do here.
+00:23:55
+Is you can push the some as far as possible. Inside, put the pen testers in there in the right way to kind of reordered the
+00:24:05
+The computation such that it's much more efficient in particular I said I could factor eyes out. If one of x one, because there was no x one in the sun, then I have summation over x two x two x two given x one.
+00:24:23
+And then there. There's the rest of the submission don't have extra next one so I can push the some inside so I can have summation over x three and then I have f of x three given access to
+00:24:40
+And again I will do that, pushing, pushing, pushing, until I get the end. And what I get at the end is summation over X, capital T of 5060 given X t minus one.
+00:24:56
+Let's see if I can close my parents. He says there's three that's parents, his parents, his parents.
+00:25:14
+Okay. So, this what I've done here was just more enterprise version of the simple distributed et la dimension.
+00:25:23
+And if you're not comfortable with these kind of manipulation, I recommend that you try to work it out at home by starting with like two elements than three elements and just convince yourself that this is correct.
+00:25:34
+And this is a central element of graphical model and why everything works.
+00:25:42
+Because what's happening now, once I put all these parenthesis, now I can start to compute this, this some and, in particular, what I can do is I can start by the inside element right so so this thing here for every value of X t minus one i some fit the factor over the value of x t
+00:26:05
+So you can think of this as a function of X t minus one.
+00:26:11
+Because it's T has been some doubt in disappeared. It's, it's not a variable anymore, but for every value of x minus one. I compute this.
+00:26:18
+I get some and then I get a value. And I do that for every possible value of x minus wanting to get a new factor, which we call a function of t minus one which is I call empty.
+00:26:28
+Okay. And why do I call it empty because this is kind of a message. You can think of it. That's a message that will pass in the computation graph right and so then what you'll get is
+00:26:43
+Here, I will have
+00:26:46
+You know, summation over X t minus one, I would have f t minus one which depends on x t minus one given X t minus two times my message.
+00:27:01
+Right, which was the result of the competition of the inside parentheses. And so this you could now call this, this only depends on AX t minus two, because I've sent out x two minus one. So, I'll call this empty minus one of x t minus two.
+00:27:19
+So it's a function with only depends on next two minutes.
+00:27:23
+And I would I would keep competing the sun.
+00:27:28
+Which by the way to compute each of the sun. So to compute this message is order k square compute right
+00:27:36
+For every value of X t minus one. I do have some over key elements. So that's order k i do that K time so I get a square compute this is case square compute time and use only K memory because I need to store the vector of values for every key elements, right.
+00:27:56
+And but each. So each time I do that it's a case square operation.
+00:28:00
+And so graphically where we can represent
+00:28:05
+Is we had
+00:28:08
+These variable x one, x two, x three, and actually the graphical model corresponding to this.
+00:28:17
+Example is like this. So the arrows are like this.
+00:28:22
+So that would be actually the graph for presenting this distribution.
+00:28:27
+And what we've done is
+00:28:29
+To compute the some
+user avatar
+Unknown Speaker
+00:28:32
+How do I go down.
+user avatar
+Lacoste-Julien Simon
+00:28:37
+To compute the some over all the values of these variable I started at the end at a leaf at the know which had no parent. So, you know, children.
+00:28:50
+And then what I did is I computed the message here empty which depend only on AX t minus one. And then I passed it back in the graph and then
+00:29:01
+At the next node I computed the message and t minus two which depends on the annex t minus two and then I pass it back in the graph. It's a threat. So you can think of the computation.
+00:29:14
+Ordering to compute the some store the value and then pass it back to the next known in the graph. And I do that from the end.
+00:29:27
+Up to the route where x one was
+00:29:31
+And so this is actually call a message passing or with them.
+00:29:41
+Because you can think of it as I have no one's in the graph. Each node do some kind of computation by looking at the values of message which come to them and then you pass them back to their neighbors.
+00:29:50
+But this is just a way to organize computation in a clever fashion and at the at the root. It was just these parentheses that I've used in distributed
+00:30:01
+Okay. But, and this enables you to compute
+00:30:05
+Efficiently. The marginal FP gently.
+00:30:15
+The marginal
+00:30:18
+P of X one.
+00:30:21
+So I replace a next summer word exponential number of terms by using the factorization property in a disability with still assembled Riddick special number of terms, but because I cleverly organize a computation. I only need here. This was t times case square operations.
+00:30:38
+So I went from Cape racing T to tee times case square so much more efficient.
+user avatar
+Unknown Speaker
+00:30:47
+So this is the time
+user avatar
+Lacoste-Julien Simon
+00:30:49
+And memory. Oh, and this case, actually, I could have done that in order came in.
+00:30:55
+The second message back is empty, minus one x two minus two.
+00:31:02
+So the question is, is
+00:31:05
+This empty. Oh yeah, it's empty, minus one, correct. Thank you. I love when I make mistakes with people stay awake. Skip.
+00:31:15
+So this is t minus one. Correct.
+00:31:18
+Thank you. Be 60
+00:31:23
+How do you say your name.
+user avatar
+Beheshteh Toloueirakhshan
+00:31:28
+Hello.
+user avatar
+Lacoste-Julien Simon
+00:31:29
+Ha.
+user avatar
+Beheshteh Toloueirakhshan
+00:31:30
+Yeah I correct when great
+user avatar
+Lacoste-Julien Simon
+00:31:32
+Thanks for correcting me.
+user avatar
+Beheshteh Toloueirakhshan
+00:31:35
+No problem. Thank you.
+user avatar
+Lacoste-Julien Simon
+00:31:38
+Alright, so
+00:31:41
+Yeah so. So here, this was just a very high
+00:31:43
+Level explanation for you can see both in terms of statistical complexity. We have less parameters to describe distribution as well as computational complexity, we can compute quantities, much more efficiently.
+00:31:58
+That's the whole motivation of graphical models. So the, the graph here was encoding the structure that we use and
+00:32:07
+The advantage of having a graph is that instead of us having to think really cleverly about oh, how will I organize this computation. So as efficient. There are actually systematic or rhythm to to do that for you.
+00:32:18
+And particularly, you can implement it in the computer. So that's done for you don't have to think and be clever about
+00:32:24
+Okay, so that's the
+00:32:27
+And basically that's that's what as the heart of graphical model is is just those two things. This the BT. BT and factorization.
+00:32:36
+Could I give the computational complexity for the second step of message passing the second step is still order case square
+00:32:49
+So basically,
+00:32:51
+Let's do a bit of an annotation. So, so this step here. I need to compute this some so for every value of X t minus one. I will some over
+00:33:06
+Oh, okay. So you're, you're, you're right. It's not a square. It's a cube.
+00:33:11
+Because this is a case square operation, but I do it.
+00:33:19
+Oh, this is order k. Yeah, correct. Okay. So for every value of this message.
+00:33:28
+I will do an order case on
+00:33:31
+And I do that k times because they keep us, it will not use which case
+00:33:35
+So it's order case square computation in order k memory because I will store these
+user avatar
+Unknown Speaker
+00:33:42
+You know, one at a time for every value of x two minutes.
+user avatar
+Lacoste-Julien Simon
+00:33:49
+So there's case square memory to encode the factor, but this is given to you. It's not extra memory, you need to use
+00:33:57
+Any other question about
+00:34:04
+Anchor you have a question, I see your head.
+00:34:12
+Hello.
+user avatar
+Ankur Agarwal
+00:34:15
+I'm not sure if I'm visible. Okay.
+00:34:19
+My question, so I just noticed that we
+00:34:24
+Have is to find the
+00:34:27
+Distribution of excellent right
+00:34:30
+So,
+00:34:31
+I look like, how lovely like Hollis every element of ahead of it being involved for the distribution of text.
+user avatar
+Lacoste-Julien Simon
+00:34:45
+Um, yeah, so. So if I understand your question. So you're saying how the other variables appear in the marginal. The next one.
+user avatar
+Ankur Agarwal
+00:34:53
+Yes, yes.
+user avatar
+Lacoste-Julien Simon
+00:34:55
+Yeah, so basically if I know, let's go. So if I go here, right, so let's go here. So if I know the value of x one.
+00:35:04
+Well, this influence the conditional of x two given x one.
+user avatar
+Ankur Agarwal
+00:35:08
+Very good.
+user avatar
+Lacoste-Julien Simon
+00:35:10
+But when I some over x two.
+00:35:13
+I will also have access to which appears in this term here, so they're all like they're all connected right
+user avatar
+Ankur Agarwal
+00:35:20
+Because in taking us include that issue forward rather than
+00:35:25
+Me.
+00:35:29
+Excellent.
+user avatar
+Lacoste-Julien Simon
+00:35:43
+Joint the joint of X one to capital X t is the things I'm trying to some
+00:35:52
+Because of this product structure there was all these these chain dependence. If I ask you, by the way, if I had asked you the marginal of
+00:36:04
+X ti
+00:36:14
+Na, na, na in both of these cases, you needed to some of everything.
+00:36:20
+Okay, because of this chain dependence.
+00:36:36
+And you can correct my pronunciation, by the way.
+user avatar
+Unknown Speaker
+00:36:39
+Yeah, it's
+user avatar
+Lacoste-Julien Simon
+00:36:43
+It's Joseph parts are you said it's closed.
+user avatar
+Vaibhav Adlakha
+00:36:45
+It's it's closed. It's closed.
+00:36:49
+So I wanted to ask if we don't have this assumption that it is only dependent on the US and then a graph would look something like X Men will have an ongoing has to every other excite an extra will have an ongoing us to everyone except expand and so on so forth.
+user avatar
+Lacoste-Julien Simon
+00:37:10
+Yes.
+00:37:11
+That's correct. It's called a complete directed graph.
+user avatar
+Vaibhav Adlakha
+00:37:15
+And I'm guessing which potential be able to move in this
+00:37:21
+Way should be able to compute that same complexity that exponential complexity using the similar approach that you described.
+user avatar
+Lacoste-Julien Simon
+00:37:28
+So if you have the complete graph like you just described, then there will be one factor.
+00:37:35
+Which depends on everything before you will have let's say it could be that x ti given x one x two extreme sport. So this, this is a huge table with TI X with k to the
+00:37:46
+T minus one entries so I'll have to some over this huge table. This is exponential. So at the end of the day, if you have just a complete graph, you don't gain anything in terms of computational complexity.
+00:37:59
+And we'll see that was to that very soon. Well, first of all, in general, doing in France in these distribution is NP hard. And so you need to have some kind of like assumption to kind of save the computation and one assumption is, indeed, like, okay.
+user avatar
+Vaibhav Adlakha
+00:38:17
+It's kind of be a sequence, for example.
+user avatar
+Unknown Speaker
+00:38:20
+And you
+user avatar
+Vaibhav Adlakha
+00:38:23
+Warm up
+user avatar
+Oumar Kaba
+00:38:27
+Yes. Hi.
+00:38:29
+So you're right. The mothers with arrows. When you draw them. And I'm wondering if it makes a difference or being directed graphs or not.
+00:38:39
+Because it seems like it shouldn't make a difference.
+user avatar
+Lacoste-Julien Simon
+00:38:44
+You intuition is correct. So first of all, we'll see in this fast. There's two type of graphical model at the basics. One is directed call the doctor graphical model.
+00:38:55
+Or Beijing network. The other one is undirected. They're called market network. And then there's no direction of the arrow and when the graph is a tree like this. This is a tree. The directed graphical model and the under the graphical model or the same. And so the arrows don't do anything.
+user avatar
+Oumar Kaba
+00:39:13
+Bigger
+user avatar
+Lacoste-Julien Simon
+00:39:15
+But we'll see that
+00:39:17
+When we talk about when we present things it will change something
+00:39:22
+In terms of competition. It doesn't change anything, but how to represent the distribution, it will change a bit
+user avatar
+Unknown Speaker
+00:39:28
+OK.
+user avatar
+Lacoste-Julien Simon
+00:39:31
+Cool. So I think you're all very motivated now to learn about this test, right.
+00:39:36
+That was it. That was a teaser of expansion computation. So we will, we won't go back actually to the exponential computation before some time.
+00:39:44
+Because the first few lectures, basically, now what we'll do is talk more about proteins statistics and and basically we'll talk about the simplest graphical model where you only have two nodes you have only two variable, so you don't have to think about
+00:39:59
+Exponential, the number of things because there's only two very use two variables. So it could run it, given the size of the input basically
+00:40:08
+But
+00:40:10
+Very you know when we get back to Africa mold and then the the graph aspect will become much model. Okay.
+00:40:18
+So let's say perhaps it's okay, perhaps before the break, I will talk about the theme of the class.
+00:40:27
+Then we'll take a break before we go to
+00:40:31
+production quality review. Alright, so let's talk about some themes in the class.
+user avatar
+Unknown Speaker
+00:40:40
+key themes
+user avatar
+Lacoste-Julien Simon
+00:40:44
+So,
+00:40:47
+Because we want to talk about distribution over you know multivariate data. And so one thing when we talk about this distribution is how we will represent the distribution. So the steam is representation
+00:41:01
+Okay, so how to present
+00:41:07
+Structure.
+00:41:10
+Structured
+00:41:12
+Property Distribution.
+00:41:19
+And so already, there's the
+00:41:23
+The graph come into play.
+00:41:27
+And that gives you some kind of factorization like I've just shown
+00:41:33
+So already, the factorization will help. But even if we talked about factorization. There's another aspect, which is the parameter ization
+00:41:45
+Which is how we will
+00:41:48
+encode the possible factors in my, in my
+00:41:53
+Distribution. Okay, so. So in the case above. I had a chain. And I said, I add factor which only depend to variable at a time. Okay. But then the question is, okay, well, what are these factors which depend on the two variables or the full table.
+00:42:10
+I eat any values.
+00:42:14
+Of for any pairs of input. I have a specific parameters. So I can have an arbitrary distribution on these two or I could use some kind of
+00:42:25
+Reduce pasteurization. So, and we'll see in class, something called the exponential family.
+00:42:35
+Which will use a more which will make an assumption about this distribution to make it more compact he represented. So for example, we could use
+00:42:45
+Features. So as an example, let's say I'm talking about a factor on on two words, rather than for every pair of words out of habit or I could say
+00:42:56
+Well that's defined some kind of like text features which depends on two words that it could be no
+00:43:02
+Dude, what are the letters, what, how many for every you could count the letters. That's one of the feature. So how many A's there. How many bees there.
+00:43:11
+You could look at pairs of letters, for example, that's another feature. So you could define a bunch of features like that. And each of these feature will have a parameter associated with it.
+00:43:19
+But, but if the number of features is smaller than the number of possible inputs. In this case, case square, then you would have a more efficient for presentation.
+00:43:29
+And the exponential family is a way to kind of define these pasteurization for wide set of distribution. And we also
+00:43:37
+When we talk about expansion of me. We'll talk about properties and it's much off me, because this is a way to talk about a lot of distribution at the same time in a unified fashion.
+00:43:46
+And will have interesting concepts there like maximum entropy, etc, etc. So we'll get back to that but but the first thing is, okay, how do we represent distributions.
+00:43:58
+The second theme, then, is how do we is estimate
+00:44:04
+These distribution or the parameters for distribution. So, given data.
+00:44:11
+How do we learn
+00:44:18
+Or estimate
+00:44:20
+So learning is kind of the machine learning terminology estimation is coming to statistics. Terminology The parameters of the distributions.
+00:44:34
+And as I mentioned in the last class. So this is statistics. This is an inverse problem. And unfortunately, as elbows. There is no can any call
+00:44:43
+That best method to estimate parameters. Unfortunately that's statistics is unfortunately a mess. Unless you're a business. If you're a Bayesian everything is simple. We'll get back to that. But if you're not evasion.
+00:44:56
+You just get a bunch of different principles that you can use. Okay. And these are you can think of them as learning principles.
+00:45:04
+And then you have different approaches. One is called maximum likelihood
+00:45:12
+And other one is called maximum entropy
+00:45:17
+And they're not the same. This is certainly the are the same for the special family will get back to that. But in general, they could give you a different answer. You could also have moment matching
+00:45:27
+So all these are different learning principles to estimate parameters in the distribution and we'll talk about them will talk about their properties and
+00:45:37
+Various aspects that the app.
+00:45:41
+That's the second team. It's got this one too. So how to represent the distributions, how to estimate the parameters in my distribution. The and I guess it's not estimation estimation purposes, more accurate.
+00:45:59
+Estimation and the third team will be in France.
+00:46:05
+In France.
+00:46:07
+That's basically the probabilistic inference is implicit. This is to answer questions about our data case of this. I guess I'll put probabilistic here because this is what we cover in this class probabilistic inference. This is to answer questions.
+00:46:28
+About the data.
+00:46:32
+And for example, we want to compute
+00:46:36
+The conditional of some variable given some other variable. So, for example, why here could be a query.
+00:46:45
+And X could be the observation.
+user avatar
+Unknown Speaker
+00:46:49
+Okay, so this is a conditional
+user avatar
+Lacoste-Julien Simon
+00:46:57
+Or we could want to compute the property of the observation itself. And this could be a marginal
+00:47:14
+And the conditional could be, for example, I have observed these symptoms in a patient, and I want to know what's the policy that it. Do you have a specific disease. Right. So it's conditional distribution.
+00:47:27
+And I might have estimated from data, a large graphical model encoding all the dependencies between symptoms and diseases. And now I want to know how to compute
+00:47:38
+Specific value and like, as I said, in general, and replica model, you need to some over an exponential number of objects. So it's intractable. So we need to use clever techniques. Right. So this brings the aspect of computation.
+00:47:54
+And there's different tricks that will see in this class. And so an example would be using message passing like I told you here like belief propagation
+00:48:06
+It's address address in
+00:48:11
+And that's one way to get exact answers. But in general, it won't be possible to always get exact because it's too expensive or it's too slow. And so we'll also see technique to do approximate and France, so we won't get exact answer will get an approximation.
+00:48:31
+And we'll see some different ways to do that. And so the example would be to use sampling like Monte Carlo.
+00:48:39
+Mc, Mc is an example of that Markov Chain Monte Carlo or another technique will cease called virginal method.
+00:48:47
+Which is basically to use optimization to up to approximate quantities.
+00:48:53
+So I'm just giving you some keywords right now and you're not supposed to understand all these these things. It's just so you have a few key words to understand the themes in the sense
+00:49:01
+And so keep in mind that will have these three themes and we'll have a lot of different topics which will cover aspects of these themes, but that's kind of like three big aspects of, you know, working with distribution over multivariate data.
+00:49:17
+Okay.
+00:49:19
+Any question about this.
+00:49:34
+No, I guess you're ready for your break. So let's take a 10 minute break and you have time to think about questions during the break. Also by the way. So it's 227 let's come back at 237
+00:49:47
+And I'll post the recording.
+user avatar
+Unknown Speaker
+00:49:53
+Recording
+user avatar
+Lacoste-Julien Simon
+00:49:55
+Recording
+00:49:57
+Welcome back.
+00:50:01
+So there was a question from Lauren
+00:50:06
+Lauren
+00:50:07
+Lauren. Yes. You want to ask your question again.
+00:50:11
+Or you want me to ask it.
+00:50:16
+So, ask away.
+00:50:22
+Okay, I was going to ask if
+00:50:25
+You go this way, we can hear you.
+user avatar
+Unknown Speaker
+00:50:30
+Have a human voice.
+user avatar
+Loren Lugosch
+00:50:34
+Can you hear me now.
+user avatar
+Lacoste-Julien Simon
+00:50:35
+Yes, we can.
+user avatar
+Loren Lugosch
+00:50:36
+Okay, yeah. So is there a difference between I've heard the phrase statistical inference and I didn't know if there's a difference between that and what you wrote probabilistic inference.
+user avatar
+Lacoste-Julien Simon
+00:50:49
+Question. So basically probabilistic and Francis
+00:50:54
+Fairly clear. It's basically competing priorities.
+00:50:57
+Statistical and friends is a bit ambiguous. It could mean estimating the parameters. It could mean computing the properties over the parameters. If you're a Bayesian, for example.
+00:51:10
+Okay, so the big difference is because when you're talking about statistics, you might be talking about the inverse problem rather than
+00:51:16
+The direct problem. So when I talk about probably it's easy. It's easy to go from the model to the
+00:51:21
+Answers you're looking for was when you talk about statistical inference. It might be that, oh, I have data and I'm trying to figure out answers to statistical
+00:51:29
+Statistical questions. And the question is this physical question probably stick question or it could be figuring out what is the maximum length parameter, for example, which is an estimation question. So I would say Cisco in France is a bit more ambiguous caustic in France is very clear.
+00:51:47
+Sometimes it can be the same. And sometimes they would mean slightly different things. Okay.
+00:51:53
+So another question was,
+00:51:56
+From Simon or small.
+00:52:01
+Should the stuff I presented about
+00:52:05
+Message passing on a chain be hundred percent clear right now. Definitely not. I didn't go enough details and we need to review a few concepts. So this is just to give you a few key words and the gist of motivation for graphical model.
+00:52:21
+I would say it's perhaps 30% clear right now.
+00:52:24
+Depending on your background.
+00:52:27
+Will first review now property theory definition and stuff like that. So that will already help you to understand the where the meaning of these factorization are and then we'll actually go to the graphical model aspect in more details later.
+00:52:46
+Okay, so. Oh la la is asking if my explanation of the statistical and probably stick in France have anything to do with discriminate of engineering models.
+00:52:56
+Yes and no. So this kind of in general model is usually in the context of classification
+00:53:05
+And I'll come back to that later. Then there's a question of are we talking about
+00:53:11
+probabilistic model for classification or just
+00:53:17
+Classification because I could do classification, which is, is there a cap or no, and I just tell you yes there's a cat. There was no there's no I don't have to tell you a policy about that. Okay, so in this case.
+00:53:26
+It has nothing to do with were talking about because everything we're talking here was was probably tease.
+00:53:31
+But if if you would talk. What's the quality of a cat being in the image. So then you would have a policy statement.
+00:53:39
+And then, indeed, there could be a descriptive direction in a generative direction and they're opposite
+00:53:44
+So it's kind of a bit creative, but we'll get back to that we will have a section where we talk about logistic regression
+00:53:51
+Which is mark this competitive than say naive Bayes which is generative and we'll make this distinction between gentlemen descriptive directions. By the way, I did my PhD thesis on this creative methods combining discovery methods and journey methods together like so.
+user avatar
+Unknown Speaker
+00:54:08
+I had a bit of expertise on this topic.
+user avatar
+Lacoste-Julien Simon
+00:54:14
+Alright, last question.
+00:54:18
+Is statistical inference mostly estimation for example parameters donation or what other part of us. That's gone friends have other than estimation
+00:54:29
+Well, I think people could use that as going in France when the also just want to
+00:54:33
+Define a conditional distribution. So that's like crossing in France, so people could still use this conference because they don't see
+00:54:40
+It Anglo it it's it's kind of like a query about the data that you want to insert so that also works, then if you're a Bayesian you could have something like
+00:54:49
+Rather than estimate the parameters we could define the distribution or parameters and that was successful in France with the different compute get the posterior over your parameter from the data.
+00:54:59
+And we'll talk about posterior later in the cast when we talk about Beijing versus frequent this approaches.
+00:55:07
+Cool. So something else I wanted to say before we go to door caustic review is I got this question.
+00:55:17
+In a Mila social by a student of our class where she asked
+00:55:26
+Art is proxy graphical model really used in application nowadays because she said what she sighed natural language processing was like lstms or these fancy neural network.
+00:55:39
+And that's a good question. And what I would say is two things. So the first thing is
+00:55:47
+A lot of similar models will use graphical model, and there can be still very effective. So it's true that for a lot application nowadays graphical model has been pure graphical model has been superseded by secure networks for a lot of tests to get better performance.
+00:56:07
+That's then the comeback by combining graphical model with neural networks and then you give, the more complicated model and but that's much more advanced so in applications, usually you don't have to go there yet.
+00:56:18
+And so if you would think about just adding a toolbox and you're in the industry and you just look at standard set of the art solutions nowadays. Often you want this and see process graphical model there because they've been superseded. On the other hand,
+00:56:36
+1015 years ago, the worst state of the art and D could still often match the performance of to the neural network is just people because they all use neural networks, they don't
+00:56:45
+Care about trying these other more simpler tools which already existed in the past. So that's one thing. Actually, I want to say three. So the second thing is
+00:56:55
+On the other hand, that you want to learn to walk before running and indeed the concepts we give you in this class.
+00:57:03
+Or are much more fundamental and and and and you know, long term understanding of policies and statistics is very important.
+00:57:12
+So even though for application to give the state of the art. Sometimes you will use a neural network neural networks are much harder to understand, analyze and give guarantees for, for example, and so
+00:57:24
+If you want to, you know, train your brain to understand how things work. It's good to use this positive graphical model.
+00:57:31
+Approach. And then third, is if you like math, what you get in this class is a lot of cool math applied on interesting problems, right. So we'll see information theory will see
+00:57:45
+Graph theory will see optimization like like Ranjan all these kind of cold math concepts and then you know they're in the context of applying to model the two variables data.
+00:57:56
+And so, so this class is also a good way to learn about other cool math concepts which is just useful for analytical perspective.
+user avatar
+Unknown Speaker
+00:58:04
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:58:07
+So, any question about that.
+user avatar
+Unknown Speaker
+00:58:10
+Well, I finished my coffee.
+user avatar
+Lacoste-Julien Simon
+00:58:16
+Ah, and then the same person asked again in private is processing graphical model helpful to in studying because it definitely. So if you want to go to causal
+00:58:26
+Model, in particular, something called causal graphical model. The are based on graphical model concepts first so so already understanding graphical model will be super helpful to do causality data.
+00:58:39
+But be aware, like big disclaimer graphical model themselves are not causal, we are not talking about because I didn't need only talking about correlations about statistical dependence, as you might have heard Correlation does not imply causation.
+00:58:57
+I recommend you google this sentence and get a lot of examples like you'll get stuff like like beer consumption and
+00:59:04
+Like IQ.
+00:59:06
+Variation over the term or something. And actually, there's no they're correlated, but not the city causally TV.
+00:59:21
+Okay, so let's
+00:59:23
+Review probably TVs. Where is my pen, you
+00:59:31
+Know,
+00:59:38
+Quality review.
+00:59:41
+So I won't go in, in, in
+00:59:45
+Mostly this up today. This is next.
+00:59:49
+I won't go in in super gory details on properties because you should any any we have had a class on the topic in the past and you can review it on your own to make sure you're up to speed, but I will give you the important concepts which will be useful for this class and I set up the
+01:00:08
+The notation, basically.
+01:00:11
+But first, a bit of philosophy because that's fine. And it's cool. Why are we using qualities
+user avatar
+Unknown Speaker
+01:00:18
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:00:20
+So the first thing is properties. This is actually a print principled
+01:00:28
+Framework.
+01:00:32
+To
+01:00:34
+Model uncertainty.
+01:00:40
+So property theory, it's a principle framework to model uncertainty.
+01:00:45
+So has been using a lot of successful applications like in statistical mechanics, quantum physics, other places.
+01:00:55
+And
+01:00:57
+But from a computer science perspective and an AI perspective. Let me identify some sources of uncertainty.
+01:01:09
+Because they're a bit different.
+01:01:12
+And this nomenclature is not super
+01:01:18
+clear separation between different sources. It's just to give you an idea, and we're thinking about more philosophy here. So there's not like not talking about clear mathematical decision this definition.
+01:01:28
+But just to give you some example of where uncertainties coming from. You can get actually something which I would call intrinsic uncertainty.
+01:01:38
+And that means that the system the way the system works by definition is random. Can you can. It's not because we're not. I mean, let's see the other sources.
+01:01:50
+Not because we're incompletely modeling things. It's just that we cannot have access to the truth. And an example of that is in quantum mechanics.
+01:01:58
+Where the physical laws themselves are defined using properties like you have the way function. And when you make a measurement, you get a random
+01:02:10
+Instance creation of the random distribution which is characterized by the the square the amplitude of the wave function. And so this is inherent prognostic system. Yeah. Then another source of uncertainty is when you have partial information about a phenomenon.
+01:02:32
+Or you don't have more specifically, you also you don't observe all the information you need to be able to get it deterministic. Right. So an example of that would be, say, a card games.
+01:02:46
+Right. So when you have cards. You don't know what's the order of the card. If I told you in advance what was the order of the card, then you will know what you would what you would pick right
+01:02:57
+If I told you exactly how I have shuffled the card. You know what the final order. Right. So there's no randomness in the card deck there randomness and the karmic IS COMING THAT YOU shuffled them in a way that you don't tell the other person.
+01:03:10
+Or rolling and die right rolling a di di n dice dice.
+01:03:19
+To die today one days.
+user avatar
+Unknown Speaker
+01:03:22
+Think so.
+user avatar
+Lacoste-Julien Simon
+01:03:28
+Yeah. And so, rolling a dice basically
+01:03:33
+If you made very precise and actually you can use robot to roll the dice in a deterministic fashion. So, do you really know the initial conditions.
+01:03:41
+Of like you, how you through the dice. You could actually do precise physics simulation to know what the trajectory in which side profile fall on
+01:03:50
+But you don't know the initial conditions right so you don't know the initial conditions because of that you don't know which side will fall on. And so it becomes random for you.
+user avatar
+Unknown Speaker
+01:04:00
+The initial
+user avatar
+Unknown Speaker
+01:04:03
+Conditions.
+user avatar
+Lacoste-Julien Simon
+01:04:16
+Alright, thank you. Some people are giving me English lessons. So I guess it's a die to dies.
+01:04:24
+I guess Jacob Lewis who are. That sounds like an English name, I will trust this person.
+01:04:31
+Rolling a dice and
+01:04:35
+No no no today.
+01:04:38
+Really so singular is die.
+01:04:43
+Okay. All right. Well, you'll find out like that. There's a few English words I have trouble with. And I always confuse them.
+01:04:51
+Alright.
+01:04:53
+Are intrinsic and pressure information, referring to the same phenomenon as lol were terrific and epistemic uncertainty.
+01:05:01
+Good question. Um, I think, not necessarily because this systemic uncertainty. Normally, I think, is has to do with the model uncertainty.
+01:05:17
+Brendan
+01:05:20
+Can you define for me. Elliot Eric and epistemic uncertainty or I'm not gonna cry.
+user avatar
+Breandan Considine
+01:05:31
+Well, my understanding was
+01:05:34
+Was that Palio terek uncertainty refers to
+01:05:41
+Something kind of intrinsic about the system and
+01:05:48
+epistemic kind of the first or knowledge about the system. So our understanding of how it works, rather than something that's, I guess.
+01:05:58
+Intrinsic system.
+user avatar
+Lacoste-Julien Simon
+01:05:59
+Okay, well,
+01:06:01
+Then the way you define and then yes, this would be the distinction
+01:06:06
+The problem is, I also there's a third, you know, for me, like I think partial information is not the same thing as
+01:06:17
+Not modeling the system properly. So for example. So for me, that's the third category I put because that's basically what happens in AI everywhere. It's incomplete modeling incomplete.
+01:06:32
+Modeling and as I said, these distinction are not super sharp and so partial information versus incomplete modeling. Sometimes you can definitely like mix them up of a complex phenomenon. Right.
+01:06:50
+Or actually, you don't know what's the correct model. And that's why I thought perhaps like epistemic had to do with also not knowing the correct model, but it's a bit different than not having the full information. So what I mean by incomplete modeling.
+01:07:04
+Well, so a good example like you do you do physics and you model, a system where you say, oh, let's neglect the friction, right, because it's just too complicated to consider the friction
+01:07:15
+Well, then you will have some approximation. And if you had perhaps a distribution over the effect of friction, you could actually model that with a distribution as well.
+01:07:26
+Right. Another example closer to AI is let's say you have a rule like most birds.
+user avatar
+Unknown Speaker
+01:07:36
+Can Fly
+user avatar
+Lacoste-Julien Simon
+01:07:39
+Right. And, okay, well, what does it mean, my most right. Perhaps you can quantify that. But the whole point is you would like to use simple rules.
+01:07:51
+They can be advantages to use simple rule.
+01:07:58
+But then it yields uncertainty.
+01:08:05
+Right. So, for example, instead of saying, Okay, I will say that I will assume that most birds can fly. Some of the birds don't fly actually
+01:08:12
+But then you can have a distribution over birds and those fly. Those don't fly. And then when you make a statement, you can have a distribution over like whether the statement is true or not.
+01:08:22
+If you want it to characterize exactly like okay well all the birds, which fly versus don't site and you have to specify the list of birds, which fly and the fly and it gets much more complicated room.
+01:08:34
+And another example is just, I'll put in quotes AI, artificial intelligence.
+01:08:39
+Like we're talking about, like, super complicated phenomenon here about like, you know, how does the brain works. How does intelligent behavior arise. This is super complex. So we'll make
+01:08:48
+A lot of like modeling approximation and simplification to work with that and this will give uncertainty about how things actually happen. And this can be modeled using this distribution.
+01:09:00
+From a Bayesian perspective where you put this division over everything. Also parameters, then it becomes very natural, actually, by the way.
+01:09:10
+And I guess. Here's something important is that you want simple rules not also sometimes because you don't know what's the perfect model, you don't actually have a model which is perfect.
+01:09:21
+So you don't have access to it. But also, even if you had the perfect model. You cannot compute with it. It's too complicated. There's, it's intractable to do anything with the model to make a prediction.
+01:09:31
+So you will do the approximation. And so in this class in particular will will see that compositional issues are very important.
+01:09:40
+So because of computational track stability requirement will also make a lot of approximation.
+01:09:46
+And we'll get also things which behave randomly when they could have been deterministic. If we had infinite computational power.
+01:09:57
+And let me give you a concrete example of like I want to compute the marginal distribution. Well, you could actually use sampling
+01:10:06
+To compute it now. So now even like the answer that will give will be a random quantity because it depends on your simulation. When do the marginal for from something
+01:10:15
+That is well defined is a is a not a random number. It's a deterministic number, but you could use randomized computation to actually approximate
+01:10:26
+Okay, now we have it.
+01:10:29
+I don't want to be pejorative, but this is a pedantic
+01:10:35
+Note that there is still debating whether do something quantum mechanics actually belong to the first category or any other indeed that's
+01:10:43
+I agree. They're still be based on whatever its intrinsic, you know, there was also these like in my time, which has been prepped superseded we talked about hidden worlds. I think perhaps this has been disproven. But there's other possibilities, probably, that is not intrinsic
+01:10:59
+Though I think my understanding at the time was that the
+01:11:04
+The majority viewpoint, was that it was intrinsic uncertainty.
+01:11:10
+Now, cool, cool, cool come
+01:11:15
+On. Yeah. So anyway, so these three sources is just, I don't want to make it a strict
+01:11:20
+Separation, but also it's just for you to keep in mind that there are multiple types of uncertainty which can arrive. But, you know, we can all use, you know, just politest properties to model these things and it's very, it has been a very useful tool.
+01:11:37
+Does the incomplete modeling also incorporate uncertainty. Uncertainty and parameter a model which was estimated or incomplete refers to ignore some terms like you said about friction. Friction.
+01:11:49
+To yeah I think I was more the incumbent modeling, I think, was more
+01:11:58
+I mean, this is also like, you know, just trying to
+01:12:02
+Put semantic on different categories, but my reflex would say incomplete modeling is that I don't want to model the whole thing, because I don't have access to it or I it's too complicated or it's a dresser up
+01:12:15
+When you're estimating a model from data, I would put it more like a partial information because you don't like if you had infinite data and you would have the distribution which characterize of data. So you would you would know the actual distribution.
+01:12:28
+But you know, it's an important distinction. Not to ship.
+01:12:32
+So two and three are often mixed
+user avatar
+Unknown Speaker
+01:12:34
+Up.
+user avatar
+Lacoste-Julien Simon
+01:12:36
+You want to say something.
+user avatar
+Dishank Bansal
+01:12:38
+Yeah, thanks and make sense.
+user avatar
+Unknown Speaker
+01:12:41
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:12:44
+Yeah, but, by the way, you can do a lot of philosophy about these things.
+01:12:47
+My, my point here just to point them out. Is that so you keep them in mind. So in particular, often you will use properties properties to model something which is fully deterministic.
+01:12:57
+Is just that you don't have access to all the information to make the mistake or you will make approximation to make a difference in the two to because it's too complicated. And it can be very useful.
+01:13:09
+So let's talk about property.
+01:13:19
+And by the way, so probably tease.
+01:13:27
+Like
+01:13:29
+The model that people had is basically like
+01:13:35
+Areas.
+01:13:37
+Like so you could think of. I have a 2D
+01:13:42
+Plane, and let's say I have a square
+01:13:45
+Of unit area.
+01:13:50
+And you could assign properties to different event. And let's say, now I'm talking about the uniform distribution, then you know if I have a uniform distribution.
+01:14:03
+On the square, then the quality of falling in this sub region is just proportional to its area compared to the unit square right
+01:14:15
+And so for example if I asked was, the quality of falling
+01:14:19
+In either of these two squares, I would add them, I would add the two areas together. Right. And so the laws that will see very soon like
+01:14:29
+A protein submission satisfy the coma grub exams and the Komodo of axioms. Basically the mimic how area or volumes for that matter behave like so i. So, if I have distinct area and wanted to have the total area of this. I just some the area together right
+01:14:48
+An area of the positive number. So we'll, we'll see later.
+01:14:53
+These axioms. But intuitively kind of makes sense right sense. And that's this very simple model of properties that people have used it, which has been extremely successful in a lot of different applications.
+01:15:10
+Yeah, so let's do a bit of notation.
+01:15:19
+Usually in this class I will use capital letters to denote random variables.
+01:15:27
+So these will be random variables.
+01:15:34
+And or, you know, the might have indices, or I could use different letter. So that's actually a different letter. This is a y or z, for example.
+01:15:44
+And
+01:15:47
+Usually
+01:15:50
+These random variables or real valued.
+01:15:56
+And that will use lower case for their instance stations, but little x one little x two x three or four. These will be little x little y and little
+01:16:09
+Okay, so these will be there realizations.
+01:16:23
+Okay. And so what is a realization and what is a random variable. I'm, I'm using the the easy machine learning definition, rather than the standard
+01:16:33
+Measure theory definition but like if you take that like in a different book actually like it because it's sufficient for a purpose. So a random variable is just an uncertain quantity
+01:16:45
+A random variable.
+01:16:47
+Is it represents
+01:16:53
+And uncertain quantity
+01:17:00
+So, for example,
+01:17:04
+X could be
+01:17:07
+Resolved result.
+01:17:09
+Of a die. Thanks, in the chat. I can look back a die roll.
+01:17:17
+Okay, so
+01:17:20
+So acts as a capital letter is the random the uncertain output of a die roll and then the little value, the little x, which are the possible values that this random quantity can take. So for example, if I say capital X little x, this represents
+01:17:42
+The event, which is basically a possible
+01:17:48
+Set of possibilities.
+01:17:51
+In terms of result.
+01:17:55
+That x takes capital X ray takes the value little
+01:18:04
+Yeah, and and the space of possible values for the little x for the realizations would call the sample space. And often, I will use the
+01:18:15
+The letter capital omega for the sample space. So this is the sample space, which are the possible values of the random variable. And actually, it's called of elementary events.
+01:18:35
+Because formerly an event is actually a set of possibilities.
+01:18:39
+And the elements or events or the singleton which tells you what are the this the simple
+01:18:46
+Thing which can happen. And in this case are basically the possible values for my random variable. And by the way, a bit of notation. So, you know, this afternoon. I'll use purple for
+01:18:58
+Things to define for notation I use read for different names for the name of the definition and green for the definition. So this is possible.
+01:19:10
+Values.
+01:19:12
+Of my
+01:19:15
+Random variable.
+user avatar
+Unknown Speaker
+01:19:17
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:19:19
+And so in the case of x being a die throw a rock die roll then omega here will be 123456 if it's a six sided die.
+01:19:39
+Yeah, it's equivalent to outcome space and academic events. Sure.
+01:19:46
+Yeah, and
+01:19:48
+There are two types of random variable that would consider this class.
+01:19:55
+Depending on what's the cardinality of the
+01:20:01
+sample space. So either they're discrete
+01:20:10
+And this means that there are simple space is comfortable
+01:20:18
+Are they are continuous
+01:20:21
+Actually, we'll see you later. We can have hybrid of the two. And that's a bit more complicated. When we talk about vectors, but it's focused now on just these simple types continuous
+01:20:36
+Where
+01:20:39
+Omega is uncomfortable.
+01:20:50
+Okay so comfortable standard math term means that you can put in by ejection with the natural numbers.
+01:21:01
+So you can count them. So the, the National numbers are comfortable. They're irrational number. All the fraction natural or unnatural is also comfortable, but the real number is not comfortable uncomfortable.
+01:21:14
+And so when we talked about either a finite possible sets. That's definitely comfortable or an infinite but comfortable set like the natural numbers, then we talked about the discrete random variable.
+01:21:26
+When we talk about say like measuring the temperature or measuring the height of someone in these all like real numbers with an internet possible
+01:21:34
+Precision then these are an uncomfortable set. Okay. And the part I won't go into this class, but in order to formally work with uncomfortable sets, you need to use measure theory that you need to work.
+01:21:51
+With stuff, which is a bit more complicated. In particular, so an event is a set of elements of things that I want to see was the quality of this event.
+01:22:02
+When the set is comfortable all possible subsets of your sample space can be events. But when the set is uncomfortable. You cannot define meaningful for the distribution of all subsets of the real life. For example, there's too many sets and you get into weird stuff like
+01:22:23
+Contradiction. You cannot satisfy the Coburg of exams over all the subsets of the real life. There's just too many sets you get weird stuff happening. That's where you need to find something called a sigma field.
+01:22:35
+And we'll get back to the important aspect of these things. But right now, we won't go into major theory, but be aware that it exists. It's used to really formalized rigorously distribution over uncomfortable objects and
+01:22:50
+Also something else that I have not done is the standard definition of a random variable. If you take a math class is it's a mapping between
+01:22:59
+The Omega space to the real number gets a random variable is a mapping and the good thing is you can have, you know, multiple random variables which are all different mapping, but from the same
+01:23:10
+Space and the distribution is only defined on the the Omega space where omega space and this induces a distribution on the values of the random variable.
+01:23:21
+But here we just skip this kind of like
+01:23:26
+Original space where everything is defined, because it's just complicate things a bit more and make things a bit more formal. We can just think of. I have a you know a random event.
+01:23:35
+And I have possible values. And then I have another one which is sorry different random variable, which are different values and and that can define the joint on them, depending on how I want to define them in. So we'll get back very soon. When we talk about during distribution. Okay.
+01:23:50
+So let's talk. Actually, let's make this more concrete for the discrete case and then
+01:23:58
+Let me know if you have any questions.
+user avatar
+Unknown Speaker
+01:24:01
+So,
+user avatar
+Lacoste-Julien Simon
+01:24:03
+Let's talk about the discrete random variable.
+01:24:08
+To do.
+01:24:13
+So now let's assume
+01:24:16
+That omega is comfortable
+01:24:21
+And thus we are in the discrete case.
+01:24:27
+And could Omega could be finite. Right. It could be like the role of a day.
+01:24:33
+And so far, discrete random variable.
+01:24:40
+X.
+01:24:42
+It's characterized by a probability mass function characterized
+01:24:49
+By a probability mass function A PMS.
+01:24:54
+Probability.
+user avatar
+Unknown Speaker
+01:24:57
+Mass.
+user avatar
+Unknown Speaker
+01:24:59
+Function.
+user avatar
+Lacoste-Julien Simon
+01:25:01
+Which will call in this class PMS for the abbreviation, and what the EMF does, it gives you the quality of every possible values of my rent environment even Sri event right so this is lowercase.
+01:25:18
+P
+01:25:20
+P have little x
+01:25:22
+Four x in my space. So this is my PMS.
+01:25:32
+Okay, and the property of my PMS, my little p will be that my PMS, whether it's after property. It's a P such that
+01:25:44
+It's positive
+01:25:46
+By means non negative sorry for all values.
+01:25:52
+And when I some overall my possible values in my simple space. I get one.
+user avatar
+Unknown Speaker
+01:26:01
+Right.
+user avatar
+Lacoste-Julien Simon
+01:26:11
+And so if you want to represent it graphically.
+01:26:15
+Let's say I have my the integer as my sample space.
+01:26:20
+I represent my PMS will give you, you get these like
+01:26:27
+Spike at every value is because there's no priority assigned to any non integer and, you know, these will have to some to one, so not sure if there's some to one, but make sure it's positive, and smiling one me something.
+01:26:46
+Okay, so that's so basically any PMS is uniquely determined by by sorry every discrete random variable is uniquely the domain by its piano
+01:26:58
+Which basically describe what it how it behaves and a property distribution, which is a bit different. And the probability mass function. So are probably the distribution
+01:27:13
+And I'll use capital P for the Property Distribution.
+01:27:18
+So I use big P
+01:27:26
+It's a mapping
+01:27:31
+From
+01:27:34
+The set of events which I'll use script. He to 01
+01:27:42
+Which satisfied the corner Grove accepts
+01:27:52
+The program exams, which I told you was basically an exam which mimics the properties of area.
+01:28:02
+So what are the Camorra exams. It says that the quality of any event. So, this the script. He is the set of all events. So the property of a specific event. He is non negative for all the events in my event.
+user avatar
+Unknown Speaker
+01:28:20
+Like this, I use
+user avatar
+Unknown Speaker
+01:28:23
+This currently
+user avatar
+Lacoste-Julien Simon
+01:28:25
+The property of my whole sample space, which is also an event is equal to one.
+01:28:31
+And the probability of the union which is comfortable. So this is a notation for a comfortable Union from equals one to infinity of the AI.
+01:28:42
+Is the summation of the polity
+01:28:47
+Of these individual event when you're destroyed.
+01:28:53
+I or
+user avatar
+Unknown Speaker
+01:28:57
+District
+user avatar
+Lacoste-Julien Simon
+01:29:01
+IE, when you take the intersection of any pairs. There's nothing in common.
+01:29:06
+So these are the Camargue of exams.
+01:29:11
+And this is basically what
+01:29:16
+Are the properties that we want to proceed to satisfy. And so the idea is, if I have a comfortable number of pieces which are all this joint
+01:29:25
+So you can think of areas. I could do the same thing. And by the way, measure a theory is like this p
+01:29:31
+Would also be called a measure and measure theory. So measure theory is just a formalization of these kind of axioms for very complicated set which can be uncomfortable, which can be very crazy
+01:29:46
+Okay, so in the case of a discrete random variable. I said the sample space is comfortable
+01:29:52
+And I said that the set of events can just be all subsets of my sample space. So the notation for that in math is to raise to the omega
+01:30:05
+Okay, this is just by definition the power set or the set of all subsets.
+user avatar
+Unknown Speaker
+01:30:13
+Of
+user avatar
+Lacoste-Julien Simon
+01:30:15
+Omega. Right. And so this is
+01:30:19
+So this currently he. This is a set of events.
+01:30:25
+And so what a protein distribution is it's a it's a mapping between events to to property values and it tells and what's the meaning of this is that, well, here's an event was opposed to this event. Well, my policy will tell me what it is.
+01:30:41
+And as I said earlier, is that this set of all events in measure theory is called a sigma field.
+01:30:57
+And it's needed.
+01:31:00
+When omega is uncomfortable.
+01:31:05
+So when omega is uncomfortable. You cannot take as your set of events all the subsets of omega, because you get too many sets. There's no way you can define actually that's a theorem. You cannot define any
+01:31:21
+Property Distribution or even the measure overall subset of the real line.
+01:31:26
+It's you get contradictions, you won't be able to set aside the camera zooms you can construct sets which are mutually this joint, but for which, when you take the measure of the two, you wouldn't get the some of the individual.
+01:31:41
+But when the set is comfortable, then you can use all the subsets. It's fine. You can meaningfully define in particular it's it's clear here from the PMs because
+01:31:53
+Here on allowing comfortable union and so any subset of the comfortable set is a comfortable sets. So then I can just use the eliminator element and just do a comfortable. Some which is totally fine from the PMs
+01:32:08
+Whereas when you have an uncomfortable set. If I have AI, which certainly if I have a set, which is a union of an uncomfortable. It's an uncountable union of of elements, then I can just split it in the lemon tree event. And then things will
+01:32:23
+Okay, so somebody asked about if this thing could be uncomfortable. Yes. Because if this is comfortable the power set is actually uncomfortable.
+01:32:32
+But this is fun. So, if omega is uncomfortable than the power set is even more uncomfortable. It's different. Cardinal and that's way too big. But the power set of the omega is still fine you can define the distribution, brother.
+01:32:52
+Alright, so, so that's what the distribution is and the notation is so so
+01:33:00
+The notation is that
+01:33:04
+When we talk about capital P and we talked about an event we use curly braces, because an event is a set of things.
+01:33:10
+And so I could say, for example, the quality of capital it x equal little x, that's the same thing as the quality of having the single Jen observation for capital X, the little x
+01:33:24
+Another set could be well capital X is equal x or capital X is equal to little perhaps on the x one. Now that's just used two different bags.
+01:33:36
+X or X prime. Okay, so what's the problem of having one or two different one of the two different values.
+01:33:45
+Well,
+01:33:47
+Because this can be written as the union of two single done which are just joined by the morgue have exams. This is the same thing as
+01:33:55
+And this is all we, by the way. So this is the same thing as p of little x the PMs right
+01:34:01
+Little p of x. And so this by the Camargue of exams is the probability of capital x equal to x plus the quality of capital X equals X prime which is just the PMs at x plus the PMs at expect
+01:34:21
+If x is not equal to x, because if it's the same, then, that wouldn't work because then they said x or x one, x equal x prime is the same thing. It's just a single to mix.
+01:34:35
+So here the event was the set X explain
+01:34:42
+And this thing here is the PF
+01:34:49
+Okay. And so for a discrete random variable. More generally,
+01:34:56
+We have that the probability of an event is just a summation over the element of my event p of x, because, because an event is a subset of the omega space and omega is comfortable, then any subset is comfortable. So then this is our comfortable summit, everything is
+01:35:22
+Okay, so let's talk about a continuous random variable because that will distinguish it from the discrete
+01:35:30
+Not going very fast today.
+01:35:32
+Open bedroom, please. Connect charger.
+01:35:38
+Alright, so let's look at the continuous random variable.
+01:35:50
+And so
+01:35:55
+Let's see. Omega space is the real line so I can
+01:35:59
+It's not cold. It's called
+01:36:03
+A continuous
+01:36:05
+Random variable instead of having a PMS, a party mass function. It's characterized by property density function.
+01:36:13
+Is characterized
+01:36:18
+By a
+01:36:21
+Probability density function.
+01:36:29
+PDF
+01:36:31
+And now we talked about integral. And I'll still use little p for the PDF
+01:36:37
+So this is a PDF
+01:36:40
+And what's the property of P. Well, it's a function from the sample space of the real number, like the PMs, but it's an integral function instead of being just discreet something so I have that p of little x for every element in my sample space is non negative and P is integral
+01:37:10
+And the integral over all my simple space of PR X the X is equal to
+01:37:21
+Okay, so instead of something. Now we can have some because we need to make uncomfortable, son. Well, then we need to use integral, right. So that's kind of the generalization.
+01:37:30
+And before we had our PMS were like the spikes because it wasn't discrete in this case. Now we have kind of like function which is continuous, an integral
+01:37:41
+part doesn't have to be continuous, but it isn't agreeable and then to find out what's the probability of being an interval, I will just integrate the density between the two values. Okay, so the property of an event.
+01:38:02
+How do you compute that. Well, in the case that I use the real numbers than the quality of an interval that's a set of real numbers is just the integral of a to b of P of X the X.
+01:38:22
+Okay, and
+01:38:29
+And how you get the density. Well, you can use the basically the the limits.
+01:38:36
+I mean first formally, you could use a random liquid him they removed, but basically you can think of the property density. The PDF as the limit
+01:38:46
+When you make of the, the probability of a ball.
+01:38:55
+Which includes x divided by the volume of this ball.
+01:39:01
+Where were be
+01:39:04
+Or balls.
+01:39:07
+In closing,
+01:39:10
+X.
+01:39:13
+And decreasing and rages
+01:39:21
+So you have, I have my ex. I have some radius here and this is my ball.
+01:39:28
+And as an increases, I get the ball which is narrower and narrower around x and in the limit. It's basically a range of zero. And when I looked at the rate, the ratio of. What's the quality of my
+01:39:42
+Ball over the volume of the ball, then I get the infinite simile basically density of my distribution. And that's why, to find the property of an object. I just integrate the density
+01:40:05
+Okay, so let me just
+01:40:09
+Make one recap. And then I have to stop because it's already over time.
+01:40:15
+But so basically the recap is
+01:40:19
+That if I have a discrete random variable.
+01:40:24
+X. What I need to talk about as a PM F p of x. And I can talk about event which are singleton
+01:40:36
+And these are just given my opinion if if I have a continuous random variable.
+01:40:43
+The
+01:40:45
+Quality of an event is given by an integral. Right. So I have a PDF, which is a density function. It's not something that you will submit something you will integrate
+01:40:55
+And then if I looked at an event. Well, because the integral over a single tenant is just zero because it has zero area.
+01:41:02
+So this is always zero. So that's a big problem right so every elementary event in this case a zero polity
+01:41:09
+But the thing is, I will summon uncomfortable number of them when I have a real interval, which is why I can go from zero to nine zero
+01:41:17
+But that's also why I cannot just use the quality of something, because if if it's go back. If this property here was true using uncomfortable unions and uncomfortable. Some then I would never get something different and zero for conscious random variable. So that's where the magic happens.
+01:41:39
+And so one interpretation is that when you think about p of x being in the infinity symbol interval around
+01:41:51
+X. So that's, that's why I use like the notation dx over to to convey this is roughly p of x times the right
+01:42:01
+It's not true. It's only true in the limit when the x goes to zero.
+01:42:04
+But you know as an approximation. I can think of at supposing that my quality density is constant in a very small liberal arts x and then the property of this being in this neighborhood is just p of x times the size of the neighborhood right but more formally, you have that
+01:42:21
+x in the interval plus or minus eight over to is just given by the integral. Right, so I will have x minus two x plus 2pm X the X.
+01:42:51
+And the last point is that
+01:42:55
+From measure theory or
+01:42:58
+So, by the way, this integral is deliberate measure not being integral. It's not the Riemann integral, but we won't go into this distinction
+01:43:05
+So the important side note is that four continents random variable, you can change.
+01:43:12
+The PDF
+01:43:15
+On the comfortable number of points.
+01:43:22
+without changing anything
+01:43:31
+So the property density function of a random variable is not uniquely define everywhere, right. So it's only a defined up to a set of measure zero which is actually a comfortable set basically without changing
+user avatar
+Unknown Speaker
+01:43:50
+Anything.
+user avatar
+Lacoste-Julien Simon
+01:43:53
+And the reason is because what's really important is the is not a PDF. What's important is the quality distribution, which is a quality over events. Oh yeah, and the events here by the way. So the events here.
+01:44:08
+Is the boreal sigma field.
+01:44:13
+For the real numbers, the set of events for which you can assign
+01:44:19
+For which you can assign probabilities or well behaved sets. It's not all subsets of the real line, but there will be a sets and it's called the boil sigma field.
+01:44:30
+And then alright so what I said is a kitchen to PDF uncountable number of points, without changing anything. And that's because when you integrate changing only a comfortable number of values doesn't change the integral. And this has basically, this has measure zero
+01:44:49
+According to the bag measure
+01:44:55
+If you don't know about the bag measure. It's not important. You can think of the next year.
+01:45:01
+This is just the formal definition of this integral.
+01:45:06
+Somebody commented something
+01:45:10
+Oh, lots of comments we equation fix me
+01:45:26
+Comfortable said being finished to such as I said of natural number. Sure, yeah.
+01:45:34
+Any other question.
+01:45:43
+So here the, you know, like the recap is kind of the important takeaway will for the discouragement unbearable in this class will talk about PMS.
+01:45:54
+PMS can be seen as less tables, right, what's that for any possible values of our random variable will give. What's the qualities
+01:46:01
+For continuous random variable, we cannot just give for every possible value or polarity. What we give is a density. And then how we get the quality of have a set of numbers is by integrating
+user avatar
+Unknown Speaker
+01:46:27
+And the other question.
+user avatar
+Lacoste-Julien Simon
+01:46:31
+I see simile.
+user avatar
+Simon Demeule
+01:46:32
+Limited. Yep. So is there any reading you'd recommend for some of us who wants to just get an introduction to measure teary like I come from just the background of the stats and I understand like the continuous distributions and so on. But I'm intrigued to know more about the magic stuff.
+user avatar
+Lacoste-Julien Simon
+01:46:51
+Okay, I'll, I'll send them some in the slack.
+user avatar
+Simon Demeule
+01:46:56
+Okay, thank you very much.
+user avatar
+Unknown Speaker
+01:47:04
+Anybody else
+user avatar
+Lacoste-Julien Simon
+01:47:07
+Brendan
+user avatar
+Breandan Considine
+01:47:08
+I yes I was curious if you just want to draw a sample from
+01:47:16
+A
+01:47:18
+Graph graph graph model.
+01:47:21
+Do you have to do all the integration or summation in the discrete case or can you
+01:47:30
+Maybe just evaluate the integral symbolically and then plugins and numbers.
+user avatar
+Lacoste-Julien Simon
+01:47:39
+So,
+01:47:44
+If you have Derek graphical model.
+01:47:48
+So there's already a difference between underwritten dark. See, you will do directed will see during the center's they're sampling
+01:47:54
+Lecture that you can do something called ancestral sampling, which is that you start at the root of the, the, you start with the nodes which have no parents
+01:48:04
+Then they will have a marginal distribution, you will sample their value from their distribution then given their value will simple their children. And then you have this condition.
+01:48:14
+So the question is, can you sample from an arbitrarily continuous distribution and this is non trivial. So we'll see when we talk about sampling that
+01:48:24
+We will assume that we have access to a recall which is gives you a uniform
+01:48:31
+Sample from the uniform distinction between zero and one which is already non trivial because this used pseudo random number generator unless you have access to physical system, but then you have pseudo random number generator
+01:48:42
+And then we will transform this to using the inverse ETFs trick, for example, to get a sample from your distribution.
+01:48:50
+But if you cannot compute the inverse ETF easily. You won't be able to do that analysis. So, so you already have like four number two distribution. It's non trivial to sample from it. So you will already need some kind of numerical techniques to orient just sample from an arbitrary institution.
+user avatar
+Breandan Considine
+01:49:07
+Will see nicely.
+01:49:09
+Thanks.
+user avatar
+Lacoste-Julien Simon
+01:49:18
+Oh, so we have some physics question here. I'm not having good units.
+01:49:26
+Probably tease or unit less. And then the volume as some kind of unit, I will have to think about that.
+01:49:36
+I think the, the answer is A, the units don't matter. The reason being that when you define your sample space.
+01:49:48
+You're telling already. What are the units which you care so so to be to be more specific, like if I have a distribution in 2D.
+01:49:58
+The density will be respected, a big measure into the
+01:50:01
+So if my set is not two dimensional like a line, it will have zero quality. So it will be zero, measure. So everything which has a meaningful. Probably it will be a two dimensional object anyway.
+01:50:12
+So there's always will be a dimensionality match between your the thing you say policy on the top and the thing which is the volume of the bar. They will both the both on
+01:50:21
+Two dimensional object or three dimensional object or one dimensional object. So there's no problem of like dimensionality mismatch in this case.
+01:50:28
+And so basically the volume of bn is also called a measure. So, and the measure is dimensional mess in in politics here, but that's because like I said, everything works in this case that like there's never a mismatch of dimensions.
+01:50:48
+Yeah, so like been new law says that p of the end is also volume. So p of the n is is like a weighted volume, right. It's an integrator volume integral with a density function which is uniform that also gives you something which, as
+01:51:04
+A bit the volume, but it's not a, not a uniform volume. So it's the same nature. So the both the numerator and denominator of distinct here. Oops. It's not working.
+01:51:18
+Both
+01:51:20
+These
+01:51:23
+Interested oh my pen is dead. Haha. Can my finger work anyway. So these thing here. Guess my mouse works. Yeah, p of bn as the same nature or dimensional UT are then volume of being so there's no problem.
+01:51:40
+But I like I like I like the physics intuition here, by the way, because, indeed, sometimes in protein. It's weird because we don't add the multi dimensional et or dimensional value to our quantities and everything is dimensional Ness and it's kind of weird.
+01:51:57
+And sometimes we will have weird models and practical
+01:52:02
+Okay. Any last question, I went way over time. Sorry for that. But if people had to leave, they can watch the recording for the next 12 minutes I'd say speaking times to they want
+01:52:17
+No question.
+01:52:19
+big thumbs up. Alright, so
+01:52:22
+Oh, if I can explain what a broad sigma field is right. So for the curious people a Burl sigma field is basically a well behaved set of sets on for which you can
+01:52:35
+Define a property measure again. And it's basically the way you work is we start with meaningful setting in the case these are balls and start with all balls like all balls.
+01:52:47
+Of all possible radius. These are assets, then what you can do is you can take union of bots.
+01:52:52
+You can take comfortable union of bots and comfortable union of dolls is permitted to find out what's the priority of that because it's, you can use the camera bag sense
+01:53:01
+And then you can use all possible comfortable using the balls and then you get basically the crossing my field, but you're not allowed to take uncomfortable union of boss. That's a set, which could be too complicated. It's not the city in your signature.
+01:53:16
+But you can think of the bra single field as generated from walls countable unit balls and a well behaved set of sets.
+01:53:25
+Cool. Alright. So. Have a nice weekend and I'll see you on Tuesday.

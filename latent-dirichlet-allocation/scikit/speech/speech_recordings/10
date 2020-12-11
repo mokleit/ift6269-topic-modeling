@@ -1,0 +1,1469 @@
+Lacoste-Julien Simon
+00:00:03
+Okay, recording started and let me get the
+00:00:09
+Where
+00:00:14
+I lost the cameras. Okay.
+00:00:19
+So Hi everyone, welcome back to
+00:00:22
+The prostate graphical model chest so today as a follow up to the question that was just asked, we're actually going to cover general approach to classification. So we'll look at the Fisher.
+00:00:36
+linear discriminate analysis model.
+00:00:40
+And that would be a good excuse to see some math tricks.
+00:00:47
+And how to do
+00:00:49
+Emily.
+00:00:51
+For the multiverse Gaussian
+00:00:55
+It's your work already did it for a scale or one the ocean. So now we'll do it for a multivariate. Gotcha.
+00:01:04
+And
+00:01:08
+Yeah, so we need
+00:01:11
+Two volunteers for describing the lecture of today.
+00:01:16
+If you can let me know in the group chat.
+00:01:20
+So,
+00:01:24
+We have Abdel Rahman
+00:01:27
+And each man again. Alright, thanks.
+00:01:31
+Again, each of you please send me an email.
+00:01:34
+So I have your email address, reminding me that you just volunteered, and I'll send you the instructions shortly. Now that the Ikea deadline has passed. How have the time to do that.
+00:01:47
+So yeah, so before starting with Fisher to narrow this analysis. I just want to make a note about the assignment. Okay, so there's a it's
+00:01:59
+For homework, too.
+00:02:03
+Okay, so you're asked to implement Newton's method or the ether did return related least square
+00:02:13
+Approach for logistic regression, which is just running Newton's. You don't have to do least the, the, all the transformation. I gave you in math class. This was just to
+00:02:21
+Give interesting interpretation of Newton's method, but all I care about is that you implement Newton's methods for logistic regression. It's a new 10 if you remember, you need to to compute this update right so WT so Newton's
+00:02:39
+WT minus step size.
+00:02:44
+Well, I guess if you use a step size of one will forget about it. And then you have the SDN, and verse WT times grad of f of wt. Okay, so that's the official update
+00:02:57
+Now we start to get into numerical computation len when you implement numerical algorithms on the computer, you have to be careful how you do updates. So this is the kind of thing you would see if you think a numerical analysis class.
+00:03:13
+Where you learn, for example, about cancellation errors. So for example, if I if I say if I do like a minus b where
+00:03:24
+They are both like or extremely or a and b are very, very close to each other.
+00:03:31
+Then I get very little. For example, like let's say this, this was a, you know, six digits of accuracy.
+00:03:42
+But if a is roughly equal to be when you do that, the answer, you'll get will have only a few digits of accuracy, because all the other digits are cancelled and you're left with perhaps one digit of accuracy.
+00:03:55
+Which means that now if I use this quantity somewhere else in my computation. I only will have at the end one digit of accuracy not 16 digits of accuracy, like a float with that.
+00:04:07
+Okay, so, so that's what we call like cancellation error which is really bad. And so for example if I know that A and B are almost exactly the same, or perhaps even equal I could do
+00:04:20
+I could change the computation to to avoid that. So a good example is I guess now. I'm also a bit more sidetracked. But, you know,
+00:04:31
+I was planning to talk about this, but I think it's still, you know, helpful background information for you to be aware of, let's say we talk about the quadratic
+00:04:40
+Solution formula, right. So I want to do x plus b x squared plus b x plus c equals zero. I want to solve that the roots are minus b plus or minus square root B squared minus for a seat divided by three. Okay, so these are the standard quadratic rules there. There's two of them.
+00:05:01
+And what happened here is if
+00:05:04
+Let me see if I remember this correctly. So if be is huge.
+00:05:12
+Let's say be is much bigger than for AC. Okay. Suppose suppose that be
+00:05:20
+Square is much bigger than for AC as a as just a number. Okay, so the square with a B squared minus four ac is basically almost equal to, to be because it's dominated by the bigger term right
+00:05:34
+And so then I will have minus b plus b. So I have b minus b. So, I get this cancellation. Right. And so the problem is that then
+00:05:44
+If I just compute in a naive way minus b plus square root b squared, blah, blah, blah. This yields cancellation error and it's not an numerically stable way to compute this route.
+00:06:00
+And so instead, what you can do is you can instead you can multiply both the numerator and denominator by the same thing.
+00:06:11
+This is kind of completing the square for the square root. So you have that this thing is the same thing as minus b plus square root, blah, blah. Divide by two eight. And what I do is I multiplied by the, the other thing which is minus b.
+00:06:31
+minus square root, blah, blah, divided by minus b minus square root, blah, blah. So I just want to play by one, right. So from an exact arithmetic perspective. I didn't do anything.
+00:06:43
+The beautiful thing now is because I have something minus something times something plus something I get these the square term, right. So this is the same thing as be square
+00:06:57
+A minus the square root square. OK, so now I'll just get the square root. So I get b squared minus four ac THAT'S THE SQUARE ROOT square divided by
+00:07:10
+Two eight times minus b minus square root
+00:07:18
+llama.
+00:07:20
+Okay, why did I do that well because now this term here which was problematic because it was a huge number. It was the meeting all the numerical computation cancels out. So the be square and the b squared cancels out. So disappear. So what I'm left with is for a see the minus cancels out.
+00:07:40
+Divided by two. A times there's a minus. And then there's B plus square root, blah, blah.
+00:07:49
+And so now the eight cancels out the two cancels out. So what I'm left is to minus to see divided by b plus square root B squared minus four ac ok
+00:08:04
+OK, so this is just another equivalent expression to so perhaps I'll put the, the original one. So the plus the Plus version.
+00:08:17
+Let's look at this one. So, this this thing, this is equivalent to this thing.
+00:08:23
+I it's the same quantity, but it's just it written in a different way. And what happens now is that if I want to compute
+00:08:32
+This thing in a computer and be as big. The nice thing now is I don't have this guest catastrophic cancellation. Right, so I will have
+00:08:41
+16 digits of accuracy for see this is a big number. There's no cancellation here, this, this, this denominator will be roughly basically almost to be
+00:08:53
+When he is huge, right. So basically I just get minus c divide by D. That's basically one of the route when he is huge.
+00:09:00
+And so that's so if you if you implement in your code, this expression. It's much more stable. Okay.
+00:09:07
+So when you do just mass on
+00:09:10
+On pen and paper. You don't care. You can write this or you can write this. There's no difference when you implement in the computer. There's a huge difference between those two. So you have to kind of
+00:09:18
+Start to think about these things when you do numerical computation on a on a on a computer. Okay.
+00:09:25
+The same thing like you never want to test number like is a equals to be when a and b or like floats and like real numbers because I could have
+00:09:35
+A identical a mathematical expression on both sides. So for example, I could have computed
+00:09:40
+This thing and I copied these things. They're supposed to be officially equal but if I do it on the computer. Do you want equal at all. So then what you want is you want to check if you really want to check in a mathematical numerical algorithm that A equals B, you will look at so instead
+00:09:58
+Of
+00:10:01
+Where they want to go.
+user avatar
+Unknown Speaker
+00:10:03
+This is different stuff now.
+user avatar
+Lacoste-Julien Simon
+00:10:05
+Instead of checking say x equals y
+00:10:13
+You will do something like x minus y smaller to some tolerance, right, which means that, let's say they are within
+00:10:23
+You basically say all these number are the same, right from numerical precision. So that's a much more stable way to check whether two numbers or quote the same. Okay.
+00:10:35
+All right, so, so this is just kind of like to keep in mind the importance of numerical analysis. And so now, what's their link with Newton's method. Well, the new cars method, is that okay like suppose he is in vertical
+00:10:48
+You could just compute the inverse of the matrix then multiply it with the vector, but that's not a numerically stable way to compute this direction.
+00:10:56
+This is really bad way. So I already mentioned in the past. The problem that if he is ill condition. So, if the its largest eigenvalue over its smallest I get a value in in absolute value is huge.
+00:11:09
+Computing the inverse will be not stable, meaning that small numerical accuracy in just the entries of my matrix will you will give huge difference of solution, which means that you know I could
+00:11:22
+Change by tend to my 16 and numbering my matrix and the direction that will follow will change by 10 to 15, for example, or something, right. So that's really bad. Okay, so that's why we might even say things are not stable.
+00:11:36
+And so, and some you would you should almost never normally computers, the full matrix and verse. Usually, so instead
+00:11:47
+What you can do well. There's also a question of how the
+00:11:51
+Numerical
+00:11:53
+Routine that you're using in your software. How do you compute an inverse. Right. So there's actually a lot of different algorithms to compete in verse, but the the the numerically stable way to deal with that and also the kind of the pro way is to instead. So let's call this
+00:12:10
+DT, DT is a direction you want to move into. So instead, what you want is sold for at h dt equals grab of if WT right
+00:12:27
+Right. So, for
+00:12:30
+So we want to
+00:12:32
+Solve for the vector DT in a system of linear equations. So that's already
+00:12:38
+A better way to think about computing the inverse time a vector.
+00:12:42
+In particular, you know, it could be that if he is structured and this vector is structured that solving this is actually much more efficient than competing the inverse of, ah,
+00:12:53
+OK, so that's already like terms of efficiency. It's usually much more computationally efficient. And then, moreover,
+00:13:01
+In terms of stability of solution, if suppose he is actually not in vertical or it's almost nine vertical. Well, then there's many direction, which are closely.
+00:13:12
+Solving this system of equations and and and then you want to find kind of a stable version of this direction. And so the actual thing you want to do is you want to find
+00:13:22
+Minimize over d the norm of h t d minus grad of WT right
+00:13:30
+So that's how you want to find the direction. So you find a direction.
+00:13:34
+Which either make this equal to zero when you can do it or you know you can have small, you might have some small miracle air. It's not the end of the world. Like, you don't have to have everything exact because it's fine. It's part of numerical computation.
+00:13:46
+But you want this to to solve that. So this is a lease square problem, which is why, like the function in Mumbai to actually do that. And that's what you should use in your assignment is from the linear algebra library. It's called the square. So, LSD square, so use
+00:14:09
+This function. Okay, which basically solve this problem. And this function. What happens is, suppose that he is full rank and very well condition and everything. And it's a square matrix.
+00:14:21
+It will actually do standard like new like perhaps like row each then form manipulation on your matrix to compute the direction right but if he has no condition, it will actually use a different technique which is more numerically stable to find that direction.
+00:14:44
+Is there any question about this.
+00:14:51
+So basically the, the high level summary here is, first of all, be aware that when you do
+00:14:58
+numerical computation, you have to think a bit about what you're doing, are you dividing by our number which is close to zero. Are you doing catastrophic cancellation. Are you trying to inverse, something which, like a matrix which is
+00:15:12
+Perhaps a condition or perhaps you don't even need to embrace the matrix because all you care is multiplying this inverse by a vector. So all you curious to find a vector not whole matrix.
+00:15:21
+Because our matrix is. Oh, there's the square was the vector is only older deeds. It's much more efficient, even from space perspective to not have to
+00:15:30
+Look at to store somewhere. The inverse of the matrix before taking the product of this inverse matrix with the direction the gradient
+00:15:41
+And for the assignment. Just use the square as the library. Okay, so that's an important note that I didn't have time to talk about early year. So let's do fisher linear discriminate analysis.
+00:15:58
+So now.
+00:16:01
+We will look at a generative model for classification. So logistic regression. It was a conditional model. I didn't care about how x was generated, we only looked at the conditional. Now we will say, Okay, let's make also modeling assumption about X and one of the simplest is called Fisher.
+00:16:21
+linear discriminate analysis.
+00:16:27
+It's often also just call LTA
+00:16:33
+But there is also one of the most cited paper admission learning, which is topic model paper by David Lyon, all in general art doesn't three. I think it doesn't three which is called Layton there a shell location.
+00:16:48
+And it's also LD. So that's why I like to call to put the Fisher, just to distinguish it from the latest location which is super popular and well known a mission or any statistics or no very well. The Nordstrom analysis, but in machine learning, we have. And so that's why I'll use FL D.
+00:17:07
+As the abbreviation instead of the W, even though
+00:17:13
+People in statistics would also usually
+00:17:17
+Okay, so for classification. It's get again it's. We call this the setup we will have y which is a binary variable.
+00:17:29
+01 and x will be in RD. Okay.
+00:17:36
+And so because we have a generative approach.
+00:17:45
+By the way, don't you ask a question about the same solution which one, which
+00:17:50
+Which problem are you asking about. Are you talking about the SDN one or the quadratic
+user avatar
+Unknown Speaker
+00:17:57
+Equation problem.
+user avatar
+Lacoste-Julien Simon
+00:18:06
+Alright, so we have a general approach.
+00:18:12
+Okay, so she's okay so guys asking if
+00:18:18
+Using the least square approach gives us the same solution as this one.
+00:18:27
+If he is in vertical
+00:18:31
+Then indeed, this has a unique solution which is this one, and it gives the same solution right so analytically. Indeed, the give executive same solution.
+00:18:44
+If he is not full rank well this is not well defined because it's an inverse of a matrix which is not a convertible, whereas this is still well defined.
+00:18:54
+So that's kind of nicer and actually the Newton direction is still fine, even if he is nine verbal still makes sense to look at these direction.
+user avatar
+Unknown Speaker
+00:19:04
+So, yeah.
+user avatar
+Lacoste-Julien Simon
+00:19:08
+OK, so back to the
+00:19:14
+Yes. So we have a general approach. What does it mean, it means that or
+00:19:19
+Joint on x, y will be penetrated by some Member theta.
+00:19:24
+And
+00:19:27
+I will model this both as the class conditional X given why
+00:19:35
+And I will also have the now the priority over the labels. Right. So instead of in the logistic model. So this is in contrast to the conditional approach.
+00:19:48
+Like we did in logistic regression where all we model was P of why given x
+00:19:55
+Right, so here were actually modeling also the quality of the observation. And let me just check my phone if there's an emergency.
+00:20:09
+No problem. So my actually had my Doug
+00:20:13
+Had a surgery. Two days ago because it's a puppy, he had to be neutered. And so I need to check whether he's not starting to beat or something. So that's why, that's why I'm, I'm looking at my phone. Sorry about that.
+00:20:29
+Okay, so this is basically the class conditional
+00:20:33
+That I mentioned before, and
+00:20:36
+And then I I gave the example in two lectures ago of just assuming class can this show and the explanation of family. And I said, oh, if you do that, you get that the conditional of why given x when you use a rule.
+00:20:51
+Is just a there's a sick regression kind of model. So now what we do is we actually look at one of the specific
+00:21:00
+Look at the specific, concrete example of that with them. It's a very good question. And then we got a we got a
+00:21:08
+Interesting question from the audience. If we can see my puppy. Unfortunately, the problem is that the puppy barks, and he's really annoying. So when I'm teaching. It's not super nice. So
+00:21:21
+I'll show you pictures of the puppy instead of the real puppy.
+00:21:26
+Rather, I'll put I'll put the background image of the puppy. He's very cute. He's a
+00:21:33
+Miniature poodle and his name is Teddy, like a teddy bear, because he looks like a teddy bear.
+00:21:41
+Alright, so
+00:21:44
+Back to the fisher model. So let's look at the class conditional model that we use for fishers, so the for the fisher model.
+00:21:58
+What we do is we will assume
+00:22:02
+That the class conditional p of x given why theta is actually
+00:22:08
+Murdered normal. So it's a gash in an ex with mean which depends on why so for different class we have different means. But we use a shared
+00:22:22
+A fixed governance which is shared across the two classes. This is shared.
+00:22:27
+Across classes. That's why I'm not indexing the parameter for the covariance. By why but the mean the varying for the class.
+00:22:40
+And so basically
+00:22:44
+If we have data in 2D.
+00:22:47
+You could think of. I have say my class one.
+00:22:53
+Somewhere, and I have my class zero somewhere else. And we're supposing that the shape the coverage shape of the garden is the same.
+00:23:04
+So, so like these ellipses, or basically oriented. The same, the difference though is that I have here the mean one. Whoops.
+00:23:16
+Mean one and here I have
+00:23:21
+I'm so puzzled by my flickering
+00:23:24
+Screen. Good thing I don't have it be lipsey so
+00:23:31
+That means zero
+00:23:34
+And so the parameters for this journey model will be both the mean for class one that mean for class.
+00:23:42
+Sorry to mean for class zero demean for class one, the shared covariance and the prior over class one. So, right. So this is mean of class zero. This is a shared covariance and this is the probability of y equals one, right. So, this is
+00:24:05
+This is for this piece here. Okay, so these are the parameters of our general model which give us to join on x and y.
+00:24:13
+And now as I did in two lectures ago you can then show
+00:24:23
+Guess I'll see as before.
+00:24:29
+Could show
+00:24:32
+That the conditional of poi given x
+00:24:38
+And data.
+00:24:42
+For this germ all is actually a sigmoid of W transpose and in this case, five x is just linear
+00:24:51
+where w is a function
+00:24:57
+Of us zero Yuan shared governance and pie.
+00:25:07
+And that's basically like, you know, just because the mitzvah Gaston on the excellent chef Emily and
+00:25:15
+This is basically five x four.
+00:25:24
+Yeah so. And it turns out that when you have so you have here the class conditional. We're in the word. Our next month. Chef me. And because we're sharing the covariance. The quadratic part of the of the of the
+00:25:39
+probabilistic model of a Gaussian cancels out and I'm only F with a linear part. That's why I only have X here. Okay. And in the assignment. I think you will also derive
+00:25:54
+Their conditional
+00:25:57
+For the FL the model or actually, it's not the FLT model, but for this model, if you use different class governance. So if you use sigma as zero and sigma one
+00:26:10
+Then you don't get cancellation for the quadratic term for the decision boundary. So you get something which is called quadratic
+00:26:19
+Discriminate analysis.
+00:26:33
+Basically Q da instead of LD LDS linear, quadratic will have an x square
+00:26:40
+And so in this case, what you get is sigma W transpose five x where five x is quadratic
+user avatar
+Unknown Speaker
+00:26:52
+Function of x.
+user avatar
+Lacoste-Julien Simon
+00:26:55
+Okay and so see homework.
+user avatar
+Unknown Speaker
+00:26:59
+That's what you'll do it can be
+user avatar
+Lacoste-Julien Simon
+00:27:09
+Okay, there's a few question do we set the covariance to be as our tropic. No, you don't have to
+00:27:17
+And then the shank same currents for both testers is good assumption for your problems.
+00:27:23
+And you will see. I mean, for real problems. Okay, so the first thing is
+00:27:28
+There's a few things right and that's what you'll explore in the assignment and the assignment.
+00:27:32
+You'll have data which are generated according to credit discriminate analysis model, you'll have data which is generated. According to a linear model and you see how these different models behave. The problem is when you have
+00:27:45
+A full covariance matrix instead of a diagonal conference matrix you have more parameters to estimate. Then if you have also different current matrices for both the, the two different class you have even more parameters to estimate
+00:27:57
+And so
+00:28:01
+If your model is
+00:28:05
+Not generated from a real from Gaussian
+00:28:10
+You might have the Q da, which is what you get from the approach we do will do worse than LTA just because also like you're trying to estimate more parameters and you have the wrong prognostic assumption. Right, so
+00:28:26
+So,
+00:28:29
+In any way like if you really want to do castigation I don't recommend to do these approach. I recommend to do logistic regression, which in this case doesn't care about shared or non shared covariance matrix.
+00:28:42
+But let's see what's the general approach right to kind of distinguish it from the conditional approach. So in the general approach.
+00:28:50
+We estimate or parameters by maximum joint like like you. So it's not conditional it's we do joint maximum likelihood estimate
+00:29:03
+To
+00:29:06
+estimate the parameters.
+00:29:08
+So feta hat.
+00:29:11
+Is the arg max over theta in a parameter set of basically the the livelihood. Right. So, summation of i love of p of x i, why I say that. And so, note that in
+00:29:28
+It versus
+00:29:31
+Summation over i love of p of why I given xi theta.
+00:29:39
+For which is what you use for logistic regression, for example.
+00:29:45
+So even though the decision boundary for Fisher and Nina. This analysis is of the same shape as they'll just take aggression. Right.
+00:29:54
+Like like this thing is just a linear function of x. So the decision boundary and even the probabilistic model P of why given x is the same kind of model for both logistic regression, which gives this and
+00:30:08
+fisher linear this Manassas, so they give the same kind of like why given x
+00:30:13
+But the way you estimate the parameters are different in logistic regression you estimate W directly. You don't care that double you could be computed from all these other variables.
+00:30:22
+Was efficient and Linda smile says you do just maximum likelihood, which means you estimate the mean estimated covariance. You say the price.
+00:30:30
+So since you also have more information at the end because if it's a if this was a good model for data at the end you also know how to model X. You can also answer queries about
+00:30:38
+Oh, if I have a class, what should be the property of x which is different classifying right so so so the direct model approach gives you insert two more questions. But it makes more assumptions.
+00:30:51
+Alright, so now let's compute
+00:30:55
+The Emily formal to read gossip.
+00:30:58
+And
+00:31:03
+So we need to now do a little foray in
+00:31:06
+Math tricks, because we'll have to compute derivative respect to gradient. So let's do Emily for a multivariate Gaussian
+00:31:17
+Which is needed in this model.
+00:31:25
+Alright, so now I will simplify it. I forget about classes. I'll just think about X. Suppose I have x i, which is generated ID with mean
+00:31:38
+With a gash in with me new and sick covariance Sigma Nu is in Rd and the covariance is a DVD. So because it's a covariance sigma is symmetric.
+00:31:57
+And to have a density for multi read. Gosh, and I need that sigma is strictly positive difference. Otherwise it's
+00:32:04
+General, it's always PSD because it's a covariance, but to get a density, I needed to be
+00:32:13
+strictly positive different
+00:32:21
+And and just why is it symmetric right to remain like sigma by definition for any variables, not just for the Gaussian is x minus Mew.
+00:32:31
+X minus new transpose. So, this is for the covariance matrix for a vector are random variable, right. And so now, if I take. So this is sigma. So now if I take sigma transpose. I just get
+00:32:46
+The transpose of this by linearity, which gives the same solution give the same thing.
+00:32:55
+Okay, so what's the density for a Gaussian
+00:32:59
+It'll reminder. So I have the normalization factor which is square root two pi race to the D. And then I have the determinant of the covariance
+00:33:11
+Then I have exp
+00:33:14
+N minus one half.
+00:33:17
+Then of x minus mew transpose sigma inverse x minus p
+00:33:25
+So if it was one d i would have x minus you square divided by the inverse of the currents which is sigma squared. So it's divided by sigma square. So it's two sigma square, but now in the matrix form, it's I just have the matrix reverse
+00:33:41
+And it will be convenient and you'll see why soon to just manipulate this
+00:33:48
+This term here in the exponent so I can rewrite this as the trace of x minus you transpose sigma inverse x minus mute. Okay.
+00:34:00
+Why well because
+00:34:03
+This thing.
+00:34:05
+This thing here is a scanner, where the Scanner Scanner is a one by one matrix.
+00:34:10
+The trace is the sum of the bag and alternative a matrix. So the sum of A one by one matrix is just the one in one by one entry right so when you have a scanner, you can always add the trace and it doesn't change anything.
+00:34:21
+Okay, well, so why the point of doing that right so that's always like these math tricks is always like you multiply by one, you add zero or you take trace of something which doesn't change anything.
+00:34:37
+Okay, so somebody is asking me to go slower.
+00:34:41
+Sure, I'll try to not go too fast.
+user avatar
+Unknown Speaker
+00:34:45
+But please keep
+user avatar
+Lacoste-Julien Simon
+00:34:48
+Putting
+00:34:51
+You can, there's a there's a little blue thing. You can also put in the like go slower. Oh, it's, it's great, actually it's a blue in the buttons in the participant list.
+00:35:03
+Alright, so
+00:35:08
+So we have that the trace
+00:35:11
+So why did I do this trace. Okay, why did I do that well because there's the sacrament property of the trace, which is trace a b is equal to trace be a
+user avatar
+Unknown Speaker
+00:35:23
+Right.
+user avatar
+Lacoste-Julien Simon
+00:35:26
+EBS not equal to be in general because matrix don't have to commute. But in terms of when we look at the trace, it's actually, it's working. So as long as they
+00:35:33
+The dimension of these matrices are compatible to switch like that then you can do that. Okay, so that means that will do is I will move this this matrix here to the right. So I have that this is equal to trace of sigma inverse and then x minus New X minus new transpose
+00:35:57
+By the circuit and property of the truth.
+00:36:02
+So,
+00:36:05
+Now, why do we care well. Now the nice thing is because here actually. And by the way, now we've changed the dimension. Right. So this was a one by one matrix was this is now a d by d matrix.
+00:36:17
+Right. It's the product of two matrices. So it's kind of magic that the
+00:36:24
+This quantity is the same as just the trace of this quantity
+00:36:29
+But it turns. But the reason I write it this way is because it turns out that the trace of two matrices is a next is a way to express dot product between matrices. Right, so I can
+00:36:42
+Say this is by definition the inner product between the matrix sigma inverse and the matrix which says rank one x minus New X minus new transports
+user avatar
+Unknown Speaker
+00:36:57
+Yeah.
+user avatar
+Lacoste-Julien Simon
+00:37:00
+So more specifically, we have that the duck product between two matrices of the same size. You can, by definition, this is just the standard
+00:37:13
+Some over the product of pairwise entries like like the word vector, this would be pretty obvious. So this would be a big times big
+00:37:23
+But it turns out that this sum is the same thing as the trace of A transpose be
+00:37:31
+So that's why using trace of A transpose. Be is a way to express linear product between matrices. So it's kind of, it's, it's a way to extend the the inner product vector space structure from Victor's to also matrices.
+00:37:47
+In particular, because it's that that highlight that the this trace operation is linear and each of his argument, because in our product is linear in each of its arguments.
+00:38:04
+And no tear that ideally I need to have transpose, but because the covariance is symmetric. It doesn't matter. Right. So that's why I didn't put the transpose here.
+00:38:26
+Okay, so let's go back to the log likelihood for that. So our parameter in this case will be new and covariance
+00:38:37
+And notice that again terms of notation. I'm a bit doing event abuse of notation, because I'm calculating a vector with a matrix.
+00:38:50
+So you can think of this as just like using a bit of a computer science notation, where this is a couple and each element of the puzzle could be any type of object. Right. I could put a I could put a I could cut in a different one. In a couple
+00:39:06
+Function vector and a matrix like
+00:39:11
+What kind of like a mix of CS and mathematician.
+00:39:18
+But if you really want to, in fact rise the whole thing. You could just vector eyes, your matrix and just think of it as a very long vector
+00:39:27
+Okay, so now let's go back to the lab, like you're given this trick. So we can rewrite the log like you
+00:39:37
+I will have
+00:39:39
+Summation over i.
+00:39:41
+Have the log of the probability of X I, if I have any observations from aggression.
+00:39:49
+And it depends on the data, of course, because I want to estimate the parameters. And so this will be just a constant, which doesn't depend on data.
+00:39:58
+They will be
+00:40:01
+So now I just think the log
+00:40:05
+Log of this term. So, this will give me
+00:40:10
+There will be a log of the determinant for each data point. So I get n
+00:40:16
+And so I get minus n divided by two lug of the determinant
+00:40:23
+So the square root becomes a one half.
+00:40:31
+And then
+00:40:33
+The log will hit the x and so
+00:40:38
+The x is cancelled out and I'm just left with the argument of the exp. And that's where I use the linearity.
+00:40:49
+Of the trace operation. Right, so I will have this some and I can move the some inside a trace because it's linear. And so I'm left with minus n divided by two.
+00:41:02
+Summation inner product. Whoops, I'm not
+00:41:06
+Doing so minus and divided by two inner product of the inverse of the matrix, the DAP that's the trace part right inverse of the covariance and then I have one over n summation of our I
+00:41:22
+Have x minus New X minus new principles.
+00:41:29
+So here I did a few many patients quickly as you had a hard time to fill that don't worry, you can just go back through the equation just work it through yourself to convince yourself shouldn't be too hard.
+00:41:41
+The main idea here is I use the
+00:41:45
+So you use
+00:41:48
+Linearity
+00:41:52
+Of that product to move the summation inside right so i would have, I would have summation over i. And then I have here and then I can just move this inside
+00:42:05
+And so that's why I have this inner product between this kind of two matrices and. Now the nice thing is I can give a name to this thing, because this is, this doesn't depend on my parameter sigma depends on new but not the parameters sigma. The yeah and so I'll call this
+00:42:24
+The kind of like empirical covariance, which depends on view. So it will be a function. So I'll just call it
+00:42:33
+And we'll see when we do the maximum likelihood respect to sigma why this is important.
+00:42:42
+Okay, so that's the function, we want to maximize and take derivative of okay so importantly we have this luck determinant
+00:42:53
+So we have basically this this linear. So, so if I if I want to think about
+00:42:59
+The how to deal with the covariance. I have two terms, I have a linear term in terms of the inverse covariance and I have the luck determinant part
+00:43:08
+OK, so now I need to know how to take derivative of the log determine function. So to get there, we need to review a bit of metrics calculus and then somebody has a question.
+00:43:18
+Is our prior still part of theta, nothing this case because now I am just reviewing the maximum likelihood for a multiverse Gaussian. There's no why so we don't care about why now, so we'll
+00:43:29
+When we go back to the full FL, the model will will reintroduce the parameter for the prior but right now we're just focusing have
+00:43:38
+If I have multiple gushing observation. What's the Emily parameter from you and sigma and new is basically the empirical mean and sigma is numerical covariance. But how do we prove that that's what we're going to do.
+00:43:52
+Alright, so just before the break so that you can think about it over the break. Let's do a vector derivative review.
+00:44:03
+Vector derivative
+00:44:07
+The relative review.
+00:44:14
+So,
+00:44:16
+Suppose I have a function
+00:44:21
+From our M to our end. Okay, so, so my vector. It's affect my function as vector inputs and also vector outputs, perhaps, of different dimension.
+00:44:33
+What does it mean to take the derivative of this thing, right. So in vector calculus, you'll see that f is differentiable
+00:44:50
+At
+00:44:52
+A point. It's a zero.
+00:44:56
+If and only if
+00:44:59
+There exists a
+00:45:02
+linear operator.
+00:45:12
+I will denoted by the differential of f at x zero
+00:45:17
+So this linear operator. What is it, it's a it's a linear function which takes as input the same dimension as my input space.
+00:45:29
+And the same dimension as my output space. So it has the same signature as my
+00:45:35
+Vector function.
+user avatar
+Unknown Speaker
+00:45:38
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:45:39
+And what does this in your operator has as a property. Well, it's a good linear approximation of my function I Ron Rex is zero. So basically, for all perturbation delta
+00:45:51
+Which are victor in Rm because that's my input. I have that f of x zero plus delta. So, if I make a change in zero in the direction delta
+00:46:01
+And I looked at the difference between f at this value and f x zero, this is actually equal to the linear operator. I guess I'll put it in purple to just to make it more obvious. So the F F zero evaluated in the direction delta
+00:46:30
+Plus a little all of the norm of that. So basically we have that if the function variation is equal to its linear approximation with the differential plus something which grows
+00:46:51
+Which grow slower than linear around zero.
+00:46:56
+So just tiny basically
+00:47:02
+And so this
+00:47:04
+The F is what is called the differential of it right
+00:47:14
+And so if I'm able to find a linear operator which satisfy this approximation, actually this interpreter will be called a differential
+00:47:25
+Yeah, it is small or big or
+00:47:27
+Small all basically small oh
+00:47:35
+Or little or guess
+00:47:39
+Is it's called Little own that small
+00:47:42
+Little all
+00:47:44
+Basically means
+00:47:48
+That
+00:47:53
+That it's a function
+00:47:57
+It's quite H of norm of delta such that the limit as norm of delta goes to zero.
+00:48:07
+Of H normal delta divided by norm of data goes to zero.
+00:48:17
+So big all means that the ratio between the function you say is the ego and the argument of the bigger than this ratio is bonded and when you use little you say that this ratio goes to zero.
+00:48:31
+Okay, so that's the end. So here
+00:48:35
+We have this is the thing which tells me how how fast something grows
+00:48:43
+And this would be a remainder term which could be very, very complicated, but all we know is that if we call this remainder term ah we have that he goes to zero faster than linear in delta. So that goes to zero faster because it could be a quadratic in normal delta or it could be
+00:49:03
+Normal delta to the three half that's also goals faster than linear
+00:49:10
+Okay.
+00:49:11
+So that's what you would have as a formal definition of the linear prayer and vector calculus and somebody that's the always differential unique
+00:49:20
+Good question.
+00:49:24
+Well, under regular conditions. Yes.
+00:49:32
+Yeah, I think, I think if there exist in your partner, which has this property. I forgot from my property from my vector calculus class, whether you can prove that it is actually a unique
+00:49:42
+So I'm not sure if it exists, it means that it is unique, but for most functions that we care about.
+00:49:49
+When it exists in the neighborhood. For example, I think you can say that
+00:49:56
+But we won't go to this level of technical details of derivative. So for example, the differential of a
+00:50:05
+You know Lifshitz function is is is easy. It will exist.
+user avatar
+Unknown Speaker
+00:50:13
+No, that's honestly true
+user avatar
+Lacoste-Julien Simon
+00:50:18
+Yeah, so actually you need you need some nice properties for something to be differentiable
+00:50:29
+Which I think I give below.
+00:50:34
+Okay, but the first part is just let's let's unwrap a bit this notation. So the f of zero is linear. So what do we mean by early near a parameter. Well, it means that
+00:50:45
+If I do the f of x zero of delta one plus c scanner times that the two. Well, this is just the same thing as the F zero dot that one plus b.
+00:51:00
+The F zero delta. Okay, so that's what we mean by linear and when delta is a vector we can represent linear operator on a vector space using matrices. Right, so you can represent these linear operator.
+00:51:22
+As a n by n matrix.
+00:51:29
+Which is called the Jacobean
+00:51:32
+The Jacoby matrix.
+00:51:41
+And the standard representation in the standard basis of this matrix.
+00:51:48
+Will be
+00:51:51
+That
+00:51:53
+So this is a matrix and it's i j entry will be the partial derivative of f.
+00:52:01
+I so the ice component of my vector output function. This is the ice.
+00:52:09
+Component.
+00:52:12
+Of f
+00:52:15
+Where's the spec to the eighth
+00:52:18
+Entry of x.
+user avatar
+Unknown Speaker
+00:52:20
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:52:26
+And so then in this case.
+00:52:30
+When I have this representation, then d, e, f of x zero evaluated indirection delta is the same thing as just taking the f of x zero as a matrix.
+00:52:40
+And then multiplying by delta as of the vector right so it has a right dimension so that that isn't dimension RM matrix is n by n. So the output of that will have dimension and so it matches the dimension of the output.
+00:53:03
+Okay, so let me just give you two more ideas and then we'll take a break and then you can ask the question, What's the mission of delta delta is in Rm right it does the same dimension as the input of the function f.
+00:53:22
+Alright, so the first thing is
+00:53:25
+This gives a way
+00:53:30
+To get the difference, the derivative or the Jacobean or the differential
+00:53:36
+For basically anything
+00:53:40
+Okay and so
+00:53:44
+Here we can also right now. I'm talking about vector in Rm but I could just think instead of thinking of vector and arm I could think of matrices as vector. And I did. I told you how to take inner product of matrices. So we can also do matrix.
+00:54:00
+But we could also have other type of input, like we could have a tensor. Or we could have even as a function as an input, an infinite dimensional function.
+00:54:09
+And so now I said, Oh, well, the input is in Rm so instead of thinking of the input as in Rm when the input could be a space of function. This is a infinite dimensional function. And as long as as a norm vector space on these objects. I can define this
+00:54:25
+linear approximation right so so so linear operator on on infinite dimensional spaces will be fine. And the this little barrier is also defined, even if my my direction here would be an infant dimensional object.
+00:54:45
+Okay. So Lisa is asking
+00:54:50
+Why is this equal to that. Okay. So, linear operator is an operator, which I said takes as input.
+00:55:00
+Vector in Rm and gives us output vector in our end right so this could be an arbitrarily function in general.
+00:55:08
+And so it so oh I didn't do the
+user avatar
+Unknown Speaker
+00:55:13
+Invisible think
+user avatar
+Lacoste-Julien Simon
+00:55:18
+Can so
+00:55:22
+Yeah okay so and so this is just saying, Okay, well my operator, I can give it as input delta and gives me now a vector in our end
+00:55:33
+And this would be a value notation, even if this was a nonlinear function. It could be like a sign or whatever.
+00:55:39
+But because it's a linear period or I can also represent it as a matrix and then evaluating any new operator is just the same thing as taking the matrix representation and do matrix multiplication with the input vector. So that's what this equality mean
+00:55:57
+Umar is asking that the definition depends on the norm. You use well in finite dimensional space all the norms are equivalent. So it won't change anything, meaning
+00:56:07
+What it means is in five dimensional space all the norms are within a consonant each other and little organization or Big O notation doesn't care about constant. So, this in five dimensional space.
+00:56:17
+Differential doesn't depend on the norm in in three dimensional space, like functions based yes you could be differentiable with to some norm and not with respect to the other know so it becomes a bit more complicated.
+00:56:30
+And in some sense, by the way, you can always think of a
+00:56:33
+Function like a very long infinite dimensional vector. So a lot of things which just work for finding vector space can be carried out in infinite dimensional vector space or with function, though, you have to be careful with the regular with the conditions.
+00:56:50
+And okay so that's why I talked about this differential is because now we can talk about differential of weird object like also matrices.
+00:57:01
+And the other thing and we'll go. We'll go through that after the break. But the other thing that you have to keep in mind is just be careful with the dimension.
+00:57:13
+Okay, so that's there's different convention and you need to remember what is what. Right. And so for example if f is a vector function function which take vector to Skylar
+00:57:27
+Then the differential or the Jacoby matrix is actually a row vector
+00:57:35
+Right, because we said it was em bi n and n is one here. So, this is
+00:57:43
+Actually no, it was n by m. Yes. So I said here that the dimension was n by n. So the number of rows is the same as the output of
+00:57:55
+F. So this is a
+00:57:59
+One by M matrix. So, it is a row
+00:58:05
+And that means was when we talk about the gradient, we, we talked about the gradient vector, actually. So, so that's why
+00:58:13
+The convention is that the differential or the Jacoby matrix is actually the gradient of f.
+00:58:21
+Zero.
+00:58:23
+In this case transports
+00:58:30
+And this is just a convention of the gradients, we decided was in a vector form the differential is actually as a nice dimension because why we care about definition of the differential is because of chain rule is very simple. In this case, so the chain rule. So if I have
+00:58:48
+A function.
+00:58:51
+From RM to our n and then I have another function from our end to our let's say q
+00:59:02
+Then the differential of the composition of G.
+00:59:08
+All F. I don't know how you say that in English that somebody knows how you say their little circle in English, French, is all
+00:59:18
+Let's say, gee, composed with f
+00:59:21
+X x zero is the same as taking the differential of G.
+00:59:29
+G at f of x zero and then composing that with the differential of f at x zero and
+00:59:43
+This is the same as just the
+00:59:46
+Matrix product, right. So this is the
+00:59:51
+Matrix.
+00:59:53
+Product.
+00:59:56
+Of chickens. So
+00:59:59
+If we use their matrix representation
+01:00:11
+Alright, so we have
+01:00:13
+G of f as a sentence or compose our composite. Okay.
+01:00:19
+God, oh my God, I went up.
+01:00:23
+Because that's basically what it means, right, this is, this means
+01:00:27
+That I'm looking at the function. Oops. Why is it not blue. It's a blue
+01:00:35
+G of f of excellent
+01:00:41
+Okay, so is there any burning question before we go for a break. You guys only or you all. Sorry, guys. You all need a break. I'm pretty sure
+01:00:58
+No burning question. Well, think about your questions and then come back to, to the break, we'll, we'll work through a simple example of this chain rule.
+01:01:07
+And then we'll do take the derivative of the log determine and function and that will be one of the coolest linear algebra results, you've ever seen in your life. I guarantee
+01:01:20
+The bones doing recording
+01:01:25
+Okay, so we're back to business. So there was a question by the newish
+01:01:30
+Easy. This person said, is it correct that in this multivariate gash an example the log likelihood calculation is still the same as well. We had earlier conditional. Probably the examples I mean the difference
+01:01:42
+Between Jerry of unconditional method is not still relevant in this example. Correct. Right now all I did for the military reaction is I, I just said.
+01:01:53
+I have observation here which are ID Gaussian. So when I take the log. Like you, I just get some of the log like you'd have the x ray when I did the conditional model. I also had independent
+01:02:08
+Why I given x is so across eyes. So when a condition on the excise things were also independent and instead of here, I just said p of why I given excited. So, you know, but you know it's similar idea.
+01:02:24
+Alright, so now a, let's do a concrete example of this chain rule.
+01:02:31
+And so you go back. So here's a concrete example. So for example, if I use as my function.
+01:02:41
+Of x i use x minus new
+01:02:46
+And I use as my function. Je
+01:02:49
+Je je je of x as x transpose x
+01:02:56
+Then if I take g compose with f
+01:03:00
+I get basically what we have in the Goshen case where it's x minus you transpose A, and then x minus B right now, if I look at the Jacobean of these individual function, I have the f of x 04 x minus new users, the constant. So I guess the I get the identity.
+01:03:23
+Node that here. This is a vector function. Right. It goes from Rd Rd
+01:03:29
+G of x takes Rd goes to a scheduler, right. So, now, d, e, f of x will actually have a role structure. And in this case we have DG at x zero would be
+01:03:44
+X transpose A plus A transpose. Remember I already did the gradient of this earlier, but now I because the differential is the transpose of the gradient
+01:03:55
+So it's now a role. That's why there's a transport and so now if I take the Chain Rule d of G compose with f at x zero, I said this is the same thing as taking the matrix product between the Jacobean at f of x zero and then
+01:04:18
+I guess I don't need to do the composer station, because these are matrices, then I'll just have the of f of x zero and so the F F F zero. This is just the identity. I said, and now this is evaluating
+01:04:35
+This thing but replacing x by f of x, right. So then I get basically
+01:04:43
+Oops, I get x minus view transpose times a plus a transports
+01:04:52
+So that's my derivative
+01:04:57
+So that's a simple way to to the chain rule.
+01:05:01
+And so now if we go back to the gash in likelihood
+01:05:10
+For the Gaussian
+01:05:12
+We had in the log life. He had we had minus one half summation over i.
+01:05:18
+X minus mew transpose sigma inverse x minus new
+01:05:27
+And so if I take the derivative of that respect them you I can use the linearity over the sun. So I will just get minus one half.
+01:05:37
+Summation over i have the gradient of these quadratic form. Now I'll take the transpose, if you think the greatest I think to transpose of that I think the transpose. And so what I'm left will be
+01:05:50
+True, because it's a symmetric matrix, the covariance to sigma inverse and then I just get x minus view.
+01:05:59
+Right. And I want this to be equal to zero. So I can solve for new that implies that new Emily is just the empirical me
+01:06:16
+There's like two or three steps to get there. You just push the thing on the right. And then there's n times new the divide by n, and you get that
+01:06:28
+Layer is there would ask, is there an example with the
+01:06:32
+The composition is not a multiplication, if you would go to infinite dimensional spaces, then
+01:06:39
+You know, it's better to think as composition, because
+01:06:46
+Thinking of infinite matrix is a bit tricky. So it's better to think of them as really just operator and then compose them.
+01:06:57
+Okay, so that's the so I already found my my maximum likelihood camera for the mean, which in this case as long as
+01:07:06
+As the inverse was a PSD so it because if there's zeros. Then it changed a bit something but we assume that this was
+01:07:16
+strictly positive definite. And so I can just multiply by sigma on both side, this cancels out and then I'm just left with this right so so new me lead doesn't depend on this case on the other grants and now we want to do the coherence part. And so that's where
+01:07:33
+You will be amazed by the wonders of linear algebra. So let's do now, the
+01:07:43
+The example to
+01:07:48
+We want to take the derivative
+01:07:52
+If it did,
+01:07:58
+Ah,
+01:08:00
+Yeah. So the trick is, like, why did we write a cushion companies in a product because here. For example, I didn't do it like I didn't keep it as a new product it will come when we go to the to the application.
+01:08:14
+Of the legitimate function unlimited. Gosh, but there's there's one step, I need to do first. First I need to compute the derivative of the legitimate function. And that's what I'll prove now and then apply it on the gushing
+01:08:26
+So a bit more patients again. So I want to compute the derivative of say f of a. Now, which is the lug determinant of A.
+01:08:37
+Okay, where I will assume
+01:08:42
+That A is symmetric.
+01:08:46
+So, for example, we'll use this with sigma and a is strictly positive different
+user avatar
+Unknown Speaker
+01:08:53
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:08:55
+Alright, so now this is not a function from RM. This is function from a matrix, but you can just like reorganize your matrix as a vector, and then it will become a function of RM but we but it's nice to keep them as matrix. Okay. And so in this case I can represent
+01:09:15
+The derivative
+01:09:21
+Of a function
+01:09:25
+From matrix.
+01:09:28
+To a scanner.
+01:09:31
+Right here, this is the output is a scanner.
+01:09:35
+We can actually present that using a matrix.
+01:09:40
+Okay. So normally when you have a vector to a scholar, you would represent a derivative with a role vector right
+01:09:49
+But now, instead of like using the vector representation of matrices. I'll just keep them as a matrix. And I want to do is that this will be a linear function.
+01:09:58
+Over matrices. What's the linear function of matrices. It's linear function to scatter. It's the inner product
+01:10:05
+Right. So then what I really want to identify this derivative is that I want something of the form f of a plus delta x minus f of they were delta is a matrix direction is trace a transfer. And basically, that's where they would. It would be so we call it f prime
+01:10:27
+F prime of a
+01:10:31
+Transport transpose delta plus little all normal data.
+user avatar
+Unknown Speaker
+01:10:37
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:10:39
+And here the trace, as we call is just a linear inner product, right. So this is the same thing as f prime have a and then dub, dub. Okay. So that's a way to represent my linear function with the signature of same thing as the input to scanners.
+01:10:58
+And so if I'm able to access to expand this difference and identify a little trace and all the rest or little of norm of data. I found my direct that's a way to find it there. So that's the kind of like the formal way to get these objects. Okay.
+01:11:18
+And so let's do the, the, one of the love that. So there's one way to do the love debt by expanding the debt with co factor expansion and blah, blah, blah. It's super complicated now, I'll give you a different pro way which I got from the lectures by hostess back
+01:11:35
+Which highlights a lot of neat properties of the algebra. So, at the same time you will just review a ton of cool properties of the algebra, which is why
+01:11:41
+I think, actually, this proof is so elegant. It's so elegant actually that ever bored at home in my kitchen.
+01:11:49
+And I was actually talking to, to my girlfriend at the time. Now she's my wife and I said, oh, there was this cool proof that I taught and she was like, oh, what does it
+01:11:57
+Actually wrote it on my board and it stayed there for a long time. The proof, if it's a few lines. And actually, I had a housewarming party at home.
+01:12:06
+And then there was a lot of scientists who came and then the question was like, oh, do you know this this thing and then he tried to go through the proof. And it was quite a lot of fun.
+01:12:15
+A lot of people from DeepMind. In particular, it was cute. Anyhow, so little anecdote. So let's do it. Let's start.
+01:12:25
+Oh, somebody said, Oh, why do they call that that metrics direction. So basically the meaning of the differential is I want to know how my function very when I moved in some direction, right. So, so delta is a direction, and in particular.
+01:12:43
+If we were just talking about simple vector scatter function. This thing will be the directional derivative in direction d
+01:12:52
+Is it would be the product between gradient of f and the Delta. Right. And so that's what I that's why I call this like a direction of movement because it's like the directional derivative. It's just now. I use a matrix as my perturbation of X zero, okay.
+01:13:14
+Alright, so let's start that will be fun. So I want to do lug debt of
+01:13:22
+A plus delta
+01:13:24
+Minus lug that of it, right. That's, I want to look at. I want to make it a linear extension of that around it.
+01:13:34
+So the first thing is because a is a strictly positive definite. So because A is strictly positive definite by the guest spectral serum. It has
+01:13:47
+It is in vertical and it has a unique square root
+01:13:52
+As a unique
+01:13:55
+Square root
+01:13:58
+Call it a one half. Okay, so now what I do is I just doing it all the factorization. Okay, so the first thing is the first term, I have the luxury of the determinant of now I would put a one half on one side.
+01:14:13
+Identity plus a minus one half delta
+01:14:19
+And then
+01:14:21
+A minus one half.
+01:14:27
+And then a one. Okay, so I haven't done anything I basically multiply by one. So I factor eyes. My a into a one half a one half and
+01:14:38
+I remove this a one half on both sides for the delta. So I need to
+01:14:43
+Basically re multiply by A minus one half.
+01:14:53
+Okay. So Jacob is asking delta is in Rm and all I'm saying is I
+01:15:05
+Could either stay in Rm by victimizing my matrix. So I take the their columns of my matrix. And I just put them one after the other. And that's a big long vector, and I could do everything in Rm M is the sum of the day, it's basically let's say men matrix is
+user avatar
+Unknown Speaker
+01:15:26
+A
+user avatar
+Lacoste-Julien Simon
+01:15:28
+Key by L then a number of entries is key times l, so I could just set N equals k times L. And that's, the dimension of my vector space for the matrix.
+01:15:38
+Okay, but it's annoying to have these victories version of the matrix because matrix are kind of you'd like to keep them as matrices. So I can all do everything by keeping things as a matrix.
+01:15:48
+All I need to is to define linear operator on my matrices. And that's what I've done here right to the trace with this trace here or this inner product I have any new operator and matrices. So then I can just keep things as matrix.
+user avatar
+Unknown Speaker
+01:16:01
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:16:06
+Isn't that the Jacobean no delta is the direction in which you make your perturbation, that you will use to compute the Jacob and so f prime is a Jacobean f prime is a derivative and which is it's represented it's matrix representation is called a chicken.
+01:16:26
+Okay.
+01:16:29
+So,
+01:16:31
+So here I've done nothing apart just like factoring out a one half on both sides.
+01:16:38
+And and why do we do that is because now I have the product of three matrices. Right. And the determinant of product is the product of the determinants. Okay. And then the lug of a product is the sum of the lungs. Right. So, things were kind of cancel neatly.
+01:16:52
+And in particular, now I still need to subtract my look of determinant of A.
+01:17:02
+But now I said the this is the lug and then the determinant of a product is a product to the determinant. So this is the determinant of A. And actually, the determinant of a race to power is the same thing as the
+01:17:19
+The determinant of a race to this power. So this is a race to one half. Then I have determinant of i plus a minus one half delta A minus one half.
+01:17:32
+And then I also have the determinant of A.
+user avatar
+Unknown Speaker
+01:17:35
+One half
+user avatar
+Lacoste-Julien Simon
+01:17:37
+And the beautiful thing now.
+01:17:41
+That was the whole point of this is that now these are just killers, like the determinant or scanner. So, it computes so I can you know group these two together.
+01:17:51
+And I have a one and a half that just gave me the determinative eight so I gotta lug of determine have a which will cancel out this one so I can cancel these two together.
+01:18:05
+Okay.
+01:18:07
+And that was the whole point. So now I'm left with the lug debt of identity, plus a minus one half.
+01:18:18
+Delta a minus one F. Whoops.
+01:18:32
+And so now what do we use we news. So now we use that
+01:18:39
+The debt of a matrix is also the sum of its eigenvalues
+01:18:45
+Sorry, the product of. It's like the traces the some of the eigenvalues, the product, the determinant is the product of the eigenvalues of
+01:18:54
+These are
+01:18:57
+Values of the
+01:19:09
+And and so and then if I take the log of the product of eigenvalues, I get the sun, right. So this is the same thing as summation over i lug of I against our use of i plus
+01:19:29
+A minus one half.
+01:19:32
+Delta a minus one f
+01:19:37
+OK, now the beautiful thing is that the eigenvalue of the identity percent matrix is the same thing as one plus the eigenvalues of the second term, right. So I get. Okay, so here I use this
+01:19:53
+And then I have this become some log of one plus i get value of A minus one half.
+01:20:03
+Delta t minus one half.
+01:20:08
+Okay, so now we're in a much nicer term because I have a bunch of scale or stuff log of one. These are killer. The only matrix part is in the eigenvalue keys. Okay.
+01:20:19
+And so now what we do is we will do a terror expansion of the log function so log of one plus x is actually equal to x plus order of x square as long as x is smaller than one. So for small x small perturbation around one of love whimper sex. It's basically linear in X.
+01:20:42
+In first equality for a slug should be loved. That's right.
+01:20:49
+So, so the absolute value here is the determinant. So I have to determine in there.
+01:20:58
+You know, luck basically login, just to be clear lug that have a is the same thing as lug of determinant of A ready absolute value for matrices is that determined. Well, they have to add the bar notation is the determinant
+01:21:17
+Okay, so I do not return expansion of luck of one plus something and with again values. So, what I get is summation over i, the linear piece which is lambda i have a minus one half delta A minus one half.
+01:21:36
+And then I have plus order lambda i
+01:21:41
+A minus one half delta eight minus one f
+01:21:46
+Square.
+user avatar
+Unknown Speaker
+01:21:49
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:21:51
+Now this was valid for X small enough here x is the eigenvalue of A minus one half delta A minus one half. There's also other property.
+01:22:03
+Is that the eigenvalue have a minus one half.
+01:22:09
+Well, I guess.
+01:22:12
+That's right, it again though you have a minus one half data. A minus one half.
+01:22:19
+This is basically big all of norm of delta. So, so a is a constant. So, basically this the scaling of the eigenvalue has to do with the how big delta. So, as when when delta
+01:22:30
+Goes to zero the eigenvalue will also go to zero. So it's a nice continuous function. And so that's why by choosing delta which is small enough, then I'm sure that the eigenvalues will be small in one and and so I can use it to the expansion.
+01:22:45
+And by what I've just explained. I know that this is order of data norm square. So it's little all of norm of data.
+user avatar
+Unknown Speaker
+01:22:56
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:23:00
+So I have my little know a little oh of nominal delta. So I'm left with with this piece here.
+01:23:07
+How do I make this a linear function well then we use another property. So I said, the determinant is the product of the again values the trace is the sum of the eigenvalues. So we use that the fact that the trace of A is the same as summation over i have the eigenvalues
+01:23:24
+trace of A is the same as summation of i have the eigenvalue of D. Okay, so here I have
+01:23:35
+The
+01:23:36
+Summation of my eigenvalue second just replace it with a trace this becomes trace of A minus one half delta A minus one half.
+01:23:48
+Plus little or of norm of data.
+01:23:53
+So it's getting shape. So that's what I used to get this thing.
+01:23:58
+And now, finally, I use the circle and property of the trace to put the H together. So I'm back to trace of
+01:24:07
+A minus one half. Sorry. A minus one by bringing the A minus one after getters.
+01:24:14
+Fans delta
+01:24:16
+Plus little normal data.
+01:24:21
+And this is the same thing as the duck product between a minus one half and other right and then recall, by the way, that normally does. A transpose for the trace. But recall that a symmetric, so I don't care about a or a transpose
+01:24:38
+Okay, so that implies
+01:24:41
+That's what I wanted to get right. So to to identify the derivative. I need just to get this different to become a linear function of delta plus a little or of data and whatever I have in the linear part will be my derivative. And so we have that the derivative
+01:24:59
+Or the differential, I guess.
+01:25:02
+The differential, the derivative
+01:25:05
+Respect to the matrix of the lug determinant function.
+01:25:10
+As
+01:25:12
+It's been purple then. So the derivative
+01:25:16
+Of the lug that function.
+01:25:19
+Is just the inverse of the function of a isn't beautiful
+01:25:40
+Alright, so somebody asked a question here saying why I guess it's probably around here. They said, why isn't lambda I'm multiplying the
+01:25:52
+Identity as well. So first of all, lambda is not a multiplication. So this lambda AI is actually a function. It's the eigenvalue function. It's it tells you
+01:26:01
+It takes a matrix and it gives you the ice eigenvalue of this matrix. Okay. And so, and I'm saying is the the the eigenvalues of the matrix identity, plus some other matrix is actually the same thing as one plus the eigenvalues of the second part. Okay, so that's the
+user avatar
+Unknown Speaker
+01:26:21
+The what I've done here.
+user avatar
+Lacoste-Julien Simon
+01:26:27
+Any other question about this.
+01:26:30
+Crazy proof.
+01:26:34
+But there's so many different properties of knowledge abroad I debt trace log expansion circulate of trace
+01:26:45
+I, yeah, I think I saw somebody asking about a good reference for these ninja properties. This feels like a lot to process there.
+01:26:53
+Yeah, well, so okay there's, there's a few things. First of all, just be aware that that's a lot of algebra like going to be expecting to see to master all these topics in general. Like, it depends. Like, how much you work with these topics.
+01:27:07
+But
+01:27:12
+Good reference is basically like the cookbook calculus or something like The Matrix cookbook thing they have a lot of properties about matrices. And, you know, Japanese, and even derivatives. So I think I'll put this up on the website, if it's not already there.
+01:27:29
+What would be the derivative of lugged eight
+01:27:33
+A without the determinant. Well, first of all, now this is a, is this like like a, like that's a bit weird already like you need to talk about the matrix exponential. So this is your matrix, so it gets a bit tricky. Right, so
+01:27:49
+So I won't go there.
+01:27:51
+They're either the matrix exponential, though, is just a metric exponential. So that's the nice thing.
+01:27:59
+OK, so now let's conclude our
+01:28:03
+log likelihood of dementieva Yashin right so so now that you're you've got a bit more intuitions out to work with these quantities.
+01:28:13
+Back to the league likelihood of aggression.
+01:28:26
+So if I express it in important terms I get. So why do I have a plus.
+01:28:34
+It's go back. Where was my leg like huge blah, blah, blah, blah, blah. Oh.
+01:28:40
+Here we go.
+01:28:43
+Ah, OK. So the first thing is I will express everything in terms of inverse covariance, because it's convenient and you'll see why.
+01:28:52
+So I have here a linear term in the in the precision matrix which is the inverse of the conference. So instead of having a minus log determinant. I'll take a plus lug of the determinant of the inverse, right, because I I have that
+01:29:07
+I have that
+user avatar
+Unknown Speaker
+01:29:11
+This is true.
+user avatar
+Unknown Speaker
+01:29:14
+So,
+user avatar
+Lacoste-Julien Simon
+01:29:15
+Is the same thing as the determinant of the universe. And now when I think the login, get the minus one in front of it right and so
+01:29:24
+I can write the leg leg seared with a plus and over to lug of the determinant of the inverse matrix called the precision.
+01:29:36
+Minus and divided by two in our product between the precision matrix or the inverse of the currents and then there was this like
+01:29:48
+Sigma tilde of mew that they express last time, right, which doesn't depend on the covariance right and that's now why I care about this inner product formulation. Right, so it makes clear, and it is linear in the precision matrix. Okay.
+01:30:02
+So it turns out that this is actually this is actually a concave
+01:30:08
+Function.
+01:30:10
+Of the precision matrix.
+01:30:14
+So it's not concave in the covariance, but it is concave in the precision matrix and the decision matrix is actually the kind of Nicole parameter of the exponential family. So that's all the beautiful pieces which goes together.
+01:30:27
+Yeah so concave function of precision.
+01:30:32
+Which is sigma minus one.
+01:30:35
+Just as a side note. So if we think you find a zero gradient. We know it's a global max.
+01:30:41
+And you know that when I do maximum likelihood. I can choose whichever parameter ization I want to take the derivative. So instead of prioritizing by covariance, I can pass rates by coburn's inverse or the precision. And so I think the derivative with respect to the precision.
+01:30:57
+And Leo is asking is it supposed to be negative for the first term. No, because I normally I didn't have a minus one and I had a minus, right. So now I just took this minus one.
+01:31:10
+And basically take this minus, put it back here, then put it inside the determinant, because the determinant of an inverse matrix is the inverse of the determinant
+01:31:20
+Oh, and I didn't choose invisible Link Alright.
+01:31:29
+Abort. Okay, good.
+01:31:32
+Alright.
+01:31:34
+So,
+01:31:37
+So now if we take their respect to the precision matrix.
+01:31:42
+Take the derivative
+01:31:46
+With respect to
+01:31:49
+Sigma inverse which is just the precision.
+01:31:55
+Then this piece will give me an over to the demand of a love of a matrix is the inverse of this matrix. So, it will be sigma inverse. That's the matrix. And I think its inverse
+01:32:09
+Which is convenient because that's just sigma
+01:32:13
+And now.
+01:32:15
+This piece here is very trivial because it's linear in in sigma inverse. So when I think they're really if I just get the thing inside. So I get minus and over to sigma tilde new
+01:32:26
+Right. And I want this to be equal to zero.
+01:32:33
+And so, that implies that the maximum likelihood estimate for the covariance assembly this weird tilde function that I had defined before and where you use the Emily parameter from you, which by definition is one over n. Some issue I have
+01:32:55
+X minus view, Emily.
+01:32:59
+And then x minus new Emily transpose. So, this is basically the empirical covariance matrix.
+01:33:14
+Meaning that if you take the empirical expectation
+01:33:18
+Is that it's too to
+01:33:22
+Sorry, you make you take the expedition over the empirical distribution. That's what you get the empirical
+01:33:30
+Covariance matrix.
+01:33:49
+So somebody is asking me if there's a geometrical sin geometrical meaning to the derivative of the legitimate function I
+01:34:00
+You know, if you have a diagonal matrix, then you'll see pretty clearly like the determinant is a product of the diagonal just basically the volume.
+01:34:09
+And then you take the log
+01:34:12
+You know when you think that the the log of the when you take the derivative of a love you just get one over the thing. Normally, so here you get the inverse of the matrix which is a bit than one over but generalize to matrix that's strange geometrical but that's I think a bit the intuition.
+01:34:34
+Okay, so that's how you get the Emily of the
+01:34:40
+For one gulshan and now how would you do the fisher determined linear demand analysis. Well, what happens is you actually have to do it in your assignments, so I won't do it for you.
+01:34:53
+But it's fairly simple. So the idea is you will just write the joint look like you would. Let's go back to the journey of model.
+01:35:04
+Here we go. So that's our Fisher model. So we would have
+01:35:10
+In this case,
+01:35:12
+Both conditional class which will look like Russian and then the prior. So when I think the the log of this it will just become a son, right, I will have log of p of x for the
+01:35:25
+And then I will use the correct mean so it will basically group, the data set into pieces. So you'll have all that that that point, which as class one.
+01:35:33
+They will all have the will share all the same parameter for the me and you will have all the data points for class to which are all the parameter for the for for their own me
+01:35:43
+And so when you do the gradients respect to this thing to get what's the Emily, it will just separate right so you can estimate the mean of new zero and the mean you want separately.
+01:35:54
+West for sigma, then it wants separate because the share the same covariance, but it will be a very similar derivation that I've done for
+01:36:03
+A single. Gotcha. So instead of having to gotcha now. I had one and you can easily generalize this argument for when I have two different Goshen.
+01:36:11
+And you don't have to read derive the derivative of the law, get them and function, you can assume I already told you, so you can just reuse that to the in the assignment.
+01:36:21
+Okay.
+01:36:23
+Is there any last question.
+01:36:26
+There was, I have to run because I want to go to the Mila Agra Meetup.
+01:36:36
+Somebody is asking, what are the boundary parameters for the covariance matrix. So, basically, the current matrix as to be symmetric and
+01:36:47
+And so so theta, basically. So, so
+01:36:51
+Yeah, so actually I guess it's what I wrote earlier this year for the question.
+user avatar
+Unknown Speaker
+01:37:00
+Where is
+user avatar
+Lacoste-Julien Simon
+01:37:02
+There we go. So, so these are the condition on my covariance matrix to be a valid parameter for a gotcha. So it has to be a symmetric matrix and it has to be strictly positive different
+01:37:13
+So strictly positive infinity. So, this is the PSD code. So it's actually a comb and it's not a closed set because zero is excluded.
+01:37:21
+But what happens. The nice thing is when you do log likes you. Would you also have the effect that you have a barrier functions, the love that function actually act as a barrier function, which would push you away from
+01:37:33
+None in vertical matrices. And so you can still. Let's see, we do grant the sensitive. Here we have the analytical solution. But let's say you would run
+01:37:42
+Actually, no. You couldn't do your grandmother. But the point is, yes, here, you don't have to worry about the constraints. When you said degraded, the derivative zero because like by construction here or optimum point
+01:37:56
+Where is it the empirical occurrence matrix. So, this thing is symmetric by construction, and it is PSD and it is tricky. Positive defendant as long as there's two data points which are different, so it's fine. It works fine. Okay.
+01:38:16
+Cool. Alright, so on this. Now you have everything you need to do to do the assignment.
+01:38:22
+And next class will start to look at unsupervised learning. So now we did classification both conditional modeling and the full Jenner modeling and that's what you're exploring that assignment next class will start to look at unsupervised learning where we don't have this week so they
+01:38:39
+Have a nice weekend.

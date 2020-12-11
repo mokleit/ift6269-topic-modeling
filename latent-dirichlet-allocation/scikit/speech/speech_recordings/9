@@ -1,0 +1,1819 @@
+Lacoste-Julien Simon
+00:00:03
+So today.
+00:00:06
+We are going to
+00:00:11
+Finish the presentation of logistic regression
+00:00:20
+And because there's just aggression, give us transcendental equation to solve. We will now give a quick crash course on numerical optimization, because we cannot solve the optimal it conditionality.
+00:00:38
+So the numerical optimization
+00:00:43
+We'll talk about green method Newton and hopefully if we have time. Alright. Our LM s
+00:00:50
+So first of all,
+00:00:53
+Before I continue on logistic regression. I wanted to answer. Very interesting question that was asked on Slack by
+00:01:02
+Dawn.
+00:01:04
+So let me go back to
+00:01:07
+The last lecture.
+00:01:11
+And so f Cohen says in lecture eight linear regression. I have three questions.
+00:01:18
+Question number one, number one, I don't understand why having an infinite number of solutions in the normal equation of the maximum conditional likelihood is kind of an overfitting. Okay, so it's a very good question. So basically what happened is when I go back to
+00:01:36
+If I don't have any regularization
+00:01:39
+The maximum likelihood maximum conditional IQ solution or minimize or have this function and any W which satisfy these equation.
+00:01:50
+Will have will have zero gradient. And so it will be actually especially condition and it will be a solution. And so the problem is that
+00:01:57
+If this is not for rank, so I cannot invert it, then there's an infinite number of solution which satisfy this equation. And I said, this actually comes to overfitting. So the
+00:02:11
+The link is was not super explicit, as I mentioned last time. So let me talk a bit more about it. So the first thing is
+00:02:21
+So basically what is overfitting when when overfitting in an intuitive sense means you're
+00:02:31
+Both doing very well on the training set, but not well injure ization performance.
+00:02:38
+And
+00:02:40
+More operationally usually that happens because you start to fit signals or which are not signal if you start to fit the noise. So for example, if I have
+00:02:52
+A regression problem. Let's say ever linear regression problem. And so normally this would be my true model. And let's see, my observations are a bit noisy and so they're not exactly standing on the line.
+00:03:05
+Right and so overfitting would be that oh well you tried to pass exactly through all the data points and so
+00:03:14
+Your model is trying to really fit well the data. And by doing this, you actually fitting stuff, which has nothing to do with the feminine you're fitting the noise. Guess that's what we mean by basically the phenomenon overfitting. OK.
+00:03:27
+Now,
+00:03:29
+We're finding is an non trivial concept. And there's a lot of research going. What about what it really means and what are the sources and extraterrestrials.
+00:03:37
+But basically here at for regression, in particular, like the simplest way to think about it is, you're fitting the noise and us.
+00:03:45
+You're not feeding the correct signal and that's why you do bad into this area in particular if I, you know, try to predict
+00:03:53
+The value at this point my model says this is the prediction and that does nothing to do with the real right so that's why you're having a really bad test there in this case.
+00:04:02
+Okay, so
+00:04:05
+And
+00:04:07
+Yeah, and so
+00:04:10
+The reason now for linear regression is that this is a D.
+00:04:14
+This is a DVD matrix, right. And so if you have in order for this little bit for rank. You can think of having, you know, more dimension than the signal you have from the data point. And so that's why you can overfit
+00:04:29
+Now there's there's this thing I talked about last time, which was the the bias.
+00:04:37
+Variance trade off. Right.
+00:04:40
+Which is the composition of the frequent is risk for the squared error. So here we're doing regression. So our frequent is or we can use a squared error as our as our test loss as our loss.
+00:04:53
+And so if I want to know, with our method as well. I can look at an expectation of a possible training set. What's its is expected squared error in particular as
+00:05:03
+I forgot that it was great. So, and then
+00:05:08
+We saw that the the frequent this risk would be both the the bias square and square. What is the variance, the variance means oh if I change a bit the data set my predictor change a lot
+00:05:20
+And so that's why there's a there's a lot of variance. Okay, so this is just look at if I look at the expansion of our data set, what would be my prediction versus when it changed my data set how my prediction berries. OK.
+00:05:30
+So now when you have an infinite number of solutions, there's a question of will already there will be variation of your prediction.
+00:05:36
+Without even changing training set just picking one of these different solution right so that's already
+00:05:42
+Explaining why having an infinite number of solution is also related to high variance and high variance is related to having bad frequent this risk, which basically means bad diarization performance and not the great performance for your work with them. Okay.
+00:05:58
+And that helps to answer question to have F1, which is if we add regularization, we then pick a solution from an infinite number of them does this overcome overfitting. And the answer is yes, it's reduce a lot overfitting because
+00:06:17
+The first thing is
+00:06:20
+It will reduce the wall so there's there's two ways. So first is you can think of when you add regurgitation. Now you you actually add a bias in your method.
+00:06:30
+And so you actually increase the bias in this case. But you decrease the variance significantly. And so by decreasing the variants, you will actually usually
+00:06:39
+Improve the test there. If you have the correct value. If you are rigorous too much if you put the alumni equals 10 to the
+00:06:46
+28th, you will basically put the zero solution that will have very bad performance. It won't fit well the data. Anyway, so you won't be overfitting. But you will be underfitting
+00:06:59
+Yeah, so that's, answer, question number two. And then, question number through three was why is GD X, kind of like a regurgitation. Is it because it chooses from an infinite number of solutions which is also the outcome of regurgitation.
+00:07:13
+So yes, basically. So the, the opposition algorithm you use will bias from depending on what's your initials and you use a combination of initialization to your algorithm and the numerical division algorithm you use will
+00:07:29
+Basically choose some kind of solution which are not in the city arbitrary among all the infinite number of solutions. So you could think of it as also
+00:07:37
+Biasing which solution, you would choose. And it turns out that the one from STD is a good bias. And so that's so it's it's a bit related to regurgitation, indeed.
+00:07:47
+Okay, so is there any question about these three points.
+00:07:52
+On the narrow regression or does it help clarify a bit when I said in the last lecture.
+00:08:02
+No reaction DS doesn't help clarify a bit
+00:08:08
+Yes. Okay, good. Thank you. Okay, so if there's no further questions on the square. Let's now go over logistic regression. So as a reminder, at the last class I basically started by saying, if I just make
+00:08:25
+very generic assumption about the fact that
+00:08:29
+Each class conditional or some kind of distribution in some family.
+00:08:35
+And I looked at, then the conditional of why given x, then this actually look like the sigmoid function.
+00:08:44
+Where was this
+00:08:46
+A Yeah. And I said, actually the particular. I said, okay, to make it more specific.
+00:08:53
+Let's have these class conditional to be in in these things called exponential family which are wide range of parametric distribution.
+00:09:03
+And
+00:09:05
+We got that at the end we got basically the linear logistic regression model. Well, you got a linearly penetrates logistic regression model. So you got that the conditional why given x
+00:09:17
+Had some parameter W and some feature my fi, which will depend. The feature map depended basically on the sufficient statistics you use to define the expression of family.
+00:09:29
+And the parameter W was just a re scaling like a difference of chemical parameter in the expression of me.
+00:09:36
+And the whole point now is what we forget about this journey model these games from generative assumption.
+00:09:42
+We just now look at the conditional model and we say, okay, suppose that the conditional is basically this where we have chosen some feature function. That's the logistic regression model. Okay.
+00:09:52
+And the whole point of talking about six months to feminine. The last class is to say that there's a lot of jury of assumptions which give back to the same conditional model, which is why they're just aggression is fairly robust in its performance.
+00:10:03
+There's a lot of assumptions which gives the same logistic regression model. Okay.
+00:10:08
+Alright, so now
+00:10:10
+That I've reviewed logistic regression. Let's do a bit of computation. So
+00:10:17
+Let's see. So the logistic regression model.
+user avatar
+Unknown Speaker
+00:10:21
+Logistic urges
+user avatar
+Unknown Speaker
+00:10:26
+Tick regression
+user avatar
+Unknown Speaker
+00:10:31
+Model.
+user avatar
+Lacoste-Julien Simon
+00:10:34
+Alright, so again this is not for aggression. This is for classification. So the model we have is we say, well, the conditional of y equals one given X.
+00:10:44
+Is basically the sigmoid of W transpose and now we do it the linear version. Let's do it first with the linear version where we just put x five x will be in here.
+00:10:57
+And are possible outputs are 01
+00:11:04
+And I will. And so then p of y equals zero given x is just one minus the quality of one. So one sigma W transpose x and by the property of the sigmoid function. This is the same thing as sigmoid minus W transpose x right
+00:11:25
+And so that's our model. So there's two possibilities. So you can think of it, by the way, that why given x
+00:11:34
+Is a bird New Year in a variable. So when a condition on x, I have a burner year random variable with parameter sigmoid of the booty transpose x right because property of head or wife was one is sigma W transpose x and the other one is one minus
+00:11:51
+Okay. And by the way, as a side note, there's different conventions for the labels. So if, instead of having 01
+00:11:59
+You would use.
+00:12:02
+Plus or minus one which is not a burden in this case.
+00:12:07
+Guess plus or minus one. They're called rather Makar variable.
+00:12:13
+You can encode then the conditional of why given x as sigmoid and then you put why W transpose x right
+00:12:25
+Because you can see it here for this is plus one and here this is minus one right so I can just put the, the way that I want. And I get the correct quality. So that's a way to have both facilities easily
+00:12:37
+With y equals plus minus one. If you use instead zero and one, what you use is the burner ye, and I guess I'll put it in parentheses. So this is actually a. So, when, when we say that
+00:12:53
+Why is plus or minus one. This is actually called a random Makar
+00:13:02
+Random variables. So the rabbit the macro random variable is the same thing as a Bernie, but instead of being 01 percent minus one. So it's very simple.
+00:13:13
+Alright, so, but the Bernie. If you remember the burner ye PMS. We had a simple way to encode it is we just put the quality of one
+00:13:23
+And then raise it to why right and then the property of minus one.
+00:13:29
+We will raise it to one minutes why it's a one way is one you'll pick the correct one. And when y is zero, you'll pick the other one. So that's a way to encode in a succinct way both possibilities.
+00:13:42
+OK, so now I have encoded my my distribution. So, given some observation.
+00:13:51
+I will have XI Why I
+00:13:54
+From one up to end.
+00:13:56
+We can do maximum conditional like like you had to estimate or parameters, right. So we'll do
+00:14:02
+Maximum conditional
+00:14:06
+And we take the log of the likelihood, same thing. So look like to you.
+00:14:12
+To estimate
+00:14:16
+About yet.
+00:14:22
+So that's computer log line. So we have little l of W.
+00:14:29
+So I just have summation over my entertaining examples because they're independent
+00:14:37
+And then I have the log of the probability of why I given x i NW
+00:14:46
+And so this becomes summation i was one up to n. And so then I will have. So this is my, my, this is here. My leg like this is my likelihoods I think the log of that. So the way will becomes a different, so I get
+00:15:03
+Why I log of sigmoid W transpose x i.
+00:15:10
+Plus one minus y i lug of sigmoid W transpose that there's a minus the next I
+00:15:20
+So those is my leg leg. Good. And so now we want to maximize this function. So we can look at the gradient. First, let's do a bit of notation so that I, it goes a bit faster.
+00:15:34
+Actually not yet that's first computer gradient. So the gradient respect to w
+00:15:41
+Recall that
+00:15:43
+So if I looked at just a grid respective w w transpose x
+00:15:49
+Right.
+00:15:50
+This is
+00:15:53
+The gradient of the sigmoid function, the derivative of the sigmoid function. And we started the sigmoid function, the derivative was sigmoid of the same thing.
+00:16:02
+Times sigmoid of minus the thing. So that's my derivative of the sigmoid. And then I take by the chain rule. The derivative of the argument of the sigmoid. So the gradient respect to WW transpose x. This gives me x right
+00:16:18
+Outside. So that's a vector. So signatures a scanner and an outside to get my fix
+00:16:25
+So let's set. And so now let new I to be the duck product between W transpose and xi. So just, just some notation, because I don't want to write the blue transpose x i everywhere. And so then I have the gradient of the log likelihood
+00:16:45
+Is summation over i.
+00:16:48
+I get my my x term from the gradient of this thing outside. So I get x i.
+00:16:59
+Then I get all this killer stuff. So I had my why I which was just a constant.
+00:17:06
+I get the derivative of luck of the sigmoid. So I get one of our segments. So that gives me sigmoid of new I
+00:17:14
+And then I have
+00:17:17
+The gradient inside the log of this thing. So the gradient of this thing. And so this gives me like I wrote above of the sigma pieces right so this is
+00:17:27
+sigmoid of new i and then so of minus new I
+00:17:32
+So that's for the as it used
+00:17:37
+You raised think segue minus new AI.
+00:17:42
+And so now that was for this term. Now I do the same thing on this term.
+00:17:47
+And so I get plus one minus y i, derivative of the log i get the sigmoid on the bottom, but now it was minus new I and the rid of of
+00:17:58
+sigmoid of minus new I they will be a minus getting out outside
+00:18:03
+It's minus one and then they will have sigmoid of new I and sigmoid of minus new life.
+00:18:16
+Okay.
+00:18:18
+So that's the derivative and now I can just like cancel stuff. So in particular, I have that this cancels that. And this cancels that.
+00:18:29
+And so if I regroup.
+00:18:32
+I get summation over i have X I, I'm left with a why I
+00:18:40
+I can factor eyes. My why I so no note that there's a there's a minus here and a minus would because plus I have plus y times sigmoid of new I so I can just factor is this why I
+00:18:54
+And so I guess why i and then I have sigmoid of new I from the right, plus sigmoid of minus new I from the left.
+00:19:05
+And then I'm left with
+00:19:09
+The one which didn't have why i. So, this one here, there's a minus one and this segment. So it's minus sigmoid of
+00:19:18
+Then I have minus sigmoid of new I
+user avatar
+Unknown Speaker
+00:19:23
+OK.
+user avatar
+Lacoste-Julien Simon
+00:19:25
+So the other nice thing is we know by the property of the same way that this is just one so that simplifies. Okay.
+00:19:32
+So now let's rewrite a gradient of the loss of the log like viewed as this very simple form. So it's summation over i have my feature vector. And then I get why i minus sigmoid of W transpose excited. Right. That was new. I
+00:19:51
+That's it. That's a nice form.
+00:19:57
+Which kind of makes sense right when y equals one. We want the probability of
+00:20:03
+Y equals one to be high. So, and this is given by the sigmoid. So if so if the priority of y equals one is close to one. And we're happy if y is equal to zero. I want the segue to be close to zero instead. So it's so you know that's why I basically want the
+00:20:21
+The value of this thing to match my label.
+00:20:25
+My discreetly.
+00:20:28
+OK.
+00:20:29
+So now.
+00:20:32
+In linear regression
+00:20:35
+And by the way, linear regression when they look at the gradient. What I have instead is instead of a sigmoid I just get here.
+00:20:44
+The linear. I just want W transpose x i to be close to why that's the linear regression. Right.
+00:20:50
+Now is logistic regression, you know, there's this long year of transformation and I didn't use temporary Inc.
+user avatar
+Unknown Speaker
+00:20:57
+For that
+user avatar
+Lacoste-Julien Simon
+00:21:04
+Oops. Repeat.
+00:21:07
+Yes.
+00:21:11
+Yeah, so that's that's what I meant. Here, I said that you can contrast
+00:21:17
+This gradient
+00:21:19
+To linear regression
+00:21:25
+Where I have the gradient for linear regression is summation of i, x
+00:21:32
+And then I have y
+00:21:35
+Minus W transpose x i.
+00:21:38
+So I don't have this nonlinear transformation.
+00:21:46
+And so
+00:21:47
+Now the problem is if I want to solve this, this thing. So if I want to solve for
+00:21:56
+The zero gradient solve for gradient of l w equals zero.
+00:22:04
+I need to solve what is called a transcendental equation.
+00:22:14
+transcendental equation. What's a transcendental equation, it's an equation with like exponential term in them, for example. So, because what we have
+00:22:28
+Is that the sigmoid and I will have one plus one plus x minus W transpose x i.
+00:22:37
+And then I will have a bunch of other terms. So that's my sigmoid and I want this to be equal to zero. So I want to solve for this w, but it's
+00:22:45
+It's inside the, the argument of an exponential function. So this when I have like x of w plus w equals zero. For example, this is what we call an intrinsically equation because the
+00:22:57
+You completed a male equation is you just have polynomials of your thing that you're trying to solve it transcend all the equation. You're also having exponential and and signs or these kind of things. I guess these are triggered me quick question. So perhaps it's but exponential
+00:23:14
+And so that's why
+00:23:17
+So these don't have closed form formula which are simple, in general, usually. And so that's why we will use to we need to use numerical methods.
+00:23:36
+To want to solve for this W. We won't be able to do it and I'll take it. So instead, we will use
+00:23:42
+Numerical position.
+00:23:45
+And this is in contrast to linear regression where
+00:23:49
+Because the. This was linear in W.
+00:23:54
+Right, so. So the equation had W appear in the linear way, then that's why solving for w in this set of equations is just solving a set of equations. So, when we do the norm. When we sold the normal equations, which basically just solving a set of, you know, equations.
+00:24:10
+So you would consider that to also be having an analytical solution which is the if the thing is convertible. You just inverse matrix, though, you can still use numerical techniques to compute the inverse. But yeah, the that's a much more explicit solution in this case.
+00:24:28
+Okay, so. Any question about this.
+00:24:31
+So basically the plan now is to give a crash course in numerical optimization and then I will apply that on the logistic regression and it will actually. And that's something. Sure you will do in your assignment to implement Newton's method. Basically, it's for logistic regression and
+00:24:48
+The reason we do that even though that's not what you would do in practice now is because it's it's very interesting in terms of
+00:24:54
+Interpretation like you basically get that when you run Newton's method for logistic regression, you get a bunch of
+00:25:01
+These squares problem that you're solving where the weights become depend on your parameter. Okay. And so we'll see that right now. You're not supposed to understand what I just explained, but that's kind of a good be the path where we're going.
+00:25:15
+Okay, so let's talk a bit about numerical position.
+00:25:23
+So that's another example of, kind of like neat applied math numerical optimization that you will learn in this class.
+00:25:32
+You won't learn them in great details because the classes. It's not a special class. It's not a class specialized optimization. You could have a whole set of lectures on that.
+00:25:42
+But, you know, you'll get the important aspects here.
+00:25:48
+So,
+00:25:50
+Let's say we want to minimize
+00:25:57
+Some function of w LW
+00:26:03
+Where w belongs to our right.
+00:26:08
+So we don't have a constraint we just say o w is an RD. So this is called unconstrained optimization, because basically my possible though my parameter is
+00:26:20
+All of the Euclidean space.
+00:26:24
+Alright, so there's multiple ways to do that.
+00:26:27
+And so one of the standard in the most natural one is called gradient descent and you most likely know it.
+00:26:37
+Right. And this is called a first order method.
+00:26:41
+First order method.
+00:26:46
+And it's called first order because it's used green information rather than second derivative information which is the second order.
+00:26:53
+And I mentioned first order a second order I think earlier in in in this class. You can think of it. That's when you do with terror expansion of a function
+00:27:01
+You have the zeros order term which is a constant first order is the derivative times a linear thing. Then you have the second order term which is the quadratic
+00:27:10
+The second derivative times a quadratic function. It's your treasure. Then the third order will be a third derivative times a cubic, etc.
+00:27:21
+And so what's the this algorithm. Well, you start at some initialization. Let's call it W zero and then you iterate.
+00:27:30
+E T rate not at rare iterate or repeat, you will set the next value of the parameter as the previous value minus some step size which might depends on the iteration, times the gradient of the function at the current iteration.
+00:27:51
+And so the idea is you know that the gradient points in the direction of steepest increase of a function. So if you're trying to minimize you go opposite to the gradient, that's the direction of steep as decrease
+00:28:02
+And then you took a little step in this direction and then the gradient change direction. So then you know
+00:28:07
+Greek company the gradient and then you keep going. So it's basically it's like going down hill in a in a greedy fashion in a month and you always look at
+00:28:15
+With the steepest descent direction and they take a little step. And that's how I go down and hopefully at some point you'll reach a bottom
+00:28:24
+Which will be the local minimum.
+00:28:29
+And so that's it you just do that now there's already a question of one, when do you stop. What's the stuffing criterion.
+00:28:41
+Well, so a meaningful stuff being criterion is when you're close to especially point. Well, how can you
+00:28:50
+How can you
+00:28:55
+Quantify whether so sharing points, especially point by definition is when the gradient is zero. So the norm of the gradient this kind of a meaningful value of an approximate statuary points. So you look at
+00:29:08
+You will stop when the gradient at WT enormous smaller to some delta delta will be your stopping criteria. Right. So for example, you could choose delta which is dead to minus six.
+00:29:24
+That's not too stringent if you really want to go to numerical accuracy, you would use tend to minus 16, for example, but that's perhaps not needed for your application.
+00:29:35
+And
+00:29:37
+So in general, this one. Like if if delta if graph of f of WT is small. That doesn't mean you're close to a local minima because you could also be close to a subtle point or
+00:29:48
+Or even a local maxima because it's non convicts, you know, you might be unlucky and just be very close to somewhere where the gradient is is is zero. But then the curve is in their own direction.
+00:30:02
+And so just because the normal agreement is small, doesn't mean that you're close to local minimum. Right. In general, but there are a situation where it will mean something. So for example, if the function is strongly convex which already mentioned in the past. So if it's new strongly convex
+00:30:23
+And I said before that, that means that f minus
+00:30:29
+f of w minus mute by by to norm of w square is convex. So if you're able to take your function and subtract a concave piece because negative norm is concave
+00:30:44
+But for a small enough concave piece you still maintain convexity. That means it was what we call strongly convex
+00:30:51
+And the nice thing is this will imply when you're a musician convex that if the gradient is small, then you also know that you're close to a local men. Okay.
+00:31:00
+Actually a global men in this case because it's comics so you'll have that if the norm is smaller than delta. This implies that the value at a W two WT minus the optimum value or call it FW star is actually also small
+user avatar
+Unknown Speaker
+00:31:21
+And I think it's
+user avatar
+Lacoste-Julien Simon
+00:31:24
+I need to look back, but it's something like
+00:31:28
+New delta divided by mew perhaps some constant. I'll have to
+00:31:35
+Double check think I'll double check tech during the break. What's the constant here. But basically, so if the norm if small, you also have a control on the suboptimal at of your function. Okay, so you so you can know that
+00:31:49
+The difference between your function of value at this point minus the optimum value is not too big. That's, that's a much meaning more meaningful condition than just, I don't know. I'm migrated is not big.
+00:32:05
+But in practice, you know, you can just look at the number of the gradient and that's usually what people use because if you're a non convex. Anyway, you cannot really get guarantees and that's about it. So then all of the gradient will usually be what you use to stop.
+00:32:18
+But be aware that, you know, for example, here's a function
+00:32:26
+Right. So, this function is not convicts and here you know the norm of the gradient will be very tiny, but I am definitely not that the local men. I'm not even that. And I'm very far from the global admin, which was this point here, right.
+00:32:41
+Okay, so, so you never know that if the if the function is not convinced. It could be that you're in a flat region, but it will start again to go down later.
+00:32:51
+Okay, so that's the algorithm.
+00:33:00
+And then there's a question of all. What about the step size.
+00:33:04
+So there's multiple rules that exists in the literature, I'll give you just a quick
+00:33:12
+Overview. So there is a constant step size.
+00:33:15
+Which works. Totally fine for green method.
+00:33:20
+In the deterministic setting so constant step size. So a typical step size would be one over L, where L is the Lifshitz
+00:33:29
+Constant.
+00:33:31
+For the limits continue to constant for the gradient
+00:33:41
+For grad have if
+00:33:46
+Ah,
+00:33:47
+I guess I'm using F. Now, so perhaps it say I want to minimize not little l, but a F of the
+00:33:55
+That we're using the same notation here.
+00:34:01
+And what does it mean to be the chips continuous well the gradient function which is a vector function is that just continuous means that when I look at the gradient evaluated at two different point.
+00:34:13
+I think the difference this is smaller than a constant times how far these points are
+00:34:20
+So that's
+00:34:26
+That's basically what's live just continue to and that's a fairly common assumptions we make among the, the objective, we're optimizing that means that you know the gradient doesn't vary too far. So it's, it varies continuously
+00:34:42
+That's why continue to mean the function is continuous and it's even more than
+00:34:48
+Uniform. It's actually uniformly continuous and it's even stronger. It's, it's, it has a specific aspect which is called the it's Lifshitz come to this.
+00:34:58
+And that gives you a handle on how the gradient various too much and, in particular, you can get convergence guarantees for the grid methods on objective, which would depends on Capitol Hill.
+00:35:13
+So that's a first possibility. Another one that you will see a lot in machine learning is a decreasing step size.
+00:35:30
+And this is
+00:35:32
+A this is more common.
+00:35:38
+For stochastic optimization
+00:35:50
+And so what I mean by stochastic optimization well
+00:35:56
+You have that your function, am I using W here. Yes, my function of w is actually defined as the expectation over some random variable of a function of w and this random variable.
+00:36:12
+Okay, so when the objective, we're optimizing is the expectation of something random
+00:36:19
+We call this stochastic optimization and it, we might not have access to the expectation, because all we might have access or samples from this random variables. And then we would try to still up to my is using your samples so that that's what stochastic gradient descent does
+00:36:36
+Okay. So somebody's asking if newest positive definitely new is a bigger equal to zero. When we knew is strictly bigger than zero to talk about strong convexity if miracles zero would just say it's complex. It's not strongly convex
+00:36:56
+Side. So the expectation of xi.
+00:37:01
+Xi is a random variable.
+00:37:05
+So this squiggly thing is called side.
+00:37:20
+Okay, so what Hattie is asking an advanced question. What are some motivation for fancy learning rate schedules admission learning like cyclical ones.
+00:37:30
+So this is because of non convex optimization in unconvinced optimization as an issue because here. I'm talking about
+00:37:39
+Like the decreasing step size rule that I'm talking about. This is for convicts optimization where you do stochastic optimization and actually let me
+00:37:47
+Describe it so that everybody on the same page, and then I'll talk about defense here are cyclical ones.
+00:37:52
+But so a standard decreasing step size would be, for example, gamma t is some constant divided by t, so as to increases you decrease the step size you decrease at a rate of one of the t see would be a constant, which might to do, perhaps with the Lifshitz concept of your function and
+00:38:10
+So usually, so that's an example of decreasing step size and usually to get conversions guarantee you will have something that you want that the sum of the step size is infinite.
+00:38:23
+So turns out that the sum of one of routine is actually log of capital T. And so as capital T goes to infinity, this goes to infinity. So, so when use one of Richie step size.
+00:38:37
+You by taking even though they're, they're the same size goes to zero, you can actually get arbitrary far from the show ization because
+00:38:45
+If you just think the same steps. I was always in the same direction will get some of our one of routines direction in that conversation, very slowly, no longer capital T is not that fast increasing function, but you can eventually get to feed.
+00:38:58
+So you want that the step size. Some of the supplies and infinity. So you can explore anywhere because you don't know where the solution is
+00:39:04
+But because you want things to converge. You don't want to make too big step size you wanted the some of the step size square is actually finite and so one over t square actually is a finite. Some think it's pi over something
+00:39:21
+It's pretty standard infinite series. So yeah, so that's the standard decreasing step size. And this is actually used for stochastic optimization
+00:39:31
+Because in this case what you're stepping into
+00:39:36
+Oops.
+user avatar
+Unknown Speaker
+00:39:38
+To undo.
+user avatar
+Lacoste-Julien Simon
+00:39:43
+There we go. So this is for a split testing optimization. And so in this case it's the classic optimization. What you could do.
+00:39:50
+Is you could do Wt plus one is the booty minus step size and then instead of having the true gradient, you would use the gradient of the G function at WT an X it right so you would sample this random variable, and you would complete a gradient at your current a trip.
+00:40:11
+For the this simple read variable, okay. So you can think of, for example,
+00:40:18
+We'll go back to this in more detail later, but you could think of this as being the last
+00:40:23
+At the current parameter for a specific data point so excited, could be a specific index of my training set.
+00:40:30
+And so then what I want is to minimize the training air over the whole expectation of where the whole training set. So it's an empirical some
+00:40:37
+But that's too expensive. So way we can do is just like randomly sample at that point computer agreement for this loss and that's what we follow. So that's what stochastic gradient descent done instead of gradient descent.
+00:40:47
+The problem though is that if you use a console step size. This one converged was because of the noise of the gradient, you will you will never stop. Actually, you'll just keep bouncing around. So by using a decreasing step size, you can make sure that eventually converge to the minimum
+00:41:03
+And so that's if you had a convex musician. If you're non convex. In addition to trying to get to a local minimum. You also want to get to a good global minimum. So, there's also an idea of exploration. Right. So I think the cyclical
+00:41:20
+Learning rate help you to kind of like get to a local minimum. And then perhaps use a big step size again to to explore. See if there's a better local minimum somewhere else thing that's going to be idea.
+00:41:35
+So somebody is giving me the sum of whatever t square the states by square divided by six. Thank you.
+00:41:46
+All your star sac is asking me if the some over gamma t equals infinity and some of it, get a t square is finite related to burrow continue lemme somehow
+00:41:59
+Oh, you
+00:42:02
+Perhaps I mean there's different things, right. So the standard convergence result.
+00:42:07
+For as God or an expectation. So you take the expectation of things. And in this case, you don't have to worry about the priority of the event because you took expectations you just make sure the expectation decrease. And then these these conditions will come up very naturally
+00:42:22
+And I don't think I'm going to prove anything in this class. But if you're curious, you can actually look at the
+00:42:29
+At the lectures in my advanced search for prediction and optimization class I give. It's just a few lines of proof to show the convergence result of say
+00:42:39
+Even a more generic version of stick is the greatest sandwiches this upgrade method. And then you see that the, you will see that the, the, the sum of step size will appear in
+00:42:51
+In the denominator and this will appear in the numerator. Okay, so you'll have some of step size at the bottom and some of the safe side square at the top and you will have that the the cemetery smaller than that.
+00:43:05
+And so for this opportunity there to go to zero. You want the thing here to go to go to infinity. And you want the thing here to be finite, though. You could also have that this goes to infinity, but just much smaller than this one goes in 50 but
+00:43:18
+Anyway, so
+00:43:20
+That's what you would get for a standard commercials result now bro can delete this has less to do with the quality of a, of an infinite number of events. I think if you want to get conversions almost surely. Perhaps this will come up. But that's outside the scope
+00:43:36
+And what's G again. So, G.
+00:43:40
+So this G here would just, I'm just not talking about what is the classical musicians to classical musician is a position problem where your function that you're minimizing is actually written as an expectation. Okay.
+00:43:55
+Now, and so G is just the thing to define my my objective function. Now, in terms of practical examples. An example of G would be, you know, so for example.
+00:44:13
+You could have that g of W Cy is actually the loss and
+00:44:24
+Loss on why I and
+00:44:28
+hw of x i.
+00:44:36
+And I guess I don't like the last because usually this is discreet. So let's put some script L and and site here would be basically x, y.
+00:44:51
+And so you would sample an observation from your training set and then you would evaluate what is the prediction loss of your current classifier which is called HF W on this example.
+00:45:04
+Yeah, and that's the objective g. Now, I think the expectation of that with respect to the random training set, I do get just the batch training error of my
+00:45:16
+classifier which would be what I'm trying to optimize when I do
+00:45:23
+Empirical Research position.
+user avatar
+Unknown Speaker
+00:45:26
+Okay, so that would be
+user avatar
+Lacoste-Julien Simon
+00:45:29
+For empirical research diction. Hey, that's the example of G.
+00:45:38
+Okay, so that's decreasing step size rule. Finally, so Constance website is decreasing step size. Another one is
+00:45:47
+Doing some what is called line search
+00:45:59
+So in this case, what you do is you will pick over the step size.
+00:46:05
+The one which minimize the function in the one the direction that you use in your argument. So I will look at the current address WT I will move in direction. I'll say direction t
+00:46:19
+So this is the direction for the update
+00:46:25
+Update.
+00:46:28
+So, for example, it could be the negative gradient
+00:46:34
+But if we use this method for other methods, it won't be just negate gradient for example could be the Newton direction.
+00:46:41
+And the idea is you just fine in this one, the direction you you have a one, the optimization problem and you're just trying to find the step size which minimize the function in this direction.
+00:46:52
+And then the function is quadratic actually
+00:46:55
+You could solve this analytically at one deal and search is easy for a quadratic
+00:47:01
+For more general function like do that, I'll just stick. There's no simple and I'll take full Merlot to do that successfully costly. So this is actually
+00:47:09
+Costly in general because it's another optimization problem. So you still need to solve it and optimization problem. So this is costly in general.
+00:47:17
+But in network optimization what people do is they do.
+00:47:23
+An approximate search
+00:47:29
+Where you will try a few values. Values and then there will be some stopping criteria, and that's it.
+00:47:36
+And a standard example of line search technique is call me. Whoa.
+00:47:44
+Line search
+00:47:49
+Okay. And if you want to learn more about these things. I recommend that you look at Boyd's book I've put the link on the website. So this is a convex optimization book which is quite clear quite neat. It's free available online and the explain also those different lines rich technique.
+00:48:09
+Particularly amiable a matrix.
+00:48:14
+And the assignment. I think I'll just ask you to use a constant step size.
+user avatar
+Unknown Speaker
+00:48:24
+Yeah.
+user avatar
+Lacoste-Julien Simon
+00:48:26
+Okay.
+00:48:27
+So why why so and so basically what happens is the problem with the line search is that it's more expensive than just doing a constant step size or a fixed schedule in the step size.
+00:48:40
+On the other hand, it will make it much better update right so then there's a trade off. Like, okay, so I will have to make Ness iterations of the method.
+00:48:50
+Because each update is better, but each update is more custom so which one should I use it depends on the problem. That's where becomes also like an art of exposition. They're also conversions guarantees for different methods.
+00:49:03
+And so, yeah.
+00:49:08
+So, any question about grid method. Now, I think I will move to the new tense method.
+00:49:16
+Press. I'll take a 10 minute break. Then, and then we'll talk about Putin's but any question.
+00:49:26
+Yeah, jack Lew.
+user avatar
+Jacob Louis Hoover
+00:49:28
+Is there anything that guarantees, this, this, I hadn't heard of this line search
+00:49:33
+Arm your mind search for, is there anything that guarantees with this is actually optimize it, but like, could it not be continuous.
+user avatar
+Lacoste-Julien Simon
+00:49:43
+So you mean if f is not a continuous function, then I have problems. So usually you will assume that f is continuous, because if f is not continuous, you start to get like really weird. Yeah, from a numerical perspective.
+00:50:00
+Optimization. That's really make that much sense. Right. So if the function. So if I'm trying to minimize. For example, this function.
+00:50:09
+Right, so its global minimum is is is is here.
+00:50:14
+But I have zero information about it because everywhere the function looks flat, even when I'm infinity close. So a computer won't be able to optimize this thing. It doesn't even make sense to to talk about it. So what happened is
+00:50:29
+When you do numerical analysis. You want to try that, you know,
+00:50:33
+You're using methods which use floating point arithmetic. So, so you don't even have infinite precision on the numbers.
+00:50:41
+Okay, so, so you need to have things which behave nicely such that when I'm very, very close to something, then, you know, things don't go crazy.
+00:50:50
+If I get even closer right so and so, in particular here for this non compliance function unless I'm able to exactly have this number, which might not even be presentable in your computer, because if I do pie.
+00:51:07
+Then you will never be able to reach it. So, so usually from a numerical position you was supposed to function is continuous doesn't mean that the fortune is differentiable. So it could be the derivative is not continuous, but that's a different thing.
+00:51:21
+And then Dr guarantees for line searches.
+00:51:26
+There is the fact that if you do not differentiable optimization
+00:51:31
+If you do line search exact line search in particular, you could make your method non convergent. So that's something you have to be careful.
+00:51:39
+So it can turn out that the lines which will bring you in in in points which basically looked like you get stuck, or you get very, very close to a kink. But this kink is not the actual minimum
+00:51:54
+So that's a but that's also a bit outside the scope of this class. This is when we talked about non differentiable optimization will make many new things defensible position in this case.
+00:52:04
+If you're curious about non defensible position I mentioned it. My other advance which a prediction and optimization class.
+00:52:17
+Okay, so he means he always asking a good question about
+00:52:21
+I haven't posted more scribe notes. So either I should get a scribe today.
+00:52:27
+So perhaps I should do that. So let's get the. Can I get two volunteers for ascribing today.
+00:52:34
+So what does it mean, it means that you will make a cleaner version and latex of the notes after this class.
+00:52:44
+And then I will review your notes and I will post them.
+00:52:51
+Alright, so I have two already so I have Ishmael and the new law. Can you send me an email. Both of you with your email address. And then, I will send you the instructions by email. Okay.
+00:53:05
+Cool. Great. Was there any other question about optimization and method.
+00:53:15
+Nope. So let's take a 10 minutes break it is right now 326 so let's go until 336
+00:53:35
+Okay, so the first thing is
+00:53:40
+Oops.
+00:53:42
+I want to scroll. Okay.
+00:53:46
+Okay. So I mentioned here, I would fix up the constant. So it turns out that what we have here is one over to mute norm of the gradient
+00:53:59
+Square. Right. So actually, I'll put the
+00:54:04
+Square here.
+00:54:06
+Because that's kind of the better scaling, in some sense, the, the suboptimal UT in function is ready to the norm of the grading square. So, I think it makes more sense to look at the normal green square
+00:54:19
+As a stopping criterion. And so in this case. That would be so if I have that the normal degraded small, then this will be smaller than delta divide by two.
+00:54:34
+Okay, that's the guarantee I was talking about earlier.
+00:54:44
+Okay, so that was great method. Let's talk about
+00:54:48
+New method.
+00:54:56
+So this Newton's method is a second order method because it will use also the information not only of the gradient of the function, but also the second derivative or the
+00:55:09
+Second order method.
+00:55:18
+So,
+00:55:27
+There's multiple ways to derive Newton's method. But one way is to
+00:55:33
+Think as
+00:55:38
+A method, which will minimize
+00:55:41
+A quadratic
+00:55:45
+Approximation of our function.
+00:55:54
+So there's something in numerical optimization as this thing what you call a model in the medical condition. It's not like a model in machine learning where it's basically just
+00:56:05
+An approximation of your function.
+00:56:08
+Through your function could be this very complicated object, which sometimes you don't even. It could be, say, the function could be the
+00:56:14
+The objective could be there this the the solution of a simulation right like like you're modeling a power plant.
+00:56:21
+And you have a simulator and then you want to minimize I don't know the temperature of your tank.
+00:56:27
+And then there's all these parameters of your power plant that you could play with and then when you change these parameters.
+00:56:34
+This complicated simulation give you a different temperature and then you just want to minimize this temperature
+00:56:38
+But you don't really see you have a simple form for what this function is objective is
+00:56:43
+And so what you haven't said as a model. So, for example, a linear model or a quadratic model of the objective that you're trying to optimize
+00:56:52
+And so, and and and so a lot of optimization techniques are motivated by making a simple model of my function and doing exact update on the simple model. And that gives you an algorithm and. Okay. And so if I make a quadratic approximation of my function. So by Taylor expansion.
+00:57:12
+Around my current iterate.
+00:57:17
+I have that f of w is f at WT that's zero order plus the gradient at WT
+00:57:29
+Inner product with w minus wt. That's the first order term of your expansion and then I'll have my second order term. So it's one half.
+00:57:38
+W minus WT
+00:57:41
+transpose H of WT which is the essence or the matrix of second derivative then W minus WT
+00:57:50
+And then there's the remainder term. If I do a credit expansion. The remainder term is is cubic. So it's actually order norm of w minus WT cube. Okay, so that's basically the Taylor's remainder
+00:58:06
+So if your function is well behaved.
+00:58:09
+You can have this stellar theorem.
+00:58:12
+Example you want. In this case, I think the second derivative to be continuous. In a neighborhood that's what you would have. So as long as W is not too far from wt. This is a good approximation.
+00:58:24
+And so HF W.
+00:58:27
+This is the Hession
+00:58:32
+So,
+00:58:34
+Each of WT is a matrix. And if I looked at his ID JS entry. This will be the cross derivative of f at WT respect to w i and then WG
+00:58:55
+Okay, so that's a
+00:58:59
+So let's call this first quadratic term. We call this
+00:59:06
+The Qt
+00:59:07
+Called this function cutie depends on where I did my extension. So, depends on WT it's a function of w and then I have a remainder
+00:59:22
+So this all thing here. That's just call this cutie of W. That's our quantic model. So this is our quadratic model approximation.
+00:59:39
+So Newton's method. The idea is, I'll say that Wt plus one.
+00:59:45
+Is obtained
+00:59:47
+By minimizing or quadratic approximation.
+00:59:54
+Respect to the body. Right, so I want the gradient expect to W of Qt of w equals zero.
+01:00:01
+That's my starting point. And so if I looked above
+01:00:08
+This is a constant, it doesn't matter. And I take the gradient respect with W. I'll just get this piece.
+01:00:16
+And here I'll get the linear return right so compute the grant of this whole of QT. I get that grad of f of wt. That's the first piece plus SDN WT times w minus wt. That's the gradient of my quadratic function and I want this to be equal to zero.
+01:00:37
+So now if I solve for w in this linear set of equations. Suppose the headset is in vertical. It has a unique solution. So, this will be W minus WT is minus as sin inverse at WT
+01:00:57
+Times degraded.
+user avatar
+Unknown Speaker
+01:01:00
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:01:02
+And so the the the Newton update
+01:01:06
+Is simply that my new iterate is my previous a threat minus
+01:01:15
+A linear transform version of the gradient
+01:01:26
+So that's the new terms of date.
+01:01:51
+Okay, so somebody asked me about my weird notation so
+01:01:57
+The question.
+01:01:59
+Let me rewrite this.
+01:02:02
+This was the cross derivative, right. So I have
+01:02:07
+Partial whoops.
+01:02:09
+This is partial square f of WT and then partial derivative w i partial derivative, wha, so this order criss cross derivatives.
+01:02:35
+Okay, so the first thing is
+01:02:38
+In general,
+01:02:43
+Implementation.
+01:02:46
+You need to compute. You need to invert a matrix.
+01:02:53
+Or you need to solve this system of equations right so too. So basically,
+01:03:00
+Saying that the direction t is H inverse grad of f is the same thing as
+01:03:09
+H dt is equal to grow out of it. Right. So solving for the direction I could either invert my matrix or I could solve a system of equation in general, solving a system of equations is order dimension cube. So this is actually
+01:03:28
+Order d cube time
+01:03:32
+To compute
+01:03:34
+In general,
+01:03:38
+Like if I have
+01:03:41
+So if you have structured matrix. Sometimes you can do it faster, but for a general matrix A DVD matrix. If I wanted to solve a system of equations.
+01:03:51
+The number of operations is the cube. Okay, so if the is a million tend to the six acute that that's tend to the 18 that's, you know, on tractable on your computer right now.
+01:04:04
+Then let's say it's in a few years, it becomes tractable now instead of a million just computed billion and now you're, you're back again to problems. So this is super expensive.
+01:04:15
+It takes DQ time and order D Squarespace and so for machine learning in high dimension. This is not really feasible in, in general, unless we have a structured and there's a lot of modern techniques which does that, which is why Newton method was not super popular
+01:04:34
+in machine learning in the last few years, you know, in the Big Data era and first order methods which don't have this DQ berdych the the square dependence is only order D were more popular. Okay.
+01:04:49
+But
+01:04:51
+The new method is actually converts much, much faster than the grid method and let's talk about this now.
+01:05:06
+So, so
+01:05:15
+So there's this thing called
+01:05:17
+By the way, so what you will run in the assignment, I think, was it dem Newton or its standard unit. Actually, I forgot. But there's this thing called dem Newton method.
+01:05:32
+Which is much more stable.
+01:05:35
+Than the Newton method. So in the new method for some function, it will just diverge.
+01:05:41
+For some initialization. It will just diverged. So, you know, you have to be careful. So to stabilize things, what you'll do is you'll add the step size.
+01:05:50
+You add a step size.
+user avatar
+Unknown Speaker
+01:05:56
+To
+user avatar
+Lacoste-Julien Simon
+01:05:57
+Stabilize Newton's method.
+01:06:08
+And so the update for dem Newton is the same as you're done, but you add a step size here in front of the headset.
+01:06:20
+Yes, you could put it could be also depends on TV, you
+01:06:25
+Gotta have it for the week.
+01:06:28
+And so this is the step size.
+01:06:38
+And so what happened is, if you would take normally the the Newton step you could overshoot too much. And actually, that's where you can start to diverge.
+01:06:47
+But by by using a step size smaller than one you would actually dent the update you won't go too far. And this actually could make it now convergent. So the, the kind of update
+user avatar
+Unknown Speaker
+01:07:03
+You know,
+user avatar
+Lacoste-Julien Simon
+01:07:05
+I'm not sure if this is the kind of function, you could have it.
+01:07:09
+But you could have something like like Newton's method could have these kind of a date where, you know, it just blows up to infinity.
+01:07:18
+Whereas if you start here instead of going to this point if you dump it and go here, perhaps, now you start to convergence that
+01:07:31
+That's the dampening effect.
+01:07:33
+I think normally this step size is fixed, but you could also do online search, you could do other things. So let's just put it more generally, with some general step size which could vary.
+01:07:46
+OK, so now let me give you a bit of the intuition behind Newton's methods. So the first thing is if your objective is quadratic
+01:07:57
+Right then your model cutie is exact, this is zero if their function is quadratic because it's a quadratic function. So,
+01:08:06
+And so one step of Newton will optimize your function and one iteration. So that's super fast. Now if your function is not quadratic
+01:08:13
+For example, like logistic function well then you you you want this the conversion monster. Right. But in some sense if it's not the idea of Newton is like, okay, what if I not too far from a quadratic, it should go very fast.
+01:08:31
+So the question now is,
+01:08:34
+Can we use Newton up to a certain point and then then as we get closer. It's actually the other way around. What happens is when you're close to the optimum usually you have a nice quadratic ball.
+01:08:43
+If you think about making the tiller expansion of the function around the optimum. So, and you didn't actually convert superfast it's it's fiction has something called the quadratic phase convergence, which is faster than green method which is linear.
+01:08:56
+And so the place where you want to use the damping is when you're far from the optimum where the function could be really weird as nothing to do with the quadratic
+01:09:04
+And then if you don't, then you can actually divert. And so, so normally there's Newton's will have two phase. There's the, the, the, the convergence to a neighborhood phase, which doesn't convert that fast. And that's where you use a dumping and then
+01:09:20
+There's the quadratic conversion face where even if you would try to optimize over the step size, you would just put a step size of one because that's the best update you can make because it's like a quick break.
+01:09:34
+Okay, so now
+01:09:36
+Let's give a bit more intuition about
+01:09:39
+Newton's method and why we would like to use it.
+01:09:50
+So it has much faster.
+01:09:55
+Come convergence.
+01:09:59
+In the number of iterations.
+01:10:04
+Versus the gradient method.
+01:10:08
+So every update of Newton is much more expensive, but the number of updates you need is smaller, so perhaps
+01:10:15
+This can actually be beneficial, especially if you want a high accuracy.
+01:10:22
+In some sense,
+01:10:25
+For example, like if you really want to get to tend to my 16 year Chrissy. Usually you want a second order method to get there.
+01:10:33
+So there's this thing called inferior point method. By the way, which is a very generic method for convicts minimization, where you have constraints.
+01:10:43
+And basically, these methods so that a lot of commercial software use that like mosaic or see plaques, etc. And the main idea there is you actually basically use Newton's method in a clever way on some luck barrier function.
+01:11:04
+So there is asking if people use a mix of first order and second order methods.
+01:11:10
+Well, it depends what you mean by a mix. So first of all, there's this thing called queasy Newton's methods which instead of computing the Heston exactly approximated the hashing.
+01:11:21
+And in particular, there are methods which don't even compute second derivative at all. They will approximate the SDN by looking at how the gradient vary across my uterus. So be FGS
+01:11:34
+Are limited memory be FGS, for example, is an example of causing you to method, which never need to compute the secondary they've only use graded methods. So in some sense, you could think of it as
+01:11:43
+A first order method because it only use first order information, even though it's trying to approximate the second order approach. So that could be, I guess, interpreted as a mix of first order in second order.
+01:12:01
+Another okay so so basically you're done method is faster convergence in number of iterations versus being descent and a nice property has, by the way, is it is called a fine covariance
+01:12:14
+Okay, which means that the method.
+01:12:19
+Is invariant
+01:12:23
+To rescaling of the variables.
+user avatar
+Unknown Speaker
+01:12:30
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:12:31
+So the problem with the first order method like gradient method is that when the
+01:12:38
+level sets or not. Well, conditioned when the husband is not a world condition matrix, the level set are actually quite ellipse. And then the gradient just kind of a seat. Okay, so basically if I look at the level set of my function.
+01:12:57
+f of w
+01:12:59
+And if I have some directions which has small eigenvalues and one which has big eigenvalues in terms of the history and matrix, you get this kind of like elongated level set. And so then
+01:13:13
+The green and method will just keep us eating like this and it would take forever to reach the global man, which is here. Okay, so this is basically the gradient
+01:13:24
+Descent Method.
+01:13:26
+So what happened here is because of this weird elongated shape the gradient is not pointing towards the global men.
+01:13:35
+In So following the gradient is not super informative. Like if you keep like changing direction and USC it. Okay.
+01:13:42
+Kiss small is asking what a level set again.
+01:13:47
+The level set of a function is the set of points which have the same values. So this thing here is a set of point W such that f of w is equal to some constancy.
+01:13:58
+So that's a level set and you know that the level set of a function, the gradient will be perpendicular to the level set
+01:14:06
+So that's why you know the direction I'm moving into here.
+01:14:09
+Is perpendicular
+01:14:13
+To guess here. That's the negative gradient
+01:14:16
+And that's the
+user avatar
+Unknown Speaker
+01:14:19
+Right angle.
+user avatar
+Lacoste-Julien Simon
+01:14:24
+And the beauty of Newton method is to kind of like take this very badly condition quadratic and transforming back to a nice circle. Okay, so, Newton's method.
+01:14:39
+In some sense, can be seen as
+01:14:44
+Is using the hustle.
+01:14:50
+To make f well condition.
+01:15:02
+So in particular, if I define
+01:15:05
+Let's say this is
+01:15:08
+It. This is w, the space W and I will define my new variable z which is Hession one half times w
+01:15:20
+And this would be my new space z.
+01:15:23
+You can actually look if it's a quadratic function that the level set now will be perfectly circular
+01:15:32
+OK, so the nice nice thing. Now if that the negative gradient is actually pointing directly to the global mint.
+01:15:54
+Like on the trick to see that is the level set here.
+01:16:00
+Basically I have w transpose Heston W. If it was aquatic function equal some constant. By the way, this is called a quadratic form.
+01:16:16
+And so now what I can do is I can
+01:16:22
+Dive analyze my Hession. So this is the same thing as one half W transpose some orthogonal matrix transpose sigma p
+01:16:33
+W equals c and this is diagonal
+01:16:40
+And so when we talk about the, the square root of, yeah. So somebody asked what was this he exponent. So this was the square root. So it's one half.
+01:16:52
+And so I can have. I can see. Let's if z is just H one half W and this would be basically
+01:17:02
+The diagonal of sigma one half times
+01:17:07
+W.
+01:17:10
+And so that means that
+01:17:14
+The equivalent level set in disease space is this is basically Z transpose Z is equal to constant
+user avatar
+Unknown Speaker
+01:17:24
+Right.
+user avatar
+Lacoste-Julien Simon
+01:17:29
+And here I have used the expansion, where he was P transpose sigma p which is possible when he is symmetric.
+01:17:40
+And positive semi definite which will be the case if the function was convex if it's not complex, you can you do the exact same argument. I just did. But for a complex function, then this works.
+01:17:55
+And so basically the idea of the running the headset method and oh yeah so. And the last thing, which I didn't mention so you can actually try now with these transformation.
+01:18:09
+To convince yourself exists reader that if I make a gradient updates in the z space.
+01:18:19
+step size gradient of f respect to ZTE when I transform I obtained z by making your initial session of w with the house in this is the same thing as making an update in the original space. Oops. This was W.
+01:18:38
+WT minus step size and then I have my Sn inverse appearing
+01:18:45
+Right so doing green method in the transform space is the same thing as doing Hester Newton's method and the original space.
+01:18:52
+But the transform space, the space as the beautiful property that the level set or perfectly circular if it was a quadratic and does it converge in one step. So it's very well condition.
+01:19:03
+Now, if the original function was not quadratic, you don't actually have these correct ellipses middle level set
+01:19:10
+And so then you won't get that it conversion one step grid method one conversion one step in the transform spits, which is why Newton's make multiple iterations. That's kind of the idea
+01:19:20
+And what happened is, if I scale one variable that saying, multiply, let's say I started with a nice
+01:19:28
+perfectly circular function. So, like the LT norm. That's a nice circular function that it will have a meeting, it will have circular level set. If I multiply one of the variable by a huge number.
+01:19:40
+Then if I look at the level set, it will again make these super hoops. We didn't want to do that.
+01:19:48
+It will again have these very
+01:19:53
+Long gated level set right so that's why I'm saying the grid and method.
+01:19:57
+is sensitive to the scaling of my variable because if they re scale one variable it change the direction of my gradient. And so it will make now the method, which could converge very fast to convert very slowly, whereas
+01:20:11
+You can scale variable when you run Newton's method you can sell the rescaling with the Hession
+01:20:16
+And so then you don't have to worry about the risk getting so that's what I mean by the method is I find covariance, it means that
+01:20:22
+If I make an affront transformation of my variables running new does method in the transform space is equivalent to the running Newton's method in the original space and then making an effort and preservation of the threats. So it's just the same series of interests. So there's no difference.
+01:20:39
+Looks better be.
+01:20:42
+Okay. Any question about Newton's method.
+01:20:53
+No question. So let's apply now Newton's method for figuration. Okay, so that was
+01:21:01
+Kind of an interesting
+01:21:05
+Sideways.
+01:21:07
+So Newton's method.
+01:21:10
+For logistic
+01:21:14
+Regression
+01:21:18
+And this has actually a specific name. It's called iterated be weighted least square when we'll get to the actual algorithm. I will redefine IR s
+01:21:30
+Right now, just think of it as it's some acronym.
+01:21:35
+So let's go back to our objective. So recall for the log likelihood
+01:21:43
+We had that the gradient of the log like you had was summation over i, x
+01:21:51
+Y minus sigmoid of W transpose x i. That's my gradient
+01:21:58
+And so now if I compute the second derivative because I will use into the algorithm and you take the derivative of that. So, the historian of the log likelihood
+01:22:09
+Is actually
+01:22:13
+A bus. If I take a different of this I will get
+01:22:18
+So the first piece here, they would have this doesn't do anything that's a constant. So, this is this one, there's a minus. So, I'll get a minus in front, put a minus
+01:22:31
+Minus I'll get an exile from my gradient of the W transpose x. So I'll get x i x transpose
+01:22:40
+And then I take the derivative of cigarettes. I get sigmoid that we transpose x i and sigma minus W transpose excited. That's my husband.
+01:22:55
+And now you can already verify that
+01:22:59
+The question is positive.
+01:23:03
+negative definite, sir. So this is
+01:23:08
+Negative 70 different
+01:23:11
+So if I take a vector times H v.
+01:23:18
+So we transpose HIV.
+01:23:20
+This is equal to minus summation and then I will have V transpose x i and then x i transpose V. Then I have segmented of stuff and segment of minus stuff. But this is just positive number. So these are positive number.
+01:23:38
+This is basically X transpose V square. So, this is also a positive number. So that means that we transpose hv is negative for all the in RD. So that means that or Hession is negative semi different right so that means our log likelihood in this case is concave
+01:24:01
+So that's neat aspect means that if we have a gradient. We know it's a global Max said the granite equal to zero.
+01:24:19
+Okay, so there's a question here about the assumption that your function is well model approximated by the aquatic implies
+01:24:30
+So basically, if we think about the gradient method. The green method.
+01:24:36
+Has guarantees when, in particular, your gradient function is continuous and Lifshitz right
+01:24:45
+And that means that the first derivative, the second derivative is not too big. If I have a bounded secondary if it means its limits.
+01:24:52
+And it means basically the gradient is giving good information about where to go, and the stitches constants will tell you, you know, what's the worst case variation you can get and it would tell your conversions result.
+01:25:05
+And so you can also do something else with Newton was saying like, Okay, well, how fast is my, my second derivative changing. So if you have that the second derivative
+01:25:15
+Is Lifshitz continuous. You can also get a convergence result guarantee for Newton's so it's kind of similar in spirit, then the great method. So that's one way to kind of control the well behaved this of your function. Okay.
+01:25:28
+But this answer your question, Jacob.
+01:25:38
+Where was I
+01:25:40
+Oh yes okay so
+01:25:45
+I got my leg.
+01:25:51
+Okay and so
+01:25:56
+Yeah, so there was something subtle is that
+01:26:01
+What happened is when you do the grading method and you want to maximize the function you go in the positive direction. If you want to minimize you're going to negative gradient. OK.
+01:26:12
+Now the magic is Newton, you don't have to worry about whether you're maximizing or minimizing because they're healthy. And in some sense, will tell you which sign, things are so if I run Newton's on a concave function.
+01:26:25
+The hesitant is negative different which means it will flip the sign of the negative gradient. So instead of going in the negative direction. I will go to a positive green direction.
+01:26:35
+I mean it transformed version of the great and but it's since it's like a positive now great and direction. Whereas if the Heston is a positive significant a convex function, then
+01:26:48
+The he will be positive, it will always it won't change the sign. So if I move into negative great interaction. I stay in the Navy either getting direction right so that's why here. I'm saying in this case Newton will be maximizing
+01:27:05
+Instead of minimizing just because of the
+01:27:08
+Definitive
+01:27:14
+I mean, also, another way to think about. It's actually Newton doesn't care about minimizing are maximizing like you can
+01:27:20
+Think of Newton as a other way to derive Newton is to think I'm just trying to solve the linear nonlinear set of equations graph of f of w equals zero. And I make your first order approximation of that. And that's also gives you the Newton's update
+01:27:37
+Because you have greater than or equal to zero, you will take a derivative of that you get the SDN appearing and then you solve
+01:27:42
+And then you get the Newton's updates. And so in some sense on you tend to try to get as a statuary point
+01:27:48
+And so, especially point could be max could be men could be saddled could be anything.
+01:27:52
+If the function is next in the story points are global men, the function is concave especially points or double max and then you really have maximum in but if the function is non convex, then you could get anything
+01:28:11
+Alright, so now to try to interpret this new terms method. Let's introduce a bit of notation as before that, as we did is for linear regression. So recall the design matrix X, which was an end by the matrix. This is
+01:28:29
+X one transpose
+01:28:32
+Blah, blah, blah. To x N transpose. That's my design matrix.
+01:28:38
+And so now let
+01:28:42
+Me you I
+01:28:45
+To be sigmoid of W transpose excited
+01:28:49
+So you will depends on w and it's here. It's just a sigmoid of W transpose excited. So this belongs to 01 excluded and there's W's infinity.
+01:29:02
+And so now I can rewrite the gradient of my log like you would in a very simple form, it's simply
+01:29:09
+Recall it's summation of er ay ay y minus sigmoid of W transpose x i, o, which is just knew I just knew I
+01:29:22
+And so I can rewrite that as x transpose
+01:29:26
+Y minus new when where why and moon are organized as a vector.
+user avatar
+Unknown Speaker
+01:29:35
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:29:38
+And then the Hession
+01:29:44
+Which was a negative summation of her i x x transpose new i one minus view I because remember the hesitation had this SIG sigmoid of the thing and sigma minus the thing, right. So that's UI and one minus new I
+user avatar
+Unknown Speaker
+01:30:07
+Oops.
+user avatar
+Lacoste-Julien Simon
+01:30:13
+And so this is actually minus x transpose
+01:30:19
+That diagonal matrix of w that I will define and then times x.
+01:30:25
+Where
+01:30:27
+The AI.
+01:30:29
+Is defined as new i one minus p. So I just put these new i one minus VI on a diagonal. These are basically constantly scanning of my features.
+01:30:44
+Alright, so now let's read the Newton's update
+01:30:52
+So I have that Wt plus one is WT minus the Hasson and verse. So here the SDN is minus x transpose the TI x minus one.
+01:31:08
+Times the gradient. The grand above was x transpose and then I have y minus beauty. So I put here at the index t from you because
+user avatar
+Unknown Speaker
+01:31:21
+You know,
+user avatar
+Lacoste-Julien Simon
+01:31:23
+Basically I guess muti by definition is sigmoid is a vector where each entry is sigmoid of WT and then x i.
+01:31:48
+OK, so that's my gradient
+01:31:53
+And now I do a bit of manipulation.
+01:31:56
+First I will factor eyes.
+01:32:00
+This thing.
+01:32:03
+On
+01:32:10
+So that I will just put it in front. So I'll have X transpose DT X and verse
+01:32:21
+And so to get back the identity. I NEED TO PUT IT AGAIN. SO WE'LL HAVE X transpose DT x times wt. That was the first term, and then the minus minus became a plus, plus. And then I have x transpose y minus beauty.
+01:32:48
+So why did I do that well because I want to write this
+01:32:52
+This new equation here. So this is the same thing as Wt plus one is x transpose DT x minus one.
+01:33:01
+Times x transpose dt. And then a new variable called ZTE
+01:33:12
+Okay, so that's my update
+01:33:14
+For WT and now what is the ZTE so ZTE
+01:33:20
+It's just the thing I left. So it was x times WT
+01:33:26
+And then the other piece.
+01:33:30
+There was no d there and I multiply a D on the left, so I have d t minus one and then y minus UT
+01:33:42
+This is where
+01:33:46
+I define the ZTE
+01:33:49
+Okay, so what's the point of all this. Well, the point of all this is kind of like to identify
+01:33:55
+At least square solution. Okay, so this here.
+01:34:01
+This is a solution.
+01:34:04
+To generalize the square problem.
+01:34:07
+To a
+01:34:11
+Weighted
+01:34:14
+Least square problem.
+01:34:18
+So you remember like the solution to the square was X transpose X inverse
+01:34:26
+Problem.
+01:34:33
+Alright, so for at least square, I would have X transpose X inverse an extra expose and then I would have some targets here. I called my target ZTE
+01:34:43
+Now, the difference is I did a diagonal piece this diagonal is coming from the fact that I could have different wait for my air. That's why it's Carla wasted the square problem.
+01:34:53
+So let's move this
+01:34:57
+Did I
+user avatar
+Unknown Speaker
+01:35:00
+Not get my
+user avatar
+Lacoste-Julien Simon
+01:35:02
+Was supposed to be erasable ink.
+01:35:07
+Alright, sorry about that me just erase the
+01:35:10
+Temporarily ink.
+user avatar
+Unknown Speaker
+01:35:24
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:35:27
+And so this wait at least PR problem. What is it, it's, I would like to minimize respect to w, the norm of D in
+01:35:39
+Heaven of temporary thing right so minimize respect to w
+01:35:44
+The norm of the one half of z t minus x w
+01:35:54
+Norm square. Okay. And so, compared to the square is I have this weight diagonal wait matrix.
+01:36:05
+And instead of having why I have not been you target, which changes as you run Newton, because basically what happens is
+01:36:13
+You will compute the target using the proxy their current quadratic approximation of your objective and then when you move the threat somewhere else, then there's a new quadratic approximation. So the target moves.
+01:36:26
+And so
+01:36:28
+What this
+01:36:31
+LT norm thingy expand to it will be summation of where I, I will have said i minus W transpose x i square. And instead of having sigma square as we had before in the log like you would for a linear regression model I will have di minus one.
+01:36:54
+Okay. And so basically this is to be compare
+01:36:59
+With a Gaussian model.
+01:37:04
+A Gaussian noise model.
+01:37:11
+For the square
+01:37:13
+And so if you remember in last class or two classes ago somebody asked me. Oh, what happened if you don't assume that you have the same noise for all variable. I said, what you get is a reawakening and here it becomes pretty obvious. So I would have
+01:37:28
+Basically normally to sigma. If I change the
+01:37:34
+The, the noise storm for every data point, then I could have a different sigma square. And here, this is the di right
+user avatar
+Unknown Speaker
+01:37:47
+So you can physically interpret them.
+user avatar
+Lacoste-Julien Simon
+01:37:58
+And so basically, how do you get a target. When you do
+01:38:02
+U turns. Well you take your current prediction and then you basically compute the Halcyon which gives you the this diagonal term.
+01:38:15
+And then your risk scale, the current era that you have right so muti is is the transformed. It's a sigmoid of your current a prediction and then why is the target. And so that becomes a new target and subsets. So you're trying to fit the like the missing piece.
+01:38:34
+And so
+01:38:35
+Now, this explains why we have IRS, so you have that Newton's method.
+01:38:43
+For logistic regression
+01:38:49
+Is equivalent to something called iterated
+01:38:56
+Related
+01:39:00
+Least squares.
+01:39:04
+So that's what are our LM S stands for because
+01:39:11
+You are
+01:39:15
+Solving. It's called iterated because you iterate multiple the square problems and at every iteration you relate
+01:39:22
+The possible square there according to your current expansion and that's why it's called really these words. Okay, so it's just kind of an interesting interpretation of Newton's method for logistic regression
+01:39:45
+Yeah, so the denominator here is inverse, right. So, this is
+01:39:51
+This thing here is inverse, the i minus one inverse
+01:40:08
+And as a side note,
+01:40:10
+You know, if you're trying to solve the inverse problem.
+01:40:17
+A very narrow set of equations when we meet. So if you're trying to solve a set of the equation. So I want to find an x such that x equals be equivalent to you also can minimize over x. The norm of x minus p. So, could also be seen as a
+01:40:33
+Optimization problem.
+01:40:39
+All right, I see is asking what's the integration for the weights like is it waiting, the more difficult. Examples more
+01:40:54
+Not sure if it's the more difficult example right the wave has to do with the the inverse Hasson and so if if the SDN is is is is big.
+01:41:07
+You will say that you have
+01:41:11
+A small noise. If the SMS is is large, then you will have a big noise. So I guess, indeed, you will way more the directions which have
+01:41:24
+Big question, meaning that there's a lot of variation in directions you really want to be careful to approximate things well. Because otherwise, because things vary so much you'll perhaps like overshoot. So I guess I guess that's a good interpretation.
+01:41:43
+Okay, I have four minutes to do big data optimization. That's a bit unfortunate.
+01:41:51
+Well, let me still tried it.
+01:41:55
+I want to, I want to wrap this up so
+01:41:59
+It's do. So this is new terms. So that's what you will implement the assignment as a nice the tactic introduction. But what about if I want to do. Big Data logistic regression. Right. You cannot run Newton in dimension, a billion.
+01:42:16
+And so let's talk about as Judy and all these things.
+01:42:22
+And so
+01:42:23
+Basically, when you have a lot of dimension, you cannot do.
+01:42:31
+Order the square or even the cube.
+01:42:36
+Operations.
+01:42:38
+And so then, instead you restrict yourself to first order methods.
+01:42:43
+Which is why first other methods are so
+01:42:47
+Popular in big data optimization, because you know we're in large the
+01:42:53
+Now in machine learning. Not only does large. We also have enlarge
+01:43:02
+In this case, you can do batch method.
+01:43:10
+To batch methods. So what we mean by batch method.
+01:43:13
+So,
+01:43:16
+The gradient of f of w
+01:43:19
+Is actually the empirical average over all the training set of the gradient of the losses. So let's call this graph of f i have w
+01:43:32
+And so
+01:43:35
+This basically would be the
+01:43:38
+Gradient.
+01:43:41
+Of one function.
+01:43:43
+Like the last on a specific training example.
+01:43:47
+And when I look at the green on the whole training set by need to some all these gradients over each training example and the Batch gradient is competing this awesome. This is called the Batch gradient
+01:44:00
+And to compute it now is order n times d. Right. So if n is a billion and these a billion, you're back to the square, you have a problem.
+01:44:10
+And so instead what you do in this case is you do
+01:44:15
+You use incremental green methods. So as GDS especially example of that. So incremental
+01:44:24
+gradient methods.
+01:44:34
+And so, for example, you would use stochastic gradient descent.
+user avatar
+Unknown Speaker
+01:44:45
+Oops.
+user avatar
+Lacoste-Julien Simon
+01:44:54
+I think I would go a five minute over time. Sorry about this. Let me give you the gist here.
+01:45:03
+As Judy.
+01:45:06
+And so what you're doing as Judy is you'll say, okay, my current it's or it I take
+01:45:12
+I take my premise interrupt, I think, a little step size and then instead of using the Batch gradient, I will use graph of f at some of these randomly sample function I it
+01:45:29
+Iteration t. Right.
+01:45:32
+So now this would be order D instead of order India to do an update. And so where it
+01:45:40
+Is picked
+01:45:44
+uniformly at random.
+01:45:49
+So you is uniformly. So I guess uniformly at random. Okay.
+01:45:57
+So as Judy you pick a random training example, you look at the last on this training example, you take the gradient of this last takes order the diamond. That's what the update you do in expectation
+01:46:07
+You would have the correct direction. But this is kind of a noisy. You can think of it as a noisy version of the Batch gradient
+01:46:14
+And this actually converges use decreasing step size, for example, etc. And so, as God, what happened is you get cheap updates. So the updates.
+01:46:26
+Are much cheaper than Newton's
+01:46:29
+But you get slower overall convergence.
+01:46:39
+For iteration.
+01:46:44
+And batch gradient
+01:46:50
+You get expensive data updates.
+01:46:57
+But faster convergence.
+01:47:05
+And so for example let's say this is my my objective. So this would be the Batch gradient update was as Judy, it could like
+01:47:16
+Go around and you know converge at some point. So it would take many more iterations to get close to the optimum. But each of these iteration or n times cheaper. So it could perhaps
+01:47:30
+Compensate and, in particular, if we do a little plot.
+01:47:35
+There's this if we look at here, we put the time here. We put the lug of the optimization error.
+01:47:46
+Right, so this is log of f of WT minus f star.
+01:47:54
+So it's a semi log plot.
+01:47:57
+The, the green method is as a linear convergence, it means it has a leaner. It has a nice line on similar blood. So it looks like this. So, right. So first, it takes forever to complete the gradient make then it makes an update. So we improve the objective
+01:48:12
+Then it takes forever to complete the gradient, then it takes an update. And so you get this nice staircase shape.
+01:48:21
+Which has a linear convergence. The as God as she has a severe convergence in this case.
+01:48:29
+But it start, because every update is cheap. It make progress right at the beginning. So it actually started very fast and it goes slowly.
+01:48:36
+So at some point the batch method will
+01:48:40
+Overs will supersede the SCD method, it depends on which level of activity you want. So if you want to go to tend to know my six or eight then you definitely need linearly conversions are women.
+01:48:54
+So then there was a question a few years ago, which has, is there a method which starts fast. Oops.
+01:49:03
+It's console.
+01:49:06
+So is there a method
+user avatar
+Unknown Speaker
+01:49:08
+Repeat.
+user avatar
+Unknown Speaker
+01:49:10
+Repeat.
+user avatar
+Lacoste-Julien Simon
+01:49:12
+Their method, which starts fast and stays fast.
+01:49:17
+Okay. And the answer is yes.
+01:49:21
+And these are the variance reduce method.
+01:49:30
+Which was a one big breakthrough. About eight years ago in
+01:49:35
+Context optimization. And one of the first one which was proposed was a sag.
+01:49:44
+For stochastic
+01:49:48
+Average
+01:49:50
+Gradient.
+01:49:58
+And so the idea is actually fairly simple. So I have the grand descent update
+01:50:06
+I would take my current it or it sorry my previous sitter it take a step size and then I would have the Batch gradient
+01:50:16
+grad of if have I at WT
+01:50:20
+Now sag. It's too expensive to use the best gradient. So what you do is you use storage.
+01:50:28
+To actually
+01:50:31
+Approximate the Batch gradient. So you would have one over n summation over i have the I
+01:50:45
+NZ is basically stored in memory and
+01:50:50
+You have that
+01:50:54
+Vi is basically the gradient of f of i at some previous w. So it's an old W parameter
+01:51:05
+Okay. And at each iteration t you will only update one memory location.
+01:51:12
+You update
+01:51:14
+Only
+01:51:16
+The it and you will set it to the gradient of it at the current it to it.
+01:51:24
+And so you keep every Thracians you update one of these member location. So after enough updates.
+01:51:32
+If you're having moves too much, you basically have recruited all the gradient. And so what you have, as the sum of the Vi is an approximation of the batch screen, but you never have to
+01:51:44
+Go over all the training set at in one iteration. And it turns out that this method actually converge, like the red line, I told you so. With a big constant step size of conversion in early so it's kind of magical
+01:51:56
+And I will mention just one less algorithm. And then I will shut up. So there was a problem with sag. Is it took to prove the convergence of this result.
+01:52:07
+So this was in 2012 that was proposed.
+01:52:11
+And by the way, this one the like the this paper one the Lagrange optimization price, which was for one of the biggest contribution in the last three years in comics exposition.
+01:52:22
+And this paper was by Nicola know who Mark Smith and horses back so he could Allah, who is actually a researcher at Google Brain in Montreal.
+01:52:30
+And then the problem though is it to prove the convergence of this algorithm. It took them like 20 pages of super complicated proof with numerically found constants that was really hard to
+01:52:43
+To
+01:52:45
+To
+01:52:47
+Prove the convergence, which was a quite technical feet. And the reason is because in expectation direction you move into is not the true gradient. It's called a bias method and so Sega was proposed by an intern, which was visiting when I was at at India, and this was in 2014
+01:53:07
+And you just make a very small change. Basically, you will have this the update will be
+01:53:16
+Grad.
+01:53:18
+Of fit at WT like as Judy and then you have the memory part so it will be one over n summation over a j of the J.
+01:53:30
+Minus the new computed
+01:53:34
+The it
+01:53:38
+And
+01:53:40
+This part is what we call the variants reduction correction. So that's what we do is the variance of the update
+01:53:53
+And so
+01:53:55
+And now if I think the expectation of that respect to it. I get that.
+01:54:03
+This would cancel that. And so then I will just get this expectation here, which is the true batch gradient. So then it's an unbiased method. So this was just a small tweak inside to make you can bias.
+01:54:13
+The result was that, then we could prove in a few lines the convergence of this method.
+01:54:17
+And then you can show a lot of extension. So you can this is for unconstrained optimization. You can then do constrained optimization. You can do many batch and on in from sampling. You can do a lot of different things so sad guy is actually
+01:54:29
+quite popular. It's actually my my most cited paper, by the way. So I was a coarser with. So the first author with Aaron defense your horses back was again in this paper and I was the
+01:54:41
+Last after. And the reason I mentioned that, by the way, is that if you want to do large scale logistic regression. This is the way to do it. So this is the default
+01:54:51
+Method.
+01:54:53
+In psychic learn for logistic regression
+01:55:00
+In the machine learning package psychic learn which is very popular. If you might know it, by the way, one of the main author of psychic learn five young kid goes is also a researcher at Google Brain. So we have a lot of these
+01:55:15
+Somebody is asking, Is it possible to clarify the practices in the Sega expression.
+01:55:21
+So this is grad of fit at WT
+01:55:28
+plus summation over my memory minus V it right, which basically, this would just be a grad of fit at WT
+user avatar
+Unknown Speaker
+01:55:39
+That's what this means.
+user avatar
+Lacoste-Julien Simon
+01:55:43
+Okay, so, yeah. So, so just so be aware that these these variants reduction reduce method and then somebody asked a very good question. It's like, oh, well,
+01:55:55
+It's so Dora asked if sag is always better than his side always better than as Judy. If yes, why do people use as Judy still
+01:56:03
+So, depends what you mean by people. Right. So which people are we talking about. So if you do convicts immunization.
+01:56:08
+Then Saiga, for example, in the case of logistic regression will destroy your Sgt method. Okay, so, so it's just like there's there's no comparison in terms of getting high accuracy fast.
+01:56:21
+If you do non convicts unionization like you're doing neural network, then things are very different. Right. So that's where there's there's both the issue that
+01:56:32
+When you do non convicts going faster to a local men is nothing to see better
+01:56:37
+And also when you do deep, deep learning optimization, you actually don't care about the position air with you cares about germination area. So that's also a different thing. And it's GD might have better
+01:56:50
+diarization or emphasis realization performance and violence reduction.
+01:56:55
+And so, so yeah, so actually this is active area of research I my research team has a lot of papers on this topic and, in particular, I will highlight if you're curious.
+01:57:06
+So for it turns out that variance reduction method for deep neural network training is doesn't give any well. People have tried them. You don't really help.
+01:57:16
+But when you go to stuff like adversarial training like again Jerry of every single network where instead of doing a musician, you have a min max. It turns out that actually then you can helps a lot. So I have a paper on this.
+01:57:30
+Last year where we use violence reduction method to solve games and it makes a huge difference there.
+01:57:38
+And start that is making interesting literature point, which is that is the violence reduction corrections, similar to the use of control Barrett's for rents reduction. Yes, exactly. It's, it's all in the same kind of spirit idea.
+01:57:54
+Okay, so that was for the Crash Course of on large scale optimization. So I didn't go in that many details but I give you a few keywords.
+01:58:05
+So hopefully it will give you a nice introduction. So next class I will now talk about
+01:58:14
+Here we had conditional model for for classification logistic regression. Well, no, go to a generative model for justification, so call Fisher, they know this analysis. And that's something you would compare with the disintegration India.
+01:58:30
+Okay, so see you on Friday. Feel free to ask question on Slack. If something wasn't up here. Bye bye.

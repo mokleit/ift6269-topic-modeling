@@ -1,0 +1,1549 @@
+Lacoste-Julien Simon
+00:00:02
+Okay. So today we'll finish.
+00:00:09
+The message passing in hmm, and then we will see how to do maximum likelihood in the HMM. SO WE'LL USE em for hmm
+00:00:19
+And that will be all for hidden Markov models and then we will move to information theory.
+00:00:30
+And the kale divergence talk about its properties. And if we have time, we might start to talk about the maximum entropy principle.
+00:00:40
+That's the plan. So let's go back to the end of last class. So if I go back. Let's see, to do
+00:00:51
+Alright, so I finished by applying the some product or rhythm on the hmm and I derive the offer recursion. Right. So what happened is, if I want to compute the marginal overs, et
+00:01:10
+And including all the things I'm conditioning on, right, so that was the issue. Remember the trick I did for some product is
+00:01:19
+Conditioning on variables you just fix them to values and then you run miss the message passing as usual.
+00:01:26
+Still trying to marginalize these variable. But because they're fixed is just does it. Just keep them fixed
+00:01:31
+And so basically, when we compute the marginal anxiety and everything, which has been fixed. This is a
+00:01:39
+We, what we do is we take all the messages coming in the know that we've picked a product of that, right, so that was. That's why I said that the
+00:01:47
+The this distribution over is empty and all the observed variable which are conditioned on is the product of the messages coming to this node.
+00:01:57
+Normally there would be a normalization constant in an underrated graphical model, but because this is a D GM that we just put it in a huge em form z is equal to one, because it was already normalized, and then
+00:02:11
+This one I think was coming from.
+00:02:16
+What was it coming from
+00:02:19
+Yeah, there was no incoming messages there, I guess.
+00:02:24
+Because
+00:02:27
+Because I have the incoming messages and then I have the know potential, but there's no no potential. So I guess, perhaps one is the note potential there was no no potential for this one.
+00:02:37
+Okay. And so I said, I will define this distribution here as the alpha t
+00:02:46
+Message and, in particular, what else it is is just a product of these incoming messages to a node right and so at any tea, if I looked at the product of these messages coming like this.
+00:02:58
+Sorry, this is the alpha message. And when I complete the message I use the simple some product rule. And so the message which goes from
+00:03:10
+Zero t minus one to city. It's the marginalization of the I take all the potentials, which has ZTE in it. Right. And so I get this transition probability
+00:03:23
+And then I have all the other messages which were from the neighbors. Right. So basically,
+00:03:28
+To compute this message I first take the product of these other messages coming to this node I add the potential, which was on this edge, which is a transition quality and then I marginalizing out z t minus one, right, so that was the
+00:03:41
+That's just a general rule for some product message computation. But here, applied in this specific setting. And then I noticed that I have this product here.
+00:03:52
+Of message to the previous board previous node which is just the alpha t minus one formulation. Right. And so that's why we can summarize to compute the alpha t potential or productive messages which is this property here, you need to
+00:04:11
+Compute the previous message. Sorry. The premise of it.
+00:04:15
+And then marginalize out respect to the t minus one by multiplying by the tradition and then also point wise, multiply by the observation quality, this is, this is basically the the message coming from the observation, right. So this, this is this part.
+00:04:30
+Okay and this is called the alpha recursion, because it's a recursion to compute this, I need to compute this.
+00:04:38
+And I said, it's, it's also called the forward recursion, because basically you you could start at
+00:04:46
+This note here with which has no
+00:04:49
+Into you GM style which would have no incoming messages from here, it would just have this message. And that's it.
+00:04:57
+And that's how you initialize and then you just get forward up to the end and then you get the final policy that you want, which is
+00:05:06
+If you read normalize this over a Z, you get the conditional of ZTE given observation and this is the filtering distribution. Right. That was one of the, of the
+00:05:18
+Of the quantities, we want to compute in a. Hmm, okay.
+00:05:25
+Papa.
+00:05:27
+And I said, this is like the collect phase in some product algorithm where you collect all the stuff from the leaves to the root.
+00:05:35
+And then now we will talk about the distribution phase which is going back in the other direction and this is called the beta recursion.
+00:05:44
+Sorry.
+00:05:46
+But before going there. Let me
+00:05:52
+Highlight the computational complexity of this and how to implement it. So perhaps what I'll do. Let me try to do something fancy. Can I copy this.
+user avatar
+Unknown Speaker
+00:06:07
+And then I do copy
+user avatar
+Lacoste-Julien Simon
+00:06:10
+I guess I have a keyboard here copy. And let's see if it works here. Can I do paste
+00:06:22
+Maggi it works.
+user avatar
+Unknown Speaker
+00:06:25
+Okay.
+user avatar
+Unknown Speaker
+00:06:28
+And here is this
+user avatar
+Lacoste-Julien Simon
+00:06:32
+Oh, no. It's a picture. I don't want it to picture I wanted to as text.
+user avatar
+Unknown Speaker
+00:06:38
+Hey, we go
+user avatar
+Lacoste-Julien Simon
+00:06:41
+Okay, so I just copied the offer recursion.
+00:06:46
+Let me erase these things. So let's continue the alpha recursion.
+00:06:56
+And so, how to implement it. And so basically
+00:07:02
+You can think of this
+00:07:05
+As a message that you store. And this is a vector, right. It's a function of ZTE minus one, that's easy to minus one as K possible values. So I just need to specify the value of this for k
+00:07:19
+Possible values. So it's a vector. This thing is the transition matrix, right. So this is matrix. And so this summation here is just the matrix vector product.
+00:07:32
+And this is another vector
+user avatar
+Unknown Speaker
+00:07:37
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:07:39
+And so in terms of implementation. If you let as it
+00:07:45
+There's another vector
+00:07:47
+As a function of z t
+00:07:50
+Minus one.
+00:07:52
+Temporary
+00:07:54
+Inc said vector as a function of ZTE and this is a vector as a function of the t minus one. And so if you let it to be a as a function of ZTE
+00:08:09
+To be just the emission quality of the teeth observation given CT
+00:08:17
+Then you can write the alpha t message.
+00:08:23
+As taking ot and then doing point wise notification with the result of taking the summation, which is A times alpha t minus one.
+00:08:39
+And so
+00:08:41
+And here, this dot notation just means the had Mr.
+00:08:47
+That's weird.
+00:08:49
+That's true. I just went crazy like this. So, this is the had Mr matrix product or vector product, which just means point wise but deprecation
+00:09:10
+And so
+00:09:12
+And so let's say you want to run the offer recursion in a computer, you would first do the initialization of your
+00:09:22
+Alpha one message. So basically, alpha one as a function of z one, as I mentioned, while by definition is just the property of z one and then the first observation.
+00:09:36
+And so this is there's no message coming from before z one and
+00:09:44
+You just need to introduce the message coming from the absorption and probably tea. And so this is the observation probably T X one bar givens you one times the prior right the that's the little potential. So p AMP Z one
+00:10:00
+Okay. And so this is actually also just by the definition of the commercial property, you could have derived that but that's how you can get the first alpha message and then you keep propagating forward by just
+00:10:13
+Taking the the the marginalization using the transition matrix and then doing a point twice vector with the evidence at time t.
+00:10:26
+And you don't need to store the previous message if all you care is the filtering distribution, you can just forget about alpha one, when you compete offer to etc etc. So the, the, the space complexity of this algorithm.
+user avatar
+Unknown Speaker
+00:10:40
+Whoops.
+user avatar
+Lacoste-Julien Simon
+00:10:42
+space complexity.
+user avatar
+Unknown Speaker
+00:10:47
+No.
+user avatar
+Lacoste-Julien Simon
+00:10:50
+Temporary ink again. So the space complexity.
+00:10:58
+Is order key extra storage.
+00:11:05
+So I say extra because, you know, just a transition matrix is order k square. So, if you want to store a you also need a square, but to run the the filtering distribution. The filtering algorithm. The alpha recursion. You only need to store the alpha
+00:11:21
+One outside the time so it's order cake and time complexity.
+00:11:26
+It's order case square at every iteration, because you do a victor. Maybe you do a matrix vector product and you do that tea time so it's order T case square
+00:11:42
+And if you want to compute the filtering distribution, you can just normalize your alpha message. I'll use the tail notation, because that it will come back later. The normal the normal normalize
+00:11:56
+Alpha message. And so this is just the property is empty, I guess, as a function is a T.
+00:12:05
+Certain normalize alpha message is the
+00:12:12
+Property of SETI, given all the observation.
+00:12:15
+Up two step t. And so this is the filtering distribution.
+00:12:25
+And this is just
+00:12:28
+Alpha tea. The tea divided by summation over the tea prime alpha tea. The tea time. And so that's the normalization.
+00:12:49
+So all right, so, so, so some people asking about
+00:12:55
+What is a
+00:12:58
+By definition, I said, A was the the transition priority matrix. So, AJ is the probability of Zed at t equals i. Given that t minus one is equal to g
+00:13:16
+OK, so if I come from Jay, I have a distribution over all the possible next state. So the whole column of A represent what's the distribution over that and it seems to one and we said that
+00:13:29
+Usually doesn't depend on time so we could also make a depends on time and then we just use it at here if you want
+00:13:36
+Good put it there, if it varies with time, but we will look at the homogeneous setting where the transition policy doesn't depend on good
+00:13:46
+So hopefully this answers your questions.
+00:13:50
+And K is the dimension of the Z variables yet. So, just so that we're all on the same page. Let's go back to the previous class were introduced to the station.
+00:14:00
+So I said,
+00:14:03
+This is the distribution for the joint in a hmm I have the property of Zed one, the product of the emission probably tea and then the product of the transition probably tea.
+00:14:17
+And I said, suppose that the emissions or religious in time and the transition property as well. And then we just have that the emission probably t is just
+00:14:27
+Some density or PMS on XD givens et and was some See for example, like we could use a Gaussian for that like it's kind of a fancy Gaussian Mixture Model, where this dependence between the component and then this transition polity is given by a matrix.
+00:14:48
+And
+00:14:50
+We said somewhere that ZTE was discrete over casings.
+00:14:57
+Okay.
+00:15:06
+And notice that this thing.
+00:15:11
+This normalization factor here.
+00:15:15
+This is equal to summation over a ZTE prime p of ZTE prime XD
+00:15:27
+Whoops. It's x one up to t.
+00:15:33
+So the normalization of my alpha message is just a margin all over my observation, right. This is just the quality of my observation up to see. So this is the evidence probably t
+00:15:50
+It's called the evidence priority because that's the thing you observe is called the evidence and here we're just competing wasn't probably to have this evidence
+00:16:00
+And when you do maximum likelihood you want to find a parameter in your model which maximize the log of this property David is probably the right so when we do. Yeah, we will basically doing
+00:16:15
+The a matrix as an odd resemblance to an unhealthy union operator in
+00:16:21
+Quantum Mechanics.
+00:16:25
+Yes, so the link here is that when you have time evolving system usually you'll have this this operator, which tells you how the states in your system evolved over time.
+00:16:41
+And there's a question of discrete time modeling or continuous time a link here. We're doing discrete I'm modeling and we just say, Well, the way you get the name, the next time step is just
+00:16:51
+With this fixed matrix A, but you could also have you wanted a more general model where you have continuous time or period or and then use basically the matrix exponential to model that but that's that's a bit outside the scope of this class.
+00:17:06
+But because usually physics systems are more coven you suppose that the future is conditionally independent of the past. So, these, these Markoff structure like in hmm is
+00:17:18
+Also using kind of physical systems of spice. There's some resemblance, I guess.
+00:17:24
+Okay, so let's talk about now, the better recursion.
+00:17:29
+The better recursion.
+00:17:32
+So this is to compute now the message in the other direction.
+00:17:37
+And this has to do smoothing right smoothing, if you remember I mentioned last time, it's to compute the quality of my my current have some
+00:17:48
+latent variable ZTE but given the observation, including the future. Okay.
+00:17:54
+And so the little cartoon is I would have
+00:18:00
+My little verbal is ET and then I have ZTE plus one, blah blah blah, up to the last one. And I want to include all the observation in the future.
+00:18:15
+X t plus one.
+00:18:19
+Is I'll use these values.
+00:18:22
+And and i also want to include everything from the best right and now the point is that in what we did last time.
+00:18:33
+Like that the message which goes from the left is this alpha TCT just a product of the to message. Actually, the evidence at ZTE and all the stuff in the past.
+00:18:43
+And this gives me the probability of ZTE given x one up to t bar, right. So this is the message coming from the left to my nodes, et
+00:18:54
+And if you remember to compute the marginal attendee know dinner inner in a tree using some product. I need to take all the incoming message to this node as well as the potential
+00:19:04
+And so now when we're missing here is the incoming message from the right for computing them the marginal NCT taking in consideration the evidence from the future. Okay, so this is the message going from said t plus one two is that t and it depends on it.
+00:19:23
+And we'll define this as will just say this message is just BT Betty. It's the better team message.
+00:19:33
+Okay, so basically we'll have a message called betta T coming from the right, and then the marginal the smoothing property on that is, it will just be the product of those two
+00:19:45
+In particular, we have that the probability over city and all the observation up to capital T.
+00:19:54
+And where capital T is bigger than small t
+00:19:58
+This is as before, one over z but Z's just one
+00:20:04
+And then I have alpha t of the tea.
+00:20:07
+And then I have
+00:20:09
+The message coming from the future.
+00:20:15
+And I said, I define this as to be better.
+user avatar
+Unknown Speaker
+00:20:24
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:20:28
+So now we will end the end. That's how we get
+00:20:31
+The better recursion by completing this message using the some product updates. So let's do the some product update rules. So the message from the t plus one to the t as a function of ZTE yes I'm using Zoom's and that's kind of cute.
+00:20:49
+Make your choices to be both the British and American
+00:20:53
+So you need to marginalize out over Zed t plus one.
+00:20:58
+Potential there's an edge potentials in this case is the transition probably ti
+00:21:03
+P of t plus one givens, and T and then I have the observation quality. So that's one of the message, right. So basically, all I'm saying here is to compute
+00:21:16
+This message here I need to take the product of these messages as well as the edge potential. And so this message here is just the evidence properties. This is probably T of x t plus one bar given city. The city plus one. No, I
+00:21:35
+Probably have 60 plus one bar givens. It took us one
+00:21:42
+And then I have the message coming to the t plus one which is a message from ZTE plus two to the T plus one as a function of the t plus one and we said this is just
+00:21:59
+This is just beta t plus one, right.
+00:22:02
+And so we have kind of analog to the alpha recursion. We have the better recursion, which says that better T of ZTE is just marginalization over as a t plus one of the transition priority.
+00:22:22
+Times the observation priority at t plus one.
+00:22:27
+And then time the incoming message be t plus one of ZTE customer
+00:22:37
+So this is called
+00:22:39
+The better recursion.
+00:22:44
+Or, also known as the backward recursion. Because you go backward in time when you compute
+00:22:51
+And the role. So the, the role of the alpha recursion is to collect all the information from the past to make a prediction about the present.
+00:23:01
+And then the better recursion is to collect all the information from the future to help compute the probability of the present, given all the, the, the evidence which include also that stuff from the future.
+00:23:16
+And
+00:23:18
+Alpha i said was just the probability. I told you that the alpha was just a quality of 70 and all the observation up to 20 does better as also a probably stick interpretation. Yes. Okay. Turns out that
+00:23:35
+Whoops. It turns out
+00:23:39
+That
+00:23:41
+Better T of ZTE is actually the priority of all the future observation.
+00:23:50
+From one. It's from t plus one.
+user avatar
+Unknown Speaker
+00:23:56
+Up to capital T.
+user avatar
+Lacoste-Julien Simon
+00:24:01
+Given as a tea.
+00:24:06
+Okay, so that's the interpretation and how can you prove that. Well, you can just use a bit of prognostic
+00:24:16
+Manipulation. So we have that the alpha t message, which is another smoothing distribution which is empty proportional to said tea and all the observation capital T.
+00:24:30
+Well, this is
+00:24:33
+By the product rule. This is just the probability of everything, given
+00:24:39
+T times the quality of the tea. Yes. I haven't done anything there. And now I use the conditional independence in my market model. So because the future is conditional dependent of the past given city. So I will have that this is probably T of x bar t plus one up to capital T.
+00:25:04
+Given that T
+00:25:07
+Times probability of x t
+00:25:14
+Well, everything else, which is one up to t.
+00:25:24
+givens and tea and then they had p
+00:25:28
+So, so the this split here of this in this product is just from the conditional independence.
+00:25:36
+OK, and now I recognize that this product here is the joint between 70 and X bar one of two t. So, this is alpha t of city.
+user avatar
+Unknown Speaker
+00:25:48
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:25:54
+And we just define here.
+00:25:57
+That p
+00:25:59
+The full smoothing property.
+00:26:03
+This thing was the product of alpha t and Betty.
+00:26:08
+And so I have here to smoothing. Probably it is the product of alpha to end something. So there's something is better tea. Right.
+00:26:16
+So this thing, this implies that this thing is better tea.
+user avatar
+Unknown Speaker
+00:26:24
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:26:31
+Bunch of questions.
+00:26:43
+90. And so the question about linear systems to process systems. That's a bit outside the scope of this is I would need to think more about it. I'm happy to discuss it in office hours if you want
+00:27:00
+Darius asking what a real world application in this model I you went to actually, you know, the future. So the idea there is you have a time series.
+00:27:09
+Of observation and you're trying to make prediction about stuff, which happened during the time series, right. So, so let's see. I've observed
+00:27:19
+So I have a radar. I have observed the the MIT I made measurement on my radar for like 100 seconds. And I want to know where was the plane at
+00:27:28
+At 50 seconds. So I want to make inference about the past and well then you should also use the future observation to kind of reduce the noise of where the plane should be. So that's the idea.
+00:27:40
+I know that will. Another one would be coming in signal processing is that when you have the whole signal, you can actually reduce the noise in the prediction about things in the past. And that's, that's also why it's called smoothing
+00:27:53
+Because when you use more observation you read we reduce the variation. The noise in your prediction. And so it's smooth as it smoothing the signal.
+00:28:12
+Look, I guess. Sumo is giving a another practical example using music generation.
+00:28:19
+Alright, so
+00:28:22
+This is how we compute the, the better messages. Now we need to initialize it at some point. And then what happened is, if I look from this graph.
+00:28:31
+I told you that the so the better message are coming like that intensity and so in the last step, the first better where there's there's no more observation to include
+00:28:44
+Well, basically, there's nothing coming here, right. So. So the message is just a constant one. And so that's how you initialize things. And actually, you can also see it here. If you say that the
+00:28:54
+Probability of like nothing, given that t, which is basically the, the better capital T is just one, right, because the quality of nothing is always one.
+00:29:06
+Guess it's a bit of a formal situation, but so the initial ization of the recursion.
+00:29:14
+Is to let better capital T, have said capital T to just be equal to one for all Zed capital T.
+00:29:29
+And finally,
+00:29:33
+So these are for the known marginals, now we also want to compute in some product we could want to compute the edge marginal. So the marginal two variables which are beside each other and this will come into play in in em. So let's, let's write it down so
+00:29:49
+The edge marginal computation. How do we do that, that we make a little drawing. So I want to compute the marginal on both said t and t plus one.
+00:30:01
+Okay, and so I would have stuff coming from the observation.
+00:30:10
+I have the observation at time t plus one.
+00:30:16
+And so what happens is that all the information
+00:30:24
+In this blue box is coming from the alpha t message at ZTE
+00:30:31
+And the message from the future is coming in this betta t plus one of zero t plus one message. So these are the message coming from outside.
+00:30:45
+So to get the marginal and two nodes, I take all the incoming message from outside and all the potentials on these notes right and so here I have that the probability
+00:31:00
+Here. So the probability of both ZTE and Zed t plus one.
+00:31:07
+And all the observation from one to capital T. So this is a smoothing edge marginal. This is equal to the product of the incoming messages I have alpha t of the tea.
+00:31:21
+I have better t plus one of zero t plus one.
+00:31:26
+And then I have the other potential. So there's two things missing. There's the transition polity that t plus one givens a tea.
+00:31:36
+And there's the observation probably T AT ST, press one. So the aversion probably tea at XD is already included in the office. I don't need to include it. But this one here is not included. So I need to include it. So I will have
+00:31:53
+Probably to have
+00:31:55
+X t plus one, given that t plus one.
+00:32:01
+Okay. And so that's just the way you compute and there will be one of these equal to one. So that's how you compute the
+00:32:11
+Edge marginal as well for any claims that
+00:32:18
+Is there any question about the alpha and the beta recursion.
+00:32:24
+And so in order to compute the edge marginal, you need to do both alpha recursion and better recursion.
+00:32:30
+Or to complete a smoothing quality. You also need to be both the alpha and beta records which are basically the collect and distribute face in a tree under, under the graphical model for some product.
+00:32:48
+Okay, so if there's no question about this.
+00:32:54
+I would like to mention something about the numerical stability. So in the assignment for you will be implementing the hmm, which is the EM algorithm for hmm So, which will need to also come in and France.
+00:33:09
+And
+00:33:11
+If you don't do numeral. If you don't do any numerical stability trick, you'll get zeros everywhere. And then you'll take lot of zeros will get minus infinities into you have some troubles.
+00:33:24
+So the issue in these things. And actually when you when you deal with, with large high dimensional distribution. You'll usually have this problem.
+00:33:32
+Is that the alpha t message and the better team message because they're taking product of numbers, smaller than one and you multiply it like 10 times or 100 times because of the know depending if it's a long signal you get number which are small, very quickly, so you can easily get
+00:33:53
+For example, to one e to the minus hundred. Okay, which usually you will under flow, the computer because you can normally represent up to each of my 67 I think or something like that.
+00:34:07
+And so if you use Matlab or sci fi, it will just at some point if you multiply like these numbers by another small number, it will just say zero
+00:34:18
+Game. This is called an under feel error because it's not zero. It's a bit bigger than zero, but you can have to present it because of just the the
+00:34:27
+The storage representation and computers. And so you need to do something about that. And there are two possibilities.
+00:34:38
+And the one who will implement in the assignment is the first one because it's more general. And so the first one it's a more general approach is to instead of storing the numbers will store the lot of the numbers. So you store the log of alpha tea instead. Okay.
+00:34:58
+Because to present the log you own three in the case of emails hundred. It's basically the log will be minus 109 hundred is a number. You can easily represented a computer.
+user avatar
+Unknown Speaker
+00:35:08
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:35:11
+So that solves a problem. And so now the trick is you need to be able to compute some of
+00:35:19
+The numbers when you only have their login representation. So for example, when you will do the marginalization, like the summation over is empty of your stuff you'll need to compute the summation, for example.
+00:35:33
+Over a AI. AI. AI are just numbers and I want to compute the lug of the result. And all I have access is the log of the AI is I don't have the eyes itself. Okay.
+00:35:49
+And so I'll do a bit of manipulation here to make sure that things are stable. So, I will write this as the log and I will factor out the maximum value of the eyes, so I will say a tilde time summation of i have a i divided by a tilt. So all these are supposed to be non zero
+00:36:12
+Then, actually, I guess, in this case, positive because you have to lug
+00:36:17
+So here a eyes are all strictly urine and zero.
+00:36:24
+Pop Up, up, up, up.
+00:36:27
+And I define
+00:36:30
+A tilt to be the max.
+00:36:33
+Of your numbers.
+00:36:35
+And the reason I do that is because this is the dominant number in the sun, right, the biggest number is the one. These are positive, the biggest number will dominate the some and so that's why I was factor it out to do exact computation with it because this is just log of a tilde plus
+00:36:56
+log of one plus summation over j which are not the maximize sir. So let's say also that i max is the arg max.
+00:37:13
+Over I have AI.
+00:37:16
+And then so yeah so I saw everything else. And then I have, I need to take the exponent, because I didn't know what the, the AI is I only have login VI, so I can obtain it by doing expose the exponent of lug of AI and then i divided by
+00:37:37
+Log of
+00:37:40
+By at a tilde, which is when you take the the lug it becomes minus minus log of itself.
+00:37:50
+So this is how you would implement in numerically stable way the
+00:37:58
+The log, some of the numbers when you store them as know so become a lump sum x and then the trick is the reason I do that is, suppose that AI.
+00:38:10
+Suppose that AI is much bigger sorry that it till the is much bigger than AJ for the non maximize her then.
+00:38:22
+This thing will be bigger will be much smaller than this thing. So you'll get X have a negative big number.
+00:38:30
+Expert and they get a big number is close to zero, especially compared to one. And so often, what you get is, if a field is much bigger than all the other number. This will just be roughly easier.
+user avatar
+Unknown Speaker
+00:38:42
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:38:44
+Which is why it was good to kind of get the max out
+00:38:48
+Because otherwise, when you take x of stuff you could get big numbers. So that's why you you're by taking the max, because let's say instead of taking the max I
+00:39:03
+I would have taken another number factories out
+00:39:07
+Well then I could get X have a really big number, which is infinite, or if it's over an overflow. Right. So it kind of did. That's the idea.
+00:39:14
+And somebody asked if you use the same trick for betta yes you use this for anything which might under flow, you can just store it them as log and then you just have to be careful.
+00:39:25
+So that when you add the number you use this trick multiplication is not complicated because it's just subtract is just adding the lungs. So multiplication is easy because log of A times B is just luck of a plus b.
+00:39:39
+The summation is a bit more complicated. And that's what I described, so that's Option A. Option B is to normalize the message.
+00:39:53
+And this is actually simpler, but it's less general right, you need to kind of like
+00:39:59
+Do a bit of bookkeeping to because the, the value of the normalization constant might matter in your application. So you to do the bookkeeping.
+00:40:09
+And so, whereas when you do the log some x, you don't need to do i do bookkeeping, right, you're just doing the standard alpha recursion. It's just that you're clever about it.
+00:40:18
+And so in the case of the alpha recursion, for example.
+00:40:25
+The standard approach would just be to use the asset tilde message that I mentioned before, so the alpha tailed. It's just normalized version of the alpha, which is the reality of ZTE given the observation.
+00:40:39
+So the nice thing is that because it's the property over only one variable which has key values. These will be normal, there will be
+00:40:46
+No. Okay. Numbers was the problem with the outside. It was a priority over like T variables a joint or T variables. So, because there's an exponential number of the
+00:40:56
+T variables. So each number should be quite small, so that they also do one right so that's kind of what's happening. But when you only have one or two dimension. These numbers are reasonable
+00:41:08
+And so, so if I use if I store my message I use a fatty
+00:41:17
+Okay so Dora is asking, Where is my one appearing. So what I've done is, first of all, so you get login this and log of that.
+00:41:28
+And what happened is that for a tilde divided by a deal when you have IMAX you just get one, which is this part and then you do the some over the other ones which are not IMAX okay
+00:41:46
+Alright, so I was explaining how to redefine the alpha recursion. Now for the alpha tell recursion. So before where we had was that alpha t was just ot at Mr product or
+user avatar
+Unknown Speaker
+00:42:06
+Before
+user avatar
+Lacoste-Julien Simon
+00:42:08
+You had a fatty is ot Adam our product point waste product with a alpha t minus one.
+00:42:18
+Well, you can just write this as ot times A alpha tilde t minus one.
+00:42:27
+And you just read normalize that. So, summation over ZTE of the thing here.
+00:42:35
+And this gives you a fairy tale, right, because then it's normalized
+00:42:45
+And this thing that you normalize is called CT and you need to store it. If you want to compute the probability of the observation.
+00:42:55
+Which was these and and you can actually show
+00:43:01
+One can show that. So if you remember I said the normalization factor for
+00:43:09
+ZTE
+00:43:12
+When I have
+00:43:16
+All these variables here was just the quality of the evidence when you normalize the message and you only look at the normalized message, you actually don't get the property of all the variables you only get the quality of x t so you can show by analogy that CT
+00:43:35
+Which is summation of rigidity of OT that
+00:43:42
+A alpha Tilden t minus one.
+00:43:47
+As a function of the T is just the probability of X t given all the previous article
+00:44:01
+And thus, if I use the normalized alpha recursion. And I want to be able to compute the product. The evidence probably team. So I want to compute the probability of X one up to t bar or, I guess, capital T, let's say, doesn't matter.
+00:44:20
+Then by the chain rule. This is the product t equals one, up to capital T.
+00:44:27
+Of probability of x t bar, given everything before
+00:44:35
+Which is just a product of the city.
+00:44:40
+Right, I define about. So while you run the algorithm, you realize that each step. Each step you need to store the normalization factor, then you keep all of them or you can just
+00:44:50
+keep taking the product. You don't need to start them you dig the running product and then from that you can actually compute. What's the quality of the evidence, even though you've read normalize everything
+00:45:02
+And then there's the better recursion.
+00:45:08
+So you could have actually normalize also the better factor but traditionally people have considered something else because it kind of make use of the CT and I think Mike Mike's books. That's what he use. So in this case, you define better to have that T
+00:45:29
+To just be the original message.
+00:45:33
+divided by the probability of x t plus one bar given x
+00:45:42
+60 plus one to capital T.
+00:45:47
+given x one up to t.
+00:45:51
+And it turns out that this thing is the product from u equals t plus one to capital T of this cities that you had stored and so
+00:46:04
+And here, this is just probably T of x t plus one.
+00:46:09
+Up to capital t given is it
+00:46:17
+And so here, as I mentioned, this is not truly normalize you don't have that summation of of ZTE of beta t ZTE is equal to one.
+00:46:32
+But you have that both the numerator and denominator have similar scale. So that's why bit that T is actually a not a reasonable number of order one. It's not like into a mess hundred
+00:46:45
+And then as an exercise if you're curious, you could try to derive the beta tilde recursion.
+user avatar
+Unknown Speaker
+00:46:57
+From this definition.
+user avatar
+Lacoste-Julien Simon
+00:47:00
+But in the assignment, as I mentioned, you will do the lump sum except
+00:47:05
+Alright, so is there any question about the numerical stability.
+00:47:19
+No. All clear or you're totally those
+00:47:25
+Thumbs up or it's clear.
+00:47:27
+Thumbs down okay I got that sounds good.
+00:47:31
+Alright, so let's see. Do I start maximum like you would for hmm, or I take a 10 minute break your choice. You choose.
+00:47:41
+Then we break that break. Alright, perfect. So it's 224 let's start again at 234
+00:48:01
+The question. Okay, so now let's
+00:48:05
+Let's do maximum likelihood in the hmm. So right now we we know how to compute the probabilities. But what about estimating the parameters of our hmm from data. So I want to do maximum likelihood for the. Hmm. Well, as I, as I said,
+00:48:23
+Either last class or two classes a girl. You can think of it. Hmm. As a generalization of a latent variable model.
+00:48:30
+Where there is dependencies between the latent variable, right.
+00:48:35
+And so suppose that your observation models, the probability of my observation, given that my latent variable is k is some density or PM F on XT I'll use effort. It's representation which depend on the parameter of the case component. Right.
+00:49:01
+And I'll use a tacky for the parameters of the case component
+00:49:06
+And so this is basically some parametric model.
+00:49:15
+For the distribution
+user avatar
+Unknown Speaker
+00:49:18
+On
+user avatar
+Lacoste-Julien Simon
+00:49:20
+XT. And so, for example, we could say it's a Gaussian
+00:49:27
+Annex.
+00:49:29
+Right. So that would be the generalization of our mixture. Our gotcha mixture model where now there's a time dependencies between the mixture component
+00:49:39
+And so in this case at that would be the meaning the covariance of my gosh, and they would have a meaningful difference for each component so that key of them. And so at that now we were present all these parameters that we use at
+00:49:56
+K for k equals one, up to Capitol care.
+00:50:03
+And so that will be the parameters for my observation. Then I need the parameters for my transition model. So we said it was homogeneous. So we said that the probability of going into state. I went coming in state j is just represented by a stochastic matrix AJ
+00:50:22
+And finally, the last thing that we need is the prior distribution over the first component. So, said one equals i will use pie. Right. So this is the same pie that we use for the Gaussian Mixture Model.
+00:50:37
+So the difference with the Gaussian Mixture Model is we now also need to estimate the relationship between the latent variable which is by given by the transition product.
+00:50:46
+And so theta which represent all our parameters.
+00:50:52
+Theta is just all these variables. So I need to know the parameters of my absorption models, my transition probability as well as the prior distribution over it said, well,
+00:51:03
+Okay, so now the goal is, I want to estimate
+00:51:10
+To estimate
+00:51:14
+At the hat. A hat and pie hat by maximum likelihood from observation data. So, we will have
+00:51:27
+See an independent capital, an independent time series and each of these is actually a whole time series, right. So this is like x one up to ti so we could have that the length of the time series depends on i. And so that's the notation we use
+00:51:50
+And the beautiful thing here is that you could estimate very well the transition probably T and the observation properties from all the one long time series. It's just this one.
+00:52:04
+It will be hard to estimate it with only one long time series because you're basically only have one observation to estimate, in some sense, right.
+00:52:13
+And so by having any time series, you can estimate this property better but for these actually you can estimate it fine with only one time series.
+00:52:25
+Which is what you'll do in the assignment.
+00:52:29
+Alright, so this is maximum and IQ in Layton verbal model. So what do you do well. You can do. Yeah, right. So, we will use em.
+00:52:39
+And so the East step we need to compute the S iteration. So, by the way, t now is used for the time series, I will use S for the interests of the estimates.
+00:52:53
+So will compute the posterior or latent variable iteration st plus one, sorry, yet so S plus one will just be computed by looking at the posterior over z, given my observation x which is huge and my parameter at iteration as
+00:53:15
+And then the M step.
+00:53:18
+We need to make new estimate of a parameter. So data hat.
+00:53:23
+St plus one is doing a maximum likelihood problem.
+00:53:29
+Over parameter space of the expected complete like like you, I take the expectation over st plus one of the log complete magnitudes of x and z.
+00:53:44
+And x here is the combination. So I call this x is this concatenation of all the the time series. Right. So it's a huge variable and z's the equivalent for the latent variable.
+00:53:58
+So let's derive the complete like like you. Let's write this down. So the complete
+00:54:05
+Load likelihood
+00:54:10
+What does it look like what's, what's the log of the probability of all my time series and all its latent variable, given my parameter. And so as I said, these are huge verbal right so
+00:54:24
+Yeah, and this is I am in this is
+00:54:28
+So by independence over my time series. So it will be summation over by n time series.
+00:54:35
+And then I have the love of my hmm. So I have the log of the probability over the first state.
+user avatar
+Unknown Speaker
+00:54:44
+Is I hear
+user avatar
+Unknown Speaker
+00:54:47
+That's notation.
+user avatar
+Lacoste-Julien Simon
+00:54:49
+And then I have plus summation over tee.
+00:54:54
+Up to ti of the log of my observation probably t
+00:55:00
+Bar T which depends on, I
+00:55:05
+Given Zed T which depends on I as well. And then I have my transition property right. So, summation t equals true to the eye of the log of the probability of Zed t
+00:55:22
+I
+00:55:24
+Given Zed t minus one, I
+00:55:31
+So that's my full complete likelihood. If I knew disease. And so now I will use the usual trick of writing my disease with one hot encoding. So this thing here is the same thing as something over King
+00:55:47
+Of Zed one key I lug of pie cake right pie is my the parameters for my prior
+00:56:01
+This thing here.
+00:56:04
+Is same thing summation over k of Zed T ki I
+00:56:12
+Log of my model for emission property which I said was f f of x t
+00:56:22
+I
+00:56:25
+Given attacking right so so Zed. Tell me which component I use and then I use the parameter of this component which is given by at that. So it's at that key.
+00:56:36
+And finally, here I have
+00:56:43
+I want to get the right trip.
+00:56:47
+Entry into a matrix, so I can sum over L. M. M.
+00:56:53
+And then I can take the product of these indicator variables. So it's Zed te l i
+00:57:02
+Know, I guess I LM about. So let's say okay I get confused. So I want to put a LM so that means I go from em to
+00:57:13
+Me. Alright, so, yeah. So at time t, it's T it's L and then at time t minus one, it's m
+user avatar
+Unknown Speaker
+00:57:24
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:57:27
+It's only 60. This is an n. So, when it's when I have observed say l is, I don't know. Jay and m is a k, then this will just get the a JK entry.
+00:57:46
+So that's the usual trick. And why do we do that well because now when we take expectation over z.
+00:57:53
+Everything else is a constant, right, so, so, so, so this is a constant all the parameters part is a constant. So I'm only going to take the expectation of the Z variables which give men, which gives me probably teeth right when it's indicator variable, the expectation of a
+00:58:09
+An indicator variable. Just give me the probabilities. And I guess I forgot to use my invisible ink.
+00:58:16
+Can so
+00:58:18
+So,
+user avatar
+Unknown Speaker
+00:58:21
+And cancel.
+user avatar
+Lacoste-Julien Simon
+00:58:23
+All right, so now when I take the expectation, with respect to que es plus one of my lug of my whole complete look like here.
+00:58:36
+I will get basically a bunch of stuff, which I want free right
+00:58:41
+But the important part is that
+00:58:45
+By the narrative of the expectation, I will have to compute the expectation of the ZTE variable so expectation over que se plus one of z at K AI.
+00:59:02
+And so because it's an indicator variable, this is just what que es
+00:59:11
+So it's que es plus one of
+00:59:14
+Zed t k i is equal to one.
+00:59:21
+And we'll use again these Tao self counts. So I would define this as Tao of T. K. Ay,
+00:59:31
+Ay, that represents the probability that the latent variable for the ice time series at time t as the state key. Okay, which you can compute by running this the alpha beta recursion to compute the smoothing probably to where the latent variable, right.
+00:59:51
+So this is the smoothing distribution.
+00:59:55
+Groups, because we said that the queues were the distribution over the latent variable, given my observation.
+user avatar
+Unknown Speaker
+01:00:07
+Deck.
+user avatar
+Lacoste-Julien Simon
+01:00:09
+And here it's just a margin all on ZTE gay
+01:00:14
+And so you get
+01:00:16
+The smoothing
+01:00:20
+Distribution.
+01:00:23
+Probably to have Zed t i.
+01:00:34
+Guess.
+01:00:35
+Said TK i equals one, given all my observation for this time series up to ti right
+01:00:48
+And it also depends on parameter theta at step s
+01:00:57
+Okay, so you use. So that means here you need alpha beta recursion to compute this.
+01:01:10
+And so, and by the way. So it's the same thing for for
+user avatar
+Unknown Speaker
+01:01:16
+Let's see.
+user avatar
+Lacoste-Julien Simon
+01:01:18
+You also need to compute
+01:01:20
+The expectation of these it's. It will be just how one K. I. Right. So there's different
+01:01:28
+Computation. And then we also need to compute
+01:01:32
+The marginal over the the transition quality variables. And so this is a pair of variables, that's why. Now you need to compute the edge marginal right so this thing here will give you
+01:01:48
+This will be que es plus one of the property that te l i is equal to one and Zed at t minus one and i is equal to one.
+01:02:07
+Which is the marginal
+01:02:10
+Of Zed te l i n
+01:02:14
+Equals one Zed t minus one i n
+01:02:20
+Equals one given all my observation. So one up to tea. I
+01:02:28
+And it's depends on I and it also depends on my trend parameter
+01:02:34
+And will define this as another stuff counts because they will appear in my ML maximum like in my m step. So this will be, by definition, the stuff counts for
+01:02:50
+Time step T. When I go from
+01:02:54
+To state L from state em and it depends on, I so I have one for each time series. Okay. And these represent basically the smoothing
+01:03:09
+Edge marginal
+01:03:16
+Which basically look at was the probably t
+01:03:19
+Given your observation of going from state to state. Hell,
+01:03:33
+And you can compute by the alpha beta recursion. I gave the
+01:03:39
+formula here, right. So this is how you compute the smoothing edge marginal you take the alpha message, the better message and then you add a bunch of stuff.
+01:03:55
+Okay, so this is how to get like a nice beautiful shape for the complete look like good by using alpha beta recursion.
+01:04:07
+Okay, so, Ezekiel is saying, is it possible to formulate this EMR preliminary and entirely online formulation instead of using smoothing
+01:04:22
+Not really, because the point is when you do. Yes, you do. Maximum like you're given the whole training set. So if you do stochastic em.
+01:04:32
+This is batch em in some senses. I look at my all my training set all my training observations all my time series sequence and they update my parameters.
+01:04:42
+And so if you have very long time series said, say for example, like you're you're you're thinking of a document have a billion word to be just one long time series.
+01:04:53
+It will take forever to update your parameters. So now you can do something I like another to suggested grey descent, which is stochastic em just no more now like exactly where you would sample which piece of the day that you will look to update your parameter
+01:05:09
+So in this case, you could start to only look at, for example, prefixes of the data. So if you only use from x one up to t, then you could only need filtering because you're not looking at the whole data.
+01:05:22
+And so there would be perhaps a way to do that though.
+01:05:26
+I'm not super familiar with the details of this approach. And so, and then partner in stochastic em. I don't think the do that. And so I can take em actually sample subsets of the data, but I don't really think they will do it in that I kind of like in a online filtering approach.
+01:05:45
+But to be verified. I think it's also in one of the project paper. Next you want to do is to guess the key him that you might guess
+01:05:52
+But, good question.
+01:05:55
+OK. So the point here was to compute the expected complete love last year because in the end, step, we want to maximize this quantity respecting the parameter. Okay, so let's do that now we want to do.
+01:06:09
+Maximize
+01:06:12
+With respect to data.
+01:06:18
+And basically, what we get is like it really looks like a standard mixture model look like you but with a few transition priorities right so what happens is in a standard
+01:06:32
+Mixture Model.
+01:06:35
+You would have this thing here.
+01:06:39
+And you would have this thing here, and you wouldn't have the transition polities right and so
+01:06:48
+So in terms of how you estimate the observation quality. It doesn't change anything.
+01:06:52
+The fact that you have some dependence on the Zed, the quantity, how you get the distribution over Deadwood depends of the dependence, because when you do smoothing. It's not the same thing as just looking at the current observation.
+01:07:03
+But in terms of estimating these parameters. Once you computed the soft counts is the same. And then the difference now is you also need to estimate the matrix. And so that's where you will use these accounts.
+01:07:15
+But I won't do the details exercise to the reader, but it's very similar to what we've done in the past. And so what you get is that the estimate at iteration t plus s plus one for the prior probability
+01:07:30
+Is just the normalize soft counts. So it's the summation of all your sequences of the stuff counts for the first Layton state.
+01:07:41
+And it's normalized, so you some over I, you basically just some the the top thing over what will over the, the state. So it's over. It's called El on up to k to one L. I. And now the thing is
+01:08:03
+This is always equal to one, because the probably to over all possible states. Some to one. And so the denominator here is equal to n. Right.
+01:08:14
+So it's just the proportion of time you're in a specific state instead of being 01 is the probability of being in this state. But, you know, it makes sense.
+01:08:27
+And now.
+01:08:34
+The other one is the estimate for the matrix. So it's similar in spirit, you need to normalize the count of times you observe a transition
+01:08:46
+But instead of being account. It's a soft counts, right. So basically, the quality of going to state L from state M will just be summation over all my time series and then summation over my time.
+01:09:03
+Of when I have observed that I went at time step T to state L from em right this is given by this problem.
+01:09:13
+And then I read to read normalized. And so I just some OVER THIS OVER YOUR internalized over L because L is this the state where you go to. So it has to some to one. So you have to be careful. So here it's a summation. I'll use you as my
+01:09:31
+dummy variable for L. So, and it's just a didn't. I mean, the numerator. So it's submission over I submission t equals to to capital T. I. So
+01:09:42
+Of tau teas and then it's L that I'd be normalizing right so this is you, and then m
+01:09:53
+There we go.
+01:09:55
+And finally,
+01:09:57
+How do you estimate attack a
+01:10:02
+Well, depends on your likelihood model for x, but basically you can think of it as if you had observed data.
+01:10:11
+Now you just replaced
+01:10:14
+The maximum likelihood estimate
+01:10:18
+With soft counts.
+01:10:21
+So it's so I kind of put it like a soft counts maximum likelihood. And so, for example,
+01:10:28
+In the case of a Gaussian Mixture Model.
+01:10:32
+If it's Gaussian
+01:10:36
+It's similar
+01:10:40
+To cash and mixture model, but using a weighted empirical mean sort of using the empirical mean for the mean estimate. Use a weighted empirical mean where the weight comes from these accounts.
+01:10:58
+With the weights.
+01:11:03
+Basically Tao Te K. Hi.
+01:11:10
+Right. So, for example, the, the case.
+01:11:21
+Will be obtained by taking
+01:11:26
+Summation over my training set.
+01:11:30
+Summation over my time step because I have multiple observation.
+01:11:35
+So it's kind of making more observation of the observed value.
+01:11:42
+But I multiply by the soft count the property of being in the state key.
+01:11:51
+And then I realized
+01:11:53
+So when you read normalize it's summation i want to end and the number of observations per time series, which is ti because the summation of the over key of the soft counts is equal to one. And so basically, the number of observation. I've seen is just summation over the tea ice.
+01:12:14
+Okay. And you can do the same thing for the empirical covariance, the usual thing you will have the the X t minus the mean that you are estimated and then x t minus the mean transpose in front of that you will add this stuff counts. Wait.
+01:12:31
+Okay.
+01:12:34
+So, for example, so you do that at every iteration S You're basically. So the EMR rhythm is compute the sub accounts which depends on the parameters. Then re estimated parameters then be computed the stuff counts by using alpha, beta, etc, etc. If that's the EMR.
+01:12:55
+And as usual, you initialize it to something you can do the same thing for like digitization for the em in GMM a big diagonal covariance matrix for the Goshen and say, the proportion after key means for the pace.
+01:13:13
+And so that's for the estimate of the parameters. And finally, if you want to predict if you want to make prediction in your sequence, you can use Vitter be to compute the most likely
+01:13:29
+Sequence of latent variable, given the observation. Right. So if want to compute the art max. Overall, the latent variable of the property from one up to t.
+01:13:40
+Given the observation.
+01:13:43
+You can actually use the max product algorithm, which I described last us
+01:13:54
+Yeah I confirm that capital N refers to the total number of sequences, where each sequence as ti licks ti next
+01:14:11
+Alright, so that's it. Is there any question.
+01:14:30
+So Dora is asking, why do I start at t equals two.
+01:14:34
+It's just because it's a transition matrix, right, so there's there's two times step and so
+01:14:45
+Basically
+01:14:47
+This part in the log likelihood
+01:14:50
+Because it's the t zero t minus one. And the first time step is the one
+01:14:56
+There is no transition at t equals one.
+01:15:00
+So if I, if instead I started at t equals one. I could have written ZTE to z plus one. And then I would stop at Ti minus one, right. So it depends on how you want to organize your sequence.
+01:15:13
+Yeah, I started XE one because here this is a XE one I
+01:15:18
+Depends on how you which conventions.
+01:15:24
+I prefer and like index one it's simpler because then also like it goes through the, the actual length of your thing. Otherwise, if I want to links Ti, I would need to go up to t minus one. So you all these assets is a bit confusing confusing.
+01:15:38
+Any other question.
+01:15:52
+Alright, so if there's no other question. So we're done with latent variable model. As I mentioned in homework for you'll be implementing in
+01:16:02
+Glory details. This alpha beta recursion on the time series with a Gaussian Mixture Model.
+01:16:08
+And then feature B and the cool stuff, by the way, is that you're using the exact same data as homework three
+01:16:13
+So it turns out that the true generative model for the the the Omega three was a time series. So there was dependencies between the
+01:16:22
+Component of Z's. So I didn't tell you so you so in Homework three you just did a GM and model you thought they were all independent variable. It turns out that the latent variable we're dependent
+01:16:32
+And so the hmm model will be much better to estimate from the data and you see it will be a better fit to the data.
+01:16:41
+So it'll be interesting to compare both
+01:16:44
+Alright, so now I'll do a little segue. In information theory.
+01:16:48
+The plan is to talk about kale divergence, etc, etc. And in the next class. I'll start about entropy. The maximum entropy principle and we'll get to one of the coolest results in this class, which is the equivalence between maximum likelihood in exponential family and maximum entropy
+01:17:08
+Of with moment constraints. Okay, so that's a super powerful results which actually use Lagrange enjoy it and convicts analysis.
+01:17:18
+But yeah, but before getting there. We'll start with a bit of a crash course on information theory. So it will be very succinct. But, you know, just to present. What's this key divergence. And what's a bit of information theoretic interpretation of it.
+01:17:36
+So,
+01:17:38
+As I already defined earlier in class when I talked about, I think, em, so the kale divergence between to distribution. I will define it here for the screen distribution.
+01:17:52
+So let's say
+01:17:55
+P Q R discrete
+01:18:01
+P and Q. So that's the PMs the kale between P and Q is by definition.
+01:18:12
+The summation over all my observation in the discrete space probability of x. So that's the PMs right log of x divided by q and x
+01:18:27
+And so you can think of it as the expectation over P of the lug of the ratio of P over x.
+01:18:37
+And here I use the capital letter X because I'm taking an expectation respect to x.
+01:18:42
+And so that's the definition
+01:18:46
+And it's fine to have sometimes the property over p. We can put P of x equals zero in this. So, the convention is that if I have zero times luggage zero by convention will say this is equal to zero.
+01:19:03
+And it's meaningful convention, because if you take the continuous limit as x tends to zero plus of X log x you actually get zero by little rule, you can have fun with the Beatles rules. This gives zero. So that's what that makes sense that zero times log of zero, we say zero
+01:19:28
+All right, so where does this thing come from, well, you can get it from the difference between the the marginal likelihood and the auxiliary lower bound in EM
+01:19:41
+Alright so let me finish what I was saying. But now I will do. I would give to motivation, one from density estimation and decision theory and the other one from coding theory. But before that, there's a question. So the support of T rex must be a subset of the support of qx
+user avatar
+Unknown Speaker
+01:20:02
+Px must be a support of the qx
+user avatar
+Lacoste-Julien Simon
+01:20:05
+So you cannot have. Yes, correct. So that means. Well, I mean,
+01:20:11
+It does not have. You could say that if q equals zero, but P is not equal to zero, then you get so
+01:20:23
+If there exists x such that q of x equals zero, but p of x not equal to zero.
+01:20:35
+What you get is you get
+01:20:39
+Into some you'll get basically p of x.
+01:20:45
+lug
+01:20:47
+There's a minus here q of x. And so this is minus infinity.
+01:20:53
+And so get plus infinity. Okay, so this is equal to plus infinity.
+01:20:59
+So either you say you don't allow that or you just say the kale divergence between those two distribution is plus infinity, which is a meaningful thing to say.
+01:21:08
+So if, if the support of p is not a subset of the support of Q, then it turns out that the kale between PQ is infinite.
+01:21:17
+Then you have the, by the way, you also have the continuous analog where you will replace supposed to be an X or now densities respect to say the bag measure, then you will just replace this some with an integral here and then we will have a dx.
+01:21:34
+And you will have the same issues here if sometimes there's some set for which there is a measure of zero for the distribution queue, but not for the decision.
+01:21:46
+And moreover, if P AMP Q OR NOT, the density with the rest of the same base measure. So for example, let's say Q has
+01:21:57
+Is a decision on the line and please distribution.
+01:22:02
+Know, so I want q of x equals zero.
+01:22:06
+But peanut zero. Yeah. So let's say Q is a decision on the square was piece of distribution on the line.
+01:22:13
+So then the for any interval on this line Q will say the property zero because it's doesn't have the right dimension.
+01:22:21
+But the decision of repeat. It's fine. It's aligning and so it will say nonzero. And so these two distribution will have an infinite killed averages.
+01:22:29
+And so what and that happens a lot. When you have data with different dimension or different support that say you know when this machine is on the manifold and the other one is on the different manifold. They always have infinite kale.
+01:22:40
+Which is one of the probably the difficulties with the kale, by the way, is that it's often infinite, which is not super useful. So there are other this notion of divergence between distributions, which are better behave like the Wasserstein one is always finite
+01:22:57
+Or the healing your distance I think also will be finite. So, but, yeah, but let's focus on kale here.
+01:23:05
+And yes, so I guess here to rephrase what is it kill said so if support.
+01:23:17
+Of Q
+01:23:23
+Is not included.
+01:23:25
+In the support
+01:23:28
+Of p
+01:23:31
+That implies
+01:23:33
+That limits. So it's the other way around. So you want supportive P, including the sport of Q
+01:23:45
+Okay, let's do it this other way around so supportive P not included in support of q. Now that's the right direction. This implies that the kale P and Q is equal to plus infinity.
+01:24:02
+Okay, so let's do a motivation from density estimation
+01:24:19
+So if you remember, a long time ago, I talked about
+01:24:26
+Density statistical decision theory which formalize how to evaluate statistical methods.
+01:24:35
+So we recall statistical decision theory.
+01:24:45
+And in this world, we needed to define the last which tells you how bad a decision is. And so if you want to do density estimation
+01:24:52
+You want to estimate the parameters for distribution. And then you want to say how bad the parameters that you're given competitive true parameter. How is this bad. So this is defined by a statistical less the statistical us
+01:25:07
+Statistical loss.
+01:25:13
+Is
+user avatar
+Unknown Speaker
+01:25:15
+Let's see.
+user avatar
+Lacoste-Julien Simon
+01:25:17
+Which tells you how good
+01:25:22
+Your action is when the trial is pure theta. So, this is the
+01:25:27
+The world and a the action here would be
+01:25:33
+In this test because it's the, the, the task here is estimating a distribution. And so we'll say, for example, we'll use Q hat as rotation for distribution that you've estimated
+01:25:54
+And when you do maximum likelihood
+01:25:58
+You can think of doing maximum like you. There's minimizing the negative loveless guess to the standard
+01:26:08
+Maximum Likelihood loss.
+01:26:12
+So the ML. He gets so
+01:26:17
+Or should not have machine learning, I'll use ML he the standard Emily last is the last
+01:26:25
+IE. The last between P of theta and Q hat.
+01:26:33
+Is the expectation over the test data.
+01:26:39
+Of minus the lug of your density
+01:26:46
+Okay, so when you do em maximum, maximum next you from empirical data, you just take the summation over the training set of minus log of the probability that you give to this observation.
+01:27:02
+And
+01:27:05
+As somebody just mentioned, this is what it's called the cross entropy
+01:27:09
+Is called the cross entropy which appears everywhere and
+01:27:14
+As a surrogate loss for learning and neural networks or whatever. This is a pretty standard one. This is just maximum IQ maximal magnitude
+01:27:22
+Or maximum love likely or dislike minimizing the negative log euless over the training set and
+01:27:30
+The, the, the true statistical us is is not, it's not like, how you doing a training set, because you don't care. It's how you do on the test set.
+01:27:38
+And so that's this expectation over to test distribution. And that's where this thing is coming from.
+01:27:44
+So this is like the hell doubt test log likelihood or negative like like us. It's like the how well you're doing in a test set, or you want us to be small, because it's a loss, and it's the cross entropy. So this is a cross entropy loss.
+01:28:03
+And by the way, if you use Q hat is equal to p of theta to use you predict the correct distribution.
+01:28:15
+Then this cross entropy becomes the entropy. So you get summation over your sample space of minus p of theta of X lug of p of theta of x, because this is your prediction and this is by definition.
+01:28:35
+The entropy of pure failure.
+01:28:49
+And that's the best you can do right if you predict the correct distribution, then the thing you get the smallest cross entropy which is actually the call the entropy here because you take the expectation respect to the same distribution as the one you predict
+01:29:06
+Okay, so that's the entropy. Now where's the kale. Well, the kale comes from the access loss of making a wrong prediction. So the access loss.
+01:29:19
+When you predict Q hat.
+01:29:23
+Instead of the true pure theta is the last P Q hat minus the best you could do. And I told you the best you could do is just putting the right thing, which is L.
+01:29:35
+I guess I put the minimization. So the men overall Q of the loss of P and Q. And it turns out that this is the same thing as just the loss of P and P which is the entropy. And so if you compute that you'll get
+01:29:53
+So minus summation over x.
+01:29:57
+Px
+01:30:02
+Right, because this is there's a minus here. That's a summation over x.
+01:30:06
+Today, not use my computer ink again and then. You'll hear. You'll get a Q hat.
+01:30:14
+So here I have a Q amp and then I have a
+01:30:17
+P and so it will be log of oops log of Q hat of x divided by p of x. And so there was a minus here. And so I could flip these two to remove the minus. And so I just get the same thing as a kale divergence
+01:30:41
+P Q AMP.
+01:30:44
+Okay, so you could interpret the kale divergence as the excess loss in the density estimation problem that you get by predicting the wrong distribution you had when the true distribution of p of data.
+01:31:00
+And so if you predict the correct thing, then the kale is zero because there's no access. Plus, if you break the wrong thing. Well, the access of the negative log last that you get is the kill divergence. Okay, so it's pretty natural because the Douglas is the standard
+01:31:19
+Last that we use for density estimation
+01:31:24
+So that's the density estimation motivation. Here's now take coding theory. So coding theory has a bit of a similar flavor, you'll get that the kale divergence
+01:31:36
+Is also the access cost of something. So the coding theory motivation.
+01:31:47
+So in this case,
+01:31:49
+The idea is if you took if you use prefix code. So if you use a length of a code for a character or a word which is proportional to minus log the probability of seeing this character.
+01:32:08
+And this is now we use because, you know, when you say binary code so log is actually log in base two. And so when you measure things in base two, you get something called bits.
+01:32:29
+Was when you use log in base. He
+01:32:33
+You get something called NATs so
+01:32:37
+It's just a different unit.
+01:32:40
+And so normally the entropy is measured in knots. But when you go back to coding theory, you might measure them entropy in based to instead. And that does this is bits.
+01:32:49
+And so if I use as my length of my code something proportional to the negative lug of the quality of seeing this word, which makes sense right so if if a word is very frequent I want to use a very short code.
+01:33:02
+So the protein will be high. So the negative log. Probably it will be small, so it has a short code was the word which are super rare. I don't need I can use a very long code for them because it's I see them very rarely
+01:33:16
+So the expected length of my code.
+01:33:22
+Of code when I get like
+01:33:27
+random words coming will be the sum over my possible words the priority of this words time that's length which is minus log of px and so I get basically the entropy
+01:33:42
+measured in bits in this case because I use
+01:33:46
+I get the entrepreneur. My distribution measure in bits.
+01:33:50
+And then the kale divergence will be the expect them length of my code when I code using the distribution. Q When the truth submission is P. Okay, so it can be interpreted
+01:34:05
+As the excess cost.
+01:34:09
+As the excess costs.
+01:34:14
+In terms of length of code.
+01:34:23
+To use the distribution queue.
+01:34:28
+To design the code.
+01:34:33
+Versus the optimal distribution, which is the true institution.
+01:34:40
+Just give you basically the best code.
+01:34:57
+Okay and Dora posted the link on this topic.
+01:35:03
+Interesting, thank you.
+01:35:05
+Alright, so that's the another view of kill divergence. Okay. And so now let's look at some examples. So example.
+user avatar
+Unknown Speaker
+01:35:18
+Oh man, I'm always late.
+user avatar
+Lacoste-Julien Simon
+01:35:20
+So,
+01:35:24
+Let's talk about the entropy of a bear new distribution.
+01:35:35
+So the. This is basically
+01:35:39
+P minus P lug p
+01:35:43
+Plus
+01:35:47
+Guess.
+01:35:48
+Minus one minus p plug one minus p
+01:35:55
+When the parameter of your burner use p
+01:35:58
+And so this function actually looks like this. So this is my parameter which is the probability of x equals one.
+01:36:07
+And here is the entropy of my distribution.
+01:36:14
+And
+01:36:16
+The, the parameter can only be between zero and one and it as this nice concave shape like this with maximum value at one half, and then it has entropy log of two.
+01:36:29
+OK, so the more deterministic your burner you is so that this bias conflict, either. It's one or zero, then it has low entropy
+01:36:38
+And the maximum entropy. It's a bit in some sense the, the maximum disorder is minus one half, one half or uniform distribution and, more generally, the entropy for a uniform distribution.
+01:36:55
+On key states.
+01:37:01
+Is minus summation X equals one, up to capital K of the property of any state, which is one overcame when I have key states log of one of our key.
+01:37:15
+So it's a constant respect to x. So the minus log of one of our key becomes legal Ricky and I'm something one of her key work a time. So I just get lug of capital Kiri and here it is. Yep, that's it.
+01:37:34
+And it turns out that this is the maximum entropy distribution.
+01:37:40
+Over case states.
+01:37:44
+So the maximum entropy distribution of a discrete variable over case states is actually the uniform distribution. And that's something you would prove in the assignment, by the way.
+01:37:54
+And so to help you with the assignment. Let me mention some properties of the kale.
+01:38:05
+So you have that the tail between P and Q is always bigger than zero.
+01:38:14
+And you can to show that you can use Jensen's inequality.
+01:38:20
+To show this, you use the Jensen's
+01:38:25
+In inequality.
+01:38:28
+Which as you recall, says that the
+01:38:33
+If f is convex, f of the expectation is upper bounded by the expectation of f of x. And the way to remember that is just to dry it. So this is
+01:38:46
+Expectation of X.
+01:38:49
+And this is
+01:38:51
+Expectation of FX
+01:38:55
+And this is here f of expectations so it's below.
+01:39:02
+when f is convex.
+01:39:05
+And negative log, which appears in the entropy is convex, because love is concave
+01:39:13
+It turns out that K L is strictly convex in each of its argument.
+01:39:21
+convicts
+01:39:23
+In each of its arguments.
+01:39:30
+Okay, so by this I mean that
+01:39:34
+The KL
+01:39:37
+For example, if I fix P, and I very the other argument and the other argument is
+01:39:47
+I can represent the distribution of our key numbers by
+01:39:51
+Vector in dimension key, which are positive.
+01:39:54
+And I take this as a function from busy the property simplex to this.
+01:40:03
+And KL dot q. So both of these are strictly convex function.
+01:40:21
+And kale.
+01:40:24
+Is equal to zero.
+01:40:28
+P P equals zero for all P belonging to practice simplex for all distribution, you always have the killer of a decision with itself is equal to zero.
+01:40:43
+And finally, a property of the kale is that it's not symmetric. So that's important to keep in mind.
+01:40:50
+You have that the kale of P to Q. It's not equal to kale of Q to pee in general.
+01:41:14
+Okay, so is there any question about the kale divergence or the entropy or these things. So now you should have everything you need to do the assignment for
+01:41:36
+No question.
+01:41:42
+Is it possible to have a distribution over a high dimensional space with a non zero probably to have some lower dimensional object.
+01:41:49
+Not if it has a density. Okay, so if you have a distribution, which is a density over c a p dimensional object any p minus one dimensional subset will have zero quality.
+01:42:02
+Because then the big measure basically give zero mass on these things. Now if your decision doesn't have a real density. So for example, let's say you're in dimension one
+01:42:10
+You could have a distribution, which is a Gaussian everywhere except you put the direct mass, you could say like property one half of being a Gaussian everywhere and probably one half to put all the massive zero
+01:42:22
+Okay, so there's this division does not have a density respect to the big measure. It's a mixed measure, but this one give a nonzero policy on the lower dimensional object name Nia zero dimensional object which is the single turn to zero.
+01:42:36
+So this is possible, but if it's not possible. If you have a density
+user avatar
+Unknown Speaker
+01:42:41
+On the full dimensional object.
+user avatar
+Lacoste-Julien Simon
+01:42:50
+Is there some easy way of extending the kale divergence to make it symmetric. Yes, you. It's called the symmetry kale and all you do is you take the average of the kale in both directions. So you define it as the kale of people. So basically this where's my pen.
+01:43:12
+Yeah, so you have that the symmetry is version.
+01:43:20
+Is you use one half of kale p q plus kale have to pee.
+01:43:29
+Right. And so this by construction is symmetry.
+01:43:35
+And I think this call. I think there's a another it's not the junction shine divergent. That's a different thing.
+01:43:43
+And then is there a nice relationship between the was fine distance of the kale divergence. I think you can bound one with by the other one. I think there was a sign his upper bounded by the kale in some way. Do I don't know the exact
+01:43:57
+Relationship and when would we use a symmetric variant.
+01:44:02
+When you want something symmetric
+01:44:08
+So for example, I don't think this gives you a metric. So it's symmetric, but does it satisfy the triangle and the quality. I don't know.
+01:44:18
+Does anybody knows whether this satisfies the triangle inequality.
+01:44:23
+Because if you need a metric on distributions, then you would like
+01:44:29
+To have something which is both symmetric and said sided triangle and quality. Now it's symmetric, but I'm don't think it's a two sided triangle equation.
+01:44:37
+So we'll see later when we talk about exponential family and
+01:44:42
+These beautiful geometric relationship where there's a there's a triangle inequality in this and there's something equivalent to the partner in theory with the KL
+01:44:52
+But it's getting quite specific
+01:44:56
+So actually is yet so
+01:44:59
+Yeah, one can minimize the divergence, even though it's not a metric crisis. It's the thing is here, it's, it's something the kale divergence is something which is
+01:45:11
+Always bigger equal to zero. And it's actually only equal to zero. When p equals two cute, so it's as a as a notion of
+01:45:19
+Something is not is it's kind of, it's not a distance, really. But it's, it's, I think, the name is divergence. It's mean that something is not equal to something and it's quantifying how much something is not equal to something. And so if let's say two
+01:45:37
+Groups that meet console. And let's say for example I want to approximate p with a simple distribution to like we will do when we do virtual in France.
+01:45:45
+You will maximize the scale where you belong to a smaller set of distribution which don't include p. And that's a meaningful way. And basically, you say, I want to find a distribution queue, which is closes in KL to the true distribution.
+01:46:01
+But then you'll see you'll get different answer, depending on which direction used to kill. Okay, so one is called mode seeking the other one is called matching moments, but we'll get back to that when we talk about exponential family and
+01:46:17
+Personal influence
+01:46:19
+Or their fun use case of the submission that don't have a density
+01:46:23
+Will anything which is discrete don't have a density you. I mean, it has a density respect to the contact measure, but it's, you know, if I have discrete data. I don't have density respect to the limbic measure right so
+01:46:36
+And then if you have this mixture model like if you have a Gaussian with an A massive zero this is
+01:46:43
+There's this thing called spike and slab prior they use a Bayesian inference. When you want to have sparsity wanted parameter to be
+01:46:51
+Often zero, well then you want that the mass at zero is non zero. So, to make sure that the parameters are encouraged to be zero. And so people can use this kind of like mixed type distribution which don't have a density, respectively.
+01:47:11
+Okay. Well, I think I went quite over time. Happy to answer more question in the in the social get a town so. Have a nice weekend if I don't see you and get it out reminder that now we have poker tables. See you.

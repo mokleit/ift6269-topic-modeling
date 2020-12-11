@@ -1,0 +1,1855 @@
+Lacoste-Julien Simon
+00:00:04
+Okay, so for the people who are not in the class right now listening and we'll watch the recording later. I just said that I read all the project proposals and they're great. So, good job. Quite looking forward to read the project progress reports and then the cedar project presentations.
+00:00:24
+So today what are we going to do. I started to motivate last class when we did estimation graphical model, the need for approximate in France. So today we'll look at sampling
+00:00:38
+As a way to do approximate in France. So the first. The next two lectures will be about sampling. Then we'll see virtual methods, which is another way to do approximate in France.
+00:00:50
+You could have all and an entire class itself like a two on sampling. It's quite a rich field. So I'll just give you the most important elements in this in these lectures.
+00:01:07
+So,
+00:01:09
+Let's start. So this is in the general category of approximate in France.
+00:01:20
+And let's look at something
+00:01:27
+simpler approach.
+00:01:30
+And so I
+00:01:33
+As I mentioned in the Isaac model. So, for example, as a motivation. It's empty hard to do.
+00:01:42
+Exact inference in grid graphical model.
+00:01:47
+So, for example,
+00:01:50
+It's NP hard
+00:01:53
+To
+00:01:54
+Do exact influence
+00:02:00
+In Isaac model.
+00:02:06
+So what does it mean, it means that you know there's no polynomial time algorithm known to do that.
+00:02:12
+To say good accuracy. I mean, you need to put it in decision problem. So it's a bit complicated to say okay, how is an MP hard
+00:02:21
+But the main bottom line for us is that well that we need approximation. Right. We need technique to approximate the marginal property in icing model or approximate the partition function, these kind of quantities.
+00:02:41
+Alright and so sampling is actually not just use for approximation do approximate in France. So let me just give a bit more
+00:02:51
+Motivation for something in general.
+00:02:54
+And so suppose you have a random vector which has component x one to XP.
+00:03:02
+So you can think of here as a graphical model and P nodes. That's why you have p components.
+00:03:10
+So, you know, and peak would be big. So the first
+00:03:15
+Use of sampling is just to do simulation.
+00:03:22
+Okay, so I want to sample ID from my distribution p
+00:03:28
+Okay. And that could be to, you know, have a look at what are the properties of the data points.
+00:03:38
+Coming from this distribution right then, then you can make measurements on the samples to kind of get a sense of how things behave. I mean, in some sense, doing measurements of these samples is a way to do approximate in France, but it's not mislead direct
+00:03:54
+And
+00:03:56
+So for example, let's say you have a traffic model.
+00:04:01
+And you would like to know, you know, you would like to know what it looks like when you run your traffic simulation model. So that's why it's called simulation. Right. It's just like, basically it's running your model getting example of observations from your model.
+00:04:17
+And now, in the context of approximate in France.
+00:04:21
+You could use sampling to approximate
+00:04:28
+The marginal on some notes on some variable.
+00:04:41
+And so this is a special case.
+00:04:46
+To compute the marginal on some know this is a special case.
+00:04:51
+Of
+00:04:53
+Computing expectations.
+00:04:58
+Okay, so I will put it in a more general framework to talk about Monte Carlo integration, which kind of motivates how you do these approximation.
+00:05:08
+And we'll see why the marginal is a special case. So if you consider
+00:05:15
+Some function from our to the P to are some real function.
+00:05:23
+And you considered a problem of approximating the mean of this function.
+00:05:28
+To approximate
+00:05:33
+CMU, which is the expectation respect to p of F of capital X. Okay, so we have a random variable in high dimension. I will. I want to make. I want to approximate the, the, the average of f over this distribution.
+00:05:51
+Okay. And so, and we'll see how we can approximate that using sampling. But how does it relate to approximate in France. Well, you can just specify some specific function. So if you define your function to be the indicator
+00:06:11
+On whether see
+00:06:15
+Your variable on a subset of nodes is equal to some value.
+00:06:22
+Then when I take the expectation of this function.
+00:06:27
+What I get is just the probability that X is equal to little excitement
+00:06:37
+Suppose that this was the discrete during a variable.
+00:06:47
+So for discrete random variable computing the marginal is the same thing as competing the expectation with as with respect to the indicator
+00:06:56
+Functions. Okay.
+00:06:59
+But if I can solve the problem for other proximity expectation to function that can also do other things and just marginals
+00:07:11
+Okay.
+00:07:13
+And Dora is asking P here. Is that true data distribution.
+00:07:17
+Yes. So in this case, we're not doing statistics were doing inference. So we're in the context of approximate in France. So we're told that
+00:07:24
+We have this unknown or I mean is, I know we have this true distribution p and we want to be able to compute. It's marginals or to approximate expectation, a function of this distribution, but we assume that this distribution is known, but we will see later on.
+00:07:40
+That we don't see no need to know the distribution we need. We don't need to know the distribution itself in great detail. So, for example,
+00:07:49
+There are some methods which only require the this to the, the, the density or the PMs
+00:07:55
+Up to a normalization concept which is very useful when you have an underserved graphical model because the numbers in constant which is the partition function can be NP hard to compute
+00:08:04
+Was to get it's the, the, the distribution up to a normalization constantly just take the product of the potentials. Okay.
+00:08:15
+Alright, so let's talk about Monte Carlo integration.
+00:08:21
+Which is a method to approximate these expectation
+00:08:29
+Monte Carlo integration and we call it also estimation, because it's a way to estimate the mean
+user avatar
+Unknown Speaker
+00:08:36
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:08:39
+And this is actually one of the most fundamental tool of applied the numerical analysis and it appears everywhere. It appears in physics. Actually, that's probably where it comes from.
+00:08:55
+It appears in applied math.
+00:08:58
+When you want to compute see complicated integral that you don't know how to compute machine learning statistics, etc.
+00:09:12
+All right, and so Monte Carlo integration.
+00:09:17
+And so the expectation. When you have a density is an integral right so that's where the integration come from, but it doesn't have to be an integral, the calls will be used for some, but so the goal is to approximate
+00:09:33
+Mew, which is the expectation respect to p have some function of x.
+00:09:42
+And so what's the Monte Carlo estimation technique.
+00:09:49
+It's pretty simple.
+00:09:51
+You will simple, you will generate an samples.
+00:09:58
+X i, which are ID. According to peak to sample and times independent samples from the distribution p. And then you say that your approximation.
+00:10:14
+To the, to the true mean is the empirical mean right so it's you hat is one over n summation over your observations of your samples, the function evaluated on these functions on the samples.
+00:10:31
+And so this is just the empirical expectation respect to p n hat as a distribution. We've seen that a lot when we do machine learning.
+00:10:40
+Of x the f of x, right. So, and that's your way to estimate the true mean
+user avatar
+Unknown Speaker
+00:10:52
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:10:54
+And that's it. Well, there's a question of how do you generate the samples. But let's say you had the samples, then you can use the samples.
+00:11:01
+To approximate the meaning and particularly to do approximate in France, right, because if f of x would be any particular function, then you would get the approximate marginals right
+00:11:13
+So let's talk about some properties of this approach.
+00:11:20
+So the first property that it has it as it it's unbiased, if you remember properties of estimators so if I take the expectation over the possible observation I can use in my own in my samples of new hat.
+00:11:41
+Well, what I get is just one over n by linearity of the expectation, I can put the expectation inside. So it's expectation of f of x i.
+00:11:55
+And note that this expectation here is respect to
+00:12:02
+The possible data set, right. So it's expectation over x i.
+00:12:09
+Because x of AI is simple. According to be. This is just
+00:12:15
+Mute right and so I get end times view divide by and and so I just get
+00:12:25
+It, and I would like to mention here that even if, instead of sampling independently.
+00:12:35
+It say that the exile are dependent. This is still true. This is still true.
+00:12:43
+True. If the exercise.
+00:12:49
+Or dependent
+00:12:51
+As long as they're sampled from the correct distribution.
+00:12:57
+For example, like what you could do is simple ones and all the other one lead them equal to the first one, then you only have one simple instead of and simple. So that's a pretty bad estimator, but in average and expectation. This will be the correct me.
+00:13:10
+And somebody asked. Oh, what is a happy of n. So as I mentioned before, this is the empirical distribution.
+00:13:21
+Right, so p and hat is basically one over n summation over i have an indicator of whether so you know it's a PM F, like when we talk about discrete data. It's simpler. So it's the indicator of whether x is equal
+00:13:44
+To x
+00:13:57
+Okay.
+00:14:00
+So we've used it. We've seen it in other places we've seen it. When we talk about the equivalence between minimization of the kale diversions with the empirical distribution and maximum likelihood
+00:14:10
+We seen it when we talked about moment matching. You know, when we tried to match to find the parameter in the truth is in the in the model of distribution which max which match the empirical moments and the empirical woman or the expectation respect to the empirical distribution.
+00:14:25
+If you have continuous data the way to actually write that is a PDF, but it's actually not a true PDF. It's a generalized PDF. It's called, it's called a general distribution, actually. And you would instead of having the indicator, which is a credit card delta, you would have the
+00:14:41
+The direct delta function which is basically when which integrate which selects the value when you integrate okay but I don't want to go into these technical details so prefer to just stick to this big data to present the formalism.
+00:15:02
+He. Alright, so we have
+00:15:05
+The expectation this estimator is unbiased so you know that's already a good property. And now if we want to know.
+00:15:16
+What's it's expected air.
+00:15:20
+So the expected or the variance and actually. So the expected error of our estimator.
+00:15:27
+In LT norm.
+00:15:30
+Which is a way to quantify how good or estimator is I want to know an expectation
+00:15:36
+All far is new hat from the true value in Altoona. Right.
+00:15:46
+And know that because the mean of new hat is new. This is actually the same thing as the summation of my cover and stuff. So this is actually the trace of the covariance of new hat you
+00:16:00
+So you have new what
+00:16:05
+Is new
+00:16:07
+So there's no variance by itself, because it's, it has a new is a random vector
+00:16:13
+So what it has it as a covariance matrix. If I some the diagonal entry of the current matrix, it's, it's kind of like the notion of variance in some sense when you talk about bias variance, the composition four squared error. And actually, that's what we're, we're looking at here.
+00:16:29
+So this error that's compute that. So this is the expectation
+00:16:35
+Of
+00:16:39
+Basically pump, bomb, bomb.
+00:16:47
+So what happened is
+00:16:57
+So we have. Okay, that's actually computed more carefully. So this is the product.
+00:17:03
+Of one over n summation over i.
+00:17:08
+F of x i.
+00:17:12
+Minus new and some issue one over n summation over j f of x j
+00:17:20
+Minus. So all I've done here is expanded the Ultra norm as a product
+00:17:26
+You know rewrote what you had was, was
+00:17:30
+Empirical average and I using here different indices, because now by linearity of the product. This is the same thing as
+00:17:39
+Expectation of summation one over n square submission over i n j
+00:17:48
+Of f of x.
+00:17:52
+Minus new and then f of x j
+00:17:57
+Minus b.
+00:18:01
+It's I just use linearity of the of the inner product I taking the some outside and know that one over. And some of you is just new right so that's why I could I left the new here in the with the sons, and now I use independence.
+00:18:22
+So by independence.
+00:18:29
+All the off diagonal terms or zero.
+00:18:42
+Okay, so why is that so I'll explain here, just some of the thing. So I will have by linearity. I can move the expectation here.
+00:18:52
+And when two variables are independent. So if x is the benefit of exchange the expectation of a product is a product of the expectation. Right. So then I can do the expectation here and then the expectation there.
+00:19:09
+Because of the independence and then I get new minus new which is zero.
+00:19:15
+Okay, so all that's left is
+00:19:20
+The diagonal term. So when x and x I are both on the left and the right. So then there can be nothing but dependence, so I can expect expectation
+00:19:29
+So, what I get is one over n square summation for i equals j. Right. So when is not equal to Jay, oops, their independence with 01 over n square summation i equals Jane.
+00:19:44
+And then I have expectation of f of x.
+00:19:50
+Minus f of x i minus view right
+00:19:58
+And so this is just
+00:20:01
+The expectation of the norm of f of x.
+00:20:10
+Minus new for one that point.
+00:20:15
+And let's define this to be sigma square right it doesn't depend on it because they're all in
+00:20:24
+Identically distributed
+00:20:26
+And so, what you get is. Oh, and by the way this is also, as I mentioned before, this is a trace of the covariance of f of x.
+00:20:38
+So it's actually property of your distribution of your function.
+00:20:45
+And so
+00:20:49
+You have
+00:20:51
+Any terms of the diagonal. Each of them is sigma square I divide by and square. So, I'm left that the actual expected error for your monthly Calvinistic estimate estimator in Altoona arm is equal to sigma square divided by
+00:21:09
+Okay, so that's your
+00:21:12
+Your
+00:21:14
+Convergence results. So if as NGOs and at your estimator will converge an expectation to the right quantity. And actually, so you'll you'll basically you'll get LT convergence for estimator.
+00:21:32
+And so that kind of makes sense. So the more and more samples you have, the more you are concentrated. We could also look at the, you know, there's a central limit theorem for that. But this is telling you that the scale of the air. So if you. This is the elsewhere square. So, in terms of like
+00:21:49
+Kind of STDs style. It's one of our square with 10 right so whenever screwed an error is something which is very standard and statistics for you you you might have seen that a lot of places. So here it's pretty
+00:22:00
+Elementary to prove that it's just coming from the fact that I have an independent observations and that when I take these expectations off diagonal disappear.
+00:22:11
+Okay. And so something to mention is that this is there's no explicit dimension in this
+00:22:18
+In this rate.
+00:22:26
+Game. So a part sigma square
+00:22:31
+Which could depend
+00:22:35
+Implicitly
+00:22:39
+On the dimension.
+00:22:42
+The dimension doesn't appear
+00:22:48
+The dimension doesn't appear in this rate, which is kind of nice because if I want to approximate quantities in the high dimension.
+00:22:58
+I don't want to have a dimension appearing because it's in high dimension. Okay, so that's actually one of the nice properties and Monte Carlo methods.
+00:23:05
+Is that these still behave fairly well in high dimension in contrast to other approximate integration techniques. So because this can actually be used to compute an approximate integral right expectation is an integral
+00:23:17
+For continuous data. And so you could actually use numerical integration like Simpsons rules or whatever.
+00:23:23
+But these actually will have the dimension appear in the era that you make. So in high dimension. The are there.
+00:23:30
+They're really expensive. They will have hired or you need a lot of computation to actually get good there was one thing on integration actually works fairly well. Also in higher dimensions.
+00:23:40
+And somebody asked
+00:23:42
+Why does the n squared is appeared is because you have n terms.
+00:23:47
+In the some you have enters. Right. So basically you get one over n square and sigma square. And so then when and cancels.
+00:24:02
+Is there any question about this.
+00:24:17
+No question. It's clear comes up.
+user avatar
+Jacob Louis Hoover
+00:24:23
+I'm sorry, can I just ask quickly. I'M SURE WHAT IS SO THE take you to the point was, it was unbiased and at the expected error has this term one over and in it. I mean, the sigma squared is not surprising, but the one over and was both sort of the takeaway from this
+user avatar
+Lacoste-Julien Simon
+00:24:39
+Yes. Right. Okay. And so that this estimator.
+00:24:44
+So first of all, it's an unbiased estimator.
+00:24:46
+And as n goes to infinity, it actually gives you the right quantity. So it's also consistent in the sense, right, so it's a consistent estimator.
+00:24:55
+And it tells you. Also, what's the. Not only is it consistent, but it tells you how fast it converge to the right thing. So it gives you basically a one of this growth and convergence.
+user avatar
+Unknown Speaker
+00:25:07
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:25:08
+So in particular, if you want to use this method to get a specific error certificate on your estimate. Well, so here's only an expectation. So it's obviously I probably but that's already one way to get some kind of notion of how big your errors.
+00:25:28
+You can also get high quality bounds for the estimator by
+00:25:31
+You know, using standard tell balance, but that's a bit more fancy
+user avatar
+ezekiel williams
+00:25:38
+Um, quick question.
+00:25:39
+Yeah, I guess I was just wondering. So if the samples are not independent, then of course we don't have this one over n, because you
+00:25:46
+End up
+00:25:46
+Over n squared sample. Yes. Okay. Cool.
+user avatar
+Lacoste-Julien Simon
+00:25:49
+Yes, exactly. So, so what's happening is if we don't have independent sample, we can still use the estimator, as it is. But then, instead of having n as you're efficient sample size, it will be smaller.
+00:26:03
+And actually, when we talk about diagnostic diagnose sticking diagnosing your chain. So we'll see later on.
+00:26:09
+Now we need to get the sample. So to get independent sample is actually hard in general. So we'll go will relax the independence of our samples to go to something called Markov Chain Monte Carlo integration.
+00:26:20
+Where the samples will be produced by Markov chain. The mark of chain will have some dependencies and on the samples and and then basically will see that the effective sample size won't be the number of samples we get from markup change, it will be smaller because of these dependencies.
+user avatar
+ezekiel williams
+00:26:36
+And effectively, you would need like a memory list property for your Markov chain because otherwise you like I guess you need a memory list property so that you don't end up having like
+00:26:46
+And standing over n squared samples. If you because if every sample was correlated with every other sample, then you would you wouldn't be dividing by anything so you wouldn't have
+00:26:56
+You wouldn't have any form about to conversions. Right.
+user avatar
+Lacoste-Julien Simon
+00:27:00
+So we'll get back to that when we talk about particular integration.
+00:27:04
+Okay, so, so the bottom line and
+00:27:07
+That's something important to keep in mind is usually
+00:27:10
+You always keep all your samples and divide by that when we talk about Markov chain. It would be t. So, t will be the time in your chain. And so you let's say you have after t steps of your chain you have T samples.
+00:27:23
+After a burden phase where you you remove the things because these samples have are actually not from the correct distribution. After that you need to keep all the samples.
+00:27:34
+And even though they're dependent and and and we'll see why later when we talk about the the errors of the simple because the more simple. You have the smaller the error, but
+00:27:45
+The more simple. You have also the, the, if you don't trim the chain, the more they will be dependent, but there's. But it turns out that having more samples is better for these estimator, then even though there's a bit of dependency between
+00:28:02
+But we get back to that.
+00:28:04
+Alright, so that's multicolored integration. So we can know if we can samples. If we can sample from our distribution. We know how to approximate quantities. So now we need to think and think about how do we sample. And so I will talk about different sampling techniques.
+00:28:29
+And so, and there's also a question. How do you simple numerically, right, because we have computers like if if you had a through sorry a true
+00:28:39
+physical phenomena like for example, you just flip a coin. Well, that's when that's when the way through simple right to you. You flip physically a coin and then you you record your result. These are like up with a new years which are
+00:28:51
+Normally independent and this you do crazy stuff with your finger. And so that's one way to get real samples, but now we talked about how to use a computer. And so the first easy thing we want to sample from is the uniform distribution.
+00:29:07
+Let's see the uniform on 01
+00:29:11
+And actually there's a field of numerical methods which are called pseudo
+00:29:18
+One computer science called pseudo random generator
+00:29:26
+And
+00:29:27
+This is what you get when you call the rand function inside by or in MATLAB or these kind of like scientific libraries.
+00:29:36
+Basically they're calling a pseudo random generator and absurd a random generator is not completely random, because it is it does produce a deterministic sequence of numbers.
+00:29:48
+But the properties is that the sequence look random
+00:29:52
+And then what does it mean to look random. Well, that's what the whole field look at basically do we look at a bunch of sub sequence of these sequences and he is the you know the distribution of any subsequent uniform
+00:30:06
+Is there any correlation between these things. And so that's the kind of statistics you want your pseudo random generator to satisfy. And there are
+00:30:14
+Some so the modern so the random generator actually better than the one which were proposed a few decades ago. So they actually have something called a longer period. The period is when you start to repeat the values of your method.
+00:30:28
+And basically you have a seed and then after the seed, you get this kind of deterministic transformation and
+00:30:36
+The numbers when you look that there's actually no pattern. Like, if you look at it, you wouldn't see any pattern, which is why it does look like random, even though it's actually fully deterministic. Okay.
+00:30:49
+So you already know that when you do scientific computing, because if you fix the seed. You can reproduce your experiment, even though they're supposed to have our random aspect into it. Right. So, but if you just change a seat, everything changed. So that's a way to kind of get
+00:31:04
+Different samples for your, your experiment. Okay, so we'll suppose for for a lot of like sampling mechanism will suppose that we have access to this random function.
+00:31:14
+To generate from a uniform distribution and we won't go into how to design these two random generator, because that's that's a whole specific field of itself just suppose you have a good one from cyphy or matchup ok
+00:31:31
+So now. Well, the good thing is, once you have this, you can do a lot of things. So, for example, is now if I want to Bernie.
+00:31:37
+If I want to flip a coin.
+00:31:41
+With quality P. Well, what get where they can do is just define X as the indicator of you smaller equal to pee where you were simple
+00:31:55
+Uniformly from a from the rand function right
+00:31:59
+So now, what happened is the property that you is smaller than P is P does the polity that my indicator gives me one will be p. So that's how I can get the correct Bernie. So from a uniform a continuous journey from distributed random variable, I can define now the brewery.
+00:32:20
+Okay. And this is a special case of a trick which is called N verse transform sampling
+00:32:29
+So in verse
+00:32:32
+Transform.
+00:32:35
+Sampling
+00:32:39
+Is a trick to sample from any
+00:32:43
+PDF when you have this inverse city of. Okay. So how does that work. So let f
+00:32:51
+Be
+00:32:54
+The target cumulative distribution function.
+00:33:00
+Of the distribution
+00:33:09
+Okay so CDF has been, as I mentioned, it's a cumulative distribution function. And as I might have mentioned in the early classes. There's a one to one correspondence between distribution and CDF right so the CDF determines uniquely the distribution
+00:33:30
+And and what's the CDF that's
+00:33:33
+Here will be in one dimension.
+00:33:36
+First, so that's the probability that X is smaller than little x
+00:33:42
+OK for x belonging store.
+00:33:47
+Can and and if you remember the CDF for a continuous random variable is a nice continuous function.
+00:33:57
+And it goes up to one.
+00:34:00
+So I have x
+00:34:03
+And this will be f of x.
+00:34:07
+And that's the integral of the density from minus infinity to x.
+00:34:15
+Whereas if I have a discrete random variable, I will have
+00:34:21
+Say like
+00:34:23
+Jumps at my possible observation. So, these, these tix here are the sample space for my random variable. And what happened is the property that my random variable is smaller than some value is constant and then it jumps when I pick a new possible value. Right. And so it's, you get this staircase.
+00:34:47
+Shape.
+00:34:50
+Twitter. Twitter app and it goes up to one.
+00:34:53
+And the size of the jump is the value of the PMs add this value right and so under open circle means it's excluded full circle means include
+00:35:10
+Okay, so why do we talk about the CDF well because I will show you how I can define a random variable starting from a uniform distribution so that this random variable will have the the correct distribution that I care about.
+00:35:25
+And first, for simplicity we will suppose that f is convertible.
+00:35:33
+And so this is not the case, f is not convertible. When you have a discrete random variable because it's peaceful it's constant but for a continuous distribution.
+00:35:45
+It's actually convertible usually
+00:35:50
+And so now what do we do, is we let x to be defined as the inverse CDF apply to the continuous the uniform random variable with you, which is uniform
+00:36:09
+Is that's the trick. That's the inverse transform sampling trick or the inverse city of trick. And now I claim.
+00:36:19
+That x
+00:36:21
+This new newly defined random variable as the CDF f of x, which is the CDF of the distribution p that I care about. And so
+00:36:34
+If I sample you uniformly and then I transform it, I get an x, which is distributed according to pee. So I get x, which has a correct distribution. So it's a correct sample from a distribution.
+00:36:46
+Center to the proof. It's pretty simple.
+00:36:50
+So I want to compute was the probability that capital X is smaller than why right that will give me the CDF of capital X. Well, this is the probability that f minus one of capital you is smaller than why by definition of x.
+00:37:10
+And because f isn't variable.
+00:37:15
+This is the same thing as the probability of you being smaller than f of y. Right, so I can apply F on both sides of the equations. It's convertible. There's a one to one relationship between every element so that won't change anything.
+00:37:35
+And so, and because you as a uniform random variable. This is, by definition,
+00:37:41
+The policy that you is smaller than something which is and there's something being between zero and one is just this something. So this is just equal to fly.
+00:37:53
+And that's it. That's what I wanted to show I wanted to show that the property that capital X, Y and Y.
+00:37:59
+As actually the correct CDF which is given by f capital F of why
+user avatar
+Unknown Speaker
+00:38:06
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:38:08
+And if f is nonverbal
+00:38:18
+Then you can generalize the argument by defining
+00:38:23
+By picking one value for the inverse of f c will define X to be the minimum
+00:38:31
+Of all x such that f of x is bigger than you.
+00:38:42
+So basically, there might be multiple value such that when I take f of this value.
+00:38:50
+I get you.
+00:38:53
+And so what I do now is, I'll just take the smallest one.
+00:39:08
+And the reason we do this is you can one property of a CDF
+00:39:15
+Is that it's continuous from the right
+00:39:22
+So because it's continuous from the right, it means that when
+00:39:25
+You look at the value
+00:39:28
+When you approach from the right
+00:39:31
+F will be included. Right. So meaning like here if I looked, I take the limit on this on the side.
+00:39:38
+The point is included. It's not continues from the left because here I I I could move in this direction.
+00:39:46
+And then not only the value should be this, but there was a jump and it went to this value. So that's not confused from the left, but it is confused from the right. And so that's also why this is actually a min rather than in so the min is achieved.
+00:40:03
+Okay, but if you're a bit confused by the non and variable case, don't worry too much about it.
+00:40:09
+You could work it up later. It's, it's actually non trivial to think about it. But the general idea is given by by, you know, this proof here that I ok
+00:40:23
+OK, so now that i. So, basically. Now, if I have a CTF and I know how to invert the CTF I can sample from any one distribution. Okay. So, for example,
+00:40:34
+Another example is, let's say I want to compute
+00:40:39
+As a
+user avatar
+Unknown Speaker
+00:40:41
+Group.
+user avatar
+Lacoste-Julien Simon
+00:40:45
+So example.
+00:40:50
+So if I want a sample from
+00:40:54
+An exponentially distributed
+00:40:58
+With mean LAMBDA, From the distribution with from the exponential distribution with lambda know that the exponential distribution is not the same thing as the expansion of family. It is an exponential family but you know there's others myself me, which are not the exponential distribution.
+00:41:16
+Well, what's the density
+00:41:19
+For an exponential
+00:41:21
+distributed random variable. It's p of x is lambda x of minus lambda x.
+00:41:31
+And then they have the indicator
+00:41:34
+On positive r plus right because it's only defined on the positive numbers.
+00:41:43
+So the nice thing is that this you can easily integrate it has an anti derivative. And so the CDF can. Oops.
+00:41:51
+can integrate the CDF as a cross form.
+user avatar
+Unknown Speaker
+00:41:55
+I wanted to do. Undo. Undo.
+user avatar
+Lacoste-Julien Simon
+00:42:01
+So the CDF here is just one minus x of minus lambda x. And so you can verify that if you take the derivative that you get the PDF
+00:42:14
+And. And not only can you compute the CDF. You can also easily invert it in close form. So the inverse
+00:42:22
+That you can verify is applied to say some variable new you. Sorry.
+00:42:31
+Is minus one over lambda lug of one minus you
+00:42:40
+Okay. And so now if you want to generate a if you want to sample from an experiential variable with mean lambda, you just take a uniform variable you take log of y minus the uniform minus of that and divide by lambda. That's it. You got a sample from the explanation.
+user avatar
+Unknown Speaker
+00:43:04
+So,
+user avatar
+Lacoste-Julien Simon
+00:43:08
+Yeah, so start back ask it.
+00:43:14
+Basically because of the inequality. There was also the one that does the city, which was us. Yeah, you're right.
+00:43:24
+Yeah, so the CDF is always monotone
+00:43:28
+It's obviously strictly monotone, but then when it's convertible. It is strictly monotone
+00:43:36
+Only of you who saw ask what's the last sentence, I guess I just explained that to obtain a sample from
+00:43:45
+An exponentially.
+00:43:48
+distributed random variable with me, lambda i can do it by sampling uniform random variable on 01 and then doing this transformation.
+user avatar
+Unknown Speaker
+00:44:02
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:44:13
+Alright, so that's the one. These actually something in one day is not hard. As you can see, I mean, the problem is that
+00:44:19
+For some this division, like the gash in the CDF is intractable. It's actually called the error function. So there's a bit of numerical methods that you need to work with there.
+00:44:31
+And actually, I will tell you after the break, that there are more efficient technique to sample from a Gaussian and using the arrow function with the University of trick.
+00:44:40
+But let's talk already about multivariate
+00:44:44
+Random variable because right now. It was in one day, how you can actually generalize this trick to a military distribution.
+user avatar
+Unknown Speaker
+00:44:50
+So,
+user avatar
+Lacoste-Julien Simon
+00:44:52
+What about if I want to do district.
+00:44:55
+In multiple dimensions.
+00:45:04
+So that's a bit less known, but you can still do it. So you can generalize the trick.
+00:45:15
+using the chain rule.
+00:45:24
+Alright, so let's do a bit of notation. So now we have a random variable with P components. So it's in dimension p
+00:45:32
+And in the case of a CDF in in multiple dimension.
+00:45:39
+It's the same idea as the one d CTF you just define us as the probability that basically you get like this, these kind of like hyper rectangles. So basically this property that x one is small, smaller than little x one blah blah blah and capital XP smaller next be so
+00:46:03
+So it's minus infinity to x i. For every dimension.
+00:46:09
+That's the definition of a CTF and it's still unique still has the same properties and in one knee.
+00:46:16
+So now, what's this chain rule. Well, it turns out that this chain, the chain rule and distribution can be generalized to CDs. So I have the CDF for X on all these dimensions. And so this takes as input a point in dimension p
+00:46:34
+Is actually equal to the CDF of the first component
+00:46:40
+At x one.
+00:46:42
+Times the conditional CDF. So that's the CDF for the conditional distribution of X two given x one.
+00:46:48
+evaluated at x two given x one.
+00:46:54
+And blah blah blah, to the conditional CDF of the last variable, given everything else.
+00:47:03
+Evaluated at XP and all these conditioning point
+00:47:10
+And what do we mean by a conditional CDF
+00:47:15
+So this conditional CDF here, the meaning is the conditional c, d, e, f of x two given x one.
+00:47:23
+X two given x one is basically the CDF of the conditional
+00:47:31
+But conditioning on big blocks right so this is conditional of X through smaller than x two given x one smaller than x one.
+00:47:51
+Okay, so it's not like I'm conditioning on a specific value for x one, I'm saying x one is smaller than little x one.
+00:48:00
+This really what I'm
+00:48:10
+Trying to do
+00:48:27
+I have a doubt. Now, I'm not sure if it should be x one equals x one here. So let me verify that during the break.
+00:48:39
+So to be verified.
+00:48:45
+But suppose that we have this relationship.
+00:48:48
+Then how we would use the uniform random variable, I would simple you one up to up
+00:48:56
+All from uniform
+00:49:01
+On 01
+00:49:03
+So in some sense, it's like simple multinational point in the uniform cube.
+00:49:08
+And then you define X one to just, you just apply the inverse ETF trick on
+00:49:16
+X one from you. One
+00:49:19
+And then you define X two.
+00:49:22
+By applying the University of trick on the conditional
+00:49:28
+And then you evaluated YouTube but then you needed to reuse X one. So that's it's kind of like you need to use it in a chain.
+00:49:38
+Etc. Etc, etc. And then you get the last one XP is f minus one XP given x one, two, p minus one up and then x one up to p minus one.
+00:49:57
+And so that's a trick.
+00:50:01
+And supposing I have the correct definition of my conditional CDF there has to check over the break. This should give you the correct samples.
+00:50:12
+The problem though is that this function here.
+00:50:16
+Is a very complicated function.
+00:50:24
+Because to get these kind of CDF I need to integrate in multiple dimension and then into the inverse this and now this is condition and a bunch of pieces.
+00:50:34
+And so you get normally you will have not a close form formula for that. And moreover, you won't be able to compute discover inverse city of
+00:50:43
+And so that's where the curse of dimensionally D come in.
+00:50:47
+Is that these kind of trick is totally intractable in more than like one or two or three dimensions. Usually, so you get the curse of dimensional you teach
+00:50:59
+It so you can actually apply it.
+00:51:03
+In more than like dimension one or two.
+00:51:09
+And
+00:51:13
+Except when these functions are very
+00:51:19
+Simple like the Gaussian. So I think you could do kind of like you could document, even the gash and actually I told you there was an error functions, it's more complicated. We will see after the break. How to sample from a gash in directly
+00:51:32
+And I will mention as an aside, that there's this thing that you might have heard, because of the finance crisis. It's called cupolas
+00:51:43
+So a couple as is a model.
+00:51:46
+For multivariate data.
+00:51:54
+With uniform marginals
+00:52:02
+So basically, the idea of a computer is that it tells you how the covariance structure of your data works that's given by the computer, you don't care about the marginals, because you can always use the University of trick to transform any uniform marginals to a non uniform
+00:52:18
+With the kind of like the component by component in diversity of trick.
+00:52:24
+And then somebody is asking, can we say that YouTube given x one is equal to YouTube.
+00:52:32
+Yes.
+00:52:34
+YouTube given x one. It is indeed equal to YouTube because YouTube is simple, independently of you one and x one is only determined by you.
+00:52:48
+But the point of writing this year is that you need to specify, what's the thing your conditioning on to talk about what's the function. I'm talking about. And then you will have to evaluate that you to to get the x to value.
+00:53:04
+Okay.
+00:53:07
+Is there any question about this.
+00:53:18
+No question. So let's take a break. It is to 29
+00:53:25
+And
+user avatar
+ezekiel williams
+00:53:27
+A question just about the inverse. The short proof of the inverse ETF
+00:53:33
+Concern. I was just wondering, and the comments about about requiring monitor in the city as well. The do we actually require minutes in the city there. Is it just
+00:53:44
+Yeah. Cuz, from my understanding, it looks like we just require it in credibility. So maybe I don't really see what's going on properly.
+user avatar
+Lacoste-Julien Simon
+00:54:01
+Hmm.
+00:54:06
+So basically,
+00:54:15
+So here, what I get is a bunch of numbers, which are smaller than why
+00:54:22
+So now if I looked at a
+00:54:25
+such that f of a is equal to you.
+00:54:32
+There's only one of it.
+00:54:47
+Well, it's clear that from one of the city, then because of this inequality, it will work, whether you really need to city. That's a good question. I will need to think a bit more deeply about it.
+00:55:02
+But let's do a break. I'll try to figure this out during the break.
+00:55:07
+Alright to 31
+user avatar
+ezekiel williams
+00:55:08
+It's good back at 241
+user avatar
+Lacoste-Julien Simon
+00:55:22
+Okay. Let's resume recording
+00:55:25
+So as people discuss in the chat. The convinced themselves that monitor city was indeed.
+00:55:34
+Important for the arguments, but the CDF is always monotone, as I mentioned,
+00:55:39
+But yeah, so here it's isn't a strict move to cities will be used.
+00:55:45
+And then
+00:55:48
+Here in the definition of the conditional CDF that I was using it's indeed.
+00:55:56
+These conditioning like this. So, so it's pretty obvious from the chain rule that these conditional distribution when I will multiply them, they will give me back the
+00:56:09
+joint cdf right so now it's much less if it then that. OK, I can just plug in x one as the value of little x one here for everything to works. So I'll try to need to find the reference for that.
+00:56:24
+But I think that's correct. What I just wrote
+00:56:29
+But anyway, the the main so nobody use that in practice because it's too complicated. And here, as I mentioned, is usually it's actually hard to simple in high dimension.
+00:56:43
+And they'll give you some specific examples.
+00:56:46
+Where you can use the structure of the graphical model to do it otherwise you'll need to use sampling
+00:56:53
+But there's an exception were sampling from a movie right gushing is easy. So, so one exception is Mitzi very good ocean.
+00:57:08
+So exception to what what the, what I'm saying is usually when you simply in the high dimension. It's difficult.
+00:57:15
+But for a Gaussian distribution. It's easy. So if I want to sample from
+00:57:21
+A distribution with me new a gash in with me new insurance sigma. What you do is first of all you do.
+00:57:30
+Is get the composition of your covariance
+00:57:36
+And so, more specifically. So, sigma is is his PhD. So you can do. It's spectral the composition
+00:57:46
+So you basically get a matrix which is orthogonal. So Mumia transpose is equal to IP and lambda is diagonal
+00:57:58
+So you can do that physically is ready. But in this case with
+00:58:05
+Positive different matrix. And as I hinted at, so this is actually, you can use this to do a chilly ski decomposition of your covariance matrix. And that's all you need to do to sample. So you will define L as to be you.
+00:58:22
+Lambda square root. And then, so then your conference matrix is actually LL transpose
+00:58:35
+And so now, if I can generate whoops generate
+00:58:42
+V, which is coming from a standard normal. So I have p ID standard normal
+00:58:51
+So VP is ID.
+00:58:55
+And 01
+00:58:58
+Then you can define X as you lambda one half v plus new and this is just L, by the way. That's why I said, you only need L. You don't need actually to you in the lambda one half.
+00:59:14
+And then what you get is a variable where it's expectation is mute because expectation of V zero
+00:59:23
+And the covariance of X.
+00:59:26
+Is actually you sigma one half covariance of the
+00:59:35
+Sigma one half to transpose this is identity. And so then I am just back with you. Lambda you transpose which is sigma
+00:59:47
+And that shows that this is a gash. This is the Goshen with the correct meaning covariance. Why is x a Gaussian. So there's all these properties that when you make a linear transformation of aggression used to get a gash in random variables. So,
+01:00:00
+That's why I just needed to look at the meaning of coherence and and I was done, I didn't need to look at the actual distribution of mix.
+01:00:08
+So if I can sample from a standard Goshen, I can sample from any multivariate Goshen by doing the chilis kidney composition of the covariance
+01:00:16
+How do you sample from a universal. Gotcha. Well, you could use the inverse ETF trick with the arrow function, but that's actually not the best way. So there's this trick called the Bucs Mueller transform
+01:00:34
+And this trick is to sample from a 2D
+01:00:38
+2D
+01:00:40
+Standard standard
+01:00:45
+So you get to independent sample from standard Goshen.
+01:00:52
+And the idea is that
+01:01:01
+If you look at the radio, the composition, if you, if you look at the radial
+01:01:08
+Formulation of your coordinates. So, r and theta. So instead of having x and y, you will have a radius and an angle from the origin. Okay. Well, it turns out that in 2D. If
+01:01:22
+The point is some sample from a Gaussian standard Yashin with means zero and covariance identity you have that the radius square is simple. According to an exponential
+01:01:38
+Random variable with me one and the angle is simple. According to a uniform on zero to two pi.
+01:01:48
+So the angle is pretty simple, because a gash in his eyes will tropics, we need the angle is just uniform and then the radius. It's actually from a gamma. But, you know, a special case of the gamma distribution is actually the exponential distribution.
+01:02:03
+And so now
+01:02:05
+So then I can simple our data easily using the University of trick. So, theta. It's trivial. It's just uniform and then our I can. I already told you how to get it.
+01:02:15
+Sorry, r squared told you how to get it because I told you how to get the exponential random variable from uniform. So then once you have our data, you can get back x and y by just using the the the radio coordinates. So this is our coasts of theta and y will be our sign of faith.
+01:02:34
+And so then it turns out that x and y will be distributed according to zero and identity.
+01:02:40
+So that's kind of a neat trick.
+01:02:45
+To get a 2D question if you only need one. The guy should will simple from a 2D and just discard one of them.
+01:02:58
+Okay.
+01:03:00
+So now you know how to sample from Embassy read Yashin there is another example where it's easy to simple and it's from a director graphical model.
+01:03:11
+So sampling
+01:03:14
+From a DG M.
+01:03:18
+Is I'll say relatively easy.
+01:03:26
+And what you do is you use ancestral sampling
+01:03:37
+Alright, so what's the ancestral sampling algorithm. So I have
+01:03:48
+So suppose that my random vector is this video. According to pee.
+01:03:56
+which belongs to some the GM
+01:04:04
+So that means that our PDF. PDF
+01:04:11
+Is the product.
+01:04:14
+Over my nodes of conditional x i given expire.
+01:04:23
+And then suppose
+01:04:27
+Without loss of generic it
+01:04:36
+Without loss of generality.
+01:04:39
+That one up to p
+01:04:42
+Is a topological sort.
+01:04:46
+Of
+01:04:49
+Okay, so basically
+01:04:52
+That means that I only have edges going from lower index to bigger index. So here's a D GM, for example.
+01:05:01
+And so an example of topological sort will be 12345 so I'm making sure that the leafs are idea.
+01:05:15
+And so what's the ancestral sampling algorithm. It's actually fairly
+01:05:19
+Natural from the fact that we're defining or the GM from conditional
+01:05:26
+Is you start
+01:05:29
+So for i equals one, up to pee.
+01:05:34
+You will simple
+01:05:38
+X i, according to the conditional
+01:05:43
+Given by your
+01:05:45
+Node in the gym and then
+01:05:49
+Conditioning on the already observed parent and because because of this tub sort these are already
+01:06:01
+Observed
+01:06:04
+Because of the top sort. So the idea here is, I found an order such that
+01:06:12
+I only simple of a variable when already have simple all the parents. Right. So for example, in this example here, you would sample this node first than this node second
+01:06:23
+And then you can sample extreme and you already know the value of the parents so you can choose the correct conditional to actually find what's the, what should be the conditional for extreme
+01:06:33
+And then same thing, you get x four and then you can simply x five, when you have the parents.
+user avatar
+Unknown Speaker
+01:06:38
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:06:43
+And that's it. That's ancestral sampling. So it's pretty natural you just simple according to the CGM order.
+01:06:56
+Why I said relatively
+01:07:00
+Easy is because, well, it's easy, from the ancestral algorithm, but it's still assume that you can sample from the conditional. So this is supposing I can sample from these conditional the CD and usually that's the case because it's this is only a one dimensional object.
+01:07:17
+But, you know, it could be complicated, because there's many things like conditional, but it doesn't matter. These are fixed. Right. So there's a question of, you know, can I use the inverse city of trick for that or
+01:07:26
+So that's kind of the idea
+01:07:30
+And so then you can show by induction. Oops.
+01:07:37
+You can show
+01:07:39
+by induction.
+01:07:43
+That
+01:07:45
+The simple we get
+01:07:52
+As actually distribution p
+01:08:26
+And so if you look at the scribble notes from last year I have proven formally
+01:08:33
+How I explained how you can prove formally that
+01:08:39
+This argument works for two variables and then you just drives by induction, because it seems pretty obvious is like, Oh, well, it's obvious you sample from the correct conditional. So it should work.
+01:08:50
+But it's still require a bit of proof and and this uses property of how you show that to the submission on the same
+01:08:56
+And particular to show that to the submission of the same. You can do it by showing that when you take expectation
+01:09:03
+Of any function of these random variable, you get the same value for a rich enough set of function. That's how you can show it. I won't go through the detail here because I'm already a bit out of time for
+01:09:16
+quite late in this class. But if you're interested in the in the in the formal rigorous detail, it will be in the in the scribe notes as well as the scribble notes from an SEO.
+01:09:27
+And what I will mention, though, which is an important side note,
+01:09:37
+It is that when you sample.
+01:09:42
+From a giant
+01:09:49
+You're also
+01:09:54
+Sampling
+01:09:58
+From the marginals
+01:10:04
+By
+01:10:06
+Just
+01:10:08
+Ignoring
+01:10:11
+The
+01:10:14
+Joint aspect.
+01:10:19
+Okay, so what do I need. So, what I mean is, suppose that I have x y which is from the joint on x and y.
+01:10:32
+Then if I just look at x i forget that x and y was a couple
+01:10:39
+If I just look at x itself.
+01:10:44
+Then you have that x is simple. According to the marginal annex.
+01:10:55
+And so if I have pairs a variable that I simple from the joint. If I just forget the association between my two variables and it just at look at one variable. Well, this variable comes from the marginal. So that's what I mean by that.
+01:11:11
+And more if you have multiple samples that say, have it simple of excited. Why I by looking at x i for multiple indices. These are ID sample from the marginal
+01:11:23
+But even with one sample that works. So that's good to keep in mind. So it's better to have like the sample from the joint because then you have all the marginals
+01:11:32
+Whereas when you only had the marginals, you definitely don't have to join because you need to know. Here I sample from x, you have a sample from why. Well, you need to associate x and y to get her to get the correct relationship between
+01:11:49
+OK, so
+01:11:54
+Now we'll talk about
+01:11:57
+All these were exact sampling
+01:12:03
+Where you know you directly simple something and then you get the correct
+01:12:07
+The simple you get as the correct distribution. Now we'll start to define tricks, where
+01:12:17
+The first simple you get done this, you have the correct distribution, but by manipulating things you'll get the correct distribution.
+01:12:24
+And so the first example is called rejection something
+01:12:36
+And
+01:12:39
+A special case of this will enable you to sample from a director graphical model when you have observed variable. So that means that I want to sample from the conditional of see x given some evidence variable.
+01:12:54
+So when you condition on some variables, you can just do ancestral sampling
+01:13:02
+So what's rejection sampling
+01:13:07
+So the idea of rejection sampling is I will reject some of the samples to make sure that
+01:13:14
+The sample. I don't reject as the correct distribution.
+01:13:19
+So let's say I have p of x which is it's on normalized form divided by some memorization from
+01:13:30
+Vector that sorry normalization conflict.
+01:13:35
+And let's say
+01:13:38
+That we can find
+01:13:43
+A proposal.
+01:13:46
+Q of X.
+01:13:48
+This called the proposal.
+01:13:51
+Distribution proposal.
+01:13:55
+That we can easily sample from
+01:14:00
+Which is easy to sample from
+01:14:11
+Such that
+01:14:16
+If I multiply
+01:14:19
+Q of X by some big constant I dominate the normalized p of x.
+user avatar
+Unknown Speaker
+01:14:28
+OK.
+user avatar
+Lacoste-Julien Simon
+01:14:30
+So the, the plot here is that I have x i have some complicated on normalized distribution detailed of x.
+01:14:41
+And then I have a simple proposal, which could be a garden. For example, and I will reschedule it by a such that I always am the mediating the anomalies p of x.
+01:14:59
+And now the problem is because I, you know, Q doesn't really match exactly detailed. There are some I am overshooting a bit the mass at any point. Right. And so the point here is that if I looked at some, you know, let's say there's some x here.
+01:15:16
+And so there's this extra density or PMS that I'm using, which is too much.
+01:15:24
+And to get the correct distribution, I will need to reject.
+01:15:28
+With this probably to kind of reduce the probability of this x
+01:15:33
+So that's why the rule for rejection sampling is that you sample.
+01:15:39
+X. According to q of x, the proposal.
+01:15:44
+And then you will accept
+01:15:47
+This simple
+01:15:51
+With probability
+01:15:55
+Which is
+01:15:57
+P tilde of x divided by a queue of x.
+01:16:03
+And we know that AQ of x is always bigger than people of x. So, this is a number between zero and one. Right. So this belongs to zero and one.
+01:16:10
+So we reject, with priority one minus that which actually kind of represents
+01:16:17
+This PC. Right.
+01:16:21
+And so we reject otherwise.
+01:16:25
+And what we reject what it means is, well, we have to start again. We don't have a valid sample. So if we want a simple. We need to re sample. OK.
+01:16:34
+So the problem is that if the acceptance property is low, you will need to sample a lot of times before you can accept so that could be very expensive. So you don't want to have a low acceptance quality.
+01:16:49
+So that's the algorithm and and now I will show that this sample from the correct distribution.
+01:16:57
+So let's show
+01:17:00
+That the accepted sample.
+01:17:07
+Has the correct solution.
+01:17:12
+Distribution.
+01:17:15
+IE.
+01:17:17
+Its distribute according to Pete
+01:17:21
+Even though I sampled x by q
+01:17:25
+marginally
+01:17:27
+It will have the correct distribution.
+01:17:31
+And again, for simplicity will do the thing for when X is discrete, to not
+01:17:39
+Have annoying PDF issues.
+01:17:42
+Alright, so
+01:17:46
+Basically what I want to compute is the conditional on x, given that X was accepted.
+01:17:54
+So to compute that I first need to look at the joint.
+01:18:01
+So there is asking, what is that P and P tail right so the point is, I don't need to care about the normalized value. So said p
+01:18:14
+Zero P here is just the sum over X of details. So it's to normalize distribution for at some to one.
+01:18:20
+And the property. We need to have is just on this on normalized value. And when we compute
+01:18:27
+The acceptance ratio we only use the normalize the unrealized value PTO right so it was more general like you could think of people as just being p of x and and Zed is equal to one. But the point is that
+01:18:39
+We don't need access to the on normalize to the normalized value of p to to do the argument we only need this detailed and this eight
+user avatar
+Unknown Speaker
+01:18:48
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:18:51
+Alright, so to compute the conditional that on x, given that X is accepted. We'll start with a joint. So the probability that X is equal to little x and x is accepted.
+01:19:06
+And so this is the property under the sampling mechanism. Right. So this is a joint on their dissenting mechanism.
+01:19:15
+So this is equal to the probability that X is accepted.
+01:19:22
+Given that x is equal to little x
+01:19:26
+Times the probability that X is equal to little x
+01:19:31
+Right. Alright, so the probability that X is accepted. When capital X is equal to little x is
+01:19:39
+Detailed of x divided by a q of x, right. That's by the definition of acceptance property.
+01:19:47
+And the property that capital X equal little x this is marginal. I don't know if it's accepted or not. This is just coming from
+01:19:53
+Qx, right. So this is the proposal.
+01:19:56
+Which is qx
+user avatar
+Unknown Speaker
+01:19:59
+Right.
+user avatar
+Lacoste-Julien Simon
+01:20:03
+And so the queue of x cancels. So I'm just, I get that this joint his PTO of x divided by eight.
+01:20:10
+And so in order to get the conditional. I need to compute the marginal that P is accepted.
+01:20:15
+Sorry, the X is accepted.
+01:20:18
+The marginal that x is accepted is just a some overall x
+01:20:23
+The quality, the joint of x equals x and x accepted. So that's P tilde of x divided by eight.
+01:20:32
+And so that gives me Zed p divided by right
+01:20:41
+And so now if I compute the conditional that capital X equal little x, given that X is accepted.
+01:20:48
+Which is basically the samples, whichever accepted. This is the joint which is p tilde.
+01:20:58
+Divided by a
+01:21:02
+And then divided by the marginal which is Zed p divided by
+01:21:09
+And so the eight cancels out and I'm left with people that are bi z p zero P which is just pure mix.
+01:21:16
+As I want it.
+01:21:25
+And so, by the way, while doing this proof. I also computed the acceptance property right. So this is the marginal probability of acceptance.
+01:21:36
+And so we want this to be high.
+01:21:46
+So if this ratio is very small.
+01:21:49
+Will need a lot of sample before we can accept it. So it will be expensive.
+01:21:58
+And is it gathers asking a good question. It says, so the sold benefit of rejection sampling is that we don't need to calculate the partition function know because we're not something from P where something from queue.
+01:22:11
+Right. So look at this graph. For example, this queue is super like weekly and complicated. There's not me see a reason why I'm able to sample directly from it, even if it's a normalized on them realize, so I could have a much simpler. Q. Also, I was appalled at Nice. You need me to model cute.
+01:22:30
+So it's both that a simple from a simpler distribution. And also, indeed, I don't need to know the normalization constant of
+01:22:39
+Which could happen when I have an undirected graphical model.
+01:22:46
+Okay so rejection sampling is very general. And now let me show you how you can apply it for conditioning in a dark graphical mode.
+01:22:57
+So application.
+01:23:02
+To conditioning.
+01:23:07
+In a the GM
+01:23:12
+And and this is actually some kind of algorithm that you might have heard of already
+01:23:18
+Which is basically you just sample from the node.
+01:23:23
+And you reject when the node are not equal to the evidence.
+01:23:28
+Right, so you do ancestral sampling. But the problem is, like,
+01:23:33
+There's let's say you start from the roots. Let's say, for example, I have this graph here.
+01:23:39
+You have this graph here.
+01:23:45
+A new computer. Here we go. So I have this graph here and let's say this notice observed right so now I simple this know that simple this node.
+01:23:55
+When I need to make sure I could simple extreme but it has to be consistent with the observation. So what happens is if extreme is not equal to the observed value, you will reject and start again. Okay, so that's the algorithm.
+01:24:10
+And it can actually be seen as a special case or rejection sampling, which is also why it is a correct sampling algorithm.
+01:24:19
+And that's one way to prove that this natural algorithm.
+01:24:24
+Will sample from the correct conditional
+01:24:29
+So say you want to sample.
+01:24:38
+From the conditional p of x given some evidence observation.
+user avatar
+Unknown Speaker
+01:24:46
+Alright.
+user avatar
+Lacoste-Julien Simon
+01:24:48
+Alright so here
+01:24:53
+We could use
+01:24:55
+P till the vics the on normalized distribution as the joint on px he
+01:25:05
+Complement
+01:25:07
+And x E bar.
+01:25:11
+And the clinical delta on x, right, because the because I'm conditioning on X e
+01:25:22
+I need to fix XC so so you can think of it as this is the joint on Etsy complement and he actually has to be fixed to the bar XC component could be anything.
+01:25:33
+And this is this is now a normalized because I need to make sure to some to one when I changed all the X. He compliment. And so the normalization constant here is the summation over this overall x E, which is just the probably the marginal quality of the observation. Right.
+01:25:56
+And so that means that the condition. The on the normalized distribution over x is just the conditional on x. He compliment given x bar, and I've allowed also to evaluate this on.
+01:26:11
+Non you know on on invalid up evidence. No, but I will put the property of this is zero.
+01:26:27
+So Jake about come back to your question. Once I've finished putting
+01:26:35
+Describing a rejection something scheme for for this setup.
+01:26:40
+So if we simple from POV next year.
+01:26:45
+I get the conditional on the unobserved nodes, right.
+01:26:51
+And so then we need a proposal, so let qx
+01:26:56
+Be the original joint
+01:27:05
+Okay, which you can do so if we sample from the original joint I can use ancestral sampling for that. So you can sample.
+01:27:14
+Using
+01:27:16
+Ancestral sampling
+01:27:21
+Right.
+01:27:23
+And so then I have that you have x
+01:27:26
+Is just p of x. He compliment and X, he
+01:27:33
+And I have that q of x is bigger equal
+01:27:39
+To pee till the vics
+01:27:41
+For all x, so I can just choose a equals one.
+01:27:46
+Alright so here I had that my on normalized distribution, all I've done is I kept the joint and I just set all the invalid evidence. No to zero. Right. And the queue of x which is normalized in this case because it's the original joint doesn't have this 01 term.
+user avatar
+Unknown Speaker
+01:28:04
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:28:07
+And so that's my proposal and so to do rejection sampling. I need to compute the rejection property or the acceptance property. So the existing property.
+01:28:18
+Acceptance probability his PTO of x divided by a cutie build that sorry AQ of x.
+01:28:28
+Boo boo boo.
+01:28:31
+Have x
+01:28:34
+And and so that's my detailed, that's my cue. So the only difference is this delta right so
+01:28:42
+The acceptance probably T IS JUST credit card delta of x E x bar. Okay.
+01:28:50
+Which means that if my evidence node match the observed value that I should get then I accept with quality one so I accept always if it doesn't match it. I always reject. Okay, which is why the algorithm here is
+01:29:10
+Do
+01:29:12
+Ancestral
+01:29:14
+Sampling
+01:29:18
+And then you accept the joint sample if the evidence that you got matches the observed value that you want it.
+user avatar
+Unknown Speaker
+01:29:31
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:29:32
+And so this is basically rejection sampling for the gym.
+01:30:02
+So Brendan is us asking how do us here to to extricate lemonade speed tilde of X without assuming access to capital X true distribution will hear it was an example where you know this is coming from the the GM right so
+01:30:19
+So, so, I mean, it depends. Like there's just a lot of different examples where you can look at to kind of get a sense for how these are applied.
+01:30:32
+You know, like you could have, let's say, for example, I have a Gaussian
+01:30:38
+Well, you know, for anything which has full support, this will dominate with a as long as you have, I guess you need to have a tale of the distribution you something from to be sub garden. The garden, will you get them, you need anything, as long as they have sub gosh until something
+01:30:58
+So you can have properties of the distribution that you're thinking about, you don't need to have an exact handle
+01:31:05
+It starts, I guess, saying just would be impossible and continuous distribution, um,
+01:31:13
+Think that still works.
+01:31:21
+Okay, so yeah, so the problem is
+01:31:25
+Yeah, so that doesn't make any sense as an algorithm because
+01:31:30
+The quality that you exactly get the evidence will be zero. Right.
+01:31:35
+And so here the property of acceptance.
+01:31:40
+Quality of acceptance.
+01:31:43
+Is Zed p divided by A, which is, is it a p of x E bar, but this was indeed using discrete data assumption. And so if you actually have a continuous random variable.
+01:31:59
+There's probably zero that you will get the correct value by sampling it because it's probably zero that it has a specific value. So you will always reject if it's a continuous distribution. Yeah, so this is only used for a discrete random variable.
+01:32:16
+And so the problem, by the way, is that if
+01:32:19
+The quality of the evidence is small, according to your, your, your marginal
+01:32:26
+For example, if you know you're sending a lot of variables. Usually this property will be exponentially small, which means you will need an exponential number of sampling before observing it, which takes forever. So it's super inefficient.
+01:32:38
+So we'll see there other more efficient technique for sampling from a conditional unity GM
+01:32:47
+When these problems. You are a small
+01:32:52
+So let me talk about important sampling
+01:33:01
+Which is a way to make rejection something a bit more powerful.
+01:33:07
+Important sampling
+01:33:15
+So this is in the context of computing
+01:33:19
+Me mean
+01:33:42
+And so because now we're not just sampling from the distribution. We're actually approximating mean we'll now consider the idea of waiting the samples.
+01:34:00
+And how you use the weight. Well, because you will approximate the, the, the mean as the weighted
+01:34:08
+Sum of your of the function evaluate them the samples.
+01:34:12
+And so that extra flexibility can give you better estimates and we use a simple trick. So let's do the simple trick as usual will multiply by one. So the expectation respect to p of f of x.
+01:34:29
+So this is a
+01:34:32
+Basically summation over x of f of x.
+01:34:37
+Px
+01:34:40
+And so this is a summation over x.
+01:34:44
+Of f of x p of x.
+01:34:49
+And then I can divide and multiply by qx
+01:34:56
+For some distribution.
+01:35:01
+And because I don't want to have zero divide by zero, I need the support of que
+01:35:07
+Tu to include to be included in the support of Pete
+user avatar
+Unknown Speaker
+01:35:14
+OK.
+user avatar
+Lacoste-Julien Simon
+01:35:20
+So now this is just the expectation respect to q
+01:35:25
+Of f of why p of y.
+01:35:30
+Divided by q of why
+01:35:34
+Were Why is simple. According to cute, so I've, I've transformed my expression respect to POS with an expectation respect to queue of f. But then I need to use ARE WE WAITING, which is the difference between P, Q, right to the ratio of pinky.
+01:35:51
+And so now you can do Monte Carlo approximation of this you can say this is approximately one over n submission over I have g of why I wear why I
+01:36:06
+Is
+01:36:07
+ID coming from queue.
+01:36:11
+And the function, you are actually using g of why is the original function f times await W.
+01:36:21
+Where
+01:36:23
+The weight.
+01:36:26
+Is just the ratio of p
+01:36:29
+And cute.
+01:36:33
+So these are the weights.
+user avatar
+Unknown Speaker
+01:36:35
+Oops.
+user avatar
+Lacoste-Julien Simon
+01:36:44
+Okay. And so the importance sampling estimator of the mean so mew hat important sampling, it's one over n summation over your samples of F of why I
+01:37:00
+Wi
+01:37:02
+Where why I has been sampled from queue and the weights or define as p of why I divided by q of way.
+01:37:17
+And so these are called
+01:37:20
+Importance weights.
+01:37:29
+Yes, Dora. We need the support assumption to avoid to have a division by zero.
+01:37:36
+These are called importance.
+user avatar
+Unknown Speaker
+01:37:41
+Weights.
+user avatar
+Lacoste-Julien Simon
+01:38:12
+Well, bomb, bomb.
+01:38:14
+So I have two minutes left. Let me do the extension to our normalized distribution. So this is OK. So this is unbiased. So the expectation of new important sampling is equal to view.
+01:38:30
+The variance of mew is actually equal to one over n.
+01:38:36
+The expectation of a p of f of x square p of x divided by q of x.
+01:38:46
+Minus new square
+01:38:54
+And so you can see here that you have a high variance. When this ratio is is big. So when Q
+01:39:06
+When Q is small.
+01:39:09
+But P is big, then P over Q will be a really big number. So, this will create a big variance
+01:39:20
+And in particular, it turns out that
+01:39:27
+That indeed.
+01:39:29
+Sometimes the variants of the estimator can be infinite. If you're not
+01:39:33
+Careful.
+01:39:56
+So let me do the are normalized extension. Because right now, I have to compute the weights, I need the ratio of p divided by q which means I need to know their
+01:40:06
+Pm, okay. Simon is saying, how do you pick the best few will actually, that's an art indeed intuitively
+01:40:16
+You want
+01:40:18
+Cue
+01:40:20
+To be proportional
+01:40:23
+To f of x px
+01:40:30
+Then it will minimize the variance. And so it will give you the best estimator.
+01:40:44
+Alright, so let's talk about the extension to our normalized distribution.
+01:40:49
+And then I will be done.
+01:40:52
+And I will have caught up and then next class will talk about Markov chain. What they call them.
+01:41:00
+To fix these issues of very high variance of important sampling when you're sampling from from
+01:41:09
+A low mass. So basically, you know, this thing happens. For example, like let's say I have a multimodal P is P of x.
+01:41:18
+And then let's say q of x is a simple Goshen, so it will be simple Martin is, you know, it will have a simple mode.
+01:41:25
+Well then what happens is that in the in this region here q of x is exponentially small but p of x is like order one. And so then you have super high variance because of that.
+01:41:36
+The weights would be super big here exponentially big and you simple them very like very, very rarely because of qx and so then you get a super high variable.
+01:41:48
+Estimator and we'll see how to fix that using Mark Markov Chain Monte Carlo next class, but let's see how to run this over them when we don't know the normalization constant. So now we suppose that
+01:42:01
+P
+01:42:03
+Is I have access to through the are normalized distribution que, same thing. I will have only access through the normalized distribution.
+01:42:16
+And so then
+01:42:18
+My mean, which is the expectation respect to queue of
+01:42:24
+F of why when I simple according to Pew P of why did it take you away.
+01:42:31
+Well, you can think of this as
+01:42:35
+Expected respect to queue of F of why and then I take the ratio of the on normalized value, which I can compute when I have access to them.
+01:42:44
+And then outside I get Zed Q divided by said
+01:42:49
+Okay, so then the trick is, we will estimate the ratios at KU Zed Q divide by that P with the weight so we can estimate
+01:42:59
+Zed p divided by q
+01:43:04
+With this estimator, which we call that hat.
+01:43:08
+P divided by q
+01:43:11
+And this will be one over n summation over my samples of P tilde of why I divide by q
+01:43:23
+Field of why. And this is just the empirical average of my weights.
+01:43:31
+Because the weights which appears here are p divided by cubic
+01:43:37
+But PT all the way back. You tell, sorry.
+01:43:41
+And so then we plugged back in
+01:43:44
+This ratio because
+01:43:47
+So I so I have the, the original on normalize estimator. And then I need to divide by zero P divide by city. Right. So the, so basically the all normalized important sampling estimator. I'll use important sampling or normalize I will just use the usual weighted mean
+01:44:08
+Of f of why I W I but instead of n on the numerator, I will just use the average of the weights.
+01:44:21
+And here why i is from queue and the weights are actually defined as the ratio of the on normalized
+user avatar
+Unknown Speaker
+01:44:32
+Distribution.
+user avatar
+Lacoste-Julien Simon
+01:44:35
+So that's the
+01:44:37
+Hoops
+01:44:42
+The trick. So basically,
+01:44:47
+This went here.
+01:44:49
+And this ratio here when there
+01:44:53
+Was the idea
+01:44:55
+And so now what's happening is that unlike the normalized important sampling, we have that this is bias estimator because of this ratio of normalization constant in expectation. It's actually not the ratio of the number one constant. So this is slightly bias.
+01:45:20
+But it is a synthetically unbiased.
+01:45:24
+Saying that the Kelly.
+01:45:27
+Unbiased
+01:45:30
+As an goes to infinity.
+01:45:35
+And
+01:45:37
+What's important is that it also has lower variance
+01:45:45
+This estimator.
+01:45:48
+Oops.
+01:45:51
+This estimator.
+01:45:55
+As
+01:45:57
+Often
+01:45:59
+Lower variance
+01:46:04
+Then the normalized one
+01:46:10
+Even when you know the normalization constant, even when, as I said, p equals that Q which is equal to one.
+01:46:20
+Because basically what's happening is that the normalization.
+01:46:27
+From the denominator it stabilize the estimator.
+01:46:38
+Right. So basically, the new weights.
+01:46:41
+That you're using
+01:46:43
+That's called them wi tilde our Wi divided by one over n summation over j of W j and this belongs to zero, n
+01:46:58
+For any value of the weights and so
+01:47:02
+So they're bonded for a fixed n your weights will be in the bonded range, whereas the original important sampling estimator might have weights which goes to infinity. Again, particular if we go to this. Oops. If we go to this.
+01:47:20
+Drawing here and of the multimodal case, here we go. So
+01:47:29
+When I simple points in this region, though the ratio becomes bigger and bigger. And so it's actually
+01:47:38
+That's it. I had some tail here. So I have a nonzero quality of getting an arbitrarily far point here which will have an arbitrary big ratio. So the way it could be arbitrarily big so they're unbounded.
+01:47:48
+But by using this this normalization here you stabilize the weights, which is why you reduce the variance
+01:47:56
+Okay.
+01:47:57
+And last thing is that I've skipped some things that, but if you're curious, so you can look at the 2017 notes.
+01:48:06
+For Lync two variants reduction.
+01:48:16
+Which is something use for optimization called Sega
+01:48:22
+So there's a notion of variance reduction which are used to in in like estimator of these mean
+01:48:29
+And you can use it in optimization to get better optimization
+01:48:34
+And also something called rattle Blackwell ization
+01:48:43
+From Blackwell, and that's a statistician and row. And that's the idea that if you can compute
+01:48:51
+The margin all have some variable analytically in close form, you should do it, rather than sampling it, it will reduce the variance
+user avatar
+Unknown Speaker
+01:49:02
+So that's kind of the general idea.
+user avatar
+Lacoste-Julien Simon
+01:49:05
+Alright so I'm a bit over time. So is there any questions about important sampling and rejection sampling again in the big picture so
+01:49:16
+These are just
+01:49:17
+Example of something schemes as I told you, like sampling is actually an art and you can get, like, a lot of lectures on that, in particular, and how to design the correct proposal.
+01:49:28
+Where we'll see next fast is to use monte-carlo Mc, Mc to to also tells you in some sense it's dramatic way to to give you a good propose a better proposal than these important something
+01:49:41
+Because that's more adaptive. But then we will get rid of the ability to have independent samples. Like here we get independence.
+01:49:50
+Which book do you recommend reading about this. I think I've put some in the in the lecture.
+01:49:58
+Brendan You have a question.
+user avatar
+Breandan Considine
+01:50:00
+Yeah, I was wondering, Well today we're kind of talking a little bit about
+01:50:05
+The, you know, like these.
+01:50:08
+sampling techniques that is that the data generating process is like a black box.
+01:50:15
+So, so this f
+01:50:17
+Is is kind of, you don't have access to the implementation of it.
+01:50:24
+But at same time we're all we kind of just care about these these these parameters like the mean the variants and so on. If we have some knowledge about the the data generating mechanism like the dynamics and how that works.
+01:50:40
+But
+01:50:42
+It seems like
+01:50:45
+Well, do we do, we can we get away with.
+01:50:49
+Without doing all this sampling work. We are we, we have access to the the analytical implementation of this. So then we should be able to propagate like uncertainty and covariance through this function.
+01:51:05
+Is that something
+01:51:08
+Well,
+user avatar
+Lacoste-Julien Simon
+01:51:10
+So, I mean, the short, the short answer is yes and no.
+01:51:12
+So basically if you have more information about f in terms of unethical properties of f, you might use some trick to kind of simplify things, but in the general scheme of thing.
+01:51:25
+We're talking about how to compute
+01:51:28
+high dimensional integral. When you take an expectation and high dimensional integration usually don't have tools form formula. So you will need to use numerical techniques for that even if you have good properties of F in under, under your hat.
+user avatar
+Breandan Considine
+01:51:43
+Hmm. And so
+user avatar
+Lacoste-Julien Simon
+01:51:44
+What I expanded the beginning was that Monty Coleman integration usually would have better error properties in high dimensions and say numerical integration.
+user avatar
+Breandan Considine
+01:51:54
+Yeah, yeah. I mean, it seems like that, that if you if you just have some uncertainty about some variables in in a function, then that should be
+01:52:05
+A little different than the high dimensional case, right, like you have some observations that you'd maybe don't know the exact numerical values, but you have a some gal shins over these variables. And then when you combine them.
+01:52:22
+Then you should just there should be like a closed form, even if they're very large number of variables right then, it seems to me that if you're just doing simple combinations of these then
+01:52:36
+Then some of these estimates should be tractable.
+user avatar
+Lacoste-Julien Simon
+01:52:40
+So it's true that you could generalize this ideas of competition or graph these use for neural network.
+01:52:48
+To also how to compute forward propagates in some sense in the graphical model with simple units, these, these expectation with simple expectation. When you have F. Also the composer's in a nice way.
+01:53:03
+But you have to be careful, right, because even if you use Gaussian
+01:53:06
+As your noise, the integral of Gaston isn't tractable. It's a CD. It's a it doesn't have a close from from the arrow function, but it's still you need numerical methods to compute. And so you have to be careful also about like what do you mean by having close form formula or
+01:53:23
+But it could be that indeed using these iterating arrow function evaluation will be more efficient than simply that's
+user avatar
+Unknown Speaker
+01:53:30
+Possible.
+user avatar
+Lacoste-Julien Simon
+01:53:32
+To actually can we, so let me stop the recording.
+01:53:35
+Because I think that we're

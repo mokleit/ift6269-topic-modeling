@@ -1,0 +1,20 @@
+Topic: 0
+  people, graphical, measure, pms, space, learning, theory, discrete, little, values
+Topic: 1
+  respect, entropy, expectation, log, em, kale, mixture, summation, latent, constraints
+Topic: 2
+  prior, parameter, theta, observation, bayesian, estimate, risk, frequent, capital, training
+Topic: 3
+  sample, sampling, chain, proposal, state, conditional, expectation, approximate, marginal, samples
+Topic: 4
+  graph, conditional, graphical, nodes, gm, potential, node, edge, parents, edges
+Topic: 5
+  state, access, transition, 01, numbers, machine, hard, uniform, points, dependence
+Topic: 6
+  parameter, square, likelihood, estimator, theta, log, family, max, derivative, statistics
+Topic: 7
+  matrix, transpose, inverse, sigma, linear, conditional, vector, square, covariance, half
+Topic: 8
+  method, gradient, step, optimization, update, direction, order, size, regression, local
+Topic: 9
+  message, tree, graph, messages, algorithm, potential, alpha, max, marginal, node

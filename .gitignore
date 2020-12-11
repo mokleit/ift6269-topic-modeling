@@ -3,3 +3,5 @@ venv/*
 LDA/.idea/*
 .idea/*
 
+/latent-dirichlet-allocation/venv/
+/latent-dirichlet-allocation/.idea/

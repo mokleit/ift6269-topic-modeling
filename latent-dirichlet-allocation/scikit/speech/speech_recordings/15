@@ -1,0 +1,1583 @@
+Lacoste-Julien Simon
+00:00:02
+Okay and. And so another note is
+00:00:08
+I am going to
+00:00:11
+Post the scribe notes from
+00:00:16
+Lecture.
+00:00:19
+Which which one we're missing.
+00:00:24
+Yeah so lecture 12 on GMM and em.
+00:00:28
+The volunteers who sent the sent me describe notes. So I will quickly scan through them and then we'll post them by tomorrow.
+00:00:36
+So that will be helpful for for your assignment.
+00:00:40
+And I will also
+00:00:45
+Post
+00:00:47
+The there's a proof of something that used to be the scribe notes. Sorry, in the NBA.
+00:00:57
+There was a statement in the M via scribe notes that they will also include in these in the scribe notes which are already online. I think the one for
+00:01:06
+Either lecture 12 our limits. So I'll post that on Slack and so that could also help to you about seeing other type of proofs for graphical model, which could help you also for the assignment which is due next Tuesday.
+00:01:18
+And the last logistical point is
+00:01:22
+So almost one and two has been graded grades are great. You've got the feedback normally from a wholesale if you have
+00:01:32
+If you have questions about your grading, you don't understand something competitive solution you're welcome to come during office hours, of course, a to to ask him about it.
+00:01:45
+If you think that you should have points for something that you didn't get
+00:01:53
+The idea here is, don't go too crazy about points. This is like a grad level class.
+00:01:59
+So, normally the grades is not what matters is basically your learning experience and and note that the the grading process in general is just a noisy process. It will never be
+00:02:11
+Always fair perfect everywhere in particular because also, it takes a really long time to grade these things. And there's 80 of you.
+00:02:20
+I think wholesale is usually quite fair, actually, and he does, he's pretty thorough about about how he does it. So the idea is there might be like minute
+00:02:31
+Discrepancies which normally deal with average out over the class because it's not like you will be specifically always making the same problem for for your assignment.
+00:02:43
+But if you if if it's really an obvious problem, like he gave you
+00:02:48
+Re grade the form to feel so that it, it helps them manage all these requests.
+00:02:53
+And
+00:03:00
+And yeah and and but be aware that if you try if you're like starting to becoming argumentative about like a rig rating aspect, which is very subjective like
+00:03:11
+You can decide to look at your assignment and be much more careful about the grading and perhaps you will have less point of view so
+00:03:19
+That's kind of the incentive, just to say, you know, chill out about the grades were trying your best here.
+00:03:25
+Perhaps if there are obvious mistakes. That's correct. That but but for the other thing which is like well I think perhaps I should get more points, this is more for undergrads like this is a this is a ground level class, we expect that
+user avatar
+Unknown Speaker
+00:03:37
+You can move beyond this thinking
+user avatar
+Lacoste-Julien Simon
+00:03:41
+And then somebody asked where did he get the feedback on the homework. I can see. So it's not in studio, I think, I think he sent directly the solution.
+00:03:51
+By email to the people submitting an assignment and the grade should be, I think, in studio
+00:04:02
+Correct, yeah.
+00:04:06
+Okay.
+00:04:12
+And if you have further question about the grading and stuff, please contact Jose.
+00:04:18
+Alright, so let's continue the under to graphical models so
+00:04:23
+Today what we'll do is we will finish.
+00:04:30
+The presentation of the underdog graphical model. And if we have time, we'll start influence
+00:04:41
+How to compute marginal or it should try in a graphical model. And so just to remind you, because it's been a while. So at the end of last class I mentioned what was under the graphical model.
+00:04:58
+So basically we mentioned that
+00:05:03
+Again, a huge under the graphical model, it's a it's a class of distributions right like Derek a graphical model.
+00:05:10
+It's a class of distributions, instead of being associated with a directed graph a DAG. In the case of directed graph model, a huge GM is associated with the undirected graphical undirected graphs. All right.
+00:05:23
+And what are the distribution in my family Dr distribution over all my variables, such that the joint factor is as a product of potential over
+00:05:37
+Subset of notes. Oops, I guess I'm
+user avatar
+Unknown Speaker
+00:05:40
+Not using temporary ink.
+user avatar
+Unknown Speaker
+00:05:47
+Hey,
+user avatar
+Lacoste-Julien Simon
+00:05:53
+Let's go back. Yeah. Now I want my temporary ink. Good. And so these potentials
+00:06:02
+They're just positive their functions of the possible assignment on a subset of variable on the which are associated with a clique.
+00:06:13
+And the click. As you remember, are basically set of nodes in the graph, which are all fully connected. So for every pair of nodes in in the clique, there should be an edge in my edge set
+00:06:25
+Okay and and basically we're allowing when we have a cleat were allowing to use in my ordering distribution definition, a function of all the assignment in the in the of all the nodes in the key. Okay.
+00:06:41
+And yeah, and so I and so
+00:06:45
+A joint distribution will be in my family if it can be written as a product over these function over assignment to variable over tix and
+00:06:57
+The only constraint on these is that there are positive. They don't have to some to one, because unlike in the gym where you everything is local. You know, realize because there are conditions in a huge em.
+00:07:08
+I only use a global normalization constant. Okay. And so z here is the opposition constant is a summation of all my possible a variable assignment of the product of my potentials. So to make sure that this distribution is really something to one. Okay.
+00:07:30
+And so an example of a clique is just having
+00:07:34
+One edge between two nodes, right, because two nodes or if they have one, which together as a set, they're fully connected. And so that means that if I looked at
+00:07:45
+I can have potential which varies on the
+00:07:49
+On the depends on the values of the variable on on the edge x one and extreme case.
+user avatar
+Unknown Speaker
+00:07:58
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:08:01
+Alright, so now
+00:08:03
+Let's make some notes about this distribution.
+00:08:07
+About the GM
+00:08:14
+So some observation.
+00:08:18
+So the first observation is that unlike
+00:08:22
+A directive graphical model.
+00:08:30
+The potential
+00:08:34
+On the clique is not related.
+00:08:39
+In a direct fashion.
+00:08:43
+To the distribution and the kick
+00:08:54
+And
+00:08:56
+And so was in a dark graphical model.
+00:09:02
+You could think
+00:09:06
+Of our click
+00:09:09
+To be
+00:09:11
+A know that it's parents
+00:09:14
+I mean, it's not really a kick in the gym because there's no connection. This is lead between the parents, but let's just think of, oh, let's say this would be a click.
+00:09:23
+Then you could use as your potential
+00:09:27
+The probability of x i, given the parent
+00:09:33
+Right, this is a valid potential in the huge em terminology, because it's positive, and it only depends on the nodes in this creek.
+00:09:43
+And in this case, the potential as to do not with the marginal on the variable and the key. But then the conditional of excited, given the parents. So at least it is some kind of like distribution. Right.
+00:09:54
+Whereas we will see later when we do a inference in your GM that it's not the case that
+00:10:01
+That the potential is directly related to
+00:10:06
+The marginal case basically the marginal and exceed will depends also on what's happening on everywhere else in the graph, which is kind of annoying from an insurance perspective. So in France in uncertain graphical model is much harder than a directed graph model in some directions.
+00:10:25
+So for example, if I want to compute
+00:10:28
+The, the conditional of excited, given the FBI in a directed graph Gamal. You don't need to do anything. It's already given to you in the in the formulation of your, of your, of your distribution if you just read if it's the it will be the factor on site.
+00:10:43
+That gives you the conditional so you don't even need to do was, if I want to compute the marginal and then a node or even a conditional, I will need to actually propagate information from the whole graph in the region. So we see that later when we do influence
+00:10:59
+So Jacob is asking, Can I repeat what I mean by
+00:11:05
+The normalization font, the normalization being local versus global. So basically in a other graphical model.
+00:11:15
+The only normalization aspect is z, right, which is globally. My joint. My, my, that I will normalize my product of potentials, so that it's some to one globally. Whereas in a in a D GM. Let's go back to the D GM
+user avatar
+Unknown Speaker
+00:11:41
+Back.
+user avatar
+Lacoste-Julien Simon
+00:11:44
+Here we go.
+00:11:46
+So in in a D GM I have that it's a product of potential or factors, but these factors are already normalized, so there are constraints on these factors. So they're locally normalized, so that's what I mean by that.
+00:12:07
+Okay, so another observation to make about you GM is that you can scale.
+00:12:17
+The you can multiply your potential by a constant.
+00:12:22
+Without changing the joint.
+00:12:36
+Right. So for example, let's say I have my potential. I will call it new.
+00:12:45
+I have a new potential on exceed and I'll just define it as the old potential
+00:12:53
+Time, a constant.
+00:12:55
+Let's call the constant
+00:13:05
+For some
+00:13:08
+A bigger than zero, right. So if you set it to zero it will, of course, change something, and if it's negative, it won't be a
+00:13:16
+Legal potential, but if you just met the play by some constant bigger than zero.
+00:13:21
+It don't change anything, because this is a constant for all possible assignments, so it will be absorbed by Z later on because you will define like Z was the sun.
+00:13:33
+Over the product of the potential. Here we go.
+00:13:42
+So this will be multiplied by a if I've changed one of the punishable by eight. And so z will just be multiplied by eight because this is a constant, so it will just get out of it. And so then I will have a here and I will have a there, they will cancel out. Nothing changed.
+00:13:59
+So the potential or not well defined are only defined up to constant like you can change them arbitrarily, and it doesn't change the distribution. So they're not identifiable in some sense, given a distribution. You can say, oh, here's the unique potential to write it.
+00:14:18
+Okay, whereas for the case of directed graph model if I fix the graph, then the factors were uniquely define because they were just a conditional which are defined from the joint. So that's the difference.
+00:14:34
+So in some sense, unlike
+00:14:37
+The GM, where f is the factor where unique
+00:14:52
+Defined from P
+00:15:16
+So Jacob is asking if I know the potential on a clique, then I know the marginal on see up to a constant.
+00:15:29
+No, actually. So that's the problem. You don't know the marginal
+00:15:37
+Because the marginal on XC
+00:15:43
+So the marginal and X si p of x, see is a summation overall x
+00:15:51
+In the minus C of, you know, this big product overall team.
+00:16:00
+And and so so the marginal. The next see depends also on the potential on on on other
+00:16:06
+Key
+00:16:08
+So just with the potential and exceed you don't have sufficient information to divide the marginal
+00:16:19
+Will see that when we go do in France.
+00:16:29
+And so as third aspect to mention is that we don't need all the clicks.
+00:16:35
+We can only look at the maximal peak, it is sufficient to consider.
+00:16:44
+I'll use the annotations see script max which is the set of maximal click
+00:16:54
+Of maximal kicks in my graph.
+00:17:03
+And the link is maximal if it's not contained in a bigger click in the graph, right. So, for example,
+00:17:12
+If this is my pattern so 123 so one two is a clique, but it's not maximal because it's included
+00:17:23
+In
+00:17:25
+It's included in 123
+00:17:28
+Which is a geek.
+00:17:33
+And 123 in this case is maximal. I mean, it's trivial yet say I will add another node for. Here we go. So that's not just one full clean graph. So, in this case 123 is a maximal peak.
+00:17:49
+And so
+00:17:52
+So why can we only look at the maximum or click. Well, for example, suppose that I have a clique see prime which is included in a bigger clique see
+00:18:01
+And what you can do is instead of having to talk about the potential and see prime, you can just absorb it in in the potential of a bigger teak right so you can redefine
+00:18:12
+The potential and see
+00:18:15
+To be the old potential
+00:18:20
+On see times the potential, which was on. See, Brian.
+00:18:28
+Right. Because, see, Brian is a subset of see then this is still a valid function on the variable in see
+00:18:38
+And so then they all need to have a specific potential just on zebra.
+00:18:44
+And if
+00:18:46
+See prime belongs
+00:18:50
+To more than one click.
+00:18:57
+When you transform things to only do a prime position and maximum to just pick one of the to click to assign it to just pick one.
+00:19:14
+So a good example is, let's say I had
+00:19:17
+A tree. So then the maximal clicks or or size to for the edges, but I could still a node is also a one node is a trivial Keke of size one. And so in the
+00:19:30
+If I looked at all the kinks. I could also have potential a node, and I would have potential on pair of nodes basically called an edge potentials. And so then. And so, in particular, let's say we have this so I could have, let's see, I, J, and so I would have
+00:19:48
+A potential and I
+00:19:51
+A potential on Jay and I would have a potential on the two nodes. So I'll call it i j x I extract it. So these would be three potentials. I could have and now
+00:20:06
+Walk in this case, it's kind of stupid, but let's say I would have another edge here. L. So you could decide
+00:20:14
+This node potential. You could assign it either to the potential and jail or the potential and you just have to pick one of the two because those two are bigger teeth, which include the node.
+00:20:27
+JS.
+00:20:30
+And so, so to not have this redundancy and some sense. We don't consider a smaller set of clicks. We can only look at the maximum click if you want, but we will see later that sometimes it is convenient to still consider smaller teams. So we'll see later.
+00:20:52
+That it's sometimes convenient.
+00:21:00
+To consider basically an overall parameter ization of your
+00:21:07
+Of the potential in your graphical model.
+00:21:17
+In particular for trees.
+00:21:21
+Where you will not only use the edge, which are the maximal clicks. You will also look at the node potentials. We have both sigh of x i.
+00:21:33
+And sigh, J.
+00:21:37
+Of exchange.
+00:21:46
+Okay.
+00:21:48
+And so that's the notes for the GM and let me answer a question that so Ezekiel asked pulling up on Jacob question.
+00:21:57
+The potential gives us the conditional up to a constant. Correct.
+00:22:03
+depending which condition are talking about. But again,
+00:22:08
+The potential the conditional on
+00:22:13
+Subset of variable and exceed let's say for example,
+00:22:17
+Let's say I have
+00:22:20
+See is one, two,
+00:22:23
+And I would like to look at p of x two given x one, right. So this is so if I have p of x one, two, by the way.
+00:22:32
+If I have the marginal on on X one, X two, I can compute by marginalizing it the conditional of extra given excellent right
+00:22:43
+So this is basically p of x, right. So that's what I meant by that. So if I have to see I can complete the conditions.
+00:22:48
+But I told you that the the PFC is not obtainable just from the potential and it also depends on the potential around it through the interactions, because it share nodes with potential which are use somewhere else. So, for example, okay. So if I have
+00:23:09
+This graphical model 123 so here I will have a say one, two and upside, two, three. Okay. And so if I want to compute the marginal on x two, x three, this will be summation over x one of, say, one, two times say okay well I can even write it down.
+00:23:29
+Say one two x one x two.
+00:23:33
+Perhaps I should have not put it so crowded that go back
+user avatar
+Unknown Speaker
+00:23:41
+Can I try to do this work.
+user avatar
+Unknown Speaker
+00:23:46
+Fancy.
+user avatar
+Unknown Speaker
+00:23:49
+Them.
+user avatar
+Lacoste-Julien Simon
+00:23:52
+All right, here we go. So
+00:23:56
+So this would be equal
+00:23:59
+To say one, two, x one, x two and site to three x two x three. Okay.
+00:24:06
+And unless I want to
+00:24:09
+factories in a specific way and see as a product of a potential and, next one, next to. So you can see here that to compute
+00:24:18
+This marginal. Oops.
+00:24:21
+To compute this marginal I need the knowledge of the potential on X one, X two.
+00:24:26
+Because x to belong both into the potential and extreme, extreme but also expanding
+00:24:33
+And so just knowing their potential on two three is not sufficient to give me the marginal. The next
+00:24:48
+Does this answer your question.
+00:24:54
+Okay. Well, sure.
+00:24:56
+Am I missing an opposition constant. Sure, let's put our numbers issue, but that's just a concept.
+00:25:04
+And this is to contrast, by the way to a doctrine graphical model where let's say I would have
+00:25:12
+You know this graphical model 123 then I have that p of x two x three is just p of x two given x three times p of x three.
+00:25:26
+And so the potential an X two X three is not sufficient, but also adding the potential of the parent, then I'm done, I don't care about the potential of X one given X two.
+00:25:36
+And that's the magic like because of the directionality of things you were able to kind of like just removing those without caring about it and and things are still locally. Fine.
+00:25:52
+Okay.
+00:25:53
+So that's for the differences. So let's talk about some properties of you GM
+00:26:04
+Which you know analog in analog way to the directed graph model.
+00:26:13
+You also have that when you add edges you add you make bigger clicks. You make bigger potential you have more possibilities.
+00:26:21
+And so that means that the data under the graphical model gets bigger. So if I have
+00:26:28
+The edge set of he included in a prime, this will imply that the under the graphical model. According to G.
+00:26:37
+is included in the one of g prime right
+00:26:46
+And so in and, in particular, again, if there is no edges if the edge set is you get the smallest under the graphical model.
+00:26:55
+Which is, in this case, the set of fully factor is distribution.
+00:27:11
+And if instead I put all the edges in
+00:27:17
+So I put all pairs.
+00:27:21
+And so that means in this case that g is just a big click
+00:27:29
+Because all pair of nodes in my graph or connected. So all my nodes are one big clique.
+00:27:38
+So basically you can say the joint is just proportional to a potential on all variables. Well, then all distribution can be written this way. So, this implies, same way as the GM that this is the biggest you GM where you have all distribution.
+00:28:04
+And again, here we're into discrete city.
+00:28:08
+If we're starting to talk about continuous variable, then it gets a bit complicated, because you need to talk about what's the bays measure and the variable to touch right so it's a bit more complicated. We'll get back to that when we talk about continuous distribution.
+00:28:29
+By the way, so similar makes a interesting point. So he says, in a way, undirected edges mean Decker being dependence depends in either direction. Correct. Of course, that's why they're undirected for the dependence is definitely not directional dependence.
+00:28:51
+And also the definition of the you GM and there was no direction anywhere right it's just
+00:28:59
+The only thing which matters is the is a set of nodes which are all connected. And so there's no notion of one is connected to the other, or in one direction.
+00:29:15
+Okay, so that's one thing. Another thing I will mention is, I will make a link with something called the exponential family so if
+00:29:24
+Your potential are strictly positive
+00:29:32
+Then what you can do is you can write
+00:29:38
+The joint
+00:29:40
+Of your you Jim. Bye.
+00:29:44
+Taking the log of the potential and taking the exponent. So you have exponent of the sum over my clicks of the lug of my potential
+00:29:58
+And then minus lug of my normalization function right now normalization constant because the some of the log is the log of the product.
+00:30:11
+And then the X OF THE LORD cancels out. So I'm left with the product of the key right so so that's basically
+00:30:18
+Does the same thing as before, and x of minus lug is the same thing as one over zero, right, so I've just rewrote
+00:30:28
+My product of potentials normalized by z as x summation a lug and this is valid because this is not minus infinity because these potential or positive. That's why if you have a zero. It's a bit annoying to have lug of zero, because this is minus infinity. So,
+00:30:45
+That's why we make this restriction
+00:30:49
+And why do we do that well because now you can think of this summation here of potential
+00:30:59
+You can think of.
+00:31:12
+You can think of this
+00:31:14
+Potential here as taking the product.
+00:31:17
+With a parameter which depend on the click and some sufficient statistics which depends on exceed
+00:31:27
+Were basically
+00:31:30
+TC XE it will be an indicator function, it will be one when
+00:31:39
+X prime
+00:31:42
+Is equal to
+00:31:46
+X see themselves.
+00:31:48
+And it's basically just you can think of.
+00:31:52
+For every exceed I have a potential. Now I just take the log of that. So for every see I have a log potential and I can then
+00:32:04
+REWRITE THIS AS A can think that my parameter of makes mention of family or just these look potential. So these would be the this data.
+00:32:16
+And and then the sufficient statistics in this case is just selecting the correct parameter
+00:32:23
+And we'll see that again when we talk about the exponential feminine more detail, but be a. Keep in mind that undirected graphical model on the screen variable A can be always rewritten in the exposure family can be written in this way when the potential are positive.
+00:32:41
+And
+00:32:43
+This has something related to physics which that's why I'm also talking about it. So there's a this model is using physics.
+00:32:53
+And this thing here.
+00:32:55
+The sum of potential here could be the negative energy function.
+00:33:11
+Right. So in physics, you want to minimize energy. And so the state with high priority will be with the state with low energy that's why
+00:33:22
+You can think as the product of these some of these potential as being the negative energy I take x of negative something
+00:33:30
+So if it's a small energy export negative small will be big. So this will be high quality. So basically you can model the, the state of physical system and statistical mechanics as the state with low energy will have higher quality of appearing
+00:33:51
+Okay. And this is actually used for example for spin system or magnets and this is called the icing model.
+00:34:00
+And so, for example, there's this thing called the Isaac model.
+00:34:05
+In physics,
+00:34:08
+And this is a model which can be used for repulsion, or attraction between magnets and you can think in this case the variable. The will be binary 011 would be up zero would be down for the two directions of your spin or your magnet north south.
+00:34:27
+And
+00:34:29
+You could have a graph which looks like this where you only interact with your local neighbors.
+00:34:36
+So this would be a lattice and Xi would be the spin up or down or magnet up or down in a physical system.
+00:34:47
+And then you would define potential on the node to the node potential will tell you. Oh, what's the energy of being up. We call it AI and you will have an edge potential
+00:35:03
+Which would tell you what's the energy of having both nodes being up when their neighbor and you would call this API j and just defining
+00:35:12
+The energy of both up and the energy of one up is sufficient to describe the system, you don't need the other one because the probably teams. Basically, you, you, you can redefine the, the other possibilities by just subtracting the marginal
+00:35:28
+So this is called the minimal parameter ization and we'll get back to that as we talk about minimal transition of graph.
+00:35:35
+So here he i is the potential for x equals one and j is the potential for x equals one and x equals one.
+user avatar
+Unknown Speaker
+00:35:51
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:35:55
+And so this is a model which tells you distribution over distribution of
+00:36:01
+Assignments spins and then you can ask question. Okay, well, what's the most likely state will, it will be all up or down or mixture depends on this energy, of course, and then you can look at what's the priority of a specific spin to be up, so that would be the marginal of xi calls one
+00:36:19
+And it turns out, actually, that computing this marginal properties NP hard, unfortunately. So we have to approximate it so we'll come back.
+00:36:28
+In later class when we talk about sampling and virtual in France. And actually, that will be your homework five homework five you will approximate the marginal properties in there in the model.
+00:36:41
+So that's an example of a place where I understand Africa all makes sense because you don't have any directional interaction, right, it's, it's very, it's basically, you know, symmetric interactions. Another example is using social network modeling.
+00:37:05
+And so, for example, you could have
+00:37:11
+Edges, which represent friendship between people. So you would have a graph which represent the social network and we will suppose in this case that friendship is symmetric. And so you would have
+00:37:23
+Know this connected to all their friends and then there could be some attributes on these nodes, for example, or voted Republican Overton Democrat.
+00:37:32
+And then you would want to, you could define a model of like, well, if I vote Democrat was apology that my or how should influence my neighbor to vote Democrat.
+00:37:44
+Or the opposite. Perhaps. Perhaps you know people like to vote. Unlike difference which I mean that's not really a good model. But, you know, that could be also something to consider. And so you could use an underground model to model that
+00:37:56
+And so in this case, instead of specifying conditions like you do in a demographic Mo, you just described influence. Basically, if the potential of an assignment is high, it basically mean you're encouraging it versus the potential being low
+00:38:12
+And so in this case you could if you want to affinity model SAYING THAT WILL YOU WILL VOTE like your friends, you could say, well, if x is equal to one and x j is equal to one and you're connected. This will have higher potential than being the opposite. So that could be one model.
+00:38:31
+And then you can also learn these parameters, of course, will see that when we do learning in Eugene
+00:38:47
+Alright, so are directed graph preferred for modeling temporal dependencies, or is it possible to model a time dependent system using a huge em.
+00:38:57
+How would you model the temporal random variable in the gym. Yeah, so I think
+00:39:01
+Often people think of time as being directional so director director graphic I'm are more natural for temporal problems.
+00:39:12
+You can still use a huge em. If you want to have these long range dependencies across time.
+00:39:18
+And in particular.
+00:39:21
+Not in a time model, but this was used for a natural language processing. So we're not trying to rush processing. Let's say you have a sentence and you want to tag the elements of your sentence. So this is called parts of speech tagging. So is this a noun, it's a verb.
+00:39:38
+And the model could be for each word in your sentence. You have a variable with your present. What is the tag of this variable and one of the most successful model I
+00:39:53
+Guess in the 2000 was to use conditional. Conditional random field for that which use undirected model on the tags. It's not directed mode. And so basically the tag at the end of the sentence can influence it back at the beginning of a sentence and vice versa.
+00:40:14
+Can you have a mix directed under the Africa model or in such a case, it just doesn't make sense to think of it as directed, with potentially parallel edges.
+00:40:23
+I think there are extension.
+00:40:27
+Of graphical models which are neither you GM or the GM, which also handle these by director all edges that gets in colors and Friedman's book, but I'm not familiar with it.
+00:40:39
+And you can definitely define distribution where one piece is a huge GM in one piece is the GM right so i. For example, I could have
+00:40:50
+P of x A as
+00:40:54
+You know, one over z product over clicks.
+00:41:00
+In a have some potential exceed and then I could say that p of x be
+00:41:11
+Given X say could be the product over I in be some conditional of x i, given the parent
+user avatar
+Unknown Speaker
+00:41:22
+Right.
+user avatar
+Lacoste-Julien Simon
+00:41:24
+And so you could now the joint will just be the product of the marginal of eight times the conditional x be given x A. And so one piece will be model as a huge GM and the other piece will be modeled as a DJ.
+00:41:37
+You can also do that.
+00:41:40
+We won't cover that to the staff.
+00:41:48
+So somebody is asking about
+00:41:50
+Being
+00:41:53
+Is is a family defined by the gym, always a subset of that defined by a similar Eugen so we'll come back to that. When talking about moralization of a graph. So let me come back to this question.
+00:42:06
+Alright so let me states the conditional independent statement that we will prove after the break, okay, because
+00:42:15
+That's something important, and also related to the assignment that you're doing with the
+00:42:21
+Hammer certain as it called hammer
+00:42:25
+Hammer slick Clifford theorem.
+00:42:28
+So what are the conditional independence statement.
+00:42:33
+implied by the GM factorization independence.
+00:42:40
+For you, Jay.
+00:42:48
+Alright, so first we're talking about a graph.
+00:43:01
+Okay, so we say
+00:43:04
+That a joint distribution p
+00:43:09
+Satisfies
+00:43:14
+The global market property groups.
+00:43:28
+And this is making sense in the void. It's always with respect to a specific graph.
+00:43:34
+And so it's understood that there was a graph that we were talking about. So it's with respect
+00:43:40
+To a undirected graph G.
+00:43:53
+And so we will say that the Property Distribution satisfy the global market property if and only if
+00:44:01
+For all a b s subset of the
+00:44:09
+Ground said v.
+00:44:14
+And these set of these subsets, or this joint
+00:44:19
+Such that s separates
+00:44:26
+A from be in G and this is not a directional. So if you separate A from be also separate D from a because there's no directional at this
+00:44:40
+Then
+00:44:42
+We have that x is conditional dependent on x be given access
+00:44:49
+So that's
+00:44:51
+Basically the implied
+00:44:56
+Conditional dependence statement in the GM. And what do we mean by separation. So basically,
+00:45:05
+Let's say I have nodes.
+00:45:09
+In a
+00:45:11
+And then I have nodes in S and I have nodes in be okay. And you're allowed to have edges between nodes and a
+00:45:22
+edges between us and edges between be and then there's edges between DNS, but there's no edges. So you don't have any edges from A to B, like this. So, this is not a valid edge. Okay.
+00:45:35
+And so when we say that s separates a from me. It means that any path between A and B has to grow through s
+00:45:46
+Okay, so when I condition on. So I'm now or actually went to remove s and its edges then I'm separating MB MB are separated. Right. And so, for example, I can also have notes here.
+00:45:59
+And I can have these kind of connection can have these know the discussion groups and
+00:46:07
+So I have notes here I have connections between the sets, but I'm not allowed to have connection between here because then I could have a path which doesn't go through s
+00:46:37
+Okay, so, so, and the nice thing in your jam on like the clock complicated the separation in the GM
+00:46:45
+In new GM. It's very simple separation is just like is there a path between two to variable in the graph. And when a conditioning variable like access. This is the things I'm conditioning here. All they do is, you know, this is the separator set and it blocks the path.
+00:47:01
+And if all the path of blocked by. So then we say that the verbal or independent clinician independence. Okay. And actually, that's what we will prove after the break. So let's have the preposition.
+00:47:12
+will prove that if he
+00:47:17
+Belongs to my Eugene, so it's factors, according to the graph, then it implied that P also satisfies
+00:47:26
+The global market property.
+00:47:32
+4G
+00:47:38
+And does all these conditional depend statement or planning, there might be more as usual. For example, the fully independent distribution is always in me on your GM. So it's also implied, but this is saying that these conditional depend statements are true for all members of the year.
+00:47:55
+And will prove that after the break.
+00:48:00
+Unless there's any question that you want to ask before the break.
+00:48:11
+Nope. Alright, so let's take a break. It is
+00:48:19
+333 so that's come back at 343
+00:48:36
+All right, so let's do the proof. So we want to show
+00:48:42
+That
+00:48:44
+If my distribution factor is according to the GM
+00:48:50
+Formulation so according to your undergrad graph.
+00:48:54
+Then it also satisfy the conditional depends statement.
+00:48:59
+Of the sort. So x a conditional. The benefit of XP given access when s separates a from being my graph.
+00:49:08
+So the first thing we'll do is we will prove it only in a specific setting. So, the proof.
+00:49:17
+So again, without loss of generosity. So, W. L. O. G. Without loss of generosity, we will assume that A, B and S or actually
+00:49:32
+All the nodes in my graph is equal to be there.
+00:49:39
+And to get a statement will assume that A is separated
+00:49:47
+By the
+00:49:49
+So from BBS
+00:49:58
+And
+00:50:00
+Why are we allowed to say that. Okay.
+00:50:05
+Well, if we're considering a subset A be an S.
+00:50:15
+Then what we can do. Oh, by the way. Sorry, let me know if if I'm, again, if my mic is
+00:50:24
+rubbing against a nice shirt. And it's annoying because I need to move my cable so that it doesn't do that.
+00:50:33
+Okay, so if we are trying not to look at the conditional depends statement for a BNS which are not all the V. What we can do is just
+00:50:46
+Do a bigger set. Okay.
+00:51:02
+Actually, I'm not even sure I
+00:51:10
+Hmm.
+00:51:11
+Interesting. I don't. Yes, I just realized. Normally, I always make this argument that oh let's create the bigger set. But the point is,
+00:51:20
+If I get x A
+00:51:24
+Conditional independent of x be given access
+00:51:29
+This implies x A prime
+00:51:34
+Condition independent of x be prime given access
+00:51:40
+For all
+00:51:44
+A prime included in a
+00:51:47
+And for all be prime included in beat
+00:51:51
+By the decomposition property.
+00:52:01
+And also,
+00:52:04
+If A is separated of be by S. It's all the subsets are also separated, right, because it's even like easier to separate subsets. So a prime is separated
+user avatar
+Unknown Speaker
+00:52:20
+From the prime by its ok
+user avatar
+Lacoste-Julien Simon
+00:52:26
+And so we don't need by using the composition, we can prove the statement for all the subsets. So we only need to prove the statements for all the possible partition in E, A, B and S, which takes all of you.
+00:52:46
+All right, that's simpler than what I used to see before. Interesting.
+00:52:50
+So, alright, so we are so what we suppose, as we have that v is a union S union be
+00:52:59
+And so it will look something like
+00:53:04
+I have all my nodes in a or S or B. And then I can have edges.
+00:53:11
+Within all of these and in between, but not edges between A and B directly
+00:53:36
+Okay, so now what I do.
+00:53:40
+Is I'm
+00:53:45
+Let's consider a clique. So let's see.
+00:53:49
+Via click
+00:53:51
+Because of the separation property, you cannot have
+00:53:56
+That see
+00:53:58
+As some nodes in a
+00:54:02
+And some nodes and be
+00:54:11
+Okay, so either see is intersecting some nodes in ar S, for example, or sees intersecting some nodes and B and S, but it cannot have both in A and B, because if
+00:54:25
+There's nodes in seeing both A and B, because all the edges between pair of nodes are
+00:54:31
+In the graph that would create an edge between A and B, which means that there's a direct path between A and B, which doesn't go through. So it's not separated right so that's why because of separation. Right. So this is because of separation.
+00:54:49
+Okay, so why do I make this point is because I want to split the clicks into groups. Okay.
+00:54:55
+So basically, by the definition that P isn't the GM. I know that P is written as a product over clicks. Right. So what I'll do now is I will split my clicks into the ones which are included in a union S.
+00:55:16
+Say see exceed
+00:55:18
+Product.
+00:55:20
+The other clicks, which are not in
+00:55:27
+A union S.
+user avatar
+Unknown Speaker
+00:55:35
+I'm here.
+user avatar
+Lacoste-Julien Simon
+00:55:42
+And so, I mean, this right now. I've been said anything. But the point is that if you're not in a union S.
+00:55:52
+If the clique is not fully included
+00:55:57
+In this piece here.
+00:56:00
+And it can be
+00:56:03
+Fully included and be, that's fine. It can also be including a bit of be in a bit of s, that's also fine, but it cannot be both in being a right okay so that implies by by what I've just said.
+00:56:20
+Here and so that implies that if the clique is in is not fully included in a union S That implies that I have that see prime is actually included
+00:56:35
+In be Unionists
+00:56:40
+And actually, because it's not included in a DNS. It's not including today. So it's also, it implies, this is not important. Actually, but it also implies that see prime is not included in S.
+00:56:56
+Alright and so why do I care about that. So that means that basically I have a product of
+00:57:04
+Of potentials were either to click or is in a union S or the click or in be union S. So that means I can factor eyes, my
+00:57:19
+Joint in as a function of only variable in a union S.
+00:57:25
+And a different function which only dependent variable in be unions, get some something I've splitting the dependence on A and B in two different factors.
+00:57:38
+And that's a crucial aspect to show the conditional independence day so
+00:57:44
+And so now we actually the rest of the proof is very simple. So that was the most subtle argument. And so the rest of the proof is basically just showing that the the some property of conditional dependence. Right. And so basically we'll use the the the
+00:58:01
+Factorization proper property.
+00:58:05
+And so we need to compute the probability of X a given access right
+00:58:11
+So we know that this property is proportional to the joint on x a, an access
+00:58:25
+Okay, so, so somebody is asking the clicks, which are fully in S I would define it in this function here. I mean, it doesn't really matter. You could also put it in this function if you want
+00:58:38
+You just need to make a choice, but in the notation. I've used. I said, if a clique is fully included in a union S that includes also that it's fully included in s right.
+00:58:50
+So if it's not included in Alien so then it cannot be fully included in S.
+00:59:00
+Okay, so yeah, so it's been presented the joint.
+00:59:05
+And
+user avatar
+Unknown Speaker
+00:59:07
+Oops.
+user avatar
+Lacoste-Julien Simon
+00:59:09
+And this is just x A union S, by the way.
+00:59:15
+And so this is the marginalization of my full giant with respect to x be
+00:59:23
+Okay, and that's because all my nodes are either in a B or s right. So a union S union.
+00:59:32
+Be
+00:59:34
+Is all the that's why this is true.
+00:59:42
+Okay. And so now this is summation over x be I just wrote above f x A union S and G x be union s right. And so there's no there's no be in the first term, so I can push the sum over there, right. So this is the same thing as f x A union S summation or XP of g x be units.
+01:00:12
+And this is a constant.
+01:00:16
+With respect to x eight because there's no either
+01:00:22
+So that implies
+01:00:28
+That the conditional
+01:00:33
+Of x A given access
+01:00:37
+Is just
+01:00:39
+F of x, a union S divided by the marginal and access. So it's the summation of this over excess of a
+01:00:49
+Union.
+user avatar
+Unknown Speaker
+01:00:51
+It's
+user avatar
+Lacoste-Julien Simon
+01:00:53
+Just an Mars ization of it. So now we have a simple form for the conditional
+01:01:00
+And similarly,
+01:01:03
+We can use the same argument on G. OK, we can get that the conditional of x be given access is just
+01:01:14
+G of x be union S.
+01:01:19
+divided by summation over x be
+01:01:25
+Oh, yeah. So there's this is a problem. So I was not something over the right variable. The marginal to get access, I need to some x eight so I will do that.
+01:01:34
+And because I don't want to screw up meditation, I need a dummy variables. Let's use x A prime and then access when. Same thing here, x be prime g of x be Prime Access
+01:01:58
+And Jacob has already seen my mistake. But I've corrected it before seeing his question. Alright, so I have these simple form. So now if I take the product of these two quantity. So I have that the product of x A given access times x be given access
+01:02:17
+Is f x A union S g x be union S divided by summation over x A prime
+01:02:30
+F x a Prime Access summation over x be prime g of x be Prime Access
+01:02:44
+And actually, I can move the summation over x be out because there's no x be on the left.
+01:02:50
+And so what I get above this was just the
+01:02:57
+The joint right, by definition, I just said that my joint was the product of f and g and so
+01:03:07
+I have that the top is the joint.
+01:03:11
+And the bottom is a summation of my joint over x A prime minister, the prime, which gives me the marginal. So this is divided by the marginal over access
+01:03:26
+Okay.
+01:03:28
+And so by definition this is just the conditional of x A x be given access
+01:03:38
+And so conditional of x be x x be you've given access is a product of x A given access times x be given access. So that means that I have that x A is conditionally dependent on x be given access as I wanted to shoot
+01:04:03
+Any questions about the proof.
+01:04:27
+No question. I mean, or your bit confused. The proof is in clean form in the scribe notes online.
+01:04:36
+You can also walk it again in more details there. The main part of the proof was just splitting in terms of
+01:04:46
+The potential. In fact, rising two pieces right
+01:04:50
+That was the, the crucial part here.
+01:04:53
+And and and for doing this or I guess it was this part here.
+01:04:58
+And to do this, all we did is that we use the fact that the clicks had because of separation could only be in one side or the other side.
+01:05:13
+Okay mode is asking what's the difference between f of x A
+01:05:20
+So f of x, a union S.
+01:05:26
+Is the same thing as
+01:05:30
+F of x A comma EXE s
+01:05:36
+Know that a an S or disjointed this case as well. Right, so f x A comma access as no repetition of variable. So it also makes sense to write it like that.
+01:05:46
+Because if you remember, like, we can use set as subscript of the variable to mean
+01:05:52
+Basically
+01:05:55
+An expansion of x i, where I belong to the set. Okay.
+01:06:00
+And so
+01:06:02
+Here I have split
+01:06:05
+A union S BECAUSE THEY'RE JUST JOINED BY THE WAY AS just set a and set so so that's why I cannot say and then access. And then if you wanted to write down this quantity in the full you would have
+01:06:17
+X i. For every element of A and xj for every element of S and then you would have this huge chunk right it's just short in the patient.
+01:06:31
+And the other question.
+01:06:38
+Was that the right implication was that right implication from left to right. Yes. So we were. I'm not sure which right you're talking about. But this was to prove that if we assume that the distribution is fact rising according to the GM, then it has the conditional depend statement.
+01:07:02
+So the converse is also true, but not always. And that's what you're actually exploring in the assignment.
+01:07:09
+So here's the theorem, which actually look at the converse and it's a very deep theorem. It's called the MSA and mer slee
+01:07:21
+CLIFFORD
+01:07:24
+Theorem.
+01:07:26
+And it only holds if your
+01:07:31
+Density or a PMS is always tricky bigger than zero.
+01:07:39
+So if you have that
+01:07:41
+Then you have the converse hold and thus you have the if and only if you have that P is in a huge GM so factories. According to G if and only if
+01:07:57
+Actually, I guess.
+01:07:59
+If not, if, if P satisfies the global market property.
+01:08:08
+Purple.
+01:08:21
+Mark of property.
+01:08:25
+4G
+01:08:28
+So if your distribution is tricky positive and all these conditional dependent statements, according to the graph hold, then you know there's exists a factorization. According to the GM
+01:08:39
+If there's some zeros weird stuff can happen and that's what happens in the assignment, we show that you will define you will you will you will define the distribution for which
+01:08:52
+The conditional depend statement holds, but not the factorization.
+01:08:59
+There's no factorization, which works.
+01:09:02
+Records, the graph, even though all conditional statements.
+01:09:06
+And for the proof. The proof is actually complicated, which is why we like the proof that they just don't. It's actually pretty simple. From the perspective of these kind of proof, but the converse is is very hard and and if you're curious, you can look at chapter 16 in Mike's books.
+01:09:27
+He goes through it.
+01:09:29
+And basically, there's this trick where you use something called the most obvious inversion formula.
+01:09:46
+Which is related to the something called the exclusion.
+01:09:52
+Inclusion principle.
+01:09:56
+In property theory.
+01:09:59
+Is basically when you want the probability of a of a joint of events of the union of a bunch of sets you can rewrite it as the probability of
+01:10:12
+One set
+01:10:14
+Plus the intersection of the two sets minus intersection of things anyway. So I'm not saying it correctly. But basically, you will
+01:10:22
+You will look at the possible like union of sets and then you will double come think so you'll have to subtract them and you need to do it carefully so that everything works. And this is called the exclusion inclusion formula and
+user avatar
+Unknown Speaker
+01:10:36
+This is actually using
+user avatar
+Lacoste-Julien Simon
+01:10:41
+To basically define so given that you have this realization of conditional independence, you will define the correct factorization, which works in the graph.
+01:10:50
+By kind of like taking these these local conditional and then recombining them together, but then you'll double counting. So you have to exclude them and so you'll have to use this movie's inversions are from it.
+01:11:03
+Okay.
+01:11:05
+Alright, so that's far as the conditional dependence. And so now let me go through
+01:11:12
+And other properties of a new GM
+01:11:16
+And then I will finish by summarizing you GM versus the gyms, so more properties of ujian
+01:11:35
+So unlike the GM
+01:11:38
+The gym or close with respect to marginalization.
+01:11:53
+Okay, so let's say I have this graph.
+01:11:58
+And this is the note that I will marginalize up. So what you do is you need to connect all the neighbors of the node you eliminate. And so you need to connect those two notes to add this edge in the new headset.
+01:12:16
+But then it turns out that the set of distribution you obtained by marginalizing out this node is the same as the set of distribution, you would get on the smaller graph with this augmented edge. Okay, so if you let the prime to be v minus
+01:12:35
+And
+01:12:37
+And you let a prime
+01:12:40
+And your end could be anything. It doesn't have to be a leaf. There's no notion of a leaf anyway on
+01:12:46
+I guess you could have these extreme edges for extreme nodes in the undirected.
+01:12:53
+Truth. But anyway, so the note that you can marginalize out you know you jam is any node.
+01:12:59
+But what you do is you need to add a bunch of engines. So if you let the prime to be the edges when g minus
+01:13:09
+N
+01:13:10
+Plus you connect
+01:13:13
+All the neighbors.
+01:13:18
+Have
+01:13:20
+In in G together. So you form a big clique for all the neighbors.
+01:13:27
+Okay, so this is a new peak.
+01:13:32
+Then you have that
+01:13:36
+The marginal the set of distribution, which is a marginal on the node one up to n minus one.
+01:13:44
+For some p in the GM
+01:13:49
+Over the whole graph.
+01:13:52
+This is the same thing as the GM on the smaller graph.
+01:13:56
+While the smaller graph. The graph on less nodes, but more edges.
+01:14:03
+And so you can characterize the set of distribution you obtained by marginalization exactly by another Eugene, which was not the case for the GM. So when you mentioned is a leaf in the GM, it's fine, but not for generic Mars's marginalization.
+01:14:20
+Okay, so that's the difference.
+01:14:29
+Alright, so now let's talk about a summary of properties of the GM vs Eugene
+01:14:37
+Eg and versus you G. M.
+01:14:46
+So the first thing is, let's talk about the mark of blankets. So what's the mark of blanket. What's the smallest set of nodes to kind of like create conditional depends with the rest of the graph. So the mark of blanket.
+01:15:04
+For a node i
+01:15:07
+Basically, like how do you need to cover it so that everything else is independent of it.
+01:15:13
+Again, this is always for a graph. Je je je je je je. Yeah.
+01:15:21
+The mark of blanket for I
+01:15:24
+Is the smallest
+01:15:29
+Set of nodes.
+01:15:34
+Of nodes, M.
+01:15:37
+such that x i is conditionally dependent of everything else I'll use X V to
+01:15:47
+Avoid
+01:15:48
+Complicated notation. But remember, we are allowed to just put repeated notes, given the the blanket.
+01:15:55
+So basically the meaning here is just the rest right so because if I put an eye there. It doesn't do anything if there's an M there doesn't do anything. So we're just talking about the nodes which are not an eye and M.
+01:16:17
+And so what is the mark of blanket for a new GM versus a GM. So for you, GM
+01:16:28
+It's actually fairly simple. It's just neighbors.
+01:16:33
+The mark of blanket is just
+01:16:38
+Jay, such that there's an edge.
+01:16:42
+between i and j
+01:16:45
+IE, the set of neighbors.
+01:16:51
+Right, because if I conditioned on the numbers of a node.
+01:16:56
+I'm definitely separating this node with the rest of the graph right any path has to go through the neighbors.
+01:17:05
+And so that's a way to isolate a note some sex with condition on neighbors.
+01:17:13
+For the GM. It's a bit more complicated.
+01:17:22
+So basically, for the GM the mark of blanket is the parents.
+01:17:29
+Union, the children of the node.
+01:17:32
+Which, by the way, these are the neighbors. Right.
+01:17:35
+So, so this some sense is like
+01:17:41
+The GM because it's the neighbors.
+01:17:44
+But I also need the parents of the children.
+01:17:48
+So it's union.
+01:17:51
+The Union over the children of I
+01:17:56
+Apparent of Jay
+01:18:01
+And so basically this is I
+01:18:05
+This is the parent of AI and the parent can have parents. Parents can have parents, then I have seen a child child of AI.
+01:18:17
+And then the child can have parents as well.
+01:18:22
+And these can have parents
+01:18:25
+And then there's more grandparents grandchildren. Right. And so the mark of blanket of I in the set would be these nodes which are the parents.
+01:18:36
+This node which is the chill child in this case and the parents of the child, which is this thing. So this would be in this case.
+01:18:48
+And the reason we need
+01:18:51
+These here is because
+01:18:55
+When I because this is the structure
+01:18:58
+If I observed this node there's a dependence between this node in this note by the baseball algorithm.
+01:19:05
+And so I in order to really disconnect. I also need to observe the parent. And then what happened is, I'm not going through the structure. So I'm trying to go to get a pass to this. It's actually blocked by this observation.
+01:19:22
+That's mark.
+01:19:38
+Okay. So, any question about the market make it
+user avatar
+Unknown Speaker
+01:19:48
+New
+user avatar
+Lacoste-Julien Simon
+01:19:51
+So let's talk now let's do a recap of these properties.
+01:20:02
+So if I compare the GM
+01:20:05
+Versus
+01:20:07
+A new GM
+01:20:11
+How do the factories. Right. So the factorization definition for a D GM. It's the product over the conditional
+01:20:25
+And then the parents are use the parents structure from the graph is used to define the conditional whereas for you, GM, it is one over and over position constant product over clicks of the potential
+user avatar
+Unknown Speaker
+01:20:40
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:20:43
+Then the conditional independence statement.
+01:20:52
+The one for the GM or obtained by using the graph the separation, which is a complicated separation concept was you, Jim is just separation.
+01:21:04
+And these are all the conditional independence statement which are true for all distributions, there might be more as we knew, but for specific distribution, but not for all of them.
+01:21:17
+marginalization.
+01:21:19
+We said that
+01:21:23
+It is for the GM. It's not closed in general.
+01:21:31
+And so for example I had this this the structure graph here.
+01:21:39
+And if I marginalize out this node I get something which is not described by you, the GM
+01:21:48
+But it, it's fine for leaves right
+01:21:56
+So I can merchandise out leaves and I get a DJ. Mr. Smaller Daejeon
+01:22:02
+Whereas for you, jam. We said, it's fine. It's closed.
+01:22:06
+But I need to connect all the neighbors.
+01:22:11
+Of nodes that
+01:22:14
+We remove
+01:22:21
+So excellent has asked, why do we call this the mark of blanket. I mean, Marco because it's it's kind of related to the conditional independence and the blanket is like how do you
+01:22:32
+Insulate or isolate a node from the rest of the graph rights you so you can think of.
+01:22:37
+Thinking of the putting a blanket around the nodes so that it's it's separated in the case of the GM
+01:22:43
+It's very clear because it's only the neighbors, if you, if you, if you condition, all the neighbors, then your conditioning fan of everything else you can think that the neighbors is like the blanket on the note to insulated from the rest.
+01:22:58
+And if you think we're in Quebec and it's called the snow, the toy.
+01:23:03
+Alright, so now the last thing so memorization, we just mentioned. Finally, the last thing is about, oh, what about set of distributions. Okay, so there are some family that cannot be
+01:23:18
+Capture
+01:23:22
+By the GM so so the GM Canada exactly capture some families.
+01:23:30
+And an example of that is the set of distribution obtained from this Eugene
+01:23:38
+So there is no d GM which capture exactly that. This is actually included the set of distribution given from this new GM is included in the GM, in particular the fully connected the GM, but that's also include more distributions.
+01:23:54
+So that answers a question which was asked towards the being of the cast about oh, isn't it, that the GM always including the new GM. Well, you can always include a museum in a digital as well. Right, so it goes both ways.
+01:24:05
+By picking a big enough graph.
+01:24:11
+But will I'm going to continue with
+01:24:15
+Our final characterization of this inclusion, but here's a set of distribution, which is not included in a in a GM and similarly the the structure
+01:24:25
+Is not well characterized by Eugene, so there's no huge GM which precisely characterizes the distribution from this DJ. So this is a different set
+01:24:41
+Any question about this.
+01:24:55
+Okay. So Jacob is asking
+01:24:58
+Is there a concrete formulation of a way describing the set of decisions that tended to be more biographical mall.
+01:25:05
+No idea.
+01:25:07
+It's probably ugly.
+01:25:10
+But I think
+01:25:11
+Most likely has been analyzed.
+01:25:15
+But in some sense, there's a lot of set of distribution, you can consider right
+01:25:25
+Yeah, and so I don't. Yeah.
+01:25:28
+The trick and seem something more meaningful than that.
+01:25:32
+Because one thing to know is here, we're not even talking about characterization. So suppose now, you, you, you, you specify a very specific pasteurization and you say okay well that's the set of distribution span or are generated by all these factors.
+01:25:48
+That can easily also not be characterized by a graphical model or of any kind.
+01:25:54
+But you know, it's also very specific
+01:26:00
+Alright, so now
+01:26:01
+Yeah.
+user avatar
+ezekiel williams
+01:26:02
+ask a quick question. Just about that.
+01:26:03
+Yeah, I'm sorry, I don't fully understand where a digital capture the kind of square the square kind of graph that you have there is that it can't. It actually captured or it can't concisely capture capture this
+user avatar
+Lacoste-Julien Simon
+01:26:19
+So what I'm saying is that there's no d GM such that
+01:26:23
+You exactly get the set of distribution from this huge em.
+01:26:27
+And the reason is because here you have a cycle. Right, so, so, so let's say you put an orientation like this that doesn't work. It creates a cycle. Okay.
+01:26:37
+And so what you'll need to do is like okay well let's put some orientation without the cycle. Well, what happens is, is there will be some distribution in the new GM which are not captured by that. So then you'll add an edge.
+01:26:50
+Okay, but that will include now new distribution, which was not in the original because now you're allowing a potential on these three nodes which was not allowed to be original, Eugene
+01:26:59
+That's the problem. And so
+01:27:03
+There's a D GM, which is smaller and as a GM, which is bigger, but there's not a gym, which is exactly equal to this.
+user avatar
+ezekiel williams
+01:27:10
+Okay. Cool. Thanks. And in the same way for the for the GM not capturing the
+01:27:14
+V shape up to find like a larger your GM, of course, that does
+user avatar
+Lacoste-Julien Simon
+01:27:18
+Yeah, because, because basically here you have three nodes. So you need
+01:27:22
+A clique of side street.
+01:27:25
+Right.
+01:27:25
+To be able to capture that. But as soon as you put an edge here in a clique, then there's a dependency in general between those two nodes which was not present in the individual
+01:27:40
+Ok and now will actually
+01:27:42
+Look at this in more details. And I guess we'll conclude with that.
+01:27:47
+So this is the concept of moralization
+01:27:51
+And so basically, how to transform the GM into a new GM
+01:27:56
+And when is a DJ equality, Eugene
+01:28:01
+And so
+01:28:03
+Let's say we we have whoops.
+01:28:09
+So let GB a DAG.
+01:28:15
+Now, when can we
+01:28:20
+Transform.
+01:28:23
+When can we get an equivalent to VM.
+01:28:34
+Okay.
+01:28:37
+Well, the first thing is, in order to make D GM within a huge GM will need to add some edges and this is called demoralization So define so definition.
+01:28:53
+For hoops.
+01:28:58
+For G a DAG.
+01:29:04
+Recall
+01:29:07
+I'll use a notation G bar.
+01:29:10
+To be demoralized
+01:29:14
+Graph.
+01:29:18
+Of G.
+01:29:21
+Which is basically all you do is you add edges under. So first of all, you make everything on directed and you add edges between the parents have a note to make a big click
+01:29:33
+So where G bar is an undirected graph.
+01:29:44
+With same
+01:29:46
+Set of nodes.
+01:29:55
+And we have this augmented edge set
+01:30:00
+Which is
+01:30:02
+The undirected version of my original edges.
+01:30:08
+So you replace the couple by two sets.
+01:30:14
+So this is basically the
+01:30:16
+Undirected
+01:30:20
+Version of G.
+01:30:25
+And you also add edges between all the parents. So you add an edge, K, L,
+01:30:33
+For all k not equal to L belonging to the parents of i. For some, I
+01:30:44
+And this is the
+01:30:47
+This is what is called the moralization
+01:30:53
+Okay, so this is a sorry for the religious reference. But basically, I think the the semantic of this comes from the fact that in Christian
+01:31:05
+Beliefs, the parents have to be married. Otherwise it's bad. Right, so you, you have a best or something so
+01:31:14
+So in order to make the family moral there should be a bond between the parents, which are these edges. So if there was no edges between the parent, you need to add and that's make it moral. Now the thing is
+01:31:27
+You can have more than one two parents like you can have like 10 parents if you want. So this is a bit like
+01:31:33
+It's a bit interesting.
+01:31:36
+polyamorous family, but that's why. So I think that's where the name come from, but it's just mean at all. They just between the parents.
+01:31:49
+And somebody is asking is it for all i, instead of for some, I know. So the thing is you need to add the edge, K, L, if P AMP L belongs to the same parents set for some
+01:32:04
+And for any i, this happens, then you need to add edges but it doesn't make sense. The key and else should be in the parents of all die because
+user avatar
+Unknown Speaker
+01:32:14
+Usually you're you guess you would have cycles. If this is the case.
+user avatar
+Lacoste-Julien Simon
+01:32:27
+Okay, so basically what I'm saying here. In other words, this thing here is to connect
+01:32:34
+All the parents of I
+01:32:40
+With I in a big click
+01:32:48
+And basically demoralisation aspect was that you're marrying the parent
+01:32:54
+Making it a nice moral family.
+01:32:59
+Split a bit of exclamation mark.
+01:33:06
+And so you only need to add edges if there are two parents at least
+01:33:13
+In
+01:33:16
+In a note, that means, so this is only needed
+01:33:23
+If the number of parents is bigger than one, I if you have a V structure.
+01:33:33
+So if you have no V structure, then you don't need to add any edges.
+01:33:39
+And so what it means is, let's say I had
+01:33:42
+This family here and let's say there was a note here like this. Well, what you do is you will add this edge and this edge, which was missing to get a full big click
+user avatar
+Unknown Speaker
+01:33:55
+This would be the
+user avatar
+Unknown Speaker
+01:33:57
+Augmented edge.
+user avatar
+Lacoste-Julien Simon
+01:33:59
+And so an example if I start with my
+01:34:06
+Here's a nice directed graphical model.
+01:34:10
+So now I actually have a V structure.
+01:34:19
+And so this so
+01:34:22
+Here, there would be this edge which is added.
+01:34:26
+Oh I guess there's no direction right so
+01:34:32
+So I have
+01:34:34
+Oops.
+01:34:36
+I'm going to go slightly over time. Sorry about that.
+01:34:40
+Here we go. So that would be my moralized graph.
+01:34:50
+OK, so now that I've defined whether moralize graph is
+01:34:57
+We can see that
+01:35:01
+It's not hard to say. And actually that's I think what you prove
+01:35:06
+In the assignment.
+01:35:08
+So if a DAG.
+01:35:10
+Has no V structure.
+01:35:16
+With no the structure
+01:35:21
+So if all the nodes as at most one parent with you basically have is a forest is set of trees.
+01:35:29
+Then you have that the on the GM on G.
+01:35:38
+Is equal to the new GM on G bar.
+01:35:43
+So the, the, the undirected version of the tree actually give the same set of distribution. That's what your proof in the
+01:35:55
+Proof see assignment.
+01:36:05
+And so that's so when you have trees or for us the GM and new GM are the same. But in general, all you have.
+01:36:18
+You can only say
+01:36:21
+That L of G is included in L of G bar.
+user avatar
+Unknown Speaker
+01:36:29
+So this was a daiquiri, whoops.
+user avatar
+Lacoste-Julien Simon
+01:36:35
+And in fact demoralized grab the moralized graph so that G bar.
+01:36:42
+Is the minimal
+01:36:46
+On directed graph.
+01:36:51
+Such that you have this intuition.
+user avatar
+Unknown Speaker
+01:37:03
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:37:09
+And that's it. So that's it for the GM. So the next class I will talk about in France.
+01:37:17
+I hate how to compute marginal in a generic fashion for any members of the GM or Eugene
+01:37:27
+And actually we will do it for you. GM because it's simpler. So we will just think of the GM as a new GM by moralizing it and then you can just run the algorithm under Eugene
+01:37:46
+And is there any other question about the D GM and you Jim. So Jacob is asking about extending directed graph model where you have cycles.
+01:38:01
+And
+01:38:03
+You can do it in a perhaps like dynamic system type of way where you would think of defining a transients system.
+01:38:13
+And and and and and you would have time in it. And so there's no cycle the cycle is when you look across time, then yes, that could be feedback, but there would not be direct feedback at a specific time slide. So that would be one way to do it.
+01:38:29
+But if you just say or time less with direction. It's a bit complicated. I mean, you could do it with fixed point operators, but get a bit complicated.
+01:38:42
+Any question.
+01:38:44
+On you GM or did you
+01:38:52
+Know,
+01:38:53
+All right well on this, I'll see you on Friday.

@@ -1,0 +1,2007 @@
+Lacoste-Julien Simon
+00:00:05
+In this recording. Alright so today.
+00:00:10
+As I mentioned, we will do a bit of deep elegant mass. So, we will look at maximum entropy
+00:00:23
+And also Lagrangian duality.
+00:00:28
+And we will
+00:00:32
+Start looking in more details.
+00:00:35
+On these Patrick family which are called exponential Femi which are very elegant
+00:00:42
+Pro stick families for which you know Gaussian Blur new eat the fish. They all standard distributions are belong to it. But then we can prove general properties.
+00:00:54
+And as I mentioned earlier, one of the the deep result will see today is the equivalence between maximum likelihood in the expansion of me as well as the maximum entropy
+00:01:05
+With woman constraints.
+00:01:09
+And it will be a good excuse to review a bit of leverage and Dorothy. So that's the plan. We're in some sense.
+00:01:18
+More in the big picture here. We're in like topics in machine learning and high dimensional to sticks. So this is really to maximum length you that maximum entropy and this kind of thing, as well as learning interesting tools like language and quality.
+00:01:34
+So just before we get to maximum entropy. I just want to finish something, I didn't have time to finish last class, which is a relationship between maximum likelihood
+00:01:44
+And
+00:01:45
+Killed minimisation right so last time last class I mentioned, what was the callback library divergence and I did a bit of information theory Crash Course
+00:01:58
+And so it turns out
+00:02:00
+That there is and then again also reinterpretation of maximum likelihood
+00:02:06
+So consider that you have p of theta.
+00:02:11
+You have a parametric family.
+00:02:13
+Of distribution. So you have a parametric
+00:02:18
+Family
+00:02:24
+And to avoid a bit of
+00:02:28
+Formal problems will use a discrete
+00:02:32
+Observation space.
+00:02:35
+The relationship is also true with continuous relationship space, but it's
+00:02:41
+You'll see that
+00:02:43
+Where it breaks down and where you have to be a bit careful. It's more like a formal argument, rather than
+00:02:50
+The exact same standard definition. So when you do maximum likelihood for theta in this Patrick family. It's equivalent to minimizing over theta.
+00:03:04
+The kill divergence between the empirical distribution and your model distribution. And so this pn hat here is the empirical distribution.
+00:03:21
+So it's PMS is defined as
+00:03:27
+The end the hat of X is by definition, one over n summation over your observation of the chronic term delta
+00:03:38
+On the observation, right. So this is the chronic, chronic or delta which, as you remember, it's equal to one when it's two arguments are equal and it's zero otherwise.
+00:03:51
+And so basically this, this tells you the number of times I've observed a specific X in the training set and the proportion of time I've observed it is it's probability that I assigned to it. That's the empirical distribution.
+00:04:06
+And you can see here already, why I made the assumption that the position is discrete, because if this patient was continuous instead of a PMS would have to call
+00:04:14
+We have to talk about the empirical PDF and that's a bit annoying because the the empirical distribution is doesn't have a density respected the big measure when you have a
+00:04:26
+continuous distribution, because what you formally get is instead of these cracker delta, you get the direct delta which are basically infinite spike at zero.
+00:04:37
+Sorry, on the data. And when you integrate it, which is what you do when you do continuous distribution.
+00:04:44
+computing. Computing quality of events in a conscious decision then it select a value. Okay. But I didn't want to go into these kind of formal detail of, like, what is it,
+00:04:54
+Direct delta. So, to avoid that. Let's just stick to discrete. It's much simpler, but be aware that you can also make an analogous statement, but
+00:05:03
+Careful with the mathematical details for a continuous distribution and so doing maximum likelihood is the same thing as minimizing the kale divergence with the empirical distribution as this is
+user avatar
+Unknown Speaker
+00:05:18
+Not
+user avatar
+Unknown Speaker
+00:05:23
+Temporary yeah
+user avatar
+Lacoste-Julien Simon
+00:05:24
+And so in some sense.
+00:05:27
+You tried to find data for the for the distribution, such that it minimizes the kale divergence with the observed empirical distribution. So it's kind of a interesting
+00:05:37
+Principle. So another a very natural way to look at maximum next good and also the kale and the proof is trivial, but let me just spell it out so you have that the kale between the empirical distribution and p of theta by definition is the expectation over the empirical of
+00:05:57
+P and X lug of p of x divided by p theta of x and here this is discrete, some because it's a discrete observation space.
+00:06:11
+And so the first. So the log of the ratio becomes log minus log. So, the first term is just minus the entropy of the empirical distribution. Right. So this is so the summation of x pee pee.
+00:06:28
+pee and lumpy. And this is by an efficient, the entropy and they get of entropy sorry there's a minus sign, which is missing. And this is just a constant respect to data. So what we're left is just summation over X pn of x and then lug of p of theta of x, right.
+00:06:46
+And if you recall
+00:06:48
+Is one over n summation i have the direct as chronic or a delta x, x i.
+00:06:58
+And so when you some over X these credit card delta will only be non zero when x is on the data points, right. So basically, what you get is you can flip the some so this becomes one over n summation over i submission over x delta x, x i.
+00:07:20
+And then you get the the selection property of the
+00:07:26
+Of the clinic or delta. So, this gives you basically
+00:07:33
+I guess and I multiply by stuff.
+00:07:36
+So, P.
+00:07:38
+Of x, blah, blah, blah. And I know there's no pain of x. This is what's piano. So this is lug
+00:07:47
+Of p of theta Vic's. And so this all thing here just become lug of p of theta of x i.
+user avatar
+Unknown Speaker
+00:07:57
+Right.
+user avatar
+Lacoste-Julien Simon
+00:07:59
+And so basically I rewrite it. This is equal to a constant which is the entropy of my vehicle minus one over n summation over my training set of log of p of theta x of AI.
+00:08:18
+And this is the usual like us with the product over i.
+00:08:23
+have the luxury of p of fate of excited
+00:08:28
+So, you know, this is a standard
+00:08:33
+For the log likelihood for ID data. And this is just a constant.
+00:08:40
+With respect to theta and thus minimizing the kale is like minimizing the negative log likelihood. So it's the same thing as maximizing the log activity. Right. So that's what I want to
+user avatar
+Unknown Speaker
+00:08:55
+Say that
+user avatar
+Unknown Speaker
+00:08:58
+And
+user avatar
+Lacoste-Julien Simon
+00:09:01
+As it is, this is not temporary think so we're done. And if you did the argument with continuous data, you would replace now the sun with an integral
+00:09:12
+And then, oops.
+00:09:15
+Okay, so
+00:09:17
+So you would replace the some with an integral over x. And then you would have these direct delta which when you integrate still select the date the function. The problem is that the kale is not formally defined
+00:09:30
+Between the continuous density and the empirical distribution when it's continuous data so so
+00:09:36
+So what happens is when you make this argument for continuous distribution. It's more you will define you'll say, oh, I will define the kale as just the integral here of the of this empirical in this weird sense
+user avatar
+Unknown Speaker
+00:09:52
+And yeah.
+user avatar
+Lacoste-Julien Simon
+00:09:54
+So yeah, so that's the maximum likelihood and the ratio with kale.
+00:10:00
+And now we will see the maximum entropy principle which will which can also be interpreted as a musician of a kale. But then the other direction.
+00:10:09
+And so and so instead of between instead of being the kale between the empirical and your model, it will be the kale between your model and the uniform distribution. Okay, so we'll so let's go there. Let's talk about the maximum entropy principle.
+00:10:40
+Alright. And so the idea between the maximum entropy principle and then I will formalize this idea
+00:10:50
+So you will consider
+00:10:53
+A some subset of distribution.
+00:10:59
+Over x
+00:11:09
+According
+00:11:11
+To some data driven constraint.
+00:11:22
+So because you made some observation of the world, you will decide that the distribution for satisfy some constraints.
+00:11:31
+And so we will get
+00:11:33
+Some subset, which would call a capital M, and we'll see that it's because of of the moment constraints that will see later. So this is a subset of all the distribution over my let's do the discrete up with again for simplicity
+00:11:51
+And let's say it's a finite number of observation, again, for simplicity
+00:11:57
+So all the distribution over a finite number of observation is represented by a elements of the property simplex. So I need to specify the PMA for every element.
+00:12:06
+And that instead of adding all possible distribution over key elements. I'll consider a subset of that which satisfy some constraints.
+00:12:16
+And so I concern I have this subset of distributions that I selected. And the question now is, oh, well, how should they select the distribution in this subset. And that's where the maximum entropy principle come in. So the maximum entropy principle.
+00:12:31
+Will say
+00:12:34
+You will pick
+00:12:36
+p hat in the set, which maximize the entropy
+00:12:47
+Okay, so if you don't know which distribution to pick among a bunch of this division for according to your mind they're all equivalent, they all satisfy the constraints you care about.
+00:12:56
+Well then pick the one which has maximum entropy in some sense which maximum entropy is a bit like maximum uncertainty. So you're committing in some sense to the minimum amount of structure in your distribution. So that's kind of the intuition.
+00:13:10
+And so and so from an formalization principle, you'll say, okay, well, the way you will estimate your distribution will be to do the arc max.
+00:13:21
+Over a set of distribution.
+00:13:25
+Of the entropy of these decisions entropy of cute. Okay, so that's how you choose this mission.
+00:13:33
+And it turns up well that
+00:13:36
+The entropy of Q is the same thing as minimizing
+00:13:44
+Over your distribution, the kale divergence between q and the uniform distribution.
+00:13:52
+Right, because it's called this view.
+00:13:57
+So the kale divergence between two and the uniform by definition is summation of x q of x lug you have x
+00:14:07
+Divided by UX right and so you have x here is just equal to one over k
+00:14:15
+When is the uniform distribution. And this is just a constant, right.
+00:14:19
+And so when I minimize the spec to Q you is just a constant. I don't care about it. So all I'm left with is basically minus the entropy, because the entropy is summation over a que le Pew with a minus. And then I just have plus some constant, right.
+00:14:37
+Yeah so minimizing the entropy maximum sorry maximizing the entropy is the same thing as minimizing the kill between cute and the uniform distribution and capital delta subscript absolute value of x. This is the probability simplex
+00:14:56
+Over
+00:14:59
+Let's see key elements rights were key is a number of observation of in my sample space script x
+00:15:15
+Okay, so that's also a thinking of the entropy of a distribution as the kale with the uniform distribution is in the discrete case, it's actually also quite neat.
+00:15:25
+Because you know the uniform distribution in some senses, the one which doesn't commit anything on any observation on any possible
+00:15:37
+Value of the random variable, right. So you just say, well, all they're all equally like in
+00:15:43
+And now, what you do is you made some of you made some constraints. For example, you can say, oh, I made them the observation of a proportion of, like, let's say I'm looking at a coin flip, I observed that the coin flip, has been
+00:15:59
+Eighth 10TH OF THE TIME OF ALL MY OBSERVATION to be head okay and I want to say, okay, now I want to distribution, such that it's mean is a 10th.
+00:16:08
+But which maximize the entropy which what would be the maximum entropy principle. So the closest to the uniform, which would be one half on this case.
+00:16:16
+And so that would be the maximum entropy. And in this case, actually, because this is an essential for me, it would be the same thing as maximum an accurate. By the way, in general, it doesn't have to be the same thing as maximum IQ, but we'll see later today that
+00:16:29
+For this concrete example of the Bernie ran a variable, it would still be the same thing as maximum IQ.
+00:16:35
+And I will mention also that there's this thing called generalize maximum entropy
+00:16:45
+maximum entropy
+00:16:49
+Which instead of minimizing the kale.
+00:16:52
+Between Q AMP a uniform will just minimize the kale respect to some fixed distribution H of zero.
+00:17:00
+Which can be seen as you know your clinical know observation distribution.
+00:17:06
+And so this is basically your preferred distribution to be biased towards right
+00:17:19
+So for example, you could think that you like Gaussian with zero mean and unit variance and then you made some observation enough some continuous distribution and then you
+00:17:28
+Some consistent and variable and you want them to minimize the KL between your, your distribution and this scholarship. So that could be another example. And we'll see this age zero will appear later and the expansion of me.
+00:17:43
+I know somebody is asking, Is this some similar to having a prayer. So it's similar in spirit to having a prior though it's not explicit right so we're not Beijing here. There's no notion
+00:17:51
+Of a distribution or distribution. But indeed, it's a inductive bias in our learning principle which says that there is this based distribution that's called H zero
+00:18:03
+Which, in the case of maximum entropy is just a uniform and I will try in some family of distributions. Find the one which is the closest to this one.
+user avatar
+Unknown Speaker
+00:18:12
+Yeah.
+user avatar
+Lacoste-Julien Simon
+00:18:16
+Alright, so let's do a concrete examples.
+00:18:20
+Which I picked from Martin rain rights class.
+00:18:25
+So imagine rain. Right, by the way, is Canadian if you didn't know, I think it's from Toronto.
+00:18:30
+And he likes beer. So
+00:18:34
+So,
+00:18:35
+By the way, my rights if you don't know is a faculty at UC Berkeley in the electoral in in the CCS department, very famous machine learning person.
+00:18:44
+And
+00:18:46
+I think I took it from from this class. And so basically says, okay, you're going to Australia and you observe a bunch of kangaroos.
+00:18:55
+And you will have observed the proportion of kangaroos, which are left handed seals you observe that three quarters of the kangaroos in Australia.
+00:19:05
+Or left handed.
+00:19:08
+How do you know that they're left handed. Well, because they're carrying their beer with the left part
+00:19:14
+And then you also observed that the proportion of kangaroos which like Labatt beer, very famous Quebec beer. So I don't know why do you have it in Australia, but why not the drink Labatt beer.
+user avatar
+Unknown Speaker
+00:19:29
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:19:32
+So these are marginal observation.
+00:19:35
+So you know that when you look at marginally on on how many kangaroos or left handed, it's three quarter and the marginally the number of them which drink beer is to third
+00:19:47
+Not want to ask us, the joint, what's the proportion of kangaroos, which are both lifted and drink beer. Right. So the question is,
+00:19:57
+How many kangaroos.
+00:20:01
+kangaroos.
+00:20:02
+Or both.
+00:20:05
+Left handed
+00:20:07
+And drink.
+00:20:12
+Fear.
+00:20:15
+It's an important deep question.
+00:20:24
+So,
+00:20:27
+And so here, if you use the maximum entry principle is you'll say okay concert. Now, the set of joint distribution.
+00:20:34
+On both the observation of whether a kangaroo is left handed and whether the drink beer.
+00:20:40
+So there's like, you know, there's four possibilities, right. So it's a discrete space of four possibilities. Either kangaroos left handed.
+00:20:47
+It doesn't drink beer that whether they're left handed and drink a beer, etc. For both object. So it's like to. It's like observing to conflict in some sense.
+00:20:56
+And over all these distribution you have constraints on their marginals, so because you observe the marginal. So you would like that the joint distribution satisfy the marginal which you observed
+00:21:06
+Now there's still an infinite number of distributions, which satisfy these marginal. And the question is which one among all these should you pick it. So the maximum entropy principles as well, just pick the one which has maximum entropy. And in this case, the maximum entropy solution.
+00:21:22
+Exists is to the reader after way we'll see later is actually the one which just says that these two observation or independent. So, the matrix maximum entropy solution.
+00:21:33
+Here will say that
+00:21:36
+The joint on whether you drink.
+00:21:42
+Why is it be okay Labatt beer and you're left handed is just
+00:21:49
+The proportion the product of these marginals, right. Okay, so you just assume that they're independent
+00:21:59
+So, so basically B equals one and left Labatt equals one. So that's just mean the proportion of kangaroo, which both drink beer and our left handed.
+00:22:11
+Is just a product of their margins, because its independence in some sense by doing maximum entropy. We decided to be as less committal as possible.
+00:22:21
+Which we suppose there's no correlation between these because it makes things more complicated and, in particular, actually reduces the entropy of the distribution.
+00:22:36
+Okay, so that's the general idea. And so then if we formalized more specifically
+00:22:44
+How to get these constraints.
+00:22:48
+So how do we get the set em.
+00:22:53
+From data. So, by the way. So, the maximum triple principle is just very general like that is I have some subset of distributions. According to some whatever that that driven constraints and then I speak the one which maximizes entropy
+00:23:09
+And what the most standard way to get constraints.
+00:23:15
+But it's not the only one. But that's the one we would consider is, is actually to look at empirical moments.
+00:23:22
+And
+00:23:25
+Empirical
+00:23:27
+Moments.
+00:23:32
+And so when do we defined by the feature of the empirical moment. Well, so we'll define some functions that we call feature functions.
+00:23:42
+Which makes some measurements of the observations. So we'll have
+00:23:47
+An actually here I'm using here the notation of the exponential family because that's what we see when we do the duality. So I will have say d feature functions. So the features.
+00:23:59
+Which are measurements of my observation.
+00:24:06
+And so, for example, a measurement could just be x, right, or x square or x cubed.
+00:24:14
+And that's why I call them moments because when you take expectation of this you will get expectation of X exposition of experience within your excuse but these function could be much more complicated just x or x squared. Right.
+00:24:25
+In the case of the lab at beer. It was an indicator function. So the it was like, oh, is x equals two is the the the bat observed piece of x equal to one.
+00:24:38
+So that was the nice feature function and then the given these feature function which are just measurement of the data. You will define the set m
+00:24:48
+As the set of distribution, such that when you take the true expectation respect to your expect to have your distribution of these feature function.
+00:24:58
+They are actually equal to the empirical observed
+00:25:03
+Mean of these features. So the observed empirical case. Okay, so I take, I use the P and hat notation for the empirical distribution and here it's just the empirical expectation
+00:25:16
+And you want this to be true for all your
+user avatar
+Unknown Speaker
+00:25:20
+Feature function.
+user avatar
+Lacoste-Julien Simon
+00:25:23
+And so you want that the
+00:25:26
+Model. So, so this thing here on the left.
+00:25:33
+This is the model.
+00:25:36
+Expected
+00:25:39
+Feature count.
+00:25:43
+So that, what's the model would predict would be the expectation of these feature. And these are the empirical feature count.
+00:25:57
+Okay, so that's why we call this like moment constraints, because if the feature.
+00:26:05
+Would be like something simple like x or x square, whatever, then you would have the expectation of X matches the empirical average on the data of x, for example. So these would be this kind of constraints.
+00:26:19
+So Jacob is asking the constraint set em in the kangaroo cases that submission, which have those marginals, yes. So in the in the kangaroo case. So the kangaroo case.
+00:26:29
+We had that
+00:26:32
+T one of x was basically the indicator of
+00:26:38
+X.
+00:26:41
+So can do x
+00:26:44
+Drinks Labatt
+00:26:49
+And tea to have X would be the indicator of x.
+00:26:57
+Is left handed.
+00:27:03
+Okay, so I would have those two indicator function when I think the expectation. The becomes probably t. Right. And so, and and and PL
+00:27:13
+And PB here. We're I guess I could have used perhaps to make it simpler. These would be hacked. These were empirical observation and let's put that here that will be cleared and
+00:27:25
+And so, as this is temporary.
+00:27:28
+Teck Teck Teck and so I have observed the empirical counts of these observation and I, why did I
+00:27:40
+And now all I want is that the true model marginal
+00:27:46
+would match the empirical observation.
+00:27:55
+There constraint that p hat is an m is hard, right.
+00:28:04
+depends which P at we're talking but but here.
+00:28:08
+This p hat, which is our prediction by definition will satisfy the constraint is
+00:28:15
+But you have to be careful pee.
+00:28:20
+pee and hat this hat does not have to satisfy. In general, the constraints. But here, by definition, it will because if I take the expectation here respect to pee and hat, then you see
+00:28:36
+It will satisfy the constraint, because it's on both on both sides, but in more general type of constraints we could have that TN hat doesn't belong to our family because, for example, we could
+00:28:46
+We could regularize I don't know we we we might want to have a distribution which which doesn't put all the math somewhere but
+00:28:55
+Are these moments in any way similar to, for example, central moments. Yes, so central moments is the expectation of X minus mu, for example. So, or x minus square. That's the variance, the uncensored moment is this expectation of X and X squared to throw
+00:29:14
+Then, and here these are more like generalized moment because there they don't have to be the standard moments of x, x squared, etc. But
+00:29:22
+We call them like basically still moment constraints, by analogy.
+00:29:30
+So Dora, you're confused why we look at counts here as the feature function.
+00:29:38
+Can you explain more your confusion.
+00:29:44
+Talk to us.
+user avatar
+Dora Jambor
+00:29:48
+Okay, let me on spot.
+00:29:51
+Yeah, I'm just not following, I guess, in general, like why do we use these feature functions.
+00:30:00
+So,
+user avatar
+Lacoste-Julien Simon
+00:30:01
+So the idea is we're designing now. Right now I'm getting I'm giving you a general formula to design the learning principle.
+00:30:10
+Okay. And so the idea here is, I will make some measurements on my observation.
+00:30:17
+And these measurements will be defined by these feature function. So for example, in the case of the the kangaroo example.
+00:30:27
+It was also trivial because there was only two possibilities. But let's say instead of talking only about Labatt beer.
+00:30:31
+And left handed. I could also talk about eye colors and other features, but I'd say we don't carry about Eichler. Okay, so then we say is like the two measurement will make is
+00:30:41
+Is the kangaroo drinking beer and is the kangaroo left handed. So these are the two feature function. Okay, and now
+00:30:52
+We will restrict ourselves to the set of distribution which make as their their their model expectation of these feature function.
+00:31:02
+The same as the observed empirical moment the empirical expectation of these feature function. And so in the case of a kangaroo. We want that the so then when I take the expectation of the
+00:31:17
+Indicator. It just gives me my probability
+00:31:21
+And
+00:31:23
+That's the model expectation and when I think the empirical expectation, it will just give me the proportion of time I observed something right so then we will say, okay, we want that the policy that we predict that something
+00:31:38
+At the kangaroo drink beer should match the empirical proportion of the movie with drinking beer. So these are the constraints.
+00:31:46
+So, and so that's a way to design constraints on the set of distributions from data and then the maximum entropy principle was, say, well, there's a lot of distribution, which is why these constraints.
+00:31:55
+And we will choose among this infinite set of distribution, the one which maximize the interview.
+00:32:01
+And then we'll see in a few minutes, that this is equivalent to defining a parametric exponential family on the data and doing maximum likelihood in this parametric explain as much of me okay though. In general, if, if
+00:32:15
+You have
+00:32:19
+In general, the moment the maximum entropy could be different. And we'll see where
+00:32:26
+One day be cases where the true distribution doesn't have some moments, but the empirical moments always exists, then the transmission won't even be part of em.
+00:32:39
+One there be cases where the true description doesn't have some moments, but the political movements always sure let's say for example,
+00:32:47
+But I mean, here we're talking about the discrete space. So the true distribution is pretty simple. But let's say we would had a continuous space which is also you can do this principle for continuous space.
+00:32:58
+Let's get to the solution is a cushy and it's saying that we do maximum entropy, then the meaning of a cushy doesn't exist, but the empirical mean will always exist, right. So then there would be a problem. Indeed.
+00:33:20
+OK, so now
+00:33:23
+Let me
+00:33:25
+formalize this maximum entropy problem as an optimization problem.
+user avatar
+Unknown Speaker
+00:33:31
+Alright.
+user avatar
+Lacoste-Julien Simon
+00:33:33
+So the maximum entropy problem.
+00:33:38
+As an optimization problem can be seen as minimization.
+00:33:42
+over q
+00:33:45
+And Q can be represented. When you have only K observation K possible values for the random variable for the sample space.
+00:33:54
+Is just
+00:33:56
+A subset of art of decay.
+00:33:59
+And you want to minimize the kale between que en the uniform distribution.
+00:34:05
+Such that
+00:34:08
+Q belongs to em en que is also a correct distribution. So I would use this this notation quality siblings.
+00:34:17
+So it's basically a constrain minimization problem and actually it's it's a convex musician problem because the key is convex. I told you, and Q belonging to men can be written with linear constraints. So it's summation over x.
+00:34:32
+Q of X T g of x.
+00:34:36
+That's the true expectation of TG I want this to be equal to
+00:34:44
+One over N summation over the observation training set of TG of x i think
+00:34:54
+And we've called this alpha, Jay.
+00:34:57
+Will just give a value for the empirical
+00:35:02
+Feature counts for every dimension of my feature.
+00:35:07
+Map, which is called them alpha g again. So you can actually see this as I take the inner product between Q seen as a vector because you know it's a it has key values. So it that's key components. And there's some to one and they're positive, but is it is just a vector and
+00:35:25
+TJ.
+00:35:27
+Could also be seen as a vector. What's the TJ value for every possible X, which I have key possible observation X and I want them to be equal to alpha g
+00:35:38
+This thing here is just a product
+00:35:42
+summation of x could be seen as each of the component
+00:35:46
+That's why I'm saying it's a linear constraints over q. And so this is actually a convex constrained optimization problem.
+00:35:58
+over q
+00:36:02
+Which is belongs to
+00:36:08
+I guess which belongs to the poverty simplex
+00:36:13
+Which is a subset of our to the X Men.
+00:36:20
+And so now
+00:36:22
+There's some questions.
+00:36:30
+Okay, so somebody is asking. Oh, what happened when you mix maximize the entropy when the
+00:36:37
+When the, the true distribution is not part of your constraints set right because the empirical moment because the the
+00:36:51
+For example, like we define here, the set of distribution, such that the true moment mesh network, a woman. So if the true moment doesn't exist, and it certainly doesn't match the empirical
+00:37:05
+Well, I think we're getting in very weird len anyway because usually most distribution would have their moments to exist. I think this is a bit like
+00:37:13
+A corner case because of like we are the solution that cushy I think also, one thing to keep in mind is that will you're minimizing the kale between your decision Q and A uniform right so
+00:37:26
+Even though the true distribution doesn't belong to it, then you will you will just try to find
+00:37:38
+Yeah, so in by and, more importantly, I guess the
+00:37:44
+The true distribution doesn't appear anywhere in this formulation. Right. So you use the empirical observation to define em.
+00:37:53
+But the ratio between the empirical observation and the true distribution or not direct
+00:38:02
+And so yeah, so I would say, let's not worry too much about this case, it's, it's a good question isn't killed, but I think
+00:38:11
+First, find a concrete example where this is the case, and then analyze it and then we'll see what will happen, but it's I can actually do that online unfortunate.
+00:38:27
+Okay, so
+00:38:30
+Perhaps. All right, let's do
+00:38:33
+It and then we'll take a break.
+00:38:38
+So,
+00:38:40
+Before showing the equivalence between maximum entropy maximal magnitude in expression of me. Let's do a quick recap.
+00:38:52
+On Lagrange enjoy it.
+00:38:55
+And I'll basically just present
+00:38:58
+The part that we need. Okay. And I will give you pointer for more details. If you want to go deeper on this topic.
+00:39:12
+All right, so
+00:39:15
+Because if you remember when I did the when they use the lead grants multiplier method when we did maximum likelihood in the multi Neue
+00:39:23
+Problem. For example, I just introduced language multiplier and then take the gradient equal to zero and that's right. So I didn't talk about the equivalent dual problem. And so in order to talk about the dual problem. I need to talk about like engine royalty and in more details.
+00:39:40
+So let's talk about the convex minimization problem.
+00:39:46
+Let's say I have a convex minimization problem.
+00:39:54
+Men over x of f of x. So now I'm basically immunization. So x is no more like an input x is just a variable optimizing so you can think of it as the parameter of a model.
+user avatar
+Unknown Speaker
+00:40:10
+But
+user avatar
+Lacoste-Julien Simon
+00:40:11
+And basically, we will make these assumptions. So f and f j. Oh, yeah. Okay. Sorry. So I need, I need to talk about my constraints. Alright, so
+00:40:22
+So, such that I will have basically constraints which I'll express as inequality constraints like this. So this is for j equals one, up to em and I will have equality constraints.
+00:40:39
+Which are expressed like this. Je je je je je X. Oh wow, that's complicated for
+00:40:48
+I guess I'll use Kingston for these
+00:40:52
+GK there we go that's problematic for all key.
+00:41:02
+Guess perhaps notation ways this is clear, like this.
+00:41:07
+In one up to
+00:41:10
+And I guess so. I have and here x belongs to say RD. Okay, so I have a two dimensional problem.
+00:41:20
+I have em inequality constraints and N equals the constraints and basically you will assume that f and f j are complex function.
+00:41:36
+In GK are a fine function. So I find just mean linear plus perhaps a constant.
+user avatar
+Unknown Speaker
+00:41:45
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:41:47
+And so when the constraints are of this farm Fj small equal to zero and g k equals zero and all the functions f and f g or convex NGK is convex, that implies. That's what you call it convicts constraint musician problem.
+00:42:05
+And so if GK is not just linear. It's like convicts a then it wants to be a complex problem. So, for example, like if you have
+00:42:14
+X square equals one, which is basically x squared minus one equals zero. So this is a complex function, but x squared equals zero will give you a set of possibilities which is
+00:42:26
+Minus one in one, which is not a context for the physical set on the convex. So that's why it's what we call a convex musician.
+00:42:34
+So this gives you
+00:42:37
+This implies that
+00:42:39
+Context problem.
+00:42:46
+I am having trouble writing
+00:42:50
+Why am I having trouble writing
+00:42:55
+convicts
+00:42:57
+Problem.
+00:42:59
+And this constraint.
+00:43:03
+Problem will be called them primal problem.
+00:43:09
+Because we will derive now through the eventually T and the equivalent or potentially equivalent do a problem.
+00:43:17
+All right, and so in Lagrange and duality, you define the Lagrangian function.
+00:43:25
+With the Lagrangian multiplier. If you remember, but now it's a bit more general because I also have inequality constraints. Before I only talked about equality constraints. Now also talk
+00:43:34
+About inequality constraints. So it will be a function of the original variable plus
+00:43:40
+You will have also the Lagrange multiplier, which are some sense will see later called dual variables and by definition this is the original function that you minimize and then what you do is you take a linear combination
+00:43:55
+Over all the constraints.
+00:43:58
+Of
+00:44:00
+The Lagrange multiplier times the constraint function and then the same thing for the inequality one equals one up to n.
+00:44:09
+New K Ji Ki, Alex. Okay.
+00:44:15
+And so, and so these
+00:44:19
+Variables are called the Lagrange multiplier.
+00:44:36
+So somebody is asking F and G should not be interchange
+00:44:44
+Can you elaborate on your question finish.
+00:44:51
+And
+00:44:57
+So, so I mean that you could name, anything you could name, F, G, H, I, J, if you want, but the important is that the the
+00:45:12
+The inequality allowed to be convex, but the equality cannot be convicts function, you have to be i mean the the next function, but they're very specific complex function, you have to be a find function for it to to work.
+00:45:28
+Hopefully that answers the question.
+00:45:32
+Okay, so let me talk about the magic trick.
+00:45:36
+Of leverage and do it.
+00:45:44
+So the magic trick of ingenuity.
+00:45:49
+And this is called the subtle point interpretation.
+00:45:56
+Because we will express the original constrain minimization problem as finding a subtle point, we'll see that
+00:46:06
+So let's consider the function h of x.
+00:46:09
+Which will be the maximization.
+00:46:14
+Over positive language multiplier for the inequality constraints and any new
+00:46:23
+Of the Lagrangian function.
+00:46:27
+Okay, let's look at that. Well,
+00:46:31
+If
+00:46:34
+F of x, if x is feasible.
+00:46:39
+So if x is visible. This will be smaller than zero and this will be zero.
+00:46:45
+Right, because these are my constraints.
+00:46:50
+Did I forget the temporary ink. I did. Oops.
+user avatar
+Unknown Speaker
+00:46:54
+Oops.
+user avatar
+Lacoste-Julien Simon
+00:47:02
+All right, so
+00:47:06
+So I said this is smaller than zero and this is zero.
+00:47:11
+If x is feasible, which means that
+00:47:14
+When I maximize respect to lambda is positive, this is negative. So this is always negative.
+00:47:20
+And this doesn't matter any new because it's multiplied by zero. So for physical
+00:47:24
+Then the optimal value of this problem is to set lambda equals zero. Because if I put a positive lambda, this is negative, it will just be a smaller value. Right. And so I set lambda equals zero, new doesn't matter. So the soup of this when x is feasible is just f of x.
+00:47:41
+So this is equal
+00:47:43
+To f of x, if x is feasible.
+00:47:48
+Or he satisfied all the constraints.
+user avatar
+Unknown Speaker
+00:47:52
+Feasible
+user avatar
+Lacoste-Julien Simon
+00:47:55
+And if x is not feasible. So consider that there is some inequality which is strictly bigger than zero.
+00:48:05
+Then I can have the corresponding lambda j and blow it to plus infinity. And then I'll get plus infinity.
+00:48:15
+And for any constraints which is not satisfied, I can always do that when I do so. Yeah. So somebody is asking what's the stupid Superman.
+00:48:23
+Superman is like a maximum, but it's more formally defined because maximum sometimes are not reach with Superman always defined, even if the actual maximum is the maximizers is is not reach. Okay.
+00:48:38
+So,
+00:48:40
+So if x is not feasible. This is actually plus infinity.
+00:48:52
+So the cool thing here is by this language and function.
+00:48:55
+And take the max over these negligent multiplier. I kind of implicitly defined the constrained optimization problem, right.
+00:49:06
+And so let's look at it. So an equivalent
+00:49:13
+Problem.
+00:49:15
+To the primal problem.
+00:49:18
+Which was the constrained optimization problem.
+00:49:24
+Is to take the minimization over x.
+00:49:28
+Of HR X, which I told you was the soup.
+00:49:35
+Linda positive and any new of the Lagrangian function.
+00:49:42
+Okay and this is he looks
+user avatar
+Unknown Speaker
+00:49:46
+Right.
+user avatar
+Lacoste-Julien Simon
+00:49:47
+And this h of x is a fancy
+00:49:51
+Non smooth function.
+00:49:57
+None smooth means that it's not doesn't have niches gradient and, in particular, it has plus infinity outside the feasible region. So it's a really ugly function.
+00:50:07
+But the nice thing now is I can think of minimizing this crazy function over X with no constraint. Right, so I got rid of the constraint.
+00:50:16
+So that's the the by using this Lagrangian function and maximizing this nitrogen function I express my my original problem is an unconstrained musician and then the duality trick is to swap the ends with the soup. Okay.
+00:50:33
+So I have an inferior and I have a super sorry
+00:50:39
+And the duality trick.
+00:50:46
+Is to swap these
+user avatar
+Unknown Speaker
+00:50:50
+In and soup.
+user avatar
+Lacoste-Julien Simon
+00:50:54
+Okay, so instead of doing instead of soup of the engine and not consider soup of info the languages. And that's the jewel problem. Okay. So let's write this
+00:51:07
+Soup.
+00:51:11
+Soup.
+00:51:13
+Lambda bigger than zero, new of my leg and then in
+00:51:20
+Of x
+00:51:23
+Of the leverage infection.
+00:51:30
+And so that's a different problem in general.
+00:51:35
+And then somebody asked
+00:51:38
+Till now, we haven't tried to use convexity or find right yes right now. This is true for any problem.
+00:51:46
+There convexity will be used to get strong do it and to have equivalent dual problems. That's what we'll talk very soon about and it is asking what it means in physic infamous which is the opposite of Superman, which is basically like minimum, but in a more formal way.
+00:52:04
+Alright so this end.
+00:52:06
+Of
+00:52:08
+The Lagrangian function is what we call the dual the Lagrange dual function. So this is a function which only depends on lambda and new and this is what we call the Lagrange.
+00:52:22
+Dual
+00:52:24
+Function.
+user avatar
+Unknown Speaker
+00:52:27
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:52:28
+And the Lagrange dual problem by definition.
+00:52:35
+The Lagrange dual problem.
+00:52:41
+Will be the maximization of this function which is the soup over lambda positive and new of the function as London.
+user avatar
+Unknown Speaker
+00:52:53
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:52:54
+So that's the Lagrange dual problem.
+00:52:58
+And
+00:52:59
+These variable here or whether we call now the dual variables. So they'll have their government supplier are now seen as the dual variables.
+user avatar
+Unknown Speaker
+00:53:08
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:53:12
+Alright.
+00:53:14
+So now why do we do that. Well, there are multiple reasons.
+00:53:23
+So the first thing is
+00:53:29
+We started with a problem where you had fancy constraints on x.
+00:53:36
+And now we get a problem where the constraints are s s s kind of disappear, right, because there are a simple constraint on lambda, but that's it.
+00:53:47
+Okay, so we have kind of simplified the constraint set and, moreover, to compute the dual function. It's unconstrained minimum of this function.
+00:53:56
+So sometimes this can be obtained in close form. And so actually you can get a much simpler problem than the original problem when you do that. Okay.
+00:54:06
+And
+00:54:08
+I will explain very soon that this central problem sometimes can give you the answer on the original problem. There was an equivalence between them in right now. This is just a different problem. But I will
+00:54:20
+Talk about some relationship between those problem and then instead of solving the primal, you could decide to solve the duel, and then transform the solution to the primal and explain quickly how to do that.
+00:54:30
+And so that explains why we had this soup. Right. So, so the the so somebody is asking, okay, why did I define the soup. Well,
+00:54:39
+Basically, it was a way to rewrite or constraints in a in a in a kind of like specific form because by defining this language and function and taking the soup. I basically guess this function h year which is equivalent to the original function on the feasible set only
+00:54:58
+So it's a way to encode the physical constraints and then
+00:55:05
+It turns out that min max is often equal to maximum, which is why, you know, we said, Oh, what about if we interchange the order
+00:55:12
+If we didn't charge order, we get the soup outside in inside and then I will talk about when is this equivalent when are dumb in Mexico. Mexico, but one thing which is important to mention is that also the dual problem has very nice probably is that this dual
+00:55:29
+Dual Function is always concave
+00:55:35
+As
+00:55:39
+This function.
+00:55:42
+Is always concave
+00:55:48
+Okay. And that comes from the fact that when you take minimization.
+00:55:53
+So you have here that
+00:55:57
+Each
+00:56:00
+As a function of
+00:56:02
+change color. So there's a function of lambda in new. This is basically linear in lambda and new and the linear function is concave
+00:56:10
+And the minimization of a function is always concave. Okay, so basically the way you define a dual function is by minimizing some function which are actually concave
+00:56:23
+And and the plot here is here's a concrete function. Here's another key function. If I take the minimum of these to function, I get this function and this function, even though it's not smooth, it's still complete ok so the immunization.
+00:56:38
+Of concave function.
+user avatar
+Unknown Speaker
+00:56:41
+Is concave
+user avatar
+Lacoste-Julien Simon
+00:56:43
+And that's why the nitrogen to all function is concave, even though their original function could be anything. It could be non con comics. Okay.
+00:56:51
+Alright, so now let me fill in the last remaining details and then we'll take a break and then you can ask as many questions as you want. So in general, it turns out
+00:57:05
+That the soup in
+00:57:09
+Of x lambda new is always smaller than the soup of L x lambda
+00:57:22
+And this is called week. Do it.
+00:57:28
+Some sense when you solve your dual problem you'll obtain a lower bound on the primary problem because the primary problem is this thing here.
+00:57:37
+And a dual problem is maximizing this in which is a dual function and we say that the dual problem will always give you a lower bound on the panel problem. And this is always true. This is just buy properties soap, and if it's actually pretty easy to prove. And this is always true.
+00:57:58
+And now.
+00:58:00
+There's this concept called strong duality.
+00:58:08
+Which will say that in this case the soup in of L will be equal to the end soup of L. So it would get the same optimal value.
+00:58:21
+And
+00:58:24
+There are constraints on your problem to be able to prove strong do it.
+00:58:30
+And so example of sufficient conditions to get
+00:58:36
+Strong do it.
+00:58:38
+Is when the primal problem is convicts
+00:58:44
+Which is why I talked about convicts
+00:58:48
+Earlier. So the primal problem.
+00:58:52
+Is convex
+00:58:55
+And you have something called some constraint.
+00:59:01
+Qualification condition.
+00:59:06
+Which means your constraints are well behaved and they're not weird such that strong do it hold and a name for that you can look it up in Wikipedia outline Boyd's book is called Slater's condition.
+00:59:20
+And I won't go into these detail in the interest of time, and because also, it's not the focus of this whole lecture.
+00:59:30
+But it's just to give you the keywords so that you can look it up.
+00:59:34
+And so then you get strong do it so you so that means that gives you a way to get the optimal value of the original primal problem by the solving to do a problem because it's give the same value.
+00:59:44
+Now, what about the ark, Max. And so that's a very important question. So how do you get a star.
+00:59:52
+And so there's this thing called kick et condition.
+00:59:57
+Which allows you to read derive the prime the optimal primal variables. So the optimal primal variables. So, x star, which often can be derived as a function of the optimal do our variable lambda star new star.
+01:00:13
+Using the kitty conditions.
+01:00:18
+And so basically the kitty conditions they are necessary conditions for optimally to have the primal in the dual problems.
+01:00:26
+And they will be non linear equations, which depends on both the primary and the dual variables. And so if you saw them. And if you've solved the dual problems to get
+01:00:38
+The do all optimal to a variable. Often, you can find uniquely. What's the corresponding primal problem which satisfy the kitty condition which, in some sense, gave you. Now the solution of the primal problem as well.
+01:00:55
+And so for more details and all that. See Chapter five of Boyd's book. I'll put the link in the note.
+01:01:05
+But it's really well to explain in this book on both the subtle point interpretation, as well as other interpretation of language and do it. Okay, but the main takeaway for you that we will use is that
+01:01:20
+To get the dual problem. We first compute the dual function.
+01:01:25
+Which is by minimizing the Lagrange and function like this respect to x, which is unconstrained minimization, and then the drug problem is to maximize this Lagrangian function.
+01:01:36
+Okay, and that's what we'll see that the maximum entropy problem will be equivalent to the maximum likelihood inexpensive family is that when we compute the dual problem in the, in this case will get maximum likelihood inexpensive.
+01:01:50
+Alright. So Jacob is asking that. Is it true that in the dual problem f g n g k or like the language multiplier as lambda doing the problem, problem. I don't think so.
+01:02:01
+Because
+user avatar
+Unknown Speaker
+01:02:03
+You know,
+user avatar
+Lacoste-Julien Simon
+01:02:05
+I don't think it's symmetric. So to Lagrange enjoy it, unlike, unlike financial duality franchise conjugation. It's not the symmetric thing. Like if you take the language. Do all over again to do it. Honestly, get back to the exact same problem depends how you massage things
+01:02:22
+But I think there might be a way perhaps to make these relationships, but I'm not familiar with.
+01:02:27
+Is there any other questions before we go to the break.
+user avatar
+ezekiel williams
+01:02:34
+We asked a question.
+user avatar
+Lacoste-Julien Simon
+01:02:35
+Yeah, is it kill
+user avatar
+ezekiel williams
+01:02:37
+Um, I was wondering is, is this at all. Similar to this framework like useful or related in some way to
+01:02:47
+To like the zero sum game, kind of framework that you would see in the optimization of like general or generative adversarial networks. Yeah.
+user avatar
+Lacoste-Julien Simon
+01:02:58
+Yes, it's related though it's not exactly the same. So in a
+01:03:04
+min max problem you have this kind of settled point structure where you will have
+01:03:10
+Was up all this is a min. This is a max. Right, so, so, so again, some sense can be written as a min max revelation, so it's it's written as a min and max of something
+01:03:20
+Okay, and
+01:03:23
+And you can see here that I can transform the men of a problem to a max of another problem using leverage and do it. And so
+01:03:34
+So okay, so there's two things I want to say first is that the link the the most straightforward link. Is that a min max is also a central point problem because you have this min and max which appears in language and
+01:03:48
+The second thing you can do is if if you had some complex problem, ie, you could do the language and do all of your problem, respect, some of the variables. So,
+01:04:00
+Let's say have men over my parameter W and then max over alpha something of L M w enough of it. Perhaps I'll use
+01:04:11
+Non temporary Inc here. So this is side.
+01:04:15
+For it again.
+user avatar
+Unknown Speaker
+01:04:17
+So,
+user avatar
+Lacoste-Julien Simon
+01:04:18
+Side note, let's say I had men over W max over
+01:04:27
+That say alpha have some L of W alpha
+01:04:32
+Okay. And actually this I cover that in my advanced structure prediction and optimization class next year what you could do is you could do allies this max by using language ability to get basically an equivalent minimization respect to lambda of
+01:04:51
+L tilde, which is not a function of w n lambda
+01:04:56
+Will LT Lt is the dual function of the original problem. Okay. And so the. Now the nice thing is by using the maximization problem.
+01:05:05
+I got the minimization problem and I have men over respect to w men respect to lambda of something and it's just a standard musician, so I can transform my complicated min max structure.
+01:05:15
+Using do it to a simple Min Min structure. And that's, and then you can just use standard musician technique.
+01:05:22
+And so, so you can use language and duality to transform and Max two Min Min and then use standard tools and that has also be done for again but
+01:05:30
+Because then you need to convict city to get these kind of tools. It's not super that's useful but I mean it is useful, but it does not super applicable for again because these are usually non comics.
+01:05:41
+Okay.
+01:05:42
+Good question.
+01:05:44
+Alright, so let's take a 10 minute break. It is
+01:05:48
+340. So let's come back at 350
+01:05:53
+And I'll take more questions after the break.
+01:06:01
+Resume recording
+01:06:06
+Okay so Dora asked a question about a quote from Boyd, which said that dual function is the point. Why is in film have a family of a fine functions of lambda new
+01:06:18
+Thus it is concave, even when the original problem is not convicts. And so that was what I was explaining here. So if I have to come K function.
+01:06:29
+And I take the min of these too clunky function everywhere. I get this function here, which is also concave so
+01:06:38
+So this was the main between two functions, instead of having two functions, you could think of Avid an infinite number of functions. This principle is the same.
+01:06:46
+And so as long as you, you take the, the minimum is a you define your new function as the point wise immunization. That's all it means. I look at this point, I take them in between my two function.
+01:06:58
+And that's what my value of the function is defined. And so that's what you mean by point wise immunization. And so as long as all these function or individually.
+01:07:08
+Convex concave sorry in the variable that you care about. In this case it's lambda in new. Then there are the new function defined by taking the men.
+01:07:17
+Over all the possible function. So some sense here. You can think of x as an index. So for any fix x, this thing is a function of London and New only x is just fixed right
+01:07:32
+And so to get the function. The dual function as a function of lambda new I take the men. Where's that I take the men respect to x. So respect with this index of these function of lambda and new
+01:07:48
+And these function as a function of alumni new or concave because it's linear in London, and this is a complete function. It's connecting. Okay.
+01:07:56
+Okay that clarifies things door.
+01:08:00
+Is there any other question about like ingenuity.
+user avatar
+ezekiel williams
+01:08:09
+And crappy question about a point kind of further up in the entropy section. Sure.
+01:08:17
+There is it possible to scroll up it
+user avatar
+Lacoste-Julien Simon
+01:08:19
+Where do you want me to go
+user avatar
+ezekiel williams
+01:08:22
+Up so just be under or just above where you started talking about the grass duality.
+01:08:30
+I'm Jeff Rick here.
+01:08:32
+I didn't follow on the right, when you go when you have the box on the left with Max entropy inside it. And then there's an arrow over to the equation on the right.
+01:08:45
+Yeah, I
+01:08:48
+Guess it's probably a silly question, but for some reason I didn't see where the queue X went from the left hand side of this to the right hand side.
+user avatar
+Lacoste-Julien Simon
+01:08:55
+So, Q is a distribution which satisfy some moment constraint. So now I'm explicit sizing the moment
+user avatar
+ezekiel williams
+01:09:02
+Constraint.
+user avatar
+Lacoste-Julien Simon
+01:09:03
+We said that the expectation respect to queue of these
+01:09:06
+Feature function. So the expected expected queue is summation aroma possible that you were X of qx TG of x, right. So this is the same thing as so this thing here is just the expectation respect to queue of TJ of capital.
+01:09:24
+That's a rewriting of that.
+01:09:26
+Okay. And then on the right is the same thing, but with the empirical distribution.
+01:09:31
+And so these give me constraints on cute.
+01:09:36
+Okay. And, and I use a bit of meditation here, I says, Well, if you think of Q as a vector in our to the k. So, for every possible x, you have a value of x.
+01:09:48
+This thing here is just a duck product between the vector q and the vector TJ, where each component of TJ is what the value is at x right
+01:10:02
+And so there's
+user avatar
+ezekiel williams
+01:10:02
+These are linear constraints.
+user avatar
+Lacoste-Julien Simon
+01:10:03
+Which is why also you get a you get a. These are equality constraints. So he has to be linear, and other to have a complex problem. And so indeed, this is believe
+01:10:13
+Okay.
+user avatar
+ezekiel williams
+01:10:15
+Great.
+user avatar
+Lacoste-Julien Simon
+01:10:15
+Alright, so, so let me write this down. Because now we will derive the dual problem.
+01:10:19
+So let's do that and have your mind blown
+01:10:25
+So,
+01:10:27
+That's derived the dual problem.
+01:10:32
+For the max for maximum entropy
+01:10:37
+Using migrants duality.
+01:10:40
+And here we have actually a strong ability. So it will be any equipment problem.
+01:10:45
+Alright, so let's consider max and in the primal form.
+01:10:53
+And then will derive the dual form.
+01:10:57
+So we call the problem P for primal
+01:11:00
+So we want minimization over queue, which are basically in RK
+01:11:07
+And we have the kale between q and you right and so you have x is the uniform distribution.
+01:11:16
+Which is just one over the number of observations, but I'll keep you as you because we'll see what would happen if I replace new by age, how it will change a solution in the end. So that's why I'll keep it at you.
+01:11:29
+So the KL by definition is a submission over x cubed x log of x divided by UX right
+01:11:40
+So that's what I'm trying to minimize
+01:11:44
+Which we said was the same thing, minimizing the kale between Q AMP a uniform is the same thing as maximizing the entropy of cute.
+01:11:51
+And I need to write my constraints. Right. So I have the constraint q of x is bigger than zero for all x
+01:11:59
+And I have summation over x.
+01:12:04
+Of q of x is equal to one, because this is so all these is just saying that it's probably the simplex constraints.
+01:12:14
+And then I have my moment constraint which is summation of x q of x t g of x is equal to alpha g for LG
+01:12:25
+So this is my primal problem.
+01:12:28
+Okay.
+01:12:30
+And all these constraints here specify the set, em, right, the set of distributions, which I consider and then I want to find the distribution among in EM which maximize entropy or minimize the kale with a uniform
+01:12:46
+And to simplify the derivation. I will use the usual trick where I won't care about the inequality constraint.
+01:12:53
+So we will absorb
+01:12:57
+This constraint in the domain of definition of the kale.
+01:13:07
+Definition of the kale.
+01:13:13
+I eat IE.
+01:13:16
+I can say that the kale between q and you will be defined to be
+01:13:23
+Plus infinity if
+01:13:26
+Q of x is negative.
+01:13:30
+For some mics.
+01:13:35
+And otherwise, it will be the kale between Q AMP you
+01:13:47
+And the thing here is that the kale act as a barrier function right as Q become closer and closer to zero when you is not zero.
+01:13:56
+The kale would become increasing it will increase it more and more. And when you set any q equal to zero because you is never zero, then it will set
+01:14:05
+It will really be a repulsion point. So that's why you will never be equal negative. But anyway, even if you wanted to put formal the negative Q, you could just define the kale in this case to be
+01:14:16
+And so the same way as you know when we did the mid to normal, we also didn't care about the inequality constraint we just looked at the equality constraint and use the language multiplier method on that. And when we
+01:14:27
+Solve the greeting condition we had that by definition or solution, actually. Well, no, it isn't. But by
+01:14:35
+The property, the problems the solution already satisfied and equally concerned. That's why we didn't need to include it. And we've do the same thing here, though, if you wanted. You can also introduce the inequality constraint is just that you will remove them later anyway.
+01:14:49
+Alright, so now, so that means I have
+01:14:55
+These equality constraints.
+user avatar
+Unknown Speaker
+01:14:58
+To
+user avatar
+Lacoste-Julien Simon
+01:15:00
+Consider in our
+01:15:03
+Lagrangian function, right. So let's look at the language and function, I will have its would be a function of the primal variable which is q
+01:15:11
+Just a vector in arc of the game and then I will have a dual variable, one for each equality constraints and actually explicitly separate the some to one equality.
+01:15:24
+And you'll see why soon because I would get rid of. But so normally I only had like new for all my political science, but here I will separate it first. So this is for
+01:15:35
+Summation over x q of x equals one and this is for the other equally T constraint.
+01:15:45
+All right. And so, and these are my my my dual variables right new and so by definition this is the original objective. So I have the kale. So it's summation over x.
+01:15:56
+Q of X lug of q of x, you have x. That's just make yell. And by the way, right, if you're uncomfortable with the functional notation, because he was just a final vector. You can think of q of x as just queue X right
+01:16:15
+Which if x was an index between one and Kate will just be that that that that ice component of cute. And so it's just the usual vector notation is just that.
+01:16:25
+This argument could be generalized to also infinite set X and integrals and stuff. So that's why I keep the Qx, but think of qx I just the the X X entry of the vector cute. Okay.
+01:16:45
+Alright, so
+01:16:47
+I have the kale and Omar is asking, I don't understand why the dual problem should be zone and primal in general, it's not the case. Sometimes it is
+01:16:57
+So so so for this, you need to look at a lot of examples and constrained optimization, which I don't even have the time, but I already gave you two hints for why this would be the case. One is that
+01:17:10
+Suppose there is no inequality constraint in particular. Suppose that I don't have any quality constraints in the original problem.
+01:17:16
+Then the dual problem is actually unconstrained right so if you don't like constraint example like you don't know about content optimization
+01:17:23
+Well, you can just use standard unconstrained optimization and a dual so that's often simpler.
+01:17:28
+And then the other aspect is that the dual problem is always concave and so even if the final problem is not
+01:17:35
+Convex so that's also because it's concave, it will be better behave. So that's usually will be nicer okay but but there's a but I think this is done by doing a lot of examples of
+01:17:49
+Like orange jollity which I encourage you to do if you're curious and and and there's a lot of an invoice book.
+01:17:57
+All right, in this case will see that it's not really I think it's, yeah. Because maximum. They couldn't express with me. Seems a bit more direct than the original problem. So we'll see that the dual here will also be quote center.
+01:18:12
+Alright, so this is the original problem. And then I need to add my language with the players. So it's summation over j of new J.
+01:18:20
+And then I have my equity constraint which has to be of the form something equal to zero. Oops.
+01:18:28
+And so I will massage this I just put this alpha G on the left, so that it's equal to zero. So, I basically get and the site doesn't really matter. So I can actually put this on the right by putting a minus. And then I get something equal to zero. So I get basically I want alpha g minus
+01:18:50
+Summation over x as
+01:18:54
+alpha g minus dimension x x
+01:18:59
+T g of x.
+01:19:02
+Oh, I would write it as the expectation just simpler.
+01:19:08
+Well, it's improved so that is faster.
+01:19:12
+Okay.
+01:19:14
+And then, so that's the part about the quality constraints for with alpha j. And then I have this some to one constraint. And I said, I use the the see dual variables because I will get rid of it. So this is one minus summation over x. QX
+01:19:33
+Alright, so that's my language and function.
+01:19:36
+So to get my leveraging dwarf function, I need to minimize this language and function respect to X unconstrained
+01:19:43
+So if I minimize this respect to x, I will find stationary points. Actually this is convicts in queue. It's beautiful. So if I said that are equal to zero, I have the global minimum. And so let's take the derivative respect to the x entry.
+01:19:58
+And I want to set that equal to zero. So, this is equal to. All right, derivative of the first term, if I take the derivative of
+01:20:08
+Log have to have x, I get one over q and so it will cancel this ques will give one right so I can get basically one and then product rule. I need to take the route of respect to queue of x and then I just left with log. So I get lug of Qx, so that's derivative of the first term.
+01:20:30
+And then
+01:20:34
+Oh, sorry. I also had to you have x because q of x multiplied. So when I take the route of of this part this is I just get one. And then I kept this whole thing that's this piece and then
+01:20:49
+Here.
+01:20:55
+Perhaps I will rewrite it in clear form.
+01:21:00
+This here. Yeah, I should have done that. So that's right here. This is summation over x q of x t g of x.
+01:21:10
+A we go. And so now when I take the derivative of this respect to your next only one will give me for specific x i will just get T g of x.
+user avatar
+Unknown Speaker
+01:21:21
+Right.
+user avatar
+Lacoste-Julien Simon
+01:21:22
+And so, and, and so then I will have that for every j. So, this term will give me plus sorry there's a minus, because of this thing.
+01:21:35
+To get a minus here so I'll get
+01:21:41
+minus summation over j new j of t g of x. This is for X fixed. Right. And then same thing when I think of this here. I'll just get minus one on for the correct x and then I get see
+01:21:57
+So then I guess minus c
+01:22:02
+Okay. And I want this to be equal to zero.
+01:22:08
+OK, so now you just sold for q of x, like the only variable is Q Right. Everything else is fixed. So if you just manipulate that you get that Keith star of x.
+01:22:23
+To get the unconstrained minimization of the aggregate function is actually the you have x x of new transpose to have x
+user avatar
+Unknown Speaker
+01:22:39
+Trying to get my
+user avatar
+Lacoste-Julien Simon
+01:22:41
+Color. So this is new transpose T of x.
+01:22:47
+Plus c minus one.
+01:22:54
+Is just algebra and. And just to be clear, this this product here is summation over j new J TJ of x, right. So that's the meeting. So I put t t of x as a vector and dimension.
+01:23:08
+D i guess had D feature function. So this is it a product. And so we see here that to get the dual function, the distribution which define a dual function isn't expression of me right. This is an exponential family that's where the exponential federally appear
+01:23:28
+Which, by the way, one of the key to condition when you look at primal dual relationship is that you know the the primal variable that has to
+01:23:39
+Minimize the Lagrangian function to define the the dual variable, right, sorry, the
+01:23:45
+The language and function there like Grinch dual. Sorry. Yes. And so in some sense, if I knew what new star would be, I would know what the correct optimal function ear. He is right. This the optimal function here at depends on new
+user avatar
+Unknown Speaker
+01:24:01
+So I guess I could put
+user avatar
+Lacoste-Julien Simon
+01:24:05
+The notation here. It depends on new and it depends on seen this case.
+01:24:11
+All right, but so this are the, the variable which minimize the language and dual function. So by plugging in back. I can get. What is the dual function. So to get the dual function I just plug back the art Max with the argument. Sorry. So I plug back
+01:24:30
+Q star, which depends on new and see in the Lego engine function.
+01:24:37
+And so I get now a function which depends on both new and see
+01:24:43
+Which is just l have to star which depend on you and see new and see
+01:24:51
+So let's plug it in, what do I get
+01:24:57
+So this thing here.
+01:25:00
+It's this is the expectation expect to queue. Right. So, that's right. It's like this. So this is expectation respect to Q star.
+01:25:08
+Of and then I think the lug of q of x divided by you. Right. And so now the magic is is when I think this ratio. The you will cancel out.
+01:25:19
+And I have an x, and then I take the lug. So I'm just left with the thing inside the argument, okay.
+01:25:26
+And so what I get here is
+01:25:31
+New transpose T of capital X.
+01:25:35
+Plus c minus one as it temporary
+01:25:39
+New transpose T of capital x plus c minus one. And that was the log of q of x divided by you MX. So that's the key part of the objective
+01:25:50
+And now.
+01:25:56
+Bob, Bob. Bob, what do I have
+01:25:58
+I have
+01:26:02
+This piece, this piece here, which is basically V transpose alpha that's how the right kids for this is a constant. So, V transpose alpha
+01:26:11
+Oh, sorry. That's of these new principal alpha. And then this thing here.
+01:26:18
+I can
+01:26:21
+Take the some outside and take the this some inside
+01:26:26
+And I can rewrite it as
+01:26:29
+minus expectation respect to Q star. So that's the subtle respect to x.
+01:26:35
+Of
+01:26:37
+New transpose to mix. That's the some over j of new Jay TJ of x, right, which was basically
+01:26:47
+This piece here and this piece here.
+01:26:50
+Alright, so that's that's how I got this piece.
+01:26:54
+That set
+01:26:56
+And then I'm left with see. What did I forget to use temporary see if this works.
+user avatar
+Unknown Speaker
+01:27:05
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:27:08
+And so, not unless we see. So I have plus c.
+01:27:13
+minus expectation respect to Q star.
+01:27:17
+Of seat right so this is the summation over X right so i just rewrite this summation of x as expedition respective Tuesday.
+01:27:27
+So expansion in respect to the star here was the shorthand summation over X of Q star six
+01:27:33
+Okay, so why do I do that well now it's clear. I can cancel a lot of stuff. Right, so I can cancel.
+01:27:40
+The see here, appearing in the expectation with this one because it's minus and then I can cancel the V, the new transpose TX with this one.
+01:27:53
+Okay.
+01:27:56
+And so what I'm left with is new transpose alpha
+01:28:01
+Plus C.
+01:28:04
+And then I have minus the expectation respect to Q star of one, right, which is this piece here. And so now I will rewrite it back as a some because this was just shorthand notation. So this is some over x Q star. OK, I will just write it in full because Q star of x.
+01:28:26
+Was in this form here. So I will just I want to know the dependence on new and see of everything right. So that's why I will just substitute the deck I get you have x
+01:28:39
+X of new transpose to x.
+01:28:44
+And then I will separate the sea dependence is X. Oops.
+user avatar
+Unknown Speaker
+01:28:49
+We
+user avatar
+Lacoste-Julien Simon
+01:28:52
+X of C minus one.
+01:28:57
+Alright so this basically is just this minus one here expanded
+01:29:03
+And that will use a bit on the station as well because this would come handy. So, summation of x of the UX expert new transpose the x is just the normalization of makes my family. Right, so I'll call this
+01:29:15
+And Zed of new because it's a normalization factor.
+01:29:22
+Okay. And so that's my dual function, it depends. Both of new and see. And that's what I'm trying to maximize respect to do and see
+01:29:30
+And to make the link with maximum like you that I will get rid of, see, right, because he's just to make sure that the the distribution. Some to one sort of a distribution. And so it will see, it's basically just the normalization constant
+01:29:44
+And then we'll get back to just as much of me, but let's do that. So first I will do max.
+01:29:50
+Of G new and see with respect to see
+01:29:57
+And it's actually, it's concave and see. No problem. I think the greatest respect to see
+01:30:02
+And set it to equal to zero.
+01:30:05
+That implies when I think that the rid of, of this thing over there. I get one for the first term in see. So this piece here.
+01:30:23
+Let me just finish that, and I'll answer your question, Ezekiel. So one and then I have minus
+01:30:30
+Y Zed of new
+01:30:33
+This is just doesn't. There's no CNN. I think the really the X of C minus one. I just get x plus c minus one. Again, times one, so x plus c minus one and I want this to be equal to zero.
+01:30:46
+Okay. And so now, is it get a single, how is the expectation of minus one, not just minus one.
+01:30:53
+Okay, because here. To be clear, this is shorthand.
+01:30:59
+For summation over X of Q Starbucks as
+01:31:05
+This piece here is shorthand.
+01:31:10
+For
+01:31:11
+Summation over excuse Starbucks. So if q is normalized, then it will just be one. But in general, Q star didn't have to be normalized right because
+01:31:22
+The constraints of see that the sum over
+01:31:26
+So for a specific see this thing.
+01:31:31
+Is nothing to see normalize but when you use the see which maximize a dual function, you get your input. See star, then it will actually satisfy the constraint and that's the relationship between the prime on that door.
+01:31:44
+So exactly so.
+01:31:47
+So basically by maximizing respect to see we get that the expectation of see star minus one has to be equal to one over A Zed of new
+01:31:59
+IE.
+01:32:02
+This piece here, the value of see here
+01:32:05
+Was just to make sure that the whole thing was not nice. As I mentioned, okay. So if I plug back this that UFC star.
+01:32:14
+Plug back see Star in over there. So I get that the maximization respect to see of G new and see is just new transpose alpha plus see star minus
+01:32:33
+Now I have said a new. I said, and x of see star minus one is just one overs Inuits I get one of those a new so these thing cancels out.
+01:32:48
+And
+01:32:51
+This thing is see star minus one.
+01:32:55
+And we said that experts, the star minus one is one overs at New. So this is actually equal to minus log of said you
+01:33:06
+Buy this thing, right.
+01:33:11
+And so the dual problem.
+01:33:15
+All this manipulation. So the dual problem. Whenever move. See, I'm just now left back with new is maximisation respect to new of are called detailed new when ca has been
+01:33:29
+Has been
+01:33:32
+Removed where g tilde of new is just
+01:33:38
+V transpose alpha minus lug of Zed new
+01:33:46
+That's my dual function.
+01:33:50
+So, now where's the link with maximum naked right so now I just need to put back all the elements. So the link
+01:33:57
+With
+01:33:59
+Maximum likelihood
+01:34:03
+I said if the constraint alpha was defined as the empirical moment. So, summation over i have to have x i.
+01:34:15
+Guess I'll use parenthesis notation. That's what I use before
+01:34:21
+So this is the expectation, as I said earlier, respect to the Emperor call up just to have x
+01:34:29
+Now, T is a vector function where each component is TJ.
+01:34:34
+Then
+01:34:36
+Detailed of new
+01:34:39
+Is just one over n.
+01:34:43
+Summation over my training set.
+01:34:47
+Of
+01:34:49
+New transpose T of xi.
+01:34:55
+Minus lug
+01:34:59
+Of Zed new
+01:35:03
+And this is just a log likelihood of the bunch of ideas, right. So this is lug of p of x i.
+01:35:13
+Given my parameter new plus some constant
+01:35:18
+Where
+01:35:21
+P x
+01:35:23
+Given new is basically
+01:35:28
+The expansion of feminine. So it's you x
+user avatar
+Unknown Speaker
+01:35:33
+X.
+user avatar
+Lacoste-Julien Simon
+01:35:35
+Of new transpose to have x minus log of Zen.
+01:35:44
+So the logins that new plays a role of a of new which is the log partition function. Okay.
+01:35:52
+And so I III, I have the dual problem.
+01:35:59
+Is max over New of detail that new which is max over New have one over n lug of the quality of my data.
+01:36:16
+Given new IE maximum likelihood estimation
+01:36:30
+Pretty cool.
+01:36:31
+So to summarize,
+01:36:34
+To summarize,
+01:36:42
+Maximum Likelihood in exponential family.
+01:36:49
+With
+01:36:50
+To Vic's
+01:36:53
+As sufficient statistics because I remember this T function was what was defining the essential family.
+01:37:02
+Sufficient statistics.
+01:37:09
+Is equivalent
+01:37:16
+To
+01:37:18
+maximum entropy
+01:37:22
+With mom and constraint.
+01:37:32
+On to x.
+01:37:37
+Were basically alpha
+01:37:40
+Is expectation empirical expectation of to mix.
+01:37:53
+And this equivalence comes from the fact that they are actually Lagrangian do all of each other.
+01:38:17
+And so in other words, Emily. He in the exponential family.
+01:38:26
+Is equivalent to moment matching
+01:38:33
+In exponential family.
+01:38:38
+Because the solution.
+01:38:43
+Has the distribution which which is a solution to maximum likelihood
+01:38:49
+Estimate has to satisfy the moment constraint, right, it has to satisfy that
+user avatar
+Unknown Speaker
+01:38:54
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:38:58
+And actually that's kind of a beautiful results here which and we can read derive it also explicitly
+01:39:06
+So let's do that here.
+01:39:10
+So note.
+01:39:14
+So you have that
+01:39:16
+When you will do the maximum likelihood an expansion of family, whereas that
+01:39:21
+But
+01:39:28
+Yeah, so this is the function. You want to try to maximize respect to new so I need to take the gradient of lug of Zed of new as a function of new. So let's do that now.
+01:39:41
+After the gradient
+01:39:44
+Respect to new of lug of Zed of new. This is one. So remember that new the Zed is just a summation over X of you, x, x of
+01:39:58
+New transpose to have x. And so when I think the rid of, I get the exact same thing.
+01:40:05
+But it's a log. So I have one over is that new
+01:40:10
+That's from the log. And then I have great respect to new of summation X x X of new transpose to next.
+01:40:22
+And Papa, Papa, so I can move
+01:40:27
+The
+01:40:29
+Zed.
+01:40:32
+Sorry. So I take the green and respect to new so I will just get a tier of x, which will appear. So that gives me summation of x t of x.
+01:40:42
+By taking the derivative of this piece here and then the rest is the same, because of the X which kept everything else. So then I have one over as a new
+01:40:53
+Exp of new transpose to vex and then they have a Unix right
+01:41:01
+And so this all thing.
+01:41:03
+Is just P of X given new special family. It's the normalization of makes much of me.
+01:41:10
+And so I have that the gradient respect to new hoops.
+01:41:17
+The gradient respect to new of lug of Zed new is just equal to the expectation of p of x, new have to have x
+01:41:35
+I'm using the tool.
+user avatar
+Unknown Speaker
+01:41:37
+X here.
+user avatar
+Lacoste-Julien Simon
+01:41:41
+And this is equal to what we call the model, model moment.
+01:41:46
+And I'll use mew of new to call the model moment. So this is the the web, the model predicts the expectation of a sufficient statistics to be
+01:42:00
+And so now when I take the gradient respect to new of G detailed of new
+01:42:07
+I will get alpha, because it's linear, and in in new right so this this first p s at this piece here.
+01:42:17
+So I will just get so this becomes gets when I think the retrospective new I just get the alpha piece and the alpha was the, by definition, I said, was this empirical moment.
+01:42:29
+So let's do that. So I get expectation respect to pee and hat have to fix.
+01:42:37
+It. This is my alpha
+01:42:41
+And I'll give a name to that. I'll call that the empirical moment you had n because it's the empirical expectation
+01:42:50
+Of x
+01:42:53
+And then the derivative of the lug of new give me just new right so it's new of new
+01:43:03
+And I want this. So I want the gradient of this thing to be equal to zero.
+01:43:09
+So that imply that we want that the true model moment for a new star matches the empirical moment.
+01:43:20
+So that's what we meant by more than magic.
+01:43:28
+Right. So when you do maximum like Unix machine family to set the gradient equal to zero of the likelihood
+01:43:34
+You actually just need to find the parameters of expression families, such that when you take the expectation of the sufficiency of mystics respect for the distribution with these parameters you get the empirical moment. Okay.
+01:43:46
+Which actually we knew because by definition the distribution which has the maximum entropy
+01:43:54
+which satisfy these moment constraint will, it will have to satisfy them all and constraint and we said that the only distribution we certify the moment constraint and has maximum entropy is the exponential family which satisfy the one constraint. Okay.
+01:44:11
+And there's beautiful geometry on this, but unfortunately we're a bit behind in this class. So I will not cover that. But if you're curious, I say see lecture.
+01:44:23
+16 in
+01:44:27
+See lecture.
+01:44:31
+16 in 2017 for something called the kale pie Tigger in period theorem by so
+01:44:45
+Go Rhian CRM.
+01:44:50
+Which basically have this beautiful relationship between the between the uniform distribution, the empirical distribution. I think the exponential family, the moment matching in the in the right order.
+01:45:07
+All right, but this is a bit beyond the scope right now. So is there any question on this duality.
+01:45:15
+Between maximum, maximum potential for me and maximum entropy with woman constraints.
+01:45:26
+Can you come in a bit on doing optimization by solving by for one variable and sitting back in the form of other variable and so on with concerning partial the respect to all the variables sitting up to zero.
+01:45:38
+Right. So let's see. Where does this come from. So the question is,
+01:45:50
+Okay.
+01:45:51
+Blah, blah, blah. So here, one of the variable was Q star.
+01:45:57
+And then what I did to get the optimal function as a function of new
+01:46:03
+So this is a function of new and C and then I just plug it back in the original objective like this and then I get something as a function of new in. And so in some sense.
+01:46:14
+Indeed, when I think the third aspect of G respect to new. It's like taking the derivative aspect of this respect to Q star. And then the rest of us to start respecting yeah so you can, you could use this chain rule. That's fine.
+01:46:33
+This duration makes me think of the link between entropy and free energy in physics, the free energy is illusions transform of the entropy. And they also said to be 12 each other is that link farfetch. There is also a function coffee energy and ML. Is it related
+01:46:46
+Okay.
+01:46:49
+So, good point.
+01:46:57
+So it's a bit complicated, because the the genre transformation as is not using actually Lagrangian do it. It's actually using something called the genre or sorry, financial duality.
+01:47:11
+And the free energy coming in statistical physics, it's indeed coming from the genre transformation of some variables and, indeed, these are, have to do with Leo Zhang Dooley sorry and she'll do it.
+01:47:22
+I mean, essential oil at the same thing as the John's really T, but with perhaps infinite dimensional space.
+01:47:29
+But
+01:47:33
+Yeah, so I don't think so that the free energy coming off me is also coming to the fact that when you have statistical physical system you can have this Boltzmann distribution, which also has this exponential family form. So there's a lot of links with physics, indeed.
+01:47:51
+Now with maximum likelihood and
+user avatar
+Unknown Speaker
+01:47:54
+maximum entropy
+user avatar
+Lacoste-Julien Simon
+01:47:57
+There might be other links, but it's hard for me to, to, to be able to think about them on the fly.
+01:48:05
+With it. See, to be explored for you, Sean. Jacob is lust. So I'm now last in terms of what's amazing here cut out for a bit. What is moment matching. Am I supposed to already know what this is.
+01:48:18
+Kind of
+01:48:20
+So moment matching is the principle of estimating the parameters in my distribution by finding the distribution which satisfy the moment condition, which is that the true expectation
+01:48:35
+Of of your expectation of your model of some function is matching the empirical expectation. So that's the moment matching principle.
+01:48:45
+And what I said is, when you do a woman matching for distribution which are in the expression of family. It's actually equivalent to do maximal magnitude. Right.
+01:48:54
+And
+01:48:56
+And now I was talking about moment matching. It's both because I can just drive it, but also because I made the equivalence between maximum likelihood in the exposure family with maximum entropy with moment constraints, right. So, a woman constraints, by definition, will do moments matching
+01:49:12
+Okay, though, in this case, there's an infinite number of distribution which satisfied the moment. So you could not just do moment matching to find the distribution, because there's an infinite number of them. That's why you had to add the maximum entropy
+01:49:25
+Principle to find the distribution and the beauty here is that this is equivalent to maximum academics, much of me because
+01:49:33
+When we do maximum entropy. We have all distribution. We don't have to be exponential family and it could be any type of distributions.
+01:49:40
+All but the only thing we we specify is all the have satisfied. Some woman concert
+01:49:44
+And now it turns out that the maximum entropy distribution has a very specific form. It's actually an expansion of me.
+01:49:50
+It's an explosion of 70 with social business statistics which are coming from the moment constraint that I okay so that's kind of like the what's so beautiful about this result is both that it makes interesting link between two different learning principles as well as use these powerful
+01:50:07
+convicts analysis tools which are leveraging Dorothy.
+01:50:12
+But, you know, this is non trivial thing you probably have to go back over the notes to kind of like let it sink in. But I think that's a very powerful result.
+01:50:23
+And is it God is asking, can analog the result be formed when the support is comfortably or uncomfortably infinity.
+01:50:28
+And we probably can, yes. Yeah. So, so the math is a bit more complicated because now you're working with internet dimensional object, but
+01:50:36
+You can actually have this similar formulation. So if you if you had if you're optimizing over densities and you're trying to find the density which maximize the entropy
+01:50:45
+You would get that the solution will be also an exponential family. And so it will be the same thing as the maximum likelihood estimate in the corresponding special family.
+01:50:54
+And know that if you replace you.
+01:51:01
+So all this was I do the kale respect to you and you got that this was the base measure or the multiplier and exposure family if you replace scale.
+01:51:11
+Respect to age zero, you will just replace this you with ages zero. So that would be just a different expression of me this generalize explain a maximum entropy problem and
+user avatar
+ezekiel williams
+01:51:23
+If I may ask, I was. I was just wondering if if you move to the continuous, the case of continuous distribution, then you can you can no longer be
+01:51:34
+Basically minimizing the kale divergent with respect to
+01:51:39
+The uniform distribution. Right.
+user avatar
+Lacoste-Julien Simon
+01:51:42
+Now, and on this case you just maximize the entropy directly
+01:51:47
+So the kale. I kept the kale here because I want you to see the role of the uniform distribution and, in particular, that if instead of minimizing instead of just doing maximum entropy. You do.
+01:51:56
+Use generalize entropy and replace this you with h zero, then the H zero will appear in the in the sequential
+01:52:04
+But, indeed.
+01:52:06
+In the case of like continuous distribution, you will have to be careful because this scale is not defined because the uniform distribution oversee all the real is not defined.
+user avatar
+ezekiel williams
+01:52:16
+And correct me if I'm wrong, but then this basically shows that if we're finding the maximum entropy solution to any kind of an inference problem, it's always going to be an exponential distribution.
+user avatar
+Lacoste-Julien Simon
+01:52:27
+All the if
+01:52:30
+Your constraints are specified using this sufficient statistics.
+01:52:34
+If there's other types of constraints in particular, you could have constraints which are not to see linear in queue and then you will get something different.
+user avatar
+ezekiel williams
+01:52:43
+So so effectively with using the moment constraints.
+01:52:47
+We're always
+user avatar
+Lacoste-Julien Simon
+01:52:48
+There's always be correct and that's
+user avatar
+ezekiel williams
+01:52:50
+Kind of
+user avatar
+Lacoste-Julien Simon
+01:52:50
+One of the beauty of this result.
+user avatar
+ezekiel williams
+01:52:52
+Cool, thanks.
+user avatar
+Lacoste-Julien Simon
+01:52:53
+And we'll Mara is asking, does that result kind of justify the beauty of explanation of me distributions, in some sense, yes.
+01:52:59
+That's kind of like, give it another place to to get it.
+01:53:03
+Right. So you like you could say, oh, I don't like maximum accurate. I prefer maximum entropy. Well, if you do maximum entropy with moment constraints, you're basically if basically doing maximum next year. The next measure of me. So that, yes.
+user avatar
+Sarthak Mittal
+01:53:17
+And someone I had a follow up to the question.
+01:53:22
+When we did in for example of previous assignments invaded MLA, etc. We took the gradient with respect to all the parameters and said that to zero.
+01:53:32
+You're in debt of doing something like Emily in caution. You could also do take the derivative with respect to sigma square will get a term in terms of meal we put it back and then to segregate with respect to meal. So what's the difference in both the
+user avatar
+Unknown Speaker
+01:53:50
+Settings.
+user avatar
+Lacoste-Julien Simon
+01:53:55
+As well it's equivalent. So, so basically you're saying that. So what you're talking about is
+01:54:04
+Like there is
+01:54:06
+I can do min respect to say
+01:54:12
+New and sigma square have some function.
+01:54:16
+Of new and sigma square. And so the solution will have a degree in respect to new and sigma square has to be equal to zero.
+01:54:23
+And you say, well, I can just define this as men with spectrum you have F tilde, which is just a function of new where I have already optimized respect to sigma square as a function of new and plug it back in the objective right
+01:54:39
+And now I take the gradient of that perspective you and
+01:54:42
+Yes. That should give the same. I mean, when things on unconvinced, it's more complicated, but in this case it should give the same results.
+01:54:56
+Okay. Oh, I got to wholesale because who appeared, because I have a meeting with with Christina. So, all right. So, uh, that's the end of the lecture, I think I already went a bit over time.
+01:55:10
+Hope, hopefully you have enjoyed the this this school duality result and I'll see you on Friday. See

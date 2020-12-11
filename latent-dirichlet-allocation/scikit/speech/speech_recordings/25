@@ -1,0 +1,1760 @@
+00:00:01
+Alright so today. The plan is to talk about Gaussian
+00:00:09
+Distributions.
+00:00:12
+So we'll talk about Gaussian
+00:00:15
+Networks.
+00:00:19
+And we'll talk about factor analysis.
+00:00:25
+And PCA
+00:00:28
+Which are basically can be seen as one of the simplest representation learning our rhythm and then we will briefly extend that to the vibrational auto encoding.
+00:00:43
+Okay. And, and then I'll go through a quick review of all the topics we seen through using the schedule, but I, this will probably be over time. Sorry, because I you want to go through all the material.
+00:00:59
+And I think the conclusion for the quick overview of the class, you'll see that, you know, you've seen a bunch of tools for multi dimensional
+00:01:06
+data modeling. A lot of these you've seen them quite superficially, because you know there's a lot of different topics you could go in much more depth. But the idea is to give you a adjust of these things. And now I'm seeing I'm having issues with my eraser that's so annoying.
+user avatar
+Unknown Speaker
+00:01:28
+Are you serious,
+user avatar
+Unknown Speaker
+00:01:31
+Get close clothes, my thing.
+user avatar
+Lacoste-Julien Simon
+00:01:38
+Alright, you can ask me a question while I reboot. My one note.
+00:01:43
+Any questions.
+00:01:53
+Any special format for the final project.
+00:01:57
+Yes, so you need to
+00:01:59
+Use the ICL format like is describing the project webpage. So the template is there. So you should use that to Natick
+00:02:09
+But their content itself like the sections. There's no special format. But, you know,
+00:02:15
+Oh, yeah, yeah. One note is having trouble restarting
+00:02:21
+Okay we kill one note.
+00:02:32
+Any other question.
+00:02:46
+Okay, it's working after killing it.
+00:02:50
+No software has been hurt in this process.
+00:03:01
+See if I can right okay can I raise
+00:03:19
+What's the problem with this knockout probably need to reboot. I'll do that over the break, perhaps
+00:03:29
+Yes, I haven't rebooted in a long time.
+00:03:36
+You serious
+00:03:45
+Okay.
+00:03:49
+So it's not working. It's frozen. I will reboot.
+00:03:57
+Oh, somebody's asking about alpha fold. Alright, so you you're getting, unfortunately, we'll do a three minutes pause while I reboot my laptop. So let me send I'll make
+user avatar
+Unknown Speaker
+00:04:13
+Jacob as Co host as usual.
+user avatar
+Unknown Speaker
+00:04:19
+And you can perhaps
+user avatar
+Unknown Speaker
+00:04:21
+Answer.
+user avatar
+Unknown Speaker
+00:04:24
+niggas niggas question right, sorry about that. Let me pause this recording
+user avatar
+Lacoste-Julien Simon
+00:04:29
+My apologies for these little technical difficulties.
+00:04:34
+So I was saying that, today, we're going to see the gash in distribution in more blurry details and this will be useful for both talking about virtual and don't quarter.
+00:04:47
+Factor analysis and also and Friday. You'll see gash in processes, which is the generalization of the Goshen for infinite dimensional vectors. Okay.
+00:04:58
+And but it will give us also the chance to see yet again more cool math. Alright. So. Suppose that X is a multivariate gal shins with me new and governance sigma. Okay.
+00:05:13
+And so let's say we're in dimension p. So you is a vector in RP and like variance will be a matrix PvP matrix and it has to be strictly positive definite, to have a well defined density
+00:05:31
+And so now what I'll first do is put the gash network in the exponential family that's something I told you we would do. So if I have my density with mean containerization you and sigma
+00:05:46
+Or I guess moment pasteurization so you have the normalization factor which is two pi race to the P and then the determinant of sigma, then I have x
+00:05:59
+Of minus one half.
+00:06:02
+X minus new transpose sigma inverse x minus p. So, that's the density
+00:06:09
+And if you remember we did this trick where I replace this x transpose sigma inverse x while so vector transpose matrix.
+00:06:19
+Vector. That's a scanner, so I can see the same thing as the trace of the one by one matrix. And then I use the circuit and property of the of the trace to move the vector around. So I can write it as trace of sigma inverse x minus mew x minus new transpose
+00:06:41
+And the reason I do that is to also highlight how it can be linear in the matrix sigma inverse. So it's a duck product between matrix thing my inverse and some kind of
+00:06:56
+X minus new time x minus b transpose and so to get exposure family. I want to identify what are the clinical parameters which will be in front of the sufficient statistics.
+00:07:07
+And so to identify the sufficient statistics, I will expand this quadratic form. So, this is x x transpose and then I have the crust term New X transpose
+00:07:22
+Minus x view transpose and then I have the new new transports. I just expanded the quadratic term.
+00:07:30
+And so now
+00:07:32
+I can rewrite the quadratic piece.
+00:07:38
+As that product between matrix inverse and minus x x transpose divide by two. Alright, so this so this piece here when I do trace of something
+00:07:53
+And then x x transpose. This is like a product and then I have the minus one half factor that I've included. So that's, that's where this comes from this came from.
+00:08:05
+And so that's part of the canon called pasteurization right so that's why in
+00:08:12
+I said that the clinical parameters Zeeshan for the gash and it's actually the inverse of the covariance that to you. So it's called the precision matrix. So, so this is basically the, the precision matrix which is the inverse of the covariance is one piece of the clinical parameter
+00:08:35
+If your tricks.
+00:08:36
+And then the other piece where x enters will be I have minus one half times too.
+00:08:46
+So basically I have trace of sigma inverse
+00:08:52
+So they have trace of sigma inverse here and I have
+00:08:58
+Basically knew right then. And so this is actually get if I write it in linear form, I think, to transpose of the first part. So this is sigma and verse mew times x.
+00:09:12
+In linear form. So that's a duck product between vectors. And so this tells us with the other clinical parameter and actually the notation we use often is just eta for this piece for the Gaston.
+00:09:26
+And then the rest is just not dependent on x. So there's no sufficient statistics piece is, it will be part of the log partition function. So, I will have new transpose sigma inverse
+00:09:39
+And so there's sufficient statistics.
+00:09:42
+I mean, you can always reschedule the sufficient statistics. Right. So there's not really a unique way. But one standard one for the
+00:09:51
+Spanish for the Goshen will be both x and minus x x transpose divide by two. Okay.
+00:10:03
+And so the Kennedy called parameter
+00:10:06
+Associated with this sufficient statistics.
+00:10:11
+Will be the, the, the precision matrix and the
+00:10:18
+The ETA.
+00:10:20
+Clinical parameter. And then you can relate
+00:10:26
+So you can see as a function of the moments. What are the Kennedy called parameter
+00:10:32
+So if I want to see what's my clinical parameter
+00:10:36
+As a function of
+00:10:43
+Of my
+00:10:46
+Woman parameter
+00:10:49
+So I could use
+00:10:51
+So as a function of Mew and covariance. So I would call it an ETA and then precision matrix.
+00:11:01
+And the relationship will be that at that is equal to sigma inverse you and the precision is just say my inverse
+00:11:13
+And so if I want to flip it around. If I know the clinical parameters and want to get the moment parameter. Well, I can get you by just taking sigma times at
+00:11:24
+Our precision inverse time at that. That's how I can get back to the mean when I have both the precision and the Kennedy call will do a piece of the cash and chemical parameters.
+00:11:43
+Okay.
+00:11:47
+OK, so I guess here. So the, the high level idea was to put in exponential family.
+00:12:00
+And so if I looked at the pasteurization in the exponential family.
+00:12:07
+In the Canada called pasteurization the density will be so it depends on it. And the precision matrix, it would be x of x transpose x. That's the first piece of disruption statistics, then I would have precision matrix that product with minus x x transpose it by two.
+00:12:31
+And then I would get the log partition function which is everything else. And so it turns out it would be one half at transpose sing.
+00:12:44
+lambda inverse Etta plus
+00:12:50
+Which is basically, by the way, this, this is just from this term right I've just re express musicians sigma in
+00:13:00
+In Canada called characterizations
+00:13:05
+And then I have the these terms which when I take put in the exponent. I think the log. So I get p divided by two log of two pi.
+00:13:16
+And then I have minus one half lug of the determinant of the precision. Okay. And so this
+00:13:26
+And I guess I need to close my parents Asus, and so this piece here is basically the log partition function. So, A as a function of it and precision.
+00:13:39
+For a gash material.
+00:13:43
+So this is the density. So this is my explanation of me for military reaction.
+00:13:49
+And if you remember there was this question of what is the valid set of Canada called parameters. So it's all possible kind of call parameter for which I can normalize my gushing so attack and actually be anything
+00:14:03
+Any vector. It's fine. It's really into the mean but sigma lambda theory has to be a positive definite matrix because it's basically the inverse of a positive different matrix and it has to be symmetric. So these are the constraints on these kind of competitors.
+00:14:30
+Okay, and
+00:14:32
+If you remember the properties of the explanation of me is that if I take the gradient of the log partition function I should get back the expected sufficient statistics. So if I take the green respect to
+00:14:45
+Have a have at a
+00:14:48
+Lambda I should get the expectation of X, because that's the first piece of decisions that this sticks, which is just view, which is a
+00:15:00
+lambda inverse at that right
+00:15:09
+And indeed,
+00:15:11
+You know, if I look at that. That's the only place where at top here. So when I think deserted respect to this goes away. I'm just left with lambda inverse enter the one half became the
+00:15:23
+Just one. And so indeed, this is what I got.
+00:15:31
+Again, and by this relationship here, you see that it's new.
+00:15:36
+So we're kind of like
+00:15:39
+verifying that everything works out.
+00:15:42
+But it's kind of a useful check and then the same way if I think the gradient with respect to lambda have a have a lambda. And if remember when I define
+00:15:56
+differential calculus for matrices. There are more general vectors I explained to you, like how to do it.
+00:16:03
+And so here you would get that this is the expectation, you should get that it's expectation of the sufficient statistics which is x x transpose it by two.
+00:16:17
+And this is related to the covariance in a specific way. I won't go into details, but yet you could check it as an exercise and Alex Jones question has been answered by Ishmael. Yes, the precision matrix. When you use squiggly
+00:16:33
+Bigger than zero, it means tricky positive definitive
+00:16:41
+Alright, so
+00:16:45
+So why do I do that. Well, first of all, it's also important for it's it's convenient to talk about what the exponential family.
+00:16:54
+For mitigation and then also we highlight the important clinical parameter for an exponential family formative Gaston which is the precision matrix. So, the, the fundamental quantities, the precision matrix, not the covariance matrix.
+00:17:10
+And if you remember I told you that you can always put a
+00:17:16
+Undirected graphical model on discrete data as an uncertain graphical model. Sorry. You can always take make take under the graphical model on discrete data with strictly positive
+00:17:28
+Distribution as an extension of family. It turns out it also works for the the Gaussian distribution, even though it's not discreet. So if I want to think about my gosh and distribution as on different graphical model on p nodes.
+00:17:46
+Well, I can just now think of it as I have p of x at
+00:17:54
+Lambda
+00:17:56
+This is basically x of y minus minus one half that product between the precision matrix, I will just rewrite it explicitly with some over all i and j up to p of lambda AJ and then I have x i exchange.
+00:18:15
+Then I have plus
+00:18:17
+My node potential. So that's it i X i and then I just have my look partition function.
+00:18:28
+And so here you see
+00:18:32
+Where the edges for the potential becomes right. So it turns out that this distribution, because it belongs to a undeterred graphical model where the edges.
+00:18:44
+are determined by which entries of the precision matrix or none, zero. So it's for all i, j, such that the precision is not equal to zero.
+user avatar
+Unknown Speaker
+00:18:58
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:18:59
+And so it turns out that for a gash in the zeros in the precision matrix, not the covariance matrix.
+00:19:08
+Determine the conditional independence property.
+00:19:13
+Implies conditional independence.
+00:19:19
+Properties.
+00:19:28
+So this is just from the new GM perspective.
+00:19:36
+Because you could think of here Pex,
+00:19:42
+As being the product over my edge.
+00:19:48
+Of these pairwise potential sigh J x i xj. So for every pair of variables where the precision is non zero, I do have a potential which depends on these two
+00:20:02
+And so from this perspective, you could put all these nodes you could put edge between these nodes. So that's why you you get a gash in network. So it's a
+00:20:10
+It's a undeterred graphical model where the joint is a gash in and there's still some conditional independence assumption. So there is some factorization coming from this the zeros of the precision matrix.
+00:20:38
+Is there any question about this.
+00:20:51
+Alright, so somebody is asking if I can repeat the sentence from earlier about discrete random variable you Jim and positivity. So, so when I talked about the exponential family. I said that when you have
+00:21:03
+undeterred graphical model over discrete random variable which has positive PMS on all joint assignments, you can just take lug of your joint and then take the expert that because it's always zero. There's no problems with the log and that's why you can put in the next bunch of me.
+00:21:22
+And then the, the, the structure of your sufficient statistics explain how the edge will appear. And so an example of that was the icing model where you had these
+00:21:33
+These x i xj terms. So it's basically similar to the gash in network, but instead of having a continuous value for exciting things, J. You would get basically 01 values. Okay.
+00:21:47
+And now I'm saying, Okay, well we can do the same thing also for some continuous distribution in particular for joint Gaussian. You can also look at what's the gut under some difficult model perspective of it.
+00:22:01
+So the, so the the other tip Africa model will have many more distribution and just a Gaussian one
+00:22:07
+But the the gash in with a specific sparsity structure and the covariance will be in in specific under the graphical model that's kind of the, what I've just described here. So the edge set is determined by the sparsity structure of your decision matrix.
+00:22:24
+And so this brings me to talk about how to condition in a Gaussian
+00:22:29
+Because if we want to talk about conditional dependent statements we want to talk about how to compute conditional for a gallon and this will be useful, both for factor analysis and for
+00:22:38
+Gushing processes. And so I will do it. It told this aggression now on how to compute the conditional in a Gaussian and for this I will do a bit of linear algebra.
+00:22:51
+Review or
+00:22:53
+teach you about the shirt compliment. So the shirt compliment is a very useful concept on how to invert.
+00:23:03
+Black matrices.
+00:23:07
+Any two people appear in a lot of linear algebra manipulations.
+00:23:14
+And I can use it in order to prove what is the the conditional in the gaps and the effect of conditioning and aggression.
+00:23:23
+Alright, so suppose that may covariance is split in block.
+00:23:28
+In in four blocks. Okay, so basically one and two will represent to group of variable. So I think my vector and spit in two pieces. And so then I get four pieces for the conference.
+00:23:40
+So we get 1112221 and then two, two.
+00:23:47
+And so it turns out that if enough of these pieces are convertible. I can actually express the inverse of this matrix in terms of the block in versus as follow. So if I think the inverse of this. It turns out that you get a matrix with this structure. So, I will have
+00:24:09
+The inverse of the first block plus
+00:24:13
+Inverse of first block times
+00:24:16
+One two block and then I have this matrix M inverse which is actually the shirt compliment then sigma two one and then sigma one one inverse. That's the first piece. The second piece is
+00:24:32
+One one in verse one, two, and then inverse of the shirt compliment
+00:24:40
+Then this third piece here is this simplest, it's just the inverse of the shirt compliment. And then this one is basically in the other direction.
+00:24:53
+So I have minus inverse of sure compliment and then 2111
+00:25:00
+Alright, so
+00:25:02
+So if the inverse of the first block exist.
+00:25:05
+So if this inverse
+00:25:08
+Oops.
+00:25:12
+If this inverse exists and this inverse exist and the inverse of the whole thing exists and you can write it this way.
+00:25:20
+Okay, so what's this magic matrix em. So the matrix em here is I'll use invitation, the whole matrix. And then I take the shirt compliment respect to the first block.
+00:25:37
+So that's why I put a slash 16 my one one and by definition the shirt compliment is taking the second block. I mean, the bottom right block of my matrix. And then I do 1211 inverse and then
+00:25:58
+I don't have the right direction. Normally, the, the induction max. So it's 2111 and verse and then one, two, okay.
+00:26:08
+So there's a bit of like like a bit of a memo technique trick is that this has to do this should be size of the same size as one one and this should be the same size as to two
+00:26:19
+And so this is a shirt compliment respect to one one and so because that's to be the size of to do it will have block to to here and then
+00:26:27
+I kind of need to translate the effect of one one to the block to so that's why there's like this to 111 and then one, two, and then I really have something of the size
+00:26:38
+Sigma to do. OK.
+00:26:41
+So the notate the notation here is this call the shirt compliment
+user avatar
+Unknown Speaker
+00:26:47
+Oops. This visible link.
+user avatar
+Lacoste-Julien Simon
+00:26:50
+Sure compliment
+00:26:55
+Of the big matrix with respect to
+00:27:01
+The first block sigma one
+00:27:05
+And then there is also
+00:27:08
+Another short compliment you could use
+00:27:12
+Where instead of taking the district company respect to the first black, you can take the circle moment respect the second luck.
+00:27:20
+And then I would just do the same thing but replacing to with one. So, this will be one one minus 1222 inverse and then to one.
+00:27:33
+And so, and then you could do the exact same any position here, but instead of having the shirt compliment respect to the first block inverse here, you would have the shirt compliment respect to the second look here.
+00:27:46
+Okay, and then some kind of version of like this would be here, but with you know you spit with one and two.
+user avatar
+Unknown Speaker
+00:27:53
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:27:55
+And so I could use either Shrek ultimate respect to to circle back to one, then I have to expression for the the inverse of my matrix. And so I would have this something like a complicated expression here, but on this luck.
+00:28:09
+And it should be equal to the inverse of em one. So you have this short compliment. And so this is actually a way to prove the
+00:28:20
+Something which is called the woodshed with Barry Sherman Morrison inversion from them. So you can use this hoops.
+00:28:28
+So I if you Chris about this. I encourage you to look at the Wikipedia article on this so you can use this to derive
+00:28:37
+The
+00:28:39
+would bury
+00:28:42
+Sherman
+00:28:45
+That's just a bunch of names bunch of mathematicians name Morrison inversion.
+00:28:53
+Formula.
+00:28:56
+Which tells you in some sense.
+00:28:59
+If I want to compute the inverse of this kind of combination of matrices.
+00:29:05
+I think an inverse here. Then, which is basically this m of minus one, then it's the same thing as using these block in versus with
+00:29:17
+The other short compliment inverse. Okay.
+00:29:22
+And why is this useful. Well, it could be that depending on how I have split my matrix, it could be that, for example,
+00:29:31
+That it could be that to the sigma to to is a scholar. So if they must if sigma to two is a scanner then computing is inverse is very simple. Whereas sigma one one might be a big matrix. And so, said, I think, to compute the inverse of a big matrix, I could now have to only compute
+00:29:49
+Simpler matrices next killer inverse
+00:29:55
+And so somebody is asking is this division. No, this is not division but it act, a bit like division, because it appear in like competing this kind of block inverse
+00:30:06
+But it and, in particular, okay, so more suggestion.
+00:30:11
+More property which explained them to notation. So it turns out that you have that the determinant of the big matrix is the product of the determinant of one block times the determinant of the shirt complement respect to this block.
+00:30:30
+And you have also the same thing with the other shirt COMPLIMENTS YOU CAN DO TO to if you want, and then at the determinant of the compliment respect to the second look
+00:30:40
+And so
+00:30:44
+And so you can see like, oh, you know, it kind of worked like a bit of an inverse, in some sense, right, but like you could think, oh, you know, like, this cancels out that but you know that's not really this is notation.
+00:31:00
+Okay.
+00:31:02
+So I if you're curious about this and to go much more in details about these properties. I encourage you to look at the Wikipedia article for basically how to compute the inverse of a of a block matrix.
+00:31:15
+But why are we talking about that. Well, let's talk about the joint of a Gaussian and what we'll do is we will factor is the joint into pieces.
+00:31:26
+And one piece is actually the marginal will identify as the marginal utility piece will be the conditional of one block on the block.
+00:31:36
+And that's and it will introduce these sure continent. And so if I have a joint Goshen, and I have x one x two and so x one will have dimension.
+00:31:49
+P one and external haven't mentioned p two, right. So that's what I meant by you split your vector in two pieces. And I want to compute. What's the conditional of extra given. Excellent.
+00:32:02
+Well, it turns out using the properties above, in particular, like I can
+00:32:09
+I can fact rise the determinant as this product of determinant. Right. So in the density of aggression, I have this determinant appearing here, right. So now I will just factors as a product and I will use this factorization now. So let's do it.
+00:32:28
+So I will have one square root of two pi race with the p one and then determinant of the first luck.
+00:32:37
+Okay. And so then for the other piece which is missing. I will have to pee two pilots are raised up to and then the determinant of the shirt compliment
+00:32:55
+Sure compliment with respect to the first book.
+00:32:59
+So now I've just factor eyes. The, the normalization of a question in two pieces.
+00:33:06
+And then I will have
+00:33:10
+X.
+00:33:12
+Of minus x one minus new one.
+00:33:18
+First block inverse x one minus you one and there's a transpose here.
+00:33:24
+And that's it.
+00:33:26
+Right, so
+00:33:31
+It turns out that you know when I want to have my my joint Goshen, I would need to compute the inverse of micro-grants right and then I would have this inverse of the first block and then I will have a bunch of other stuff. It turns out that things can cancel out into factorization.
+00:33:50
+And so what happened is, without going in all the details, but you can verify it at home is that you can write the missing piece as minus X two.
+00:34:01
+Minus new two
+00:34:04
+And then there's enough set of the mean coming from a conditioning, which I'll call a function of X one. So this would be function of X one, I'll call the next one.
+00:34:17
+Then I have transpose and then I have my my shirt compliment. So this is sigma
+00:34:24
+Sure compliments respect to sigma one one and verse
+00:34:30
+And then I have just the same thing here, x two minus new two and then minus the offset.
+00:34:43
+And that's it. That's actually
+00:34:46
+The joint. So, okay, I still didn't tell you what, be aware, be of X one.
+00:34:53
+Is defined as sigma two one sigma one one inverse x one minus new one. Okay, so basically
+00:35:04
+The analogy here like the intuition is you have these
+00:35:10
+You know sigma one one inverse sigma to one pieces. And so when I will take you know x minus mew here as big vector I can do a block multiplication and then gather things around. And it turns out that that's what I'll get you
+00:35:28
+Okay. And so now the big point is you can stare at this and and identify this as the marginal on the first the first group P of X one and then because this is the marginal. This will become the conditional right because you know that the
+00:35:45
+Joint on X one, X two is the product between the marginal in the condition. Okay.
+00:35:53
+And so
+00:35:55
+The first thing is
+00:35:58
+Why is this really a conditional. Well, when x one is fixed. This is a constant. And this is a constant. So you can just think of it as this being a new mean for your conditional of extra given x one.
+00:36:10
+And then I have some matrix inverse and then I have the correct determinant of this matrix. So this really is a Goshen on the variable x to
+00:36:21
+Just with some
+00:36:22
+Weird mean and weird convenience for any fix x one, this is a question. So when I integrate that respect to x two, I'll get one. So it's probably normalized for any one this is probably normalized so 3d has
+00:36:34
+It really has the property of a conditional. Okay. And this is definitely just a gash in on on X one, it has its covariance here. I mean, and the same programs here. So again, this also integrate to one when they interviewed respect. Excellent.
+00:36:53
+And so that's one way to identify what should be the covariance for the Gaussian conditional of x two given x one. Okay, so
+00:37:04
+By just this joint factorization. You can read us, what are the different parameter. Okay. So if I look at the mean parameter ization
+00:37:19
+Of the marginals into conditional
+00:37:27
+You have that the marginal are super simple. So the mean
+00:37:33
+unblock one
+00:37:35
+Sorry, the mean of the marginal so I'll use the annotation em for marginal. So the mean for the marginal unblock one is just new one. Nothing happened and the covariance for the marginal unblock one is just the first block grants. So it's super simple.
+00:37:54
+So when you lose the moment pasteurization marginalization in a garden is trivial. You just ignore the other pieces of your. Gotcha.
+00:38:05
+So this is
+00:38:09
+This is the
+00:38:12
+Power Meter.
+00:38:15
+Of the marginal
+00:38:17
+On next one.
+00:38:22
+So I guess I didn't stay at the beginning. But, you know, it turns out that for joining Gaussian marginal are still gushing conditional this discussion. That's one of the nice property.
+00:38:35
+Cannot find the mute button before sneezing. Yeah.
+00:38:41
+So Jacob is asking, how does the block the composition of the currency to this form of conditional. It's not direct. So what I tell you is is is from this kind of expression.
+00:38:53
+So when I have this expression and then I just put like x minus mew here and I do the block multiplication and I regroup all the terms.
+00:39:03
+It turns out that you get a bunch of cancellation and you could factor eyes. This term like this and this term Magnus.
+00:39:11
+And then you'll have just the this piece, which has the the appearing here. Okay. But there's a few steps to do that, then I don't have the time to go through all the details. It's just a bit painful regrouping
+00:39:26
+Think I might have done it in previous years. Notes
+00:39:33
+Okay, so, so, so, so these are the marginal parameters, but the conditional are more complicated, right, because the mean as this shift.
+00:39:43
+And then the covariance is a sheer. Sheer compliment. So if I want to know now. Okay. I want to compute the mean parameter for the conditional have to given one
+00:39:54
+And so I'll use now conditional Sam competing a conditional. Well, you take the original mean unblock two and then you add this function of X one, which has to do with the with
+00:40:08
+This definition here.
+00:40:11
+And then the covariance of the conditional
+00:40:16
+Is actually this shirt compliment. So I take the as it
+00:40:22
+So the covariance of the conditional
+00:40:26
+Is this shirt compliment with respect to the black one.
+00:40:29
+And so this is sigma to to minus sigma to one signal one one inverse signal into. Okay, so this is the parameter for the conditional
+00:40:45
+X two given x one were to here's a block.
+00:40:49
+It's not just one node.
+00:40:52
+Okay.
+00:40:55
+So that's just from this nice factorization. And now what about if I use the clinical characterization
+00:41:04
+And so when you actually use the clinical parameter instead of the meantime amateurs marginal becomes complicated but conditioning becomes simpler and that's also why
+00:41:14
+If. Remember I told you that the conditional independence could be read from the precision matrix which is actually coming from the chemical composition. So then if I want to look at the precision matrix of the conditional
+00:41:29
+To given one. Well, then there's just
+00:41:34
+Precision to to right because
+00:41:40
+The you know if if I take
+00:41:45
+Instead, the inverse of sigma is just this precision matrix, right, and then it will have block.
+00:41:54
+One one and this would be block to two
+00:41:59
+Right, and so the end. So, and we have that
+00:42:04
+This is the precision of
+00:42:09
+Of
+00:42:11
+The conditional. So it's actually just if I reorganize the inverse of this matrix in four blocks, it will just be the, the two to block.
+00:42:23
+Okay, so it's very simple. When you have a precision matrix to get conditional and connect the mean is also not too complicated when you look at the conditional. It's just at two and I don't need to inverse anything. I just take sigma to one and then
+00:42:41
+Have devalue. Excellent. Okay, so it's actually quite simple.
+00:42:47
+On the other hand, if I looked at the marginal then things are more complicated. So it turns out that the marginal
+00:42:55
+The candidate competitor for the mean for the first piece for the ETA for the marginal I take the original at one and then I need to inverse. The so I have a lambda one to lambda to inverse and then it
+00:43:15
+To
+00:43:16
+Yeah. And same thing when I look at the precision matrix unblock one for the marginal. I actually need to do a short compliments. So I need to do.
+00:43:27
+Precision one one minus 1222 inverse to one, which actually turns out it's the shirt compliment of the precision matrix with respect to the block to okay so it's more complicated.
+00:43:47
+So depending of if you care about marginals, are you care about conditional some characterization and the gushing are more useful than others. So moment it's useful for marginalization.
+00:43:59
+Kind of precision and clinical transition is useful for conditioning.
+00:44:06
+And in particular, if the block. I do.
+00:44:12
+So, for example,
+00:44:16
+If I use as my block.
+00:44:19
+The first group will have two nodes that say I NJ.
+00:44:24
+Let's just call this capital I, and I want to condition on all the other variables. So let's say x one is just exciting xj and x two, sorry. Yeah, the thing I'm conditioning on
+00:44:40
+Actually I'm condition to the next one. In this case, so x to the thing I
+00:44:45
+Am not conditioning on will be two nodes. So excited exchange and the thing I'm conditioning on will be all the other variables.
+00:44:52
+And so
+00:44:54
+If I want to compute the covariance of X i given X rest.
+00:45:02
+So basically, I want to compute
+00:45:06
+This conference because I'm conditioning, so I need to compute the short compliment
+00:45:12
+Oh, did I forget the No. Okay. And so this will be
+00:45:17
+The covariance of
+00:45:23
+Of
+00:45:27
+Conditioning on I give it a rest.
+00:45:33
+And so this is the precision, I
+00:45:38
+Inverse
+00:45:41
+Right, because
+00:45:47
+Whoops. So if I look at its precision.
+00:45:53
+If I looked at its precision privatization.
+00:45:57
+It's just a second block of the precision matrix.
+00:46:02
+And so
+00:46:05
+bomb bomb bomb. So why do I talk about that.
+00:46:09
+Oops, I'm having issues with my red well because if I write my block matrix over the variable in index that I, this would be
+00:46:23
+The precision entry i i j
+00:46:31
+J. I.
+00:46:33
+And then JJ and I need to take the inverse of that. Okay. And so now if I have that the crust term of the precision or equal to zero.
+00:46:45
+I get that the covariance matrix which is the inverse of that.
+00:46:53
+Is just diagonal. So it's just I minus 100 and then JJ minus one.
+00:47:01
+So when the covariance matrix is diagonal, you know that the variables are
+00:47:09
+Uncorrelated
+00:47:11
+But for a Gaussian. If you're uncorrelated. You also independent okay so that implies that this conditional because it's a Gaussian. It has zero on the, on the, when they looked at the end, the GPS.
+00:47:25
+I have zero on the diagonal terms means that x is independent xj. But this was in a conditional the submission. So it means that x is conditional of xj given X wrist, right, which is the same thing. I had already derived from the
+00:47:46
+So it's also true by the mark of property of the GM and the fact that already have a new gym but here it's another application of these
+00:47:55
+Computation of the parameters for conditional
+00:48:04
+Okay.
+00:48:13
+All right, so if you didn't follow all this in details. It's not too problematic. I mean, this is quite a lot of technical aspects.
+00:48:23
+But the the main point is
+00:48:26
+You know, here are the formulas to derive the parameters of the conditional in a Gaussian or the marginals, and one position is easier than the other. And when you have a Gaussian zeroes in the precision matrix will tell you, conditional independence property.
+user avatar
+Unknown Speaker
+00:48:44
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:48:45
+So,
+00:48:47
+I will not take a break. Sorry for the delay. I think technical difficulties and stuff. And after the break. I'll start about factor analysis.
+00:48:56
+And talk about PC. But is there any question about the gushing before that.
+00:49:15
+Recording. Okay, so let's talk about this simplest model of representation learning
+00:49:25
+Called factor analysis.
+00:49:32
+And that will also uses or little properties that we just arrived for the gushing distribution.
+00:49:41
+And so the factor analysis.
+00:49:44
+Model is actually a model for a latent variable model so specific type of latent variable model.
+00:49:52
+And so the idea is we will have observed some x. So I'll shade to node.
+00:49:58
+In Rd
+00:50:00
+And we will explain X with a continuous z.
+00:50:04
+In our K were usually case, much smaller than the
+00:50:09
+Goal in modern time. We also have different Layton representation which could be high dimensional but at first.
+00:50:18
+The idea was to learn a reduced representation of our data in the latest world. And so we call this the latent representation
+00:50:31
+And some application is
+00:50:33
+In reducing the dimensionality of the day. So it could also do dimensionally reduction.
+00:50:41
+Where the worst case, much more than D. And so you could think that the data is explained by the main signal which is z.
+00:50:51
+And then
+00:50:53
+Plus some noise which is in higher dimension.
+00:50:59
+So, before going to this, the general model for the factor analysis model in working with that we will talk about
+00:51:07
+A deterministic model which is called PC.
+00:51:11
+And we will make the link with factor analysis, very soon.
+00:51:16
+With something called probabilistic PCs. So this is dimensionality.
+00:51:23
+Reduction. So it's for principal component analysis. One of the most basic standard
+00:51:32
+Data mining or data analysis tool.
+00:51:35
+And I'm pretty sure I'll expand in a way that you have not really seen it.
+00:51:41
+Perhaps even though you might have learned in the basic machine learning class. So the first way I will take the the synthetic view. So there's at least two different use for PCA
+00:51:55
+And so the first one is synthetic view.
+00:51:59
+And the idea is you want to find
+00:52:06
+Key
+00:52:07
+You want to find a subspace span by key vectors. So you want to find Kate or so normal vectors.
+00:52:16
+In Rd
+00:52:19
+So I will have w one, blah, blah, blah. To wk. So each of these vector is an RD. There are no such that when I project the data on this space, I get a good approximation to it, right. So, such that
+00:52:33
+The projection
+00:52:38
+Of x on the span.
+00:52:42
+Of W one two wk
+00:52:48
+Is a good
+00:52:52
+Approximation of x.
+00:52:55
+And so just looking at the subspace. I already have the principal factor a variation of my data in the US.
+00:53:03
+I i don't i i can be very close to my data point. And so a plot is let's say my data is in 3D.
+00:53:11
+And let's say
+00:53:14
+I have I'll do you know it's like a nice linear data. And so I could just use one
+00:53:24
+Line.
+00:53:25
+To explain my data. There's a bit of noise around it. And so I could use this one vector and already to good approximation.
+user avatar
+Unknown Speaker
+00:53:32
+It's convenient.
+user avatar
+Lacoste-Julien Simon
+00:53:35
+And synthetic because I can reset this size my data, such that with just this subspace. And it's a good approximation.
+00:53:45
+Alright, so now let's do a bit of linear algebra for that.
+00:53:48
+So that's called the matrix. W. The matrix which represent my basis. Okay, so it will have k row.
+00:53:57
+So sorry cave columns. So it's a D by k matrix for each column, as I mentioned, D and F key column. So what happened is, if I take the dot product between each of these column I there.
+00:54:14
+I get the identity because there are certain. All right, so I have
+00:54:18
+W transpose w is the identity and I will use k for it's a case by case metrics. In this case, this is by Arthur normality.
+user avatar
+Unknown Speaker
+00:54:31
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:54:33
+Now, what about WW transport. So, W transpose W's their identity but WW tramples. What is it, it's actually not the identity because it's a huge d by d matrix.
+00:54:46
+But it's a projection matrix. Okay, so
+00:54:52
+So what is WW transpose
+00:54:57
+And so
+00:54:59
+What's right now w w transpose. So, it's not equal to the identity D.
+00:55:08
+And this equals the
+00:55:11
+End. So let's call the matrix pw to be WW transpose, you have the property that P w square
+00:55:24
+Is w w transpose w w transpose. This is the identity and k. So it's equal to pee. W.
+00:55:34
+So you have a matrix that when you square it, you get back to say matrix. This is what it's called. In the algebra, a projection matrix.
+00:55:41
+In general, it doesn't have to be our surrogate all projection, but in this case it is an orthogonal prediction. So this matrix is basically the, the operator, which gives you the expansion of your point in the basis given by w. This is the orthogonal projection
+00:56:00
+Matrix.
+00:56:04
+On the span of W one blah blah blah wk which is basically the column space of the matrix that way.
+00:56:16
+And so now if I apply this matrix to x.
+00:56:22
+Okay, what do I get well i get WW transpose x, and it can be right that if I use black form of my matrix W was W one blah blah blah wk each. These were my columns.
+00:56:37
+And then when I think W transpose x actually have now my column as rose x is a vector. So, roll time vector. It's a scanner product.
+00:56:46
+So you can think of that we transpose x as the vector where I have my first entries this killer product between W one and x and then my last centuries wk an x.
+00:57:01
+Okay. So, what I get is summation over k
+00:57:06
+wk
+00:57:08
+And this the scanner in front of my vector is basically W k x
+00:57:18
+And so you can think of wk x when I this is actually the projection of x onto the the wk element of the basis and that gives you the coefficient
+00:57:28
+In the expansion in this basis. Right. And so you get that this is actually so sorry w is not a basis because it doesn't span R amp D. They're independent vectors. And there are throwing them all. So it's actually a basis on the subspace span by it.
+00:57:43
+And so this you could think of it as the case coordinate of my new representation which I'll call z. And so this is basically w z.
+00:57:57
+And z is obtained by projecting x
+00:58:01
+On
+00:58:05
+Under subspace, which can be done by doing W transpose x
+00:58:09
+Okay.
+00:58:13
+And so this gives us a lower dimensional representation. So this is basically
+00:58:19
+A lower
+00:58:22
+Dimensional
+00:58:26
+Representation for x, because it only I only need key numbers to specify it I lose some information because X was in Rd so I cannot get everything. So there's a bit of approximation representation. But if my spaces will chosen. I can get things. So for example, let's say I'm in 2D.
+00:58:48
+Let's see my data.
+00:58:51
+Is kind of like this kind of distribution.
+00:58:56
+And so a good if I only want to use one vector to characterize I will look actually at the biggest extent. So we'll see that very soon. So basically this space here will be arc to the cake.
+00:59:11
+Which is your case equals one. So that would be the span of W one
+00:59:19
+And if I have a vector here. Let's call it x i. And so I think the projection on this subspace to get the representation in Z right so this would be
+00:59:31
+The vector here. So the, this would be she the
+00:59:38
+Zed.
+user avatar
+Unknown Speaker
+00:59:41
+One basically
+user avatar
+Lacoste-Julien Simon
+00:59:47
+But I mean, it's not a vector in this case because that is just one entry.
+00:59:52
+Oops. Cancel.
+00:59:55
+How do we do that, let's console can so
+01:00:11
+There we go. I will have that this length would be said one
+01:00:20
+Okay.
+01:00:22
+And so the PCA
+01:00:25
+Problem.
+01:00:27
+When I look at
+01:00:30
+The synthetic perspective is I want to find the subspace. So it's represented by this matrix W which is in D by key.
+01:00:40
+And it has a property that w transpose the value is the identity K
+01:00:48
+Such that the Reconstruction Era of my data point is smallest right so what I do is I some over my training point the norm between x i n. It's reconstruction, which will be WW transpose x
+01:01:06
+And so
+01:01:07
+W transpose excited. This could be seen as that I
+01:01:12
+And the subspace represented by W which is the column space of w is what we call the principles of space.
+01:01:30
+And so the PC problem in this case would be to find the best space, such that when I protect my data and the space. The L to norm of the errors is smart.
+01:01:43
+And know that w is
+01:01:47
+W is not unique.
+01:01:51
+So the subspace is unique, but its representation as a matrix is not unique because you can always rotate the basis
+01:01:59
+Okay, so only the subspace is unique. So the column space.
+01:02:05
+So for example, I could get a new basis by just multiplying w by a rotation matrix. So rotation matrix is a matrix such that it's orthogonal
+01:02:19
+Or transpose are in both direction is the identity, right, because then if I looked at the projection and this space. So if I do W tilde W to transpose. This is the same thing as W AR AR transpose w transpose and this is the identity K
+01:02:37
+And so I just get WW transports
+01:02:40
+Okay, so
+01:02:41
+So that's important to keep in mind when you do PCA, the actual vectors you get, let's say you decide to project in the subspace of dimension k, the actual basis you get for it, like the principal vector. They're not unique. You can always retain them.
+01:02:57
+So you shouldn't over interpret them. This is
+01:03:03
+OK, so now
+01:03:05
+Let's talk about an alternative viewpoint, because you might have seen PCA as maximize finding the direction which maximize the variance of the data.
+01:03:15
+So this is called the analysis viewpoint, and I'll make the link now using a bit of notation. So as usual, will have the data matrix and by D.
+01:03:24
+So I will have x one transpose as a row, blah, blah, blah. X transpose that my data matrix.
+01:03:32
+And so now there's some here can be written as the previous norm between my data matrix and w w transpose x transpose
+01:03:49
+So if you, you think of X transpose, I get each column is one data point.
+01:03:56
+And then basically
+01:03:59
+You know, this thing is applying the principles to one of the column.
+01:04:03
+So that's what happens when I do that and and and so I'm doing the Ultra normal each column. And when you do the Caribbean is normal of a matrix. It's just a some of the LTV normal each of the column of the matrix, but so
+01:04:13
+That's why it's just the same thing. But now, why do I write that. Well, okay. Let's now factor is out.
+01:04:24
+So this is basically the five factors that extra unspoken the right I have identity.
+01:04:32
+In dimension D.
+01:04:35
+Minus the projection matrix right WW transpose the projection matrix times x transpose
+01:04:43
+OK.
+01:04:45
+So now the for BTS norm on matrix is this just a standard L to Norman matrices. So it's the same thing as the trace of the product of the matrices. Right.
+01:04:55
+So this is the same thing as a trace of the transpose of a matrix which is x identity minus p w transpose than a identity minus p of w x transpose. Okay.
+01:05:12
+And so now it turns out that I didn't see my mouse pow is also a projection matrix. It's the or soccer. It's a projection on the orthogonal part of the space.
+01:05:24
+And so this thing here.
+01:05:26
+You can actually just expand it and you'll see it's pretty trivial. This is equal to identity minus p of the way
+01:05:34
+And so I get that this is
+01:05:37
+Trace of
+01:05:40
+Mix.
+01:05:43
+Identity minus p of W.
+01:05:46
+X transpose
+01:05:49
+Then I can use the circle and property of the trace. So this is the trace of
+01:05:54
+X transpose X identity in dimension d minus p AMP W.
+01:06:06
+And so x transpose x is a constant here. I'm only optimizing respect pow. And so, minimizing their recovery error.
+01:06:17
+Recovery.
+01:06:21
+Air also did I make a mistake somewhere.
+01:06:26
+Think you meant to write Eric transpose
+01:06:32
+Well, are. Yeah. So our is square. So it doesn't matter the order I wrote
+01:06:38
+So here, this thing it's it's
+01:06:42
+The same thing
+01:06:45
+Oh no you're right, it's just because I wrote the same thing on both sides.
+01:06:50
+Oops.
+01:06:52
+Thank you. Yes, that's what I want to write
+01:06:57
+I
+01:06:59
+Am inducing error by the answer of other people.
+01:07:03
+Is it. Oh, it's a square matrix, but that was not okay so i was saying that minimizing the recovery error is equivalent to maximising
+01:07:16
+As it so it is equivalent to maximize
+01:07:23
+The trace of X transpose X times P of W.
+01:07:28
+Which is WW transport says read this why WW transpose
+01:07:34
+Right, because this is a constant. So, I don't care. So now I want to minimize minus these things so minimizing minus something is the same thing as maximizing none minus. And so that's the stick.
+01:07:48
+And what is this. Well, let's write it more explicitly I can expand it as summation over key.
+01:07:55
+Of wk transpose x transpose x wk
+01:08:04
+And so you can think of it as I predictable you and my covariance matrix. So, X transpose X is basically like the empirical currents matrix. And then I want to maximize the variance in this projection. Okay.
+01:08:18
+So where is this coming from so
+01:08:21
+I have that one over n x transpose x
+01:08:26
+Is one over n summation over i have xi xi, transpose
+01:08:34
+And so if the mean of my data is zero, this is the empirical
+01:08:42
+Covariance
+01:08:46
+Of x when the summation over i have x is equal to zero, I either empirical mean equals zero.
+01:08:56
+So normally when you run PC, you make sure that
+01:09:03
+The data is centered first. So if it's if you don't have zero mean data, you subtract it means so that you get there being data, then you're on PC on the centered current matrix. So, x transpose x in this case will because you have to remain will be the right thing.
+01:09:20
+Somebody is asking you about where to transpose went, Well what happened is I can
+01:09:25
+Move this here. And then, sorry, I can move
+01:09:31
+This on this side and then when a compute this trace. You can see that this just as some over. Okay.
+01:09:40
+Okay, this sneaky invisible ink. Thank you, transposes back. Thank you for
+01:09:49
+Keeping an eye on this. Alright, so
+01:09:53
+This is what we call the analysis view of PCA
+01:10:03
+And so, which is that you've tried to find the direction, such that when you project in these direction you maximize the some of the empirical covariance empirical variance
+01:10:17
+In these new representation
+01:10:32
+So that's I also explain why.
+01:10:38
+When I do PCA here, the maximum variances in this direction, right. So, because that's where the. There's a lot of variation in my data sets.
+01:10:49
+And from this perspective. Now you can see how to find the value you basically look at the I get vectors of X transpose X good because you want to maximize the these quadratic form and so
+01:11:04
+The solution.
+01:11:08
+PCA is basically you get the top in visiting link.
+01:11:16
+Computation.
+01:11:20
+Of PCA
+01:11:22
+You basically get the top K eigenvectors of the empirical occurrence matrix or a scaled version of it of x transpose x
+01:11:35
+Okay.
+01:11:39
+And so an example of application is to the noise. The data because you try to
+01:11:44
+To find the principal direction of signal.
+01:11:48
+There's also so often you could like, take your data and then do PCA well first center it then do PC and then use the reduce Dimension Data because it will be cleaner. It has reduced the noise.
+01:12:02
+Or you can use dimension reduction. So early on. This was used, for example, like I have a bunch of faces of people and then you do you do PC on it and what you get are Eigen faces which are like kind of like kind of Nicole faces that you can express anybody's person face as a
+01:12:20
+Linear combination of these chemical face.
+01:12:24
+Some application. And then you could classify face using this representation which is less noisy in in the original one. It's an example of early application.
+01:12:40
+Okay, so now let's. Is there any question about this.
+01:12:51
+No question.
+01:12:53
+And so let's go back to the factor analysis model.
+01:13:04
+And so the factor analysis model is basically one of the simplest generative model you can have on continuous data as a latent variable.
+01:13:17
+So the idea is, I'll say, okay, my latent variable z, it's coming from
+01:13:25
+Kind of a uniform distribution. But, you know, having uniform distribution in in continuous space, right, because it blows up so
+01:13:31
+We'll actually use something similar, which is a Gaussian, but will use, you know, zero mean and identity covariance right so it's standard normal so
+01:13:40
+Basically, there's not much structure in the Latin speaks all the structure will be in the conditional of X given that, so we'll have that x is actually equal to W time z plus a mean and plus some noise.
+01:14:01
+And the noise. We will assume is independent on the latent variable and the noise will be basically normal with zero mean and
+01:14:12
+A diagonal covariance matrix. So that's one of the assumption of factor analysis. This is a db, db grant metrics, but it will be diagnosed. So there is no correlation in the noise all the correlation is coming from the linear transformation W.
+user avatar
+Unknown Speaker
+01:14:28
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:14:30
+And so I have a visa. Gotcha. And the conditional x, given z is a gash in so the joint x and z is a Gaussian and the marginal. Next is also. Gotcha. So everything is a gotcha right if Z was a
+01:14:41
+discrete random variable with different gushing then when you marginalize out you get a mixture of caution, but when z is it is a continuous latent variable. Then you have the magic of that the closure of the. Gotcha.
+01:14:54
+But it's a very but the marginal x is a very specific gushing even though it's in high dimension D. It doesn't have full covariance matrix, it has a bit of structure. And so basically the model here. The idea is I have let's say I'm not super good at plotting stuff.
+01:15:12
+But let's see, I'm in 3D.
+01:15:16
+And then
+01:15:20
+Basically, you'll have you think that your data is kind of lying in a plane.
+01:15:27
+So this is basically the the W space suspend my the W space, but it's not crossing zero because I have a meeting. So let's put a mean somewhere. So that would be my main view. And then my distribution is actually around
+01:15:46
+This W space. And so the noise I have is basically some ellipses noise.
+01:15:54
+Like I have like some ellipse, or noise.
+01:15:58
+Around W and usually you think it's not big.
+01:16:04
+And so, you almost have a plane in this space, but you have a bit of gal should noise around it to make sure it's it fills the space.
+01:16:15
+And so now let's use our little properties of gases. And so I have that x, given z is a Gaussian with mean w z plus new
+01:16:28
+And then the covariance. I said was deep, which is diagonal
+01:16:35
+And so p of x. Now if I look at what's my marginal. I told you it's it's a garden.
+01:16:42
+And so we
+01:16:46
+And as before. We know that
+01:16:52
+We don't have to join specified. So let's just compute explicitly was the covariance. The, the means we have the expectation of X x by the tower property is the expectation of the conditional expectation of X given Z.
+01:17:08
+x, given z this is w z plus new
+01:17:13
+And so now when I think the expectation of WC plus new I get expedition of z which is zero plus new so I just get right so the marginal mean of my observation is just new to make sense. But the interesting part is the covariance to the covariance on x.
+01:17:31
+Is the covariance of W Zi plus view plus epsilon with itself.
+01:17:45
+But ze n
+01:17:48
+Epsilon from you is deterministic so doesn't do anything and then z and epsilon, they are independent. And so then the conference will add. So basically the cluster will vanish. So I'll get covariance of WC WC plus covariance of epsilon, epsilon
+01:18:11
+And so this conference here will basically give me a W covariance of z.
+01:18:19
+W transpose
+01:18:22
+And this will give me the right by definition of my noise. And so this is the identity. And so I get WW transpose plus d
+01:18:33
+Okay. And so by having this structured latent variable model we made equivalent Lee a model on X of aggression with a low rank covariance matrix. So, the equivalent model.
+01:18:48
+On X is that it comes from a gash in with me new but covariance WW transpose plus d
+01:18:59
+And so remember that w here is D by k. And so the rank of WW transpose is Atmos k. And so this is basically the
+01:19:13
+Lord low rank.
+01:19:16
+Covariance peace.
+01:19:22
+And because this is diagonal
+01:19:25
+If it was for then it's no assumption, but because this is diagonal. This only gives D degrees of freedom. Right, so
+01:19:33
+So it's much smaller. And if I had an arbitrary covariance, which would be the square
+01:19:39
+So it's kind of a low dimensional representation of my data.
+01:19:43
+Which is why you can think of it. Also as doing demonstrate reduction.
+01:19:47
+When you learn this journey model.
+user avatar
+Unknown Speaker
+01:19:50
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:19:52
+So that's the factor analysis model and then oh, how do you learn the parameter W. The parameter d the power of you. Well, so you can do maximum likelihood. So you can estimate
+01:20:03
+W and D and new by maximum likelihood
+01:20:11
+And so because we have a latent variable model one standard way would be to do em.
+01:20:18
+Because we have a latent variable model.
+01:20:24
+So in the M I will need to compute
+01:20:29
+The posterior over the latent variable PFC given x
+01:20:34
+And so this is actually a Gaussian
+01:20:39
+With mean
+01:20:44
+You know, it's the conditional expectation of z given x
+01:20:50
+Which it turns out if you compute it. I won't go through the details. It's W transpose w w transpose plus diagonal inverse X minus the mean over x. The marginal me right then. You remember the marginal mean over x.
+01:21:10
+In this case could be computed from the the joint.
+01:21:22
+Well, I guess it just move right
+01:21:30
+Oh, sorry. I think New X here just mean the conditional me. Yeah, because the conditional the conditional mean this is the conditional me
+01:21:44
+I know this is just knew I think Oh man, I forgot these equations.
+user avatar
+Unknown Speaker
+01:21:53
+I think it's just
+user avatar
+Lacoste-Julien Simon
+01:21:59
+Well, let's keep the x and I'll have to verify that when I do this criminals.
+01:22:06
+Alright, so now the point is, I won't derive the EM updates.
+01:22:11
+Because we don't have time. But now I can make the link with polycystic PC. Okay, so probably stick PCA
+01:22:19
+Is now a probabilistic version of PCA
+01:22:23
+Because in PCA the Zed variable was deterministic given x right prostate PC. Now we have actually a generative model and then we can compute the distribution of z, which will actually be gotcha and prospect PCA is a special case.
+01:22:42
+Of the factor analysis model where I suppose the noises as a tropic
+01:22:46
+Factor analysis.
+01:22:49
+Where we suppose that the noise, instead of being an episode is spherical
+01:22:55
+And so d is just sigma square identity.
+01:23:00
+Okay, so, and probably stick PCA, it's a simpler version of the factor analysis where I have diagonal. So traffic noise.
+01:23:09
+And then you can still do em to to estimate the parameters. But why is it called plastic PCA well because if I think the limit of the noise sigma goes to zero, I get back to PC. So if I take the limit of sigma goes to zero.
+01:23:27
+For my conditional mean right so the conditional mean we could use
+01:23:34
+So basically we get that
+01:23:37
+The conditional z, given X is a Gaussian with mean conditional z, given X right and now when sigma goes to zero, they won't be any variants for this conditional
+01:23:48
+So the importance is what will be this mean and the conditional mean I told you was W transpose WW transpose plus sigma square identity in verse
+01:24:03
+Times x minus new
+01:24:07
+And so if I just look at this matrix, it turns out that when you take this limit as a man goes to zero. It turns out that this is equal to the pseudo inverse of W.
+01:24:20
+So that's one of the property of the universe, you get opinion from this limit of the inverse
+01:24:27
+Like this.
+01:24:29
+And the pseudo inverse
+01:24:38
+Trying to sneeze, but I can sleaze because I can mute myself anyway. So it turns out that if w
+01:24:48
+Transpose w is the identity, which is the case here for PC. It's the sort of versus just the transpose of W.
+01:24:58
+And so basically from this intuitive derivation. I didn't give you all the
+01:25:07
+The details, but you can show from that that PCA is basically the limit
+01:25:16
+Of prognostic PCA
+01:25:19
+When the noise goes to zero.
+user avatar
+Unknown Speaker
+01:25:26
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:25:37
+So that's the link between factor analysis project PC and PCA. And as a side note, if you remember when I talked about the Bayesian approach I talked about the latency or certification model for text data.
+01:25:51
+Well, one way to basically derived LD model for text.
+01:25:59
+Is to have
+01:26:04
+That x given theta, the words counts. There are multi normal
+01:26:11
+With some transformation of theta.
+01:26:16
+So instead of having a Gaussian because you have data, you will use with normal. And so then instead of using and theta is the latent variable like z.
+01:26:26
+And then what you do is instead of using the Goshen, like in the factor analysis model, which is the conjugate prior of a Gaussian, you will use the conscious prior of multinational which is a division. So data is basically additionally alpha
+01:26:43
+And so, Ray buntine basically talked about it as
+01:26:49
+The LD model is being a discrete version of prognostic PC.
+user avatar
+Unknown Speaker
+01:26:55
+So that's when when perspective on on this.
+user avatar
+Lacoste-Julien Simon
+01:27:08
+Okay, so is there any question about prostate PCA factor analysis.
+01:27:19
+Simon is asking if the prospect approach fare better with outliers. Yes, because it has a bit of noise that you can use for for for
+01:27:31
+Handling
+01:27:33
+So that, so the problem stick PCA will have a bit more difficulty with noise because it's suppose it's very cold noise. So at least
+01:27:40
+With the factor analysis model, it will be a bit more robust if things are a bit farther from the the plane because you can actually in this case have ellipse. So in the notes.
+user avatar
+Unknown Speaker
+01:27:51
+But yeah, I do think it's a bit more robust
+user avatar
+Lacoste-Julien Simon
+01:27:54
+And it also in you've maintained on certainty about their presentation to us rather than in PCA where you just have it fixed representation
+01:28:07
+And so
+01:28:09
+Now if I take my factor analysis model and I extended over time, what I get is a common filter. Right.
+01:28:16
+The common filter.
+01:28:21
+You can think of it as
+01:28:24
+Taking your factor analysis.
+01:28:29
+Which I had my data point that I observation x i.
+01:28:36
+And then I moved to
+01:28:38
+A state space model.
+01:28:44
+Where there's some relationship between my latent variable.
+01:28:49
+Right. So you basically unroll in time.
+01:28:54
+Like hmm style.
+01:28:59
+So then you get
+01:29:01
+That 123 etc. Then you have observation.
+01:29:13
+And in the common filter model.
+01:29:21
+You suppose that the transition probably T on your latest state is a gotcha. So ZTE given z t minus one is just a normal with some linear transformation of the t minus one in the mean and a fixed currents in me.
+01:29:41
+And let me just blow my nose quickly.
+01:30:11
+Alright. Sorry about that. And so
+01:30:16
+With basically instead of discrete state. Now I have gash in state and then I can still use some product.
+01:30:26
+To compute the filtering probably T and the common filter.
+01:30:36
+And then when you compute the filtering distribution p AMP z, given X one, two t
+01:30:42
+What you get is called a common filtering algorithm.
+01:30:48
+And then the beauty of all these gushing is that
+01:30:52
+The posterior or Z always stay a Gaussian. In this case, so you can always represented with its mean and it's matrix.
+01:31:04
+OK, but so alright so it's 432 I think due to technical difficulties and
+01:31:12
+The explanation of the remaining of the class logistics. I got a bit late, I just want to quickly.
+01:31:21
+Give you the general just a virginal until quarter.
+01:31:26
+Because it relates to all of this.
+01:31:29
+And then I'll do a quick review of the class that will be very short just give you the high level ideas. And so I apologize to go over time.
+01:31:42
+It, it is recorded, so if you have to run. You can watch the recording later.
+01:31:46
+But yeah but sorry about that. So let me
+01:31:52
+Let me quickly go over rational and talk and colder.
+01:32:02
+Guess it's like the five minute version.
+01:32:06
+Which is the generalization of the factor analysis model to the nonlinear transformation, because in the factor analysis model we suppose that deleted the relationship between Z.
+01:32:16
+And x is just through an inner transformation and virtual to encoder. We use a neural network to transform the data. Right. And so the idea
+01:32:26
+Is to generalize.
+01:32:29
+So this is the generalization.
+01:32:34
+Of factor analysis.
+01:32:39
+Where instead of having or data patronized by some linear parameters will now have our data lying in some kind of like curve manifold like this.
+01:32:56
+And we want to try to prioritize this curve manifold.
+01:33:02
+And so the way
+01:33:04
+That people have done that is you start, you still have a latent variable which is basically the simplest distribution. So you just think it's a it's a Gaussian with no structure. So traffic.
+01:33:20
+And then all the structure comes from the the warping of your, of your transformation between Z annex and so you'll see that x, given z.
+01:33:30
+Is also a Gaussian, but it will have mean which depends on
+01:33:39
+Z.
+01:33:42
+And variance, which depends on
+01:33:48
+Z using a neural network where basically new w of z is the output of a neural network.
+01:34:02
+With parameter W.
+01:34:05
+Again so and and in the terminal, God will call it a decoder because given the code. Basically the latent representation
+01:34:14
+Of my data in the space. I can get its representation by just
+01:34:20
+Taking my neural network and getting with our domain and the variants of each of the dimension. So these are vector like mute mute WC is is a vector and actually usually the noise in high dimension is still diagnose right so it's factor analysis model. So this is basically a
+01:34:39
+So this is kind of an abuse of notation to say that the vector x as each of his entry.
+01:34:47
+With independent noise given by sigma double you said
+01:34:53
+sigma squared. It will use it. Okay, so basically this diagonal
+01:34:59
+Noise negative factor analysis model.
+01:35:04
+But instead of having a linear transformation of z, I have this nonlinear through neural network.
+01:35:09
+Okay, so then the question is, well, how do I estimate. Well, as usual, you do maximum likelihood estimation. So that means you need to use em because it's a latent variable model.
+01:35:21
+But now, unlike in factor analysis computing the posterior over z is not just a simple gashes because of these neural network. So this is intractable.
+01:35:35
+And so you need to use an approximation and in the virtual integrator use zoom use a virtual approach.
+01:35:51
+Jacob is asking if the gash in prior assumption is part of the VA model always will. There are modification of V where you use different other type of prayers, but the standard one. Yes. You start with a with a gotcha.
+01:36:06
+And we'll see where the prior comes into play when you learn
+01:36:12
+All right, so we need to approximate or posterior and so we will approximate
+01:36:18
+The posterior with
+01:36:25
+Some distribution. Q.
+01:36:28
+Which is our virtual approximation. And in this case we will LB trays or decision to again with neural network. And we also use cash it so we'll suppose that z, given X is actually also a normal
+01:36:41
+Independent normal with mean which depends on fi and depend on x and variance, which depends on fi and depends on next.
+01:36:51
+And so these are also output of a neural network.
+01:36:57
+And so these are called the encoder.
+01:37:01
+Because, given the observation X, they can give you, what's the distribution in the z space, in particular, you could use the mean to kind of like as a good representation. And so the mean will be the output of the neural nets have a different neural network.
+01:37:17
+OK, so now I need to learn the parameter five for devotional approximation and in the parameter double W for the journey model. So I do em. And so in em, if you remember there was this
+01:37:31
+Auxiliary functions. So you have that the log of p of x. The marginal is upper is lower bounded by the expected complete log likelihood
+01:37:41
+log of p of x, z.
+01:37:44
+And then plus the entropy
+01:37:48
+And it turns out that this expression if you massage it can be written as the expectation over queue but queue here as man is patronized by a neural network. So I'll just call this like this.
+01:38:01
+So I have the luxury of P w x, given z. So now I don't have the joint layer. So it's a different
+01:38:11
+Manipulation. And you've seen, and then I have the scale between my virginal approximation and the prior
+01:38:24
+So this is the normal series like okay so if you change the prior then you also change this legalization.
+01:38:32
+Of devotional approximation here, right. So, so you're trying to find. So basically when you do virtual encoder. You try to find
+01:38:39
+A very gentle. Well, first of all, you tried to find this observation model which maximize the quality of the observation, because you'll have the observation.
+01:38:47
+And you try to find a version approximation which maximize that. But is not too far from the prior. Okay, so that's kind of these two terms because you you want to, you want to maximize this which means you want to minimize the scale.
+01:39:05
+And so they are
+01:39:08
+So that's the gist of it, by the way.
+01:39:10
+And they are, they were very important innovation inversion and Toyota so so you start by saying, Okay, here's a specific model from observation and here's a very specific model, which is very natural for my version approximation.
+01:39:24
+But the nice thing is once we start to use these I can actually do something which is called the this type of virtual approximation allow something which is called the reprivatisation trick.
+01:39:38
+Re parametric ization
+01:39:42
+Trick
+01:39:44
+What's the representation trick is you can
+01:39:48
+Basically propagate the gradient through your through your distribution.
+01:39:53
+Simply. So if I look at my conditional said given x i need to have, I can actually generate discussion by just using my means.
+01:40:06
+And then I have my variance, which depends on the parameter an X times epsilon, where epsilon is just a symbol standard
+01:40:18
+Normal. And so the nice thing now is there's no parameter entering in my random variable, all the parameters are just in these scale or in front of it.
+01:40:29
+So it turns out that this will simplify a lot the update to maximize the quantity because then when I take the gradient, I'll, I'll be able to just compute the gradient through this parameter
+01:40:42
+Because this doesn't have any parameter in it. So the kind of like the randomness will be factored out. And so then you can back propagate through old. No, no. And that's work when you do the EMR data. Okay.
+01:40:52
+And so this strict Ashley is super powerful because it allows to efficiently run the M in these model by just doing pack propagation in your network.
+01:41:02
+And the other innovation within these, I will write down by the way in the scribbles the other new innovation was to penetrate devotional approximation using a neural network like normally international method for each data point. You could have a different version approximation.
+01:41:18
+With their own parameters. And so if you have like a billion observation or a million observation, you have a lot of parameters.
+01:41:24
+Here you condense all this information using only one neural network. So this is called a more ties Marshall inference because you share the information across all the data points for your version approximation.
+01:41:35
+It's not as powerful in some sense as having one parameter for each because you could have a better approximation, if you had one neural network for every data point, but it does save it as a computation. And there's also a bit of statistical gaining from
+01:41:52
+Sorry fact is asking, What if we were to use score function for green instead of repatriation. I'm not sure I understand your question, but
+01:42:01
+You might be referring to another trick which is different than reprints trick which is to use a score function, but I'm not familiar with this one.
+01:42:14
+Do you want to elaborate on your question or we can take it offline.
+user avatar
+Sarthak Mittal
+01:42:20
+We can take it offline. At last great
+user avatar
+Lacoste-Julien Simon
+01:42:24
+Is there. So that's actually the high level overview of v.
+01:42:31
+Was very fast. I'll put pointers. But interesting thing is, you can see all the all the pieces to this class, kind of like fit into place like devotional methods em factor analysis, etc, etc.
+01:42:51
+And so these both like factor analysis model and then ve
+01:42:56
+Y Z could be used to fit the very powerful observation model, but also Dr part of something called representation learning because you kind of like have a reduced representation of your data.
+01:43:08
+Right. In this case, you can think of like encoding your data from this latent variable then passing it through this complicated neural network.
+user avatar
+Unknown Speaker
+01:43:19
+And so
+user avatar
+Lacoste-Julien Simon
+01:43:22
+And so z could be a more convenient representation than just a complicated high dimensional vector x
+01:43:30
+Okay, so if there's no pressing question about V, let me just quickly give you a
+01:43:38
+Wrap Up of what we've seen in this class. So I'll switch to
+user avatar
+Unknown Speaker
+01:43:46
+The website share
+user avatar
+Unknown Speaker
+01:43:51
+See
+user avatar
+Lacoste-Julien Simon
+01:43:53
+What is this post
+user avatar
+Unknown Speaker
+01:43:56
+Oops.
+user avatar
+Lacoste-Julien Simon
+01:44:00
+Share again.
+01:44:02
+Okay, what am I sharing
+01:44:05
+This is what I share. Okay, so that's the website.
+01:44:09
+So what are the topics we've seen so
+01:44:13
+So basically the first few lectures were the fundamental of statistics and decision theory and property theory. Right. So a bit particular particular we saw maximum likelihood, and then
+01:44:29
+Statistical decision theory which which formalize how we analyze different statistical procedures.
+01:44:36
+And and and then we apply these ideas on simple to node graphical model to just start. So we just add x and y. And so in the continuous domain we had linear regression
+01:44:51
+And then in the discrete world we had logistic regression, if I want to do classification right
+01:44:57
+And already there. I motivated. This methods from a general model, right. So if you do need a regression. You can think of it as doing maximum likelihood when I suppose that my wife given x is as gash in notes, and it's a way of giving x as a linear transformation was gushing looks
+01:45:14
+Which is a bit like factor analysis, by the way.
+01:45:19
+And logistic regression was also fairly generic if I suppose I have class conditional and the exponential family.
+01:45:28
+Then you could see that you always get the logistic regression model with different features, right.
+01:45:34
+So that's what's basically the two variable model, which was also one way to get started in you know how to do numerical optimization because maximum likelihood usually is intractable. So for the logistic regression model we needed to use
+01:45:51
+Either great and methods as Judy or a threaded really really squares.
+01:45:57
+And I also talked about generative versus dismissive classification. So generative make more assumptions. This community only look at the Y given X, either as a function or as a conditional so logistic regression was this community of conditional was
+01:46:15
+Fisher display analysis was generative right and then you try that in your assignment you could compare different general assumptions, like if you do credit check the screen analysis, which is linear dismayed analysis.
+01:46:26
+Then you had different data set. And you could see how when you have the right assumption, the German model does really well when you don't have the right assumptions. For example, you suppose that the conference for the same, but it was not
+01:46:38
+Then leaner discussion analysis was doing worse than logistic regression. So there's so the conditional model was more
+01:46:47
+Was more robust
+01:46:51
+And then we started to talk about latent variable model.
+01:46:56
+Which brought us to one of the simplest one which is fashion extra model. And that was our introduction to the EM algorithm to do maximum likelihood in the
+01:47:09
+In the latent variable model. And then if you do a hard version of gushing mixture model, you get the standard gaming clustering algorithm.
+01:47:20
+And so all these was basically kind of warm up in two variable graphical model which very simple
+01:47:27
+And then the next of the class was now we go to full graphical model like so multiple notes right
+01:47:35
+And so I started so I basically talk about their active graphical model under graphical model and their properties in terms of how to represent distribution. Their conditional independence assumption you make
+01:47:47
+And
+01:47:50
+Then I describe how we can do in France in these model. So that's where you can see the advantage of having a graphical model is that it allows you to efficiently compute quantities like marginals or partition log partition function for under a graphical model using these
+01:48:12
+In general, it was a the graph 30 minute our rhythm, which is NP hard to run in general but for trees, we had the sun protocol rhythm, which is basically a dynamic program.
+01:48:24
+For the implementation of the graffiti minutes over them on the clever order for trees.
+01:48:31
+And then I told you that. Well, you can generalize these structures to mex product structure and you get the max product algorithm, which is basically a way to compute the max. So that's a B2B for the hmm
+01:48:48
+And the junction tree algorithm is basically the digitization of some product to general click trees.
+01:48:54
+And then there's a question of how you compute junction tree and I told you there. There's a lot of
+01:48:59
+Very deep relationship between a triangular that graph and the gravity mean it all over them and you know maximum spanning tree to threats with right so that's also like a lot of concept in this class was to relate graph theory with these plastic models.
+01:49:17
+And yeah, so hmm was basically the simplest latent variable model where now I I unroll it over time.
+01:49:24
+And so again we need to do, em, so I that's basically the bomb Welch or them. It's just the EM algorithm for hmm
+01:49:32
+And so that was a good application of how do we run the some product algorithm on this and you know we got the forward, backward recursion for that. Just, just an implementation of some products for each and
+01:49:45
+Then I did a bit of a side.
+01:49:48
+We on information theory.
+01:49:51
+So introduce kale divergence mutual information, these kind of concept.
+01:49:56
+Can be motivated from coding theory and and that was also a way to get to the exponential families and to maximum entropy. Right. So, maximum entropy is another principle to estimate parameters in your distribution which has different properties, then maximum likelihood. In general, but
+01:50:15
+We had this super powerful result that for the exponential family maximum likelihood was equivalent to maximum entropy with moment constraints. And that was all related through leveraging duality. So that was a also an excuse to show you. Interesting optimization techniques.
+01:50:34
+And then we went into more details of the exponential families.
+01:50:39
+Both because this is a way to kind of like talk about a lot of standard distributions in a unified manner. So, you know, like betta the replay gamma. All these are essential for me.
+01:50:51
+And also because the air is very naturally right we saw that when you do maximum entropy with woman constraints, you get an excellent show family. So the question for me is a very clinical
+01:51:00
+Type of distribution you get and, in particular, also understood graphical model. I told you, you can always put them in exponential family style for discrete data. So there was already some links there. And that's where I talk about icing models as well for that.
+01:51:14
+So all these was about
+01:51:17
+Basically representation and in France, there was a bit of maximum naked with the EM
+01:51:24
+But I didn't go in more details of how to do maximum likelihood in general graphical model. And that's where I did in this lecture, very quickly.
+01:51:32
+And in particular, when you have a directive graphical model with separable pattern ization it's very simple to do maximum and acute everything separates but when you have an underground model.
+01:51:42
+It doesn't separate. So that's why you need to do a gradient method instead of like perhaps close form updates.
+01:51:51
+And then we went into how to do approximate in France right so often you don't have closed form solution.
+01:51:58
+For a solution to do to compute the marginal and the partition function. And so then I talked both about sampling and virtual methods to do approximate in France.
+01:52:07
+And so to do sampling. I had to go through into theory of Markov chains which tells us how these Markov Chain Monte Carlo method converge is actually very elegant and one of the powerful ways to do approximate sampling
+01:52:22
+And one of the most kind of Nicole Markov Chain Monte Carlo method was good sampling, which I showed you how to apply it for Isaac model. In particular, that's what you do in assignment five
+01:52:34
+And then we talked about virtual methods virtual methods. The main idea is to express the quantity of interest that you want to approximate as an optimization problem.
+01:52:43
+And then you approximate the optimization problem. So there's a lot of different ways to do that. The simplest with with a kale divergence
+01:52:50
+And so then I talked about mean field where you suppose that your approximate distribution fully factories over your, your dimension of the objects that you want.
+01:53:03
+And then I also showed how to do mean field on the icing model. And it really looks like give sampling, but like a deterministic version of Gibson and both of them you will implemented on work five
+01:53:15
+Finally, talked about also Beijing methods again.
+01:53:21
+And
+01:53:23
+It's a nice way to talk about model selection.
+01:53:28
+Because there was this idea from Zubin that often.
+01:53:33
+Fitting your hyper parameters using Beijing method is less likely to overfit as long as you don't have too many of these hyper parameters or too many models, but to do model selection. Either you can just do, how does it look like you would with cross validation or just
+01:53:50
+One held out or you can use some Bayesian criteria like division information criteria and are you could put a prior very models and then you put here in France, right. So that would be the proper vision.
+01:54:02
+But just give you a gist of how to select models using these payment methods.
+01:54:08
+Didn't mention when very quickly on causality, just give you the just because it is basically a way to deal with data when you intervene so you need to have a model of what happens when you make an intervention on your and your data, like what would change in your model.
+01:54:24
+And you can use basically directed graph model, where does a bit more semantic coming from this intervention.
+01:54:31
+And fire today. We went to the simplest models for continuous data which is Gaussian and already looking at some of the properties and it enabled us also to talk about latent variable model for
+01:54:44
+Continuous data. So that's factor analysis and there's a deterministic version which is PCA
+01:54:50
+And if you unroll in time the latent variable model with Goshen, you get the common filter, which is like the HMM. BUT WITH Gaussian latent variable.
+01:55:00
+And finally, if you want to move away from a linear representation, you can go to these neural network transformation and fresco devotional its own calendar.
+01:55:10
+And so all this so far was finite penetration. Like I always add like exponential me with a
+01:55:16
+finite dimensional sufficient statistics. So that's why it's called parametric models because you have a finite number of parameters.
+01:55:24
+There's this thing called non parametric statistics, where you go to person models which can have an infinite number of parameters in particular that when you have more and more data, the complexity of your model can grow.
+01:55:38
+Indefinitely because you have infinite number of parameters. Unlike if you fix your neural network size when you have
+01:55:44
+More and more data at some point the capacity is limited. And so that's the part on non parametric models.
+01:55:51
+And that's what would be covered by will see on Friday with the simplest one which is Goshen discussion processes and dealership process is basically a Bayesian generalization of a Bayesian Gaussian Mixture Model of a mixture model.
+01:56:08
+Doesn't have to be Cashin, but it could be anything. And, but now you want to have an infinite number of cluster or an infinite number of mixtures and that's done using the their ship process.
+01:56:20
+Okay, so, um, that's the gist of it like I like there were some unifying theme like representation, how to how to represent your family, how to prioritize your family. How to do influence in your family. So that's computation.
+01:56:38
+But you know, it's also like a bag of tools basically high dimensional data.
+01:56:45
+Any remaining question.
+01:56:52
+I started this crash course on everything.
+01:56:58
+It's time to for a big break to absorb all that
+01:57:03
+Well, thanks a lot. That was quite fun actually to teach you, it was even though it's a it's a weird format, but actually quite enjoyed it, that you were a fun class.
+01:57:14
+And so Friday Jose will be teaching the last lecture, and I will see you next at the poster presentation in two weeks in, get it out there will be quite a lot of fun. So enjoy the rest of the class and see you later. Bye.

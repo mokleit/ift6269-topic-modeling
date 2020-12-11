@@ -1,0 +1,1691 @@
+Lacoste-Julien Simon
+00:00:01
+Okay, so last class.
+00:00:05
+I started to talk about sampling as a way to do approximate influence. Right. And so, towards the end of the last class I mention several groups. That's the wrong one.
+00:00:17
+I mention
+00:00:22
+Several sampling schemes and finish with important sampling
+00:00:29
+And I mentioned that the issue in important sampling is that these weights, which is the ratio of the thing you're really trying to sample from versus your proposal distribution.
+00:00:42
+Can get really big or can vary a lot in size and, in particular, if your proposal look like like this bump and my true distribution is multimodal
+00:00:51
+Than the ratio between this is probably to hear and the value of q here will be tight will be really big could actually be expansion of the big so you'll have
+00:01:04
+Some product small relative value of your proposal, you'll have huge weight when so it actually increased the variants of us to mater.
+00:01:12
+And so for important something to work. Well, you need to have that your proposal matches the shape roughly of your, of your distribution, but this is hard to have proposal which satisfy that
+00:01:25
+And so today we will now consider a series of technique which kind of address this by having an adaptive proposal. Okay. And so the plan today is to talk about
+00:01:40
+Markov Chain Monte Carlo.
+00:01:44
+Today we'll talk about Markov Chain Monte Carlo Mc, Mc
+00:01:51
+And so this and why we will will have to talk to, to, kind of, analyze and make sense of them will have to do a bit of review or just present the theory of Markov chains of finite Markov chains, and we'll talk about the metropolis a sting algorithm.
+00:02:10
+Just one of this standard Markov Chain Monte Carlo.
+00:02:16
+So let me start with Mc, Mc
+00:02:20
+So this stands for Markov chain.
+00:02:26
+Monte Carlo.
+00:02:34
+And so the idea is
+00:02:39
+To
+00:02:42
+Relax the independence assumption.
+00:02:48
+The assumption between the samples that we will use
+00:02:56
+To do our Monte Carlo estimate of our average
+00:03:03
+Right, so some I talked about Monte Carlo integration Monte Carlo estimation last class where you basically just simple independently from the distribution multiple times and take the average
+00:03:14
+Problems, it's, it could be difficult to sample well independently. And so in the Mc, Mc approach approaches, instead of having independent sample will have samples which are
+00:03:27
+Defined them with a Markov chain in time. Right, so we will allow basically an adaptive and this will allow us to have an adaptive proposal distribution.
+00:03:40
+Instead of a fixed queue, we can tailor, we can design a queue which varies depending on where into space. I am okay and so what we'll do is we'll run a chain.
+00:03:56
+Where we'll have a simple at time iteration t and this will be given by a proposal which will take the previous state in my chain. I will condition them that. Okay.
+00:04:13
+And we'll do a chain in such a way as that as t goes to infinity.
+00:04:21
+Or random variable will converge in distribution.
+00:04:26
+To the target distribution p like converge in distribution to the target.
+00:04:35
+Distribution.
+00:04:38
+P. A. And this limiting distribution which will be something that we want is actually called the stationary distribution of the chain.
+00:04:52
+This is called discretionary
+00:04:56
+Distribution of the chain.
+00:05:00
+Meaning basically that starting in any States or in some sense like
+00:05:06
+When your random variable gets has a specific distribution which is p then doing one more step up the chain won't change the distribution anymore.
+00:05:21
+In but I will formalize that very soon. That's just to give you the high level idea and so
+00:05:29
+And so before we would simple the samples independently from a fixed proposal. Now we will use transition kernel. Basically, we will have a proposal which depends on the previous day.
+00:05:45
+And suppose now that we have this chain.
+00:05:49
+And that's the Monte Carlo part we will approximate
+00:05:56
+Or
+00:05:58
+integral. So the expectation respect to pee of FX
+00:06:04
+As
+00:06:06
+An average
+00:06:09
+Starting after some burning time, so it will be t minus t zero. They don't t is equal to t zero plus one up to capital T of effort 60
+00:06:24
+Okay, so will will will take a an empirical average of our function on the samples, but we will skip the first few sample because the first few sample or not coming. THIS IS LIVE ON THE RIGHT distribution, because they're influencing by where I started my chain.
+00:06:41
+And so we, I need to forget the initial condition.
+00:06:44
+And so t zero
+00:06:47
+Is called
+00:06:50
+The burden period.
+00:06:58
+Which is basically how much time I need such that I can guarantee that I forgot my initial condition and I get a sample which is close to the stationary distribution.
+00:07:09
+Which is the correct distinction that I care about.
+00:07:12
+And so, and this burning time how long you need to wait with depends on something called the mixing time of the chain. Whoops.
+00:07:21
+So this will depends
+00:07:24
+On the mixing time
+00:07:31
+Of the market change.
+00:07:36
+And we will will
+00:07:39
+Study in bit more details the properties of Markov chain will get back to, to what a mixing time is and this but didn't practice, you need to you need to
+00:07:50
+Do not consider the first few samples in your chain, otherwise you'll get like artifact from your initial ization
+00:08:01
+So that's the way you use your chain to do the Monte Carlo integration and an important comment that I mentioned in the past, is that you don't need actually to thin
+00:08:14
+The samples so thinning a chain in the parlance of sampling means that you you you skip every few iterations in your chain.
+00:08:26
+To use in your empirical average because you want to have more independent sample, right, because when you have to subsequent sample.
+00:08:36
+Because of this conditional there's there's correlation between them. So they're not independent.
+00:08:41
+So by skipping a few of them you ensure that the the two samples are more independent but and so often that's used to have more independent sample.
+00:08:51
+But it turns out that actually a as an estimator of you, you get higher variants by doing that. Okay, so you there's no need. Oops.
+00:09:04
+So there's no need to thin the samples.
+00:09:09
+And what that means is you will basically use a delta t between
+00:09:24
+Samples
+00:09:27
+To get more independence.
+00:09:38
+And the reason you don't need to sit it is that is turns out if you look at the book by kasler
+00:09:46
+Was it burger.
+00:09:49
+Burger Monte Carlo statistical methods that I mentioned in Slack, so they will they have a theorem which says that
+00:09:55
+If you sin. This will yield.
+00:09:59
+I mean, for more
+00:10:02
+Reasonable distribution. This will yield higher variance estimate this will yield higher
+00:10:11
+Variance
+user avatar
+Unknown Speaker
+00:10:16
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:10:19
+So in practice that's important to keep in mind, it is better.
+00:10:25
+To use all the samples.
+00:10:32
+After the burden after t zero
+00:10:36
+To compute your to compute Mew.
+00:10:42
+Unless it is too expensive.
+00:10:55
+Okay. And so what what I mean by unless it was too expensive. So the phenomenon, which is happening here is that
+00:11:02
+If you remember when I analyze the variance of the Monte Carlo estimator. I use the independence between my sample to show that the variants will basically
+00:11:13
+Grow as a signal square divided by squared n were endless number of samples and I told you. Well, if you have correlation between your sample.
+00:11:21
+You won't have entered into the nectar, you will have something else which is basically the effective sample size, which depends on how much correlation, you have
+00:11:30
+And so by you, having more independent simple you'll have
+00:11:37
+A bigger number, but by thinning. You also have less samples. Right. So for example, if I use if I skip one step every
+00:11:46
+If I take a simple than stick skip one and and take a simple then skip up you have half the number of samples that you would do if you would take all of them.
+00:11:55
+And so there's a question of like, well, I have something with say to end or let's say with twice the number of samples, but they're correlated
+00:12:05
+Versus something which has have the number of samples, but they're more independent which one has lower variants. And then there's a fear much says, actually, that it's always higher variance to
+00:12:14
+Not use all the samples. And so there's not enough gaining independence compared to the actual just smaller denominator you. So that's why you always keep all of them.
+00:12:27
+And Adele is asking, How come they are independent independent 60 I didn't, I didn't see I didn't see their independent right I said that
+00:12:38
+When you do more Markov Chain Monte Carlo. Sorry. When you do multiple integration, you don't need to have independent samples. That's something I mentioned here, blah, blah, blah.
+00:12:52
+Was this. Here we go.
+00:12:57
+So I said that you had the the unbiased this property.
+00:13:04
+Even if the x i are dependent. Okay, so in in average your estimator will do the right thing.
+00:13:11
+And then the question is what's the expected there and there. I use a dependence to get S, basically. And in the denominator. If you don't have independence, you will have a smaller value.
+00:13:24
+Which will be basically could be a definition of the, the effective sample size. Okay.
+00:13:34
+And then there is asking if thinning will be using the previous simple algorithm be covered up to now.
+00:13:40
+Well, so in all the previous are so that's a good question there. So all the previous organ. We mentioned right now as independent simply right. So basically, when I did. For example, let's say I do rejection sampling. Where's my rejection something
+00:13:58
+Yes, originated sampling is you sample independently from the proposal. So every x is independent of the proposal and what happened is you
+00:14:07
+Sometimes you will reject which when you start again. But it's always independent right so so you wouldn't need to do sitting in all these other islands, you only need to do thinning when you have dependencies between your sample and
+00:14:22
+Something is expensive because as I said like for estimating the mean it's better to use all the samples. So you don't need thinning. But let's say computing F on a sample is very expensive. That's a computer. So you need to, you know, run the simulation for like hours. Well, then
+00:14:40
+It's better to have more independent sample because
+00:14:47
+Like for example, in the extreme case suppose that it takes like let's say that you have a chain, which is stuck, which basically every simple is the same. You only have one sample. So then you would just lose computation to use all the samples.
+00:15:04
+And so, and, more generally, if it's super expensive to do f of x t
+00:15:10
+Even though using all of them will reduce a bit the variance, it will be so too expensive. So it might be more effective to divide by 10 take every 10 samples. And so you divide by 10 your competition costs and you want to see increased by 10 the variances will increase on these lately.
+user avatar
+Unknown Speaker
+00:15:28
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:15:33
+Alright, so that's a practical idea. And now here's a bit of a little cartoon of the motivation.
+00:15:48
+So suppose that this is my
+00:15:52
+target distribution. This is p of x that I'm trying to sample from
+00:15:57
+And so
+00:15:59
+The idea now is we will use an adaptive proposal right let's see my previous samples my paper my previous simple is here.
+00:16:12
+That says have a Gaussian proposal around my current simple and this could be cube of X given expression. Okay. And so this is what we call it an adaptive proposal because the proposal on X depend on x prime, ie where I was.
+00:16:32
+And then what's happening now is that
+00:16:35
+Perhaps I didn't draw my thing well enough to let me see the
+user avatar
+Unknown Speaker
+00:16:43
+Areas that
+user avatar
+Lacoste-Julien Simon
+00:16:48
+Yeah, so basically it's. Oops.
+00:16:52
+I want to get ocean, but the wide gushing
+00:16:58
+Okay, it's not very nicely drawn, but they do the main point here is, you can see that the quality of being here is
+00:17:06
+Higher with this proposal that before when I was doing this, like small bumping
+00:17:11
+And so what happened is, then I will have, let's say, move there.
+00:17:14
+Then I would have another proposal, like this, and then there's some probably two of being there, it's your turn to try and so I will, it will basically allow me in a few steps to move between those two modes.
+00:17:24
+Okay. Whereas if I had only a fixed proposal, which I need to kind of choose a bump. The quality of being here is like almost zero acquaintance division. So, so that's why I'm not a. That's why when I do important sampling, I would have a super high variance estimator.
+00:17:41
+So by having this additive proposal, I can actually move in between my two modes slowly and so I can sample from the correct distribution.
+00:17:53
+And so in other words before
+00:17:58
+Where we did with two samples.
+00:18:02
+We're basically x t or ID from q
+00:18:08
+Was when we do men Mc, Mc
+00:18:12
+Instead,
+00:18:15
+Is we have x t
+00:18:18
+Given X t minus one.
+00:18:21
+Is coming from some proposal.
+00:18:24
+On XT which depends on AX t minus one.
+00:18:30
+And this is basically a mark of
+00:18:34
+Transition
+00:18:37
+Probably D.
+00:18:41
+Because we basically have a chain dependence right when that condition on AX t minus one. Anything which happened before. Doesn't matter for what extent should be because it's it only has four disempowering because then you only you only condition and the previous step.
+00:19:10
+So Simon is saying, Well, I'm not sure if I understand your question, but let's say instead you have a distribution, which is like this as your proposal so that you cover both modes.
+00:19:26
+What will happen is that
+00:19:33
+You will still have high variance, because your proposal is not well matching the actual target distribution, I could say, like, if we go back to rejection sampling as a good example.
+00:19:44
+Let's say I do this as my proposal. Well, there's a very high profiteer of rejection and lots of places right
+00:19:50
+And so there's, there's, there's, there's a because it's hard to to match the target distribution, you will have to sample a lot of time before we will have to reject a lot of time before you get a correct sample. So that's also the problem here.
+00:20:06
+Doesn't make sense assignment.
+user avatar
+Simon Demeule
+00:20:10
+So I guess what I have in mind is like what if, like at each iteration you you sample from like a new option and you define like the variance to be like inversely proportional to whatever you sampled from your function.
+00:20:22
+So if you get like really low values you have high variance. We have a higher likelihood of landing somewhere else where maybe the value is higher. And then because the value is higher, it contributes more to
+00:20:35
+The overall like expectation, you're trying to compute and
+00:20:39
+That makes sense.
+user avatar
+Lacoste-Julien Simon
+00:20:40
+But to your, your proposal is to change your proposal, depending on where you are in the space.
+00:20:45
+Yeah, which is what Markov chain multicolor does
+user avatar
+Simon Demeule
+00:20:48
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:20:49
+So yeah, so I think I didn't get the details of your proposal, but indeed.
+00:20:56
+Already allowing ourselves to
+00:20:58
+To use where we are to have an adaptive proposal will be very powerful. All right. Yeah.
+00:21:05
+And so
+00:21:07
+So before I tell you how to designs. And so, for example, the metropolis Hastings algorithm is a very generic way to get these Markov chain with the right property which will converge to the submission. We care about
+00:21:18
+So before getting there. I will just now talk about properties of Markov chain. So we will do a little review.
+00:21:27
+Or teach you, for the first time of finite state.
+00:21:34
+finite state space.
+00:21:37
+Market Markov chains.
+00:21:42
+And you know all this can be generalized to infinite space and to continue space, but it gets more complicated and it doesn't give you that much more insights. So that's why I restrict ourselves to finance space. And let's say the number of state is key.
+00:22:00
+And so let's look at our Markov chain.
+00:22:04
+We can look at it from a GM perspective as a directed graphical model you can think of a big like each simple as a node.
+00:22:14
+And then you basically have x zero, x one, blah, blah, blah.
+00:22:22
+And then you have X t minus one. Let's see next. Okay, so that that's would be a simple that's simple Markov chain.
+00:22:36
+But I also, there's another way to think about a market chain, which is to look as a finite state of the matter with transition right there's also
+00:22:45
+The transition
+00:22:49
+Probably probability point of view.
+00:22:53
+Which gives you a different perspective here, you don't care about how the time various things vary in time, but more. What's the ratio between different states. So this is the probabilistic finite state automatic point of view. And so you use one node.
+00:23:11
+Per state.
+00:23:14
+So, for example, suppose
+00:23:17
+K is equal to four. So I have four states, I could now depict my force state.
+00:23:25
+Um, let's say this is state number 234
+00:23:32
+And one
+00:23:34
+So these are not now we're presenting random variables, right, there's this. We're not talking about a graphical model. Now we're just saying each notre business state.
+00:23:42
+And then I can have directed edges between state when there's probably people transition between them. Right. So for example you can see when I'm in the state.
+00:23:52
+Three I transition to state for with quality one one in the state for acquisition to state one with probably Q1 and when I'm in state one, I can position to stay three with property one half, or to stay to with property when enough
+00:24:08
+And then what stage to stay to then I circle back to one. So that's an example of a transition property that I could define I just need to make sure that all the arrows coming out of a note that sums to one.
+00:24:21
+That's also useful to identify our dare like cluster which happens, can I go from any state to any other state with a number of iterations and this kind of stuff. And actually, we will use these properties to talk about the convergence of markup G.
+00:24:39
+Such something to keep in mind. And in our case, we will consider homogeneous Markov chain.
+00:24:49
+And so the
+00:24:51
+Probability of going in state i, given that I was in state j at the previous time step is just some fixed matrix a big right so there's no time dependence.
+00:25:11
+And a as before, is a case by case matrix like for the hmm. So it's the same thing as the hmm, such that the some around the column is equal to one. So I'll use annotation.
+00:25:26
+One key for the vector of size key with only entries which are equal to one. And so if I take the column, some of my matrix, I get basically when you
+user avatar
+Unknown Speaker
+00:25:41
+Can this is
+user avatar
+Lacoste-Julien Simon
+00:25:43
+The vector
+00:25:45
+Of one's
+00:25:48
+Size key.
+00:25:57
+So this is called a left stochastic matrix.
+00:26:02
+Left.
+00:26:04
+Stochastic
+00:26:08
+Matrix. Because when you multiply the with the vector of one on the left, you get one.
+user avatar
+Unknown Speaker
+00:26:17
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:26:20
+So it's very similar. It's very similar to
+00:26:25
+The hmm
+00:26:28
+And so now you can say suppose
+00:26:31
+That the probability
+00:26:37
+At X time t minus one is equal to j. Let's just call this A. J.
+00:26:46
+As a vector. So this is from part of the property simplex
+00:26:51
+Then if I want to know what's the new marginal. So a time step, I have ever distribution of restates which is by now if I propagate this with my Markov chain. What's the new marginal at the next time step. So the quality of St being close to I
+00:27:09
+You need to marginalize out the joint. So this is the summation over all possible states, the probability that I was a went to I from Jay
+00:27:22
+Times the probability that I was engine, right.
+00:27:27
+That's just the marginalization of my joint of two variables. And so this is just a Jay. This is pi j. And so you have as a matrix that you know the new distribution. A t plus one.
+00:27:43
+Is a applied to it.
+00:27:50
+Gets here there's a bit of notation issues.
+00:27:54
+I'll use the annotation here like this.
+00:27:58
+To make sure that it's really the j component
+00:28:04
+Okay, so basically if I have an exhibition at time t, the effect of the transition colonel in my chain is to transform to the submission by multiplying by eight.
+00:28:16
+Right. Which is, oh, by the way, this is also why I use a matrix as I define it because I said it's just vector matrix multiplication.
+00:28:25
+If instead of a left stochastic metrics. I had us rights, the Catholic matrix, I would have used need to do the transports, it would be piety transpose A. And then I would get it plus one transport.
+00:28:39
+And so every time I apply my chain I multiply by A. So that means that if I want to know what's the distribution. The marginal distribution over x at time t is just my matrix A race to the tee times my initial distribution.
+user avatar
+Unknown Speaker
+00:28:58
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:28:59
+So that's the effect of, you know, of the property transition happening in my, in my
+00:29:06
+Chain. So now you can see the relationship between the initial distribution pi zero and the distribution after t iterations and my chain.
+00:29:18
+And the idea will be to design a in such a way as a race of the tea will converge to pi, the target distribution.
+00:29:31
+Irrespective of pi zero
+00:29:34
+And so the first thing is we will call
+00:29:37
+So a definition is the discretionary
+00:29:41
+Distribution.
+00:29:44
+That's the note it pie.
+00:29:48
+Doesn't have to be by or it could be any variable. But this decision distribution by have a
+00:29:54
+Is a distribution pie, such that when I apply a on pi i stayed I get exactly by
+00:30:04
+So that's why it's dictionary. So once I am in by applying the changes and change anything. I stayed by
+00:30:12
+Okay and so already, from a linear algebra perspective, you can notice that pie.
+00:30:21
+Is a right
+00:30:25
+I get vector
+00:30:33
+Of eight
+00:30:35
+With I get value.
+00:30:39
+One. Right. So from an email Juba perspective, you know, eight times a matrix. Sorry, eight times a vector which gives
+00:30:48
+The same vector times the scale or lambda. That's an eigen vector right and so here pie as a species is eigenvector, which it's called a writing and vector because you applied on the right.
+00:31:00
+And it as I get value one.
+00:31:06
+And so if you could do the you know the diagonal ization of a and identify what's which I get vector as I get that you have one and is positive.
+00:31:17
+Then that will give you the social distribution. So, from the algebra perspective, you can already have a tool to find this mystery distribution of a matrix.
+00:31:25
+Now there's a fact that
+00:31:31
+Every
+00:31:33
+Stochastic
+00:31:36
+Matrix.
+00:31:39
+has at least one stationary distribution.
+00:31:50
+Okay, so you can have multiple than one by the so you could have to distribution. Yeah, it's not unique. So sack. There's at least one, but you can have more than one in general.
+00:32:03
+And the intuition why you have one. It's actually the sun it's related to the browser's fixed point theorem.
+00:32:18
+Okay. And the idea is in one D. If I have a mapping
+00:32:25
+Let's see, let's say I have a function which map the interval 01 to the interval 01 right so it stays
+00:32:34
+In the same interval. And it's a continuous function.
+00:32:37
+So here's an example of a map continuous mapping which maps the
+00:32:44
+The intervals are one to the intervals, or one. So it's supposed to stay in the interval. So let's do a bit of drawing here.
+00:32:53
+Let's see. So here's a random function which satisfy which map. The map the interval to itself. Well, you want to find a point such that you mapped to the same point. So what you do is you you draw the identity line. Oops.
+00:33:11
+You draw the identity line and then you notice that boat, you know, that's a fixed point
+00:33:18
+Where the identity line cross your function that gives you the the fixed point because every point in identity line as the same x and y coordinate
+00:33:28
+And there's no way you can have a function which maps all of 012 all of 01
+00:33:34
+without crossing this identity line that's basically the fixed point there. And that's why is always a fixed when things are continues.
+00:33:41
+And and we can generalize this argument to mapping the polity simplex to the property simplex with a continuous function and then there's, there's no way you can build a mapping, which is continuous on the whole project simplex without crossing the the identity. Let's come to you.
+00:33:59
+Okay, so there's always one session distribution.
+00:34:03
+But then, when is it unique. Right. So that's the question will ask. And so now we will end because the algorithm basically will be
+00:34:11
+Designer Markov chain such that when you apply it multiple time you converge to its special distribution and
+00:34:18
+You hope that this session distribution is the correct target distribution. And if there's multiple session distribution, you're not sure to convert to the right one. So you need to design your chain such that, especially this mission is unique and is the one that you want.
+00:34:32
+It. So now we'll give some properties of change to ensure that you have a unique special distribution. So let me define
+00:34:41
+Something called which is an irreducible Markov chain.
+00:34:48
+There's, by the way, there's a lot of ways to define this thing.
+00:34:59
+Yeah so multiple question are asking whether it's possible to come to construct a weird function, which doesn't happen.
+00:35:07
+No. Right. It's a theorem. So I encourage you to try, you'll see
+user avatar
+Namyeong Kwon
+00:35:12
+It's it
+user avatar
+Lacoste-Julien Simon
+00:35:12
+Always works. So the condition is that your function has to be continuously their function is not continuous, of course, knew I could, for example, here's a function which you know
+00:35:21
+I go here and now. Oops, I go there. So I made a big jump. So I'm allowed to skip the intimacy. But if the function is continuous, we will never be able to construct a couple example of that. That's why it's a theorem. That's the magic of math.
+00:35:37
+Which, by the way. Also, when trying to find counter example is also a good way to get intuition why something is true.
+00:35:48
+Yeah. So Jacob is asking, what am I talking about here. Yes. So A is a mapping, which takes the distribution and gets another distribution.
+00:35:57
+Right, so, so you can think of it as a tertiary linear in this case, but it's just a mapping from the property simplex to the property simplex. And so I'm saying that a will always have a fixed point which is essentially distribution by the browser 6.0 on the property simplex. Okay.
+00:36:15
+Alright, so I was talking about the decision of the irreducible Markov chain. And I was going to say that there's a lot of equivalent way to define these concepts and just oops I'm just giving you kind of like
+00:36:29
+One of the simplest so that you get the gist of Mc, Mc
+00:36:36
+So you see that the Markov chain is irresistible.
+00:36:41
+If there exists.
+00:36:45
+So if for every
+00:36:51
+Pair of states I NJ.
+00:36:56
+Okay. All right. It's like, there exists.
+00:37:03
+A positive
+00:37:07
+Probably t
+00:37:09
+Path.
+00:37:12
+From
+00:37:15
+Any i to any G.
+00:37:22
+States.
+00:37:30
+So that means
+00:37:33
+That
+00:37:38
+After a specific number of hops are playing my chain, I will be able to go from any state to any state.
+00:37:46
+Okay. And why is it called irreducible because sometimes if you have a reversible markup chain you could spit your chain in two pieces of change, for example, that could be a chain where everything is reachable in this piece and another piece where everything is.
+00:38:00
+Is reachable in this piece, but you cannot go from one to the other, because you know you don't have this path. He said that. So then you could think of it as a transition pro transit transit to every time. And then you get these cluster of irresistible markup piece.
+00:38:18
+So that's why it's called like this. And another way to state it is that for all i and j, there exists an integer.
+00:38:30
+Em.
+00:38:32
+With i j. So, it will depend on i j, such that when I have a plot. When I done M AG steps of my Markov chain. And I look at the property of going from I 2G from a, I guess it would be GI in this case.
+00:38:52
+To be clear,
+00:38:55
+Because I say I go from i to Jay. So that would be Jay i is strictly bigger than zero. Okay.
+00:39:04
+Because if you recall, you know, to see what's the quality of where I am. After teacher ation is just, I take my matrix race to the t. Right.
+00:39:14
+And so I could put an indicator on on the state i. And then I want to know what's the priority of being on stage. Jay, Wilson, I need to have something bigger than zero, to make sure I can be there. Oops. And I guess I didn't put my temporary
+user avatar
+Unknown Speaker
+00:39:39
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:39:44
+What is the symbol of the integer, it's me.
+00:39:48
+Let me rewrite this.
+00:39:50
+I am not sure why I'm having trouble writing
+00:39:55
+And
+00:40:10
+Alright, so by and then it turns out that by parent for business theorem.
+00:40:20
+So that's a theorem. You can look at it on Wikipedia, which talk about properties of matrix which are which only have positive entries. And so it's the classic matrix have always non negative entries
+00:40:36
+And it says that if the market chain is reversible.
+user avatar
+Unknown Speaker
+00:40:45
+So if
+user avatar
+Lacoste-Julien Simon
+00:40:48
+If a markup gene is irresistible then it actually has
+00:40:53
+A unique stitch redistribution.
+00:41:05
+And basically,
+00:41:08
+Here it will say that you get the unique
+00:41:13
+You will have that the multiplicity.
+00:41:20
+Of eigenvalue one
+00:41:24
+Is one. Okay, so basically the parent for me to steer him. It says that if you have an irreducible Markov chain. The
+00:41:33
+You will have only one I get vector with the eigenvalue one which is positive, so you don't have multiple century distribution that's just another way, but it's kind of stated as you know your proposal.
+00:41:46
+OK, so now if we have every possible Markov chain. We know there's a unique specialty distribution. So the question is, can we ensure that will converge into it because it's not clear. We could have a unique distribution. But still, we're not sure to always conversion to it.
+00:42:03
+Depending on where we start. And so that's the other property, we will need. So, in order
+00:42:12
+To converge.
+00:42:16
+To it to this district distribution.
+00:42:19
+You need something which is called a period, a city a peer DC
+00:42:27
+As well.
+00:42:30
+Which is to tell that you won't get stuck in cycle like you could happen when you don't have it when you have a periodic Markov chain.
+00:42:38
+You can get like after a few iterations, you get there. And after tuitions you get back to where you were. And you always keep cycling never converging to a fixed distribution.
+user avatar
+Unknown Speaker
+00:42:49
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:42:53
+And so I won't define a periodic by itself. I will just say that irreducible.
+00:43:04
+Irreducible
+00:43:07
+And a periodic
+00:43:13
+Mark of change chain when you have a finite number of states.
+00:43:19
+It's if and only if there exists a fixed integer em.
+00:43:27
+Such that a race to the m is tricky, bigger than zero. So all the entries are bigger than zero. So, when it was irreducible.
+00:43:38
+For every pair of states, there was a different integers. It could be that sometimes it's too hot, sometimes in three ups, etc, etc. If the market changes also a periodic. You can find
+00:43:51
+An integer which worked for all the pair of states.
+00:43:57
+And another word for it eras, boy. And if you're a tick mark up chain. It's called a regular Markov chain.
+00:44:16
+Or
+00:44:18
+It's called a Gothic
+00:44:23
+Markov chain.
+00:44:25
+And again, these are all for finite state.
+00:44:30
+So if you if you have infinite state space. There's a bit more properties for a regular market chain ethic.
+00:44:40
+Again. And to be clear, this, what we mean is that a race to the m i j bigger than zero for all i, j right so it's
+00:44:51
+All the entries of A matrix are positive.
+00:45:02
+Okay, so that's a. So when we talk about organic market chain we talking about their resistible in a periodic markup chain and we will see
+00:45:12
+Very soon, that this will guarantee that we converge to the district distribution which is unique.
+00:45:24
+So, bingo, she's asking, Why am I saying that is always
+00:45:29
+Is saying, well, is always positive, right. So why does it say a racism is strictly bigger than zero, so he does not have to be strictly positive, you could have that the quality of going from one state to another state is zero.
+00:45:42
+As long as the sun is equal to one. You don't have to move between all states and I'll give an example actually in
+00:45:53
+Two minutes but just before I give an example I will mention an important note.
+00:46:00
+Because we will use it when we talk about the metropolis Metropolis as thing or remember. So a sufficient
+00:46:10
+It turns out, a sufficient condition.
+00:46:14
+For in irreducible.
+00:46:20
+Markov chain.
+00:46:22
+To be a periodic
+00:46:27
+Is that there is some state.
+00:46:31
+So, such that the property of staying in the state is strictly bigger than zero.
+00:46:40
+And so the the a periodic means that you don't have this period property again. So, and it turns out that some sense that the M you find is basically the greatest common divider of all
+00:46:55
+Of all these different MIT or something like, I think you use the GC D for all this emoji. And then what happened is that if
+00:47:04
+They're, they're like prime with each other and the GTD is one some sense then you won't be able to have this cyclic behavior.
+00:47:12
+And so by making sure that you have some quality of staying in the same state. Well, you can always screw up the periodicity of the chain. So that's kind of like, why, if I have some state where I can stay it, then I will get
+00:47:25
+A periodic Markov chain.
+00:47:27
+Supposing it was already reducible
+00:47:32
+Okay, so let me give you an example of a
+00:47:39
+Let me give you an example of a regular Markov chain.
+00:47:51
+Where basically you just make a transition. And so this is on K states.
+00:47:57
+Will just define a which transition on all the other States except the one where you are with probably t
+00:48:05
+uniform policy. So let's say for example, if we had three states, we would have this matrix here so I stay in the same state. We probably zero and then I go in all the other states with proxy one half.
+00:48:17
+Right, so each column. Some here is
+00:48:21
+Something to one. And basically this is one divided by k minus one. If I generalize that to K states. So k is equal to three. So it's one half. And then what I do is I take the
+00:48:39
+The matrix with only ones, which I can write as one one transpose and I subtract the identity matrix, right. So that will make all my diagonal to be zero, then I did and all the other one will be one of our K minus one. Okay.
+00:48:55
+Alright, so that's a matrix, which doesn't only have strictly positive entry. So, m is not one in the definition of the organization.
+00:49:03
+But if I look at a square that's complete a square, this will be one divided by k minus one square
+00:49:11
+And then I will do one one transpose one one transpose, that's my first term, and I will have minus 211 transpose. That's my cross term and I'll get plus identity. OK, so now one transpose one. This is just key right it's something
+00:49:34
+I have key elements. So that's key. And so I get that a square is basically one divided by k minus one square and then I can take k minus two factoring out the matrix of one one transpose and then I add the identity. Okay.
+00:49:56
+And so
+00:49:59
+If k is bigger equal to three. So if I have at these three states so 4K bigger equal to three, this is strictly bigger than zero, right, this is strictly bigger than zero and this I have an organic
+00:50:16
+But
+00:50:19
+For key equal to
+00:50:24
+It is not a periodic
+00:50:29
+In particular, you get here that a square is just equal to the identity.
+00:50:34
+Okay, so after two iterations. I'm back to where I started. And so you keep cycling in this case to between multiple different distribution.
+00:50:55
+So Simon is asking whether we should always force all the transition to be positive. Know it helps to make sure that things will work. But you don't necessarily have to do that.
+00:51:07
+So for example, this change.
+00:51:10
+Didn't allow transition in the same state, but when i squared it, I will still find Mr. T zero. So it was OK.
+00:51:21
+Okay, so let me
+00:51:26
+Give you the theorem and then I will take a break and will prove this after the break. So the theorem is
+00:51:36
+If a finite
+00:51:41
+Mark of chain is our garlic.
+00:51:47
+Or, also known as regular
+00:51:54
+Then, there exists a unique
+00:51:59
+Story distribution.
+00:52:05
+Pie.
+00:52:10
+And
+00:52:13
+For any
+00:52:16
+Starting distribution.
+00:52:20
+Five, zero.
+00:52:23
+Will get that the limit as t goes to infinity of array a race to the t zero will be equal to pi. So I will converge to the correct distribution for any starting distribution.
+00:52:40
+Okay.
+00:52:45
+And basically the speed of convergence.
+00:52:54
+Is related
+00:52:57
+To the mixing time
+00:53:07
+Tau
+00:53:09
+Of the chain.
+00:53:17
+And basically,
+00:53:20
+I'll have to verify this over the break, because I'm a bit less convinced now, but the mixing time of the champions actually can be shown to be
+00:53:29
+The inverse of one minus the second eigenvalue of our an absolute value of our
+00:53:39
+Matrix. So this is the
+00:53:43
+Six second
+00:53:45
+Biggest
+00:53:48
+Again value of a note that the biggest eigenvalue will be one. So that's from like parents for Venus theorem. And so the second one, which is a bit smaller than one because there's only one with the eigenvalues unnecessary distribution.
+00:54:04
+The second eigenvalue will determine how fast things go and basically you have this thing, which I'm less convinced now, but let me write it down.
+00:54:16
+So you have that after to ration the lol norm between my true distribution my target special distribution. And what I obtained after t iterations of my chain is basically bounded by some constant
+00:54:33
+Times x minus p divided by tau. Alright, so the time here, the mixing time tell you how long it takes to kind of get an constant decrease in the distance.
+00:54:48
+So, so this kind of like the exponentially decaying function is very standard in physics, that's why. Also, this is really called the mixing time in physics, sorry, this is kind of a DK time in physics, but now for its support chain. It's like, it's called the mix.
+00:55:06
+Okay, so
+00:55:09
+So let me take a 10 minute break. It's 232
+00:55:14
+And
+00:55:16
+I'll give a bit of intuition of why the second eigenvalue appear after the break.
+user avatar
+Unknown Speaker
+00:55:30
+At 242
+user avatar
+Lacoste-Julien Simon
+00:55:34
+No question.
+00:55:44
+Are you totally lost or
+00:55:49
+Things are cured and that's why you don't have any question.
+00:55:54
+OK, so the thing I mentioned last time on mixing time is that
+00:56:00
+Because your, your, your error between the distribution that you get after teeth relations and the target stuttering distribution decrease with an experiential where the number of iterations divided by the mixing time right and so
+00:56:21
+Basically after Tao.
+00:56:27
+After tower steps.
+00:56:31
+The error decreases.
+00:56:36
+By a factor of one over, he right each one minus one right so you divided the Arabic eat. So that's so it gives you the scale of how many steps it takes to divide the error by
+00:56:45
+Something which is a in this case, whatever he is like one divided by 2.7 something so it's like a third or something. And so
+00:56:58
+And it turns out that
+00:57:01
+Usually the mixing time is exponential. So it could take like 10 to the 23 iterations be be before you divided by two, which is kind of users, which means your takes forever for your chain to mix and so it's not super useful.
+00:57:17
+But
+user avatar
+Unknown Speaker
+00:57:19
+We'll get back to that.
+user avatar
+Lacoste-Julien Simon
+00:57:23
+So then, and then what I said is, it turns out that
+00:57:27
+The mixing time, you could get is related to the second. So a quantitative way to get your mixing time for these finite state chains is to look at the second biggest eigenvalue of your
+00:57:42
+Matrix transition matrix. Okay. And so I'll give you the intuition here.
+00:57:51
+For this, which is not fully correct. Unfortunately, but it gives the right intuition. I think from linear algebra.
+00:58:02
+And this is informal, so I'll stress that this is an informal argument and the formal proof needs to be done. It's not what I'm doing and
+00:58:15
+And so already, I'll analyze a simpler case.
+00:58:21
+Where we suppose that a
+00:58:24
+Is symmetric
+00:58:28
+And it's diagnosable
+00:58:34
+With a orthogonal matrix.
+00:58:44
+Okay, so here we will assume that a symmetric. So basically we have the spectral theorem for it.
+00:58:54
+And so we'll have that A is equal to you.
+00:58:59
+Diagonal matrix you transpose
+00:59:02
+With sigma
+00:59:12
+With sigma is equal to lambda one, blah blah blah, to lambda case or lambda has or the eigenvalues and I will order them in decreasing order. So, and it turns out that by the Quran.
+00:59:32
+For Venus theorem.
+00:59:37
+Will have that the first and biggest eigenvalue is one and it's, it has a unique again, vector, which will which is in the matrix you and it will be pie.
+00:59:49
+Right, because we have that the special distribution is a unique again, vector and
+00:59:57
+I want them to be normalized, so I need to divide pie by itself to norm and then I have that this second I get vector is strictly smaller than one that's why there's a unique distribution.
+01:00:09
+And so I will have lambda to which might be, it might be complex. So, I will just put it up. So, don't you, and then I have all the other eigenvalues up to the last one, and I might have more than one against values which are equal.
+01:00:27
+So you is a basis of again, vector for my space.
+01:00:35
+And I have that you is basically you one blah blah blah to UK so I have each column, I will call them you i n us orthogonal. So I have you transpose you is equal to you you transpose which is equal to the identity.
+01:00:51
+And Jacob is saying saying a dynamic system is mixing is stronger than organic is this mixing time it into this concept of mixing, was it something else. Yes. So when we say that the chain or a dynamic system mixed it's
+01:01:06
+More specific in regarding are good. It means that it will mix. Eventually, but, you know, we want to quantify how long does it take to actually mix in particular to forget the initial conditions and this is given by the mixing time
+01:01:22
+Yeah, or good, it gets mixing in the limits. Yes.
+user avatar
+Unknown Speaker
+01:01:25
+In some sense,
+user avatar
+Lacoste-Julien Simon
+01:01:30
+Papa, Papa, Papa. Alright, so this is just from my spectral the composition or my metrics. A I get these eigenvectors. I told you the first eigenvector, because its associated with the like eigenvalue one
+01:01:42
+We know that basically a pie is equal to pi, right. So that's why we have that the first I can vector associated with the value one is pi reason and but you need to to make things are going. All I need to have a unit L to norm. That's why divide by the
+01:02:00
+The alternative right here.
+01:02:06
+Okay, so that's the part where
+01:02:10
+I'm a bit less convince is that
+01:02:16
+We will now consider alpha zero be the coordinate
+01:02:26
+Of pi zero
+01:02:29
+In the EU basis.
+01:02:35
+IE I express my initial distribution.
+01:02:41
+In the you coordinate
+01:02:44
+And so alpha zero will be this corner. And so how do I get the coordinate where I can project.
+01:02:49
+Every component of my basis by
+01:02:56
+Inner product, right. So, so each. So basically, alpha zero will be you transpose pi zero and you can see it by the fact that you you transpose is the identity.
+01:03:07
+And so for example the first component of alpha zero. So the first coordinate is just that product between pi zero and the first eigenvector, which is you one, but you want is pi divided by Altoona.
+user avatar
+Unknown Speaker
+01:03:25
+Etc, etc.
+user avatar
+Lacoste-Julien Simon
+01:03:29
+Okay, so, so this is fine. The problem is
+01:03:34
+The problem I have with my proof is that this coordinate, I need to show that this is actually
+01:03:43
+That if I divide by the norm. I get basically one which is not really always the case. But let's see. Now what's happening when I take
+01:03:52
+My matrix race to the T and apply it to pi zero well because of my spectral the composition. I have you sigma you transpose and then I have another use sigma you transpose and I have that t times
+01:04:09
+And then I have pi zero, which I will write as you alpha zero, right. So this is my pi zero
+01:04:32
+Somebody is asking is style always negative. So Tao is a positive number here.
+01:04:39
+And so I have that this thing is tricky. Small and one. So this is positive, and it's the inverse
+01:04:47
+So Tao is always positive.
+01:04:53
+Power. And so what happens here is is this gives me the identity. And so all these
+01:05:02
+You transpose you becomes identity and when I'm left is you sigma race the t, which is the diagonal matrix. And then I have basically alpha zero
+01:05:15
+Okay, and what sigma race, the T. Well, it's one and then because one race in it. And then I have lambda to rest of the team, blah, blah, blah. Lambda key rest of the team.
+01:05:34
+And so
+01:05:38
+When I looked at a recent t zero, I get
+01:05:46
+If I take the diagonal matrix multiply by you I get each of the eigenvalue multiplied by you and then times the coordinate officer. Right, so I get basically
+01:05:59
+alpha zero first coordinate one race to the t you one plus alpha zero, second coordinate lambda to raise the t you two plus blah, blah, blah. And the last one have a zero K lambda key or a city you okay
+01:06:23
+And what happened is all these
+01:06:28
+All these eigenvalues converse to zero s t equals infinity because there are strictly smart one.
+01:06:36
+Okay.
+01:06:39
+And we said that this is pi divided by
+01:06:46
+L to normal. Bye.
+01:06:57
+And so if
+01:07:00
+You could show that alpha 01 divided by L to norm of pi is equal to one.
+01:07:11
+Which is a bit weird. That's the part I'm not pretty convinced, then what you get is
+01:07:18
+A race to the t zero minus by
+01:07:23
+You get the first term cancels and you're just left with
+01:07:29
+You know, basically alpha zero to lambda to raise the tea you two plus blah, blah, blah. So you just get the dominant factor is lambda to raise the tea which is right, you basically get this is see lambda to race.
+01:07:48
+So the dominating factor is the second again.
+01:07:52
+And so now how do I transform something race to the T to an expansion. When you use it very standard in the qualities you have that
+01:08:02
+Let's see. I see that lambda two is one minus epsilon one, where epsilon one is the Eigen the first Eigen gap.
+01:08:12
+Right. And I told you that lambda to is tricky spine one. So, lambda, what I've seen on one is positive. So by basically by definition. Excellent. One is just one minus number two.
+01:08:22
+Okay, why am I talking about that. Well, because you have the inequality that one minus x is always smaller than x
+01:08:31
+Minus x. This is true for all x, you can show that from the terror expansion of the
+01:08:39
+To expansion or no by using convexity of the expansion.
+01:08:45
+And so, that implies that lambda two is smaller because number two is one minus epsilon one smaller than x minus excellent one.
+01:09:00
+And so
+01:09:02
+Lambda to race, the T is smaller than x minus T excellent one.
+01:09:11
+And so excellent one.
+01:09:14
+Is one over the mixing time because we wanted to T divided by tau which implies that the mixing time is one divided by
+01:09:26
+epsilon one episode one was one minus number two.
+01:09:32
+And so that's basically the thing I wanted to show
+01:09:36
+Okay, so
+01:09:39
+So this part here was the fishy part which I'm not really convinced
+01:09:45
+I didn't have time to really figure this out because I was not able to find the
+01:09:51
+Correct proof for this in time for this class, but I'll try to fix this for the scribe notes, but at least it gives you kind of the intuition.
+01:10:02
+Okay, and an important aspect here is that, which is why also in practice these guarantees are bit weak. It turns out that the mixing time is often
+01:10:18
+Exponentially big
+01:10:27
+So people use sampling and statistics, all the time. But these guarantees are very weak meanings that to really sure. Make sure that you're not far from the true distribution. Usually you need to wait forever.
+01:10:40
+But it doesn't mean that it prevent people to use it in practice. And actually, it's still works fine, which is a bit similar to a situation which happens and you know minimizing
+01:10:49
+non-complex neural network where it's done convicts so you have almost zero guarantees, but people still make them work in practice.
+01:10:57
+But this is something important for you to keep in mind when people say, oh, you know, I just use the same thing. I'll read them and I can show you convert to the right thing.
+01:11:03
+And then they think they're done well, they're not misleading because it can take forever to convert to the right thing and so it might still get practical argument.
+01:11:14
+Okay, so with this caveat, let's talk about how do we design the chain. Right. So the question now is how do we design.
+01:11:29
+The transition Colonel such that a race, the T pi zero converge.
+01:11:37
+To buy
+01:11:43
+And
+01:11:48
+And so there is one easy way. It's not the only way, easy way. And it's a bit that the heart of all the standard sampling Monte Carlo Markov chain logical center technique is to get a reversible Markov chain.
+01:12:13
+What's the reversible Markov chain.
+01:12:16
+It's Markov chain which satisfy the detailed balance equation. So, there is a distribution by
+01:12:28
+Such that a i j phi j is equal to AJ I pie I for all
+user avatar
+Unknown Speaker
+01:12:40
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:12:42
+And this is called
+01:12:44
+This condition here is called the detailed
+01:12:49
+Balance equation.
+01:13:05
+And so what does it mean, it means that when you started distribution pie.
+01:13:11
+You can look at the distribution. So there the distribution of starting in the state and finishing in a nother state is the same as the other direction. Okay, so this means
+01:13:25
+That when the marginal on AX t minus one.
+01:13:33
+Is just by
+01:13:36
+Then
+01:13:38
+The joint on X t equals i X t minus one equals j is the same as
+01:13:50
+Two in the other direction. So, to start to go and Jay when I was in, I
+01:14:01
+OK, so that's why it's called detailed bands, you have this balancing thing where you design the chain is such a way as that the mass that you start is conserved in some sense. Right.
+01:14:12
+So there's there's as much mass going in one direction as the other direction, taking in consideration. What was the distribution pie.
+01:14:23
+So that's a bit kind of like the intuition behind a name. Now, why do we care about detail balance. Well, it's because
+01:14:30
+This is actually a sufficient condition to get
+01:14:37
+The correct
+01:14:40
+Status redistribution. Okay, so this is
+01:14:45
+This is a sufficient condition.
+01:14:55
+To get that a pie is equal to pi. So, so this pie that we use in the detail balanced equation is the redistribution of a thing.
+01:15:09
+But it's not necessary so so difference between necessary and sufficient so it's sufficient. But there's other ways you could have
+01:15:17
+Paid to be correct. This is such redistribution when things don't satisfy the detail balanced equation.
+01:15:23
+And then the proof is pretty trivial to the proof because it's for tell us where the detail balance comes into play. So if I looked at the ice entry of A to the by the a play to buy. So I need to some over j, ay, ay, J. J.
+01:15:41
+And then by detailed balance.
+01:15:48
+But detailed balance.
+01:15:51
+This is the same thing as a Jay I pie I right
+01:15:57
+So this is true, by the tail balance. I can flip them around.
+01:16:07
+And so now I'm something over j. So, by I. It doesn't depend on Jay, so I can just put the pie in front of it, then I get summation of energy of AJ i and this is the left stochastic matrix. This is just one. And so I get that, indeed, a pie, the ice entry is just pie is
+01:16:29
+Very simple.
+01:16:46
+My target distribution satisfy the detailed bands equation, then I have that it is a special distribution. And so that's fine, an algorithm which actually does that. So this is the call the mitropoulos is thing our rhythm.
+01:17:09
+And good sampling is a special case, by the way, so you get back to that. The next class right now we're talking about the general one. And so the goal.
+01:17:18
+Is to construct
+01:17:23
+A Markov chain.
+01:17:25
+With
+01:17:27
+Sasha redistribution.
+01:17:30
+bionics
+01:17:32
+And that would be our target.
+01:17:44
+And for now, to avoid division by zero, and just defining weird state. We will assume that p of x is strictly positive for all x
+user avatar
+Unknown Speaker
+01:17:57
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:17:59
+And the, the, the algorithm will define some proposal.
+01:18:07
+So it depends on the proposal.
+01:18:10
+Some proposal.
+01:18:14
+Q of X prime given x
+01:18:20
+And then it will modified the proposal to correct it so that detailed balance is satisfied. So proposal could be sale simple equity or gal ocean or a uniform or whatever.
+01:18:32
+And then this one this is this is fine detail balance. So you will you will have this acceptance probably D to make it work. Okay. And then what happened is you will accept
+01:18:46
+New state x prime
+01:18:51
+With probability
+01:18:53
+Given by an acceptance ratio. So I call the probability a which depends on where I went and where I was from. So a of x prime given x
+01:19:07
+And how is it defined. It's the men.
+01:19:14
+It's a bit like rejection sampling. Right, so it will be the men.
+01:19:17
+Have one and
+01:19:22
+The ratio of cute X given x prime
+01:19:27
+P of x prime
+01:19:29
+Divided by cute x prime given X px
+01:19:40
+And so that's a bit weird. Why is it like, well, this just to make sure that the detail balance is satisfied.
+01:19:46
+Okay, so this acceptance. This is called the acceptance ratio.
+01:19:50
+The acceptance ratio.
+01:19:56
+To satisfy
+01:19:59
+The detailed balanced condition.
+01:20:07
+Okay. And note that because you have the ratio of px prime in px
+01:20:12
+So it does not depend on the normalization constant, right.
+01:20:18
+So like in in the on normalized version of important sampling. You only get
+01:20:25
+The if I had a normalized formulation for P i could just use that instead of p
+01:20:35
+Normalization
+user avatar
+Unknown Speaker
+01:20:38
+Of
+user avatar
+Lacoste-Julien Simon
+01:20:43
+Alright, so basically you propose a state with your proposal Q prime Q of X prime given x, you will accept with this acceptance ratio probability. And then if you reject.
+01:20:59
+Unlike in rejection sampling, you will stay in the same state.
+01:21:06
+You stay
+01:21:09
+In same state.
+user avatar
+Unknown Speaker
+01:21:13
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:21:14
+And so this is still a new sample.
+01:21:20
+So you will just repeat the same state where you were.
+01:21:24
+So there's definite correlation
+01:21:27
+But in your Monte Carlo average you will just keep it and use it in your article average. Okay, so this is in contrast to rejection sampling
+01:21:38
+Where in rejection sampling. When you reject you just need to sample. Again, you still don't have a new sample.
+01:21:46
+Were only
+01:21:49
+Accepted states.
+01:21:56
+Or use symbols.
+01:22:01
+So the point here is that
+01:22:04
+This define a transition, probably to you from x two x prime. So a matrix A, which will satisfy the detailed balance equation. So there's some quality of staying in the same state which by the way is kind of a created to the goodness of it right so
+01:22:20
+Okay, so in more more formally, you have the mitropoulos a sting algorithm. What you do is you start at some state.
+01:22:32
+X zero doesn't really matter where and then the four
+01:22:38
+T equals one, up to you're tired.
+01:22:45
+You propose.
+01:22:48
+X prime of t, according to your proposal Q and x prime given X t minus one.
+01:22:58
+And then you flip the bias coin.
+01:23:07
+With probably t
+01:23:10
+Acceptance of x prime
+01:23:14
+t given X of t minus one.
+01:23:20
+To be one.
+01:23:25
+And if you accept
+01:23:28
+It if the coin is equal to one.
+01:23:33
+You let your new sample.
+01:23:36
+To be x prime of t.
+01:23:40
+Otherwise, if you reject you let the new sample to just be the previous state X t minus one.
+01:23:53
+Okay, so that's the mitropoulos testing.
+01:24:00
+So there is asking, how do you ensure excuse the q by the way is doesn't change. Right. Q is a proposal. So the question is, how do you choose. Q. And that's a very good question. That's all in the art of designing good Markov Chain Monte Carlo or Williams and we'll see next class that
+01:24:23
+The good sampling algorithm is a very specific way to design a proposal which gives an acceptance ratio of one actually. So it's kind of very natural way.
+01:24:33
+But I won't give you that much details on how to choose a proposal because you can actually have an entire set of lectures on just this. It's kind of an art.
+01:24:45
+But the idea is, you know, the proposal, the closer the proposal is to the target distribution, you know, the more and I keep kind of
+01:24:51
+As a similar shape than the better it will be. But then there's a question of are you able to sample from this proposal, right, because you are not able to sample from the original distribution. So, if
+01:25:01
+You're going to just use the original distribution of the proposal because you don't know how to sample from it. And so this kind of target of like how do you can efficiently sample from your proposal.
+user avatar
+Unknown Speaker
+01:25:14
+Yeah.
+user avatar
+Lacoste-Julien Simon
+01:25:18
+Alright, so something to mention is that
+01:25:24
+If your proposal is symmetric.
+01:25:39
+Right. So if q of x prime
+01:25:41
+Is equal to secure of x prime given x is equal to q of x given x prime
+01:25:49
+Then when you look at the acceptance ratio.
+01:25:56
+You have that these cancels out right there are the same. So you just look at whether p of x prime is divided by p of x.
+01:26:05
+That will be your acceptance ratio. And so, if p of x prime is bigger than p of x, then this ratio will be bigger than one, and so you take them in. And so you will always accept and so in the case when you have a symmetric proposal you will always accept
+01:26:25
+If the property of your new state is bigger than the property of the old state. Okay. So in some sense, the metropolis hasting algorithm will behave like a noisy.
+01:26:40
+Hill Climbing
+01:26:43
+Algorithm.
+01:26:47
+Right. So when you have
+01:26:51
+Symmetry proposal. So, so I guess I'll say
+01:27:00
+Yeah. So basically when you have a symmetric proposal.
+01:27:04
+You will suggest states if the State gives a high quality you accept. So you went up in the state is lower, you will sometimes accept depending on how much lower. It is
+01:27:15
+And so in some sense of what it's kind of noisy hill climbing. Right. So overall, it's kind of going up, but sometimes it goes down. So that's kind of the algorithm is doing. And when Q is symmetric. This is actually called the mitropoulos algorithm.
+01:27:30
+And so the hasting part was to add this modification of ratio of queues when it's not symmetric
+01:27:41
+And so I will tell you that you can verify as exercise. It's not too hard, that
+01:27:52
+It satisfies
+01:27:56
+Detail balance.
+01:28:02
+With the especially distribution, which is equal to pee right a target.
+01:28:13
+So that's our metric policies thing all over them. It depends on this proposal. So does it basically this is a design choice.
+01:28:23
+Which is very important.
+01:28:25
+Right, so it's, you know, depending on how you define queue, you get different flavor of the metropolis tasting algorithm.
+01:28:35
+And now let's talk a bit about convergence.
+01:28:40
+So for convergence.
+01:28:51
+So we need to show that
+01:28:54
+So we already have that the by design. The chain satisfy the detailed balance equation. So we have that discussion distribution.
+01:29:04
+So we have that as district distribution is a target solution to make sure that we converted the right thing. We need to make sure that it's unique and that we can converse to it. Right. And so if the mark of if the if the metropolis hasting chain.
+01:29:20
+Is or Gothic
+01:29:25
+Then we know that we will converge.
+01:29:41
+Getting some trouble.
+user avatar
+Unknown Speaker
+01:29:46
+Sci Fi.
+user avatar
+Lacoste-Julien Simon
+01:29:49
+Okay, I'm back. So then
+01:29:53
+We converge.
+01:29:56
+To
+01:29:58
+Unique
+01:30:02
+Stationary
+01:30:05
+Distribution.
+01:30:11
+Be okay
+01:30:14
+And so what do I need to have an organic Markov chain. Well, we mentioned before that a sufficient condition what to what's to have
+01:30:28
+We want to. So, organic, we need to be a periodic and reusable right and so sufficient conditions for era disability.
+01:30:39
+A reduced ability
+01:30:46
+So let's go back to what was era disability and so irresistibility meant
+01:30:55
+That I can go from any pair of states right
+01:31:04
+Will it is I'm getting confused that will it disappear.
+user avatar
+Unknown Speaker
+01:31:09
+Doesn't look like it.
+user avatar
+Lacoste-Julien Simon
+01:31:13
+Okay, good.
+01:31:15
+All right.
+01:31:16
+And so to make sure I can go in any pair of states. One way to do it is to make sure that my transition probably T says that I can go. Where is it, boom.
+01:31:30
+So for disability, I can just make sure that q of x prime given x is strictly bigger than zero for all x prime not equal to x in my sample space.
+01:31:45
+So I can go from any pair of state.
+01:31:52
+Then that will make sure that you, you can go in multiple apps here, you can go in one hop right but you can also do it in multiple hub and then to be a periodic
+01:32:07
+So either
+01:32:11
+You use the fact that you can stay in the same state.
+01:32:19
+For some
+01:32:23
+X in skeptics, right. So, because if remember for the AP redick I said a sufficient condition.
+01:32:31
+That's why it was important. I said a sufficient condition is that there's some states for which you can stay in it. Okay, so one way to stay to make sure you stay in a state is you can propose the same state in your proposal.
+01:32:47
+And because the probability of of all states is always bigger than zero, you will you have some nuns or quality of accepting
+01:32:56
+So either that or another way is to make sure that the acceptance ratio.
+01:33:06
+Of
+01:33:08
+X prime given x is strictly smaller than one for some
+01:33:16
+X in this simple space.
+01:33:20
+And guess x prime
+01:33:36
+I mean you need you need to have
+01:33:39
+For some states for which you can travel
+01:33:44
+Explain.
+01:33:47
+such that q of x prime given x is bigger than zero, I mean,
+01:33:54
+To be the to have the ERA disability. We already assumed that so but I'll just to be really clear. I will keep it here. Now, what happened is
+01:34:03
+If the acceptance ratio is strictly small and one for some expression that mean there's a property of rejecting which means they have a policy of staying in the same state, which means that I will have basically
+01:34:15
+You know, both of these are I have that AI is bigger than zero for some it right
+01:34:23
+That's why I'm a periodic
+01:34:29
+Okay.
+01:34:32
+And so by making sure the proposal have this property. I can make sure that my chain is organic and so it will mix it will convert to this tissue distribution.
+01:34:44
+And so when you design these proposal. This is something to keep in mind. And actually there's a lot of these algorithms and machine learning were which were proposed.
+01:34:54
+Where sometimes, it didn't satisfy this condition. And so it actually wasn't even sure that you converse. The right thing and indeed some of these were actually wrong algorithm. It didn't convert right so that's one thing to be
+01:35:06
+To be careful with and then something I will mention, which is important because we will use it in the
+01:35:16
+In the give something example. So we have that we're also allowed to change or proposal distribution, it is still okay
+01:35:28
+To change.
+01:35:31
+The proposal.
+01:35:35
+With time,
+01:35:39
+And so instead of having a homogeneous market chain, we can have a homogeneous.
+01:35:45
+Or in a magennis, I guess.
+01:35:49
+In homogeneous Markov chain. So, we will have a proposal which depends on the time
+01:35:57
+But to make sure it's still converse fine.
+01:36:01
+We need that the choice.
+01:36:04
+Of the proposal.
+01:36:07
+Does not depend on the state.
+01:36:20
+Okay, so you kind of fix in advance the choice of the different proposal.
+01:36:26
+And then it turns out that the convergence theory.
+01:36:30
+That we talked about will go through can and importantly, the good sampling our women will be an example of that, because we will simple only one variable at a time, one piece of the joint variable at a time. So, the proposal would change with that.
+01:36:49
+And you could think of it as look at
+01:36:54
+The, you know, you will have a fixed schedule of how things mixes and then you could consider like having
+01:37:01
+A super chain which consider all these possible change proposal.
+01:37:14
+So Jacob was saying was an intuition that qx x implies a peer to cities so cute x x bigger than zero means that you are
+01:37:24
+Proposing yet. There's another possibility that the new state, you will transition to the same state as you started with.
+01:37:32
+Which means that the the overall chain defined by the metropolis tasting Ireland, which is both proposed and accept
+01:37:39
+It means that there's a non zero quality of staying in the same state. And I said earlier that when there was a when you have the chain which had the non zero quality of staying in some save state, then the chain was a periodic
+01:37:51
+It kind of broke the pier. The city because you add you know you could you could have either. It takes two states to get to the state or three or four, but I could always do like
+01:38:01
+Add one by staying where I am. So you can have the number of path. So the length of the past to go from one state to the other could be any number, in some sense, that's kind of me, which is why it's not periodic anymore. I could break deputy city.
+01:38:23
+So somebody is asking, what are the states of the Markov chain to be specified will be, for example, the parameters of a Patrick distribution which we would update with every acceptance or proposed simple, for example, so
+01:38:36
+If you do Bayesian computation you want to compute the posterior over the parameters. So you could perhaps
+01:38:43
+You if you wanted to say. Use your posterior to compute an expectation. So you would want to sample from the posterior so indeed, you could use the Markov chain multicolor algorithm to define a sampling algorithm from the for the posterior
+01:38:57
+But more in much more sophisti if I have a graphical model. And I want to compute the marginal distribution over some know I need to simple right from this distribution. And I told you some example in the last class to do either important samplings rejection sampling etc but
+01:39:18
+In the example like the icing model is a good one. So, where you had this grid, and I want to compute the marginal and one node.
+01:39:24
+But I'll tell you that. I'll give you in the next class. The give sampling example which is a special case of the metropolis testing which will allow you to approximate the marginal over the no denying model.
+01:39:38
+Oh, okay. And so one last thing before I stopped. I wanted to mention an example of why will the chain be slow mixing
+01:39:49
+Okay so slow mixing
+01:39:52
+Example,
+01:39:58
+And so
+01:40:01
+Suppose
+01:40:03
+That the target distribution is a very normal.
+01:40:12
+So,
+01:40:13
+Normal with menu and covariance sigma and that q of x prime given x, we will use a symmetric. Sorry, a spherical. Gotcha. So it will be a Gaussian on x prime with mean my previous state and then I will have sigma square I as my covariance. So it's like a spherical. Gotcha.
+01:40:37
+And so if my true distribution.
+01:40:41
+Is Isley non spherical
+01:40:47
+If I use a big variance. So for example, let's say I'm here.
+01:40:54
+And then I use a big variance. So this will be my proposal.
+01:40:59
+Sigma big
+01:41:01
+Now what what the problem is when you will use in your chain you will actually have a high probability
+01:41:09
+Of rejection
+01:41:14
+Because because I need to navigate this this kind of like kind of like narrow Valley situation, but I will. I have, you know, not a very big priority of lying in this low quality region. And so these, I will have a small acceptance ratio. So I will reject. Okay.
+user avatar
+Unknown Speaker
+01:41:34
+So,
+user avatar
+Lacoste-Julien Simon
+01:41:35
+And so this is my p
+01:41:38
+And and so you say, okay, well, instead of using a big I will use a small
+01:41:45
+Value of
+01:41:48
+Of the variance. And so let's say I'm here and I take small value of the variance. So this will be sigma small
+01:41:59
+And now I will. What happens is, well, I will make very small step. And so, you know, if I make independent simple of my music very normal. You know,
+01:42:09
+Getting a priority here versus there. They're very high probable, so I should be able to ease quickly go to this.
+01:42:16
+Far away points right and so because I'm always only making small step from where I am. It will take you know a lot of step before I can get to this point. So the mixing time will be slow. Okay.
+01:42:35
+And so it will take you know this. These make small moves.
+01:42:42
+And play many steps needed
+01:42:50
+And so it turns out that the
+01:42:53
+If I compared the
+01:42:57
+The
+01:43:00
+The biggest and the
+01:43:03
+The biggest and the smallest singular value for my current matrix, it turns out that the mixing time. You're the best.
+01:43:12
+mixing time
+01:43:17
+Is related to the condition number of my matrix. So it's the ratio of sigma max divided by sigma. So, if I have a spherical. Gotcha. This is one, so it's a, it's not a. It's not a switch will have a small mixing time. But if I have a very esoteric
+01:43:41
+A symmetric or I none as well tropic Gaussian. Then using ISO tropic Goshen as a proposal, it's not it's not nicely working so I will, I will, I will slowly mix. Okay, so that's kind of a difficult distribution to to mix with
+01:44:01
+Okay, so let's give you a bit of
+01:44:05
+Intuition and so is it kill this thing. I'm a little confused. Our x and experimenting states and the random variable values that we are simply yes
+01:44:14
+X and X prime. There are two states, there are the values of the random variable that we want to sample from
+user avatar
+ezekiel williams
+01:44:24
+A third but they're also the states of the Markov chain.
+user avatar
+Unknown Speaker
+01:44:28
+Yeah.
+user avatar
+ezekiel williams
+01:44:29
+Okay, just start at the beginning that you said we were only dealing with like finite state spaces, but I go
+user avatar
+Lacoste-Julien Simon
+01:44:34
+Oh, okay. You're saying, whoa. Well now I'm talking about the gash in proposals and
+01:44:38
+When it comes to the space.
+01:44:40
+Yes, you're totally correct
+01:44:44
+So I gave you the convergence theorem and everything indiscreet space because it's simpler and to give you the intuition, but it also works in continuous space.
+01:44:54
+So, for example, making like here, my gosh, and distribution gives you a non zero quality of going anywhere.
+01:45:03
+And also being in the same state. So it turns out that this is so if I do be triple A tasting with this gushing proposal. This is definitely are guarded markup changing the continuous sense and in the chain will mix so it will still work.
+01:45:17
+Yeah. Okay. Any other questions.
+user avatar
+ezekiel williams
+01:45:23
+Um, actually I had another question, if I may ask, I was also wondering, so
+01:45:30
+I guess we we've proved the the theorem relating to the mixing and the case of where a diagnosable matrix. Yeah. Could you give some insight into into what it would be like if we didn't have a diagonal matrix or suggest where to look for for References
+user avatar
+Lacoste-Julien Simon
+01:45:48
+Yeah, so
+01:45:48
+I think
+01:45:50
+There's a very nice document by Yuval Paris that I found online think from Berkeley tells you about mixing time of Markov chain. So I'll put the link in the scribe notes.
+01:46:04
+The idea is, like, it's kind of related to the eigenvalues. But when you don't have this spectral theorem. It's a bit more complicated, but it's still kind of the this notion of like how how separated the next eigenvalue is
+01:46:20
+Because in some sense you always getting a race to the teeth. So you want to know how fast the convert the matrix converge to the right thing.
+01:46:31
+And the other question.
+01:46:33
+You know when a bit over time. Sorry about that.
+01:46:39
+OK, so the program is next time I will now tell you about the good sampling algorithm, which is basically a specific case of the metropolis tasting, which we know will have an acceptance ratio of one. So it's kind of like it makes sure that you you move more
+01:46:55
+And it's something you can run in the pricing model. And that's what you're doing the next assignment. After the one that is do for sure.
+01:47:02
+Alright, so. Have a nice weekend. See you next week.
+01:47:07
+Oh, we have a don't forget, we have a getter town social

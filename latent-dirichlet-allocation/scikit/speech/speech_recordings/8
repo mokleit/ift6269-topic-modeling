@@ -1,0 +1,1699 @@
+Lacoste-Julien Simon
+00:00:06
+Okay.
+00:00:09
+So first announcement.
+00:00:13
+I will move back the due date for the homework to buy one week and I think I'll update other dates in the schedule. And that's because I realized that there's a lot of stuff. You will need for homework, do that. I will only be able to cover next week.
+00:00:35
+Like, I think the buttons are with them this kind of stuff. So, and actually last last year. Also, people had a bit more time to do the assignment to so I actually will update that also send an email to you, but be aware
+00:00:52
+So today, whenever you do today, we're going to finish linear regression
+00:01:05
+Linear regression, which was our
+00:01:08
+First example of
+00:01:13
+Supervisors learning approach inspired from
+00:01:18
+A Journey models, a conditional model of on why given x in the case of regression and then we will cover logistic regression
+00:01:32
+Which is for classification of into this regression. The name. It will see why it's called logistic regression
+00:01:40
+And so last class, we go back to last class.
+00:01:46
+Just so that we're all on the same page.
+00:01:55
+And kinetic is asking if all homework will be pushed back in perhaps not all of them, but they will be a bit of upset that I'll have to look back at the schedule.
+00:02:06
+Okay, so
+00:02:09
+So basically,
+00:02:12
+If we recall so
+00:02:16
+I'm not sure why this is not doing
+user avatar
+Unknown Speaker
+00:02:23
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:02:26
+So do you see my screen. By the way, do you see
+00:02:32
+The like circle I just draw okay. That's why it doesn't want to
+00:02:39
+Let me stay in the
+00:02:42
+In the highlighting mode.
+00:02:44
+In any case, so we had this
+00:02:49
+As a motivation for the integration is we had this conditional model of why given x where we would suppose that basically why when I condition on X can be seen as a linear, linear transformation of x plus some Gaussian noise with a fixed
+00:03:06
+Variance
+00:03:08
+And and then if we do maximum conditional like you did this model, we got that the
+00:03:16
+Conditional likelihood had basically this
+user avatar
+Unknown Speaker
+00:03:22
+Why am I not getting this to see if this will work.
+user avatar
+Lacoste-Julien Simon
+00:03:29
+Is really annoying. Okay, so
+00:03:32
+So if I scroll I lose my pen.
+00:03:36
+Not sure why this is the case, then do that in the past.
+00:03:40
+So,
+00:03:42
+Yeah, so we had that the lug like you had basically this form where you had this quadratic
+00:03:49
+This some of squared error coming from the ocean. And then you also had a normalization. A coming from the Gaussian density which dependent on sigma and then
+00:04:00
+At the end of last test. I did that. Okay. If I maximize this function respect to sigma or sigma square, actually, in this case, because it's invariant to
+00:04:10
+We know that the maximum likelihood estimates and variant to reprint ization we just got that the estimate for or
+00:04:18
+Or variance term is just the square. The average square, which kind of makes sense, that gives you the notion of like how much noise you have in your observation. Right. So if you have a lot of noise.
+00:04:30
+You will have a higher variance and then we still don't know what's the maximum likelihood parameter for W. And so that's where I started to introduce some limitation. At the end of the last class I define the
+00:04:46
+The design matrix where each of our observation.
+00:04:52
+Vector for each input or or the rose. So it's an n by d matrix.
+00:04:59
+And and then I can rewrite the leg leg viewed as just the
+00:05:06
+The Ultra norm between the vector of labels so. So why is an n dimensional vector for where does interesting examples. So I put the the label or
+00:05:18
+Or the labels, the regressive value for each input and I just can compute the the norm difference between y and x the design matrix X times w, okay and so
+00:05:33
+That's a way to avoid having writing sums and also it gives us a bit of German chuckle intuition and, in particular, so
+00:05:44
+When sigma is fixed, all I have in this function is just this LT norm. So I said that
+00:05:51
+Maximizing the log like you. This was the negative log, like, dude, so it's like minute maximizing like he will is like minimizing the negative log likelihood. And so it's minimizing the square between y and x W. And so what does this mean. It means that I'm projecting
+00:06:09
+From a linear algebra perspective. I'm projecting the vector, why on the column space of x, because x w is basically when w various over all possible vectors. This is the span. This is the span of all the columns of x in the algebra terms. And so I've made a little 2D drawing here is that
+00:06:33
+You have that. Why is probably not in the span of their common space, especially if these not that big.
+00:06:43
+And so what you're when you're doing least square, you're trying to find W star which is the coefficient of combination between the columns of x such that I get the projection of why over a dyspraxia okay
+00:07:11
+So, somebody asked to sigma square that delta sigma square
+00:07:19
+This thing was, this was the if you're asking about this notation. This is partial derivative with respect to sigma squared. That's what this means.
+00:07:30
+This is not a two. It's a partial
+00:07:34
+There.
+00:07:40
+Okay, so that was the the recap.
+00:07:46
+So, so we can reinterpret the maximum next
+00:07:52
+Parameter for our slope.
+00:07:56
+I many issues with this thing. I'll have to reboot and find what's up with this.
+00:08:01
+And so we just need to solve this minimization problem, which is what we call the least square problem.
+00:08:10
+And somebody said, Why would be in the span if there was no gosh and noise. Right. So, indeed, if the why I are truly
+00:08:20
+Where is it, yeah. So if why I was indeed truly equal to just this then as you see
+00:08:30
+It's definitely a linear combination of the X right so I could I could if I rewrite this as a vector format would have that. Why is basically x W. That's what I would get so this is clearly in the listeners.
+00:08:45
+So the gosh and noise here in the general model is what make things perhaps not in the span.
+00:08:53
+But this is also, by the way.
+00:08:56
+You have to differentiate your model with the reality right so so so right now. This is your model and
+00:09:04
+We don't know this w right and so
+00:09:09
+Yeah, but we'll get there. When we do when we solve the normal equations or in by the way i in the notes. Last time I left a long detail information about how to do global maximization organization of function which are differentiable
+00:09:26
+But they're not as a convex or something. So I said, you find a century points and you look at the boundary. And as I gave a counter example in these notes.
+00:09:35
+Why you could even have some cases where there's only one statuary point, but this is not a global max our global men because what's happening is the global max or global men is that pending at the boundary
+00:09:48
+Even though it's a bit counterintuitive because you think you know you could have actually known it was even a weird example that it's not only a stationary point. It was a local men.
+00:09:58
+And there was a global men somewhere else at the at the boundaries, which seems weird because if it's a local men, you think, oh, there should be another story points so that it goes back, but that's because it's in multiple dimension and weird stuff can happen.
+00:10:13
+Regarding the boundaries. Is this a sufficient condition for estimate to be a global max and min
+00:10:19
+So if the function is continuously differentiable. If you checked the value of the all this point and the value add the boundary, then you know that's where the global maximum global men can appear. Yes.
+00:10:31
+The function is not completely differentiable. There's none did. There's, there could be like more weird stuff happening.
+00:10:45
+OK, so the shank. I will come back to your question later we'll see if it answers it because it's just solved the problem. So,
+00:10:55
+Back to
+00:10:58
+Oops, I don't want this. So back to the square
+00:11:07
+So we want to solve the maximum
+00:11:12
+likelihood estimate
+00:11:17
+Are you telling me that I'm not able to raise now.
+user avatar
+Unknown Speaker
+00:11:22
+Yeah yeah
+user avatar
+Lacoste-Julien Simon
+00:11:25
+Okay, I think I'll reboot the computer during the break.
+00:11:31
+So,
+00:11:33
+W ML. He is the art admin over Rd of the new norm between y and x w square. Okay, so basically let's do a bit of algebra. So actually this is nice because this is a complex function of why we just need to find the story points.
+00:11:56
+So, what we want is we want to compute the gradient of this and set it to zero.
+00:12:06
+Okay, so that's the century point. So how do we do that well let's just rewrite the
+00:12:15
+Equation in a bit more expanded form. So the norm is the product between the vector transpose and itself. So, this is this transpose times y minus x w. OK.
+00:12:31
+And now I want to take the dirt. I want to take the derivative of this
+00:12:39
+And set it to zero.
+00:12:46
+So this is what we want. Ah, so like, Okay, let me just try killing this thing and try again and see if it will work.
+00:12:55
+Is so annoying.
+00:13:11
+Well known as kidding up from the last time it was open.
+user avatar
+Unknown Speaker
+00:13:15
+Not surprising.
+user avatar
+Lacoste-Julien Simon
+00:13:18
+Answer a question in in the in the meantime.
+00:13:36
+What's happening now.
+00:13:40
+Looks like when notice having trouble.
+00:13:55
+Alright, so the question of The Shack was we don't know in the training that if the trading day that why lies in the span of x.
+00:14:03
+So yes, we never know. Because it's not because we make a modeling assumption that is correct. So indeed, it's. We don't know.
+00:14:14
+Whether this will be the case.
+00:14:22
+Okay, so what's the problem.
+00:14:24
+That me kill this thing and try again.
+user avatar
+Unknown Speaker
+00:14:29
+I
+user avatar
+Lacoste-Julien Simon
+00:14:34
+Think I need to reboot my computer.
+00:14:38
+That's the fun of windows.
+00:14:48
+OK, so now I'm able to get in. After killing the software use Linux.
+00:14:54
+Well, I agree. But the problem is that the tablets support in Linux is I'm not sure not and perhaps now it's good, but like, you know, I started to use these tools.
+00:15:05
+15 years ago at the time it was definitely not as good. And I'm now locked in. That's the problem. So I have like gigabytes. You know, like thousands of research notes all locked into one notes and I'm stuck there.
+00:15:22
+Alright, so
+00:15:24
+Apologies for this little
+00:15:28
+hiatus, but hopefully now I will work go back
+00:15:34
+Here we go.
+00:15:36
+You hundred 25
+00:15:40
+And now let me share it.
+00:15:46
+Okay, so we're back. And now let's see if this thing works.
+00:15:55
+Can I erase
+00:15:58
+Oh yeah, now I can erase it. Okay, good.
+00:16:01
+That's helpful. Okay, so, and
+00:16:06
+So we want to compute this. So let's compute this quadratic form. So I want to take the partial derivative of the quadratic form so
+00:16:14
+When you have these these
+00:16:17
+Two terms. Time to terms you can just do all the crust. Right. So why times y y transpose time why that's just the normal why
+00:16:26
+Then I have minus
+00:16:30
+Actually the cross term and you have two terms. This is a quick form. So this would be to Y transpose times x w
+00:16:38
+And then I have the last quadratic term which will be the boy you transpose x transpose x w
+user avatar
+Unknown Speaker
+00:16:48
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:16:49
+And I want this to be equal to zero. So, I want this to be equal to zero.
+00:16:55
+So first of all a bit of gradient cockiness here. So if I think the grand and respect to w of the quadratic form with the matrix A here w transpose A. W.
+00:17:07
+This is equal to, in general, this is equal to A plus A transpose w. So we don't have to assume that A is a symmetric matrix this case, you have to be careful. It's not just to AWS, you could expect it's a plus A transpose
+00:17:25
+And by convention, when we use the gradient notation. This is a vector. So when I'll do a bit more think I'll do a bit later without without I think I'll talk about the maximum likelihood in a multivariate gash and I'll, I'll give a bit more
+00:17:44
+Tricks and vector calculus and notation. But for now, you know, let's just assume that we know these things. Otherwise, we'll get back in these in more detail you can just think of the gradient is a vector of partial derivative and that's it right
+00:18:03
+And so because of that, the first term, I get zero. Because why is a constant.
+00:18:11
+This gives you
+00:18:14
+The second term is just minus two.
+00:18:17
+X transpose y. So, not Y transpose x y transpose x is a row and I said the gradient is a vector. So, I will put it in vector form. That's why to the transpose x transpose y
+00:18:27
+That's the derivative of the second term. And then the third term, as I mentioned, it's a trance AS A transpose w. In this case, x transpose x is so, so this is a symmetric matrix. So this just give me two x transpose x w and I want this to be equal to zero.
+00:18:45
+And so if I solve for W. This implies that x transpose x
+00:18:51
+W star. So, any global min of this function needs to satisfy this linear equation which is called the normal equation. That's a pretty famous equation for
+00:19:06
+linear, linear regression, basically. So it doesn't mean. So this is called a normal equation.
+00:19:14
+So now I will consider two possibilities.
+00:19:17
+So if
+00:19:19
+X transpose X is incredible. So if x transpose x. That's a DVD matrix, by the way, is inevitable.
+00:19:30
+Then we have a unique Emily, right, we have a unique solution.
+00:19:40
+So we have that the W N le
+00:19:44
+Is X transpose X inverse times X transpose way.
+00:19:51
+And I just multiply on the left and the right, with the inverse. So I get the identity times w start on the left and transpose y
+00:20:02
+That well X transpose X inverse time x transpose y on direct
+00:20:08
+So,
+00:20:10
+What does it mean if X transpose X is incredible will remember that x
+00:20:18
+So x is n by d, which implies that it's rank the rank of the matrix X.
+00:20:27
+is smaller than the men have an end right so the rank of a matrix. It's the maximum number of linearly independent columns, for example, but men so it cannot be bigger than the number of columns.
+00:20:47
+Which is d in this case.
+00:20:52
+And it cannot be bigger than the dimension of the of the vectors of the columns. And in this case, the number of the dimension of a column is and that's why it's min of n d
+00:21:05
+And it turns out that if I take the trends. If I take x x transpose. It's the same thing. So, x, x equals x or x x transpose both both things cannot have
+00:21:16
+Actually, the same rank of X. It's a linear algebra fact. And so, thus
+00:21:23
+The rank of X transpose X can be bigger than men have an MD.
+00:21:31
+Which means that if x transpose x, which is a d by the matrix is convertible.
+00:21:36
+You need in this case that end is bigger than deep so you need more training example than the dimension.
+00:21:44
+So that's already some condition.
+00:21:49
+So if you're
+00:21:51
+In very high dimension when d is bigger than n, for example, then you definitely don't have any credibility and you don't have a unique solution.
+00:22:03
+And we'll get to this non unique case. But if I look at what is the then the prediction. So this is our maximum likelihood estimate
+00:22:15
+And and why in this case doesn't have to be in the in the in the span of the of the
+00:22:24
+Of the data right sorry does have to be in the span of the columns of x, which in some sense can be seen as
+00:22:34
+The linear combination of the of the
+00:22:39
+Data points.
+00:22:42
+And so
+00:22:44
+But we can still look at what is our prediction on each data point, given this parameter. Right. So if I look at our prediction.
+00:22:55
+On the training set.
+00:22:59
+For a model.
+00:23:05
+Okay, and by prediction I means here that
+00:23:11
+So if because when you do a regression, you can just take your, your estimated W and take the doc product with X to find what should be your prediction.
+00:23:21
+From a holistic perspective, you could think of it as well. What's your model is really saying is that you think that why given x is a Gaussian around it's mean
+00:23:31
+And so here, all I'm saying is you're predicting to me. Okay, which makes sense. And actually, that would be the optimal thing to predict. Also, if you use a squared loss on the on the output.
+00:23:44
+OK, so the prediction will just be your predicted mean which will be I take my my data points and I just multiply by my
+00:23:55
+Estimated vector w and by the equation above what this is, this is just x x transpose x minus one. And then I have a x transpose
+00:24:09
+Y. Okay. So this was the boy you, Emily. And I've just multiplied by x. And it turns out that x transpose x minus one x transpose. This is a projection of barrier.
+00:24:23
+To projection matrix.
+00:24:28
+In particular, and this is a projection matrix on the span of the column space of x.
+00:24:34
+On column.
+00:24:38
+SpaceX.
+00:24:45
+Again, so this is not surprising, because that's what I said here that the solution here, I would have that minimizing the squared in arm of y and x W. Basically, I get this vector here, which is the projection of why on the span of the columns of X Games.
+00:25:09
+And so here we just got
+00:25:13
+From a linear algebra fact just another perspective on that.
+00:25:17
+So this is, you know, recall
+00:25:23
+The geometric perspective.
+00:25:33
+OK, so now if n is smaller than D. If I don't have enough observation competent dimension.
+00:25:42
+So, ie either were in high dimension.
+00:25:47
+Or we have not much data.
+00:25:55
+Then we know for sure that st trends X transpose X is not incredible just by the rank argument. And I explained about
+00:26:05
+This and then there is no unique solution.
+00:26:10
+Good. So then, so then
+00:26:13
+If x transpose
+00:26:19
+Is not a convertible.
+00:26:28
+There is no unique solution.
+00:26:37
+And you could choose. And so any W hat, such that it satisfy the normal equation.
+00:26:50
+Is a maximum conditional likelihood estimate
+00:26:56
+So there's so as I mentioned in the past, maximum likelihood or maximum conditional IQ. It's the same spirit.
+00:27:03
+Sometimes it's not unique. This way, there's multiple possible estimator. And there's a here there's a bit of issue of which one do you choose.
+00:27:14
+And
+00:27:16
+In statistics, people have in this case chosen a specific solution out of the infinite number of solution. And usually the one that has suggested. So the one
+00:27:30
+Is to pick the one which has minimum Altoona. So one example to make things unique, you could say, Okay, let's find the one among all these infinite solution.
+00:27:43
+Which minimize the elbow elbow on
+00:27:47
+Yeah, so is the argument over all W such that w satisfy the normal equation.
+00:28:00
+That's a way to make it unique. So
+00:28:05
+Basically the L to norm can be seen as a strongly convex objective, they'll to norm square. And so when it's a certain context objective as a unique solution when it's optimized for convict set here the linear set of equations to conduct set. So, so this has a unique solution.
+00:28:21
+Supposing that. Okay, so this is supposing it's feasible. So supposing that this is the case.
+00:28:28
+But
+00:28:34
+Actually, that's a good point.
+00:28:45
+Because
+00:28:52
+You could also have that. Why is not consistent
+00:28:59
+Hmm, okay. Yes, it's the first time I think about that. So supposing that that there's a there's a
+00:29:07
+There are some parameters for which this is satisfied.
+00:29:15
+So the feasible set is not empty.
+00:29:18
+Then
+00:29:20
+Yeah, so that then there's an in the case that X transpose X is nine convertible, then it will be an infinite number of solutions. So that's the, the, in particular, suppose the rank of
+00:29:31
+Of x is, I don't know.
+00:29:37
+D minus 10
+00:29:41
+And
+00:29:44
+And so then there will be dimension. So it's not full rank.
+00:29:48
+And so then there will be 10 dimension, which are free to very to actually get arbitrary solution. Okay, so that's kind of a linear algebra fact
+00:29:59
+Alright, so the minimum norm solution is a way to make it unique. And it turns out that this minimum nom solution is this is a specific color inverse called pseudo, the more. So this notation here is this is called the more Penrose
+00:30:19
+pseudo inverse
+00:30:25
+And in this case, we're multiplying by way okay so
+00:30:30
+So the more Penrose
+00:30:33
+pseudo inverse. So let's say x. So the inverse. One way to define it.
+00:30:40
+When x is for rank.
+00:30:43
+Is X transpose X inverse times X principles.
+user avatar
+Unknown Speaker
+00:30:52
+Hmm.
+user avatar
+Lacoste-Julien Simon
+00:30:54
+And so in this case.
+00:30:58
+You would see we get back to the
+00:31:04
+So if x transpose x isn't vertical we just get back to the
+00:31:12
+The
+00:31:18
+The same equation as this one.
+00:31:23
+Here, right. So this is the same thing as x to the inverse of why in the case of x being convertible, though. Now we're generalizing to the situation where X doesn't necessarily have to be incredible.
+00:31:39
+I mean, so x is not enabled by the way. So x is never incredible because it's a square rectangular matrix. So, okay. So just to be clear, so
+00:31:47
+So x is nine Lord of all. So there's the pseudo inverse was to generalize and verse which can also be used rectangular matrix and but now we're talking about x transpose x. So if x transpose x is
+00:32:00
+Convertible then the this this pseudo inverse times y gives the same thing as the unique maximum conditional legs would solution, which was this using this expression.
+00:32:14
+So this, this is is only valid here.
+00:32:19
+When x is for rank.
+00:32:24
+If it's not full rank, then there's a another expression for it.
+00:32:30
+Which I recommend you look at the wiki big goal and the more more general suit inverse. It's very highlighting
+00:32:37
+box where you can computed by taking the SPD of your, of your matrix and all this singular values which are zero. You just forget about them in some sense, and then you inverse, the non than the, the one which are non zero because you're able to inversion.
+00:32:58
+Okay. Well, let me write this down. So let's say I do x i say this is you sigma V transpose. That's my SVG, then
+00:33:10
+You can say that the
+00:33:12
+pseudo inverse of x is just
+00:33:16
+In this case,
+00:33:19
+You take the trends can take the you will have sigma pseudo inverse and then you transpose
+00:33:28
+So you take the inverse of you envy you and we actually are a second all matrices. So the inverse is just their transpose and so when they take the kind of like the inverse of all these matrices, I go back. So I start with the inverse of v.
+00:33:45
+And so, sorry, the inverse of the transpose which gives me the then I cannot take the inverse of sigma is any because it might have some zeros on the diagonal
+00:33:53
+Because the rank is not, it's not rank and so that that's where I think the pseudo inverse and an episode of universities, I will have something like
+00:34:02
+I will have something like so this is this was an ID. So here, this would be n by d
+00:34:10
+And so I will have
+00:34:12
+Stuff on the diagonal like
+00:34:17
+Sigma one blah blah blah to sigma d
+00:34:21
+That supposing n is bigger than D. By the way, then I have to zeros everywhere else. That's my sigma. And so now when I think the sort of inverse of that all I have. It will be the transpose of this matrix and
+00:34:35
+The non zero element will be inverted and then when the zero I just forget about them.
+00:34:42
+Okay, there's a lot of questions now.
+00:34:49
+For our vertical experiences Judy method stands to get me know solution that is correct. And you actually read the green method also get the minimum nom solution that's something else will come back to that.
+00:35:13
+A
+00:35:18
+Yes. So x is he made a point that
+00:35:27
+Forgiveness to linear algebra can point that this is always in the column space of X and thus there will always be some solution here which is true, yes.
+00:35:50
+OK, so now an important question, should these calculations in crystal clear intuitive to us right now in the center of our goal of the procedure, but I'm probably less than a specific matrix, man.
+00:36:00
+Good point.
+00:36:04
+I think this will need a bit of reviewing to kind of let go over the steps so that it becomes clear.
+00:36:10
+Indeed, there's a bit of
+00:36:13
+Additional information I'm giving you from the linear algebra, in terms of rank and all these kinds of things, the important aspect is
+00:36:20
+We were trying to solve this, this maximum likelihood problem, which was just finding
+00:36:27
+The W which which minimize this L to norm distance. Right. And so now I'm doing a bit of manipulation to find out what are the properties of these solutions and, in particular, I've highlighted that
+00:36:40
+The quality of interest is x transpose x, which is a DVD matrix. And if x transpose x is in vertical, then there's a unique solution which has a nice shape.
+00:36:52
+Which is. And the nice thing about this also is that when you predict when you look at what would be your prediction on on the training set, you're basically just projecting
+00:37:02
+Your label, why on the quantum space of x, which was something already mentioned in Jimmy to contrition. And then if X transpose X is not in vertical
+00:37:12
+Then there are multiple solutions and and now I'm going to talk about the I'm talk quickly about the more the the the pseudo inverse formulation which is one choice of solution which is intuitive, which is the minimum L to norm solution among all those which satisfied in a whole equation.
+00:37:31
+And
+00:37:33
+And so, and it turns out that indeed the when we talk about optimization numerical condition technique like grading method or as GD to throw these will also find you. This minimum norm solution that's kind of interesting to know
+00:37:52
+And this minimum know solution can be expressed as just the
+00:37:57
+pseudo inverse of x times y. OK. And now I told you a bit of properties about the sort of inverse
+00:38:04
+You need to, you know, if this the first time you see that I don't expect that you fully understand all these details will also need a bit of reading on your own Wikipedia and the pseudo inverse
+00:38:15
+But basically, now what I want to tell you is that
+00:38:22
+So it's also getting more intuition about overfitting. Right. So what's happening is
+00:38:27
+When you're in high dimension or when you don't when the number of training simple is not that high maximal makes you is not a well behaved.
+00:38:34
+Estimator in particular because it will overfit and here it is highlighted in these equations in the fact that there's an infinite number of solution to the maximum likelihood estimates. And so, which one should I pick
+00:38:45
+And a lot of those actually will have very poor generalization performance. OK, so the minimum age to norm in some sense is kind of regularize and so you could think it's a bit more stable. And here I want to highlight something important is that the pseudo inverse operation.
+00:39:10
+Is the pseudo inverse of a matrix is not numerically stable.
+user avatar
+Unknown Speaker
+00:39:21
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:39:24
+So what does it mean for something to not be numerically stable. It means that if I make a bit of numerical change on the entries of my matrix. If I make epsilon change on the entries on my matrix.
+00:39:38
+I would like that the solution. So, like the pseudo inverse matrix should also have small change not huge change because if it has huge change.
+00:39:48
+Well, that means that I need to really be careful about the numerical precision of my entries. And so, for example, usually in computers we use
+00:39:57
+Say a double accuracy or float or something like that. So we already have a few digits of accuracy.
+00:40:05
+And so if a small change in the last digit of accuracy makes a huge change in the solution, then there's no way you can have a good accuracy and the solution. Okay, that's what you want me to write the stable method to because you never have these entries with perfect precision anyway.
+00:40:22
+And it turns out that the pseudo inverse indeed if like I could have some similar value, which were 10 to the minus 16
+00:40:29
+So if there are zero, then I don't convert them if they're 10 to 16 I invited them and become tend to the 16th, which is a huge number, by the way. And so
+00:40:39
+And so it turns out that this is not a nice numerically stable operation and instead
+00:40:47
+It is better.
+00:40:50
+to regularize
+00:40:53
+To get similar effect.
+00:40:57
+to regularize the problem.
+00:41:01
+To get
+00:41:03
+Similar
+user avatar
+Unknown Speaker
+00:41:05
+Effect.
+user avatar
+Lacoste-Julien Simon
+00:41:07
+Okay.
+00:41:09
+Because it turns out that the pseudo inverse could also be seen as taking
+00:41:15
+Adding an L to penalty in the least square problem and taking the coefficient in front of this penalty to zero. Okay, taking the limit of this to be zero, but
+00:41:25
+Making it exactly zero, which is what you get, or the limit when it goes to 01, which is what you get when you do the
+00:41:31
+Inverse is not stable. So it's much better to use a very tiny value for this say alumni equals 10 to the minus 10 or something. And that's much more stable, even though it has basically the same.
+00:41:44
+And
+00:41:45
+And the reason I mentioned that there's two two reasons. So, one is that I will not talk about regularize the square. So it's another way to motivate rigorously square to is that it turns out that's an important fact of kind of like pretty deep fax machine learning is that
+00:42:05
+When you have
+00:42:07
+numerical instability in your algorithm. This is really tied to statistical instability, okay, because you can think of. I have numerical in accuracy is just because of numerical precision. Well, when you make measurement when you have data. You also have you don't have like the perfect
+00:42:27
+Value of things because, for example, like you don't have infinite data. So you don't know the exact distribution. So when you do statistics. You also don't have perfect accuracy on the measurements.
+00:42:37
+And so if an algorithm or an estimator behave badly numerically. Usually the will also behave badly statistic. And it turns out the direct the maximum likelihood estimator is not that great. When you have high dimension compared to the data point.
+00:42:55
+Okay, so let's go to the rigorous mission.
+00:42:59
+World.
+00:43:02
+regularization
+00:43:06
+Are you gonna rise.
+00:43:12
+And
+00:43:15
+Rather than saying, okay, we will stabilize the numerical techniques which is one way to look at it. I will motivate it from now a map perspective can be motivated
+00:43:26
+From a Bayesian point of view and using a map estimate
+00:43:45
+Okay.
+00:43:46
+So,
+00:43:50
+Was asking a very good question, which is a bit annoying but still very good question.
+00:43:55
+If it's not a good idea to use maximum likelihood estimate. Why is it so popular. Okay, so
+00:44:02
+What why why this question is lying is because we're talking about
+00:44:06
+Fundamental theory here, which is pretty old and
+00:44:12
+There has been a lot of progress since then, which is not as a theoretical, but more empirical okay so so there's there's a few things. So first of all, in
+00:44:24
+Statistics.
+00:44:28
+The maximum likelihood estimator was fairly common because it has nice properties when the dimension is not big when N is Big and the small
+00:44:39
+For example, I'm doing analysis of people I have 1000 people and I measuring their height their age and I don't know their their their french fries consumption, that's three numbers. So these three and is 1000 maximum like you have no problem. Okay.
+00:44:56
+So that the problem of Mexico. Mexico comes when you do high dimensionally T stuff, which
+00:45:03
+Originally the another tip or statistics appear mainly mission learning so admission learning regularization was super important. Very quickly, early on and then there is this kind of neck new wave from deep learning, which kind of like shattered. This
+00:45:21
+This
+00:45:23
+Kind of like perspective.
+00:45:26
+From
+00:45:30
+So being mainly. Okay, what happens is if you just run as GD on a deep neural network aid works. Wha, even though you're doing maximal magnitude. And so then, oh mean, who cares about regular rising or doing other techniques, it's not needed. It works well. Okay. And here.
+00:45:53
+The thing is, there's a, you have to think of it more deeply about what it means. Okay. Because the problem is
+00:45:59
+When you do as God you're trying to approximate some kind of solution to an optimization problem.
+00:46:05
+And it turns out in this case that when you do maximum accurate. There's still an infinite number of solution when you have a super deep network and
+00:46:13
+As GD will pick one, which is actually in some sense regularize and so you are implicitly realizing by the opposition algorithm that you're using.
+00:46:22
+So even though you are. You think you're doing maximum Max, you're actually doing something a bit more clever than that is using a good position. A good
+00:46:33
+In the sense of
+00:46:35
+Implicitly a rigorous method on this problem and that's why it works. But this, this is kind of a
+00:46:44
+Bit of a longer story and it's not trivial to talk about these things. But so you can think of Emily being popular either among people who don't know too much about theory.
+00:46:54
+And this is more about ignorance and the fact that there there is a way to that there is, it turns out that there are some algorithms that people have used to
+00:47:03
+Try to do, Emily. They think they're trying to do NLP and it works really well in practice. And that's why they don't worry about too much anyway that the fact that it's not there well behaved estimate in general.
+00:47:21
+And
+00:47:24
+Sheriff the solution of system of linear equation doesn't change mystically when you print terms and put I guess this is an insert to to the numerical stability against right
+user avatar
+Unknown Speaker
+00:47:37
+Yes.
+user avatar
+Lacoste-Julien Simon
+00:47:39
+Okay, so
+00:47:42
+Map point of view. So suppose we put a prior
+00:47:48
+Suppose we put
+00:47:50
+A prayer over or parameter
+00:47:53
+So now I put a prayer over w i will say it will be a Gaussian
+00:48:01
+Again, my convenience, but it will give also something interesting. So I will say, okay, it's a Gaussian ON W with zero mean and I will use as my variance
+00:48:13
+Sigma square identity divided by London.
+00:48:21
+Okay. And so this is the
+00:48:24
+End so
+00:48:27
+First of all, I hear is the deep idea identity matrix is this is a multivariate Gaussian
+00:48:36
+And lambda is the
+00:48:41
+Precision
+00:48:44
+Parameter so you can permit tries the Gaussian with either the variance
+00:48:52
+Which is sigma square or the inverse variance, which is and usually you can use like either lambda for this kind of
+00:49:02
+Value.
+00:49:03
+And here what I've done is I've really scaled the whole thing. I use sigma squared divided by lambda and you'll see why very soon, why I do that is because then the lambda becomes or usual regurgitation panic.
+00:49:16
+Alright, so this is my prior. So then if I'm a if I want to do a map estimate instead of maximum conditional likelihood. I want to maximize the posterior. So let's look at the posterior log of the posterior
+00:49:35
+Okay, so
+00:49:38
+I will answer your numerically stable question.
+user avatar
+Unknown Speaker
+00:49:43
+I
+user avatar
+Lacoste-Julien Simon
+00:49:45
+Think it's a good answer now. So he's asking about the
+00:49:50
+The numerical stability, right. So, all I'm saying is so numerical stability. What I mean by numerical stability.
+user avatar
+Carl Perreault-Lafleur
+00:49:58
+Is like, Sorry, this, this is my question. I just want to know what you mean by getting similar effect.
+00:50:04
+Just under it's written that rigor arising within will get you
+user avatar
+Lacoste-Julien Simon
+00:50:08
+Oh, good point. Okay. Yes, yes, yes, yes, yes, yes.
+00:50:12
+Thank you. Thanks for clarifying the question.
+00:50:16
+Basically, all I'm saying here.
+00:50:18
+Is that you will get that the W map.
+00:50:27
+As a function of lambda
+00:50:29
+As lambda goes to zero will converge to the w
+user avatar
+Unknown Speaker
+00:50:37
+Let's say that's called like pseudo inverse
+user avatar
+Lacoste-Julien Simon
+00:50:45
+And so if I if I would take the limit as number close to zero of a mind map estimate, I would get the pseudo inverse estimator.
+00:50:57
+And
+00:50:59
+And so I could actually compute sort of inverse by doing that.
+00:51:04
+And but you don't want to think the limit goes to zero because anyway this is like an unstable process. And that's what happens often when you're taking limits, you can get weird stuff happening.
+00:51:14
+And so you will instead you could choose us very small lambda which one gives you the political reverse it, but it will be much more stable directly and will basically also do the same effect of getting a unique solution and this, this is what I mean by by that.
+user avatar
+Unknown Speaker
+00:51:29
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:51:36
+So it's compute the map.
+00:51:39
+That posterior. So I have the log of the probability of W, given the data.
+00:51:46
+This is proportional to the likelihood times the prior and I take the log. So I just plus this is lug probably to have my observation.
+00:51:55
+given x and W plus the prior log of the prior and then plus some constant, which are coming from minimization constant. And then I already wrote before the log likes you. For
+00:52:12
+Or conditional models. So this was one of two sigma square L to norm between y and x w square I had some function of sigma square, which appeared in my leg leg. Good. And then I have my new term here which is basically
+00:52:34
+Minus lambda divide by two sigma square
+00:52:40
+Norm of w square. That's my prior
+00:52:45
+Have a constant.
+00:52:47
+And so now the map.
+00:52:49
+To this
+00:52:52
+So now the map estimator for w
+00:53:00
+W map.
+00:53:03
+Can be seen as the admin.
+00:53:07
+Over W.
+00:53:09
+Of the norm.
+00:53:15
+Plus the regularization
+00:53:22
+And I remove here, the sigma square because sigma square is a constant. So rescaling an objective by a constant doesn't change its maximizers right
+00:53:31
+So that's why I have used this sigma squared by lambda to make sure that I don't have to worry about sigma square and the trade off between the L two error and it's legalization.
+00:53:43
+And so this is called rich regression
+00:53:49
+Which is basically
+00:53:51
+The square regression plus LT penalty on the
+00:53:57
+On the perimeter.
+00:54:07
+In
+00:54:09
+So you can think of this
+00:54:26
+So somebody is asking, why are we keeping the one half term.
+00:54:31
+Yeah, it's because when you take the derivative, the two cancels out. So it kind of neat. But indeed, like I could remove the one half as well. Right, so it's not super important.
+00:54:43
+So,
+00:54:46
+So that's the map and you can think of this as regularize er M.
+00:54:59
+Empirical Research position. Right. So basically I have
+00:55:03
+My empirical error on the training set.
+00:55:08
+In this case it's using the
+00:55:11
+The square loss.
+00:55:13
+But in general, I could have a loss. And then I add also
+00:55:18
+Some kind of regularization
+00:55:22
+And here I divided by n to get the average error. So if I take this objective divided by n, then I get basically what I've just wrote
+00:55:35
+It. So here, this was the squared last that I use.
+00:55:41
+And so this whole thing here is the empirical error.
+00:55:48
+And this is our regularization
+00:55:52
+Which, if you remember from your basic mission learning class this is to avoid overfitting.
+00:55:58
+And we'll see here the effect over their realization, it will stabilize the maximum likelihood that the map estimator, it will stabilize our estimator, and indeed reduce its variance, which will also reduce the overfitting.
+00:56:17
+And so in particular.
+00:56:20
+This LT term here.
+00:56:24
+So to the objective
+00:56:29
+So this objective.
+00:56:34
+Is what do we say we call strongly convex
+00:56:39
+In W.
+00:56:46
+Which implies that it has a unique solution.
+00:56:55
+So when you have where you're convex if you have a zero gradient. It is a global solution, but you might have multiple if you're strictly or strongly convex then and either a gradient will give you the unique solution.
+00:57:08
+In and a function
+00:57:11
+Is called
+00:57:14
+Whoops. Let's say this is an F is called lambda, lambda strongly convex lambda is basically the the strongly convex
+00:57:25
+Strong convexity parameter if and only if I can subtract to my function L to norm times landa divide by two and this is complex. This is still complex
+user avatar
+Unknown Speaker
+00:57:43
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:57:45
+I mean there's multiple definition for a strong complexity, they're all equivalent. So that's one a simple one.
+00:57:54
+And yes so er M stands for empirical risk position.
+00:58:05
+It was a this type of estimator.
+00:58:10
+Or learning principle, which is basically you find the the parameter which minimize the empirical error. And then you can add a regurgitation to that which is basically some kind of complexity over your classifier. In this case, it's just the new norm up W.
+00:58:33
+So start tech is asking, okay, well why why L to norm. You know why, why not other random functions of w y el to alarm. So that's, that's a very good question. Um,
+00:58:47
+And so here I'm giving a bit of motivation that. Well, you can think of Altoona norm as what you would get if you are a Bayesian
+00:58:55
+And you put a quick. Gosh, and prior over w. So it gives you all to know if instead of putting a gash in prior over w. You put a Laplace prior you will get the LM so that's a different triggers a rigger riser. So while two verses one
+00:59:09
+And then there's a whole industry of analyzing the properties of different organization technique.
+00:59:15
+Particular if you do l one organization. One effect, you'll get is that the parameter will be sparse, it will have a lot of zeros. This is what less always doing
+00:59:24
+So if you think that having sparse solution makes sense for your problem, then the other one regularization might be a better regularization
+00:59:34
+But you can think of.
+00:59:38
+The type of rigor of ascension. You do kind of like favor certain functions versus others. And so this is a kind of a way to kind of get
+00:59:49
+Some bias into the learning process, which if your bias is correct. I he if the kind of functions will do well on this distribution.
+00:59:59
+Or the one that you kind of put about app or prior on like you put high mass, then you will do well and if your biases wrong. Well you on this. A dwell in. So that's kind of the, the, the general spirit here.
+01:00:13
+And it's a bit you can think of it also like a German model assumption gives you a method. And if your general model assumptions are are good. Usually the method would be good seminar also for the regularization so
+01:00:26
+And that's what you'll explain it in the in assignment.
+01:00:34
+So, so, side effects says so. The regurgitation is a prior to restrict them from the data function, sort of, yes. Okay, so one keyword, for example, is called structural risk musician. So this has come from that Nick. So the idea is
+01:00:55
+If you just minimize the. Why am I not able to do this.
+01:01:01
+Okay, so if you just minimize the empirical error, you will overfit okay over all complicated functions you overfit. And so the idea is you restrict your class of function.
+01:01:11
+And putting it out to regularization can be seen as I will consider a Yorkie of
+01:01:22
+Nested class of functions where you, you start with function with very small alarm function with a bit bigger L to norm, etc, etc, etc.
+01:01:32
+And what you want is to find the one the class of function which minimize the combination of its complexity penalty, which is the norm, with the training air. Okay, so that's kind of the
+01:01:44
+Kind of like a Occam's Razor type of idea you want simple quote simple functions which and simple is quantified by your organization which does well on the trainings.
+01:01:57
+Okay. And there's a, there's a, there's a lot of learning theory behind that and we won't really have time to go into this and discuss because there's too many things to do.
+01:02:09
+But if you're curious, you can have a look at
+01:02:13
+There's a learning theory.
+01:02:16
+Class that I give in my, in my lecture in advance for sure prediction of all the notes online, do you look for the lecture, which has learning theory and in one class I over I go over
+01:02:28
+Standard transition era bounds and basically learning theory for castigation and so that will also highlight a bit of a this kind of information.
+01:02:39
+Okay, so when our data as many outliers, which is realization is prefer rich or less.
+01:02:45
+So it's actually the last which matters in this case. So if you're, if you have outlier. The problem is, your, your, your, your error. So let's say if I go back to the square there. Do I have it somewhere.
+01:03:02
+No, I don't have it. But the problem is that if some why
+01:03:06
+Has nothing to do with the current process. So it's super far from extended W. Well, because I'm squaring it's error, it will have a huge impact on trying to be fit and it will really screw your, your estimate to this case.
+01:03:18
+And so instead of using the L to r squared error, you should use the absolute error in the states it's it's it's not changing the organization. It's changing the actual loss that you want to use for
+01:03:31
+So instead of thinking. Now you have Gaussian noise. If you had left last noise, you would have absolute value here instead of the square and this is more robust to to outliers.
+01:03:45
+And so there's this, by the way, there's this whole field called of robust losses and it's basically trying to define. Indeed, these losses which when you you you learn with them, you actually are more robust to outliers.
+01:04:02
+Okay, well, so let me finish the map before going to the break, and then I'll take a break. Sorry, it's good along, but I think it would be nice to kind of finish the map and then you can also ask question so
+01:04:15
+Blah, blah, blah. So, so this is our map. So now let's try to
+01:04:19
+compute it. So I want to take the gradient of this instead of two equal to zero and you can actually redo the all the derivative
+01:04:28
+That I did last time, you will still have the X transpose X appear, but then the L to norm, the grain of the norm just gives you lambda times w
+01:04:38
+And so, what you get is basically lambda times the identity.
+01:04:43
+And I want this. The times w is equal to x transpose y. Right. So before I only had x transpose x times w and I have x transpose x plus lambda times the identity and then the beauty of this thing is that this matrix here is DB the matrix is always in vertical
+01:05:04
+If lambda is strictly bigger than zero. Okay. Basically I it's like I add a little
+01:05:11
+Quantity on my diagonal. And that makes it in vertical and it makes it pull rank and Parker and so that means there is a unique solution which, as I said, because it strongly convex, it should be the case. So I have that mind map.
+01:05:25
+Or in this case, I could call it the rich
+01:05:29
+aggressor, the solution of the rig regression
+01:05:34
+Is x transpose x plus lambda identity inverse times x transpose y okay so
+01:05:44
+This works.
+01:05:46
+Always and there's no problem.
+01:05:51
+When even if d is bigger than it
+user avatar
+Unknown Speaker
+01:05:55
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:05:57
+And in particular, if lambda is not too small. This is very interactive stable.
+01:06:09
+Alright, so is there any burning question before the break.
+01:06:16
+And the curiosity question of the shank is if you have, if you don't assume that the noise is constant, will it change something. Yes, it will change something exists is to the reader it say instead of having sigma square constant you had
+01:06:33
+It's a partition the data point in like three groups with each their signal. You'll see it, it will basically rewind the error in between.
+01:06:46
+Alright, so if there's no burning question. Let's take a 10 minute break. It's 239 so let's go until 250 that's have 11 minutes break because I took it too too long.
+user avatar
+Unknown Speaker
+01:07:01
+All right.
+user avatar
+Lacoste-Julien Simon
+01:07:07
+So is there any additional questions on linear regression or map.
+01:07:22
+Okay, so one last thing about
+01:07:28
+Linear regression. I'll mention, and then I'll go to logistic regression, but is that
+01:07:35
+There's a
+01:07:38
+Good practice.
+01:07:40
+So,
+01:07:44
+So when you have this this L to prior over the normal W. It basically means that each dimension of W are equally penalized. Note that in the prediction. You take W transpose x. So if you're really scale a feature.
+01:08:02
+Was apple. Let's say instead of measuring
+01:08:06
+Feature in meter you measure it in nanometers. So you just now, blow it up by 10 to the nine. OK.
+01:08:15
+So now, a small change in w will have a much bigger effect than it used to do before.
+01:08:20
+And so if the scales of your different feature are not the same. They're not kind of meaningfully equivalent this alto regularization is is not to see the best prior because it is assuming that each feature have about the same effect on the prediction. Okay, that's why it's good practice.
+01:08:40
+To
+01:08:42
+Either
+01:08:44
+Standardize or
+01:08:47
+Normalized each feature.
+01:08:51
+The features.
+01:08:54
+Or normalize them.
+01:09:01
+Before doing your, your prediction me and you're learning so standardize mean you make each feature.
+01:09:12
+zero mean and
+01:09:16
+Unit standard deviation
+01:09:22
+Are unique empirical variance empirical
+01:09:28
+The recall. Oops. No, not right.
+01:09:33
+Empirical variance
+01:09:36
+So it's like standard normal and normalize means either you could make x i unit norm.
+01:09:50
+Right, so you could reach scale things so that every feature as it is today norm, which is equal to one. Are you ready scale things
+01:10:00
+Scale features.
+01:10:04
+To 01 or minus one to one, for example, that's kind of like
+01:10:11
+You put them in this bump specific comparable reference
+01:10:16
+Then you ask, Okay, well, which one of those three
+01:10:21
+Actually don't know I don't know myself.
+01:10:25
+The main the main idea here. The main guiding principle is is
+01:10:31
+I don't think it would matter too much these different things, but it depends what you're measuring right so if you're measuring things which are positive, well then scaling them to 01 perhaps makes more sense than then normalizing them.
+01:10:44
+If you are measuring things which are all components number which could be arbitrary and they're all similar in spirit will perhaps standardizing them makes more sense.
+01:10:53
+If what you're measuring has a meaningful scale, which should be different, like, you know, like there's what could be good example.
+01:11:08
+That's a good question. What would be a good example of meaningful scale.
+01:11:13
+So you know that the first feature is
+01:11:23
+Is a distance.
+01:11:25
+And
+01:11:27
+The second feature.
+01:11:36
+Actually, I don't have a good example which comes to my mind.
+01:11:45
+Okay, I'll have to think about that.
+01:11:48
+But the main the main idea here is, oh
+01:11:53
+People are not seeing my notes. No, I think there's being shared. So the main idea is that if you're modeling something where you're
+01:12:03
+The what the quantity is your define the difference of scale between two different quantities is meaningful.
+01:12:09
+Well, then you can keep this. You don't want to normalize them because you think this difference should be
+01:12:14
+That the fact that to to variable has very different skill is important, then you don't want to. You don't want to scale them so that because the difference is meaningful. So that's what I meant, but I don't have a good example in my mind. I'll have to think about that.
+01:12:29
+So yeah, so is there any question about linear regression
+01:12:34
+Before I move on to logistic regression
+01:12:47
+No question.
+01:12:49
+Thumbs up, thumbs down.
+01:12:55
+Thumbs up. Okay, good.
+01:12:57
+I have good. Oh, that's nice. Okay. And I'm not talking to a computer. And so, so again, the big picture here is I gave you. Now one of the simple. The simplest statistical problem. I'm trying to predict
+01:13:13
+continuous values. I made a linear model, which could be seen as coming from a Gaussian noise generative model.
+01:13:24
+And already, we've seen standard phenomena coming from machine learning, like overfitting. Like if the dimension is too big. If I just did maximum execute or I just minimize a training error which is what happens when you do empirical risk and ization then
+01:13:41
+You you already get some issues that you don't have a unique solution and
+01:13:48
+I didn't give you the details, but you can trust me that the effect is that if you don't pick wisely. The correct maximum likelihood estimator, you get
+01:14:01
+high variance of your estimator, and you
+01:14:07
+You want to see how good your position or performance. OK.
+01:14:13
+So now we will
+01:14:18
+Go to one of the simplest model for classification. So I started with.
+01:14:24
+Regression now we go to classification with something called logistic regression
+01:14:39
+Okay. And somebody asked
+01:14:42
+If there's a rigorous motivation for pre normalizing the data. For example, could we show the diarization air will be better when we do so. I think so. In the context, again, of
+01:14:55
+If you would make some assumptions about the distribution during the data and then showing that when you just do l to regularization, it will be better behave if indeed your the scale of your inputs are comparable right so it's it's kind of get this uniform
+01:15:12
+Scale across the different features, I think, I think you could you could be able to formalize that
+01:15:20
+Okay, so let's just aggression. The setup is
+01:15:24
+binary classification
+01:15:32
+So now our output space is only 01. It's not the real anymore, but the input will still be some element in Rd
+01:15:47
+Odds told us capital X.
+01:15:50
+It's not a design matrix yet. It's just a random variable.
+01:15:54
+And then we'll again motivate the logistic regression from a journey of model.
+01:16:09
+So it actually it can be fairly generic and it will see that the assumption we make from those this aggression or not as strong as the other model, we will talk about with afterwards, which is the fisher discriminate analysis model.
+01:16:28
+So suppose that are on the assumption will make
+01:16:37
+Is
+01:16:39
+For now, there exists.
+01:16:42
+A PDF
+01:16:47
+A PDF, I either are densities.
+01:16:53
+In Rd
+01:16:55
+For each of our class conditional
+01:17:06
+So the property of X given that, why is one and property on x, given that y equals zero. So, these two conditional this distribution. Have a nice density, which would call it by the two p
+01:17:26
+And so now if we suppose it as, as the case. Now, if I want to compute the probability that Y is equal one, given that I observed capital X equals little x
+01:17:40
+That's the conditional that we want to use when we do conditional modeling. Right. Well, I can just use
+01:17:47
+The joint divided by the marginal. So this is p of y equals one, x equals little x divided by
+01:17:59
+Both p of y equals one, x equal x plus p of y equals zero, x equals little x, right. So this is the definition of the conditional. This was just the marginal because there's only two possibilities for for why
+01:18:19
+And so now
+01:18:21
+So here
+01:18:24
+That's fine for now. So I haven't done much
+01:18:28
+And now I will just do a bit of algebraic manipulation, I will divide by the this joint on the numerator and denominator.
+01:18:42
+So I get basically this is p of y equals zero, x equals little x divided by p of y equals one, x equals little x
+user avatar
+Unknown Speaker
+01:18:54
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:18:57
+And
+01:18:59
+This is basically one divided by one plus and now I will just do x
+01:19:07
+Of minus f
+01:19:19
+So I wear f of x i just redefine things I'll define f of x as groups.
+01:19:31
+Fra x by definition will be the log of the conditional
+user avatar
+Unknown Speaker
+01:19:38
+Oops.
+user avatar
+Lacoste-Julien Simon
+01:19:40
+To these are conditional density P of x equals x given y equals one divided by p x equals x, y equals zero.
+01:19:54
+Plus the lug of the prior p of y equals one piece of y equals zero.
+01:20:02
+Okay.
+01:20:07
+So in general, I was talking just about general distribution and
+01:20:14
+How do I erases it
+01:20:19
+And so now
+01:20:21
+What happened is, in order to talk about
+01:20:35
+Okay, so what am I saying here. So because already this thing.
+01:20:42
+Already I was using the annotation of a density. So perhaps I use little pea sort of capital P
+01:20:51
+So this is a mixed. This is now we're getting into technical world, but this was a mix distribution where it is a discrete piece and a density piece I depart the part of respect to x is a density. Same thing here that will be
+01:21:06
+lit up.
+user avatar
+Unknown Speaker
+01:21:10
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:21:13
+And ended up
+01:21:19
+So there's a few things I've done. So first of all, I put a minus here and you'll see why very soon as just to get the sigmoid function. So that's why I flipped the Y one and the y is zero. So here I had zero on the top and one on the bottom. Now I flip them around.
+01:21:37
+Here because of this minus i put an X. And that's why I have a login. And then I had a joint here the joint is the conditional times the prior. And so now be taking the log. I just get plus right so that's two pieces. And so now what are these pieces.
+01:21:55
+And so this is called the class conditional ratio.
+01:22:06
+This is called the prior odds ratio.
+01:22:14
+And now when I take the lug I get what are called the lug odds
+01:22:21
+Now, the whole point is if I want to know, you know how, what's the posterior of y equals one given X.
+01:22:28
+Given this model. Well, it will have to do about how more likely X is according to the class one versus cloud zero as well as are more likely a class one is respect to zero. So that's kind of like that, but I've included here.
+user avatar
+Unknown Speaker
+01:22:43
+And so
+user avatar
+Lacoste-Julien Simon
+01:22:45
+And why did I write it in such a general form well because it means that in general.
+01:22:50
+Just supposing there is a class conditional density
+01:22:55
+We can say that the probability of y equals one given X equal to x can be rated as the sigmoid function of with f of x as input. Yeah, where
+01:23:09
+sigmoid
+01:23:11
+Of z by definition is one divided by one plus x of minus z.
+01:23:19
+Right, so this called the sigmoid function.
+01:23:23
+Fewer neural network experts. You've seen it a lot in as an activation function in the old papers I guess now it's being replaced by reduce but that's pretty popular activation function and
+01:23:37
+What it looks like. Well, it has value one half at zero.
+01:23:44
+And then it goes to zero when Wednesday is minus infinity and it sent out at one when he goes to infinity. So this is kind of like this, this, this, this is called the sigmoid shape. Actually, the sigmoid function as a sigmoid chick. That's how it looks like. So this is sigma
+01:24:03
+And some properties of this function because will use them a lot.
+01:24:09
+Properties of the sigmoid function.
+01:24:13
+First of all, it is
+01:24:17
+It has a simple
+01:24:21
+Symmetric not symmetric property, but like, So, sigma lead of minus z is the same as one minus sigmoid of z.
+01:24:29
+Okay, which means that if I take the sigmoid of ze N minus c plus minus z i get
+01:24:39
+One. Okay, so that so I
+01:24:43
+And so that's pretty neat. And actually, it's pretty clear here because if I say that
+01:24:51
+The quality of y equals one is sigmoid
+01:24:55
+I know that the property y equals zero should be one minus the quality of y equals one. And so that's exactly what we're saying here is that the quality of y equals zero will just be celebrated minus, it turns out, and you can easily verify it.
+01:25:10
+In these equation that it's indeed segue to myself.
+01:25:16
+Another property of the sigmoid
+01:25:20
+Is that it's derivative
+01:25:24
+As a simple form, which is why it was using in neural network.
+01:25:28
+So the derivative of the sigmoid respect to z.
+01:25:34
+Is just sigmoid of z.
+01:25:38
+Times one minus z.
+01:25:41
+And this is just segue to Z.
+01:25:44
+Time to sing with of minus
+01:25:48
+So that's simple form for the derivative
+01:25:54
+OK.
+01:25:57
+So now.
+01:26:01
+So if I just have a class conditional model.
+01:26:07
+Hey, I assume there's some density on x.
+01:26:12
+Then I get that my protein of y equals one can be written as a depends on x would be the sigmoid function of f of x.
+01:26:21
+Now logistic regression happens when, instead of just having f of x, you actually have millinery parameters version. So, so, if f of x is not arbitrary function. It's actually a linear function of x.
+01:26:33
+Okay. And so to motivate that
+01:26:39
+So to motivate linear logistic regression
+01:26:48
+Linear logistic regression
+01:26:57
+And
+01:26:58
+We will show that there's a lot of there's a very wide class of distributions, which will give you a linear
+01:27:06
+Characterization of the function as a function of x.
+01:27:11
+Okay, so this is called
+01:27:14
+So, we will consider
+01:27:17
+The class conditional
+01:27:22
+To be in the exponential family right I already mentioned that in the past. That's a very important set of parametric distribution.
+01:27:34
+And will basically use them here to kind of get the same properties for all these members. So what is the next financial family.
+01:27:44
+Will have in future lectures, a bit more in depth coverage of exponential family. But here, I'll just give you the quick definition. So an exponential family. It's a parametric family where
+01:28:00
+The density of your distribution in your Patrick family has this shape. So you have some common
+01:28:10
+Scale or factor as a function of x and then you have this exp, you have the parameter transpose to have x minus eight of them.
+01:28:21
+Okay, and
+01:28:24
+That's it. Right. So, so basically the parameter that you use. There's different ways to prioritize them. You could use the mean pasteurization but here it's called the chemical composition. So, eta is the chemical parameter
+01:28:41
+And he of X and to fix.
+01:28:46
+These are the pieces which determine which exponential family, we're talking about. So these specify
+01:28:56
+The exponential family. And in this case, it's called a flat exponential family because we're using the chemical parameter
+01:29:11
+That we are considering
+01:29:18
+This to have x as also a name called, it's called the sufficient statistics because it is a sufficient statistics for the expansion of family in the statistical sense of US official statistics which would come back later. What are sufficient statistics.
+01:29:39
+And finally, this a of data. This is not used to determine the the can. The much a family, it is, once I did I determine h of x and to vex I can derive a of it is basically just a
+01:29:54
+normalization factor to make sure it's some it's integrate to one. This is called. This is a scanner function and it's called the log partition function.
+01:30:05
+The log partition function people in statistical physics have seen that this is basically just a normal user, right. So this is there a normal user to make sure that it's integrate to one.
+01:30:20
+Somebody asked about Cisco physics. Does the word chemical have anything to do with the clinical and symbol in physical physics. I don't think so. So clinical usually it's something
+01:30:30
+It's like this standard or it's kind of like something very natural. That's kind of what clinical mean
+01:30:36
+And so the clinical and symbols physical physics. That's a very natural basic and symbol for physical physics here, the chemical just means this is like the standard pasteurization that you want to use.
+01:30:48
+The other position that people can use our main path transition or even other transformation, but the Kennedy call one is the is the standard
+01:30:57
+Preposition you want pretty much with me.
+01:31:02
+And let me give you an example. So the beta distribution, the direction distribution. The plus song gamma. All these are next month enough me. They are all inspirational families.
+01:31:13
+So most almost all the standard if the decision, you know, or in the exponential family one exception is like the uniform deception is not an extension of me and we'll come back to these when we go into the
+01:31:27
+More details on the exposure family. But let's look at the gash in like, let's put the gash in and see how it looks in the goat in the exponential family.
+01:31:36
+So let's say I look at the Goshen. So I want, I look at my density as of the Goshen as a parameter you and sigma square. This is a minus one half.
+01:31:48
+lug of to phi sigma square and then I have minus x minus mu squared and i by two sigma square. So I think the log of my so you know I had this this one over to sigma square, square root I to belong. That's why I get minus one half.
+user avatar
+Unknown Speaker
+01:32:08
+It was a pain. Where's my bike.
+user avatar
+Lacoste-Julien Simon
+01:32:14
+And so now I want to express that in the shape as I had above so you can expand the quadratic term.
+01:32:23
+This so that it actually x square
+01:32:28
+Divided by
+01:32:31
+two sigma square
+01:32:34
+Minus
+01:32:37
+X times new divide by sigma square. The two cancels out the name of a plus new square divided by two sigma square. That's the last term. And then I have a minus in front of it, right.
+01:32:57
+And so
+01:32:59
+This could be seen as. So if I define as my sufficient statistics.
+01:33:11
+Oh, let me rewrite this word here. This is flat.
+01:33:19
+So,
+01:33:22
+Let to have X be the vector minus x squared away by two and x
+01:33:32
+Then you can see that the clinical parameter as a function of the
+01:33:37
+Mean parameter. Sorry. Yeah. So at of mu sigma square
+01:33:44
+Is
+01:33:46
+One over sigma square and then new divided by sigma square
+01:33:52
+And then so and so then if I take the product between to vex an ETA.
+01:33:59
+I basically get
+01:34:03
+These two terms here.
+01:34:05
+And this doesn't have x and this doesn't have X right these are just the normalization constant coming into a of so I can rewrite also a of it.
+01:34:16
+As being one of one half log of two pi square I was
+01:34:23
+A it
+01:34:24
+Was one half lug two pi sigma square and plus new squared by by two sigma squared. So it's all their remaining terms or just
+01:34:38
+Basically normalization constant. And so I put the gotcha now in an extension of me form, I guess just to be on the same page. This was the density of aggression. I guess I forgot to write this just assume
+01:34:53
+That's the density of the case. They got should in one
+01:34:58
+Okay, so I guess people have trouble with my writing.
+01:35:02
+What is the symbol between below to vex at the age or n and
+01:35:10
+Oh this yeah this is
+01:35:13
+So this thing year this is an ETA because I wanted to have the chemical parameter as a function of the meantime interview and sigma square
+01:35:29
+Okay, so that's just to give you an example. We'll go see more examples of the exponential family in further lectures. But now suppose that my class conditionally or in the exposure family. So what do I mean by that.
+01:35:44
+I mean that
+01:35:47
+The property. My density on x, given that y equals one, this will be p of x given at one, so I will have some parameter which described my distribution.
+01:35:59
+On X for class one and a different parameter for class two. Okay. And, and as a concrete example you can think as they're both different multivariate Gaussian
+01:36:13
+And the class membership tells me, what's the meaning the covariance matrix for my multiplayer Gaussian, but I don't want to assume that the red gas and I'm saying, I can do this derivation for any
+01:36:24
+exponential family. Okay, so then if I compute the laggards
+01:36:33
+To get my my logistic model.
+01:36:39
+Basically I by definition of my luggage if you remember when I just made this duration. It was
+01:36:47
+This thing here. So this is my
+01:36:50
+My, my goods.
+user avatar
+Unknown Speaker
+01:36:53
+Oops.
+user avatar
+Lacoste-Julien Simon
+01:36:56
+I think the ratio of my class conditional. So I had this was lug of probability of x, y equals one divided by property of x, y equals zero. And they had plus lug a quality of y equals one priority of y equals zero.
+01:37:19
+Okay. And so now if I just look at my model. I'm saying this thing here. This is a class conditional
+01:37:27
+Oops.
+01:37:30
+This thing here. This is the probability of X given at that one. This is probably T of x given it to zero.
+01:37:40
+This I'll call that just pie. There's a parameter, which I will use to quantify my prior over class one and so then if the other one was by this is just one minus by right
+01:37:54
+And so the nice thing now is because I have an exponential family.
+01:38:02
+And I take the log. So you can see here that
+01:38:07
+When I compare the class conditional for
+01:38:12
+One class versus the other, and think the ratio. I will just get the same I will get the same to have X, but with different parameters in front of them. And when I think the log. This just disappear. Right. And so if you just plug it in. What do you get as this is equal
+01:38:31
+To one minus eight zero transpose. Time to x.
+01:38:38
+Plus eight I have my normalization factor.
+01:38:43
+Versus, it's a it's a one.
+01:38:46
+And then the last piece is log of pi divided by one minus by so that's
+01:38:53
+How my logo ads various as a function of x given these parameters.
+01:38:58
+And so now I can
+01:39:00
+Re penetrates this saying, Okay, let's call this w transpose five x
+01:39:07
+Where did. Where did I get this W. Well, W. The parameter which will describe my, my, God is basically just a simple function of my
+01:39:16
+Classical additional parameters. So it's at that one minus beta zero and then the bias. There's also a bias term which is
+01:39:23
+Coming from I know musician constant. So this is a of it zero minus a beta one plus lug of pi one minute. Okay, so that's my parameter which kind of describe
+01:39:38
+My login. And then my feature function is just to x, which depends likes much of me and then I will have this constant feature one to get my bias.
+01:39:51
+So I just rewrote basically my my log function as a linear in paradise.
+01:40:00
+With using the power of w and five x. This is my my future map.
+01:40:04
+And so that means that what we're getting is basically a logistic regression model right so we get the logistic
+01:40:13
+regress regression model.
+01:40:19
+That the probability that Y equals one given X equals w zero x ray capital X equals little x
+01:40:31
+And so, Dora asked if he x cancels out. Yes, he cancels out because they don't depend on me. So when I take the ratio for to class conditional. The cancels.
+01:40:43
+So, this depends on w. So this will be the sigmoid of W transpose five x
+01:40:52
+So,
+01:40:55
+And that's what we call the logistic regression model.
+01:40:59
+Using five x as a feature map. So this is called five x could be seen as the feature.
+01:41:09
+So when you do the logistic regression model you portrays this conditional with the pattern W and you will just do maximum likelihood to learn. W.
+01:41:20
+And why did I talk about exponential family and all this kind of stuff. Well, I'm saying that if you make very generic assumption, Jerry of assumption about how the data was generated
+01:41:31
+By saying that, oh, if the data comes from class conditional and exponential family. It turns out that you would conclude that the the p of why given x will have this sigmoid
+01:41:44
+Function.
+01:41:46
+Variation with almost linear in the parameter. So, it is basically so so this piece is definitely linear in the in the parameter. So this is not linear, but this is just for the bias. So if so the only bias is kind of weird, but this part here is definitely linear and so you get that
+01:42:07
+In some sense, assuming this shape for your conditional is actually
+01:42:14
+Not making that strong assumptions on how that the data that came in. Okay. And in particular, there are multiple
+01:42:23
+Different class conditional which will give the exact same style of poi given x. And so you don't need to assume which one it is any of them will work.
+01:42:32
+Just why when I say to the the conditional approach makes less assumption is more robust than the general approach because this case there's actually multiple jury of assumptions which gives rise to the same conditional model.
+01:42:46
+And so, in particular, as I think you might do in your assignment that for guts. But there's an exercise to the reader.
+01:43:02
+So you basically try the argument above
+01:43:11
+Using the Gaussian as the class conditional. So you'll say p of x given why
+01:43:17
+Is actually a normal on X with mean UI and covariance UI.
+01:43:24
+And if you suppose that sigma zero is equal to sigma one, so they have the same covariance, then you will get that the feature map you get is just linear in X, actually. So it's x and then one
+01:43:39
+Okay. Otherwise, if you have different class conditions.
+01:43:46
+Otherwise,
+01:43:48
+If you suppose that the Goshen have different tests conditional you'll have that feature map could be
+01:43:56
+X X transpose X and then one. So you basically get a also the quadratic dependence on X appearing in your future map and then the sign doesn't really matter. I don't know why put a minus here, but this is basically the minus here is is optional, because
+01:44:17
+It's just a matter of how you define your quantities.
+01:44:23
+And so if you make the assumption that your class conditional are gushing with the same covariance matrix.
+01:44:30
+You get that the dependence on X is actually only linear, right. So, so you get that
+01:44:37
+W transpose x here, we'll just start there. Billy transpose five x will just be W transpose x like standard linear logistic regression was if you have a Gaussian with different task task over covariance. Then you also have a quadratic dependence on x.
+01:45:00
+And. Okay, so I guess I have two minutes I want start doing the maximum likelihood now because I don't have the time.
+01:45:08
+The short story is when you do maximum conditional likelihood using the logistic regression model.
+01:45:16
+You cannot solve analytically, the maximum, maximum back in the linear regression model, you could find the solution analytically. You just need to invert some matrix and stuff.
+01:45:24
+For there's a progression, you need to solve is something which is called transcendental equations which don't have analytic solution does why we'll have to talk about numerical optimization and particular gradient descent as GD util method editor.
+01:45:42
+And that's what actually you would be implementing one of these in the assignment.
+01:45:47
+So is there any question on logistic regression
+01:45:57
+Yeah, so let's just say question about the assignment.
+01:46:01
+You will receive the solution of the first assignment.
+01:46:06
+By email when the deadline to submit the assignment with no penalty. Well, to get credit as fast, which is next Tuesday. So people can are still able to submit a seminar on Tuesday.
+01:46:23
+With to get some marks after that zero. So then we can give you the solution.
+01:46:37
+Okay, so far as asking interesting questions. So if depending on which explains your family you use. There might be some constraint on eta, which we can lose if we do maximum black student W.
+01:46:50
+That is correct.
+01:46:53
+That is correct. In theory, I'm not sure if in practice is the case. So basically, it turns out that
+01:47:01
+When you have a clinical experience your family.
+01:47:05
+Let's put it this way.
+01:47:08
+So, so any eta is possible, as long as I can normalize my function. My distribution.
+01:47:18
+Otherwise Ayurveda is infinite and then it doesn't work. And so let's look at our data here. It was the first component here at that was one over sigma square
+01:47:30
+So he turns out that it. That is all. The first component of ethics here is always positive, because if I put a negative value here.
+01:47:37
+Which doesn't make sense from a mean privatization perspective. Well, it turns out that, then I can normalize my integral becomes infinite. Okay, so only positive at those are valid here.
+01:47:48
+And so then if you look from from from this perspective. Well, if I allow all the W.
+01:47:56
+Well here it still works because even though one component is positive, the difference between two component could be any size. So in this case, there's no constraints on on w. So
+01:48:08
+But let's say
+01:48:10
+If we, there are other types of constraints on eka in theory you might be not able to have all the possible W's here. And so that would have to be taking consideration.
+01:48:23
+But I think what happened is that
+01:48:27
+Your logistic model.
+01:48:31
+A I think normally what would happen is you would
+01:48:35
+You would get that your you would also have that your W will be restricted to make sure that this sigmoid model here whereas
+01:48:45
+A this one. Yeah. So, so this has to be a valid.
+01:48:53
+Oh, yeah. So here, five x, we don't need to integrate over five x when we compute that. Yeah. So you're so I think to answer your questions are fact
+01:49:02
+I think yes, indeed, if you would use a exponential family during model, you might add some constraints which are not the case in the logistic regression keys.
+01:49:13
+Which is why anyway I if what you care about is to do prediction of why given x i think the logistic model is better than these.
+01:49:23
+Classical additional models because it's it's doesn't need all these extra assumptions and in the assignment you will explore these different versions. Right, so you'll you'll explore the journey of approach versus the conditional approach of logistic regression
+01:49:39
+Okay.
+01:49:40
+Any other questions.
+01:49:46
+Cool. Well, if there's no other question I wish you a very nice weekend and I'll see you next Tuesday.

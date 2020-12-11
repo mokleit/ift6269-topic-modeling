@@ -1,0 +1,1887 @@
+Unknown Speaker
+00:00:00
+Cloud.
+user avatar
+Lacoste-Julien Simon
+00:00:05
+Yeah, so
+00:00:07
+Today we're going to see the good sampling algorithm.
+00:00:15
+Which is an example.
+00:00:19
+It's a specific instance ation of the metropolis tasting algorithm with a clever proposal.
+00:00:26
+Okay, and that will conclude our coverage of
+00:00:33
+Of
+00:00:35
+Sampling algorithms and approximate in France, and then we will talk about another approach to do approximate in France, which will be the virginal methods.
+00:00:50
+And somebody asked so mode is asking about the project, what is this supposed to be in a one page progress of the
+00:00:59
+The one page progress reports for the project.
+00:01:03
+It's just a very high level quick overview of, you know, where. What's the status of your project. Like, what have you tried so far. And what's your plan for finishing the project.
+00:01:16
+So it's, it's basically the idea here is just to force you to have started on the project.
+00:01:23
+And you can also ask questions there. I will quickly skim through all of them to see if there are any question.
+00:01:33
+Or if their problems and can give you a quick guidance, but there's 25 projects so
+00:01:40
+This will be very sparse feedback.
+00:01:44
+But yeah, so the idea is just for you to kind of like
+00:01:48
+State in explain what at what is your plan for the final project and what have you tried so far.
+user avatar
+Unknown Speaker
+00:01:58
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:02:00
+Alright so good sampling and
+00:02:04
+So yeah, so give sampling our rhythm.
+00:02:15
+You might have heard it. This one of the most standard something our rhythm in machine learning.
+00:02:21
+So the idea was to do mitropoulos hasting with a clever.
+00:02:31
+Choice of proposal.
+00:02:36
+When you have
+00:02:39
+When you have a multi dimensional random variable. For example, coming from a graphical model clever choice of proposal.
+00:02:51
+And which depends actually on the timestamp. So it's not a fixed proposal. It depends on the iteration of good sampling
+00:02:59
+And why is it clever. Well, because you will always accept your, your set your new sample. So the acceptance probability of x prime given x will be actually one, so it will always accept your, your move. So that's why it's a good
+00:03:17
+If you remember at the end of the last class I mentioned like
+user avatar
+Unknown Speaker
+00:03:22
+Where am I
+user avatar
+Lacoste-Julien Simon
+00:03:24
+Some issues of trying to do Metropolis tasting or it's explaining why sampling is difficult. In general, when you have a very
+00:03:36
+Curly different variables. So you have a long gated Gaussian and when your proposal is actually a sphere. So it doesn't match the shape that you're trying to match and so either you will need to make a lot of steps to explore distribution, because you have a tiny
+00:03:55
+Variants in your proposal or you make big steps, but most of the time you reject because you you get to lower probability region. Right. So when when you have accessibility of one it
+00:04:08
+Usually means also that you know you're getting
+00:04:12
+Better calibrated proposal, but I mean, the good thing is nothing. See the best also sampling our rhythm.
+00:04:22
+And we'll fix it because you can think of it as a cornet approach. So when you do corner descent for minimization. It's not also this silly always great if if the variables are kind of related to each other. We'll get back to that. But so
+00:04:42
+Alright, so before presenting the algorithm. Let me mention some application where this is coming from. So example of applications would be either
+00:04:55
+If you have a undeterred graphical model. And so in this case you want to sample from the unrealized giant, which is just a product over your potential. So it's easy to compute the the or normalize joint
+00:05:13
+It's hard, perhaps to normalize because you need to some over any special number of states or you could have
+00:05:25
+A directed graphical model where you need to compute some difficult conditional
+00:05:31
+Okay, so, you know, for for standard direct graphical model and discrete data, you can just use ancestral sampling. But let's see. Now you want to condition, then
+00:05:43
+You could also use rejection sampling. But that's not great. If the quality of the observation is small. And so you need something more clever.
+00:05:52
+And you could use give something for that. So in this case, the distribution, you would like to sample from is also on normalized distribution. You could think of it as just
+00:06:08
+The I want a simple from the
+00:06:17
+I wanted a simple from the conditional. You know you want p of x given X evidence that's what you want to sample from. And so you could think of it as the anomalies joint when
+00:06:30
+X. He is fix. So this is just the reality of all my variables which are not in my evidence and then I make sure that my
+00:06:40
+Evidence variable or fixed
+00:06:43
+Alright, then I could have here I could add the credit card delta on my index evidence node to make sure that they're fixed to the evidence. Okay, so this is proportional to p of x given x bar.
+00:07:00
+So if I and so an example of that would be. I have observed some
+00:07:07
+Like in the queue, Mr network. I have observed the symptoms of my sickness and I want to compute with the quality over my my
+00:07:16
+My diseases, given the symptoms I have observed
+00:07:26
+Okay, so let's look at in the context of
+00:07:33
+Of a undeterred graphical model.
+00:07:37
+So let's say I have a huge em.
+00:07:42
+Let's look at the cyclic
+00:07:46
+Give sampling algorithm.
+00:07:56
+And so I will have the nodes in my you GM for my rent a variable. So I will index my nodes from one up to n.
+00:08:08
+So suppose I have end nodes in my
+00:08:11
+You GM
+00:08:12
+And so the algorithm. How it works is you start at some
+00:08:19
+At some initial as joined assignment and all the variable. Let's call it x zero
+00:08:26
+And then for t equals one, blah, blah, blah. So this is the mark of Chen Monte Carlo setup. I will sample new state.
+00:08:34
+And then what happened is in the cyclic setup is you change your proposal during Yarborough them and it's basically a cyclic
+00:08:45
+Visited the every n iterations, you'll have the same proposal again. Right. And the idea is you will pick the know that you will sample.
+00:08:55
+In a cyclic fashion. So one way to write it is will be t mode and
+00:09:04
+Plus one, right. So basically, you look at the remainder of dividing and by T.
+00:09:12
+And sorry T by n, and then you add one. And so at the beginning, it's the first node then second note the law, up to end.
+00:09:23
+Guess T probably need
+00:09:28
+Yeah, okay. So, so t equals one guess perhaps to you will start at zero. In this case, it doesn't really matter. Actually, you can start up
+00:09:36
+So in this case, what happens is you're starting up no to doesn't matter. So you go to know 2345 then and and then it goes to 12345 etc. So it's just a cyclic. Wait, but if you want, you could also start at t equals zero. If you want to start with node one.
+00:09:56
+But so you pick which node you will sample and then you sample the value for this node.
+00:10:06
+According to the conditional
+00:10:13
+On this note given
+00:10:16
+The
+00:10:19
+That all the other nodes have the previous value that you had assigned to them. So use the notation, not I.
+00:10:27
+And I'll say, not I. So negation of I, at t minus one.
+00:10:35
+And so this means not i is just a shorthand to say it's all the nodes minus i.
+00:10:44
+Excluding the node i
+00:10:48
+And so the proposal we use is the actual true conditional on this node.
+00:11:03
+And so that's how you get the new value for this node. But then what about for this sample. What are the values for the other nodes way to just keep them constant. Okay, so you'll say that x j at time step at iteration t is just you just recap the the previous value you had
+00:11:24
+For Jay not equal to i think it's a bit like when you do optimization. When you do coordinate
+00:11:30
+Method you fix all the cornet and you only update one of the coordinate right and then you you you pick another one corner that you want to update you fix everything else and you have did this one.
+00:11:40
+Here, it's the same idea for sampling right so you fix the value of all the variable except one. And then you will simple this the new value for this variable according to the conditional
+00:11:51
+If you can compute and if you can
+00:11:54
+Sample, but that's we'll see when we can do that.
+00:12:00
+So yeah, and that's it. That's what you do. You just keep doing that.
+00:12:05
+That's the cyclic give something over
+00:12:13
+And so let's see a motivation for this algorithm which is
+00:12:19
+So you can think of give sampling
+00:12:23
+As
+00:12:25
+Its Metropolis hasting
+00:12:28
+With a time varying
+00:12:33
+Proposal.
+00:12:36
+Because at every iteration you pick a node and which know you pick the determines which proposal, you're using
+00:12:46
+On the other hand, the proposal you choose does not depend on what's your state. Okay. If remember when I talked about convergence or guarantees for Metropolis hasting I said you're allowed to change the proposal with time. If you want as long as the choice of proposal.
+00:13:04
+Does not depend on where you are, then if the proposal satisfy those usual property of convergence for a fixed, then it will it will work even if it changes. Okay.
+00:13:13
+And so here every any duration, they get the same proposal and which know they choose does not depend on my current state. And so this satisfy this the the
+00:13:24
+The conditions. I mentioned in last class. And that's why it's it's still a it was to converge. I'll explain why converge later but
+00:13:31
+That's already as a high level. That's the idea. And let's look at what's the proposal because I want to compute in Metropolis as thing I need to compute the acceptance ratio to to have the correct guarantees.
+00:13:46
+Okay, so there are some questions already. So conditional on X i.
+00:13:55
+Yeah, so, so, so when I say here, it's the true conditional and Xi as proposal. This is condition on the value of all the other nodes, right. So, so it's a conditional an exciting given X, not I.
+00:14:12
+So that's the other variable.
+00:14:19
+So the thing is asking, what's the point of picking it that way versus just random or a fixed ordering. So this is a fixed ordering right is the ordering is 1234 or five
+00:14:28
+You could mute this ordering and using fix. It's not a problem at all. And you can also do random sampling of I instead of doing a fix ordering if you want. That's also a bit better behave. It won't have the bid the cyclic kind of annoyance that
+00:14:45
+This property has so
+00:14:48
+Your did. There's nothing magical about this fix ordering. It's just the idea is just to have some order of this, the idea is also you want to make sure that you will you can explore. Well, this state. And so by using a fix ordering you're ensuring that each variable will be
+00:15:08
+Sampled whereas if you did random sampling of which variable, you will choose, you're not guaranteed that after any durations, you actually have sample all the variables. So, you, you have a bit more stickiness in some sense.
+00:15:24
+We paid your rent to initialize excite using its marginal if we can compute it.
+00:15:31
+Well, okay. Excited is is simple. So, so the marginal is not the same thing as the simple right so if you could sample from the marginal
+00:15:42
+Wouldn't make sense to initialize it to the marginal. Sure, why not. But usually you can compute the marginal, which is also mean you could use in particular in the in the assignment five, you use give give something to approximate the marginal in the Isaac model.
+00:15:59
+But indeed, if you have some prior information, you can get a bit of better initialization if you want
+00:16:07
+But note that it doesn't matter where you initialize like eventually you get to the true sample of the of the distribution.
+user avatar
+Unknown Speaker
+00:16:20
+But, good question.
+user avatar
+Lacoste-Julien Simon
+00:16:24
+Alright, so it's a it's a metrical assisting with the time varying proposals, so let's specify this time varying proposal. So, suppose
+00:16:34
+We pick
+00:16:37
+I at time t j. So, let's say that we're going to say we're sampling x i at time t, then the proposal.
+00:16:47
+Which are we are implicitly defining is I'll quite cutie. So it's a proposal on all the joint and I'm conditioning on the previous simple right t minus one.
+00:17:00
+And, this by definition will actually be
+00:17:05
+The correct
+00:17:07
+Condition conditional of x i.
+00:17:11
+Given all the other nodes. So it's not I, at time t minus one.
+00:17:19
+And I'm this is not a proposal on all the nodes. This is just assembling a simple one node and then he tell you how simple all the other nodes were all the other nodes.
+00:17:29
+Are actually not simple. They're just fixed to the previous value. So you can do that with a credit card data right so you can do creditor delta on all the nodes which are not I
+00:17:40
+I need to fix it to their previous value. So I'll use t minus one, not die.
+user avatar
+Unknown Speaker
+00:17:48
+Yeah.
+user avatar
+Lacoste-Julien Simon
+00:17:52
+So this basically enforce that.
+00:17:56
+For X, not I.
+00:18:00
+To stay constant
+00:18:05
+Some sense here. This is just a formal way to say that in a proposal.
+00:18:12
+All the other variables we said to them, deterministic me to the previous value and only the node x i. Are we sampling their value.
+00:18:22
+And then
+00:18:25
+Eve is asking with with the sampling the observed nodes. Let's say we were trying to come to, to, to get a sample from the conditional. And the answer is no, we're not sampling the observed nodes, because there was of nodes are fixed in a in a conditional right so so if I was in
+00:18:45
+In this application here right so
+00:18:51
+I would not be sampling
+00:18:55
+The evidence note. And another way to look at it as well.
+00:19:00
+When you compute the true conditional on X e
+00:19:06
+In this distribution.
+00:19:09
+Well, it will have zero when x is not equal to x bar. OK, so the true conditional in this a normalized distribution that we use any way for sampling
+00:19:20
+Would not change the value of the evidence that
+00:19:25
+And so it's kind of wasteful in this case to pick the evidence notes are actually in this case, in practice, you would not pick the evidence, those would just pick the variable which you actually need to sample.
+user avatar
+Unknown Speaker
+00:19:36
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:19:40
+Alright, so this is the proposal and so that's compute its acceptance ratio. So the metropolis hasting acceptance.
+00:19:50
+Ratio. If I use this as my proposal.
+00:19:54
+So the acceptance ratio. When I sample x prime and I was in X t minus one. It's the ratio of the proposal in bold direction.
+00:20:05
+As well as the distribution that I care about. Right, so I will have Qt of X t minus one coming from express x prime time the quality of x prime, when I use a true distribution that I care about.
+00:20:23
+And
+00:20:25
+The other direction. So, x prime given X t minus one.
+00:20:31
+And then P of X t minus one.
+00:20:39
+Okay, so now let's just expand all the pieces. So, this I said was the probability of x i.
+00:20:51
+At t minus one because that's the value I would sample according to this notation given
+00:21:00
+All my other nodes and here all my another dodes I am using the x prime value, right, because I'm conditioning expand
+00:21:08
+And then I also have a clicker which fix all my values. So, not I.
+00:21:16
+prime is equal to
+00:21:20
+Not i t minus one.
+00:21:28
+And here I have the same thing, but in the other direction. So, it will be probably T of x i.
+00:21:35
+Prime given X, not I.
+00:21:41
+T minus one.
+00:21:45
+And then they stop my current occur.
+00:21:50
+And you know it's symmetric, so I'm just putting it in any order.
+00:22:03
+Okay, so there are some questions. So Cal is asking
+00:22:08
+From which distribution we start at zero anything doesn't matter so
+00:22:16
+If it's a discrete state. It could be, you know, any you could just use a fixed initialization. If you want, it's a continuous state space. Well, you need something which nonzero mass on
+00:22:31
+On any states, I think.
+00:22:34
+But that doesn't matter.
+00:22:37
+Because the idea is that to make the change will mix and us when a chain mixes it forgets the initial conditions. So that's kind of, yeah.
+00:22:46
+So Jacob is asking, is there a reason to use the notation X Brian rather than x t as above.
+00:22:59
+Know, I could have used t is just
+00:23:02
+I need to put more parenthesis and stuff. So, yeah.
+00:23:14
+Yeah so. Alright, so these are the two pieces I had expand so far. Now what about the
+00:23:22
+This joint well so this joint, I can write it as the conditional the marginal on, not I.
+00:23:31
+Times the conditional of x i prime given not I plan.
+00:23:40
+And same thing here. This piece here, I will just write it as P of x not i t minus one times the conditional of x i.
+user avatar
+Unknown Speaker
+00:23:57
+T minus one.
+user avatar
+Lacoste-Julien Simon
+00:24:00
+Given X, not I. T.
+00:24:09
+Alright, so why did I do that. Well, now I can cancel all the things to get right. So I have that
+00:24:18
+Excite prime given
+user avatar
+Unknown Speaker
+00:24:23
+Oops.
+user avatar
+Unknown Speaker
+00:24:25
+How's that work.
+user avatar
+Lacoste-Julien Simon
+00:24:33
+Alright, so we know
+00:24:35
+We know that
+00:24:39
+Excite x
+00:24:42
+Not i prime because of this proposal.
+00:24:47
+Because of basically this thing.
+00:24:50
+Make sure that excite prime x not a prime is always equal to x not it minus one. Right. And so these two cancels out because it's the same. It's the same argument, okay.
+00:25:07
+And
+00:25:09
+Here I have
+00:25:13
+And and so when I have an x not i prime. It's the same thing at x not i t minus one because of the direct
+00:25:24
+And so here I have, for example,
+00:25:27
+Not i prime in the condition
+00:25:31
+And here I have X know i t minus one, but it's the same thing.
+00:25:35
+And the arguments like I have x it minus one on on the left part of the conditioning on both sides. Right. So basically, this thing is the same for both and this
+00:25:48
+And this is supposed to be the same because of the credit card delta. So, that's why. So I have one here. And I have one there, so they can sell that right so numerator denominator
+00:26:02
+Right, so I'm using this notation of I'm using a bit of a pattern in my crossing. So you can see which terms cancel out each other.
+00:26:09
+And so the same thing here. I have x i prime on the left. And here I'm excited prime on the left, so they can select on the right. It's not the same thing, but because they're supposed to be equal. It's still work. Oh, and this was temporary. Sorry. Sorry, this and this cancels out.
+00:26:25
+And I think I'm done. I've cancelled out everything. So I get that the acceptance ratio is just one, as I mentioned,
+00:26:35
+Okay, so that was a
+00:26:37
+That's why the by sampling from from this conditional on one though. That's actually pretty good proposal because
+00:26:44
+You have acceptance ratio of one. Okay, so you always accept
+00:27:02
+OK, so now we made the link with the metropolis hasting algorithm.
+00:27:08
+Though it's a time varying proposal. So let's talk about convergence of good sampling
+00:27:15
+And how we could prove the convergence of good sampling
+00:27:22
+So, let
+00:27:24
+A be a mark of chain.
+00:27:31
+Our mark off transition
+00:27:34
+So the, the
+00:27:36
+The representation of the mark of transition colonel in our Markov Chain Monte Carlo have one full pass
+00:27:46
+Of give something
+00:27:54
+Okay, so I N steps.
+00:27:58
+Okay. And so basically you think of it as
+00:28:03
+Anyway, there's no there's no rejection here. So the proposal that the transition Carol is just say pick the first node sample its value according the conditional then
+00:28:14
+Pick the second node simple it's going conditional and then do that n times and overall, this gives you a very complicated transition, Colonel.
+00:28:23
+Which tells you, from a specific joint state before these any updates, what, where, where could I go, okay. And so in this case.
+00:28:35
+It doesn't because you've done the full pass. It's this every iteration of this is the same. So this gives you actually now a homogeneous.
+00:28:44
+Market chain. So it's a bit nicer than the time varying Markov chain. So this image in this market chain, so we can just use the convergence result of images market chain.
+00:28:54
+And if, for simplicity we suppose that the thing I'm trying to sample from is bigger than zero for all x
+00:29:09
+Okay.
+00:29:11
+So you can still converge. If this is not true. But then you need to be more specific about using the correct conversions results.
+00:29:17
+And so one advantage of that. It does mean that if I looked at any conditional
+00:29:24
+Not I.
+00:29:26
+Then this will be bigger than zero, right, because all the joint are bigger than zero. So this is true for all xi and X, not I.
+00:29:36
+And so that simplifies a bit properties. And so, because p of x is bigger than zero and all these conditional will be bigger than zero for any possible values then you have that this transition Colonel is an irresistible chain. He reduce it will
+00:30:01
+Reduce Civil War, is it irresistible well for any joint state. I can get to any other joint state by sampling each node, because for every node. I have a
+00:30:14
+Positive probably to go to any other possible values. And so you can, you will have a positive probably need to go to the correct value of the next jointed state. You want to go and you do that for for n variables. So you can really go from any joint state to any other state.
+00:30:33
+And it is also a periodic
+00:30:39
+Because
+00:30:41
+You also have a non zero probability of staying in the same state.
+00:30:45
+Because AI is bigger zero, actually, in this case, if you have that
+00:30:52
+AJ is bigger zero for all ages.
+00:30:58
+I mean this is stronger and being irreducible because they're just a bowl. You don't need that.
+00:31:02
+The transition in one step, you could actually do multiple step to go to any state, but in this case it's true that you can go from any state to any other states with one step of this transition kernel, which is an updates of gives me
+00:31:21
+The data. Yeah. And so here, basically.
+00:31:28
+You can get
+00:31:32
+To any state.
+00:31:36
+With and
+00:31:44
+So because we have an irreducible in a periodic Markov chain. So we have an organic chain. So, that implies that with our conversion serum, we have that a race to the T f 30 durations of these and flips for any starting point. I will converge st goes infinity to the target distribution.
+user avatar
+Unknown Speaker
+00:32:05
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:32:07
+And as I mentioned before, it turns out it also works.
+00:32:14
+For Random Scan
+00:32:23
+Where, in this case, you will pick I uniformly
+00:32:29
+From one to n at each step.
+00:32:33
+Okay, so instead of being cyclic. You're just randomly something which node you will sample at every iteration.
+00:32:40
+And so in this case the analysis, a bit more complicated because you can just find a simple
+00:32:46
+End steps.
+00:32:49
+Like you can just define the the mark of transition like I did with an iterations and everything is positive.
+00:32:56
+But here, you still have the or go to city, it's pretty clear that you have your go to city because you always have a nonzero quality of picking any node and flipping its value and then with enough
+00:33:08
+Iterations you will always have a chance to have picked all the correct nodes and have flipped to their new value. Okay.
+00:33:15
+The problem is that, you know, it could be a lot of these iterations before it happens. But, you know, it will happen eventually. And so you do have that a race to em i j is bigger than zero for some em.
+user avatar
+Unknown Speaker
+00:33:31
+In
+user avatar
+Lacoste-Julien Simon
+00:33:33
+Actually, I think in this case with n will work. So a race to the end will work where an AI is just one step of this transition Colonel IE randomly sample one and then simple its value.
+00:33:51
+Alright, so is it gathers asking
+00:33:55
+That they don't see how the proposal doesn't depend on the state.
+00:34:01
+Because the thing is like when we say what a proposal distribution is is is a conditional right so basically free go back to our, our monthly Gallo thingy.
+00:34:16
+To do.
+00:34:23
+So where was this
+00:34:27
+Yeah, so the proposal.
+00:34:30
+Is actually a transition kernel, which for any possible value here and gives you another any possible next step, give you a transition probably T, but it also, it's also true for for different assignment here. Okay. And so it's true that
+00:34:48
+The actual conditional depends on which state I use right so to where where I was simple. Next depends on where I am, because I use a conditional
+00:34:59
+But the choice of for conditional does not depend on the state in cyclic good sampling. Because the only thing I'm choosing is which variable that was simple, but given that, then the conditional and using in general would be Q of expression, x right
+00:35:17
+So it doesn't depend on the, the actual state or the type of conditional will use one depend on the actual state, even though that indeed, what you're doing is to use the trigger states as input in your conditional
+00:35:32
+Does it terrify
+user avatar
+Unknown Speaker
+00:35:34
+Isn't yeah
+user avatar
+ezekiel williams
+00:35:36
+So I guess the thing that I'm not sure, but the serious thing, but it doesn't depend on state because after you go after you go through a full kind of n steps you'll have gone through
+00:35:46
+All the coordinates. I guess I just don't see how, how, when you haven't gone through before and steps. It doesn't depend on states. And if you're using the cyclic nature because your update always updating the same coordinate
+00:35:58
+Yes, so the previous one.
+user avatar
+Lacoste-Julien Simon
+00:36:00
+So you just have to, I mean, I think I understand your confusion because not depending on state. What do I mean by that. Right. So what I mean by that is that in this case I have q which depends on T.
+00:36:18
+But which QM using doesn't depend on what my state, it only depends on where I am in my, in my
+00:36:27
+In my, in my algorithm here of T ma n, so there's there's no state there. This is just, you know, fix visiting. Okay, this would tell me which cutie. I'm using
+00:36:37
+Okay, now acuity takes as input state you condition on and then it will sample something. And so, of course, this depends on the state right but but how I choose cutie does not depend on the value of this X t minus one. Okay.
+user avatar
+Unknown Speaker
+00:36:55
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:36:58
+All right. Yeah. So it's really terminology here so
+00:37:04
+Okay, so that's a. Any other question about good sampling
+00:37:10
+I mean, also it will become a bit more clear. Now today, apply it to the icing model, which is what you will implement in your assignment. So let's do as an example.
+00:37:22
+The gift sampling
+00:37:25
+For the icing model.
+00:37:36
+So,
+00:37:39
+The Isaac model that's remember what it is, it's, it's basically
+00:37:45
+Under to Africa model with binary
+00:37:49
+Random variables. So there's 01 valued and you have some new GM
+00:37:55
+Some kind of grid structure.
+00:38:00
+And because of a large tree with its own tractable to do exactly in France. Right.
+00:38:06
+And I told you the exponential family representation for the gives some for the sorry the icing model. So if I use that. So it's basically one over the partition function.
+00:38:23
+And then I have x
+00:38:25
+And I had as efficient statistics. I told you you could only use the weather a node is equal to one and whether an edge as both nodes equal to one. And so basically you have one candidate called parameter for node. And I just put the value of x.
+00:38:41
+And then I have for all my edges.
+00:38:45
+In the edge set and their undirected edges. So that's why I use segmentation. I have a chemical parameter associated with that. And then I want to know whether x i, an exchange or equal to one. So, I can do that by just multiplying
+00:39:01
+And that was the minimal exponential family representation. So this is a minimal
+00:39:06
+exponential family representation
+00:39:12
+I don't need more features.
+00:39:16
+For presentation.
+00:39:19
+Okay.
+00:39:21
+So now this is my joint and now
+00:39:25
+If I do give sampling. I need to compute the conditional and one node, given all the other nodes, right.
+00:39:32
+So I want to compute. Oops.
+00:39:37
+Why want to compute
+00:39:44
+Property of x i, given all the other node.
+00:39:51
+And so we know, by the way, by conditional independence.
+00:39:57
+That we only need the mark of blanket. We don't need all the other nodes. So this is the same thing. Sp of excited given
+00:40:04
+X the neighbors have I
+user avatar
+Unknown Speaker
+00:40:10
+Right.
+user avatar
+Lacoste-Julien Simon
+00:40:18
+And actually you could also have seen it.
+00:40:22
+From the joint.
+00:40:26
+And so this is basically proportional
+00:40:30
+To
+00:40:32
+Exp
+00:40:34
+Of at the I
+00:40:37
+X plus summation over j in the neighbors have I
+00:40:44
+Have a big X i xj and then plus rest. But the rest is a constant which don't depend on exile, right. So, so for example here will have x
+00:41:00
+j and l for l not equal to i.
+00:41:05
+And these when they condition on x not ID or fixed value. So that's why I don't care. This is just these are just constant
+00:41:15
+For in terms of exile, because all I want. Here is the conditional in terms of excited. Right, so I can compute the, the, I can easily get the conditional by re normalizing right so you
+00:41:32
+But you read normalize to get the conditional
+00:41:44
+So you get that p of x i.
+00:41:48
+Equals one
+00:41:52
+Given all my name. Everything else, but I actually all i care as the neighbors is exp of at I because x equals one plus summation over my neighbors.
+00:42:08
+Have at i j x is equal to one. So I just left with Exchange, and then I have expert rest.
+00:42:18
+And then I divide by
+00:42:24
+The summation over the two possible values. So when I set x equal to zero.
+00:42:33
+Then this becomes zero. This becomes zero. So I just get x of zero, which is one. Right, so I get basically one. Whoops.
+00:42:43
+So that's when x equals zero, I get one. And then I get x of it i plus summation
+00:42:51
+As
+00:42:53
+One plus
+00:42:56
+X of the i plus summation over j neighbors have I it Jay Jay and then I still have the X reps.
+00:43:08
+And these cancels out. As I mentioned,
+00:43:11
+And why did they explicitly right it will because you also it's a very simple form the conditional is a sigmoid
+00:43:21
+So it's sigmoid
+00:43:23
+Of at the I
+00:43:26
+plus summation over j of my neighbors.
+00:43:30
+Of
+00:43:32
+X.
+user avatar
+Unknown Speaker
+00:43:34
+J.
+user avatar
+Lacoste-Julien Simon
+00:43:38
+Okay.
+00:43:39
+And so you could think now if I add you know
+00:43:44
+Iteration T in here I have t minus one, right. So here we have t minus one.
+00:43:55
+And so when you sample you basically compute
+00:44:01
+Depending on your chemical parameter for your Isaac model, which are given by these values, you just compute this some given the previous values of the neighbors.
+00:44:10
+And that gives you the the bias for your coin you flip a coin with this probably T and then you will set excite to one if you get head and excited to zero. If you get tail, for example.
+00:44:22
+And then you repeat on all the notes. And so that's how you will flip things you will keep sampling. Okay.
+00:44:29
+And importantly, if you remember I mentioned that
+00:44:34
+You should use all the simple in the market chain.
+00:44:39
+For computing average right so if you want to compute the marginal probability over a node, you should just use all the possible
+00:44:49
+Values that you observed, which is kind of like a waste computationally because the value want change will only change once every n iterations, so most of the time, you just keep that constant
+00:45:03
+So, you know, you could also because you know that you could also just
+00:45:09
+Look at the value every any iteration, because any way that you will have a cancellation. But in theory, just to remember how you do things you can every new iteration of gives, gives you a new joint sample, even though, like there's a lot of correlation between the simple
+00:45:25
+It to compute average, it's fine to use all of them.
+00:45:28
+But it's also, if you want to save a bit of computation. You don't want to worry too much, too much about it. You can also keep every an iteration, a sample for for a value.
+00:45:50
+Okay, so that's for good sampling
+00:45:54
+And the last thing I will say about oh, also the other thing is, so when you have discrete random variable.
+00:46:02
+With a small finite number of possible states, you can always do give sampling for under graphical model or Dr graphical model because all these conditional only depends on the neighbors and the node that you're sampling. There's only
+00:46:18
+A small number of possible value. So it's easy to normalize and so you can always sample from it easily. It's, it's basically flipping a, like a bus.
+00:46:28
+It's basically sampling from a discrete dispersion of our case states where it's determined. So that's easy.
+00:46:35
+So you can always do give something if you have a continuous random variable. Well, then you will be able to do give sampling when you can compute this conditional fine and so depends on whether you can do the integral or whether you can sample from the specific conditional
+00:46:54
+And so we'll see when we talk about Bayesian method in in next week or next lecture.
+00:47:02
+That
+00:47:04
+When you have a conjugate families. So you could have conjugate prior for node and then you have
+00:47:12
+Different conditional. So when you have configured relationship. Usually the posterior is easy to compute and then you can usually sample from it. So then you can also do give simply
+00:47:22
+An example of that is called the latest allocation model for topic modeling.
+00:47:27
+So that's where even though it's continuous random variable, you can still do give something because you can sample from the conditional. Exactly.
+00:47:34
+If you cannot sample from the conditional exactly, then you need to use again, you can do the same thing you need to do mitropoulos tasting style approach by need to reject things. It should register.
+00:47:48
+So there's a question here.
+00:47:56
+Can you repeat your question.
+00:48:04
+Okay, so. So the question is,
+00:48:07
+You use t minus one.
+00:48:11
+So basically when you look at the algorithm of good sampling
+00:48:15
+So,
+00:48:18
+When you condition your condition on the previous value that you have right but know that you set all the other variables to their previous value. So you could, you know, if you did this assignment. First, you could still just put here T. It doesn't matter. It's all the same, right. So,
+00:48:38
+But you know to be a bit clear it's t minus one.
+00:48:50
+Okay, so I'm not sure about. Can you explain your question orally.
+00:49:01
+Or you don't have a mic.
+user avatar
+Blain-Montesano Yves
+00:49:03
+No, no, I have a mic. I'm not sure what the best way to explain it as differently. I guess I mean
+00:49:12
+At some time t with an R and iterations we would sample conditionally on the exes that aren't I at time t minus one.
+00:49:25
+But
+00:49:27
+Suppose we've recently sample that time to different
+00:49:31
+xj. We wouldn't use that new value, but we would use the t minus one value.
+user avatar
+Lacoste-Julien Simon
+00:49:39
+Alright, so let's okay so I understand your question now. So, T is outside and I is inside. Okay, so what happens is
+00:49:54
+The so team changes very often. And so what happened is
+00:50:01
+Within one pass you always use the most recently sample value.
+00:50:08
+So when I say t minus one here because T here did not for present the number of full path. I've made it for present, you know, the number of time. I just chose one note to sample.
+user avatar
+Blain-Montesano Yves
+00:50:19
+So, yeah, yeah. So
+00:50:22
+I understand where the confusion comes in. Yeah.
+00:50:24
+Thank you.
+user avatar
+Lacoste-Julien Simon
+00:50:26
+Okay.
+00:50:30
+So let's talk about
+00:50:32
+Diagnostic of chain.
+00:50:36
+And then I will be done with sampling
+00:50:40
+So,
+00:50:42
+I'm not saying that, you know, here, you've seen everything about something right, something is extremely rich and particular I didn't tell you how to
+00:50:50
+Build a proposal distribution for Metropolis hasting I said it's kind of an art.
+00:50:54
+Give something is one example. But it requires the ability to sample from the conditions which is not clear that you can do that.
+00:51:01
+And general, you want a proposal to kind of match the shape of the true distribution. But, you know, what does it mean, so it's a whole you know it. So you could have a lot of lectures. But the general idea. I gave you already gave you the main things right. So, so you want
+00:51:18
+The Mc, Mc idea is you want something you want to change to be organic, you're free to use any proposal which maintain this or goddess city and then you will be fine. You'll get a correct convergence.
+00:51:31
+And then
+00:51:34
+The question is, well, okay, you want a proposal which is efficient to sample from and matches kind of nicely. The shape of the distribution. You want to really simple. That's kind of the gist of it. And now let me give you the, the high level topics on how to diagnose
+00:51:55
+A chain. How do you know that you've mixed right because I told you. Well, you need to do burn in, you need to remove the first few iterations, because these are not representing the current distribution.
+00:52:07
+But then how do you know how many to remove right so you need to kind of diagnose your chain and you want to know whether it's it's mixing
+00:52:13
+Okay. And again, that's also somewhere where you could actually, you know, have many lectures, but I'll give you some quick high level ideas. So the first thing is you can actually monitor mixing
+00:52:29
+Up so simple idea is to run multiple chains in parallel.
+00:52:35
+By running
+00:52:38
+Independent chain.
+00:52:44
+Right. And so what happened is, let's say, here you have time, which is basically the iterations of your Mc, Mc algorithm. And what you will compute is some measurements on your chain.
+00:53:04
+So the measurement could be, let's say you want to estimate the meanwhile, you could be just a mean but it could also just be like, oh, what is the value of
+00:53:15
+What's the average value. What's a running average value of one of the variable in your in your gift center.
+00:53:22
+But the point is, you had different chain which had some different initial values for this measurement because he just started in in different part of the space.
+00:53:33
+And
+00:53:36
+When your chain has not mix. You'll see this kind of behavior here where you know the different chains have very different values for these measurements which depends on the initial condition.
+00:53:48
+And so this is what you call a sticky chain because it has not mix yet. It's kind of stuck in. It's the dependence on the initial condition. Okay, so this is slow mixing
+00:54:02
+Whereas
+00:54:04
+If I have a chain which mixes. What you'll see is it will go quickly to the century distribution value of this measurement. Right.
+00:54:16
+And so here
+00:54:18
+At the beginning. And so basically here. You could use this as your burning time right because you had that devalue of the measurement over there dependent on the initial conditions, but
+00:54:32
+In this region here you get that you're just visiting the possible values of your, of your state space, according to this test redistribution, roughly, and you know, there's no difference that you can see between the different chains. So you forgot the initial condition.
+00:54:54
+And so that's one way to went to plot these kind of like the behavior of your chain for a different initial condition and comparing the value of measurements for these different things is a good way to make sure whether your are not your changes.
+00:55:11
+And then the slow mixing
+00:55:15
+Could come from a multi modal behavior.
+00:55:22
+So slow mixing
+00:55:26
+Comes from the difficulty.
+00:55:33
+To move
+00:55:35
+Between
+00:55:37
+High probability region.
+00:55:45
+So an example I had before was you know that here of this would be p of x.
+00:55:50
+That's what you want to sample from. And so here you have a low priority region. So it's hard to cross this path.
+00:55:58
+Right, you need proposal, which are really, really big. But then, because they're really big. They're kind of like not well fitting the, the, the shape of your distribution and then you reject the law.
+00:56:09
+And so one way to to work with that, by the way. As a side note is called a kneeling
+00:56:16
+So a kneeling
+00:56:24
+Methods.
+00:56:27
+Help this
+00:56:30
+Okay, so basically the idea of a kneeling is you will have a proposal which change according to time, which becomes
+00:56:39
+More picky with time. So it starts very flat.
+00:56:43
+And it can becomes more peaky
+00:56:48
+So it looks like
+00:56:51
+Basically, one of z x
+00:56:54
+Minus
+00:56:57
+One over T
+00:56:59
+Some energy function.
+00:57:02
+And this is the temperature
+00:57:07
+It's not the time anymore stem for richer.
+00:57:15
+And basically, when you have high temperature. So this kind of like coming from physics. So if you have a
+00:57:23
+High temperature
+00:57:27
+You'll have that the proposal.
+00:57:30
+will divide by a big number. It's arguments. So it's x of a something which is almost constant. And so it's very flat proposal, so it's will explore a lot so it can make big move in the space with this proposal.
+00:57:45
+And then slowly you will reduce the temperature and then you, you start to have more precise moves, according to the current distribution. So, this is the high temperature idea is just to do more exploration
+00:58:03
+And I just give you the buzzwords, so an example of method, which is that is called a kneeled
+00:58:09
+Important sampling
+00:58:17
+And so the idea is to have this combination of like big move with high temperature and then more precise move with low temperature and there's anything scheduled to move in between.
+00:58:33
+Okay. Can you say a little about how this mixing property of your proposal relates to the urban city which we heard about last lecture. So, so in that sector. I said, or goddess city was just a binary value. There was no
+00:58:45
+Value of the grid. The city right there. Go to city just said a chain is organic whether you it's both a periodic and reducible
+00:58:54
+And so that will mean that it will mix fine and
+00:58:59
+Didn't tell you how long it will take to to mix it. So I guess what you could see is, is that
+00:59:06
+Some properties which gives you a good city could bring you faster mixing. If you think about it like so, for example,
+00:59:15
+Where we had there in the gifts jumping all over them. I told you that I had a chain where the probability of moving between any two status positive in one step.
+00:59:26
+Well that's faster mixing. Then if I had a lot of steps to move between Tuesday. Right.
+00:59:33
+But both are organic. Right. So there's no difference in their city so so whether it changes or got it or not doesn't tell you whether it will
+00:59:40
+It will tell you whether it will mix, but it won't tell you what if it will mix fast the speed of mixing has to do with more fine properties of your marketing. Okay.
+01:00:04
+So is it Kelly is asking a good question about the Neil important sampling saying, well, if you reduce the temperature. So, let's say, basically the idea is I start with, with a proposal which is very wide and so that allows me to
+01:00:16
+Let's say I was here at all. I mean to to jump there and then I will start to have a picky proposal.
+01:00:22
+Well, then I'm stuck in this mode. So how do I go back to the demo. And that's true. This is just one way to get a good sample.
+01:00:30
+New sample from the distribution if you want to read. If you want to keep revisiting the modes, you need to also switch back again to high temperature value. So you need to. So, so you need to read to read these these anything scheduled
+01:00:45
+For multiple samples. Yeah.
+01:00:52
+Alright, so it is. Oh, did I forget. So it is a 334 we'll take a 10 minute break and after the break, we'll, we'll cover virtual methods.
+01:01:30
+Yes, so
+01:01:32
+Even asked a question about what I explained about
+01:01:39
+The annealed idea where you change the temperature. And so he asked
+01:01:46
+Does that mean that we need to repeat the Burnham, okay. So I just want to clarify.
+01:01:52
+Two different things when we talk about chain. First thing is, are you sampling sampling from. Are you getting a sample from the stationary distribution.
+01:02:02
+And that's where the burden is important, the burden is to make sure that you're you're you're getting one sample from this district distribution.
+01:02:10
+Because before that the simple you have in some sense is related to the initial condition and you have no idea if it's something coming from this district distribution.
+01:02:20
+And so and so. Using this annual method you are making sure you know that you will mix and that you're you're forgetting the initial condition and you sample from the correct distribution.
+01:02:30
+Now if I want to have another sample.
+01:02:33
+And now that. And the thing is, once you're in, especially distribution you stay in this district distribution. Right.
+01:02:40
+The problem though is you don't actually have. So the first let's say you you you get you get a sample from central distribution.
+01:02:47
+Well the next simple you get marginally is also from the central distribution. The problem though is that it's extremely crowded to the previous one, you have
+01:02:55
+And so if you want a new independent sample. Well, you're kind of stuck. And that's where you would need again.
+01:03:01
+To get an independent sample. You'll need again to forget the the condition of where you were and thus you will need to, again, wait, define a burden to mix.
+01:03:09
+Right. And so that's kind of yet. So to get another independent sample. You will need to use the burning time
+01:03:15
+But if you don't care about having a depend simple all you care is just making sure that the samples are from the correct distribution.
+01:03:21
+Well then you could still use all the samples in the long average it wouldn't be the problem is that, indeed, like the the
+01:03:29
+Effective number of samples you have is is very tiny because they're all correlated. And so if you have a slow mixing chain. You will need to need to repeat this kind of idea of a kneeling to get more than one simple
+01:03:42
+Good. Does that clarify either the effect of burden. So basically you can think of burnin indeed as just how long it takes to mix and so it can be useful for both for getting the actual condition as well as getting a new independent sample.
+01:04:02
+And if you want to depend sample you cannot be stuck in one mode.
+01:04:09
+Good. Alright, so now let's talk about various methods, which I love because you know I like to position and so rational methods is basically the idea of using approximate empty optimization to do approximate approximation in poverty theory.
+01:04:29
+very rational methods.
+01:04:35
+So you might have heard versatile em versatile and France. What does it mean, well, I'll give you the
+01:04:43
+The general idea first. So the journal idea.
+01:04:48
+Oh, let me there's a question.
+01:04:54
+So he was saying. So in the case where we want a simple from a second mode would reduce the kneeling if we don't care. We can just continue. Correct.
+01:05:03
+Okay. So the general idea for virtual methods is
+01:05:08
+Suppose we want to
+01:05:12
+Approximate
+01:05:15
+Sorry, the approximate some quantity
+01:05:19
+That are called theta star.
+01:05:24
+And the idea is you first express this quantity as a solution to an optimization problem.
+01:05:39
+To optimization
+01:05:42
+Problem.
+01:05:46
+And so for example will say, okay, theta star is the arg min
+01:05:54
+Over some constraints space of some objective function.
+01:06:00
+And we'll call this up for the optimization problem and then the main idea of devotional method is you will approximate the quantity you care about by approximating the optimization problem so approximate data star.
+01:06:17
+Via an approximation to opt
+01:06:30
+In. Let me give you a concrete example of that to make it a bit more
+01:06:37
+Less abstract. So let's do linear algebra.
+01:06:43
+And let's say we want to get an approximate
+01:06:47
+An approximation to the inverse
+01:06:50
+Of a matrix, right. So say you want solution to x equals b, right.
+01:07:00
+And so that means that x star. The thing we care about is just let's suppose that A's and vertical. It's a minus one times b.
+01:07:10
+So I want to solve it in your system. And I want to approximate the solution to a linear system.
+01:07:15
+Right now, there's no optimization here. It's just I want to solve a system. I want to approximate that. Well, one way to get an approximation.
+01:07:23
+Is to express x star as a solution of optimization and then approximately solve this optimization. So I could do. I can I actually have that in this case x star is the Ark men over x of the norm between x and
+01:07:40
+It turns out that
+01:07:43
+It's pretty clear.
+01:07:46
+That's the case.
+01:07:49
+And so and so, for example, one way to get extra would be to run gradient descent on this optimization problem.
+01:07:56
+And that's by the way, it's a very different way to think then standard
+01:08:02
+Say linear algebra techniques that people use for solving in our systems which are all usually exact techniques, by the way, which you know that after enough computation you get the exact solution.
+01:08:13
+Though if I want an approximation and, in particular, I also want to stop my algorithm early
+01:08:20
+I want to also have not too bad of an approximation. So the good thing with these optimization algorithm is that you know you get closer and closer to solution.
+01:08:27
+And so whenever you stop you know that you're not too far from the solution and then if you keep computing, you'll just get closer, but you're never like completely nowhere. Right. Whereas if you just run. I don't know, like, three rows of three, three steps of
+01:08:42
+Of
+01:08:45
+Howdy call that the elimination algorithm. I guess the cleaning nation.
+01:08:50
+But then the standard are going to be used to solve it in our system after three duration with a dimension is a million. You have nothing as an approximation, you don't have much guarantees Goshen any munition. Sorry. Thank you.
+01:09:02
+You want to reduce in row reduce Islam form or something.
+01:09:07
+So yeah, so that's the general idea.
+01:09:11
+And and and that's actually a philosophy, right. So that's that. So in some sense, in very general. The International method is just the idea of us some kind and it's called variation, all because
+01:09:22
+The idea of calculus of variations in analysis is basically optimization, how to solve optimization problem.
+01:09:32
+And then the cool thing here is if you approximate parts of the optimization problem, then you get an also an approximation to the quantity you care about.
+01:09:40
+So let's now give a
+01:09:43
+divisional em or rhythm.
+01:09:48
+And why am I talking about variation of em. It's also a motivation for the kind of optimization objective that we will use
+01:09:57
+For doing approximate in France.
+01:10:11
+And so
+01:10:15
+Let's recall the EM trick.
+01:10:22
+And this is in the context of a latent variable model.
+01:10:29
+I have p of x and z and z is unobserved.
+01:10:39
+I guess I have some parameter. I'll use
+01:10:43
+Data and then the EM tricks says that the luck of the marginal probability of X given data. So when z isn't figure it out, can be lower bounded by the expectation over queue of the complete log likelihood
+01:11:00
+P x z given data divided by q AMP Z right
+01:11:06
+And this can be seen as the auxiliary function which depends on both Q and data.
+01:11:20
+Alright so that was the lower bound. And then we had that the difference between what we want to compute
+01:11:28
+And our lower bound.
+01:11:32
+Which depends on both the q over z and the Pandora theta was actually the kale divergence between two
+01:11:43
+And the conditional of z given x
+01:11:49
+And data.
+01:11:53
+Right. And so in the standard he step.
+01:11:59
+What you're doing is you're maximizing the lower bound respect to q
+01:12:05
+So you did. Argh, max over q
+01:12:11
+Of the auxiliary function which depends on cute and we were fixing data to prove his value.
+01:12:19
+But we buy this transformation. This is equivalent to minimizing the kale.
+01:12:28
+Between Q
+01:12:30
+And the austere
+user avatar
+Unknown Speaker
+01:12:37
+Data
+user avatar
+Unknown Speaker
+01:12:40
+Right.
+user avatar
+Lacoste-Julien Simon
+01:12:43
+So in that guys thinking in terms of rational and France and approximate in France use interchangeably know because approximate in France is any way to do approximate influence which includes sampling and other techniques which are not version all methods.
+01:12:59
+SO VERSATILE inference is a special case of doing approximate in France.
+01:13:07
+So that's the relationship but I presented, for instance, not necessarily vibrational inference.
+01:13:20
+Okay, so that's the step it's minimizing the kale between Q in the posterior or z.
+01:13:26
+And then
+01:13:27
+A key aspect here when we we use this algorithm was that there was no restriction on cute. So basically we were looking at all the distributions.
+01:13:40
+From z.
+user avatar
+Unknown Speaker
+01:13:44
+Right.
+user avatar
+Lacoste-Julien Simon
+01:13:46
+And so one way to approximate the step because we might not be able to compute the posterior exactly and etc, etc, etc, or perhaps this procedure is too complicated. So we're not able to work with it is to approximate this this this constraint set with a simple set so
+01:14:07
+In the virginal so a variation. All it means the goal anyone. It's pretty standard here. So a visual approximation.
+01:14:17
+For the step.
+01:14:22
+Is through do
+01:14:26
+You'll get an approximate
+01:14:28
+Version of the update
+01:14:33
+T plus one by doing the aardman of the kale.
+01:14:38
+Over a simple set. So I'll call it q simple
+01:14:45
+Okay, so I have the kale.
+01:14:49
+between q and the posterior
+01:14:58
+And so because I'm not considering all distributions. This is a source of approximation.
+01:15:10
+And this is to approximate
+01:15:13
+So in some sense, normally the solution to this problem when there's no constraints is just the truth hysteria.
+01:15:20
+But now I will, I will get something which is not a true to posterior because it might not be in queue simple so I'll get just something which is closing kale to the truth exterior and that will be my approximation. So this will be used to approximate P AMP z, given X data.
+01:15:38
+And in particular, if I want to compute the conditional of Zed given x. That will give me an approximation of it.
+01:15:46
+And so now if I do the approximate M step in him.
+01:15:57
+I would do theta t plus one.
+01:16:01
+Is the arg max.
+01:16:04
+Over my parameters set and then I will use my approximate distribution instead of the correct exterior
+01:16:14
+Of the complete likelihood
+01:16:22
+And so you can think of it as now getting an approximation.
+01:16:28
+To the true EM algorithm.
+01:16:33
+But you're still maximizing a lower bound. Okay, so this is still this is still
+01:16:40
+A lower bound.
+01:16:45
+On the marginal like tiered
+01:16:54
+But
+01:16:56
+Unlike in standard em.
+01:16:59
+You will lose the Montana city guarantee
+01:17:04
+Mono Tony city.
+01:17:08
+Guarantee
+01:17:12
+On the Barcelona likes you.
+01:17:21
+As a function of tea.
+01:17:26
+So before we knew that when we look at the log likelihood at our different parameter that we have during this EM algorithm. We know that the log like you would always go up.
+01:17:37
+Because at every step we made the lower bound, and the thing we care about tight. But now, because we do an approximate is step we don't make things state.
+01:17:46
+And so it could be that the while we update theta, the likelihood go down so it doesn't actually go up always
+01:17:54
+But because we're pushing a lower bound were hoping that overall, we will increase things. It's just that we're not guaranteeing it's increase in between every iterations on like a Saturday. Yeah, it's still a meaningful.
+01:18:06
+So that would be the devotional EMR room.
+01:18:11
+And this kind of motivate using the kale as an up as a, as you know, an objective to approximate distribution. So, more generally,
+01:18:27
+You could use
+01:18:29
+Argument.
+01:18:32
+Of Q in some set queue of the kale between Q AMP p
+01:18:39
+To approximate p
+01:18:45
+So this is called a very rational approach.
+01:18:50
+To approximate
+01:18:56
+P and. And here there's two sources that approximation. First of all,
+01:19:02
+You might not be able to minimize exactly the KL so you know when you run these optimization over them, you know, you get smaller and smaller, but you never have executive minimize unless you have like closed form solution.
+01:19:13
+And because you're not minimizing overall distribution. This is also a source of approximation.
+01:19:21
+Okay and this is by the way this is call I projection for information projection
+01:19:30
+So the I mentioned it in some notes that I linked
+01:19:34
+When I talked about the Pythagorean Theorem. When we talk about exponential Femi, that's something I skipped in this class for time can look it back if you're curious squat information projection and then the idea is if q is simple.
+01:19:52
+Then computing the expectation respect to cue might be simple.
+01:19:56
+So I will have loved P over Q. That's what I need, when I do the computation. And so, you know, often you will be able to compute this expectation
+01:20:08
+Even though.
+01:20:11
+You will not be able to compete expression respect to pee pee may be super complicated so completing integral or some over P is difficult, but cue the Gaussian, for example. Well, practice, it's simple to compute
+01:20:33
+So Jacob is asking, Where is the last someone's monitor CT coming. So as I explained, is that in standard em, you're making the bound tight at every step but and so because you're making the bound tight.
+01:20:47
+You know that there was this proof, where I showed you that this quarter. I sent all with them on the auxiliary function also push the true objective up at every iteration of theta.
+01:20:58
+But now, because in the step we don't make the bounce tight.
+01:21:03
+We are not able to do that anymore.
+01:21:06
+And in particular, even though the auxiliary function is always going up because it's not tight with the thing you care about you could have that ability function is going up, while the true thing goes down because there's space to move in between.
+01:21:38
+Is a kale is saying.
+01:21:42
+The difference between em and virginal em in the GMM paradigm you whether the underlying that is a mixture of gushing or not.
+01:21:54
+I mean the version OEM depends what what is the virginal approximation, you use for the East step right so the standard is step in the GMM will give that
+01:22:07
+The distribution over z.
+01:22:11
+I mean, Z was just an indicator variable. So they were fairly they were there was almost no assumption about z. So,
+01:22:19
+I think I don't think in the GMM it would make much sense to do version OEM because the posterior is is very simple, because it's on the it's just re computing. What is the probability of the latent variable, given the observation. Right.
+01:22:40
+And it's just re normalizing some Goshen.
+01:22:52
+So if you have a more interesting z. So we'll get I think it let's say for example, Z was a latent variable with a continuous latent variable rather than a discouragement latent variable.
+01:23:03
+And normally, the and let's say the hysteria over z would be a mixture of. Gotcha. Let's say, for example, like just, just to be abstract
+01:23:12
+And when we talk about the version of factor analysis next week. All this will become clear because that's what what what will happen.
+01:23:19
+Well, then the trooper sticker normally would be a mixture of caution. Let's say that now you restrict yourself to only single gashes
+01:23:25
+And so then you'll try to find the single Gaussian in the East step which approximate the best the mixture of the true mixture of gushing you would get for the troposphere.
+user avatar
+ezekiel williams
+01:23:45
+But I guess, or if they just me elaborate on that. I guess kind of what I was wondering is if if the underlying data.
+01:23:53
+From that we're trying to model with the Gaussian Mixture Model and we're performing em on if the underlying data like this I variable was generated by
+01:24:03
+Or if it was distributed according to some sort of more complicated distribution than just this this
+01:24:10
+This like
+01:24:12
+Multi know meal, I guess, in that case, wouldn't it be variation of em now because we're using. Oh, no.
+user avatar
+Lacoste-Julien Simon
+01:24:20
+No, because
+01:24:22
+The vibrational aspect is the approximation in your model.
+01:24:26
+How the data is generated doesn't matter at all in this
+user avatar
+Unknown Speaker
+01:24:28
+Framework.
+user avatar
+Lacoste-Julien Simon
+01:24:30
+Like I'm allowed to do and I'll to use maximum next to the Gaussian Mixture Model for data, which has nothing to do with a Gaussian mixture.
+01:24:40
+The parameter, I will get will give me some mixture of Goshen. If the data is not at all. It makes sure. Gosh, and will it will have a very bad likelihood in general.
+01:24:50
+And it will have also even worse held out like you won't be a good fit, but that's what makes someone like you to do so here the vibrational aspect is the approximation in your model.
+01:25:01
+Rather than there's no link with the data. Let's put it this way.
+01:25:12
+Alright, so the projection interesting projection. So the idea here is, let's say,
+01:25:20
+Is we'll be able to compute the expectation respect to simple distribution and and when I talk about mean feel in a few minutes, it will become clear that we can do that sometimes.
+01:25:30
+There's another direction of the kale, you can use which I would mention do I won't go into details. So there's an alternative
+01:25:37
+Which is called the M projection
+01:25:40
+Where instead of minimizing the kale between Q AMP p you will do the kale between p
+01:25:49
+And cute, so the other direction.
+01:25:53
+So this is called an end projection for moment matching
+01:26:02
+Because this. This is the same direction when we didn't maximum entropy. By the way, this is like the same direction.
+01:26:16
+Is the same direction.
+01:26:27
+Let's see.
+01:26:45
+OK, so the direction I was using was the the information direction is where we get the exposure family. Correct.
+01:26:59
+Okay.
+01:27:01
+But it's called moment projection because, indeed, try to force to match the, the moment matching the map them. So basically,
+01:27:12
+There's this plot in the bishops book. Let's say this is my true distribution p
+01:27:21
+So when you do I projection because of the property of the kale, you're actually trying to fit one of the mode. Okay, so this is basically
+01:27:32
+The solution, you will get by doing it I prediction. Let's say with a human. Human model approximation. So basically you're trying to find the mode in some sense.
+01:27:44
+Whereas if you do em projection. You tried to find this unit model distribution that we try to use a different color.
+01:27:58
+So let's say said green
+01:28:08
+So this would be what you would get when you do an M projection
+01:28:13
+And basically, you will try to find distribution, such that when you look at this moment. So it's mean it's covariance, it matches the meaning the covariance or example of the true distribution.
+01:28:28
+And so this is kind of like the M is basically moment matching
+01:28:39
+And so this plot and the explanation. You can see figure in Bishop
+01:28:51
+And this direction of the kill that motivates
+01:28:57
+An algorithm call expectation propagation
+01:29:05
+EP is for expectation propagation
+01:29:17
+Which is trying to do approximate moment matching
+01:29:22
+And I put motivation in quote because actually the EP doesn't even do exact doesn't even really do moment matching, but it's kind of motivated from that.
+01:29:34
+And then, you know, depending on whether you care about having fitting the mode or fitting the moments you get different approximate algorithm and different behavior, right. So it depends what kind of the properties of the distribution. You need to match better, which one will do better.
+01:29:56
+Alright so let me talk about the I prediction direction and let's talk about the main field approximation. And this is what you will implement in your assignment for the Isaac model.
+01:30:08
+So the main field.
+01:30:11
+Approximation. Oops.
+01:30:24
+And I
+01:30:26
+As a reference. You can look at section 10.1 from Bishop
+01:30:38
+And the way I talk about it, by the way, is in a non parametric way which is kind of nice. Even though often when you see mean field and papers, people do parametric assumption of continuous distribution. But what I'm going to describe kind of highlight that you didn't need this assumption.
+01:30:56
+So it will become clear soon. So let's suppose
+01:31:02
+That the distribution you are trying to approximate P isn't the essential Femi
+01:31:12
+And as you recall any this you understood graphical model on discrete data can be put in a special family as long as you don't have zero probability. So that's so Isaac model is the example.
+01:31:27
+And so let's say we have
+01:31:29
+Actually, I will use a z, y, z, I guess, because that's kind of what you did in the east.
+01:31:37
+Alright, so
+01:31:39
+I have let's say p variable. So, I will have said one to that P and so because I'm an exponential family of P AMP z is basically exp of at transpose T of z. That's my sufficient statistics minus log partition function as a function of an eta is my clinical parameter right
+01:32:00
+And so the main field approximation.
+01:32:05
+Is to try to minimize the KL between Q AMP p
+01:32:09
+Where we use a
+01:32:14
+Simpler distributions.
+01:32:16
+Which factor eyes over every notes. So we'll have that Q mean field will be the set of distribution queue.
+01:32:27
+Which are fully independent. So, it will be a product over. I have some Q I have said, I
+01:32:36
+Yeah, so it's basically the set of fully factorization.
+01:32:45
+Distribution. So that's our simple set of this vision.
+01:32:50
+For where P normally doesn't lie in it. So the kale won't be zero, but we'll try to find now the closest for the factories distribution in kale to
+01:33:00
+Pee.
+01:33:02
+And so now let's look at the kale between Q AMP p
+01:33:08
+When Q has this form. Well, it's the expectation, by definition of log of p divided by q
+01:33:17
+But now because le appears in the special family when they take log of it, it will have a very nice form. So, this becomes
+01:33:27
+Papa, Papa.
+01:33:30
+Why do I have in mind is there.
+01:33:32
+Oh, yeah. So it's actually minus log Q 12 it
+01:33:36
+Really
+01:33:41
+Yeah, I always get in the wrong direction.
+01:33:46
+I always forget which one is so it's love Q tip action.
+01:33:52
+Right, so I get minus expectation respect to queue of log p. So I get minus x transpose expectation respect to queue of T AMP z.
+01:34:07
+Plus the log partition function. This doesn't depend on z. So when I think it's fiction. It's not there. And then I have also the expectation of qoq that's just negative with the entropy. But let's write it explicitly. So this is some overs Q AMP Z lug Q AMP z.
+01:34:29
+But this Q AMP z here is product over Jay q-j
+01:34:36
+Of that Jay
+01:34:43
+And then I will have summation over j lug of q-j of the j. So, that's so by by assuming that the log is a product sorry that the queue is a product, it simplifies a lot the computation of the entropy
+01:35:00
+In particular, I can use this to be activity, as usual, because I have an essential some over all busy, right. So that's huge. But now I can push it inside. And what I get is,
+01:35:13
+By using the fact that you will get the marginals, in some sense, to get summation over i. So, this whole thing becomes submission, or I some issue over Zed i q i have said i and then just log Q i have the day
+01:35:32
+And so in order to compute the entropy of fully independent distribution. I just need to compute the entropy of the marginal and some them over all the notes, that's much easier because it's a very tiny some
+01:35:51
+And so, so that's already one thing because competing the entropy of P. By the way, could have been super and tractable, but. Q. Because it's simple. It's a product, then it becomes simple and alright so now that's my kale. And so as I told you before I could compute its expectation efficiently.
+01:36:12
+And the idea of the main fuel algorithm is to actually do coordinate descent coordinate descent on the marginals, so you know current descent.
+01:36:24
+On cue eyes. Right, so you'll fit one of the queue eyes at a time.
+01:36:31
+So basically you fix
+01:36:36
+q-j for Jay not equal to i.
+01:36:41
+And then what you do is you minimize the objective
+01:36:46
+With respect to q i have the kale.
+01:36:52
+Then I have q i and then tonight I, in some sense,
+01:36:59
+That's the my revamped tradition of Q
+01:37:04
+With p
+01:37:06
+And this was minus expectation, with respect to q i
+01:37:14
+Have
+01:37:17
+A
+01:37:20
+Transpose
+01:37:23
+Expectation she let me write it down more in different color. So basically I have the expectation respect to q i can spit it as First Aid expedition respect to everything else except UI.
+01:37:39
+And this will depend on that I analytics and respect to QA because that's the variable I will optimize and so I have here expectation respect to Q not I have T AMP z.
+01:37:53
+So I marginalize out all the other variables for my fixed marginals
+01:37:58
+And then I get a function which only depends on Zed I alright so this whole thing here. I'll call this
+01:38:08
+If I have said I it's a function of, said I, then I think the expectation respect to q i have this function of as a day and QA is a variable that I will optimize over
+01:38:20
+Then I have my luck partition function, which I don't care because there's no QA in there. So I'll just say it's a constant.
+01:38:29
+Plus a constant.
+01:38:31
+And then I have the summation over all I but the only one which depends on QA is this one. So that's the one that keeps everything else is a constant. So, I will have my entropy term for QA
+01:38:54
+And so shank chow do is saying the queue. We we assumed inputs are not structured dependent. Yeah. So we're basically saying that all over variable or independent, but the marginals are trying to match the, the product of marginal is trying to match the the correct
+01:39:16
+Full joint and so we are free to change the marginals, but indeed, we don't have any correlation between or a variable.
+01:39:24
+Mean it's pretty rough approximation, but it's kind of the simplest and then next class, we will see structured mean field where we will generalize that to allowing some correlation, which are simple enough that we can handle.
+01:39:39
+Alright, but so why am I talking about that because I want to show you that the coordinate update on the scale have closed form solution. So I want to minimize the scale. I want to, I want to find the marginal and q i which minimize this kill
+01:39:57
+That's why only express
+01:39:59
+The objective in terms of QA. So it's linear, and QA here and there's the entropy Park, which is so this is negative entropy
+01:40:09
+But so it's convex because the entropy is concave. So it's a nice convex musician problem with Q i
+01:40:18
+And I will just use the Lagrange multiplier method. So let's do that. So that's something we actually did when we did the maximum entropy in the exponential family that was the same direction.
+01:40:31
+So this is like
+01:40:34
+The max and
+01:40:36
+Derivation, by the way, because we were minimizing the KL respect to do uniform distribution in this case.
+01:40:42
+But in this direction. So if we add the Lagrange multiplier.
+01:40:52
+For the some to one constraint.
+01:41:04
+Then we add in the objective lambda one minus some overs that i q i have said, I
+01:41:14
+And so now I can take the derivative of the Lagrangian respect to cue to get this tertiary point, but because it's convex. It will be the global men. So I want the derivative of that to be equal zero.
+01:41:28
+So let's complete derivative. So the first term here is just like linear and QA. So it's summation over q i have something so when I think the rate of I'm just left with the something right so I'm left with minus F I have said, I
+01:41:46
+And then I think the derivative of the entropy. So I get
+01:41:50
+Log. So when I think derivative of July, I get just the identity. So I get the lug of Q I have said, I think there is of the login get one of our QA which cancels with the QA, so I get plus one.
+01:42:06
+So that's the standard we think different of the entropy will always get logged press one. And then I think the derivative of the leg ranging piece where I had this this lambda here. So I have a minus this some over q is I'll just get minus one.
+01:42:20
+Actually might Islam. Sorry.
+01:42:22
+So this is my gradient and I want this to be equal to zero.
+01:42:27
+Okay, and so you solve for QA, you get that q i star.
+01:42:33
+As a function of the day is proportional to exp of f i have z.
+01:42:41
+Today,
+user avatar
+Unknown Speaker
+01:42:43
+Right.
+user avatar
+Lacoste-Julien Simon
+01:42:45
+And so it's an explanation of me and you can read normalize it to see what it should be.
+01:42:52
+And so
+01:42:55
+The point here is that if you do this quiet ascent descent approach.
+01:43:00
+You get that the journal means field.
+01:43:05
+Update.
+01:43:08
+When the target p
+01:43:12
+Is an expression of me.
+01:43:21
+Is
+01:43:25
+For the
+01:43:26
+Marginal that you update you just set it proportional to
+01:43:33
+Exp of at transpose
+01:43:39
+The expectation, with respect to Q not I at iteration t
+01:43:46
+F t AMP Z right so that's where the other candidates come in, you will come in in the expectation and then you take the expectation respect is sufficient, that this takes that gives you something. And that gives you the new margin all and QA
+01:44:06
+And so
+01:44:09
+The the
+01:44:11
+Let me give you the concrete example with Isaac model so that we can conclude. And also, you'll have everything for the assignment.
+01:44:20
+And then I'll say a few more words quick were words about the mean field and then you can ask question as well. So if I go to the icing model example. So P is an exponential family.
+01:44:36
+So what was our sufficient statistics in the minimal representation. Well, I had that
+01:44:43
+I had for every node I looked at the value of that I
+01:44:48
+And so that I hear is zero or one. Right. And I also look at the product of that I NS Ajay for my edges.
+01:45:03
+So those are messages that this sticks and so now I need to compute the expectation
+01:45:10
+Over all my productive marginals
+01:45:14
+Have just said. Jay, the indicator variable. So this is just Q j of weather is that Jay
+01:45:25
+Is equal to one.
+01:45:36
+Well, let's say I use a time t.
+01:45:40
+And so will represent this marginal because it's a brand new with one number, right, and we'll call this Muji
+01:45:48
+GJ new J.
+01:45:50
+And it depends on T.
+01:45:54
+And so that's one piece of the sufficient statistics and then I also need to compute
+01:46:00
+kuna I have the product of, said I, ends at J.
+01:46:06
+Well, that I hear is not random because Q not is not putting a decision on that is so this will appear later. So this is just that I and then the expectation was that jays already computed. So it's huge.
+01:46:22
+Alright, so now if I compute the
+01:46:26
+Edit transpose expectation of Q not I at iteration p of t AMP z.
+01:46:35
+What I get is, I will get into i said i because there's there's no distribution on, said I, when I looked at Q, not I.
+01:46:44
+I'll get
+01:46:46
+Stuff, which doesn't depend on that I
+01:46:51
+But so, for example, some over j not equal to i have a big expectation que, not I.
+01:47:02
+Have zero J.
+01:47:05
+And that's just new JT
+01:47:08
+But there is no Sendai in this thing. So it's a constant when I will compute the
+01:47:15
+The update here. Here I only care about what depends on, said I, right, because it's a decision of Rosetta
+01:47:26
+And then I have plus summation over my neighbors.
+01:47:34
+Have it i j
+01:47:37
+Expectation Q not, I have to have that I said, Jay.
+01:47:46
+And so as I said above this is just
+01:47:50
+Said I knew j of tea.
+01:47:55
+And then I have the rest plus rest.
+01:47:59
+Where there's knows that I in it. There's only new j and
+01:48:06
+Or actually, it would be the the marginal on on j and l, but it doesn't matter.
+01:48:13
+Okay, so that means that if I now plug this back in
+01:48:18
+I plug this in here to find what's the new marginal for that I
+01:48:26
+I get that.
+01:48:29
+The result of my main fuel update
+01:48:32
+Is that Q i t plus one.
+01:48:37
+Of, said I.
+01:48:39
+Is proportional to the exp of at the I
+01:48:46
+Said I plus that I summation over j in my neighbors have I at J. And then I have a new
+01:48:58
+New j of tea.
+01:49:02
+Which is just a representation of my cue, Jake. Right.
+01:49:06
+This is the parameter for my
+01:49:10
+Can think of it as a parameter
+01:49:14
+For Q, Jake.
+user avatar
+Unknown Speaker
+01:49:17
+Of tea.
+user avatar
+Lacoste-Julien Simon
+01:49:20
+So the main feel update is for some notes I that you want to update you get it's you. It's new parameters is the sigma and because you need to normalize that of Ed i plus summation over j in the neighbor of I
+01:49:38
+At AJ and then you have
+01:49:43
+You j of tea in the neighbors right so
+user avatar
+Unknown Speaker
+01:49:47
+You keep updating that
+user avatar
+Lacoste-Julien Simon
+01:49:51
+So that's the main fuel update
+01:49:59
+For Q AMP z.
+01:50:02
+I
+01:50:04
+With parameters new I
+01:50:15
+And so you can compare this
+01:50:19
+With the good sampling of date.
+01:50:22
+Just very similar, but it's a sampling instead of a
+01:50:26
+Sub value were in give sampling. You said Zed i t plus one equals one with probability
+01:50:37
+sigmoid of at the i plus summation over j in my neighbors.
+01:50:44
+Have at i j and then instead of using the parameter you actually use the sample value.
+01:50:55
+So you can think of.
+01:50:57
+Give sampling as a hard version of me feel right mean field, you have these the soft count like new represent the quality of something to be one.
+01:51:06
+And then you, you will update you will propagate to the neighbors. So basically at iteration t you will pick one of these nodes that you will do a quick update and you said the new value of the parameter by propagating
+01:51:21
+Using the value of the parameter of the neighbors and then using these these parameter coming into your distribution if you're trying to match.
+01:51:29
+Whereas in good sampling, you would actually have 01 values which are samples which in average or actually news, but that's kind of a different thing. But the structure is very similar.
+01:51:45
+Okay, so that was a bit over time.
+01:51:50
+Is there any question about the main feel update for the icing model.
+01:52:06
+Know, so. So basically, one thing I wanted to explain why I derived the main field model also in general. Here is also ties back to the maximum entropy style of derivation. But the point here is
+01:52:21
+It say now a Zed was a this is actually true. Also, if that is a continuous
+01:52:27
+Random variable you just now get read an exponential family. And the point is if I minimize the kale respect to all distribution.
+01:52:37
+All continuous distribution on z, the one which minimize it will be an exponential family with these this kind of like as the form for the sufficient statistics.
+01:52:48
+And if you read old paper, like for example vibrational in France in the later additional education model for Topic Models.
+01:52:55
+They will usually say suppose you approximate q i with an explanation of me with some parameter and then you're trying to do mean feel update
+01:53:04
+So they will make a parametric assumption on the distribution, which sounds like you're making more an approximation and you're
+01:53:11
+Okay. But it turns out that even if you didn't make any Patrick assumption the minimization of the kale will give you
+01:53:18
+The same one that they actually chose, which was like, usually they actually usually choose an extension of meds with you haven't actually the correct form of the country version.
+01:53:27
+Somebody asked a. Why does it that has one index and sometimes two very good question. So basically the sufficient statistics for the Isaac model has both nodes.
+01:53:39
+Features, as well as edge features. And so here this is it will have at that I, the clinical parameter associated with a node feature and it will have at that i j for the parameter associated with the edge feature. It's just like that.
+01:53:58
+So Jacob is asking
+01:54:01
+Where does the this double some go when I computed the
+01:54:07
+Product over Jay. Is that your question, Jacob.
+user avatar
+Jacob Louis Hoover
+01:54:10
+I was just, yeah. When you had the product over Jay and the line above that. Yeah, where did that go when you when you went to this where you drive this double some
+user avatar
+Lacoste-Julien Simon
+01:54:18
+Yeah. So basically what you can do is you can write this as
+01:54:24
+So what you do is you factor out because sometimes just do it explicitly so what what you have here is this only depends on q-j so I can
+01:54:37
+Anything here, which doesn't have to. Jay, can be
+01:54:45
+Pushed out of the sun. Right, so I could let me write it down. So this is, this is the same thing as
+user avatar
+Unknown Speaker
+01:54:51
+That mirror it is down here.
+user avatar
+Lacoste-Julien Simon
+01:54:54
+So this is summation over i.
+01:54:58
+Have summation over z.
+01:55:03
+Of product over
+01:55:07
+Jay, that's great. Like this not equal to i q-j of that, Jay.
+01:55:16
+Which actually I'll call this Q, not I. Let's write it this way.
+01:55:21
+So this is
+01:55:24
+Q. Not I, said, not I.
+01:55:29
+And then I will have
+user avatar
+Unknown Speaker
+01:55:31
+A
+user avatar
+Lacoste-Julien Simon
+01:55:34
+Q.
+01:55:36
+I have said I lug of
+01:55:41
+Q I have today.
+01:55:45
+OK, so now I still have my big some overhead. So all I've done is just I push this some outside
+01:55:53
+Okay, and now the whole thing is that
+01:55:57
+Here I have q i said i here I have knows that I so when I some over all variables. This is just a constant when I don't have I. And so I'll just get here the marginal right so this will just basically give you
+01:56:13
+Basically one time summation overs that I
+01:56:18
+Which is what I have
+01:56:23
+Because when I some on said not i q not I have said not I just get one right this is distribution and all the other variables when I sum of all possible values. It's one
+01:56:37
+Does it clarify.
+user avatar
+Jacob Louis Hoover
+01:56:43
+Think so.
+user avatar
+Lacoste-Julien Simon
+01:56:46
+So, and if it's not fully clear just
+01:56:48
+Try it, perhaps more key me with putting all the steps, but that's kind of the idea
+01:56:54
+And the other question.
+01:57:04
+Alright so let me stop the recording and i think is a kill. I'll take your question, but people can leave.
+01:57:16
+Yeah, so next class I will cover.
+01:57:23
+Bayesian methods and model selection.
+01:57:26
+So that's the plan. And then the next lecture will be on factor analysis model gushing network and the last lecture next week will be by Jose on Goshen processes and non Patrick Beijing methods. So that's the menu for the remaining of the lectures.
+user avatar
+Unknown Speaker
+01:57:44
+Let me stop the recording.

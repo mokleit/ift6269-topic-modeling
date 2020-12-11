@@ -1,0 +1,1377 @@
+Lacoste-Julien Simon
+00:00:04
+Okay, so
+00:00:07
+So basically, so far what I've done in this class is
+00:00:12
+Give you
+00:00:14
+A bit of review or probability theory and all the lectures about like maximum likelihood Patrick models.
+00:00:21
+But bias variants decomposition statistical decision theory that was to give you the the theoretical tools to
+00:00:28
+Think about, okay, how do we evaluate a method and what are the basic principles to think about statistics. OK.
+00:00:35
+And now what we're starting is to go through concrete examples of prognostic approaches and statistic problems right
+00:00:41
+And so the first one we started with linear regression. So we had an error regression. So that's the very simplest setting where we have y which is a continuous variable and x is a country could be anything but it's a vector. And we had a prospect model to to model that both from
+00:01:00
+You with like this this discussion era assumption. Right now, if we do maximum likelihood. In this model, we got back to the standard a standard estimator for for estimating the linear relationship, which was the d squared estimator. Right.
+00:01:16
+And that was an excuse to talk a bit about also some numerical mathematics. Right, so I guess no. That was for logistic regression. So then we went for classification
+00:01:25
+Against the the big picture here is we have these simple to variable model where X is one variable, and why is another variable. So you can think of it as a graphical model with only two notes.
+00:01:37
+Later on in class will start to see more complicated graphical model and actually today when we start to talk about latent variable will already talk also a bit more about these these these these little, these multiple variable model.
+00:01:51
+But so step one was
+00:01:53
+Regression step two was classification and that's where we saw the logistic regression model where we have a simple why given X model.
+00:02:02
+And that was a good excuse to tell you, also a bit more about numerical techniques for optimization. Right. So we talked about the medicalization and Newton's method and interrupted really redid the square which is what you implemented in the assignment.
+00:02:16
+Then I talked about during this classification because I mentioned before, we had the conditional approach or we had the general approach, which also Model X, not only wide given x
+00:02:28
+And so that gives you an alternative way to estimate
+00:02:32
+Parameters in a in a model and decision boundary for classification and that's what you're exploring in the assignment. Right, so you can compare it to just the progression.
+00:02:40
+With sure this plan analysis with even like doing a linear regression for even though it's a classification problem. Okay, so, so basically
+00:02:50
+I think in terms of big picture you can see that in this fast. I'll give you a kind of a tool bag of different approaches on specific topics. So that's why
+00:03:01
+Like the unifying theme I mentioned in the past where how do your present probably distribution.
+00:03:07
+How do you learn them. How do you estimate them and then how do you compute quantities. How do you do in France they so there was a nice three teams.
+00:03:15
+And then I'm going to go over different applications or topic like classification regression or sequence like time series model and and I'll give example then of, okay, how do you
+00:03:30
+What kind of protein distribution, you will use for that, then how do you learn them and how do you do probably stick in France in them, right. So that's a bit the unifying theme, but
+00:03:41
+I think this class is more better seen as a tool bag a two. Yeah, a bag of tools, rather than a simple unifying
+00:03:55
+Story subsets. Okay, is does this help for the big picture, Amy.
+user avatar
+Remi Dion
+00:04:03
+Yes, exactly what I was hoping for. Thank you.
+user avatar
+Lacoste-Julien Simon
+00:04:07
+Great. Okay.
+00:04:08
+So,
+user avatar
+Unknown Speaker
+00:04:09
+So today.
+user avatar
+Lacoste-Julien Simon
+00:04:11
+We're going to do unsupervised learning. Right. So basically in the last few lectures. When we did
+00:04:18
+When we did
+00:04:20
+classification and regression. This was unsupervised. This was supervised learning. So we had labels why an unsupervised.
+00:04:31
+We had the input x. So now we're going to look at situation where we don't, we're not given labels we just have data. So this often call. Oh yes, sorry. Thanks for the reminder. Let me share the correct screen.
+00:04:46
+And share
+00:04:52
+Thank you for the reminder. Alright. So today we'll do unsupervised learning and, more specifically, we'll start with the came in the algorithms.
+00:05:05
+And we'll talk about the expectation music ization algorithm. So these are
+00:05:10
+Standard approaches to unsupervised learning. And this is a build up to get to the Gaussian Mixture Model that will see next picture so gotcha mixture model.
+00:05:23
+Will be basically one of the simplest unsupervised learning approach that exists which will already highlight a lot of the issues with these kind of approaches in particular, they're all non convex right so you have problems in this case that there's no
+00:05:38
+There's no like simple way to estimate your parameters like you will have that you get stuck to local in local minima and there is you need to deal with this non convexity and we'll, we'll see that in practice today.
+00:05:51
+Alright, so, so let's start with
+00:05:54
+A bit of background on supervised learning
+00:06:05
+So basically, as I said, is here, we have x without any labels.
+00:06:17
+And if you're familiar with like self supervised learning and
+00:06:21
+I don't know what other terminology exists nowadays.
+00:06:26
+But they're the same thing as unsupervised learning, but with a modern opposite. So a modern outlook has way more nuances into unsupervised learning.
+00:06:37
+Let's now just start at the most basic simplest situation where all I have is just
+00:06:44
+Data and there's not, I'm not trying to learn a specific relationship between one variable and the other. That's kind of the idea of unsupervised learning. And I just have data I'm trying to model it directly. And so, and in the case of a, let's say I had like
+00:06:59
+Two.
+00:07:02
+How could I say let's say I had to population. That's what I meant. So, and I could have observation which looks like that. So these are just this is pointing to these
+00:07:14
+But this could be to measurement. I made about individuals. And it turns out there's two groups of individuals, but I, I didn't. I don't know what the labels of the individual artist. I don't know. There's two groups. All I know is there's observations, but you can think of it. Oh well.
+00:07:29
+You could say, well, this is group one and this is group to right from just looking at it. But we're not getting that
+00:07:37
+And
+00:07:40
+The an example of of model for this kind of data is the Gaussian Mixture Model.
+00:07:48
+Which we already seen in the context of the fisher discriminate analysis model.
+00:07:57
+So the Gaussian
+user avatar
+Unknown Speaker
+00:08:00
+Mixture Model.
+user avatar
+Lacoste-Julien Simon
+00:08:04
+So we call this GMM
+00:08:08
+And this can be obtained.
+00:08:11
+From Fisher in our discussion analysis.
+00:08:19
+So what was it the Fisher, Linda. This man is this model, we said, Okay, well, why is coming from a mood to normal with parameter pie right and pie with some parameter in the policy simplex
+00:08:33
+And then we said that x given y which is equal to some class was a Gaussian with mean new Jay and in this case it was a shared covariance matrix, right.
+00:08:45
+So in the case where we had observed why that was the joint model. We could have a model and x and y.
+00:08:51
+So what happens in this model is we if we don't observe why we can marginalize the variable out right. So if I look at the marginal an x in this model. This is a summation over why of the joint on x and y.
+00:09:06
+which by definition of the conditional by the product rule is just p of x given y times poi so my class conditional times my prior classes.
+00:09:16
+And in this case, the quality of a specific class is given by pie. So this is summation over my classes I have classes, the quality of my class and then
+00:09:29
+The gushing probably t that I would see for x, given the mean of class Jay and share current metrics.
+00:09:38
+So the marginal distribution over x. What I don't observe why in this case would be what is called a Gaussian Mixture Model why it's a mixture is because I have multiple mix Goshen component with each have their own mean
+00:09:50
+And I'm taking a mixture of them, right, so, so, so these are basically the the mixture coefficient. So, this is called the gosh and external
+00:10:09
+And so, more generally,
+00:10:13
+We could also have
+00:10:15
+We could have
+00:10:17
+Different covariance for each classes.
+00:10:22
+If we wanted as a different model.
+00:10:27
+And so if I look for example at the data here.
+00:10:31
+I say, well, actually a Gaussian Mixture Model seems pretty good with two classes. Right. I could have a mean here, you know, new one. You too. And then some covariance around it. And that kind of miles data right so we could just do maximum likelihood in a gym and model to fit this data.
+00:10:48
+Okay. And the big picture here is, well, how do we do that maximum actually in a gym and model. And there's an algorithm called em.
+00:10:57
+Which is kind of a nice way to handle the non convex aspect of the maximum I could problem.
+00:11:07
+And K Means is a way to kind of get that without going to the plastic model, right. So, k means it's kind of like a hard version of the gym.
+00:11:19
+And so somebody is asking that what I just wrote is an extension of Fisher and leaner this Medicis with multiple classes. Correct.
+00:11:26
+So I told you about Fisher and linear analysis. In the case of binary classification, but there's as trivial extension within instead of having two classes you have classes. Each class has their own mean
+00:11:38
+And they all share the same current metrics and it gives you nothing. Just like aggression. It gives you like what is called basically it's also, it's mostly class logistic regression with. That's what you get in terms of a
+00:11:50
+decision boundary. So it's a simple extension.
+00:11:56
+Yeah, so I guess I'll mention here. So this is extension.
+00:12:02
+Of it fell D to multiple classes.
+00:12:09
+I mean, FL D. The standard FLT actually was also defined for multiple classes. So it's not really an extension, but the one I presented to us in the class lectures.
+00:12:23
+Okay, so before going into came k means and these
+00:12:29
+The details of gems. Let's talk a bit about graphical model.
+00:12:33
+So the graphical model.
+00:12:36
+For way we caught for for for this.
+00:12:43
+For the GM model, we can say it's a latent variable model.
+00:12:48
+A latent variable model.
+00:12:53
+Because why in this case is not observed which and so instead of calling it why because we use for why for labels.
+00:13:02
+When we have something which is not observed in or in the latent variable literature will use the so it's a break.
+00:13:08
+Not all papers will use z, but often sees us as the latent variable. So, what you have is the class membership of a point we were presented by the variable CI.
+00:13:20
+And it's not shaded meaning that we don't observe it, whereas the actual observation, we call it x i, we shade it because it is observed.
+00:13:32
+And we could say we observe and different individuals and they will all be independently identically distributed. And so what we use is the plate notation, right, this is
+00:13:46
+Some notation. So let's unwrap this notation. So the square here. This is called the plate notation.
+00:13:56
+And what it means is repetition.
+00:14:00
+OK, so the the graph structure that you have within the plate with an index is just copied multiple times, right. So, so this is equivalent
+00:14:11
+This notation is equivalent to saying, Oh, well I have Zed one x one.
+00:14:17
+And then I have Zed two
+00:14:21
+X two.
+00:14:23
+And then I repeat that up to
+00:14:27
+Zed n to x, right. And so the the
+00:14:33
+I'm
+00:14:36
+The thing I'm the end this is that I'm running over is indicated here at the bottom of the plate is from one up to it.
+00:14:46
+Okay. Is it possible to have a quick definition of a latent variable please a latent variable is a variable in a graphical model that you want. Observe. It's. That's why it's called latent because
+00:15:00
+It's like dormant like you don't see it, I guess. I don't know why it's called Eden.
+00:15:05
+And
+00:15:07
+How is the latent variable model and GMM related
+00:15:12
+So in the GMM
+00:15:18
+So in the GMM
+00:15:22
+Said, I would be distributed according to a multi normal pie.
+00:15:29
+Right, and then x i givens that I will be dissuaded according to
+00:15:37
+Annex I, with mean new which depends on, said I, and coherence fixed score. It's
+00:15:45
+Actually, you could also have
+00:15:48
+In a journal. GMM you would have
+00:15:51
+That the covariance can dependency. So I'll say
+00:15:56
+It's a gash in on X I given you on Saturday and sigma which depends on the day.
+00:16:07
+Okay, so, so I lead in variable model for now is just this generic relationship between variables.
+00:16:16
+And if I this I give specific distribution. I say, Oh, this isn't normal. And it's discreet and this is a Gaussian given z, then you get a GMM okay
+00:16:26
+But you can also you have other latent variable model where you could decide that the class conditional is not a Gaussian. It could be a solid. It could be anything.
+00:16:36
+And
+00:16:38
+Z equals i. In GMM
+00:16:40
+Well, so the thing is, uh,
+00:16:43
+Yeah, so I guess he our roads. Why is boots, no milk to make the link with the fisher leaner and leaner.
+00:16:51
+Sorry discriminate analysis model.
+00:16:54
+But in GMM we will use z instead of white. So usually, because we don't observe it, why you normally we observe or we would like to think about was z as the online version.
+user avatar
+Unknown Speaker
+00:17:07
+Is this clarify it.
+user avatar
+Lacoste-Julien Simon
+00:17:13
+Okay, so I was not done with the parsing of the notation. So, the point was that
+00:17:19
+When we don't shave a variable in
+00:17:25
+In the graphical model notation. That means that the variable is unobserved.
+00:17:37
+And observed is often
+00:17:41
+That's what we mean, often by latent variable. So it's a variable which is not observed
+00:17:47
+Whereas when we shade a variable.
+00:17:52
+That means basically
+00:17:56
+That the variable is observed.
+00:18:04
+So that's the semantic
+00:18:14
+So is there any question about the latent variable model.
+00:18:25
+Okay, so then
+00:18:28
+There's something very important. Now, to think about, which is, which can be quite confusing for people who first look at graphical models, when I
+00:18:37
+Remember the first time I take graphical model. Many years ago, I was confused by that and it actually it was not very explained very well at the time. So now I'm trying to do a better job of explaining to you, but there are two views.
+00:18:53
+On the marginal and x in this kind of model right
+00:18:58
+So there is
+00:19:00
+One which is unstructured
+00:19:04
+Where all I'm talking about is x i don't talk about z i don't care about it. I'm just saying, oh, I have data, I will have my my variable.
+00:19:14
+I guess I could use perhaps X. I'm a bit
+user avatar
+Unknown Speaker
+00:19:18
+Not super
+user avatar
+Lacoste-Julien Simon
+00:19:21
+Rigorous here about my random variable versus the instant station. So I guess all these by the way they were normally capital letters.
+00:19:31
+To be because nodes are associated with random variables.
+00:19:37
+I don't know why I'm I was lucky with it.
+00:19:40
+It's not super important. But yes, to be consistent. We tried to be
+00:19:48
+To have these capital letters. So yeah, so I could have
+00:19:58
+Okay, so there's a good question here by I go, Well, why are we marking them as observing observe. Is it for the sake of representing the model well with efficiency or did you behave different
+00:20:08
+The don't really behave differently. It's more to kind of like it's a it's a useful notation to tell you more information about the kind of model, you will be talking about right so so when you shared a variable, you mean okay now I will think about my model when I observe this variable.
+00:20:25
+And later on we'll talk about when we do in France in a graphical model when some variables are observed and some are not observed. So then it will be helpful to say which variables are observed. And then what what it means in terms of probabilistic consequences.
+00:20:42
+Then not here means multi new you are multi normal with n equals one, they're the same, right. So, but it's multi new EP
+00:20:58
+Okay, so
+00:21:01
+So,
+00:21:02
+The two views of the marginal. So the first view is x is a mixture distribution.
+00:21:10
+This tree.
+00:21:16
+Tree vision.
+00:21:20
+So basically if I looked at his density on x, it would look like this. Like, for example, a mixture of gushing would look like this. I would have to bumps.
+00:21:28
+One bump around each of the mixture component, but I'm not identifying them. I'm just telling you the distribution on X is has this density multiple bumping
+00:21:38
+The other view is to actually have a structured model, which will be a latent variable model.
+00:21:48
+Where, in this case, I'll say, oh, actually, I can think of the distribution over X where X is observe where I have a latent variable said, which is not observed
+00:21:57
+And then I tell you what are the class conditional given said as is value the conditional is a Gaussian with this means
+00:22:03
+Is that as a different value that conditional the class conditional is a different gushing with a different mean and then I put some prior distribution over my my latent variable. And that's my whole distribution. Right. And so in this case the marginal over x.
+00:22:20
+Is still that have these two mixture. But you're saying, Oh, well, this is the mixture.
+00:22:26
+Component for is n equals zero. This is the mixture components that equals one. And the way you get the whole marginal over x is take a mixture combination of those two elements with the quality of each mixture component. Okay.
+00:22:39
+So this is kind of like a
+00:22:41
+The structured representation
+user avatar
+Unknown Speaker
+00:22:52
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:22:56
+And what's the difference. Well, in terms of a distribution over x. There's no difference between those two views.
+00:23:01
+The margin over x. In the case of the latent variable model. I need to marginalize out z, which means I get a mixture distribution and I get these two bucks.
+00:23:11
+In the case of the mixture distribution. I always only talk about the module of X and I have these two mixture. So the marginal on x is the same in those two views.
+00:23:19
+The difference with the bottom view is that instead of adding a complicated mixture distribution on the marginal I break it into simple pieces. I tell you, well,
+00:23:29
+Actually, the x is not just a complicated distribution. It can be explained from a simple
+00:23:36
+Conditional of x, given z, which has the simple component and then some distribution of receipt. So it gives you a bit more handle on the pieces. So by commenting simple piece, you can get complicated distribution.
+00:23:54
+And Simon is saying that we can define the structure one s p of x and the structured one as that individual pieces. Sure, yeah, p of x, given z times pod.
+00:24:09
+And so when we have p of x, given z and z we give a bit more we we have split the marginal in
+00:24:17
+And actually it's not just P of X given zip ties. PMC. It's also marginalization, right, so here. So here it's p of x. Whoops.
+00:24:27
+P of X is summation of z p of x, given z. Thanks. PMC
+00:24:34
+Oh, but I remove my temporary Inc.
+00:24:38
+P of X is summation of z p of x, given z times PMC
+00:24:46
+Okay, so, so there's that we defined the marginal in this case is isn't with this marginalization aspect.
+00:25:00
+So because this fast is about graphical model basically the idea is, is we will define often these very structured
+00:25:08
+Relationship because it's easier to handle complicated data and to build complex distribution from pieces, rather than just saying, oh, I have a complex distribution and that's it estimated
+00:25:27
+So Jacob asked if we need to explicitly model P AMP z in the search representation. Correct. We need to also say, what's the distribution over that.
+00:25:35
+And then Dora ask when would not use this and work with this directly
+00:25:41
+Well, when we don't have a good idea of how to break things and pieces, like for example here, in some sense, I'm already assuming that I have gallons as
+00:25:51
+Class conditional. Well, how do I really know I have gosh inaccessible national and so they're from a statistical perspective, like, like the, the problem here is a problem of what is called density estimation is I have observation of
+00:26:06
+Data and I'm trying to fit a distribution to it. And here I'm making a nice parametric
+00:26:13
+I could make a nice time a trick model where I say why get x, given z is a Gaussian. I just need to identify now it's, it's me, it's covariance and z's and B2B
+00:26:23
+But this are. But what if the data is not gash in like right if it's something else. And so to estimate these kind of mixture. Like, there are also method, which are called non parametric
+00:26:34
+Which are much more powerful, in some sense, and you could use for example, like a histogram type of approach which build a program of the data and then you really don't have a mixture type of model. So you would just trying to fit.
+00:26:48
+Fancy histograms on the data and there's no notion of a latent variable model. So, so it can also be approach.
+00:26:57
+It's a bit. Also, you can think of it also having a black box models versus like a more explicit model like you like having these pieces help you to have a bit better understanding about the thing, but you can try to just fit the whole the whole distribution directly
+00:27:13
+Perhaps you understand it a bit less in this case.
+00:27:17
+Okay, and then the. The other important thing is that right now. We're saying for the GMM model or these kind of latent variable model will say that does that is the latent variable or independent then later in class.
+00:27:32
+Will see now will introduce some dependencies between
+00:27:39
+Between the latent variable. So, we will add
+00:27:43
+The time structure.
+00:27:50
+So where we have
+00:27:52
+dependencies between the latent variable. So I would have X one, that one, and then I would put an arrow to the right. So they're not independent anymore.
+00:28:04
+Blah, blah, blah.
+00:28:06
+Then I have said ti
+00:28:10
+X t. Whoops.
+00:28:18
+And this is the hmm
+00:28:21
+Model for example the hidden Markov model, which I had mentioned at the beginning of class.
+00:28:34
+The shank. Can you rephrase your question. I'm not just what you're referring to.
+00:28:39
+Which any method would choose former. So what's former referring to in your question.
+00:28:51
+Is there any other question about
+00:28:55
+The latent variable approach.
+user avatar
+Oumar Kaba
+00:29:00
+Yes, so I did have a question that you missed in the chat. I was just wondering what the indices refer to this as one to treat, etc.
+user avatar
+Lacoste-Julien Simon
+00:29:14
+So,
+00:29:16
+X one X two X n
+user avatar
+Oumar Kaba
+00:29:20
+Yes, exactly.
+user avatar
+Lacoste-Julien Simon
+00:29:21
+Yeah, so
+00:29:23
+It could be, we have observed and
+00:29:27
+Individuals, which we assume are identically and independently distributed according to the mixture distribution.
+00:29:38
+And so we could say, for example, like let's say I have, for example, the individual could be people and the observation could be attributes of these people like height.
+00:29:48
+Or, you know, income or whatever. And I say I had a lot of and I'm trying to model these individuals. Right. But I could have independent observations of just and different individuals.
+00:29:59
+Right, though it could also be that I made multiple observation over time of the same quantity or the same measurement, right, that could measure to the temple, I could that
+00:30:09
+A good example for hmm would be I'm tracking a plane. So I'm making measurement in a on a radar and I say, oh, where I think the plan is. And so then the index could become time could be like multiple
+00:30:23
+Measurements. And in this case, you would not be independence, because there will be correlation across time because plane is
+00:30:29
+The same thing and that's where the hmm model.
+00:30:34
+would be more appropriate. In this case, the latent variable because it's a, it's a, say, the position of an object would make more sense to be continuous rather discreet. So this where we get to their common filter approach. Okay.
+user avatar
+Unknown Speaker
+00:30:49
+Thanks, all.
+user avatar
+Lacoste-Julien Simon
+00:31:06
+Carl is asking so Zed i is a latent variable. So, which is not observed, but we still need to make a we still need to model. It's distribution.
+00:31:17
+Yes. Because to get the distribution of our observed variable P which is x
+00:31:25
+It's defined from the distribution of received. So if we don't tell you what's the decision of Rosie.
+00:31:31
+Just by the conditional x, given z i don't know what the decision over X right so it's just part of the the modeling.
+00:31:38
+Assumptions build up. So that's why we we say okay well to get a decision over x one ways to define a latent variable model where I'd say, what's the decision of Z was the conditional of x, given z. And that gives me then by marginalization was the decision of x.
+00:31:56
+And then when we start to work with the GMM example and estimate variables, it will
+user avatar
+Remi Dion
+00:32:00
+Become
+user avatar
+Lacoste-Julien Simon
+00:32:00
+A bit clearer. Also, like how to make this complete Creek right
+00:32:03
+So there's again in the gym model will have to estimate what are the means and the covariance is of these conditional as well as what's the prior over classes, either.
+user avatar
+Unknown Speaker
+00:32:14
+Of
+user avatar
+Lacoste-Julien Simon
+00:32:16
+The prayer of related variables.
+00:32:20
+Okay, what's the difference between a latent variable model and a prior distribution.
+00:32:34
+So prior distribution for a vision prior is anything you're uncertain about right so and so, for example, you can think of z i don't observe. I don't know what it says. So I'm uncertain about it. So then I put a prior over Z right
+00:32:50
+Though I can be a frequent this here and still have this model. There's nothing Beijing about it and then I will not miss the call this a prior. I would just call this a distribution over unobserved variable so prior is a terminology which is normally introduced by vision.
+00:33:07
+But given that
+00:33:10
+P AMP Z could be seen also from a patient perspective as a prior. That's why often people intuitively could also say, well, the prior busy and I often say that instead of just saying a little variable as the distribution over latent variable.
+00:33:25
+And the Remi, you have a question, you raise your head.
+user avatar
+Remi Dion
+00:33:28
+Yeah, I wanted to try to feature.
+00:33:31
+I wonder, along with the question of you.
+00:33:36
+Since we can't see it. We're not observing it. How can we apply an approach that is different and they use you. How, how could we apply for conscious approach if we can see it.
+00:33:49
+I mean yes understood what you said.
+user avatar
+Lacoste-Julien Simon
+00:33:51
+Yeah, so, so, so, so the difference between frequent. This is Beijing is not whether you see things are not the difference is how you estimate unknown quantities. Okay, so as
+00:34:03
+Frequent test, you will come, will use different techniques like maximum likelihood or a method of moments or maximum entropy that will see later to estimate quantities. Okay, so for example as a frequent is I could
+00:34:20
+Decide that my my my
+00:34:24
+My problem. I will say, Well, I suppose that my distribution is made.
+00:34:31
+Of mixture of Goshen, so I will have then to escalate.
+00:34:36
+Through some techniques which normally will see very soon maximal magnitude, but we could also use method of moments.
+00:34:42
+What are the parameters for my class conditional and my parameters for the thing and then and then for the little variable and
+00:34:50
+That's just an estimation problem. So, and there's no quote uncertainty.
+00:34:55
+Left or talking about what my decision. We're parameters in this case that will be like I have observations. I'll use my estimator technique that gave me an estimator. And then I can analyze
+00:35:04
+Its properties in terms of like frequent this risk bias variance etc to kind of see if it's a good estimate or not, but the the as a frequent this
+00:35:15
+All you do is basically defined some estimators and compare them as a Bayesian. The difference is the way that you
+00:35:25
+Handle uncertainty is clear. It's canonical it's anything you don't know, put a distribution. And then how do you compute from data, you only you law of probabilities
+00:35:37
+And so, in particular as as a true Bayesian even though I could say p AMP z as a prior I still don't know what's the distribution of p of x, given z.
+00:35:45
+There's uncertainty about that. So then I could say, okay, well it's a Gaussian with parameter view and coherence, but I don't know what's new in governance. So then as a Bayesian you would put
+00:35:54
+A prior over these parameters you would put a prior over the mean the prior where the grants which okay how you put a distribution over governance matrices that starts to get a bit hairy. And this usually it's called the
+00:36:06
+Fig the either the Wishart prior or the inverse, which starts. If you go on the prison matrix, but we're getting a bit hairy.
+00:36:13
+And then once you put this prior you still don't have an answer you need from the observation, you will just update your belief about these unknown parameters using for stereo in France. So that's the vision way would be to use
+00:36:25
+Bus there in France to just get answers to all your, your, your, your answer your questions.
+00:36:32
+Okay, so
+00:36:34
+So that would be the big difference. So in the frequent this you would have parameters and then you could estimate them and you get point estimate as a Bayesian
+00:36:42
+You would actually have to do plastic in France to talk about what's the distribution of our partners.
+00:36:47
+And so P AMP z in this case would not just be a prior it would normally in a, in a, if you actually have Beijing and you do a latent variable model, you would put a prior over the distribution up over the parameter of P AMP z. So,
+00:37:05
+Does that clarify things for me.
+user avatar
+Remi Dion
+00:37:09
+I think it does. Let me try.
+00:37:12
+Let me try this.
+00:37:15
+Frequent test will have parameters and essentially all the estimator tools are there to validate the parameter
+00:37:26
+And the Asian would have the distributions and as far as you don't know the parameters, you'll just apply furthermore distributions to the those parameters until you
+00:37:37
+You reach a known value. I guess because it could be unless to just apply another distribution generator distribution to another distribution.
+user avatar
+Lacoste-Julien Simon
+00:37:46
+Yeah, so, so this is approximately correct so so to to refine the terminology here. So applying a distribution doesn't really mean too much so what what we really want to say is, you, you, you, for example, do define
+00:38:00
+So more specifically right p of x, given z would have a parameter theta which quantify that. And then I would also put the distribution over theta. And then once I observe my my data. I could compute the distribution over theta given my data.
+00:38:20
+And this is how you perhaps in your terminology say applying to the submission. What, what, this is just computing the posterior so there's just, just using laws of qualities and conditioning on what you know, which is actually the data, which is the observation.
+00:38:35
+Whereas for the frequent this the way you get access to the parameters is just by estimating procedure and there's different which has been which which are obtained from different
+00:38:47
+Principles are sometimes it's just somebody says, I think this is a good estimator, and then you analyze its properties, even though you just came up from like nowhere like you can say, oh,
+00:38:57
+I instead of using the empirical mean to estimate my meat. I'll say, I'll take
+00:39:01
+The empirical meet I'll race to the cube and I'll divide by 55 I'll add three or whatever you can do all these oppression and that gives you another estimate. Perhaps it's not a good estimate, but then you can try to analyze its properties.
+00:39:15
+Okay.
+00:39:17
+So before the break, I wanted to
+00:39:22
+Talk about k means
+00:39:24
+Okay, and then I'll take a break.
+00:39:28
+When this people say no, we need a break. But basically, k means
+00:39:34
+It's not to do pure on supervised learning in the sense I mentioned above, where they're the meeting was just I want to fit a distribution for my data key means you actually solve us a similar problem, which is to cluster. So it's called to do clustering.
+00:39:54
+IE. You want a group data together.
+00:39:59
+Which is not a very well defined problem, by the way. Right. So how do you evaluate a clustering when you don't have labels and so intuitively what clustering means is, well, I have data which looks like that.
+00:40:12
+Which, by the way, could have been generated from a mixture of three options with, you know, three different means.
+00:40:17
+And then say, well, this really looks if I'm a human like three groups, right, like so. I want to say, Oh, these are all the same group. These are all the same group. And these are all the same group. Okay. And so the problem more formally is we want
+00:40:32
+Given observations we want to assign
+00:40:37
+The observation two groups. We want to get what is called a cluster assignment.
+00:40:51
+For every data point x
+00:40:55
+Right. So I have an observations.
+00:41:00
+Which could be again I have income level of different individuals their height, you know, which year they were born. This kind of things. And then I say, well I identify those two groups, for example, all these people
+00:41:18
+Were born in the winter and these people were born in the summer, and I've identified there's differences between these two groups of individuals because of when they were morning
+00:41:29
+And how do we present the cluster assignment will represent with this variable, which I'll call Z like a latent variable that's the link with what we talked about before. And so I'll say Zed i j is equal to one.
+00:41:43
+What does it means, this means that the individual I
+00:41:49
+Belong to group Jake that x i belongs
+00:41:56
+To
+00:41:57
+Cluster.
+00:41:59
+G. Okay, so that's what the meaning is. That's how we will encode our cluster assignment and Jay will be from one up to k, we will suppose that we are looking to cluster the data in K clusters. So this is the number of clusters.
+00:42:18
+Which has to be specified in advance 4K mean and will later on in the class will talk about, okay, well, what if we don't know the number of clusters. But for now, suppose that we know in advance how many cluster, we want
+00:42:40
+And so the idea is, I have some observations. I want to find groups and in principle, say, three groups and came in over them is an algorithm to do that, it will tell you, for every data point which group it belongs to
+00:42:55
+And it will even give you a representation for discussing
+00:43:01
+And you can think of came in, which is why we talked about Kenyan as a limiting version of the maximum likelihood approach in Gaussian Mixture Model.
+00:43:12
+So when they're actually the variance goes to zero. So it's kind of like, because in normally in the latent variable model. I have a priority for the weather a variable is
+00:43:28
+For the latent variable. I will say, oh, well isn't belong to class one, class to class three with some probability
+00:43:33
+And if I observe x i could then compute P have said, given X to see what's the posterior Polizzi given my observation of belonging to a specific class, whereas in Kimmy. We make hard assignment. We don't say, oh,
+00:43:47
+This individual belongs to this category cluster with some problems. He would just say, is no. This is belongs with this cluster. That's it. We just make a hard decision.
+00:43:55
+So that's why I came in, is like a hard version of German but because it's such a kind of nickel tick that that analysis technique. I'll start with that. And just to see how things behave and then we'll talk about GMM in the relationship between them. Okay, so that's the plan.
+00:44:11
+So now, is there any question about the setup.
+00:44:17
+Perhaps I'll mentioned also yes.
+00:44:19
+Some applications have came in, by the way.
+00:44:23
+I mean, it's used all over the place in just data analysis or data exploration. Right. You want to find groups in data, but an example of where it can be used. It's called vector quantization. It's to identify
+00:44:37
+Basically what you can do is you can identify groups and instead of transmitting the individual data points you can identify you can transmit the group membership and the group information and that make you save a lot of information.
+00:44:54
+And so, in particular, you know, from a coaching perspective will have that each group will have it mean
+00:45:01
+And
+00:45:02
+And so instead of giving all the detail about what's the location like point that could just say from, from which group would belong. And that's what I sent
+00:45:12
+And if you want, then you can also look about the errors that you make. But yeah, so Victor quantization. That's when ways to quantify the data like to to compress it. This is like for compression
+00:45:27
+And another another application, among many others. Right. There's a lot of application.
+00:45:34
+In computer vision.
+00:45:37
+People use came in as a pre processing step you can use came in.
+00:45:45
+To get what is called bag of visual words.
+00:45:56
+Representation from batches.
+00:46:07
+So you know in in natural language processing. It's nice. You have words. And you can say, I have 50,000 words and
+00:46:16
+When you you write text you just say you can represent each word as an index in a dictionary of like 50,000, for example. So there's no real number that you need to worry about.
+00:46:26
+It's just like index in in vision because you have these RGB representation of images. Everything is real numbers. And that can be a bit messier for the when we talked to, when we tried to do discrete stuff.
+00:46:37
+So what you can do is you can use k means on the RGB values of patches which are high dimensional vectors to find a bunch of groups.
+00:46:46
+And you will just label this is group one, group. This group to this is group three
+00:46:51
+And then you just tell me in an image I have five patches for group one, I have six patches from group to sit there and so then it looks more like a list of words like in text analysis. So this is a one places which which has been used
+00:47:14
+So Beijing has asked, what did I mean by the zero tolerance limit of GMM versions of which distribution.
+00:47:20
+So I just talked about this variance here.
+00:47:26
+We'll see that in more detail later. Right. So you obviously have to get it right now, but instead of having with serving this sigma will will have sigma square identity and we let sigma goes to zero.
+00:47:40
+That's the variance. I'm talking about. And then if we do maximum likelihood in. Hmm. When sigma goes to zero, we get back to the came in over them.
+00:47:59
+Okay, what's the last
+00:48:01
+Question, which is a bit outside the scope is so is there analogous to word embedding for computer vision vocabulary. So this is funny because
+00:48:11
+Word embedding in NLP have been defined as continuous representation of words. So I have said, of saying my words, is this is a, you know, an index of one to 50,000 in a vocabulary.
+00:48:24
+Or a sequence of letters, which is all discrete, you say, oh, well, this word will have this 1000 vector representation and this other verb as 1000 vector representation and the whole
+00:48:35
+Advantage of using that is then you can use techniques that I've been using computer vision and other which works like neural networks, in particular, which works very well with non discrete data.
+00:48:47
+Because it works with computers actors with language because language in your hands. He is not continuous. So that's the advantage of words and
+00:48:55
+envisions envision, you don't need word embedding because you already have continuous representation. So what I described with k means was to get a discrete representation of your image.
+00:49:03
+Now someone's asking, well is there now and then all of us have worked in buildings for computer vision and I, that's an interesting question. I don't know. Perhaps
+00:49:13
+And but that's already weird because we already had continuous representation. So why do you want to have this word, but
+00:49:20
+I guess is probably it could even be an interesting project question.
+00:49:26
+Alright so on these wise words. I'll take 10 minutes break. So it's 336. Let's go back at 346
+00:49:53
+Okay, so
+00:49:56
+Before we talk about the Kenyan algorithm. I wanted to mention also another example of where we do clustering.
+00:50:04
+You could have observation. These observation could be, for example, measurements on cancerous tissues and this could be three different cancer types.
+00:50:20
+Right. It turns out there's like different cancer types.
+00:50:23
+You didn't know which cancer type these tissues. We're going to first and you, you just by looking at data you are. Oh, there's like three different groups.
+00:50:32
+And then perhaps this could highlight more investigation to say what are these different cancer types into the need different treatments.
+00:50:40
+And perhaps you can then learn also a classifier which could tell you which of the cancer types yet. And so there's kind of a data exploration technique. Oh, identifying groups right
+00:50:54
+Okay, so let's talk about the Kenyan algorithm.
+00:51:13
+You might already have seen it. I'm not sure, actually. How many people here. I've already seen to came in our with them, say yes or no.
+00:51:26
+No knows
+00:51:29
+That people don't press the button or you don't know
+00:51:33
+I have to knows. Okay, good. And then among the people who have seen it.
+00:51:40
+How many have seen it as a block current optimization approach you clear the thing
+00:51:49
+Ah, look at all these knows. Okay. So, see that's that's the idea of this class, you go deeper to what you've already seen. So instead of just an algorithm to make groups, we can actually derive it as a minimization technique. So it can be derived. I think it's very elegant, it can be derived
+00:52:11
+As a block coordinate
+00:52:18
+minimisation or rhythm.
+00:52:26
+Of the following objective function.
+00:52:33
+Which is represented, which is quantifying the distortion measure
+00:52:39
+Of your cluster.
+00:52:42
+So g of z and Mew.
+00:52:47
+So z will ever present your cluster assignment.
+00:52:54
+Right, so, because what came in is giving you a cluster assignment two data points.
+00:53:00
+And so for every data points.
+00:53:03
+Will have a variable which will use by zero XE one blah blah blah to ze n
+00:53:09
+Our corners.
+00:53:12
+Of the probably to simplex like we use the one hot encoding. Right. So basically,
+00:53:20
+That's also what this thing is saying.
+00:53:23
+Is that for
+00:53:26
+Every I I have said i j from Jake was one two key.
+00:53:31
+I have key dimension and only one of them is equal to one meeting. Oh, I'm assigning that opponent I to class.
+00:53:40
+The one which is equal to one. So this is the usual one hot encoding right that we use the best of the cluster assignment. So you can think of them as corner of the simplex. So basically this is the one hot
+00:53:53
+Encoding
+00:53:59
+And then the muse.
+00:54:02
+The Rd cluster means. So you have new one level of that to UK because came in not only gives you a cluster assignment also tells you what is the mean of a cluster. It's kind of a presentation of the cluster.
+00:54:16
+These are in Rd and they are the cluster meters.
+00:54:25
+And the whole point is
+00:54:29
+You want to minimize the distance between a point and it's cluster me right if the clusters are perfect, you have very, very tight ball around a mean and so this distance is very short. Right. So that's kind of a good clustering. If you assign things to
+00:54:48
+Very far cluster mean then this means it's not really a good cluster assignment. And so you just compute that. So, this will be the some from overall your training example of what you're really want. By the way, so I will read it here.
+00:55:04
+Is the norm between your data point and the mean for the cluster assignment.
+00:55:12
+Of this mean right so I use annotations that I to say, oh, which index is equal to one, right. So, so I'm abusing notation here is that I normally was a vector in RK and now I can use it as an index to mean oh well with because basically, this means
+00:55:32
+Said I equals
+00:55:36
+Yeah, so this is just the index of the cluster represented by that. I guess that's what it means. And this is the
+00:55:44
+Cluster.
+00:55:47
+Index.
+00:55:49
+Represented by, said I.
+00:55:55
+Said I j is equal to one and all the other ones are equal to zero, then it means it's cluster j. So, this will be new, Jay. That's all it means. Okay.
+00:56:10
+So yeah, so what I really want is the distance between the mean for a specific cluster which is given by its customer assignment and the observation and I would, I just want to find
+00:56:22
+The means and the cluster assignment which minimizes distance. Which makes sense, right, that means it's a good clustering, and I will write it a bit more explicit because having, said I, as an optimization variable as an index is really weird. And so that's why I use this other presentation.
+00:56:41
+Which is very similar to when we did the multi normal representation. So we can some over my indicator variable. So I have key of them I have Zed and i j
+00:56:53
+Right. And then I looked at the norm between x minus Muji square. And the whole point is because only one of these is non zero this is this some here is exactly equal to that two distinct. It's just now I have express it in a way such that
+00:57:14
+The optimization variable which will be the cluster assignment is now explicitly kind of like in the expression
+00:57:24
+Okay. And so this you call it a distortion measure because so this J. Here is a distortion measure it's telling you how bad your clustering is and your goal is to find the clustering which minimize the distortions.
+00:57:46
+And the came in our rhythm is a specific algorithm to minimize this objective and it's called Blood cornet because it's alternating it alternate optimizing respect to each variable analytic. OK. So the algorithm for gaming.
+00:58:05
+Is first you initialize the means randomly.
+00:58:10
+Initialize
+00:58:14
+New
+00:58:16
+One. So, I will use these super the subscript subscript super script.
+00:58:23
+With parenthesis to to tell you different interests of the algorithm. So, and mew now is a collection of vectors its new one to UK right
+00:58:35
+And then what you do is you eat to rate until convergence.
+00:58:41
+Until
+00:58:44
+Convergence
+00:58:48
+And already use the EM notation, because we'll see that very soon in the EMR rhythm. So there's the East step.
+00:58:56
+But the east of does it will optimize respect to z. So, said at iteration t plus one. What I do is I do the argument.
+00:59:07
+Over Zed, which is a valid assignment.
+00:59:12
+Of the objective
+00:59:14
+Respect to Z, and I fixed the value of music to its previous value. Right, so I will have u of t.
+00:59:24
+Then the M step.
+00:59:35
+The M step.
+00:59:37
+Is fixing z and optimizing respect them, you
+00:59:42
+So the new value of my means will be the argument.
+00:59:47
+Over mew which belongs to
+00:59:51
+Dubai k, right, because I have k means and each one in dimension D. That's why you can think of new as the bike a matrix.
+01:00:00
+Of my objective.
+01:00:03
+My cluster assignment is set to experience value and I'm just changing the means
+01:00:22
+Okay, so this is why I say it's a block coordinate optimization algorithm because
+01:00:28
+It alternate fixing one of the variables to add value and minimizing respect to the other variable. And actually, in this case, you do a global organization right you you
+01:00:38
+Don't even know you're doing a green and step is just like optimize exactly respect one variable and then you fix this variable and then you'll to optimize respect to this variable. This is why it's called
+01:00:48
+blocking it so quiet approach is alternate between different coordinates to minimize problem and the block or it is just that will you have a whole block of variables together, right, because he is actually a multi dimensional object.
+01:01:04
+And now the magic of this is each of these updates is actually as a global minimum, which is easy to express right so when I when I minimize the distortion when the mean are
+01:01:18
+Like if I'm trying to minimize
+01:01:25
+Trying to minimize this was where my new is fixed. All I'm trying to find is the correct index. Well, you just pick the mean, which is the closest to your data point. Right. And so the the
+01:01:39
+Did I not
+01:01:45
+Perhaps I should erase this
+01:01:52
+Alright.
+01:01:53
+So the this first step has a simple analytic solution. So you have that your new assignment at step t plus one.
+01:02:06
+And I'll use the notation star. So, the j star.
+01:02:12
+Which is the optimum one hot encoding is equal one for
+01:02:19
+Jay star which is the argument.
+01:02:25
+over j of the norm between x i minus new J. Right.
+01:02:32
+At
+user avatar
+Unknown Speaker
+01:02:33
+Christie's fix
+user avatar
+Lacoste-Julien Simon
+01:02:35
+So you basically assign a point to the cluster, where the means that closes.
+01:02:43
+And then when you update the mean
+01:02:46
+So now if if these
+01:02:51
+If now the assignment.
+01:02:55
+If the assignment is fixed, and now I'm trying to minimize with the mean. So you can group all the points together. So for. So you want to find the mean, which is
+01:03:05
+Closes in squared error to all the data point in a cluster. Well, it turns out that, then the optimal central it actually. So these are not mean they're cluster central it, I guess.
+01:03:25
+Mean
+01:03:26
+Is the mean of the cluster. That's why they're called cluster means. So the update to respect to Mew, it implies that it's pretty simple. You can derive it yourself that new J it plus one is just the
+01:03:44
+The mean over that the current cluster. So, you can write it as summation over i have which points are in the cluster j. So, I can write it by multiplying by said i j
+01:04:00
+And then I want to divide by the number of points in my cluster which I can also write as summation over i have said i j right
+01:04:10
+So this thing is just the empirical mean of a cluster.
+01:04:35
+And somebody is asking me why did I call it the end am step because I told you that first of all that
+01:04:42
+Came in can be seen as a limiting version of the GMM maximum LIKES YOU WOULD PROBABLY APPROACH algorithm.
+01:04:50
+And actually, more specifically as running the E m all rhythm in GMM and then each step of the of the GMM algorithm will correspond to the this step that I wrote as he here in the queue.
+01:05:04
+So right now, doesn't make any sense to talk about em em, but when we see the EM algorithm, you see the correspondence between whites call expectation maximisation so in a few minutes. Once I'm done with the cavemen men or women came in already
+01:05:21
+So perhaps let's illustrate how it looks. Let me try that.
+01:05:27
+New share
+01:05:30
+I will try here.
+01:05:38
+So I have a little
+01:05:47
+So here I have
+01:05:49
+A link that they put in my notes. It's a visualization of the key mean algorithm. So you have, let's say we say new points. So I have my my points. There's no notion of labels these points, but you can see, you know, in this case there's basically three clusters.
+01:06:06
+And so that's why there's three groups and
+01:06:11
+I'm initializing came into three. So, so these three triangle here are the random initialization of three means, and I would run the algorithm. Right. The first step would be
+01:06:23
+Assigned the points to the closest center IDs.
+01:06:26
+Which is now what I've done. So all these blues are assigned to the central because they're the closes all the orange are assigned to this orange century and all the green is assigned to this green century.
+01:06:38
+Now the next step will be to update the central location. So for each green cluster i will complete its empirical mean and that would become the new me
+01:06:46
+Now you that for everyone. So you can see now the mean will move to the empirical mean of the grouping. Now I will repeat fine again a reassignment given these new means. So the color change now that much update the center and repeat and then
+01:07:04
+So now things are still moving a bit but at some point things with stuff moving. That's when we reach a fixed point which is actually a local many nights, not
+01:07:13
+A global minimum of the objective and, in particular, you can see here that this not a good clustering, because these are two clusters.
+01:07:21
+And I would normally would like to have a century on each part, but because of the initialization and the fact that it's a non complex decision problem. I got stuck in a bad local video
+01:07:32
+Yeah. So what I could do here is keep the same data point, but just run with a new randomization. So let's try new century decarbonisation. Now let's run the algorithm.
+01:07:44
+And again, it got stuck into a local minimum. Let's try with new initialization.
+01:07:53
+It got stuck to a local minimum. Wow. It's not very good right now. Well, guess these are difficult to do. I think this one will work. Okay.
+01:08:01
+So,
+01:08:03
+Are you serious also expect
+01:08:09
+Okay, this one will convert. Good. So now you can see it start to know it split
+01:08:17
+It's moving it's moving. Come on, move
+01:08:21
+Alright, so it's moving super slowly and it's not that great of a cluster, but that's already better than the other one at this I have three clusters. Now instead of these two being merged.
+01:08:30
+OK, but so you can see the big first of all dependence of came in on the initialization. Right. And actually, here you have the, the objective so 7001 31 is what
+01:08:46
+The Century point has been reached for this one. And I guess if I do a different one. Let's see. Now to convergence that looks like a
+01:08:57
+6700 okay so that's even a better minimum, then the other one.
+01:09:03
+Interesting.
+01:09:04
+Strange new centered
+01:09:10
+That's funny how this let's get your points. I don't like these points.
+01:09:14
+All right, what about this one. That's pretty clean separation.
+01:09:18
+That's run gaming and this data.
+01:09:23
+Okay, well,
+01:09:26
+That's one objective.
+01:09:29
+So yeah, so that's a you can play with it on your own. Let me describe a few properties of Kimi
+01:09:39
+New share. Let's go back to the
+user avatar
+Unknown Speaker
+01:09:42
+Lecture.
+user avatar
+Lacoste-Julien Simon
+01:09:46
+So let me describe some properties of the Kenyan algorithm.
+01:10:06
+So the first thing is that things will converge, we can prove that they will converge in a finite number of iteration.
+01:10:17
+To especially points.
+01:10:20
+Actually to better than assertion point to a local min
+01:10:27
+Of the objective
+01:10:33
+In CMU, so there's no local change in either Z or new I could make which would
+01:10:40
+Y z is difficult because he is actually
+01:10:43
+A discrete random variable. So what does local but you can make a small population of new and improve the objective. Okay.
+01:10:54
+But because it's non convex, which is often what happens with latent variable. It's actually empty hard
+01:11:03
+In general, to compute the global minimum.
+01:11:11
+To compute
+01:11:14
+The
+01:11:17
+Global
+01:11:19
+Mini map.
+01:11:26
+In Z Alright, so find the best assignment which minimize
+01:11:31
+The, the distortion.
+01:11:34
+Minimizing over news as well is NPR.
+01:11:51
+Oh yeah, so the mathematician asked about the computer science concept. So NP hard
+01:11:57
+Is
+01:11:59
+In short, means that something is very hard to solve. Okay, so basically in computer science. There's complexity theory which first formalize how hard a problem is. And then there's this notion of a reduction, which means that
+01:12:16
+If you can solve a problem.
+01:12:19
+And then I could actually use this solution to solve a different problem. And so that means that I've reduced see one problem to another. Okay.
+01:12:30
+And there's this class of problems which are called it, and p, which are basically pulling over the polynomial. The verifiable and when something is NPR. It means that if I can solve
+01:12:46
+NPR problem I can solve all problems in the class NP and why, then, we mean that some when we say something is NP hard. It's hard. It's because well hard in the sense of very difficult problem is that there's a lot of problems in NP that exists where
+01:13:05
+We were never able to find any
+01:13:09
+efficient solution. And so people have looked for like many, many years to find an efficient solution I economy pulling them your complexity and they have not found it so
+01:13:19
+If you could solve NP hard problem, you could solve all these other problems that we never knew how to solve. So it's probably because it's not solvable.
+01:13:26
+So NP hard will not be solvable in pointing on time. So there's this open question that we still don't know whether p is equal to a deal because meanings that if you find a polynomial algorithm.
+01:13:37
+To NPR problem, it means that you solve all problems in MP, which means that they're all police available.
+01:13:43
+But most computer scientists think that they are not the same like that it's not possible to find a polynomial algorithm for all the algorithms in MP
+01:13:51
+So when you're identify something as NPR, it means there's no way normally unless you think P equals and P, that there is a polynomial time algorithm which
+01:14:04
+Which means that, then you need approximation or you need to make more specific assumptions about the problem.
+01:14:18
+Will there be any change in convergence. If we use absolute last instead of squared.
+01:14:25
+So if you use the L one loss instead of the LT last the M step will change from being computing the mean to compete competing the median because the median.
+01:14:38
+Minimize the L one norm versus demean which minimize the L to norm. So this is called then it becomes the key median algorithm which is different than the K mean algorithm.
+01:14:48
+And the comedian algorithm will be much more stable to outlier because the if you have points which are super far which perhaps were
+01:14:56
+Should not be there. The L to error is because it's quadratic will be quite influenced by the outliers and it will kind of screw up your, your center. It was the median care less, because it's linear, the mistake unique so he median is more stable two years.
+01:15:17
+Alright, so
+01:15:20
+Basically, the objective. Why is it also NPR to get the global minimize basically the objective is non-complex right
+01:15:27
+Which means that the initialization matters. And there's this algorithm called k means plus plus.
+01:15:36
+What it does is that it gives you a clever initialization to make sure you don't get stuck in bad local minima.
+01:15:45
+Clever initialization.
+01:15:49
+And the nice thing about coming, plus, plus, is that it gives you some
+01:15:55
+Gary guarantees in terms of
+01:16:02
+The algorithm. So it gives it guarantees.
+01:16:06
+That the algorithm.
+01:16:10
+The decision, you'll get is within
+01:16:14
+lug k where case number of clusters of the global optimum.
+01:16:23
+And this is with high probably
+01:16:26
+Because it's giving us plus was a nice paper where they just do a clever initialization. And when you initialize it like this, you know, with high priority because it's a randomized algorithm that you will be within log key of the global optimum.
+01:16:41
+IE. The difference between I think it's the ratio of your objective to the global optimum is not bigger than lucky.
+01:16:52
+So if the global optimum is that
+01:16:55
+I don't know, like 0.000001 the fact that you multiply by luck K is not a big deal because you'll also have some distortion, which is really close to zero.
+01:17:04
+If your global optimum is at 10,000 when you multiply by lucky. That's a big factor in terms of still distortion measuring this guarantee doesn't mean that much.
+01:17:16
+And what's the idea for keeping plus plus.
+01:17:20
+Is just to spread out the initialization.
+01:17:24
+It will spread out.
+01:17:28
+As much as possible. The initial means
+01:17:42
+And this is to avoid basically why do you want to spread out. Well, let's say,
+01:17:49
+I have, you know, these points here.
+01:17:56
+And
+01:18:00
+You could easily get this kind of clustering.
+01:18:07
+If you know the means we're close to each other at the beginning and then you get this kind of
+01:18:13
+Problematic.
+01:18:16
+Initialization was basically came in, plus, plus, what it would do is with pick one of these points at random. For example, let's say I take this point.
+01:18:23
+And then what it says it will try to find them on all the points, the one which are the hardest.
+01:18:28
+And then basically, it will pick the next point with property proportional to its distance to the previous centuries. And so, for example, let's say think this point I'll probably pics this point here because it's very far.
+01:18:38
+And then usually when you have that this will make a cluster here in the cluster there.
+01:18:50
+Is finding the global men have come non Catholics problem always NP hard
+01:18:55
+Usually depends on what the, the, the non non convex problem is how it is defined, there are non comics bomb, for which we can find a global minima exactly very efficiently. But in general, non-complex problem. Usually they're hard to solve.
+01:19:16
+A alright so that's a clever way to initialize the method.
+01:19:22
+And then what about the choice of key right how do we choose key.
+01:19:38
+So,
+01:19:40
+One year a stick.
+01:19:44
+Is to use rigor ization basically so you will you will use an objective where you will have
+01:19:53
+J new ze n k two will have your original
+01:20:00
+objective of the Kb mean algorithm. Sorry. The key mean algorithm.
+01:20:06
+Said I j norm of new of x.
+01:20:14
+Minus new J.
+01:20:16
+And you'll add a penalty for k
+01:20:23
+In your objective.
+01:20:25
+And this lambda here is the hyper parameters. So you're you're placed a number
+01:20:30
+Of cluster with a penalty for
+01:20:35
+When I increase the number of clusters.
+01:20:38
+And then what you could do is you could you could try and different K minimize for every k and find the one which minimize this, this global air and the reason you want to do that is because when you increase K
+01:20:53
+When you add more clusters.
+01:20:57
+If we forget about the non-complex aspect, like the global minimum of your distortion will always
+01:21:04
+Decrease. And so if you would choose the distortion measure to choose number of clusters. You will always use the maximum size of key.
+01:21:12
+Okay, so here what happens is when you increase the number of clusters, the distortion decrease, but the penalty increase. And so there's a trade off between those two. So that's very interesting that has been used by people, and in particular.
+01:21:28
+Will see later.
+01:21:36
+In class.
+01:21:39
+That there are non parametric models.
+01:21:46
+For clustering.
+01:21:52
+Where k is basically infinite
+01:22:04
+Infinite
+01:22:06
+And we get, then what's the most likely K
+01:22:11
+By the posterior
+01:22:19
+And some keywords that right now. You have no idea what it means. But we'll see them later. An example of non parametric model for clustering is called the dish layer.
+01:22:29
+Process mixture model.
+user avatar
+Unknown Speaker
+01:22:37
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:22:41
+And so basically
+01:22:44
+Non parametric model doesn't mean there's no parameters. It means, usually you have an infinite number of parameters and which means that, then the effective number of partners you use from the data can grow with a number of data points you have
+01:22:57
+And and in the case of I could think of, instead of having a finite number of cluster. I could have an infinite number of clusters, but most of the cluster, I won't need them.
+01:23:08
+From my model. Okay. And so the there's a process mixture model. It's a Bayesian models. And now we were Bayesian so as evasion. We have uncertainty also about the number of clusters. And so we can then find
+01:23:24
+What's your posterior over the number of clusters to kind of like estimate the number of clusters.
+01:23:31
+And their ship process mixture model is basically a limiting process of the Gaussian Mixture Model, where kid goes to infinity.
+01:23:39
+And it turns out that this linear. There's a paper by Jordan and other I forgot where the closer's are I think probably forgot her name.
+01:23:51
+I she's a great faculty at MIT.
+01:23:55
+And I forgot her name, but she was a student of my Jordan and I think she had a paper where the tomorrow. Bo, Derek. Thank you.
+01:24:06
+Well known people so star fact mentioned. So I think it's done, or I Broderick, but to be verified where she had a paper where
+01:24:13
+She can derive this objective as an approximation in a dealership process mixture model. So you make approximation in this model to cut because it's complicated to do exact in France, and you can actually get back this objective from them.
+01:24:27
+So that's kind of a is some kind of justification for the linear dependence on k because somebody asked why Linear A penalty, why not use it. Okay, square or K Q
+01:24:37
+And that's a very good question. Right. So there's nothing to see here in Aaron reason why it should be dinner, instead of quadratic or something. But one week would be to derive it from the dealership process picture.
+01:24:52
+Dora ask, can you do Bayesian model for non project models.
+01:24:58
+So, so non parametric approaches. There are frequent this and or Beijing approaches so frequent this look like histogram approach or Colonel
+01:25:08
+Approaches it's not colonel in the sense of machine learning, Colonel. The colonel in the sense of like smoothing function.
+01:25:16
+Was Apple I estimate my density by by putting a go ocean bump. I want all my points and I some that right so this is and the more points than regression bumps. I have. So basically I can have an infinite number unbundle number of
+01:25:30
+Components as my number my data point goes and feeling. So this is a nonprofit approach, which is frequent this Bayesian
+01:25:37
+Put distribution over everything. And they also non project approach in the sense that, then you have parameters which are infinite dimensional and then you are Bayesian with parameters which are inflated dimensional
+01:25:49
+And so in the case of the mixture model, if I have an infinite number of means, then, I haven't been number of parameters. Right. Right. And so if I'm now Beijing about that, then I'm still Beijing and non parametric
+01:26:02
+So we'll see that again when we talk about both nonprofits Bayesian approach and patient approaches in general.
+01:26:12
+Okay, so last property.
+01:26:16
+Is a
+01:26:20
+Key mean is very sensitive
+01:26:26
+To the distance measure
+01:26:32
+Right. So if instead of using L to I use
+01:26:35
+One or I use a mat habilis distance you get very different solution. Okay. And so in particular that the standard came in algorithm. It assumes spherical clusters.
+01:26:50
+So if your clusters are not very cold. It won't do very well.
+01:26:55
+It's very cold clusters.
+01:27:00
+And so for example if I have very elongated cluster like this.
+01:27:13
+The cannon solution would say, oh, this is one group. There's another group.
+01:27:17
+No, sorry. This is another key mean that's there. That's what you would like
+01:27:23
+Yeah, actually. So these are the cluster, I would like to get
+01:27:27
+But often because came in, but these are not circles, Kimmy will say, oh, well, this is one cluster. And this is the other cluster usually so this would be the key mean solutions.
+01:27:43
+And so one way to fix that is instead of having an L to norm, which basically assume spherical cluster, you will use a weighted like more like with something called them had my holiday bonus distance
+01:27:57
+Which when you do a Good gosh and mixture model that's basically what you do. So the Gaussian Mixture Model will fix that. GMM
+01:28:05
+fixes that because in GMM basically when you will learn the gash in component and you will learn to covariance matrix, you can learn that say the ellipse of your gash in or basically ellipse like this. Right, so you can learn that the orientation of the data.
+01:28:41
+That's right. If there's still more questions. So if I have not answered your question, you still have a question, let me know. You can just ask your question again.
+01:28:58
+So, Mr. Ask if there's a reason to use k means is gushing mixture seems tricky better and more explicit
+01:29:05
+Oh, good question. So K mean is, is much faster, right, that it's, it's, you don't have to estimate the covariance matrix, so there's less parameters to work with.
+01:29:19
+So if the spherical assumption is good.
+01:29:24
+It could do the job already. So, which is why you know for
+01:29:29
+Office was uploading these application of vector consultation or our competition. Usually people just use came in, they don't go to a fancy GMM
+01:29:40
+So I guess there's speed breath simplicity
+01:29:44
+And from
+01:29:48
+And when you do a Gaussian Mixture Model.
+01:29:51
+You will have to estimate the covariance matrix. So that's all the parameters so that then is sensitive to the noise. If you don't have that much observation. So that could
+01:30:00
+Create problems. So if I don't have that many observations trying to fit this fancy conference mate measure might actually hurt more than it helps if you already had good information like good prior information that spherical cluster is what you're looking for.
+01:30:24
+Okay so CMO or Simon is asking if normalizing the mean of your data help you work at least somewhat around the spherical clustering assumptions, definitely. So if you standardize your data.
+01:30:39
+But the problem is, it's hard to make your data spherical right because the only way to make it spherical is to know where the century is. And so there's a kitchen is a chicken and egg problem.
+01:30:51
+So if you only had one cluster. Then when you standardize this this cluster would be spherical. But if you have a lot of data, different clusters like standardizing it one is sunny make it very cold for each clusters.
+01:31:05
+So I'm not sure this will fix it.
+01:31:09
+Okay. So the plan is next class. I'll tell you about the EM algorithm for it at the abstract level and then apply it to the
+01:31:23
+Gaussian Mixture Model and then we'll see the link the link with teammates and then you actually your next assignment will be implementing that. And so somebody asked what does it say I seen that GMM fixes the problem. So it fixes.
+user avatar
+Unknown Speaker
+01:31:41
+That problem.
+user avatar
+Lacoste-Julien Simon
+01:31:49
+Ah ok so the distance
+01:31:53
+Alright, so people have answered the question, Mahalla know this distance here we go. It's hard to pronounce. And I don't even know how to spell it often. So that's why I say it's fast.
+01:32:06
+Good.
+01:32:08
+Any other question.
+01:32:15
+Alright, so I'll see you on Thursday. Have a great rest of the week. See you.

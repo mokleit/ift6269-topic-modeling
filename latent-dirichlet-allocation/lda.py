@@ -1,13 +1,7 @@
-import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.decomposition import LatentDirichletAllocation
-from time import time
 from scipy import special
-import math
 import os
-from nltk import word_tokenize
-from nltk.stem import WordNetLemmatizer
 
 # import resource
 
@@ -26,7 +20,7 @@ debug = True
 # Read data
 documents = []
 
-with open('samples.txt') as f:
+with open('blei_samples.txt') as f:
     for line in f:
         inner_list = [elt.strip() for elt in line.split(r'\n')]
         # in alternative, if you need to use the file content as numbers

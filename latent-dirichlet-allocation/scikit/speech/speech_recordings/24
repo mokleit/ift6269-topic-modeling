@@ -1,0 +1,1465 @@
+Lacoste-Julien Simon
+00:00:04
+Okay, so
+00:00:07
+What are we doing today. Today, today.
+00:00:10
+So we'll finish, I will make some comments about virtual instance
+00:00:15
+To complement what I propose last
+00:00:20
+Last lecture so finish.
+00:00:23
+virginal and I will cover Bayesian
+00:00:30
+The Bayesian approach, as well as model selection. And I think I'll say a few words about causality.
+user avatar
+Unknown Speaker
+00:00:43
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:00:45
+And so let me continue on the main field.
+00:00:52
+That I presented last class so mean field was a way to get approximation to to get approximate to do approximate in France. So to get an approximate distribution and, in particular, you can use it to compute the approximate marginals in icing model right and
+00:01:14
+So the, the problem you're basically solving is men over queue in the queue mean seal approximation. So, cumin field was the set of distributions, which factor which are fully factories over your nodes.
+00:01:30
+And you compute the you minimize the kale between Q AMP t but I showed you what you could do a coordinate descent approach and that where you optimize one
+00:01:39
+Marginal over a node keeping everything else constants and these updates could be done in close form way in exponential family in general. Right.
+00:01:50
+And so one thing to note is that the kale is convex. So it's a complex function.
+00:01:58
+And so you could think this is a convex optimization problem.
+00:02:02
+But it turns out that the set of distribution which are fully independent is actually a non convex
+00:02:12
+Constraints it
+00:02:17
+And then it's a question of, okay, well, which said, Am I talking about, think of a parameter ization usually this parameter ization one be conflicts.
+00:02:26
+Okay. And one reason is, like, one way to prioritize your distribution is through the meantime position.
+00:02:33
+So in the in the exponential family I talked about the chemical composition. But it turns out that often there's a mapping between clinical parameter and mean which is once once we could also just use the mean pasteurization and, in particular, for the Isaac model.
+00:02:51
+You have the pump position which you needed was what's the mean on the edge because the sufficient statistics were both the the edge.
+00:03:01
+Assignment. So the weather two nodes are equal to one and
+00:03:05
+The node assignment. So whether or not is equal to one. So when they take the expectation of these submissions and this x, I get the probability
+00:03:13
+Of the to note to be equal to one. So that's a marginal. So that's new i j
+00:03:17
+And when the distribution is for the factories, you have the constraint that new AJ is equal to new i times Muji so it's a product constraints. And it turns out that this relationship.
+00:03:31
+Is actually non convex. So, this is this is non comics. This kind of constraints. It's not linear. It's actually a nonlinear equality constraints. So it's not comics.
+00:03:44
+And that's why the set of distributions is not complex
+00:03:50
+And Jacob, yes. The assumption in mean feel is that this set here was that, you know,
+00:03:59
+This was the set where q was such that q of x was the product over, I have to, I have x, right. So it was fully factorization.
+00:04:14
+And so something I covered in some years in the past, but I don't have time this year is to talk about something called the marginal Polito
+00:04:24
+Okay. And so if you're curious about that. I encourage you to look at lecture.
+00:04:33
+Where I mentioned the marginal potato, which is basically the set of moments which are achievable for specific sufficient statistics.
+00:04:47
+And you, and as I said you could paraphrase your distribution by their moments and the marginal poet top is always a conflict set actually
+00:04:56
+Could be seen as a context combination of the assignment on the corners, but it might be a very complicated Polito which has an exponential number of linear inequalities.
+00:05:08
+To specify which is why, even though it's a complex set, it might not be tractable to
+00:05:13
+Minimize over and the main feel approximation actually looks like that. So all the corners are the same, but it actually is kind of like curve in our approximation.
+00:05:24
+So this is the the the basically the the marginal the this the moment pasteurization for all the the midfield distributions and and these curved kind of like boundary comes from the the the quadratic inequality. Right. So you get this quadratic at the box.
+user avatar
+Unknown Speaker
+00:05:43
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:05:48
+And so as I mentioned in general the the approach for for virtual methods is you can approximate the convex
+00:05:59
+Optimization problems. So you can approximate the constraints sets or you can approximate
+00:06:04
+The objective. So this is an example of approximating the complex and there are other ways to approximate the convict set in particular, there's
+00:06:11
+A famous method by Marty grain right and all which instead of doing an inner approximation makes an outer approximation of the marginal potato.
+00:06:19
+And a simple outer approximation. So, so it's actually easy to optimize over it. Actually, it's called the local consistency boy dope. It's similar to this notion I talked about when I
+00:06:31
+Talked about junction trees and stuff like that. Like you, you have that all the marginal or luckily consistent and then you can optimize over that and that gives you because they have a bigger constructs that they will give you an upper bound on the actual true kill
+00:06:46
+Okay, but please see this lecture. If you want to know more about it.
+00:06:53
+Alright, so
+00:06:56
+And so the point is, because it's a non convex constraint set that implies that you can get stuck. It's an unconference problems, you can get stuck in local minimum.
+00:07:09
+And so like in when you do em me NEMA like you do em.
+00:07:16
+Diverse the main field approximation depends a lot on your initial conditions. So normally, in practice, what you would do is you would try different random initialization and pick the one which has the best kale.
+00:07:28
+So that's often will give you much better solution and if you just only tried once. So it's a bit like doing em or also doing k means right so but be aware that you can get stuck in local media.
+00:07:42
+But even though you can get stuck in local media. One of the big advantage of diversionary approach in particular country compared to the sensing approaches that it's really easy to debug because you can monitor progress right
+00:07:59
+monitor progress by tracking. What's the kale between your current approximation and p
+00:08:09
+As a function of number three. So you could have like iterations and because your method is doing corner descent. It's actually usually decreasing. So, you will have a strictly decreasing function, then you can see. Oh.
+00:08:21
+You know, I've I converge to a local minima or how things are doing right and so
+00:08:28
+I'll put a constant here because as you will see in the assignment.
+00:08:33
+For the Isaac model. You cannot compute the kale. Exactly. Because to compute the kale. It will depend on the constant which is the Lord partition function.
+00:08:42
+Of the tuition fee that you can have compute but Dillard partition function of p doesn't depend on cute. So when you minimize respect to q is just a constant you don't care about this constant okay and so
+00:08:54
+So for example, you could just subtract login said p and then you will be able to compute the rest. Okay, so that's what you attract
+00:09:03
+During the assignment. And then, in particular, if you're doing
+00:09:06
+Mean field and your kale does something like this, you have a problem you have a bug in your code because it's supposed to be a strictly it's supposed to always go down because you're doing exact current minimization at the retreat.
+00:09:19
+So, so that's kind of an advantage of the virtual method is that it, it's easy to see whether you have book when you do sampling, you just observe a bunch of random samples. It's hard to know. Like, is this what I'm supposed to observe or is this a bug right so
+00:09:34
+So if I summarize the pros and the cons of
+00:09:38
+Virtual methods.
+00:09:42
+In very
+00:09:46
+High level terms. I mean, there's a lot of research in both and and it's not completely true all these things that were mentioned but
+00:09:56
+At me so basically if I compare virtual methods versus sampling to do approximate in France.
+00:10:04
+So one Pro is that because it's optimization days.
+00:10:10
+It's much easier to debug. As I mentioned, you can actually track progress is really much more easy than looking at like diagnostic for chains.
+00:10:21
+And it turns also that it is often faster to run than simply, it's not always true.
+00:10:29
+But it's sometimes much faster.
+00:10:34
+Particular
+00:10:37
+You will see in the lecture by will say on non parametric methods that virtual methods actually are very effective for these non parametric models, there's a bit of a notion of a concentration
+00:10:49
+Like a central limit theorem which kicks in. It's like in high dimension, you have a lot of dimension and you kind of have this concentration
+00:10:58
+Phenomenon, which appears that even though you're making an approximation. It's a pretty good approximation because of this kind of central limit concentration
+00:11:09
+And in contrast, you know, for for sampling because it's kind of like random it's
+00:11:20
+Because it's very noisy, it makes it harder to debug.
+00:11:29
+And the mixing problem of the chain is very problematic, right. So in theory, when you wait an infinite number of time you will sample from the correct distribution within practice usually your mics don't change that will in high dimension. And so it's more like a quite touristic
+00:11:52
+So that's this and then another aspect, though, is that the optimization method it the are biased.
+00:12:00
+In the meaning that
+00:12:04
+Even if you run your optimization method forever. So if I looked at where I converge and even if I did the global minimum my kale, you would have that the expectation with SPECT function respect to your approximation is not equal to the true expectation
+00:12:24
+Because for example in human feel you're restricted to a distribution which is fully fact rise but your true this vision was not fully effect right so you don't have a correct distribution. So when you will approximate
+00:12:37
+Expectation of a function, you won't get the correct answer.
+00:12:41
+Whereas for sampling
+00:12:44
+You do get on by a system, it
+00:12:49
+IE. If you take the expectation over all the possible sampling independent multicolored chain that you would run. And so what I will write is, I will write Q infinity as being the the
+00:13:08
+Sample you get after reading your chain forever, which means it has mixed. Okay. And if I take the expectation. Now, with respect to the to the samples, I would get, because if you have only one simple. You know, it's not the right thing. You need multiple sample to approximately the integration.
+00:13:26
+And so if you take the expectation respect to the random samples. And then you take the expectation of your function of that. Well, this will actually be the true expectation. So you will do the right thing in average
+00:13:39
+So here there's still the caveat that you know you needed to run your chain forever. Never happens in practice. So when you don't do that. You want this to give the right thing but
+00:13:49
+It's possible, even if you haven't, if you wait long enough, it's possible to get the right answer was for these virtual methods it, you cannot even get the right answer. Even if you have infinite computation.
+00:14:05
+Alright, Dora is asking mean feel is when I approach. What are some other approach. Well, as I mentioned, the general principle is to make an approximation.
+00:14:16
+Of your optimization problem. So make an optimization of the key objective make an approximation of the constraints. And so there's other ways. And there's many I will mention another one now.
+00:14:31
+But you know you you can look at
+00:14:35
+This book by rain Martin Jordan graphical model exponential families and
+00:14:41
+Forgive us the rest of the of the title, but the talk about much. It's actually a pretty big book, but it has a lot of other version of methods, but let me talk about structure of midfield super fast. Just to give you the, the idea
+00:14:55
+As another example, so structured mean field.
+00:15:02
+And so it's a generalization of midfield where instead of supposing that my distribution factor is fully I will say that my distribution factor eyes.
+00:15:15
+As a product over clicks. So I will have a product over k
+00:15:23
+Basically
+00:15:26
+Said, see, Jay.
+00:15:29
+Where these set of nodes will be chosen in such a way as you can do tractable inference. Okay, so see one, two CK is a partition.
+00:15:49
+Of V
+00:15:52
+And the Q, geez.
+00:15:56
+Are tractable.
+00:16:00
+Distributions.
+00:16:06
+So tractable disability missing this decision that you can easily do n friends with you can compute there entropy, etc, etc. And so an example of that, if they would be trees.
+00:16:19
+For example, it could be tree Eugene. And so the main field example is just every node, it's, it's on clicks. It's for the factories.
+00:16:28
+But structured midfield generates that to instead of assuming that everything is fully factories us you assume some correlation, but the patterns is in a way that things are still tractable. And so, in particular, let's, let's look at the Isaac model again.
+00:16:42
+So here's an Isaac model I will make a grid, blue, blue, blue
+user avatar
+Unknown Speaker
+00:16:49
+Alright, so we finished my grid.
+user avatar
+Unknown Speaker
+00:16:52
+Took
+user avatar
+Lacoste-Julien Simon
+00:16:56
+Alright, so I got a grid.
+00:16:59
+And so an example of splitting, you could do is actually in two sets. So you could have this set of nodes. Oops. How do I wonder
+user avatar
+Unknown Speaker
+00:17:12
+Bought
+user avatar
+Lacoste-Julien Simon
+00:17:14
+So you could have
+00:17:17
+A this set of nodes.
+00:17:22
+As one click.
+00:17:25
+And this set of nodes.
+00:17:28
+I mean it's, it's something really quick. It's just a set of notes. Okay, so see when Institue in this case are just nodes, because they're not fully connected in the original graph. And the point now is
+00:17:39
+When I looked in the edges appearing from the graph between these nodes like
+00:17:48
+I get a tree.
+00:17:50
+So you don't care about nodes appearing edges appearing between the two set because these are cut in some sense, but since. So here it's like if I have a tree.
+00:18:00
+On this part and I have a tree on this part. So I'm making an approximation of my my joint as the product of two independent
+00:18:09
+Marginal where each one has a tree structure. So I have this tree and which means I allow some correlation between these notes, it's just I now don't have any more correlation between this node and this stuff.
+00:18:20
+So it gives you a much better approximation and because the inner thing is are still trees. It turns out you can still compute the, the, the, the coordinate update in Tucson.
+00:18:36
+Ezekiel is asking about much more or less variants and sampling methods. Well, so the problem is is
+00:18:44
+How do you define variance. Right. So, so
+00:18:47
+Like if I use a deterministic initialization to my meaningful approximation. I always get the same solution. So there's no variance. Right.
+00:18:58
+Now you say, Okay, I could do random initialization and then they get different local minima. So there's a bit of variance, but even sometimes, you could have that always convert the same point. So there's no variance and so
+00:19:10
+And so it's it's because it's a deterministic optimization approach violence is not really the right concept what you have instead is just the quality of the approximation, like how far you are from the true solution. It's just, it cannot be explained as a bias perseverance.
+00:19:27
+And then there's also you can also have randomness promotional methods like if you do a stochastic approach stochastic optimization approach to it.
+00:19:37
+But so I would say that there's much variance universal method because just it's not it's not random. It's not a noisy random approach, but it has a bias, whereas the sampling approach usually is either unbiased or has low bias, but it has high variance
+00:19:57
+And to reduce the variance, you need to, you know, simple a lot
+user avatar
+Unknown Speaker
+00:20:03
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:20:05
+All right, is there any question about virginal methods.
+user avatar
+jacob louis hoover
+00:20:17
+brief question to the sampling. Yeah, the stuff that we've been just saying about sampling. Good. All right. Like there are
+00:20:26
+Different ways to sample. Right. So like you could you could have a bad way of sampling that doesn't produce bias or I'm not sure what in what generality, are we speaking
+user avatar
+Lacoste-Julien Simon
+00:20:38
+Well, so, so, for example, all the exact centering techniques that I mentioned, like rejection sampling important sampling all these methods didn't have bias.
+00:20:49
+So, so an expectation over your rent your independent samples, you will get the I mean an expectation, you just have the right answer.
+00:20:59
+Now the Monte Carlo Mc, Mc approach has a bias in the sense that it depends on the initialization. And so it will be unbiased when you can ensure that the chain has next. And so that's where the the this infinity here was important. So we need infinite computational long enough competition.
+00:21:21
+And so, but the point here. I was making is that you can make this bias small by waiting long enough was here, even if I wait an infinite amount of time. I'm still bias. So that's kind of a qualitative difference
+00:21:36
+Okay. And indeed, you can also have a stupid Markov chain which
+00:21:42
+takes much longer to converge. And so in this case it will be it will be, you know, have higher bias.
+00:21:48
+And you could add a mark of chain that this doesn't have the correct session is division.
+00:21:52
+Either because you forgot about the convergence theorem and you didn't have the you made that change was not organic. For example, and then it doesn't conversion seated right thing and then of course it's biased because it doesn't even converse to the right thing.
+00:22:06
+Okay.
+user avatar
+jacob louis hoover
+00:22:08
+Yeah, thank you.
+user avatar
+Lacoste-Julien Simon
+00:22:21
+So there. I'll come back about a more time in France in the next lecture when we talk about the vibrational encoder, which is where it was introduced
+00:22:29
+And yeah, okay. So start back is asking a good question about convicts optimization. They're saying that are. I'm a bit confused about how you get local minimum. When you come you minimize a complex function, even though it's an uncommon accept. So the thing is
+00:22:45
+When you do constrained optimization. The stationary point is when the negative gradient is perpendicular to the boundary. Okay. And so
+00:22:58
+So, for example, like if it was a convict set. This would be a
+00:23:05
+Local men because they think it is pushing you away from the boundary in a particular fashion.
+00:23:12
+And and then where the complexity comes in. Is that the way the gradient changes in your set is such a way as you only have a convict set of possibilities, you can have multiple solutions in
+00:23:23
+In in context and position is just that all the set of solutions will have the same objective.
+00:23:28
+Now, when you have these these weird kind of like non convicts thing is it's pretty easy to kind of get stuck like you could have the
+00:23:36
+Year I could have the greatest in this direction. And here I could have gone in this direction. And so both of them or local men, which is they're not global mean
+00:23:46
+I guess it's a bit harder to see without planning the function. But, uh,
+00:23:53
+I mean, I guess the easiest way let's let's just do an example. Here's a convex function and then here's a non convex set. Right. So there's two pieces.
+00:24:03
+And so then I have a local men here. And I have a local men there I eat if I make local move because of the constraints. I'm not allowed to get out. So I had two different local guess that's or
+00:24:18
+Highlighting things
+00:24:20
+Is it. Okay, perfect.
+user avatar
+Unknown Speaker
+00:24:23
+Good.
+user avatar
+Lacoste-Julien Simon
+00:24:25
+Alright, so let's talk about Bayesian methods.
+00:24:33
+And so, unfortunately, I want to be able to go in as much details.
+00:24:38
+But I will still give you the important to limit.
+00:24:42
+So I already talked about Beijing methods in
+00:24:47
+In the first few lectures. When we talk about decision theory to trap. And just as a recap and basically now what I'll do is I'll be able to go a bit more detail because you have much more
+00:24:59
+Terminology and background. And so as a recap. You can think of property of going from a model to samples so that can give you data right so you can use property theory to go from
+00:25:16
+The model and then
+00:25:20
+You can answer a question about was a property of X given data and you could simple from it and then you get observations.
+00:25:28
+And then statistics is the inverse process of from observations inferring what could be the prostate model which generate it
+00:25:36
+And unfortunately, as I mentioned, this is an inverse problem which is ill defined is no golden solution and then
+00:25:45
+That the two philosophy. I mean, the frequent this philosophy is actually not a fix philosophy. It's basically everything else, which is not Beijing in some sense, but the approach is to have a bag of tools. So, you will have
+00:26:05
+Different ways to estimate which I already mentioned in this class. So there's maximum likelihood estimator. There's regularize maximum length you there's maximum entropy as another principle.
+00:26:19
+There's movement matching
+00:26:26
+And there is empirical risk minimization introduction address all these gives you different ways to estimate your parameter
+00:26:34
+Which might have different solution and then you also add an analysis of these methods to know, okay, what are the assumptions and there which they will work well or not and what are their properties at your direction.
+00:26:45
+And that's how you get a sense of, which one should be better than which are there is buddy depend on these assumptions. And so then, you know, in practice, which ones you use in practice will depends which one you think matches the assumptions you made. Okay.
+00:27:01
+So that's the frequent his approach if you're a subjective Bayesian
+00:27:05
+Just basically the purists Bayesian perspective.
+00:27:10
+Because you have the pragmatic Bayesian which
+00:27:14
+Which divert from that. And the idea of a subjective vision is you use probability everywhere.
+00:27:23
+To
+00:27:26
+Everywhere there is uncertainty. So it's to quantify your belief about the uncertainty. Right. And so then
+00:27:35
+The focus is
+00:27:38
+Getting the posterior so you have a posterior given the data.
+00:27:44
+And that will be proportional to some like cleared.
+00:27:49
+Times a prior
+00:27:52
+So this is the prior
+00:27:56
+This is the likelihood
+00:28:01
+And this is an austere and the prior present your prior belief before seeing the data about the thing that you're uncertain of
+00:28:07
+So anything you don't know you need to put the distribution. You don't know the parameters of your prior well then you put the distribution of your prior to this call I proprietor.
+00:28:15
+And then you don't know the the value of the parameter of the hyper prior well then you put another distribution center insert right, you need to encode your beliefs.
+00:28:26
+And then
+00:28:28
+The caricature that I mentioned.
+00:28:32
+Before is that the Bayesian is an optimist.
+00:28:40
+Where the optimist. Well, because in some sense they believe their model.
+00:28:45
+So,
+00:28:47
+You can get good so basically the idea is you will get
+00:28:53
+So the thank
+00:28:56
+You can get
+00:28:59
+Good models.
+00:29:06
+In quotes
+00:29:09
+And so because they think they can get good models you just obtain a method by doing influence in this model.
+user avatar
+Unknown Speaker
+00:29:26
+And France.
+user avatar
+Unknown Speaker
+00:29:34
+In the middle
+user avatar
+Lacoste-Julien Simon
+00:29:38
+Okay, so. So there's a question and well where does your prior come where does your likelihood come. Well, that's your model and
+00:29:47
+A subjective Bayesian kind of beliefs that you have a good model. So then the question is just to do and France, and then you get a method and because they believe in their model, they'll need to analyze the properties of their method because it's a good method by their optimistic efficient.
+00:30:04
+Whereas the frequencies in some senses more pessimistic and that's a caricature, right. So, but that's, I think one way to kind of like clarify the difference
+00:30:16
+And so because they're pessimists. They don't believe the models. I mean, you know, maximum likelihood. That's just a principle that doesn't need. And so they need to use analysis.
+00:30:29
+Tools to quantify the properties of the method and to make sure that it doesn't do crazy stuff.
+00:30:37
+And to understand what are the conditions that will do crazy stuff.
+00:30:46
+So Dora is asking if you have multiple hyper parameters.
+00:30:51
+Which might not necessarily be independent, do you perform a separate Beijing update on each or would you estimate them an all in one model. So the short answer is
+00:30:59
+You always do joint update. Right. That means that like the proper way to be a Bayesian is that there's something you you're working with.
+00:31:08
+You need to characterize all the beliefs you have about this all the possible interactions and then you do an update. In this model, which means usually that things will be jointly updated.
+00:31:19
+And practice. Usually what will happen is that, so this is intractable, then you need to make approximation and one approximation might be that you will treat things as independent, even though you assumed they were not independent.
+00:31:30
+A bit like a meaningful approach. You could have a mean Phillips.
+00:31:37
+Alright so that was the philosophy. And if I go back to our example that we had mentioned in lecture five or six, I forgot.
+00:31:50
+There was a bias coin.
+00:32:00
+And so we want to model.
+00:32:03
+The output of a coin, which might be biased and so we'll see if I knew the bias of my coin so excited given data would be brand new ye
+00:32:15
+Theta.
+00:32:17
+And then we might think, well, I will believe that my coin flips are independent. That's also an assumption.
+00:32:24
+You know, in general, you could put some dependence, if you wanted to.
+00:32:29
+And so you say, Okay, I have n coin flips of my xi, but all these results depends on my parameter and then you will have to put a prior over this parameter. Right, so you'll have a prior
+00:32:42
+over theta. And then this prior could depends on the hyper parameters seems bull alpha zero, beta zero. And so, and in the graphical model terminology we often use.to present things which are fixed. So these are hyper parameters.
+00:33:04
+For the prior
+00:33:11
+And so an example I had mentioned was already. I could have that theta is uniform
+00:33:21
+On 01 and uniform and 01 is actually the is actually the beta distribution with parameter one one, right.
+00:33:30
+And so, more generally, I could have as my prior over theta that it is a beta on theta with hyper parameter alpha zero and beta zero. And what's the
+00:33:44
+Yeah, so, so basically the if you remember beta. It's just distribution and 01 and to diminish. There was a distribution and the Protestant ethics.
+00:33:53
+Then Jacob is asking what was method here like a decision rule obtain a method by doing in France. This is to estimate. Yeah. So, good question. So method in the sense of statistical decision theory.
+00:34:09
+So when you do your decision theory, you will need to make some action to solve a problem.
+00:34:14
+And so if your problem is to estimate the quantity will then you will be you'll get a method to estimate a quantity, if your action is to make a prediction or to
+00:34:26
+Say, what should be the, the, the decision in a in a in a in their musical like should we say take a treatment or don't take a treatment. Well, then again you will use the posterior as a Bayesian to make this decision.
+00:34:44
+But yeah, so so method here is basically in a general sense of what you get. It's a decision ruling sensical decision theory.
+00:34:56
+Right. So that's our prior a betta and then or likelihood. Well, we already said what what it was, it was that it's a renewal fee. So this is Bernie's so that means I think theta.
+00:35:08
+I raised it to xi in one minus data, one minus x is that the brewery you like to do with power theta. And so now if I compute my posterior
+00:35:21
+Which was P of Theta, given my observation.
+00:35:26
+This is proportional to the like to turn the prior
+00:35:33
+And so I get the product of all my observations of p of x i given data that's my likelihood is they're independent times my prior
+00:35:43
+And so I get a theta raise to the summation over xi.
+00:35:52
+And one minus theta one minus summation over. Oh, sorry. And because I have any outputs.
+00:36:02
+And minus summation of her I have xi.
+00:36:06
+And the prior
+00:36:13
+Is basically theta raised to the alpha 01 minus data race to the beta zero minus one.
+00:36:26
+So that was the the the beta prior and you have to make sure that you're in 01
+00:36:35
+And so you have an indicator on zoom. So that's the prior
+00:36:40
+That would be the better prior
+00:36:43
+And so what I get any of the day is that my posterior so you can see here that I can group.
+00:36:53
+This with this. And so I basically get a beta posterior
+00:36:59
+And so it's called this
+00:37:02
+Let's define this as in one which is number of time and I seen the observation one. And so I get that the posterior
+00:37:13
+Is basically a beta on theta.
+00:37:17
+And then I take my prior accounts and I add in one
+00:37:23
+And I have my prior accounts for the other guess was beta zero
+00:37:30
+And then I add n minus one. So the number of time I've observed zero
+00:37:38
+So that was a new hysteria.
+00:37:41
+And so when the posterior isn't the same family as the prior
+00:37:46
+You call the prior to be conjugate. So this is called a conjugate prior
+00:37:54
+To the new you like you'd model.
+00:38:05
+So conjugate see depends both on the likelihood, but all it says is that when I use a prior when I have a prior in the specific family with this like you'd I will get the poster isn't the same family.
+00:38:21
+Just kind of neat because then you don't need to change the distribution. So, more generally,
+00:38:28
+When we talk about conjugate prior
+00:38:32
+If you consider
+00:38:35
+A family.
+00:38:37
+F.
+00:38:39
+Of distribution.
+00:38:42
+I'll call it like
+00:38:46
+Should say
+00:38:49
+F is
+00:38:52
+Distribution on theta. It has hyper parameter alpha and an offer belongs to some
+00:38:59
+parameter space alpha A typically Guess we'll use capital A.
+00:39:08
+And let's use a fancy
+00:39:13
+It's just for alpha, then we will say,
+00:39:16
+That F is a
+00:39:21
+Counter get
+00:39:24
+Family
+00:39:27
+To observation model.
+00:39:35
+P of X given data.
+00:39:51
+Theta.
+00:39:56
+given x and alpha belongs to the family F for any
+00:40:04
+X.
+00:40:06
+distributed according to X given thing.
+00:40:13
+Okay, so that means
+00:40:16
+That there exists in alpha prime
+00:40:21
+Which depends on x and theta.
+00:40:24
+Such that the posterior
+00:40:29
+Having seen the observation X is has the same distribution as just a PFA that given this hyper powder alpha brain.
+00:40:40
+And so alpha prime in the context of the flip coin model is basically adding number of times I've seen
+00:40:50
+X equals one and
+00:40:54
+X equals zero to the alpha zero and beta zero Patrick's
+00:41:03
+Okay. And so I'm
+00:41:08
+So that's a conjugate family and
+00:41:12
+As I had mentioned about good sampling. So if you use
+00:41:18
+conjure get
+00:41:22
+Prior
+00:41:24
+In a director graphical model.
+00:41:28
+Then give sampling
+00:41:36
+Can be easy, it's not always easy, but it can be easy.
+00:41:41
+Because it usually means that the these integral to compute the, the, the, the conditioning could be tractable. And so, for example, this was used
+00:41:53
+In the latest allocation model, this is the case.
+00:41:58
+In the LD model.
+00:42:02
+Which was a topic model for document.
+00:42:08
+Where
+00:42:10
+Basically
+00:42:15
+If you remember in homework one.
+00:42:20
+We had that if we use additional prior
+00:42:30
+It was conjugate
+00:42:32
+To the multi multi normal like you would model right
+00:42:39
+Because you computed the posterior the parameters of the posterior of the deer chalet when you had a multinational observation.
+00:43:04
+So basically the the LD model, what you have is you have
+00:43:12
+I mean, in one version.
+00:43:23
+Yeah, which one do I want. Okay, I'll do the traditional version. So you would have
+00:43:31
+Words.
+00:43:34
+In your document.
+00:43:37
+And
+00:43:40
+Each word would come from a topic which is not observed
+00:43:47
+And then
+00:43:49
+You would have
+00:43:51
+You know a bunch of words which depends on the length of a document. So, d index the document I index the word in a document.
+00:44:01
+And then what you would say is that is the latent variable which is which topic. Did the word come from.
+00:44:09
+So this is on key topics, there's a possibility. So that's the discrete variable that you will use. That's the IT WILL BE FROM HIM multinational model. And so you will have in this case.
+00:44:23
+It's given by theta, which gives me my distribution over possible topics. So this has to belong to the property simplex over k. So, these are called the topic proportion
+00:44:38
+So these are the topics.
+00:44:41
+And what happened is you need a prior over the topic proportion and so because it's multi normal observation, you can use a conjugate prior so here you would have that the
+00:44:54
+Theta d will be coming from a dairy share with character alpha
+00:44:59
+And then what happens is in the LD topic model, you have another plate outside which says how many documents I asked. So these are the documents.
+00:45:17
+And so now
+00:45:19
+I haven't observed
+00:45:23
+I haven't observed Z Evans over state. So I want to infer these from
+00:45:30
+From data. And so I can actually use give something for them. And actually there's even another parameter. If you're Bayesian because this is still a pretty Bayesian I would have here the
+00:45:43
+Beta. These are the
+00:45:45
+Parameters for your topic distribution.
+00:45:51
+We're also in the property simplex for each topic. Every distribution over words. So it's also a vector in the property simplex. This is k basically v by k where visa size of the vocabulary.
+00:46:03
+And so you would also need to sample it if you're Asian to get an approximate them with the austere and you could also use gives him so give something was one of the standard inference method in the LD topic model.
+00:46:16
+But if you were not able to follow that it's not crucial. This was just to illustrate the example use of conjugate family and in the world. So conjugate see is kind of a computational
+00:46:31
+Convenience. It's also kind of philosophically useful because you say, well, in some sense, you could think of your prior is coming from previous observation and because when you observe something your posterior is still the same family.
+00:46:44
+It's all consistent right so you could. And so now you kind of staying in the same families kind of philosophically appealing.
+00:46:51
+Though often these configured relationships are not that great to match what's happening in practice. So, you know, you're not restricted to use contiguous, especially when you have good approximate inference techniques coming from Markov Chain Monte Carlo or virtual methods.
+00:47:10
+So is there any question about this.
+00:47:17
+Time for a break.
+00:47:20
+So after the break, I am going to talk about model selection.
+00:47:28
+And causality is that the content of today and in particular because Beijing methods or pretty elegant to do model selection, because we have uncertainty on their models, then we can just put a distribution over them.
+00:47:41
+But is there any other question about what we've seen in the first half.
+00:47:52
+Nope. So there's no question. It is 233 so we have a break. Until 243
+user avatar
+Unknown Speaker
+00:48:06
+Let's put some music.
+user avatar
+Lacoste-Julien Simon
+00:48:17
+Okay, so
+00:48:20
+Let's talk about model selection.
+00:48:29
+model selection.
+00:48:34
+Alright, so let's say I want to choose between two
+00:48:40
+graphical model.
+00:48:42
+Some people forgot to give their coffee and during the music.
+00:48:48
+Sorry about that. Alright. So say we want to choose.
+00:48:55
+Between two possible directive graphical model.
+00:49:06
+So m one here represent model one and and to represent model to son here. By the way, I apologize in advance. I'm a bit rough on the notation.
+00:49:17
+But hopefully it will still be clear. So let's say I have x one.
+00:49:25
+I mean issues with my random variable.
+00:49:29
+X one.
+00:49:31
+And then I have x two and I have extreme
+00:49:35
+And now I want to consider a different directory graphical model on those three variables. And so let's consider to choice. Either I have
+00:49:44
+This
+00:49:50
+Independent effect, I guess.
+00:49:53
+Progress with a name for this structure. And so I would have a parameter on this conditional a parameter on this conditional. And let's say a parameter on the on the marginal and next one. So that's my first
+00:50:08
+The GM, then the second one is
+00:50:13
+Actually a more complicated the GM, in some sense, it has more possibilities. I will still have this distribution distribution. So, I still have beta zero, beta one, but now I also have
+00:50:29
+This V structure here, so I will have this edge two x three. So now extra depends on both X one, X two directly. And so for this I will use a different pressurization I'll call it up to tell them
+00:50:42
+Why, because of the tilt, because it's not the same space. Right. And so in this graphical model.
+00:50:53
+The representation for theta theta one will parameters the conditional on X true given x one.
+00:51:09
+Apologies.
+00:51:12
+Need to be able to mute fast but you know
+00:51:16
+Master zoom yet fast enough to do that. Let's see if I can do it here for you all.
+user avatar
+Unknown Speaker
+00:51:23
+Know, and it doesn't work at all.
+user avatar
+Unknown Speaker
+00:51:26
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:51:29
+Yeah. So basically in this one say that one would be prioritizing the conditional of extra given x one and then this graphical model, I would have a conditional on extreme which would depend on both X one, X two and it would use the parameter theta to tilde.
+00:51:48
+Right. And I guess here to make it clear, I will use the same
+00:51:53
+Lecture use this one because then the difference between the two one is more clear. So data to hear only portrays x two given extra given x two x one.
+00:52:07
+Wasn't the other graphical model. And this one actually. I would also have a dependence on next one.
+00:52:16
+Next week, sorry.
+00:52:18
+And so
+00:52:21
+Note that one is a special case of the other so
+00:52:26
+If you think of em one as being the set of. Oops. So note.
+00:52:33
+Here.
+00:52:36
+That
+00:52:38
+Everyone
+00:52:40
+is included in me too.
+00:52:43
+I put quotes because I didn't see that one was a set, I just said in one is basically just when we can present one model versus the other.
+00:52:52
+But if you think about the set of distribution which could be modeled by one. It's a subset of this of this mission, which could be modeled by him.
+00:53:00
+Okay.
+00:53:02
+And so
+00:53:03
+As a frequent is
+00:53:07
+You could estimate the parameters in each of these model.
+00:53:11
+To get different estimate of your distribution. So I could have theta m one
+00:53:20
+Maximum likelihood, which would be the art max overstayed at 110 a zero state of one antenna to
+00:53:30
+Have the log of the probability of my data given theta zero, theta one antenna two and model is m one
+00:53:43
+Okay, and that's where I'm being, you know, this is where my notation is weird. So what do I mean by that. This is just
+00:53:53
+Saying that I have to multiple choice for two different graphical structure. And so when I say model equals one. I just mean. And I'm saying I you know I am in this graphical structure.
+00:54:12
+So that would be the estimation in model one and then I can also define a parameter, which would be the submission and model to
+00:54:23
+Whereas I still do the max.
+00:54:27
+And then I would have stayed at zero instead of one doesn't change. But then, instead of theta to I am wouldn't have
+00:54:35
+Theta to
+00:54:37
+Tilde instead of to to note that this has a different space than 10 have to write
+00:54:44
+In particular, it's much it's a bigger
+00:54:50
+It's a bigger dimensional object because it's, it's an interesting a conditional which depends on more
+00:54:57
+Inputs, then I would still have to lug P of the data.
+00:55:04
+Say that zero, theta one and I have this data to till instead
+00:55:10
+And I need to kind of still put the context of my parameters. So I'm saying now I am in the model into
+00:55:19
+Okay.
+00:55:21
+And so then I could have you know two estimates on my parameters and each different model. Then the question is which model is the correct one. How do I choose the model. So if my job is to estimate the correct model. How do I choose it. Right. So, how to choose.
+00:55:40
+Between
+00:55:43
+Models.
+00:55:48
+And so one thing that you would know in any standard machine learning class is you could not just compare
+00:55:56
+The log likelihood for the maximum Nyquil parameter on model one versus model to because sometimes there's a bit of overfitting because you use the data to compute the parameter. And so you can evaluate your model by using the same data. So if you look at login of p of the data.
+00:56:19
+Given
+00:56:21
+The parameter estimated by maximum likelihood for model one and I say, I look at the model being equal to a model one
+00:56:33
+And if I compare that to the log like you'd have the data.
+00:56:38
+For model to estimated again on the data, saying, m is equal to empty.
+00:56:47
+Well, because the model. One is included in model to the right. The second one will always be bigger, you're maximizing over bigger space, you can always do just better and it looked like you. So you would always have
+00:57:05
+The left hand side, smaller than the right hand side since model one was included mode. So you will never choose the less complicated model that bigger computer model will always have better log likelihood and the training set when you use the training set to estimate the panelists.
+00:57:23
+Okay, so you would always choose the bigger model, which is, in some sense, already I lighting that you would be overfitting would always
+user avatar
+Unknown Speaker
+00:57:33
+Choose
+user avatar
+Lacoste-Julien Simon
+00:57:35
+The bigger model if you did that.
+00:57:43
+And so that's why in machine learning. You never choose hyper parameters or models on by using the training set, you always use
+00:57:52
+Something else like a held out test set evaluation set or something like that, right. So that's the idea is you use different data to evaluate your model than the one you used to train it
+00:58:01
+That's how you can get a good. That's how you can choose between different models. Okay, that's what you could do, also in the assignment. By the way, to choose the number of states in hmm model. So as a frequent is
+00:58:17
+You could use
+00:58:21
+So basically one standard approach would be to use cross validation
+00:58:28
+And so cross validation is you would split the training set in multiple pieces you would train them on on one piece and test on the other piece and then you would average over muscle multiple of these spirits.
+00:58:40
+For us a fixed model. And that's how you evaluate your model and then you choose the one which is the best, but the simplest version is to spit just in ever held out test set. So the simplest would be to have log
+00:58:55
+Of p of test data.
+00:59:00
+Of comparing for the maximum like your parameter, on which depends on the train data and then you just compare this, you look at the log latitude in a test data for the different models and then you pick one which has the best held out like next year.
+00:59:30
+Um, so yeah, so start Zach is asking a good question. So could we not possible that the bigger model create more local minima that are worse. And those are the smaller model. Yes, indeed. So this is kind of more computational question.
+00:59:45
+So this analysis here to simplify is indeed supposing we could complete the arcs. The will organize
+00:59:54
+It turns out that there's a bit of magic in the deep learning is that when you have more parameters. Usually the optimization is better behavior, you actually have less local minima.
+01:00:05
+So it turns out that by having more parameters you have always more space to move into so you're never stuck on like you have a neural network with a small number of parameters.
+01:00:16
+Even though it matches the structure that you use during the data. It's much harder to fit these parameters and if you use a bigger neural network.
+01:00:25
+Well, yeah, but so that the general story. You know that's something which is super important. Machine learning is if you want to choose the hyper parameter or the mall, you need to use different data in the training data.
+01:00:43
+But so now let's see what Beijing right so let's talk about this is frequently. So as infrequent is do use cross validation or held out has set that works fine. But if you're Bayesian you are uncertain about the model. So then would you do well. You put the distribution over models. Right.
+01:01:04
+Alright, so the Beijing alternatives.
+01:01:07
+Is
+01:01:11
+So if you're a true vision.
+01:01:15
+True in the purest sense, you will actually some over models, right, you will you don't know which model is the correct one. So you put a distribution of our models.
+01:01:27
+And so then, because you have not observed, what's the correct model when you will do prediction. You will marginalize out over models you will integrate them right. You will integrate out the uncertainty.
+01:01:41
+Out the uncertainty about em.
+01:01:49
+And so you need to have it prior over models. So you introduce a prior
+01:01:57
+Whatever models.
+01:02:01
+And that's called P of capital M.
+01:02:05
+And so now
+01:02:07
+If you want to make predictions about the world. So let's say you want to do, what should be the priority on some new observation given D. Where does my data.
+01:02:19
+And so as a good Bayesian you integrate out the uncertainty, you just use the laws are properties. So, this will be the summation over your model the property over X new
+01:02:34
+Given the data and my model and then probably T of the model, given my data is this is basically you have a posterior over model right
+01:02:47
+Now, there was this weird
+01:02:51
+Probably to over the data because knowing the model is not sufficient. I was willing to the parameter is in my model.
+01:02:58
+And so this is x new here.
+01:03:02
+Is the integral over your parameters which depends the set of parameters depend actually on the model, then you would have a new model with parameters will tell you, okay, what's the distribution over X given feta, and M.
+01:03:21
+And then I would have a posterior over a theta given my data in my model. The of theta.
+01:03:30
+And they still have was the protein over model, given the data.
+01:04:12
+OK, so now there's a bit of a unwrapping this this equation.
+01:04:20
+Oh,
+user avatar
+Unknown Speaker
+01:04:23
+There's a bunch of question.
+user avatar
+Lacoste-Julien Simon
+01:04:33
+People now discussing this, this surprising phenomenon in the burning were having more parameters help
+01:04:43
+So I think the best way to think about it why having more parameters health and deep learning is thinking about
+01:04:53
+That the way we train so using stochastic gradient descent, which is not all iPhone, the global minimum of my error.
+01:05:02
+Tree. There's unlimited number of global minimum. Anyway, but the way you train influence what you get. Okay. And it turns out that having more parameters.
+01:05:12
+The dynamics of the STD algorithm becomes much nicer. And so it has nicer properties. So in some sense, there's a implicit regularization, which happens from the training technique. And this has better properties when you have more parameters.
+01:05:28
+The same way when I mentioned that when you do non print trickle Bayesian it didn't really explain why. But I said there was a bit when you do virtual method.
+01:05:36
+There was a bit of a concentration phenomena which appears. And it turns out actually usually virtual method.
+01:05:41
+Do very well in high dimension and you do even better than in low dimension. So you had a new dimension, the virtual method could have actually high approximation error.
+01:05:50
+But when you have a lot of dimensions in some sense things kind of average out and you get a consideration phenomenon. It's some weird sense and you get a better approximation. Okay.
+01:05:59
+And so there's a. It's not the exact same phenomenon that is also a phenomenon that having more parameters, give you a nicer regurgitation aspect in the party.
+01:06:11
+But this is still like an active area of research.
+01:06:17
+Okay, but if I go back to the actual model selection. So this part here is standard Bayesian prediction.
+01:06:26
+This is standard Bayesian
+01:06:31
+Predictive
+01:06:34
+Distribution.
+01:06:38
+So this thing here is the standard Bayesian prediction predictive distribution for one model.
+01:06:47
+Right. So if you're Asian and the model was fixed you would integrate over the exterior, the quality of the observation. And that's how you get the property of a of a new point. And so this
+01:07:00
+Thing here is the standard posterior
+01:07:06
+Theta, given
+01:07:10
+Both the data.
+01:07:12
+But now you also fix the model.
+01:07:17
+That's the difference with and that's what we did in the past when we had a fixed model. Now the difference with before, is we will also marginalize
+01:07:27
+You will also have basically the posterior of our models.
+01:07:43
+So this is basically something you can think of it as doing model leveraging right
+01:07:50
+Because the predictive distribution will be the average predicted distribution over all the models.
+01:08:07
+And that would be the correct way to be a Bayesian you don't know about something you just somewhere. Okay.
+01:08:15
+But now, somebody could say, Well, I don't want you to, I want to tell me also what the good model. Okay, so it's a bit like when you
+01:08:24
+We could say if the problem is called model selection.
+01:08:30
+So in model selection we are actually forced to pick a model.
+01:08:38
+Okay. So the problem here is not. Oh, what is the best predictive
+01:08:43
+What's is the best predicted distribution over the data over the new observation.
+01:08:49
+Which would if that would be the task. If I wanted to, you know, predict new stuff and then the best way to do that is to actually combine
+01:08:57
+The predictions of all the models. But if I say if the task now is to estimate the model. I want to know what is the quote correct graphical model which captures data.
+01:09:07
+The kind of thing we would pick by cross validation. And so then we need to pick the model.
+01:09:15
+Which will maximize the quality of the model right so you pick the model.
+01:09:24
+that maximizes
+01:09:29
+The your belief on the model. So, which is the posterior over models, given the data right and so that this is proportional to the quality of the data given model times the prior over model.
+01:09:44
+And P of data.
+01:09:48
+Over given the model.
+01:09:52
+Of the data given the model. This is called the marginal like you
+01:10:13
+Feel today are giving them, also called marginal attitude. Because to get this, I need to marginalize out the parameters. Right. So I have that this thing is the integral over theta.
+01:10:26
+Of the probability of my data given data and my model times my prior which also depends on my model, the data.
+01:10:37
+So this is, this is the likelihood
+01:10:41
+Like the hood. And so I need to marginalize out the likelihood over the posterior over that over theta. And so that's why it's called the marginal IQ.
+01:10:58
+And if you suppose a uniform prior order models you just pick the model which maximize the margin IQ. So it could be a criteria and seduction. It was also a standard criteria to choose models.
+01:11:10
+And particularly can use choose hyper parameters in your in your prospect model. It's a threat to the key chain hmm model, you could actually put a prior over k and then compute the marginal likelihood, then you would get you could actually choose key.
+01:11:30
+But so Mar in in more
+01:11:36
+Specific terms.
+01:11:39
+To compare two models, we actually want to look at the ratio of their posterior so I could, I look at the posterior that m is equal to em one, given the data.
+01:11:54
+And I want to compare it with the posterior that and is equal to em to given data and you wouldn't pick the one which is maximum. So, if this is
+01:12:02
+Much bigger than what it means you favorite one model more than the other. And this ratio combining two terms. So it's, there's the difference between
+01:12:12
+The like the marginal likelihood for model one divided by the marginal likelihood for model two times the prior for model one divided by the prior from model.
+01:12:26
+And so the ratio of the marginal likelihood. This is called the base factor.
+01:12:33
+Because it tells you how much one
+01:12:37
+Model is
+01:12:40
+favored over another model, irrespective over your prior models. So this is really telling you the evidence from the data and then this ratio here is called the prior ratio. So, this depends on your belief about models.
+01:12:55
+And so often invasion paper, they would tell you what's the the base factor which tells you how much is the evidence support model one versus model.
+01:13:09
+And particularly if the ratio is really, really big, then even, even if you had a prior that one mo was 71 then the evidence is so strong. It was swept swanky prior. So it's kind of a week to report things which don't depend. The prayer.
+01:13:23
+And as I mentioned, if you pick a uniform prior
+01:13:30
+Over models.
+01:13:38
+That means that you will pick
+01:13:46
+The among key models.
+01:13:53
+Am One who, to empty.
+01:13:57
+The one which maximize the marginal IKEA like you
+01:14:02
+are proud to have the data given
+01:14:06
+Me.
+01:14:08
+The marginal attitude. Okay.
+01:14:10
+And so when you maximize when you pick a model. According to the marginal like you would not talking a prior. This is actually called empirical base is this called empirical base.
+01:14:25
+Or it's also called type to
+01:14:29
+Maximum likelihood
+user avatar
+Unknown Speaker
+01:14:31
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:14:33
+Because instead of you instead of maximizing the likelihood as a function of parameter. Now you marginalize out the parameter. And now you get
+01:14:42
+A function of the model and you just do the same thing as you did to choose parameters you just find them all, which maximize the probability of the data.
+01:14:52
+And
+01:14:53
+When the number of models small
+01:14:59
+Of models.
+01:15:01
+Is quote small
+01:15:05
+Then this approach is fine.
+01:15:12
+And what I mean by fine. Is that didn't want overfit
+01:15:18
+Because here. There's no held out test data right so
+01:15:23
+You're still using the training set to fit the model. So to fit your hyper matter. So that's dangerous, but the marginal likelihood is less sensitive
+01:15:35
+To overfitting because there's not that many models for example.
+01:15:40
+And then there's basically a cartoon by one of the big Bayesian as we've been Germany, I would draw. So if you watch this tutorial. He likes to do this little cartoon.
+01:15:52
+And so in this case if you suppose that I have modeled one included model to include in the Model three
+01:16:02
+And then I compare the kind of
+01:16:07
+Marginal likelihood that can get
+01:16:10
+So, d are the possible data set.
+01:16:15
+And because model. One is small. It's putting mass on the small number of data points, some sense. It does support on a smaller number of data points in the cartoon way. And so then if we have say a uniform distribution of all of these
+01:16:34
+I can put a higher mass on every of the small number of data points. So this would be p of the given them one
+01:16:43
+But now Model T is bigger because it has to integrate over one, I need to spread it out more. So for example, this would be p of the given them to and then I could have said that the biggest model which get even the smaller
+01:17:01
+Margin electric
+01:17:03
+That's what the point now is, let's see, I observe other that point here.
+01:17:08
+Well then you won't you won't pick the biggest model because
+01:17:14
+The marginal likelihood for the biggest model will be smaller because it had to put mass on more example.
+01:17:22
+More possible observations. And so you would pick this one because this one actually even the smallest. It actually doesn't explain that all the data.
+01:17:31
+And so that's basically the argument that the marginal likelihood. It doesn't really overfit because it has to some two, one. Okay.
+01:17:41
+And so basically
+01:17:45
+What Zubin was pointing out is that when I use d given m this is normalized over d
+01:17:54
+As it
+01:17:58
+Being given them is normalized
+01:18:04
+Over
+01:18:06
+Possible observation. So that's why you cannot put super high probability over the possible observations versus if I use the likelihood of the maximum like your parameter, which was the thing I mentioned at the beginning, maximum record parameter which depends on the
+01:18:24
+This actually is not normalized because the parameter depends on the data set. And so this can actually overfit 3D back
+user avatar
+Unknown Speaker
+01:18:38
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:18:41
+So in some sense, if the number of models smile marginal like who is fine, but you know, it's important to keep in mind that because it's still some kind of a
+01:18:54
+Non provisional approach the type to maximum likelihood can still overfit if the number of model is big.
+01:19:04
+Over fit.
+01:19:06
+If
+01:19:09
+Have many models.
+user avatar
+Unknown Speaker
+01:19:15
+Right.
+user avatar
+Lacoste-Julien Simon
+01:19:18
+And so an example of crazy amount of model is I could decide that the probably I defined weird model such that the quality of a specific observation, given the model is just a clinic or a delta on this.
+01:19:34
+Observation.
+01:19:36
+Okay, so basically what happens there is, I have my data and then I have a spike for model one spike from a little to spike for Model three etc. So basically, then choosing the the model, according to this criteria will to the overfit to the training set, because there's just too many models.
+01:20:22
+Alright, so I'm not sure I understand your question, Jacob.
+01:20:27
+But
+01:20:35
+Because the frequent is naturally estimate models by maximum Nike doesn't make any sense. So the frequencies would use held our test set or cross validation, just to make models.
+01:20:49
+And so
+01:20:52
+And this doesn't work. Innovation framework because the Beijing only
+user avatar
+jacob louis hoover
+01:20:55
+Look,
+user avatar
+Lacoste-Julien Simon
+01:20:55
+At the data that you have. It doesn't look at other data.
+user avatar
+jacob louis hoover
+01:21:02
+Yes. I mean this setup looks like. Sorry. Sorry, I guess. I mean, the setup looks like doing the frequency based approach only without the holdout validation, which looks kind of scary.
+01:21:14
+And. But maybe that's maybe I'm just thinking about it wrong.
+user avatar
+Lacoste-Julien Simon
+01:21:18
+Well, so the thing is
+01:21:21
+So, so this is the same thing as doing maximum like you
+01:21:26
+Right. It's just that instead of having an actual functionality marginal likelihood function. And so when you're a frequent this you estimate the parameter by maximizing the likelihood. And when there's all the parameters you can still over
+01:21:38
+Here, it's the same thing. If I have a lot of models I could still overfit. But usually what happens is you don't have that many models you have say like K models.
+01:21:46
+Were canes, a small number, which could be different graphs and then what you look is Western martial likelihood for each of those and
+01:21:56
+You MAXIMIZE OVER THESE AND because there's a small number, you're fine.
+01:22:05
+So Dora is asking, is this a theoretical insight or is this actually use practice. How can we ever marshmallows over to Paris. Yeah. So you can use sampling or rational methods to marginalize over parameters. Sometimes you can do it in close form.
+01:22:19
+And so a good example that you see in the last lecture is for gas should processes. So, gosh, and processes. There are basically fancy
+01:22:28
+infinite dimensional gal shins and they will depend on parameters for Colonel function and the Colonel function is basically a parameter ization of the covariance matrix and your dash. And so you need to estimate the parameters of your covariance function and
+01:22:47
+One way to do that is to marginalize the like you. And so this case you will marginalize over all possible parameters.
+01:22:53
+You get something which only depend on the hyper parameters of your kernel function and then you just pick the colonel function which maximize that. And the marginal execute can be computed semi I mean coast form. I mean you to inverse of matrices, but that can be computed
+user avatar
+Unknown Speaker
+01:23:12
+He
+user avatar
+Lacoste-Julien Simon
+01:23:21
+Model doesn't apply. Well, when you have too many models because in this case, first of all, that you know obviously have just this simple
+01:23:31
+So, yeah. So Jacob is asking you how does the cartoon break down when I have too many models. Well, so first of all, you're not able to just have this simple
+01:23:40
+Inclusion relationship, you get a lot of models which are not related to each other in any way like these, they're not. There's no inclusion information. They're just different models. They're saying complexity and none is included in the other one. And there's just a lot of them.
+01:23:56
+It's a because so here that this versus that versus this other one was because we were all included in each other and so they had these kind of like, you cannot assign as much mass on one and so that's why you you kind of pick the correct one.
+user avatar
+Unknown Speaker
+01:24:11
+Was this year doesn't have this inclusion.
+user avatar
+Unknown Speaker
+01:24:14
+If that's kind of the intuition. I could give for them.
+user avatar
+Lacoste-Julien Simon
+01:24:19
+Okay, so, so let me just give a few things before I get over time. So as you're asked, How do you compute the marginal likelihood. So you need to do approximation, how to compute marginal likelihood
+01:24:35
+So you need to compute an integral over your parameter
+01:24:40
+And so usually this is intractable in this in a few special cases like the ocean. So you will use approximation.
+01:24:52
+So you could do virtual in France.
+01:25:00
+Or sampling
+01:25:03
+So you basically complete your integral by doing multicolor integration.
+01:25:09
+And there's also some simple approximation which has been proposed, which are much simpler than these rational method.
+01:25:16
+But they have been analyzed. So one example is the Bayesian information criteria.
+01:25:24
+And you can think of it as making a tailor approximation of your, of your posterior over the parameter and then integrating it out because you get like a kind of a Gaussian and you can integrate
+01:25:39
+And in effect what happens is you count the number of parameters in your model, in some ways, but I don't have time to go into detail.
+01:25:48
+And so what I would like to finish today with is quickly talk about causality.
+01:26:02
+And so, in particular, there's this thing called structural causal model.
+01:26:15
+Which is a generalization of graphical model. So this basically takes graphical model and add something about intervention.
+01:26:29
+Is because because it becomes relevant when you can intervene on variable. So the idea is, I will say all my probability
+01:26:40
+Of observing some possible value will be a standard the GM. So I would have a property over x i given x by an end data I
+01:26:51
+And then the idea is that say my observation probably teeth. But then I can intervene on some node in my graphical model. So let's say for example, I have a causes be
+01:27:06
+And so the semantic here. And so here I would have
+01:27:11
+This would give me a
+01:27:14
+X be given X A, and then I would have a marginal over exit. Right.
+01:27:19
+And so what happened there is, if I intervene on the cards.
+01:27:24
+If I make an intervention on a
+01:27:28
+The conditional one change. So the idea there is that the only the marginal and a will change under this intervention, because of the causal structure.
+01:27:39
+So if I intervene on a the conditional doesn't change, which means then that depending on if possible. If I said the value x say to some specific that you will then be will depends
+01:27:51
+On the value x say using this conditional from their observation and if I intervene and be because the arrows in this direction. Well, then that means that I set be to a specific marginal
+01:28:03
+Which depends on my intervention. And so this basically conditional is disregarded in this model because I'm intervening on the I'm replacing the conditional of x be given x a buy a new one coming from intervention.
+01:28:18
+And so the integration models is depending on where the arrows are you will actually have different effect.
+01:28:26
+So when you intervene in a cause the conditional don't change. So then there's propagation of effect on what you intervene was if you're doing an effect. Well,
+01:28:35
+The cars didn't have any conditional in the other direction. Right. So, then they're not affected along here that the distribution of Rec. See here. I mean, depends on the margin on Linux.
+user avatar
+Unknown Speaker
+01:28:45
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:28:46
+So that's the semantic our structural cause model, which is very different than graphical model graphical model.
+01:28:53
+Like if I look at these two possible direction. Let's say I had the arrow. The other direction, the set of distribution which I could characterize was the same in both directions. So there was no way to select the correct direction, right, there's no difference between them.
+01:29:10
+So if I add intervention, then I could distinguish these tips because the effect of the intervention will be very different, whether A is a cause or whether aids and effect. Okay, so you can identify so you can identify
+01:29:25
+Call calls all direction.
+01:29:30
+There's two main ways to do it either via intervention.
+01:29:39
+So, you, you, you, you, you can interact with your phenomenon and you can set some variable to specific values or to a specific distribution, not in influencing the other variables or via
+01:29:54
+Parametric assumptions.
+01:30:00
+So if
+01:30:04
+The set of distribution which or
+01:30:09
+portrays in a specific way is not the same as the other direction. So for example, this is coming from Bernard Shaw.
+01:30:18
+Book, but let's say I have x and y as my variable. So there's a question is why the cause of X or is x, the cause of why and let's say I make a Patrick assumption that why given x is actually a linear relationship with gas should noise which are independent.
+01:30:38
+Okay.
+01:30:39
+Well, if I flip the model around and I looked at x as a function of why I will still get a linear relationship but not independent. NOISE The noise will have some dependence, because when I will rotate this thing you'll see that the noise.
+01:30:54
+Mixes things around. Okay. And so if I looked for this parametric type of assumptions that oh, I have independent noise as a function of x, which is Gaussian
+01:31:04
+The set of distribution model in one direction is different than the one in the other direction. And so then I can identify the correct direction by just doing maximum likelihood and finding the correct distribution, because they don't they don't model, the same set of distributions.
+user avatar
+Unknown Speaker
+01:31:21
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:31:24
+But the problem is, okay, well, you need to make assumptions. So if the assumptions are wrong. So for example, if the phenomenon is not linear within a bit gushing then the causal without intervention, you won't be able to identify the causal directions.
+01:31:42
+Okay. And so why cause our models are useful well because then we can first. You can also help estimate the parameters better when you make these
+01:31:51
+Parametric assumptions to threats drive you have the correct assumptions.
+01:31:55
+But the other ways, especially like if you want to know, how does a system behave under intervention, you need the causal model because the observation.
+01:32:03
+Distribution won't tell you how it how it how it behaves under intervention in particular in the two variable case.
+01:32:13
+If I intervene on a if I am in this situation, it's very different. And I'm in this situation. So in this situation when I intervene on a be doesn't do it doesn't change at all was in this situation, if I intervene on A, then B will be influenced by the value of a and I didn't use Tipperary
+01:32:33
+Is there any question about that.
+01:32:51
+The answer to your question is yes.
+01:33:00
+He is confused about this section what an integration model is will we be seeing more and because it are doing a review it next week actually. I just wanted to give you the high level idea. So let me try to clarify things here. So in a structural chasm, all, all I'm saying is that
+01:33:20
+Let's say I
+01:33:22
+Intervene
+01:33:24
+On node that's called j as it
+01:33:33
+So the semantic
+01:33:38
+Of intervening
+01:33:42
+On node.
+01:33:45
+It's called a j
+01:33:47
+Means that the distribution of X given
+01:33:52
+Intervention
+01:33:57
+On Jay
+01:33:59
+Will be product for i not equal to Jay
+01:34:05
+Of the original
+01:34:11
+Model. So the parameter the same everything is the same. So nothing has changed as the observation model, but then I will have p on x j
+01:34:24
+Which will depend on my intervention.
+01:34:27
+So it doesn't do so. I mean, I'm I can set it to arbitrary value depending on my intervention, I could put x g to a specific value for example. And now, what happened is that all the other factors stays the same.
+01:34:45
+Does this clarify if the model of intervention.
+01:34:51
+And so in the two node center setting. I have a marginal an eight and a conditional of beginning
+01:34:58
+So if I intervene on a and, in particular, I set the value of eight. So basically, my marginal and a will be a spike on the specific about
+01:35:07
+This is valid, then from the structural causal model. I know that the conditional have a big have any doesn't change. And so then basically my distribution of be will be x the p of x be given the value so and so, in some sense, it will change its distribution compared to before.
+01:35:26
+Marginal
+01:35:30
+Can witness temporal relationship in the data in a principal way to determine causal direction.
+01:35:36
+Yeah, I mean if you if you think that the time you know kind of determine like
+01:35:43
+That you know if you intervene in the past 30 few intervene in the future. It shouldn't influence the past so indeed, there's a bit of causality implicitly in the inner in a temporal model.
+01:35:58
+Yeah.
+01:36:00
+Well then I missed my
+01:36:02
+Camera trick assumption.
+01:36:07
+Okay, but I don't want to go too much over time because we got feedback from the students that we prefer not
+01:36:17
+Respecting enough the schedule. Now that we teach online.
+01:36:22
+So in my, in my side is because I see why it's recorded so even if they have to go to another class, they can always just watch the recording later but stuff.
+01:36:32
+Alright so let me stop the recording.

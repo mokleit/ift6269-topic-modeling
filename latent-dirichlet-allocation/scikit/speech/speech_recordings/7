@@ -1,0 +1,1845 @@
+Lacoste-Julien Simon
+00:00:03
+Yes, so last class was fairly abstract with the so called decision theory and then I finished by just mentioning different estimators
+00:00:16
+Which we would might want allies, the properties. And so I mentioned it. The Emily, the map method of moments. So now, today, I will give you a last fourth type of estimator, which relates to what we do machine learning.
+00:00:32
+And talk about a few properties of Emily and then we'll go. We'll start to go much more concrete on
+00:00:40
+With classification approaches and regression. So we'll talk about linear regression, etc. So that's the plan.
+user avatar
+Unknown Speaker
+00:00:51
+Let's see.
+user avatar
+Lacoste-Julien Simon
+00:00:53
+So today will do
+00:00:59
+Finish.
+00:01:01
+Example of estimators
+00:01:05
+And we'll do
+00:01:07
+Linear regression
+00:01:12
+In a bit more gory details that you might have seen in other classes.
+00:01:16
+So,
+00:01:19
+So,
+00:01:21
+Another example of estimator.
+00:01:31
+So the example for that didn't have time to do last time.
+00:01:35
+So this basically is doing empirical risk musician. So if we are in the context
+00:01:44
+Of prediction.
+00:01:46
+In the mission running sense of just learning a mapping from input output. So the action space is, you know, set of functions from x to y.
+00:01:58
+This is just quick notation to mean that. So x is the input space.
+00:02:07
+And why is the space.
+00:02:16
+Then an example of estimator for that.
+00:02:20
+So this is, I've been different. And like the other example I gave, which was this meeting a parameter here, you know, the parameter represent the whole function.
+00:02:29
+But so an example of estimator which from observation would tell us what's the prediction function we want is using
+00:02:41
+empirical risk position.
+00:02:45
+Empirical
+00:02:50
+Risk
+00:02:51
+Minimization
+user avatar
+Unknown Speaker
+00:02:54
+Maybe
+user avatar
+Lacoste-Julien Simon
+00:02:56
+My position.
+00:02:58
+But the risk between quote because this is the Vatican risk. You remember
+00:03:03
+Like the
+00:03:05
+The Vedic risk, which is not the same thing as the frequent this risk.
+00:03:10
+IE basically the generalization air.
+00:03:18
+And so this is often called er em.
+00:03:24
+And
+00:03:26
+And the idea is, I will have my laptop risk. Oops.
+00:03:32
+I Jewish an air.
+00:03:37
+Wrong color.
+00:03:40
+So,
+00:03:44
+We have our generalization error which dependent on the true distribution p that we don't know, and our action which is F in this case. So by definition is the expectation over or random possible test example.
+00:04:01
+From P of the prediction loss. And then we have possible ground truth why. And then our prediction effort capital X right so that's just a transition error.
+00:04:12
+And the idea in our M is you replace this
+00:04:17
+This intractable. Well, this unknown expectation
+00:04:22
+With the empirical version. Right. So the empirical expectation
+00:04:27
+Of the loss.
+00:04:29
+Which means that we're using the empirical distribution of the data. So it's basically summation over today said
+00:04:37
+Average of the observed last on the training examples you guess
+00:04:44
+And yeah, we could use
+00:04:50
+It's us because now we have instantiated the protocol. So it will be. That's a why I
+user avatar
+Unknown Speaker
+00:04:57
+am so excited.
+user avatar
+Lacoste-Julien Simon
+00:05:03
+There's somebody didn't mute themselves.
+00:05:15
+So now the effort in the ER an estimator f hat er M is just minimizing
+00:05:24
+This training air.
+00:05:26
+Over some hypothesis guess
+00:05:38
+Would be the hypothesis.
+00:05:45
+Okay, so very standard approach in the shirt.
+00:05:49
+And you could even have a rigorous empirical risk and innovation by adding a regularization term which, instead of just minimizing the training error you also add
+00:05:58
+Some notion of measure on you know penalty on on different functions which could be the norm of the parameter square, for example, help to know. We'll see. We'll see this when we talk about rich regression
+00:06:15
+Okay.
+00:06:17
+Any question about this estimator.
+00:06:33
+Okay. So Jacob is asking whether we would do the same kind of approximation for the frequent this risk.
+00:06:44
+So the thing is to do an approximation to the frequent this risk. You will need to have multiple training sense
+00:06:51
+Right, so this is if you want to estimate the frequent this risk. It means you want to estimate the performance of your learning algorithm over multiple training set.
+00:07:02
+Which is fine, but it's different because here, what we want to do is fine learning algorithm actually which means it has some training set and I want to use the training set to
+00:07:13
+You know, get an estimate of what should be my prediction function. It's only had one training set. So now, the idea is I actually use this training set to approximate My, my, the supposed test set performance of my argument.
+00:07:30
+But so that's, I think, kind of a philosophical difference between those two approaches. The other thing is I can say that, indeed, in, in, in probably 10 statistics you
+00:07:39
+Will in a lot of different places do empirical average to estimate some quantity. So this happens all the time. And there's also this notion of like bootstrap procedure, which is to estimate uncertainty about your, your method. So, for example, indeed, like if I want to estimate the
+00:07:59
+Variation of my prediction rule when I change my training set and I want to know what's the variants of my prediction when I change my training set. So that's also a notion which I need to
+00:08:09
+Take an expectation of our training set. So what you can do in kind of the bootstrap type of approaches us resemble with replacement. The training sets to get multiples subset of the training set.
+00:08:22
+And then you train your classifier on each of them. And then you look at what's the variation, then you can average these every variation and that gives you an estimate of how it varies. When I changed my trainings.
+00:08:33
+So this is called like a bootstrap estimate
+user avatar
+Unknown Speaker
+00:08:37
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:08:38
+And why does that Nick risk equal jurisdiction error. This is just from the setup so so so the journey mission. So the
+00:08:50
+Yeah, the case of prediction is just terminology. So I'm just saying, like, when we talk about empirical risk musician. So the, the risk in the empirical risk was this kind of quantity which is also where we call it missionary modernization.
+00:09:05
+So,
+00:09:16
+Okay, so somebody made a very good question. What's the difference between this hypothesis class and my set of functions.
+00:09:24
+Good question.
+00:09:27
+Usually you might decide that they're the same. So the idea is that this thing here.
+00:09:34
+Was a formalization of the problem we're trying to solve. Like, it's like this is like from a statistical theory perspective and saying,
+00:09:40
+Look, I'm trying to do prediction means I need to learn some kind of mapping from input output. I might decide that you know this. Include. Include all possible functions. Right.
+00:09:51
+And this is a high evaluate my prediction function, even though I don't know p. So those all of the ingredients for the problem and trying to solve.
+00:09:59
+Now, the way you try to solve it doesn't mean that you your, your estimator could decide to to output arbitrary function, you can decide that I'm only putting linear classifier.
+00:10:09
+And so I would restrict my class here and of course you know if if you're
+00:10:14
+The best if the distribution you have will have a prediction function which is very far from linear well this estimator will be very bad.
+00:10:24
+But that's fine. I mean, you're free to define estimator however you want, doesn't mean that they're good estimator. And actually, the assignment I gave you an example of an estimator, which was not very good. So
+user avatar
+Unknown Speaker
+00:10:34
+Yeah.
+user avatar
+Lacoste-Julien Simon
+00:10:36
+So, so that's this
+00:10:42
+The cake close case called fold cross validation would be closer to the frequent this risk.
+user avatar
+Unknown Speaker
+00:10:57
+Hmm.
+user avatar
+Lacoste-Julien Simon
+00:11:03
+That's a good question. So normally
+00:11:07
+The cross validation is to get a good estimate of the test there.
+00:11:14
+Because of training air. Let's say, for example, I do see I do classification
+00:11:20
+And I use the nearest neighbor classifier. Well, this always have zero training here.
+00:11:24
+So that doesn't give you a very good estimate of what's the test error because of course you cannot just say it would be zero tester. So doing k cold cross validation gives you an estimate of what is the the the
+00:11:39
+Oh no you're right, because you're changing the hyper parameters.
+00:11:43
+Your
+00:11:45
+Changing the decision rule when you do your basic training on a subset you estimate the value and use normally that's for model selection.
+00:11:55
+So yeah, I guess you could say that the cold cross audition would be closer to their frequencies.
+00:12:12
+It which which that are you talking about training error was a generalization there. Can you rephrase your question.
+00:12:29
+Yeah, so that make there's literally no training area and the Vatican risk because it's the true expectation. So the ethnic risk is is this expectation here which is not the training set. It's actually the, the true distribution.
+00:12:44
+Is just that we will replace it with an empirical version. When we have access to some like training examples.
+00:12:52
+That's the the empirical version will be the training air empirical risk is indeed training air.
+00:12:58
+True risk is the transition
+user avatar
+Unknown Speaker
+00:13:02
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:13:05
+Alright, so
+00:13:07
+Let's talk about the James Stein estimator because
+00:13:11
+I told you that Emily has issues.
+00:13:15
+The James Stein estimator.
+00:13:19
+It's a very mysterious estimator.
+00:13:23
+So this is basically an estimator.
+00:13:27
+For the
+00:13:32
+To estimate the mean of
+00:13:36
+Random of Gaussian random variable.
+00:13:41
+So you want to estimate domain.
+00:13:45
+Of some Gaussian with me new I'll put a vector, just to say it's a vector.
+00:13:52
+In multiple dimension and
+00:13:56
+Independent covariance matrix. So basically I have D independent Gaussian
+00:14:06
+Gaussian variables.
+00:14:11
+They are basically x i, or
+00:14:15
+Independent
+00:14:17
+normal with mean new I and the same sigma square. They're not ID, because they have different means. But they are independent.
+00:14:30
+Right and so
+00:14:34
+There's this estimator. So if you do maximum likelihood estimate of domain of gushing random variable that's something I think you did, didn't the knowing the 72 the estimate of the violence but
+00:14:48
+The estimate for the main is just the empirical mean except for cash is very variable that just take the empirical mean and that gives me the maximum likelihood estimate
+00:14:58
+And it turns out that deed and the empirical mean if you think the expectation, you get the normal mean so it's unbiased estimate. OK, so the maximum IQ this estimator is unbiased.
+00:15:09
+The gemstone estimator instead of being the bias is actually biased.
+00:15:14
+Okay, you basically shrink your estimate towards zero. You do.
+00:15:19
+But by with the cost of a bit of bias, you actually decrease the variance significantly
+00:15:29
+And so let's say, but much lower variance. Then, Emily.
+user avatar
+Unknown Speaker
+00:15:35
+Right.
+user avatar
+Lacoste-Julien Simon
+00:15:36
+And if you recall
+00:15:39
+The bias variance, the composition
+00:15:44
+That we use in the assignment.
+00:15:49
+For the square less
+00:15:54
+You had that the frequencies risk for the squared loss when the true parameter is theta and my estimate is data hat was the expectation
+00:16:07
+Of theta minus beta hat in to norm.
+00:16:11
+That's just the squared error expectation respect to the training set right and it composed into pieces. There was the biased.
+00:16:23
+Minus data square and the variance
+user avatar
+Unknown Speaker
+00:16:34
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:16:39
+And so for Emily, the bias is zero, but it has a high variance
+00:16:44
+For James Stein I increase a bit the bias, but the decrease significantly the violence and the some of the two is actually smaller than the Emily. Okay. So it turns out that the James Stein estimator.
+00:17:00
+strictly dominates the maximum likelihood estimate
+00:17:10
+The maximum likelihood estimator for
+00:17:16
+The bigger equal to three. So it turns out there's this weird phenomenon that in a low dimension, you can beat it. But if you have at least three dimension.
+00:17:26
+So this is the dimension of the meat right
+00:17:28
+Then using this this shrinkage, you can actually do better than maximum likely estimate
+00:17:38
+And what I mean by strictly dominates. It means that the frequent this risk.
+00:17:43
+Of the genocide estimator.
+00:17:47
+is smaller than the one for the Emily estimator, but this depends on data actually this is true for all theta.
+00:18:00
+And there exists some data.
+00:18:04
+Such that the risk is tricky smaller
+00:18:14
+And so from. So in this case, you remember like I talked about this risk profile and usually the cross. Well, what happens here is that the risk profile for the Jameson estimator is
+00:18:23
+Is always below the one from the Emily. So it's just a better estimator. So you should not use the value from this perspective.
+00:18:31
+Which means that when when that an estimator, as is the median by another estimator. It's called inadmissible in statistics. So Emily is
+00:18:43
+inadmissible.
+user avatar
+Unknown Speaker
+00:18:46
+In this case,
+user avatar
+Lacoste-Julien Simon
+00:18:51
+So by definition in the midst of all just means that gets limited by something else and to delete means well it's a bad estimator, because there's something which is tricky better than that. So why would you use it.
+00:19:10
+And so if you're curious about this. I recommend you look at the Wikipedia article on James time you'll see the estimator. It turns out that the the James Stein estimator, you can interpret the gemstone estimator.
+00:19:25
+As a empirical Bayesian approach.
+00:19:36
+So we'll see that will see what I'm pretty cool Beijing means in our
+00:19:42
+Much near in the class when we talk about the Beijing methods and more in more general it but a beige and mess up the idea was, I would put some prior to my parameter and then do these kind of like posterior kind of
+00:19:54
+Updates, and then pretty cool Beijing means that there's some parameter of my prior, which I didn't know how to pick them and events.
+00:20:04
+So if I have uncertainty about an element about some parameter, I should put a prayer over it. So you can actually. So let's say
+00:20:10
+I want to decide what are the parameter of my prior will. These are called hyper parameter. Well then, if you don't know how to choose your hyper parameter, because as a Bayesian you don't have a good
+00:20:20
+belief about it. There's uncertainty, then you need to put the prior over the hyper parameter. So this is called a hyper prior and then you can have
+00:20:27
+Also the time you might have uncertainty about the parameters of the hyper prior and then you put another prior so you get this your key of prayers
+00:20:35
+And being empirical Beijing means that I will fit some of these hyper parameters from data instead of just like coming up out of my thin air, which is what the true subjective patients would do. Okay, so
+00:20:49
+It's really cheating because of Beijing would never do that. But
+00:20:53
+Basically a practical frequent. This will use Beijing methods will do that.
+00:20:59
+What's the stepping crypto. Yeah. So this is kind of like
+00:21:06
+Yeah, so in this case means for the bigger equal to three. That can, or more specifically for the ocean.
+00:21:15
+To estimate the gun, the mean of a Gaussian, because in general like there's other places where the Emily's is admissible, but for
+00:21:22
+The setup of estimating the, the, the mean of a Gaussian and dimension three and more where, you know, the variance ball. There's a few kind of assumptions here, then it's an indivisible and
+00:21:33
+The
+user avatar
+Unknown Speaker
+00:21:36
+Only. There's a lot of punishing
+user avatar
+Unknown Speaker
+00:21:38
+Question.
+user avatar
+Lacoste-Julien Simon
+00:21:43
+Is it true that the L two frequencies. This is the same as the means squared error.
+00:21:50
+Well,
+00:21:53
+Yes and no. So yes, here, and no because means squared error, there's a question of what they mean respect to what right
+00:22:03
+And so the frequent distress would be the mean respect to the random training set, that's where the mean is coming. But for example, like in signal processing, you could just look at the main square error of your prediction.
+00:22:16
+And there's no notion of frequent this risk there. This is just an evaluation. This is just like something the square of your method.
+00:22:23
+Over some observation. So there's no frequent this risk notion there. So that's why I'm saying I mean squared error when the mean is respect to the
+00:22:31
+That possible training set that will be different. Once this risk for this squared loss because I forgot this risk would also be valid with other lost in the square last could be the binary that's or something.
+00:22:48
+Okay. Another question is, is the risk dependent, the loss function. Yes, it is. Does the gemstone dominate only for square loss.
+00:22:58
+Good question. I don't know if for the say the Edwin norm loss, it still would be the same. So this actually don't know.
+00:23:08
+Somebody knows that does know or you can also look it up, but I know it's true for the Altoona.
+00:23:15
+And then somebody asked is that it will the chain ever stop. Yes. So the funny thing here is like, Remember there was like
+00:23:21
+At the end of the earth or something. There's turtle. And then there's a on top of turtles and type of turtles effort. There's like there's like this mythology of like turtles on top of each other all the way up and
+00:23:33
+And indeed, for the prior over prior prior prior there's a notion of, well, when should stop and and the point is, like,
+00:23:41
+At some point there is not really uncertainty about the dependence, because they don't really matter too much. So it turns out that when you go higher in their yard key and then you tweak these parameters.
+00:23:51
+What's happened down, it becomes much less important like it. It's very insensitive. And so at this at this stage, people are fine say this properly encode my belief. I don't need to. I don't have more uncertainty.
+00:24:05
+I guess that's their answer. But indeed, in general, like you should only stop when you know that this is the correct and coding of your belief.
+00:24:17
+Okay.
+00:24:19
+So I could actually spend a whole lecture on James Stein, but I think we have other things to cover. So I'll move on.
+00:24:27
+But it's kind of a fascinating example but the main idea of James time is it's a bit similar to what we'll see in like
+00:24:34
+These regression, stuff like that. But we talked about trigger ization so when you read your eyes, your method you will usually bias it but
+00:24:42
+It will increase the bias, but it will decrease the, the variance and sometimes it will decrease the variance, much more which will make the method and more stable and nicer and Emily, usually called over fits and that way it has high variance
+00:25:00
+Yeah, I think the so Omar asked if the notion of an estimator being in message will depend on the wrist function or we always suppose Lt. So that's actually
+00:25:10
+A good question. I don't know enough of the details of the statistics terminology, because usually a lot of these terms when you take a statistics class during the basic
+00:25:23
+Classical setup and then the classical setup. It's all too warm and elsewhere loss and stuff like that. So, and, and I think
+00:25:32
+I think it's, I don't know. I don't think there's a theorem which says that if you're in admissible for one last year in Espanol for the other losses. So I'm pretty sure inadmissible is will be in the context of some kind of us.
+00:25:49
+All right. Alright, so let's talk about some properties of Emily to wrap up these properties of estimators
+00:25:56
+Properties of Italy.
+00:26:06
+And I guess these are synthetic properties.
+00:26:13
+So under suitable
+00:26:19
+Regulated conditions.
+00:26:28
+On the parameter space and you're Patrick family.
+00:26:35
+And I won't go into this conditions because actually forgot them and they're fairly technical and I think it's outside the scope of this test. But if you can look in any graduate statistics textbook, they will tell you.
+00:26:49
+Or I can dig them back up if you want
+00:26:53
+So basically if we define our estimator as the arc max.
+00:26:59
+Over the power of space.
+00:27:01
+Of the empirical
+00:27:04
+log likelihood
+00:27:07
+Expected like you would say to just
+00:27:10
+log of p of x i data.
+00:27:14
+So here I am.
+00:27:18
+Assuming that the data is ID.
+00:27:22
+And so when I evaluate the likelihood of the data, then it's the product of the likelihood. And so then when I think the login becomes
+00:27:30
+So whether the parties have this estimator. Well, the first thing is with very weak regulating conditions. It is a constant is consistent estimator.
+00:27:40
+So,
+00:27:44
+It is consistent
+00:27:46
+I eat converse the right data. And so the idea here. This is supposing that
+00:27:53
+We suppose that the end the training set is coming from.
+00:27:58
+P of feta race to the end. So basically, of course, you want to be consistent in the sense if the true parameter data doesn't lie in your parameter space, right. So if you don't have. If you're not modeling the correct set of distributions, then you won't be consistent.
+00:28:15
+Though you'll minimize your conversion to the minimum kill parameter
+00:28:21
+So you have consistency. You even have central limit theorem.
+00:28:33
+And so that means that when I looked at the deviations between my estimate and the true parameter this converge in distribution.
+00:28:43
+Through a normal with zero mean and some covariance, which is called the
+00:28:51
+Information matrix.
+00:29:05
+Which has to do with like
+00:29:07
+The derivative of the log likes you would
+00:29:11
+an expectation
+00:29:16
+Here I'm basically give you some keywords that if you want to go in more depth. You can look at the statistic textbook.
+00:29:23
+And then it is also called SM tactically optimal
+00:29:37
+And this is called the Kramer Rao lower bound.
+00:29:50
+Which basically means that
+00:29:55
+It has a minimal
+00:30:01
+Asset that exists variance
+00:30:08
+Among
+00:30:10
+All reasonable estimators
+00:30:26
+And reasonable as also some kind of regular condition. So what I mean by the aesthetic variance. Right. So the idea is
+00:30:34
+When I looked at the deviation of my estimate with the true value.
+00:30:42
+For for this means that
+00:30:46
+This random variable here will converge with it will have a distribution which is close to a normal as n goes to infinity, right. And so, in particular, what I can do is I can divide both by squared and and so it means that the variance here. It's basically divided by n.
+00:31:04
+And so, what you get is that
+00:31:07
+As an increases the Gaussian becomes more and more concentrated around zero, which means that your the difference between your estimate and the true thing is is is very, very small. Right, so it becomes very concentrated okay and
+00:31:25
+So, so this tells you how it various with the samples and and the value here. This is called the essence that the variance. So the bigger the essence of the variance
+00:31:36
+The, the more samples it take to get small deviation. Right. And so, so, so, so here it's a matrix because it's in multiple dimension, but if it wasn't dimension one, this would be just
+00:31:49
+Sigma square. The difference of your, of your the essence of the variants of you've got should have your estimator basically have your deviation of the estimate. So that's what it means by
+00:31:58
+When we say that Emily has minimal accepted the variance, it means that actually the other estimators will always have accepted the variance, which is actually
+00:32:09
+strictly bigger well this turkey bigger but big are equal, then the information matrix. The matrix is the best you could do, which is done by the Emily. Okay, so that's basically do what does Kramer rebel lower bound sets.
+00:32:24
+That was a bunch of questions.
+00:32:31
+Oh week i'm not saying week regularize I'm seeing regular routine. So this is regularity.
+00:32:40
+Here this is
+00:32:43
+So by week regularity conditions. I mean, there are some assumptions you need to make on the
+00:32:52
+The density and the parameter space to make sure that these result hold
+00:32:58
+Very good law.
+user avatar
+Unknown Speaker
+00:33:01
+Please curate
+user avatar
+Lacoste-Julien Simon
+00:33:06
+And indeed now important question from Suffolk, how does this a synthetic optimally to relate to the gemstone that's estimator.
+00:33:14
+So what happens is that for finite end the gym sign estimator dominates the Emily, but as NGOs infinity, the James Stein estimator becomes like the MLS there's no difference. And so they have the same except that the variance
+00:33:28
+And it comes a bit with the fact that the there's a there's kind of like you do a bit of like when you have a Bayesian estimator. When you say you do math estimate
+00:33:39
+There's a prior, and then there's a likelihood the effect of the prior becomes weaker and weaker, as you have more data point, because that's where all the information is going
+user avatar
+Unknown Speaker
+00:33:49
+OK.
+user avatar
+Lacoste-Julien Simon
+00:33:52
+OK. And then the fourth property.
+00:33:56
+Is invariance.
+00:34:04
+So basically the ML. He is preserved under reprivatisation
+00:34:20
+Okay, so what I mean by the. So, suppose
+00:34:26
+You have a by injection
+00:34:32
+From one set of parameter to another set of parameters will use prime
+00:34:39
+Then
+00:34:42
+If instead of estimating feta me stating
+00:34:48
+The premises ation FF data.
+00:34:54
+And that put a hat here. So that would be the Emily. This is the same thing as first doing Emily for theta and then mapping it with it. So if I do Emily in the transform space.
+00:35:04
+And I look at the powder which maximizes the likelihood in the transform space. It's the same thing as doing the Emily in the original space and then mapping it to the transform space.
+00:35:16
+And so this is actually very useful because then you don't have to worry too much about where you put the hat. So for example, let's say I want to estimate the, the variance, just something you didn't the assignment.
+00:35:31
+So I parameters, my gosh, and by sigma square
+00:35:35
+Well, this is the same thing as looking at the so this means you will take the derivative with respect to sigma square right because that's the parameter
+00:35:44
+And you can instead just take their respective sigma IE estimate the maximum that could pander in the sigma land where sigma is positive and then square it. So there's no difference between those two.
+00:35:59
+And similarly, you could have some crazy function like oh, let's say, now I want us to make
+00:36:06
+You know, I use sign in the proper because you have to have objection. So you need to restrict your, your possible parameter, but let's say I want us to make now that Emily, but I you sign of sigma square as am I my parameters, all you can just take sign of sigma hat and then squared.
+user avatar
+Unknown Speaker
+00:36:27
+That's the same thing.
+user avatar
+Lacoste-Julien Simon
+00:36:31
+And now, if it's not about rejection, like the sign example is not a bad direction.
+00:36:39
+You can actually generalized
+00:36:42
+The Emily.
+00:36:49
+With something called the profile like you
+00:37:06
+The profile.
+00:37:09
+Likelihood
+00:37:14
+And so
+00:37:16
+What do I mean by that. So let's suppose I have a mapping
+00:37:22
+From theta to a new set of parameters.
+00:37:30
+But there's multiple theta which are map to the same at that
+00:37:35
+So then it's a question of if I do Emily in space.
+00:37:40
+Which of the
+00:37:42
+Which of the parameter, should I use
+00:37:47
+Right. So by definition the profile likelihood would say
+00:37:54
+Likelihood
+00:37:57
+By definition,
+00:37:59
+It's like you will define on this new space. What we do is we actually look at the max over theta.
+00:38:08
+Of the points which are mapping to enter
+00:38:14
+Of its likelihood
+00:38:18
+So I will associate the likely I will define the likelihood of a specific ETA to be the likelihood for the parameter which actually maximize the likelihood of the data for all the parameters which are all mapped to the same at that
+00:38:39
+And then if we define
+00:38:43
+The maximum likelihood parameter in this transform space as just the arg max.
+00:38:53
+Of the profile.
+00:38:57
+Likelihood then we have
+00:39:02
+That the maximum likelihood in this space.
+00:39:06
+Is the same as same as just mapping the maximum next you in the originals, but
+00:39:12
+OK, so this profile accurate trick is one way to handle when there's no by injection
+user avatar
+Unknown Speaker
+00:39:40
+Oh,
+user avatar
+Lacoste-Julien Simon
+00:39:41
+Can I give an example of the profile acute situation.
+00:40:03
+Yeah, so let's say
+00:40:06
+Instead of prioritizing
+00:40:09
+Let's say g
+00:40:11
+Is
+00:40:20
+Let's say I have my mean I have a gash in with me view and vibrancy my square. And now I will say, gee, of mew is new square
+00:40:35
+This is different than the sigma square example of before because
+00:40:40
+It was only positive that which matters here now is that if I have a plus one or minus one.
+00:40:48
+So if I have a plus or minus mu their map to the same parameter. So I cannot distinguish a positive and a negative me
+00:40:59
+And so now the problem is, suppose that so I need to define what's the likelihood
+00:41:06
+Of my data given the value of new square, but now it's ill defined because there's multiple parameter, I could use in the original model and you have different likelihood
+00:41:17
+Okay. And, and you could have issues in the in the relationship between the maximum I could parameter. If, for example, sometimes I decided to choose the parameter
+00:41:30
+In the new space, which had lower likelihood of the data that I could like there's two parameters which are match to new square
+00:41:39
+And I picked them you which actually had smaller IQ. And so this means that, well, I won't pick this one because it has small IQ and then there's others which are bigger like you
+00:41:47
+Even though the other one which was mapped to the same one might have very high likelihood that that would actually be the maximum likelihood parameter if well defined. So that's basically what I'm saying.
+00:41:56
+This is just a way to make sure that the maximum likelihood in the transform space correspond to the maximum likelihood in the original space by making sure you always pick the likelihood in the original space which is maximized.
+00:42:13
+Does that answer your question, Dora.
+00:42:16
+Don't we end up with a worse estimator Indian
+00:42:20
+And in this case, know because
+00:42:26
+All you have so so
+00:42:28
+So basically, what it means is
+00:42:31
+Here when we estimate at Emily always says, well, we don't care about the design of the mean. Oh, we care is the square to me.
+00:42:40
+I'm trying to estimate. Describe to me.
+00:42:43
+I because it could be that indie like I have some observations and I wanted to estimate the square of the observation. I don't care what's the sign of the observation. Because the square is insensitive to the site.
+00:42:55
+And not just making sure that you know
+00:42:59
+This is well defined so that everything works.
+00:43:05
+And so if you didn't do this. Let's say you still need to define what should be the likelihood of a square and then there's a problem because there's multiple possibilities.
+00:43:14
+And then you will need to, for sure. Solve the maximum next to you in this transform space to get an estimator. And this, it's not guaranteed. In this case it will be the transformation of the original
+00:43:32
+Yes, I think for the for the Nick has answered, Jacob.
+00:43:39
+So I think
+00:43:41
+We're good. Oh, and by the way this terminology here, this, this is called a plugin estimator.
+00:43:52
+In the sense that, oh, well, we want to estimate a function of something
+00:43:58
+And. Well, one way to do that is just estimate this thing and then apply the function which is mean I plug my estimator inside the function
+00:44:08
+And for the Emily in this framework, it actually doesn't change anything. There's other places where this might change things. But here, this
+user avatar
+Unknown Speaker
+00:44:17
+Technology
+user avatar
+Lacoste-Julien Simon
+00:44:19
+Is there any other questions about Emily or properties of estimators. So the plan is. I think I'll take a 10 minute break and then I'll go over
+00:44:30
+Linear regression and logistic regression
+user avatar
+Remi Dion
+00:44:35
+I have a question. Sure.
+00:44:38
+What's the, what are the constraints on G here if we have any
+user avatar
+Lacoste-Julien Simon
+00:44:46
+Regarding condition.
+00:44:49
+That's my lame way to to escape so
+00:44:56
+I think you need some constraints like you, you need
+00:45:06
+Could you really just have an arbitrary function which is even is now in continuous
+user avatar
+Remi Dion
+00:45:14
+You said that even the
+00:45:18
+Non aggression.
+user avatar
+Lacoste-Julien Simon
+00:45:21
+As
+00:45:21
+If g is not about rejection then to apply this framework, you need to to properly define what would be the likelihood of the transform
+00:45:31
+Problem with this this profile like you, right. So we'll say will define the likelihood of a parameter eta as the max over all parameters which were mapped to this eta of the original model. So if you do that then doesn't matter. It's not by injection
+00:45:54
+Because it's a function, by the way. So this means that g is defined on all the feta. Alright, so, so that's one aspect.
+00:46:02
+Yeah, so I think I don't see any. So you might have some
+00:46:08
+Rigor the issues if these max.
+00:46:13
+Or not well defined right if there are infinite or if there's infinite. But if there's they're not achieved.
+00:46:21
+Their achieve at the boundary or something, I don't know. So there might be some weird stuff happening.
+00:46:27
+But, uh, yeah. I think it's very gentle.
+00:46:32
+Another question.
+user avatar
+Oumar Kaba
+00:46:38
+Yes, I did have a question that I asked in the chat.
+00:46:42
+For Amy's question school
+user avatar
+Lacoste-Julien Simon
+00:46:46
+Do you want to state it in words.
+user avatar
+Oumar Kaba
+00:46:47
+Yes. So I wondered if when doing a Bayesian parameter estimation with map, for example, or any other when
+00:46:57
+You can always find a prior that will make it equal to the maximum, like you mentioned, is it the case because in most example. I think we've seen in class, you can actually find a prior that will make it the same estimate the maximum likelihood
+00:47:13
+Formerly
+user avatar
+Lacoste-Julien Simon
+00:47:15
+So the answer is yes, but you need to generalize the priors. So there's this thing called em proper prior, which is a prior which is not a correct distribution, because it's infinite. It doesn't integrate to one.
+00:47:31
+So for example, let's say I do a merely of the Gaussian
+00:47:37
+Random variable. So I want to, I want to estimate the meat. The meat is could be anywhere on the real line. So it's unbounded set. So if I don't want to introduce a prior over to me and I need to put a prior overall real numbers.
+00:47:50
+And I want it to be uniform. If I don't want it to change the Emily right the map. Sorry, it's if the map to be equal to Emily. So then you need to put the uniform distribution to roll the real which is not possible. And so
+00:48:03
+What happens is, in many places people would call it an improper prior, which is just like you don't care that it's the prior was not normally visible because the posterior will be normalized once you add the an IQ than you realize. So so so that's kind of like a formal trick.
+00:48:24
+And so, but in general you can, as long as you define some kind of uniform thing.
+00:48:31
+Over your the
+00:48:32
+Thing you estimate then because when you do maximum map you multiply both the likelihood and the prior but you don't care about the normalization because it's just a
+00:48:43
+Constant. Well then, if the prior his uniform. There's no difference with the maximizing of their likelihood, which is what Emily's doing
+user avatar
+Oumar Kaba
+00:48:52
+I see. So it seems like even if you're a vision, you can still Backward. Backward. Backward. Backward engineer to find the prior that you want to satisfy any estimation want to do that.
+user avatar
+Lacoste-Julien Simon
+00:49:09
+Ah, I'm
+00:49:11
+Not necessarily, actually. So, so basically, there is this industry of approaches which is. That's what I'm, what I'm doing a support vector machine.
+00:49:24
+Which is not even Emily or whatever. It's just an estimator. Okay. Is there a probabilistic interpretation for
+00:49:32
+Estimating the classifier of support vector machines using properties and perhaps Bayesian approaches.
+00:49:38
+And then people came up with fancy distribution that when you do this approximation XYZ, then you get as VM or something, and that
+00:49:45
+For them, especially if you're Asian that's feel very satisfying because they say, oh, it's, it's like stuff. I know. And it gives some it's inside because oh
+00:49:52
+There's like the probably teams behind it. So it is kind of attractive as a as a method, but sometimes it's really, really hard to come up with distribution so that it work, and I'm not sure.
+00:50:01
+You could show that it's always possible. I don't think there's some stuff, which are weird. So already you cannot, you can already not even do it with proper distribution like I like okay I gave the example, if you're
+00:50:13
+Set is unbounded, then there's no way to define a uniform distribution on that. So this is kind of ALREADY CHEATING to do improper price.
+user avatar
+Oumar Kaba
+00:50:21
+Okay, thank you very much.
+user avatar
+Lacoste-Julien Simon
+00:50:25
+And Dora says if you repeat experience many times, well, if you have another training set. Sorry, a very large training set, a lot of observations, then
+00:50:34
+Map becomes like Emily. That's true. Yes, I'm saying that usually the defect of the prior becomes stability swamped by the data. Usually when so as NGOs and feed the give the same thing as small data question.
+user avatar
+Simon Demeule
+00:50:50
+Yep. So it's kind of a very general thing. And I don't know if there's really a way to answer this kind of shortly.
+00:50:58
+But just generally kind of the process of choosing a prior and going through the whole Bayesian process kind of didn't completely stick to my head and intuitive way. I kind of get the math and I kind of get why works but but still like baking a prior. It just seems very odd to me.
+00:51:17
+And I've kind of had a hard time just going through the examples. So is there maybe like a resource or something online you'd recommend reading
+user avatar
+Lacoste-Julien Simon
+00:51:28
+Ah, that's a good question. So
+00:51:36
+Right. So the first. So the resource on nine nine, we need to think. So perhaps like something like the practical Beijing or something. There's good books, but their books they not sure if there's a short text them that
+00:51:51
+You could also look at keywords like prior elucidation which is basically how to
+00:51:59
+Figure out prayers on things and or what would happen is usually that see your statistics and you would talk to experts and the expert has some good intuition about how things should behave
+00:52:08
+And then you try to kind of talk to them a lot to figure out how to formalize their belief about the system so that
+user avatar
+Simon Demeule
+00:52:15
+You know, you put the
+user avatar
+Lacoste-Julien Simon
+00:52:16
+You construct the correct prayer, according to their
+user avatar
+Simon Demeule
+00:52:18
+expert knowledge.
+user avatar
+Lacoste-Julien Simon
+00:52:23
+And Dora has suggested Beijing methods for hacker. Okay, so I don't know this book breakfast. Good. So
+00:52:30
+Two things I would like to say one thing is, first of all, you know, doing this kind of statistics is is an art which takes a lot of time like like people are trained statistician do a lot of years of training and practical
+00:52:42
+Things to build up this intuition about
+00:52:44
+Which statistical procedure to use in which situation or if they're Bayesian, you know what, how to build my prayers and support.
+00:52:51
+So it's, you know, it's definitely non trivial and we won't be able to do it to just in this class, and the other aspect I would say is that the general rule of thumb for you to come up with a prayer is just think about if you had observed this phenomenon in the past.
+00:53:06
+Right. So, for example,
+00:53:09
+The coin flip. Example is
+00:53:13
+The idea is, when you put a prior, which is a beta, you have this parameter alpha. It's a, it's a, it's a, heads or tails. So you have the parameter alpha and beta for your beta distribution.
+00:53:25
+And these are called prior counts in some sense that say you put one in what it means that you've observed once in the past head and once in the past that tail.
+00:53:34
+And
+00:53:36
+And that's why, in this case, it's still
+00:53:41
+Yeah. And so if you instead put 1000 1000 as your alpha and beta
+00:53:49
+The beta destruction will be much more concentrated
+00:53:51
+Around one half.
+00:53:52
+It's mean because you've seen a lot of observation and the were very, very equal
+00:53:57
+And so you're more. This is like a stronger prior in the sense that you're you're
+00:54:01
+you're committing much more on the fact that, oh, I know that the pounders should be around one half because I observing the passive thousand head in 1000
+user avatar
+Simon Demeule
+00:54:10
+Tail.
+user avatar
+Lacoste-Julien Simon
+00:54:11
+And so then that and then when you add your likes you update you will use combine your observation with that and it's just adding the counts. You've seen right so the to start with alpha beta prior
+00:54:22
+Than the posterior becomes alpha plus the number number of time I've seen becomes a beta plus here with off up as number of times I've seen head and beta number of times details. For example, and so
+00:54:35
+And so
+00:54:37
+You can think on the sense of constructing the the prior from just prior observations or interpreting what are the parameters in the prior from like observing things
+user avatar
+Unknown Speaker
+00:54:49
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:54:54
+Now there was Ezekiel.
+user avatar
+Simon Demeule
+00:54:57
+Um,
+user avatar
+ezekiel williams
+00:54:58
+Yes, I asked a question earlier that I think was just missed in the chat. I was wondering, are for starters, if we're talking about a consistent estimator, then the
+00:55:10
+The variants of the estimator will converge to zero as the sample size goes to infinity, right, or
+user avatar
+Lacoste-Julien Simon
+00:55:16
+Well, so this is again going back to this technical point that I discuss in Slack about the assignment is that if you have
+00:55:26
+So so consistency here.
+00:55:31
+I've used the standard terminology of consistency, which is convergence and probably
+00:55:37
+When you have the bias and the variance goes to zero.
+00:55:42
+You have that the squared, the expected squared error.
+00:55:48
+By the bias vertical position will go to zero. So you'll have something like
+00:55:54
+Expectation
+00:55:58
+So if the bison the reins goes to zero, you will have that expectation of beta hat minus Theta.
+00:56:06
+Norm square, this goes to zero as and ghosts and fee. Okay. And this is called El to convergence for a random variable and an L to convergence implies convergence and protein.
+00:56:22
+And so it's a stronger thing.
+00:56:24
+And so if you have
+user avatar
+ezekiel williams
+00:56:26
+Or sorry, go ahead.
+user avatar
+Lacoste-Julien Simon
+00:56:28
+Yes, if you have the bison the variables to zero. It's so it's definitely consistent also in this week or sense, which is this one here.
+user avatar
+ezekiel williams
+00:56:34
+I guess. So it's possible to have a case where you'd have convergence and probability that the variance would not go to zero.
+00:56:40
+Yes. Okay.
+user avatar
+Lacoste-Julien Simon
+00:56:43
+Can you think I gave an example on Slack.
+user avatar
+ezekiel williams
+00:56:45
+Okay, then I will, I will look at check that out. And then, I guess, I guess, in that case, in that case, then this is when
+00:56:53
+Because I was wondering, in particular about some topic optionality because if I guess if you have, if you have out to convergence when esoteric optimal view somewhat a moot point right because various will converge to zero, regardless of your if you're just looking
+00:57:08
+Out to convert yes leaders, so
+user avatar
+Lacoste-Julien Simon
+00:57:10
+That's a good question. But so here it is a subtle points. So what happened is that
+00:57:17
+I have is, I have multiply by square deviations or multiply by squared circle event and so
+00:57:27
+That's why this doesn't go to zero because but like if I only care about this deviation. Then I go I put this in the denominator. And then the variance goes to zero. So what's important is not
+00:57:38
+So when we talk about the synthetic variants, of course, the difference of my estimator goes to zero, in some sense,
+00:57:46
+But we want to know how fast it goes to zero. So that's the dependence is it's screwed. And is it and there's actually sometimes which some
+00:57:53
+Estimators which are much faster going to to the normal. It could be an end instead of scrutiny, for example. And then once we figure out the, the rate, there's still the constant, which could differentiate different estimators and that would be the constant, we're talking about
+00:58:11
+And so in a synthetic comparison of estimators you will look at the variants of one versus the other one. Yeah, something variants of one resist something variants of the other one and by the aesthetic variance. Here we mean the scale variants, I guess. So I guess, perhaps, to be
+00:58:29
+To be like more clear scaled in a sense that there is this square with end here.
+00:58:38
+So if I don't intrude. If I don't blow up my deviation by screwed. And there is something parents will be zero for everything. So there's no difference.
+00:58:48
+Okay.
+user avatar
+ezekiel williams
+00:58:49
+Yeah.
+user avatar
+Lacoste-Julien Simon
+00:58:50
+Cool. Alright, so it's 334 let's take a 10 minute break 344
+user avatar
+Unknown Speaker
+00:59:09
+You recording
+user avatar
+Lacoste-Julien Simon
+00:59:12
+Okay, so perhaps one comments important comments about statistics because
+00:59:21
+I feel, perhaps I think statistics is frustrating. Okay, in the sense that
+00:59:29
+It doesn't have a clear, you know, here's a method that you should use, and that's it. Don't worry about right so so
+00:59:38
+Let's say you know you do physics and am I muted.
+00:59:42
+No. Right. You hear me so because I saw Jacob like playing with this.
+user avatar
+Jacob Louis Hoover
+00:59:50
+Know my head, my headphones are not on. I'm sorry for confusing you
+user avatar
+Lacoste-Julien Simon
+00:59:53
+Okay, good.
+00:59:54
+All right. So yes, I was saying that, let's say you want to, you know, send a satellite to to to
+01:00:02
+Tu
+01:00:03
+On on on our, you know, you want to send something on the moon. You can use physics like Newton's laws of physics we can compute a bunch of stuff. It's actually a bit a bit unclear what to do, in some sense, firstly, you don't have simple things like laws of
+01:00:21
+Newton. Newton. Sorry to the like yes the mechanics laws for in statistics. So as I mentioned at the beginning, it's statistics is an ill.
+01:00:36
+Polls in risk problems. So I have observation I want to figure out with the model. The problem is that there's an infinite number of model.
+01:00:42
+Which could have explained the data when you only have a finite number of observation. So in general.
+01:00:46
+There's nothing you can do without some assumptions and then there's the question of, well, okay, are these good assumptions. Well, that's where the art comes into play.
+01:00:54
+So if you'd read us statistics textbook or if you take a lot of statistics class you'll get a lot of techniques.
+01:01:01
+You'll get a bit of insights on how these techniques behave and which will build a bit your, your intuition and your, your
+01:01:08
+Your knowledge of where to apply where but you will never have a foolproof guaranteed results. And so that's the bit unfortunate situation there.
+01:01:21
+And when I say often like it's an art with comes with a lot of experience that Cubana via data scientists also a lot of experience, like, you know, you'll start to build up some intuition and understanding which methods were where and why
+01:01:38
+Yeah, and myself. I don't actually have that much experience with doing a lot of applied data analysis. So I'm not
+01:01:45
+That helpful i a lot of other faculty, you have way more experience with that which can teach you more this kind of intuition.
+01:01:53
+So I have more background than the theoretical aspects of these that that analysis methods and
+01:01:59
+Once you start to juggle with these insights you also start to get a bit more understanding of what it means. Right. And so
+01:02:06
+And so now I'll talk about linear regression and prediction and you already start to get out, you'll always see some example of what I mean by getting some intuition and some some insights on what are the assumptions.
+01:02:21
+In the, in the problem. Okay.
+01:02:25
+So right now it's a bit vague, but you'll see it will come much more a bit more concrete. So let's talk about prediction first
+01:02:34
+And then we do talk about the linear regression space specific case so prediction.
+01:02:42
+I use the terminology prediction to mean that we want to learn or estimate a prediction function.
+01:02:50
+Or a classifier or aggressor from some
+01:02:55
+Input space to space.
+01:02:58
+And then if y is 01. This is binary classification
+01:03:07
+If y is a you know say k minus one classes than this is multi class.
+01:03:17
+Multi class classification and if, why is our
+01:03:22
+This is called regression
+01:03:29
+And x now will be, let's see, in our to the D right so doesn't have to be. But let's save. For concreteness, it's a it's a vector and Rd
+01:03:41
+So,
+01:03:43
+Now we start. So we have two random variables. So we can already talked about our simplest graphical model at two nodes graphical model I will have x i will have white
+01:03:55
+And now there's two ways to factor this joint on x and y, which gives two different perspective on modeling this thing. So if I looked at the joint on x and y. I can rewrite it as the conditional of why given x
+01:04:11
+And the marginal x. And so the conditional of why given x this in some sense, give you a prediction model, right, because
+01:04:21
+If I observe x. And I want to know what's the why associated with this x world natural one is just to maximize the property of why given x. So if I have pure why given X. Sometimes I know how to predict the best way
+01:04:34
+Is a prediction model. And this is model over x.
+01:04:41
+Basically
+01:04:43
+This is telling us
+01:04:46
+So let's say for example, why was a class like x is an image. And why is like is the zebra. Is it the cat or whatever. So perhaps these are naturally images. So p of x. That would generate that would be a
+01:05:00
+Model on what kind of images I would see in the world. Okay, which is 50 non trivial to build
+01:05:08
+Why given x as well, giving this image. What should it be unstable. So it's a bit easier. And actually, now you know CNN or really good OR RESONATE or these fancy neural network are very good at giving some class.
+01:05:21
+So I can also pantries, and the other direction, which will they now I want to know what's the distribution of X given why
+01:05:30
+And I have a discussion over why. So why the PR why this is just a prior over classes. And this is just telling me if I don't know the observation.
+01:05:40
+Over my distribution are there are some classes which are more likely than others, right, you could have that perhaps the example. If you look at video
+01:05:49
+Or yes, if you look on YouTube videos. Cats are overly represented. People love cats videos of cats. Right. So you could put a higher priority you for the cat class in this case and
+01:06:03
+P of X given why this would be called a class conditional. So now it's saying, oh, I know it's a cat. What does it look like in terms of images that would be what's called a class condition.
+01:06:20
+And there's this terminology that people have used, which is called
+01:06:24
+The derivative perspective for classification
+01:06:29
+So when we talk about the generative approach in the context of classification
+01:06:39
+What we mean is we will actually model p of x as well.
+01:06:51
+Whereas the another perspective is the conditional perspective.
+01:07:01
+Where we don't care about how images arise because we care is given an image, what should be the label. So we just want to know about what's the distribution of why given x. So we only model poi given us
+01:07:18
+Here and
+01:07:22
+At the beginning of the 2000s. This approach was called this competitive.
+01:07:29
+Was traditionally called
+01:07:32
+Descriptive
+01:07:39
+And the sense that it's trying to discriminate between different classes in a position towards the journey of approach, which tells you how to generate the whole data, though the whole x and y.
+01:07:49
+Was the. This was our approaches. I don't care how Gen X is generated and given x. Now I want to predict what's why. So I wanted to discriminate from which possible. Why should I assigned to this x
+01:08:01
+And I like to put this on a continuum.
+01:08:05
+These generative approach versus descriptive.
+01:08:09
+And that's what you work in the assignment. By the way, you will have some general approach and some conditional approach so logistic regression is an example of conditional approach to classification
+01:08:21
+And I do a continuum and I will have generative conditional. And then I was at something I would call fully this community.
+01:08:31
+And here you're getting something which is a bit
+01:08:35
+My own perspective on this because, by the way, I didn't make PG thesis on this primitive methods. So, so I've been working a long time on this medium approach and
+01:08:47
+In particular I relate the descriptive philosophy to statistical decision theory which I already explained to you, but it may explain
+01:08:56
+A bit more cuter what I mean. So first of all, I say it's a continuum. So on the left. When you are generative, you're not this competitive.
+01:09:03
+And the more to the right, you go, the more descriptive. You are so conditional is more competitive than generative, but it's still not fully distributed. So, and I'll explain what I mean by that.
+01:09:18
+Alright, so if you're generative from a class. If you know like a classification perspective, you would model the joint on x, y, so you'll have a parameter for your distribution on x, y. So that's why I put a little theta as a subscript
+01:09:35
+And how you estimate from data, you will do maximum likelihood estimate. For example, you know, you could Max, find the parameter which maximize both the property of x and y. So, so the extra seen is that will influence the parameters.
+01:09:49
+If you're carrying all the above the conditional you'll only have a parameter for the conditional of why given x. So the you won't
+01:10:00
+Say how x is generated the pampered won't talk about x and the way you will estimate your parameter will be by maximizing the conditional like you
+01:10:11
+Which is just what I wrote PFA like why gimmicks. So you only want to maximize the quality of the wise, given the X. You don't care out the X were generated because they're not useful for prediction.
+01:10:23
+And
+01:10:25
+The fully this community of approach.
+01:10:29
+Is
+01:10:32
+From a statistical perspective, it's focusing on the task, you're trying to solve. So if you're trying to solve prediction. See, my, my best at the beginning. I just said.
+01:10:43
+All I want is a prediction function from X to Y i didn't say I wanted to probably T on why given x here.
+01:10:50
+I'm giving a prediction function age and I will use this sentence transition era to evaluate it. So there's no notion of probably tease anywhere of
+01:10:57
+In terms of like what, why, given X. So if the task is to get a prediction function well the fully this kind of approach will focus on this task, which is to get to model directly the prediction function. So, it will model.
+01:11:12
+The prediction function. So, it will have a parameter for each prediction function.
+01:11:17
+And unlike the conditional approach this prediction function is not necessarily derived from a distribution rights not derived from
+01:11:29
+P of why given X, necessarily. I got already sent me mystery.
+01:11:36
+And how do you learn. Well, you could do. For example, like
+01:11:42
+regularize CRM, for example.
+01:11:48
+Etc. So so the so the way you will learn will be based on the thing you care about what's the carrot. The thing you care about the test error which has a loss in it and stuff and so
+01:11:59
+The idea is you will try to find a prediction function which does very well on that was when you do maximum conditional likelihood
+user avatar
+Unknown Speaker
+01:12:06
+Like
+user avatar
+Lacoste-Julien Simon
+01:12:09
+Here they will be
+user avatar
+Unknown Speaker
+01:12:12
+You know,
+user avatar
+Lacoste-Julien Simon
+01:12:14
+There will be a notion of
+01:12:17
+This prediction loss on the data set.
+01:12:25
+And so, in particular, if I change this loss, it will change my estimates.
+01:12:32
+Was I believe instead of squared air. I care about at Warner or if I do mission translation. I could put the blue scarf. Here are the rules score are different score, they will all give me different prediction function because it's used in the ways to make money method.
+01:12:49
+Was if I only do log likelihood
+01:12:53
+There's no relationship between this last here and the log likes you direct. It's just a distribution here. There's no notion of, oh, if I use Bruce core versus rouge.
+01:13:02
+Then what's happening is, like, No, I'm not talking about rescore rouge here I'm just talking about what was the distribution of why given x
+01:13:08
+Is. That's why I say this is not as descriptive as this one because it's less focused on the actual task, you're trying to solve, which was prediction, it's solving something more general which is getting a distribution why given
+01:13:23
+And so what happened when you go from left to right, is that the more you are to the left, the more assumptions, you're making implicitly
+01:13:35
+Because in the journey model. I'm also modeling X, even though I don't need to model X to predict why given x
+01:13:44
+So I need also to talk about this one over x which is not super necessarily directly related to the task of trying to solve. And so because of that. It's actually less robust for prediction.
+01:14:00
+So you're trying, you're actually solving a harder problem or a bigger problem you're trying to the submission of x and y.
+01:14:05
+You've had to dispute over x and y. You can condition to get why given x. And if you have condition why given X. You can even try to find the y which minimize the
+01:14:15
+The expected error, according to this last giving you the submission. You found so you
+01:14:21
+Once you have this insufficient. You could also derive a prediction function which which is good if the decision is good. So it's a more general thing.
+01:14:28
+But if you screwed up because your assumptions are wrong, then you'll have a bad distribution and then you'll get a really bad prediction function.
+01:14:36
+Okay. Whereas if you go into fully descriptive setup, you're in some sense making less assumptions.
+01:14:43
+Because in this case, you're not trying to model X. You're not even trying to model why given x. All you care about is predicting why from my ex.
+01:14:52
+And because the way you do it is by trying to that it does well on the the task, you're solving so
+01:14:59
+Even though perhaps you didn't have the right prediction functions. Perhaps the optimal prediction function is not in your family, you will still try to find once, which does
+01:15:07
+Pretty well, and your data set. And so that's why this actually using you get better prediction performance and it's more robust
+01:15:16
+Okay, but if you have good prior information if you add good journey models, I can part of your if your data is really
+01:15:24
+This is really generated from the journey model that you thought about simple, I think, oh, it's a gash in an x and y given x is
+01:15:31
+Is another guy ocean or something like that. And this is correct. Well then, then the jury of approach will actually do better than the discovery that approach because it has more prior information which is correct. Okay. So,
+01:15:44
+So that's a bit like this is different approach.
+01:15:49
+And you'll see this affecting the assignment. So in the assignment you will have different classification techniques. Some are generated
+01:15:57
+And the journey of approach will actually do very well when you, Jerry of assumptions are correct and they will do really bad when you're touring of assumptions or wrong. Where's the this way to approach to actually do fairly well in all situations because the more robust
+01:16:14
+Alright, some questions.
+01:16:27
+Okay. So Jacob asked, well, why isn't it the fully this primitive set up a
+01:16:36
+Just a special case of the conditional approach, where instead of having a distribution of why given x I put the deterministic.
+01:16:44
+Distribution right that's what you're saying, Jacob.
+01:16:47
+And the answer is, well, from a modeling of the prediction function. This is true, but from the way you learn, it's not the case because
+01:16:57
+You couldn't do maximum conditional likelihood. If you put
+01:17:01
+Property zero on the wrong thing. So, so that will give actually not very well defined criterion and
+01:17:09
+Moreover, here you have different type of learning algorithm with, for example, like, super vector machines which have nothing to do with
+01:17:16
+Conditional likes you. And this is what people use. Okay. And so, so, so the learning criterion. So you both have the fact that you model prediction function and the learning creature in the US is also more related to the actual statistical tests that you care about.
+01:17:31
+And actually this thing that I'm talking about here I go into much more detail in this advanced search or prediction class in
+01:17:40
+Which is that I'm teaching in the winter and the whole motivation there is that instruction prediction. These structured losses here are very important and it makes a big difference. Whereas if you just focus on these conditional like you would approach. You can miss that.
+01:18:12
+Well, that's a lot of questions, but I'll pick some of your questions. So the first thing is that
+01:18:20
+You're asking that rules is not a loss function. If I was an evaluation metric. Well, this is basically how you evaluate your errors. So if I have
+01:18:33
+Seven doing machine translation. So I would have a ground truth reference sentence which is the correct translation or one correct translation.
+01:18:42
+They will be your predicted translation and then you want to evaluate how well they're doing. So you want to evaluate that. So that's where you could use a blue score score for that, or this kind of stuff. There's different kind of
+01:18:55
+evaluation metric for that. Okay, so that's so that's for this customer. So it's not the same thing as a loss in the sense of training nuts right or or
+01:19:06
+What I call the surrogates nuts, which is what you use to train your own women.
+01:19:17
+She actually says that if your ad regularization in the fleet is going to have you're putting some assumption. Correct.
+01:19:25
+But and you know the the main difference here is that because you're focusing on the last year, in some sense, a bit more tied to the task, you're trying to solve. And so it's it's kind of a quote weaker or more robust assumptions, then if I just go to the probabilistic approach.
+01:20:00
+Can you rephrase your question it.
+01:20:05
+Or perhaps ask it.
+user avatar
+Unknown Speaker
+01:20:09
+It's your voice.
+user avatar
+Hattie Zhou
+01:20:17
+Can you hear me. Yeah. Okay. I guess I was just asking like when we model the function directly and we know exactly what the target is which is like modeling and distribution or how do we know we're getting closer to the right answer. What would be the
+user avatar
+Lacoste-Julien Simon
+01:20:36
+Yeah, yeah. So, um,
+01:20:40
+So basically when you're solving when you're here.
+01:20:44
+You're not doing prediction. What you're doing is is distribution modeling.
+01:20:49
+Like when when you know maximum likelihood is like the idea here is, I want to find a good distribution which model, my, my joint over x and y.
+01:20:57
+Here's the same thing, except that I like cares, the modeling to conditional. Well, okay. And so if you could have multiple observation why for the same x
+01:21:08
+You might have multiple wise, there's a bit of noise. For example, it might be that if you ask multiple humans the label for an image that could be a bit of
+01:21:16
+disagreement between them. And so you could. Now if you take a lot of humans, you take the limit of that would get a distribution over why for all the possible class. Right. And now what you would like is to really match that. That's it. Right.
+01:21:29
+So that's really a problem of distribution modeling. Now, if I say, well, now I want to tell you to make a decision. I don't care about the decision. I want to make a decision, which is what prediction is doing.
+01:21:38
+Well, what you could do is the basically the the motivated part would be that he
+01:21:49
+Hat of x.
+01:21:53
+You would do the ARG Minh over
+01:21:57
+Why tilde.
+01:22:00
+Of the
+01:22:02
+expected loss of predicting wide till the when you're learning model is correct, right. So, it will be summation over why of priority over that, you know, you have estimated your conditional priority. So we have plenty of white given x and then you look at the last between why and why
+01:22:26
+So that would be the well motivated way to predict if I'd give you a loss function like a blue score, whatever. And you learn to distribution of why given x, then the optimal thing to do. Kind of makes sense from just doing them right and then it turns out that if if
+01:22:43
+The last that you use.
+01:22:47
+Is the zero unless
+01:22:52
+Alright, so this is the zoo unless
+01:22:55
+Then
+01:22:57
+You get that the decision is just the Ark max over the property.
+user avatar
+Unknown Speaker
+01:23:08
+Alright, so
+user avatar
+Lacoste-Julien Simon
+01:23:10
+So you will just find a label which maximize the quality, you might sometimes give a different answer if some mistakes are more costly than others.
+01:23:19
+So if some mistakes are very costly, even though they might be a bit lower probable, but because you really don't want to screw up on them, you might decide to still predict them in, even if you're not complete. Sure. That's the, that's the one.
+user avatar
+Hattie Zhou
+01:23:35
+Thanks for clarifying.
+01:23:38
+You're welcome.
+user avatar
+Unknown Speaker
+01:23:39
+Thanks for asking.
+user avatar
+Lacoste-Julien Simon
+01:23:42
+A nice painting in the background.
+01:23:45
+Very beautiful.
+user avatar
+Hattie Zhou
+01:23:46
+Thanks. I didn't pick that
+user avatar
+Lacoste-Julien Simon
+01:23:48
+You what
+user avatar
+Hattie Zhou
+01:23:49
+I did not take that, but I like it. Okay.
+user avatar
+Lacoste-Julien Simon
+01:23:55
+Alright, so I think we're done with the questions. So perhaps uh let's move to linear regression
+01:24:16
+And so I will derive the linear regression or rhythm.
+01:24:21
+From a generative, sorry. Another during it from conditional approach. I will derive or motivate
+01:24:29
+With conditional approach to regression
+01:24:42
+Okay, so. So here we're doing regression. So why is a real number. And if I was just doing prediction. All I care is given x
+01:24:52
+I will predict the why. But now I will go in this middle category here where I was actually defined a distribution of why given x or perhaps I didn't put the thing. So I will define
+01:25:12
+A conditional of why given x
+01:25:16
+And that's how I would get the actual linear regression update
+01:25:21
+And so, and why do we do that well. Also, it gives you a bit of
+01:25:27
+Intuition on the assumptions we are making
+01:25:31
+Because, for example, if our general model of why given x is correct. That's how the data was generated. Well, then this will do very well if it's totally false
+01:25:40
+It might not do as well. Okay, so well. So let's see. So, what, what is the the model that we could think of. So we'll say that the distribution of why given x
+01:25:51
+Will use now w as a parameter is a normal on why
+01:25:57
+And the main parameter is the duck product between w x and then I will have some fix
+01:26:05
+Noise variable sigma squared. Okay, so this is just in our products. It's the same thing as saying W transpose x. So my W. Here is my parameter
+01:26:17
+So I will have as before. We said that x is an RD. So, W is also an RD. I have a dimensional parameter
+01:26:27
+And recall location. Right. So I have a normal with me. Mew and variant sigma square
+01:26:35
+If I want to represent the density of that. I will say the density on something. So for example, here I would say density on why
+01:26:43
+With mean you and sigma square. So that's a notation. Right. I put a condition here. It's just saying, I'm talking about. Now, the density on why for gushing with parameter Mew and very similar square
+01:26:57
+So that's our generative model of why given x
+01:27:02
+And equivalent Lee, you can rewrite it in a different way, you can say that why I
+01:27:11
+Is actually linear transformation of X with w plus some
+01:27:19
+random noise, where
+01:27:22
+Epsilon i is given x i, sorry.
+01:27:27
+This is always given them the observation or ID.
+01:27:34
+normal with mean zero and noise sigma square. Okay, so, so if if I say that, why is this linear transformation of x plus epsilon i
+01:27:45
+And if tonight is a guy ocean. You can just look at the decision and why directly and it becomes a gash and also with the same variants, but just to meet the mean is skilled right
+01:27:57
+And so in some sense, what we're saying is that, oh, if, if I look just at the conditional why given x I have. That's it. This is exciting. And this is why, then, it's a linear relationship because of this w transpose x and the mean is W transpose x
+01:28:18
+And I will have some kind of gal should noise around it.
+01:28:22
+Where the variance is sigma squared. So that's the distribution over why for a specific x
+01:28:32
+Okay, so that's kind of one model and
+01:28:38
+Now, importantly, a little notation aside.
+01:28:44
+We're going to use the offset the Titian for x.
+01:28:51
+We use a offset.
+01:28:56
+Notation.
+01:28:59
+For x
+01:29:02
+IE, you can think of x as being a vector where I have some original
+01:29:09
+instilled in Rd to the minus one. And then the last component. I'll just always say it's one
+user avatar
+Unknown Speaker
+01:29:15
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:29:17
+And so x still belongs to our d minus one.
+01:29:22
+And one will be basically this is like a constant feature.
+01:29:31
+And so why do we do that. So this is to avoid having to always talk about the parameter which is the slope of the linear relationship. And then, then the offset, which is the bias, also called the bias. So you have like that.
+01:29:46
+If I take the inner product between w and x. This is the inner product with the first d minus one dimension, and this is still
+01:29:56
+And then I have the last I mentioned, but because the X is on the ones always on one in my feature thing. This is basically like kind of like the upset right so the last parameter basically presented bias or the
+01:30:11
+IE, you know, I want to have a relationship between x and y. I might. I don't want to have it to be go to zero. Always I could decide to move it up or down. And usually, you could use be for that. So, here the last parameter of w will have this role.
+01:30:28
+And this avoid to having to talk about W en de separately. I could just say the pattern is is just W.
+01:30:34
+And know that because
+01:30:38
+All my arguments here are conditional I'm conditioning on x, I don't care how x were generated I'm free to decide that, oh, I'm a pending one on all the exits.
+01:30:46
+So there's no problem because I'm not talking about a decision over X data decision over x. And there's this weird thing. How do you get this one appearing right so that's different thing.
+01:30:56
+This is basically a notation convention to go faster.
+01:31:00
+Alright, so now this being said, I have now training data set.
+01:31:07
+Of x y i.
+01:31:13
+And the model here from a you know modeling perspective will say that x is coming from whatever we're not modeling. How excited came in. We don't care how x game in the might not be even independent the X could be anything. We don't care.
+01:31:29
+What we care about this why given x
+01:31:32
+So we say that why I given x i. These are modeling assumption is, these are independent Gaussian not ID, by the way, are independent Goshen with mean WT transpose excited and then burn sigma squared.
+01:31:49
+So that's our model. And so now the conditional likelihood
+01:31:55
+Of our data sets.
+01:31:58
+The quality of my observed why, given my exes.
+01:32:05
+By independence assumption.
+01:32:10
+Is the product of my individual conditional
+01:32:16
+P of why I
+01:32:18
+Given excited
+01:32:22
+And so now, if I take the lug of this thing.
+01:32:26
+The likelihood
+01:32:28
+The product will become a son, so I get summation from one up to n, and then I take the log of the
+01:32:39
+Density of a Gaussian
+01:32:41
+And so basically, I'll get the you get the x minus things square in the thing. Now when with the log the X does appear to just get minus
+01:32:52
+Y minus its mean which is w x transpose x i square divided by two sigma square and then I have some normalization constant, which are just constant anyway. So this is lug. I know they're not constant respect to sigma square
+01:33:11
+Here we go. So that's just taking the lug of a gosh, gosh, and density
+01:33:19
+And so now if I want to do maximum conditional likelihood
+01:33:25
+I just need to maximize this expression respect both to the parameter W and the proper sigma squared. Yeah. It started with the sigma square. You did it in your assignment or if you're late.
+01:33:37
+You will do it now for your assignment. So I take the derivative of that respect to the variable. And, as you remember, because the Emily is invariant
+01:33:51
+I can decide to take the reading respect to sigma square, instead of just sigma which is what I'll do. And I want this to be equal to zero to find a century point. And somebody asked a question.
+01:34:03
+ID versus the band mean
+01:34:07
+So I, I did means identically distributed here, they're not identical distributed because they have different distribution.
+01:34:16
+Like here why given X are not identically distributed because the mean of my parameter depends on x, right. So we have different distribution, but they're all independent
+01:34:30
+You get
+01:34:32
+So again, the, the inner product notation. I said, it's just the same thing as a transpose
+01:34:41
+That product.
+01:34:45
+Alright, so I take the derivative of this thing respect to sigma square, so I get summation from Isaac was one up to n. So where's the see oh no no I'm doing things erased.
+01:35:00
+Summation i was one to n.
+01:35:05
+Alright, so
+01:35:08
+This thing here is a constant respect to sigma square. So let's just put it all. So I have minus y i. Oops.
+01:35:15
+Minus y i minus W transpose x i square divided by two.
+01:35:23
+And now I have the derivative of one over sigma square respect to sigma square. So it's like one over x, I get minus one x square, this is minus one over x squared, like x being sigma square. So, this is sigma square square
+01:35:41
+And then the derivative of
+01:35:46
+The second part where I get basically minus one half.
+01:35:53
+And then the log of two pi separates it's a constant. I get log of sigma square, so I get one over sigma square
+01:36:01
+That's the derivative of luck of sigma square respect to sigma squared.
+01:36:06
+Okay.
+01:36:08
+And so I want this to be equal to zero. So what I do is I multiply both sides by sigma square. So, this goes away. This goes away.
+01:36:20
+And if I solve for sigma square I basically get that sigma hat statuary point I'll put Emily for now. But right now we still don't know it's a family. We just know it's especially point, but we'll get that the special report actually gives you a unique solution which is
+01:36:40
+Looking at actually the current squared error, some of the, the average square, which kind of makes sense.
+01:36:49
+So this is the empirical variance
+01:36:53
+Of my
+01:36:55
+Deviation. Well, I mean, yeah, so it's
+01:36:58
+So,
+01:37:01
+W transpose x i. If W was the correct value would be the true means, so y minus W transpose x i represent the, the, the average deviation, which kind of makes sense.
+01:37:17
+Okay. And so now
+01:37:21
+This is just a starting point. How do we know it's the global max. Well, that's where unfortunately we have that
+01:37:31
+This is not a concave function of sigma square
+01:37:36
+Or sigma for that matter.
+01:37:41
+So, because it's not concave. It's not because we found a century points to the global max. So like I mentioned, and Lecture five, I think, or six, I forgot. Which one, when you have a differentiable function which is the case here. You want to look at the special reports and the value at infinity.
+01:37:57
+Okay. And it turns out here that
+01:38:01
+It's clear to see that if I let sigma goes to zero. That's the limit on one side or plus infinity that's limiting the other side. The likelihood is actually much smaller.
+01:38:20
+Right, because if
+01:38:26
+As long as
+01:38:28
+You know, as long as. So this is always positive. So as long as some Why is not equal to WT X I, if I let sigma goes to zero, this will blow up to minus infinity.
+user avatar
+Unknown Speaker
+01:38:43
+And
+user avatar
+Lacoste-Julien Simon
+01:38:45
+This will grow up to plus infinity, but much slower. And it turns out that the the the combination of the two will always this piece will win. So as sigma goes to zero. This goes to minus infinity. And same thing as sigma goes to infinity. This also goes to minus infinity. So,
+01:39:04
+Basically you have that
+01:39:07
+Objective goes to minus infinity as sigma goes to zero or sigma goes to plus infinity. So, conclude
+01:39:18
+That
+01:39:21
+This is correct.
+01:39:25
+Global max.
+01:39:28
+For W fixed
+01:39:31
+So I you what I mean is fixed W optimize respect to sigma square. This is their optimal you get
+01:39:41
+Okay.
+01:39:45
+So,
+01:39:48
+Oh, this is a bit annoying. I have a bit of the patient to do
+01:39:59
+Okay, well let's start doing it and then I'll conclude next class.
+01:40:04
+So that's how the maximum likelihood parameter is for the variance. The fixed noise term. What about w. So I will actually introduce a bit of notation to
+01:40:16
+Make things a bit more team. So there's this thing as statistics called the design matrix which appears everywhere, especially in linear regression method.
+01:40:28
+Design matrix.
+01:40:31
+What you do is you take your, your data in each row of the matrix. So, you will define and this is now capital X, not a random variable. But this is the matrix. So,
+01:40:46
+Careful, careful when invitation. Now it's capital X, capital X is now n by the matrix.
+01:40:54
+Because that's pretty standard to use and statistics and it's defined as I just take all my data point, and I put them as rows.
+01:41:03
+Of my matrix. That's what it means by x one transpose. So that's the first data point that was a vector I put it as a rule by transposing it
+01:41:11
+And then I have the last data point, which is x transpose and so you have the columns and rows. Why is it like this. Why not the other way around. Why not vector way. Well, that's because in statistics, people used to have.
+01:41:26
+text files, where each row represents one, say for example, like each sample is one person and then you want to have the observation about the person. So if you do it like
+01:41:35
+one row is all the measurement of the person when you do like MATLAB type of computation usually things are stored as vector. So we actually makes more sense to store the transpose of the design matrix because usually you work by victors.
+01:41:50
+But that's, you know, just a different convention.
+01:41:55
+Alright, so that's our observation of x. And then we also put I'll use why now this will be a victor.
+01:42:05
+Which will be
+01:42:08
+The observation of why all as one end by one vector
+01:42:26
+Yeah, there's somebody is asking about zoom links. So if there's anybody here who have not yet feel the class survey, let me write it down again.
+01:42:42
+So feel this survey ASAP. Send me an email that you saved it. And then I'll send you information like the book the link to the textbook, the slack.
+01:42:54
+The password for the recording all these kind of things, but you have to sign up to this survey that I just put in the chat.
+01:43:04
+The link is dead. No.
+user avatar
+Unknown Speaker
+01:43:13
+No know looks to me.
+user avatar
+Lacoste-Julien Simon
+01:43:18
+You sure internet is not dead.
+user avatar
+Mahdi ZAROUR
+01:43:20
+I tried
+01:43:22
+I tried. I tried to access the link, but
+user avatar
+Unknown Speaker
+01:43:26
+It did not work for me.
+user avatar
+Lacoste-Julien Simon
+01:43:30
+Okay, might be some kind of like internet filtering or something. Yeah.
+01:43:35
+You
+01:43:36
+Press drive with the VPN.
+01:43:39
+Alright so let me just finish the the notation so that we're done with this part. It's very elegant. So why do I care about this design matrix. Well, now it turns out that if I take the the application of the matrix that must be used on the matrix with the vector w
+01:43:58
+This is the same thing as
+01:44:02
+Taking the product between a row and the vector w. So I'll have X. Once this gives me a vector which is the duck Park between next one and w, blah blah blah, x n, n w
+01:44:16
+Okay and this belongs to our end by one
+01:44:20
+And the beautiful thing now is that the summation from it was one to n y minus W transpose excited, which are my squared error my
+01:44:30
+Coming from the light. Like you, I can just rewrite it very succinctly as the norm between y minus x w el to norm square, so I can use this vector notation to very quickly write it down. And so now, this means I can rewrite
+01:44:49
+The minus slug of p of why one up to end, given the observation which I'll use now just the capital X. This is the design matrix. I've just summarize their own evolution in the design matrix. This basically gives you
+01:45:06
+The norm of y minus x w square divided by two sigma square and then there's some function of sigma square, but we don't care when we maximize respect the W because sigma squared is a constant perspective, W.
+01:45:23
+And so doing maximum conditional likelihood
+01:45:27
+Is the same thing as maximizing
+01:45:30
+lug of poi maximizing lug of poi is the same thing as minimizing minor slug. Which is the same thing as minimizing the squared norm, which is minimizing to the square. So, minimizing
+01:45:45
+With respect to w y minus x w square. What is this can be interpreted dramatically as projecting
+01:45:59
+Why
+01:46:02
+On the column space of the design matrix.
+01:46:06
+On the column space.
+01:46:11
+Of the design matrix X.
+01:46:19
+Right. Because when I take x times w, what I'm doing is I'm doing a linear combination
+01:46:28
+Over my D columns of x.
+01:46:34
+So this is the Jade column of x.
+01:46:41
+The column space of a matrix is just all the linear combinations of its column, which is what you get by multiplying x by all the possible W's.
+01:46:50
+And I want to find that inner combination of column which is the closest to why right and so you can think of geometrically. I have say
+01:46:58
+In Rd one column here another column here. So let's say this is column one, this column two. And then I take all you know combination of that. So you can think I take the span of these vectors. So that's like this to the space itself only had two columns. And then I have my
+01:47:18
+My y which belongs in
+01:47:22
+All not nothing. And yeah, this word vector and dimension and sorry. So I have y which is also in our to the end.
+01:47:30
+Which might not be in the span that might be outside that there might be no linear combination of your columns which
+01:47:36
+exactly match it, but I want to minimize the LTV norm. And so it turns out with what you get is the projection. So what you'll do is you, you get this projection. Whoops. A. I said, Read
+user avatar
+Unknown Speaker
+01:47:52
+But
+user avatar
+Unknown Speaker
+01:47:54
+I don't understand.
+user avatar
+Lacoste-Julien Simon
+01:47:59
+Yeah, that's right. So I will have the prediction and this thing here will be x W star, so that the correct coefficients or main or combination, such that when I looked at it, it is actually the closest to y, which makes a 90 degree angle.
+01:48:18
+And so the last thing I will say is that, so the Emily.
+01:48:25
+Parameter for for for the maximum like the conditional maximum include here's the aardman over w in Rd of y minus x double you
+01:48:38
+And so this is also why it's called the square
+01:48:42
+Because I'm trying to minimize the sum of squared error between my prediction x w x transpose x transpose w and the correct label. Why, right. So, maximum conditional likelihood. When you assume Goshen air is the same thing as minimizing the squared error.
+01:49:02
+Okay.
+01:49:04
+So, which means that, let's say I don't think the error or Gaussian. I think the error or Laplace then instead of a squared error, you will actually have a an absolute
+01:49:13
+Errors, which is not the same thing. And in particular, this would be more robust to outlier, because if you have a point which is super far
+01:49:20
+That you expected because it was an outlier. Well, it will have a huge squared error and it will be screw up your, your, your estimation of the correct slope. Whereas if you would use absolute error. Instead, it wouldn't be as sensitive to the outside.
+01:49:36
+Alright any burning questions.
+01:49:42
+So next class, we will continue on basically solving now the maximal next you to submit how to solve the square by getting the normal equations and a bit of inversion. And then we talk about the rigorous version of the square and do a map perspective on it.
+01:50:03
+Okay.
+01:50:07
+Cool. Alright, so I'll see you on Friday. Have a nice week

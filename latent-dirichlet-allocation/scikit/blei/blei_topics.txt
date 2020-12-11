@@ -1,0 +1,20 @@
+Topic: 0
+  said, police, people, military, air, killed, officials, army, 000, government
+Topic: 1
+  said, company, workers, president, drug, union, new, million, based, agreement
+Topic: 2
+  soviet, said, gorbachev, union, west, east, united, government, party, states
+Topic: 3
+  said, court, state, case, attorney, judge, law, mrs, federal, office
+Topic: 4
+  said, government, program, department, committee, report, defense, house, agency, officials
+Topic: 5
+  market, stock, said, prices, dollar, oil, new, higher, price, rose
+Topic: 6
+  new, 000, york, school, city, year, said, years, high, john
+Topic: 7
+  said, bush, president, dukakis, states, campaign, democratic, united, party, political
+Topic: 8
+  percent, million, year, said, billion, sales, 1987, month, months, report
+Topic: 9
+  said, people, south, years, year, don, like, time, just, children

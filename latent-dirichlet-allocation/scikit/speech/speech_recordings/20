@@ -1,0 +1,1785 @@
+Lacoste-Julien Simon
+00:00:03
+So,
+00:00:05
+At the end of last class I
+00:00:12
+Basically presented you this powerful result of the equivalence between maximum likelihood in the expansion of family with maximum entropy with woman constraints. And so today we will now present properties of exponential family as well as its formal definition and much more details.
+00:00:36
+And
+00:00:38
+I will also talk about how to estimate the parameters in prophecy graphical model. It's actually pretty simple. But it would go. We'll see the exponential family in glory details and
+00:00:53
+Estimation
+00:00:55
+Of the parameters in a PG AMP.
+00:00:58
+And we'll see that a lot of things are intractable. And so that will motivate also to do approximate in France, which I think I'll be able to start with sampling as an example of approximate indifference.
+00:01:13
+So that's the program. Let's start with the exponential family.
+00:01:19
+Spinning show
+00:01:23
+Family
+00:01:27
+And so, again, the motivation of talking about the expansion of me is that it's kind of a way to to present pretty common Patrick families in a unified way and show cool properties about it.
+00:01:43
+So what is a bunch of family.
+00:01:46
+It's a parametric family of distributions and I will see a flat or canonical
+00:01:56
+Explain the show family.
+00:02:02
+On some sample space script x
+00:02:09
+Is a parametric
+00:02:15
+family of distributions.
+00:02:22
+Defined
+00:02:24
+By two quantities.
+00:02:33
+So,
+00:02:37
+There's two things we need to specify to get the Patrick Femi, the first thing is called basically a reference measure. So it's h of x.
+00:02:48
+The new of x.
+00:02:51
+So this is called the
+00:02:53
+Reference measure
+00:02:56
+So this is fixed. It doesn't depend on a parameter. So this is coming into all the family and it tells you. Also, what is the support of your distribution.
+00:03:08
+And so this is called so this he is called the reference density
+00:03:15
+Because it's coming to all the members in your distribution and demo of X is called the base measure
+00:03:23
+Which tells you
+00:03:25
+The density is defined respect to which measure and I will
+00:03:33
+Mention two possibilities here.
+00:03:40
+To simplify like we want consider any other possibilities, but either it is the counting measure
+00:03:49
+Which basically means you have a PMS. Right. It's not a density to PMS.
+00:03:54
+So if you don't know what I'm talking about when I see the Come, come, counting measure, do not worry.
+00:03:59
+The important thing for you is that this means it's a discrete random variable, and that age of x for all possible values of x in the discrete possible set of
+00:04:09
+Facilities will tell you what's the base was the, the overall PMS for each point and then we'll have the expansion of family peace to modulate according to parameters and nature of x. In this case, usually just one, for example.
+00:04:23
+And then, but yeah. So, so this is just to deal, both with a discrete in the continuous. In the same way, and then it could be the bag measure when we have
+00:04:35
+In multiple dimension. When we have a continuous random random variable.
+00:04:43
+Alright, so that's basically something you have in common for all the expression of me.
+00:04:49
+Yes, so each man is asking what is meant by flat here or there are other types of expansion Geminis yes there is something called a curve as much of me. And so I will define it later. So for now, flat basically means actually the set of parameters is actually a full
+00:05:06
+Euclidean space, in some sense, it's not a curve manifold, but we'll get there.
+00:05:12
+So first component is this reference density second component is the sufficient statistics. So the sufficient statistics, it's a function from your possible observations to
+00:05:26
+Win us RP
+00:05:29
+So that means we have p dimension in your submission statistics. This is called the sufficient statistics Specter.
+user avatar
+Unknown Speaker
+00:05:41
+Sufficient statistics.
+user avatar
+Lacoste-Julien Simon
+00:05:46
+Vector
+00:05:48
+And I also use the terminology earlier and especially when we talked about the the maximum entropy framework. You can also think of it as the feature vector
+00:05:59
+The feature vector, which tells me what are the features of the possible observations that we use in our model feature vector
+00:06:10
+And
+00:06:13
+Then given those two pieces.
+00:06:18
+The family is uniquely define and so the members.
+00:06:25
+Of the family.
+00:06:29
+Will have
+00:06:31
+Distribution and I'll use annotation.
+00:06:35
+P of x.
+00:06:37
+Which depends on the candidate called parameter at that. That's where the flat and Kennedy call coming in.
+00:06:43
+And I will use annotation with
+00:06:47
+The base measure, just to because it will appear.
+00:06:51
+And so it is exponential of at transpose to x.
+00:07:00
+Minus the log normalization constant to make sure to distribution. And then I have HM x. The music's right and so the defining pieces.
+00:07:12
+Of your
+00:07:14
+Expression of family.
+00:07:16
+Oops. Are these two pieces that I mentioned. So it's the reference measure that to us as well as the sufficient statistics.
+00:07:24
+So these are the defining pieces.
+00:07:29
+And in some sense, implicitly, I assume, also, that I had like a sample space right for x, where these age of X is define and
+00:07:39
+The base measure and give you a mix.
+00:07:42
+But the other pieces are coming just from the Patrick family aspect. So basically,
+00:07:49
+The, the way the parameters entering the parametric family when it's flat. So that's where the curve aspects, if it's curve. It won't just be at that
+00:07:57
+It could be more complicated, but for using just the parameter directly here in front of this efficient the six. So this is called the kind of Nicole parameter 10 the call.
+00:08:07
+Parameter
+00:08:09
+And so when you think about the gash in where the parameters are the meaning of coherence. These are not kind of default parameters, because they don't appear just in front of this official statistics directly
+00:08:20
+And
+00:08:21
+This thing here is called the log normalization right and it's it's defined by just normalizing, your family, your distribution. Sorry, Norma lazing
+00:08:40
+Norm normalization.
+00:08:44
+Or it's also called the log partition function.
+00:08:53
+Our. It's also called the Cumberland generating function cumulus and generating function. These are all synonyms for the same thing.
+00:09:05
+And so that's the definition of an expert flat exponential family, let's go here. I guess when I zoom in doesn't fit.
+user avatar
+Unknown Speaker
+00:09:17
+There we go.
+user avatar
+Lacoste-Julien Simon
+00:09:28
+Alright, so there's a few questions here. Are there any scenarios. When, when will not use accounting other big measure. Sure.
+00:09:35
+If you would like to describe it density respect to something else in the bag manager.
+00:09:42
+And also will will have mixed distribution like if you have a mixed distribution. So, for example, you want to you want your base measure your base reference density to be a point mass at zero and see a gallon
+00:09:56
+So this is not a density respected a bag. It's a density respect to both in the bag, plus the contact measure on one. So it's a kind of a mixed
+00:10:05
+Density based measure and then you could have you could put this an Ex Machina family if you want it. I can and then you would just specify. What's the effect of the of the
+00:10:16
+Sufficient statistics.
+00:10:19
+What is the point of writing out the mule of x. If it gets cancelled. I'm not sure I understand what the value of x represent. So this is actually the formal notation for integration, when you have a respect to a measure
+00:10:33
+So think of it here as just a way to both specify something as a PDF or PDF. Okay, so if you know about measure theory, you would know what it means. If you don't know about measure theory. Well, it's just
+00:10:48
+To be kind of rigorous here and clear that we're def expansion a feminist specifying
+00:10:55
+A series of densities with respect to some base measure. And so I need to specify, what's the base measure. And so by writing it.
+00:11:03
+On both on the left and the right, you know, I've included this information.
+00:11:14
+So somebody is asking whether a demo of X define the support of the distribution.
+00:11:23
+So do you have the X define the, I mean, so the whole
+00:11:31
+So this whole thing define the support of distribution rights because if I said ah of x equals zero, even let's say them you have access to the bag.
+00:11:40
+Well, the support is all real life, but I could specify age of x is zero and negative numbers. And then my support is only the positive number. So it specified by both did you have x any tricks.
+00:11:50
+So for example, if I want to have a PMS on the positive number. I have the content. I could have to contact measure on all the natural
+00:12:00
+All in the sorry on the call z with Z that's wrong numbers are natural and positive I forgot. Anyway, the number is minus 101 etc up to infinity, all these numbers. I guess it's the natural numbers.
+00:12:21
+And
+00:12:22
+And then you could boost our the integer. Sorry. Okay, thank you. I was like, what are these
+00:12:27
+Yes, that's wrong numbers are positive and integers or can be negative. Thank you. Wow, I can't believe I forgot these things.
+00:12:36
+Present and getting old. But yeah, so this so so the integers. So they're putting the cutting measure on the integers will give you
+00:12:44
+A part of the support, but then putting h of x zero on all the negative integers, for example, will restrict the support, even more so you need both to specify the support
+00:12:55
+Ticket Jacob is asking at that as a parameter, along with G and H. Right. And for me, what is the reason that is called clinical and nothing to do with specifies the family.
+00:13:06
+Yeah, so T is not a parameter. So, T is something which will define the properties of the family, the parameters in the parametric family or at that. Okay. And it's called candidate called because the way to peers in the in the distribution is is
+00:13:23
+There so that now I will specify also example of non clinical family to clarify the rule.
+00:13:37
+Okay, so some people are realizing that Jacob probably copied from somewhere else.
+00:13:45
+To have it appear in the comment as a real Greek number. Okay, so let me just explain a bit more properties and then it will answers this question. So if
+00:13:57
+Or a simple space is discreet
+00:14:02
+Then
+00:14:04
+P of X eta is a PDF
+00:14:09
+And if or a sample space is continuous, then this for present a PDF
+00:14:18
+And so now
+00:14:20
+The other thing I want to define is that we want this density to be or PMS to be normalized, so we want that one is equal to the integral over the sample space of p of x at the debut of x.
+00:14:41
+And if new is the cutting measure just replace that with a some over x. And so that means that we want the integral over x of x.
+00:14:54
+Transpose to have x
+00:14:57
+And then I will put e to the minus A attack. That's the look partition function of x, demure x
+00:15:06
+So we will all this to be equal to one. So, if I now solve for A of data that implies that for everything to be normalized Ayurveda is equal to the log of the integral over x of x.
+00:15:22
+Transpose to have x h of x dim Unix
+00:15:30
+So that defines our luck partition function. That's why it's not part of the family. It's defined by if I if I specify to have x and h of academia of X. Everything else as well defined.
+00:15:42
+And by the way, this I use annotation already last class. So this is
+00:15:47
+Also what I use a z of ethics right as a function of the parameters, it's the
+00:15:54
+It's done.
+00:15:57
+The normalization. It's also called the partition function. This normalize your of your, of your distribution and the z will be the same, which will appear in Eugene when we make links with under a graphical model. So that's also why you use, use the notation.
+00:16:13
+Alright, so now where the Kennedy call will come into play. There's this thing called the domain of my exponential family.
+00:16:20
+So the domain, unfortunately, it's called Omega. It has nothing to do with the sample space. So let's be clear.
+00:16:26
+This is not the same thing as the sample space for my random variable. This has to do with the parameters. So the domain of my exponential family of my clinical expansion family, by definition,
+00:16:38
+It is the set of clinical parameters.
+00:16:41
+For which you can normalize the distribution. So for wish when you could compute this integral over there, it will actually be finite.
+00:16:53
+So, and these are basically the valid parameters.
+00:16:59
+For the expansion. So set the parameters.
+user avatar
+Unknown Speaker
+00:17:04
+For the
+user avatar
+Lacoste-Julien Simon
+00:17:09
+Guess. There are called Kennedy called
+00:17:12
+A vetted Kennedy go
+00:17:16
+Parameters.
+00:17:29
+And so I will mentioned already that this is a
+00:17:35
+The lug one can show
+00:17:39
+So note that the log partition function, one can show that it is always convicts
+00:17:45
+In
+00:17:47
+Africa.
+00:17:52
+And so, that implies that the domain of its of the function Ayurveda is also comics.
+00:18:02
+And by the way, this domain is something which comes from context analysis. So in context analysis you if you use your work with function which might take the value plus infinity.
+00:18:11
+And then the domain of the function is just where the function is not infinite it's finite gain. So here you can think of a of it as being
+00:18:20
+The thing which we use to normalize our distribution. And so sometimes it will when I will
+00:18:27
+When basically computing this this summer. This enter goal would be infinity. And then I can normalize it. There's no way to make it meaningful this division. So then
+00:18:35
+I could just define a beta for needs to be plus infinity. And so this would be the standard Convex analysis domain. And it's actually a convex it
+00:18:45
+Alright, so now let's talk about this curve expansion of family. To clarify, so more generally.
+00:18:52
+Instead of talking about the Kennedy called parameters we could use another set of prime position, we could consider
+00:19:01
+A repatriation.
+00:19:09
+Using a subset
+00:19:13
+Of the family.
+00:19:16
+So in some sense, the chemical parameter ization is is the one which gives the, the biggest number of distributions and my family because basically, I consider all the possible distribution which are normalized evil.
+00:19:28
+But I could decide to specify a subset of this family and to use it as my family. And so what we'll do is we'll, we'll define some mapping
+00:19:40
+And I'll use data to represent the mapping because the image should be the one we use this chemical parameters and so we'll use some set of parameters which we call capital eta and will map it to the set of possible parameter for my family, which is a subset of my domain.
+00:19:59
+And so this will be my new set of parameters.
+00:20:03
+And in particular, in the gash in this could be the mean and the variance to be, you know,
+00:20:08
+So this is a new set of parameters.
+00:20:11
+to index the element of my family.
+00:20:15
+And then how we define
+00:20:20
+The density on x, given the power of theta, we will just use, what was the density. When we for the corresponding clinical parameter associated with data right
+00:20:35
+And so that's our new family.
+00:20:37
+That's a new family.
+00:20:41
+And then
+00:20:42
+Sometimes it's the same set of distribution, just with a different parameter ization sometimes a different set of distribution. And then what is called a curve, especially fnb
+00:20:53
+Is when this set of parameter
+00:20:59
+Is actually not a nice Euclidean space.
+00:21:04
+It's a curved manifold.
+00:21:07
+Exposure family.
+00:21:10
+If
+00:21:12
+The image of our mapping in the clinical space.
+00:21:19
+So if
+00:21:21
+If
+00:21:24
+If I looked at all the possible chemical parameters associated with my my parameters data.
+00:21:30
+So if this image is a curved manifold.
+00:21:38
+In
+00:21:39
+Omega. Okay.
+00:21:43
+I want define formerly what occurred manifold is but basically you can think of it like, oh, it's a surface that say you in 3D, instead of being the full three dimensional object. It's actually now.
+00:21:54
+Surface, which could be a plane plane is not curved. So now it's more like a curvy surface, for example, so
+00:22:02
+So that's not really described with a flat object that's why it's not flat. So that's the position of flat clinical family versus a curve. It's my shop me. Okay. And so what's an example of a curative expansion of me well. So here's a concrete example.
+00:22:17
+It's a bit abstract, by the way. I mean, it's a bit. It's a bit. Not sure how many people I've ever used that in. I think people might have used that in statistics sometime, but you could consider gal shins.
+00:22:30
+So let's say you could consider. So the sessions are a subset of X much off me and and in this case where you will use
+00:22:38
+The parameter for you. Gotcha. And you will only have one parameter, which would be the me and then you would use the variance, you will say the variants will actually be the main square
+user avatar
+Unknown Speaker
+00:22:47
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:22:48
+And so
+00:22:51
+It turns out here. So the chemical parameter or related to the mean and the variants. But in this case, you can, you can see that it's a one d
+00:23:02
+It's a one. The curve manifold into the space which is the set of possible clinical parameters for this family.
+00:23:12
+And where does this matters is that
+00:23:18
+Some properties of the expansion of any only valid when you have a non curve. It's much of me because you need you to be able to take the route of and and move in all directions. And so if there's a if there's a manifold, then you can do it.
+00:23:32
+So small demand says so they said, I'm all points in Omega given by at that have failed. I guess is not, for example, using equations. Correct.
+00:23:44
+Does it mean that, for example in 3D space that curve is locally 2D
+00:23:49
+Yeah. So I think, I mean, so, so you could have. It's okay to have a full dimensional subset
+00:23:57
+Of the space because indeed like it. We will see that in the case of, say, the Gaussian will need the variance to be positive, right. So, so in this case the possible candidate called parameters or a half plane.
+00:24:10
+So, so this is in. And so we do dimension and a half plane is two dimensional, even though it's not the whole space. So that's fine. This is not curved. This is the flag.
+00:24:18
+But to have something curvy, you will need. You will need to be a lower dimensional object in the full space and this lower dimensional object cannot be just flat because, you know, you could have one. The line is still flat was a curved line is not flat.
+00:24:40
+Okay.
+00:24:42
+So that's a charisma chef me and I will mention a very important point here.
+00:24:49
+To note is that
+00:24:53
+The same way that when I talked about the graphical model right I said a graphical model is a set of distribution.
+user avatar
+Unknown Speaker
+00:25:00
+So,
+user avatar
+Lacoste-Julien Simon
+00:25:01
+So a specific distribution is always in any in some graphical model, in particular the graphical model, which is the fully connected graph contains all distribution. So, any distribution is in the graphical
+00:25:15
+It's the same thing for an excellent show me any distribution can be made in six months, if any trivially by just using h of x as a distribution, right, so any single
+00:25:29
+Distribution.
+00:25:31
+P of X can be put
+00:25:36
+In
+00:25:37
+An exponential family.
+00:25:44
+By using
+00:25:47
+As a reference measure h of x px right and so in some sense, this would be dysfunctional family where when you set at the equal zero. So it doesn't matter what the sufficient that this is
+00:25:58
+You said it equals zero all your you get his age of x. Well, then you get p of x. So, this PR x is always in is in some expansion of me.
+00:26:07
+So things whether some some specific distribution is an X much family or not, does not make much sense. What you want to know is, is a parametric family of distribution and exponential family is a set of distributions.
+00:26:22
+Can be characterized by an expression of me. So that's the meaningful question.
+00:26:28
+And here's some example of me, which are not indexed much of me.
+00:26:33
+Or not characterize exactly by X much money. So two examples.
+00:26:40
+Of family.
+00:26:44
+Which are not
+00:26:47
+exponential family.
+00:26:51
+So a mixture of actions.
+00:27:01
+So one mixture of gushing with specific parameters is an extension of how many because you just said he likes to be the mixture.
+00:27:08
+What I'm saying is when you take a mixture of two options and you very demeaning the covariance, you get a lot of different distribution and there's no way you can
+00:27:16
+You can put this an expansion family because it's functional family always have kind of this nice union model structure in some sense.
+00:27:24
+So you can have multi modality from each of x, but you cannot have the multimodal at varying with the parameters which is what's happening when you have a mixture, Mom.
+00:27:32
+Okay. And we'll see later that like maximum next to the next question family's always convex optimization problem in the chemical form. And so the fact that when you do maximum actually a mixture of Goshen. It's not convicted also highlight that you can pull in next bunch of them.
+00:27:50
+So mixture of guns or, more generally, like latent variable model. They are not
+user avatar
+Unknown Speaker
+00:27:56
+Inexpensive me
+user avatar
+Lacoste-Julien Simon
+00:28:00
+And another example is the uniform distribution on zero, theta.
+00:28:07
+Because what's happening is when you change the parameter theta, the support of your distribution change according to your parameter was index functional family, the support is fixed. It doesn't depend on a diet specified by
+00:28:22
+This thing here. So the parameter here is always within an x. So, because it's within the experts will always be positive, it will never be zero.
+00:28:31
+You're not allowed to put plus infinity parameters and substance or minus and fee.
+00:28:43
+So Jacob is asking, Is it true that requiring the variance to be larger than the main square would still be a four dimensional space that's still isn't that
+user avatar
+Unknown Speaker
+00:28:52
+You
+user avatar
+Lacoste-Julien Simon
+00:28:59
+Think we're getting into topological question here.
+00:29:02
+Because so so you have a full dimensional object. In this case, which is 2D, but it has a curve boundary. So that's your problem.
+00:29:10
+So for me this is definitely flat is just, yeah. So, so I would still say it's fat because it's not the boundary which matters because in particular will see that that this space here is convicts, you know, a ball, for example, is convex.
+00:29:25
+It's a complex set and
+00:29:28
+I could have that I that say use a full dimensional ball, I would still say this is like a flat object.
+user avatar
+jacob louis hoover
+00:29:38
+And this is the convexity that matters not the dimension.
+user avatar
+Lacoste-Julien Simon
+00:29:41
+So no, it's more like the
+user avatar
+jacob louis hoover
+00:29:43
+So,
+user avatar
+Lacoste-Julien Simon
+00:29:44
+It's the. So if I have an object.
+00:29:49
+Let's say, let's say I'm into the right, for example. So this is a 3D object.
+00:29:53
+And locally in the interior of the subject it. I'm always full dimensional so and so I look Euclidean everywhere and decide inside this object. So that's why it's still flat, right. So, so the flat versus curved is more. What's the local structure around any point in my object and so
+00:30:13
+So that it's not the boundary which matters. It's the inside of the set to say if it's flat versus curves.
+00:30:29
+Yeah, so will I will answer. Perhaps these questions. A fifth you aspect, this question about services that also. I will get to the multimedia because we see also stuff happening.
+00:30:38
+weird stuff happening when the multimedia. And actually, I guess it's right now. But let me just be a yes so make sure I've got shin.
+00:30:45
+Is not in uniform is not because the support changes with a partner. That's why they're not as much but Gaussian expansion of our next bunch of family bear new You betta the Irish lay
+00:30:58
+loveless you know all your most of your standard name distributions.
+00:31:07
+And alright so let's do an example which will hopefully start to clarify.
+00:31:17
+So let's do the multi know you
+00:31:22
+As our first example.
+00:31:26
+So let's say I have x, which is a multi Know ye
+00:31:31
+With parameter pie. So what's our sample space, I will use here the sample space encoding where it's zero. It's one hot encoding there one to the k
+00:31:42
+And the possible sample space is the intersection between the property simplex and X okay so I use one hot encoding. So this is just a one way to quickly say it's one hot encoding.
+00:31:57
+I only one of the
+00:32:01
+Coordinates can be non non zero. They're all zero, except one which is equal to one.
+00:32:08
+Alright, so now or parameter pi.
+00:32:13
+Belongs to the poverty simplex right so it has to some to one, it's positive.
+00:32:19
+So now to put an expression for me. I need to already. Suppose that all my parameters are strictly positive, otherwise I will have some issue because I will take a log of something
+00:32:29
+So suppose not. Now I look up my all my parameters and they're strictly positive
+00:32:34
+Then I can look at the distribution for the multi multi Nui
+00:32:40
+And you can think of pie here as theta, right, think of as so i'm not i haven't given the chemical formulation yet. So this is just
+00:32:53
+Given as a parameter that you had to Patrick Philly from the material and I will try to see what, how can I make it an expression of me.
+00:33:01
+So this is just product over my possible
+00:33:06
+Observations probably to have this observation and then raise to whether I have observed it. So that's the trick. And so what I do now is I just put that in the exponential form by taking the log. So I to exp summation over j
+00:33:22
+Of lug of pages xj. So the exchange goes in the front, lot of pages. And that's where I had to assume that page by Jay was positive because log of zero is minus infinity. And that doesn't work, you can just put minus infinity. Some we use any final numbers there.
+00:33:41
+Alright, so what is this. Well, this is x
+00:33:45
+Of summation of OJ xj lug PJ.
+00:33:50
+Minus zero. So it's already normalized because I started with a distribution, which was already normalized by the parameters. And so what do we have so here we have
+00:34:01
+That the mapping
+00:34:05
+You can think of the chemical parameter associated with pi.
+00:34:09
+Is basically login of pay. G.
+00:34:14
+Right, because the thing in front of this deficient statistics here to sufficient statistics is just x, right. So, so you want X have some function of x here was just each component, then some parameters and then the log partition function.
+00:34:32
+Okay, so we have that this, these, this is the mapping from the parameters to the clinical parameters. My sufficient that they six is X my base measure here is just a contact measure
+00:34:45
+On x
+user avatar
+Unknown Speaker
+00:34:49
+squared x.
+user avatar
+Lacoste-Julien Simon
+00:34:51
+The reference density is just
+00:34:55
+Basically one or it's basically
+00:34:59
+The indicator of x belonging to the true observation space.
+00:35:10
+IE.
+00:35:13
+One x
+00:35:16
+Belongs to property simplex
+00:35:20
+Intersection skeptics. So you hear. Here you can see the difference between
+00:35:26
+The base measure and the the support. Like, I decided to just put
+00:35:33
+To count stuff on all possible vectors binary vectors on zero k, right.
+00:35:40
+And then I you, as I said, the polity, hmm, x to be zero for all binary vectors which are not correct one hot encoding.
+00:35:53
+Sorry, it can soak and so
+00:35:57
+So basically I use HIV next year to really define the support of valid one hot encoding.
+00:36:06
+And now, what happened to our luck partition function.
+00:36:10
+Well, so what happens here is that or parameter space.
+00:36:15
+Is
+00:36:17
+To do this transformation we suppose that all the pie were strictly positive. So it's the actual interview interior of the property simplex
+00:36:26
+And then
+00:36:28
+It turns out that the partition function.
+00:36:32
+The luck partition function evaluated for the parameter
+00:36:38
+Output of this mapping is just equal to zero for all pie in my
+00:36:47
+parameter space.
+00:36:49
+Okay, but that's weird. So why why why is my luck partition function zero. Well, here we have a problem of dimension mismatch. Okay. Because the candidate called parameter
+00:37:01
+Here because there's like K dimension. So because there's key components of x. So my kind of called parameters dimension key, but my parameters space theta.
+00:37:13
+Is known dimension kids and they mentioned k minus one i mean it isn't dimension k, but it's dimension as as as a set is k minus one.
+00:37:23
+So here
+00:37:28
+Where's my blue. So here, it turns out that if I use this as my sufficient statistics my sample space is actually all of our key. Okay.
+00:37:40
+Here.
+00:37:42
+I could use
+00:37:46
+I could put any value.
+user avatar
+Unknown Speaker
+00:37:49
+Okay, so
+user avatar
+Lacoste-Julien Simon
+00:37:51
+So I could put any value here, I can always be normalized because it's only have some over key objects. So it's very simple to normalize
+user avatar
+Unknown Speaker
+00:38:03
+And so
+user avatar
+Lacoste-Julien Simon
+00:38:05
+So theta.
+00:38:07
+As I said, because it's probably simply excellent key element as dimension k minus one.
+00:38:14
+As a set
+user avatar
+Unknown Speaker
+00:38:17
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:38:18
+And
+00:38:21
+At have say that will have the same dimension. So this is k minus one dimensional object, whereas omega my sample space, as I mentioned, key. So there's a mismatch here. So basically the when I looked at this personalization. I don't have all the possible Kennedy called parameters.
+00:38:41
+Even though I can actually get all the possible distribution that they care about. So here, what's happening is that are sufficient statistics is as properties that this call. It's not minimal so we do not have
+00:38:58
+A minimal
+00:39:02
+exponential family.
+00:39:08
+So what does it mean to have a minimal expansion of me.
+00:39:11
+So,
+00:39:14
+It's there is no linear represent no relationship between your sufficient statistics.
+00:39:23
+Because here.
+00:39:26
+What's happening is that for any x
+00:39:30
+Such that h of x is not equal to zero. So, any x which is on one hot encoding.
+00:39:39
+We have that the summation
+00:39:44
+Of of the component of your sufficient statistics.
+00:39:50
+Will be equals to summation
+00:39:53
+Of x g, which is equal to one.
+00:39:57
+So there are some constraints between your sufficient statistics coordinates.
+00:40:03
+For all the in your support. So for for all the elements which are valid, which has an under polity, you have that some linear relationship between your sufficient ethics or
+00:40:14
+Are satisfied, which means that some says there are redundant. I don't, I can have very different component that my sufficiency physics independently. If I specify the value of x j for Jay smaller than cake.
+00:40:26
+The cake component is automatic specified by just doing one minus the some of the other ones. So the case component doesn't tell you anything. So that's why it's not. I have a redundant representation. Just why it's not called
+00:40:41
+Minimal so basically if the definition of being minimal is that you don't have any a fine linear dependence.
+00:40:50
+Between the component
+user avatar
+Unknown Speaker
+00:40:53
+Of tea.
+user avatar
+Unknown Speaker
+00:40:58
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:41:00
+Because what's happening is when you have this finding their independence. There are multiple at as
+00:41:09
+Which will give rise to the same distribution.
+00:41:20
+And so this is what we call over parameter ization
+00:41:27
+Because you know there are multiple parameters which gave the same distribution. So in some sense, I use too many components of parameters that I needed to
+00:41:38
+And so when you have this overcentralisation or these linear relationship between the solution statistics you have something which is called not a minimal
+00:41:47
+Expansion.
+00:42:01
+Last week, there is asking, what does it mean to be what's, what's the interior of a set
+00:42:08
+Not important
+00:42:11
+These look at Wikipedia.
+00:42:13
+This is the key. The the
+00:42:17
+The interior of the set is
+00:42:21
+That's when you start to do metric space and everything that goes topology. It's the point where you have a neighborhood around them. So, for
+00:42:32
+And so that's one way to look at it. So any point in the interior of a set, I can put a ball have small enough radius around it and it's still in the set.
+user avatar
+Unknown Speaker
+00:42:40
+So that's one way to define the interior
+user avatar
+Lacoste-Julien Simon
+00:42:47
+Um,
+00:42:51
+Alright, so now
+00:42:54
+How do we get
+00:42:56
+Minimal exponential family for the multi. Well, we just redo we just remove one of the dimension in our sufficient statistics. So for a demo to eat.
+00:43:06
+One way to get
+00:43:08
+A minimal next bunch of me.
+00:43:16
+Is to define the sufficient that this takes as just being the first key component
+00:43:21
+That k minus one component. Sorry, because the case one can be always because it's one hot encoding the case one is just one minus the some of the other ones.
+00:43:30
+And so then the log partition function.
+00:43:34
+So in this case, then all kind of capacitor always give unique distribution.
+00:43:40
+And so you have that I can get the
+00:43:45
+partition function by just normalizing my distribution. So I need to some over my sample space of exp of at that transpose to vex
+00:43:56
+And so
+00:43:58
+This just select which entry have observed. So this is summation over j one of two k minus one of
+00:44:11
+Exp of f g
+00:44:15
+Whereas when I observed
+00:44:19
+The case, the case possibility, x one, two x minus one would be zero. So, I will just get expert zero, which is one. Right. So the last possible observation gives me one. Okay.
+00:44:32
+And so now, that gives me. So the log of this is my my normalization function right so now it makes more sense in this setting, so have that my
+00:44:42
+Clinical version for the move to New he will be exp
+00:44:47
+Summation from Jake will want to k minus one to two k minus one dimensional me at j exchange. And then I have minus the log partition function which is log of summation over j
+00:45:04
+E to the letter G plus one.
+00:45:14
+So Dora. You want me to explain why the fact that we have redundancy in our sufficient statistics is important. So, so what's important is that some properties of expansion feminity require minimal exposure. If I need to be true.
+00:45:33
+And moreover, if you want your parameters to be identifiable. You want to be able to estimate a parameter from data. Well, you need to have that each parameter is associated with a unique distribution.
+00:45:44
+But when you have a non minimalist much of me when you have redundancy or over prioritization.
+00:45:50
+There's multiple parameters which give exactly the same distribution. So, then these parameters are not identifiable and then. Moreover, some of the perhaps to political properties of the parameter space.
+00:45:59
+Will make things we're so so we'll see later when we require a minimum explanation of how many for a property to be true. Okay.
+00:46:11
+And so in particular.
+00:46:14
+So this is our. So this is a beta here by the way a beta
+00:46:20
+In
+00:46:22
+If you recall, I mentioned when I talked about the
+00:46:28
+The
+00:46:30
+maximum entropy and taking the gradient of the log partition function as much of me. I had computed the gradient respect to have a of data and I showed it was the expectation
+00:46:42
+With pick two p of x of the sufficient statistics.
+user avatar
+Unknown Speaker
+00:46:48
+Right.
+user avatar
+Lacoste-Julien Simon
+00:46:50
+And this is actually valid.
+00:46:53
+By the way, this is valid for when it is in the interior of the domain.
+00:46:58
+So when you're at the boundary weird things can happen. You can have treating to see take this gradient, but in the interior of the domain, things are fine.
+00:47:07
+And so
+00:47:11
+If I compare to what the A of it. I have here. So for the multi new G.
+00:47:18
+Let's just verify this property routinely
+00:47:22
+We have that the derivative of a of it as respect to energy
+00:47:29
+It's one of z. Right, so
+00:47:33
+Basically this thing here is z. And I have a log. So when I think the review of the login will get one of z.
+00:47:43
+Hips, so I get one over zero, beta. And I think the derivative inside of z, which is a son of e to the editor. So then I'll just get basically he to the energy that's the only one which is non zero
+00:48:00
+And what is that, well, that's just by definition, the probability of x being close to Jay right this is a discrete observation, even after
+00:48:13
+But what is the property. This is the expectation
+00:48:17
+Of p of x.
+00:48:20
+Of T g of x, right, because TJ of x was basically just a zero or one.
+00:48:27
+And
+00:48:29
+It's one. When x is equal to Jay. And so when I think the expectation. I just get the probability that X is equal to specific value.
+00:48:38
+And so this is as required. Right. So basically, I've just re verified the properties of these of these things.
+00:48:47
+So start attack is asking if there were some other restrictions and Tina defining error with would still be enough minimal exposure. How many
+00:48:55
+Say if if the if the ratio between the services that the six is nonlinear like let's say the first component square plaza second Copeland square is equal to one, for example.
+00:49:06
+It's not, it wouldn't be a problem because the fact that it becomes a problem is that when you can really scale things. So you can use the linear representation of the of x and then just change the parameters.
+00:49:21
+At it in a linear manner, and then you just get exactly the same value. But if it's nonlinear, then it will it will change the priority distribution. So the it's so yes, you will still have that every eta is associated to a unique
+user avatar
+Unknown Speaker
+00:49:36
+Distribution.
+user avatar
+Lacoste-Julien Simon
+00:49:42
+Okay, so that's our first example.
+00:49:46
+Somebody is asked. Oh, why is this as required. So I said that I want.
+00:49:51
+So, good question. So I want that the derivative of my luck partition function is equal to the expectation of the sufficient statistics.
+00:49:57
+So here I explicitly computed the derivative or my luck partition function and I got that the solution was this thing. But this thing is the same thing as the expectation of my sufficient statistics and thus I verified.
+00:50:12
+You know, I have verified this property, basically.
+user avatar
+Unknown Speaker
+00:50:20
+That's what I meant.
+user avatar
+ezekiel williams
+00:50:27
+Um, can I just follow up on that question.
+00:50:29
+Sure. I'm sorry I maybe I missed something earlier on. But why do we need that the derivative of the partition function is equal to this.
+user avatar
+Lacoste-Julien Simon
+00:50:37
+But something we proved and the last class I just
+00:50:42
+Basically it's not too hard, that if you take the definition of your, of your leg partition function.
+00:50:50
+So this is a definition of your luck partition function. So when you take the derivative of that you get one over z. And then you get
+00:50:58
+To have X, which comes out in front of that. And so you get the expectation of the
+00:51:03
+Of the sufficient statistics like the tix so just just by definition, you can show that the gradient with respect to
+00:51:11
+This give the expectation of to vex respective distribution and now we've just verified in a specific case for sanity check, you know, just to show that things are all consistent
+user avatar
+ezekiel williams
+00:51:22
+And the first the first only hold for exponential distribution.
+user avatar
+Lacoste-Julien Simon
+00:51:30
+Well, so, I mean,
+00:51:31
+Ayurveda was only defined for the exponential family so
+00:51:35
+So your site, depends what you mean. Right. So, so, which function would you define for something which is not an expansion of me so
+user avatar
+ezekiel williams
+00:51:42
+I guess will be the log, you could find a lot partition function for an exponential family couldn't do worse, but not even because
+user avatar
+Lacoste-Julien Simon
+00:52:00
+Yeah, and I don't really see what how I mean you could define
+00:52:04
+You could define that for any distribution, which is not normalized, you could say, well, I define this log partition function to be the some overall the states of this thing.
+00:52:19
+Or the integral over all possible X of this thing. And then you take the lug but it doesn't have to be in speed in exponential
+00:52:27
+Then I have a then then that this gradient might have any property. I'm not sure. So yeah, so I know this holds for six months with me.
+00:52:36
+And we'll see you know the link with the log partition function. So after the break. I'll also show that any discrete undirected graphical model with positive distributions can be put in a bunch of empty right so
+00:52:50
+And it will be the same partition function as the one appearing in the
+00:52:54
+Z will be the partition function appearing in the gym.
+00:52:59
+All right, let's take a break.
+00:53:01
+To 29
+00:53:04
+So let's go back at
+00:53:06
+239
+00:53:18
+Alright, so let's do a another example with the one the ocean to put in a bunch of me.
+00:53:27
+So example to
+00:53:32
+The one the Gaussian
+00:53:38
+Alright, so now I have a gash in with mean new in sigma square my sample space is are my parameters are basically new and sigma square and we call this the moment prioritization, because these are the
+00:53:57
+Expectation of X and expectation of X minus new square. So it's is it centered moments.
+00:54:04
+Parameter ization
+00:54:11
+Whereas the candidate called pasteurization is a different one. So let's put it in next month. I'm the forum to identify what are the chemical parameter. So this is one over two pi sigma square, square root of x.
+00:54:27
+Minus x minus mu squared divided by two sigma square
+00:54:32
+That's my density. So now I want to kind of like isolate stuff. So, this is x
+00:54:39
+I will look at my minus x squared away two
+00:54:45
+Times one over sigma square
+00:54:49
+Then I have the plus two x news. So let's write it as two x or guess there was a two which from the denominator which cancels, I get plus x times mute very by sigma square
+00:55:06
+And then they have stuff, which doesn't have any x. So, this is basically the log partition function. So it's minus then I have new squared or by two sigma square, then I have my normal user in front, which was
+00:55:20
+Basically nights in the exponents. I took a log. So I get to one half in front of it lug of two pi sigma square. That's one way to write it.
+00:55:32
+Here we go.
+00:55:33
+So from this formulation we can now identify the sufficient statistics. So this official statistics would be x and then minus x square divided by two.
+00:55:48
+And we can also identify what are the corresponding clinical parameter mapped from more time physician.
+00:55:55
+So basically the first clinical parameter
+00:56:00
+Associated with the this x is this thing here. So, this is
+00:56:05
+New divide by sigma square
+00:56:08
+And the other one is one over sigma square
+00:56:12
+And so we would call these two as at that one at the two. The two component of mechanical parameter
+00:56:19
+And so we have that at a two is one over sigma square the inverse of the variants. We already talked about it in the past. This is called the precision. It's called the precision.
+00:56:33
+And it has to be bigger than zero otherwise.
+00:56:38
+You won't be able to integrate the gusher to give it plus infinity and at one is equal to two times view, basically, that's their relationship.
+00:56:51
+And so if I looked at the domain of maximum and family here. It's the set of at one at a to such that at a two is positive, but at that one could be anything right to them the normalized mean it could be anything but the inverse of our and switches the precision has to be strictly positive
+00:57:15
+And in this case,
+00:57:18
+You already had a minimal so so there's no difference compared to the new you already had the correct space of dimension for the parameters of my, my gosh.
+00:57:28
+And we'll see in the last few lectures at some point we'll talk about Gaussian graphical models. So we'll talk about the booty right Gaussian. So we'll see later that for the multivariate Gaussian
+00:57:44
+The clinical parameter is the precision matrix.
+00:57:51
+And
+00:57:55
+The it will have both and precision metrics and something which is which we call just at Abbott, it is actually the whole thing. Normally, but that's the standard
+00:58:05
+notation for the clinical position of the expansion of how many of the Goshen. And then what you take is you take the precision matrix and you multiply them, you
+00:58:15
+Right, so here
+00:58:17
+In one D you had this is the precision and to get the other parameter you take the, the precision and you multiply them you right so that's the analog of this, but in one day.
+00:58:29
+And so this is inverse of covariance times. So that's how, from the moment, Pam position, you can get the chemical composition and in this case the clinical sufficient sufficient statistics is both x and minus x x transpose that by two.
+00:58:49
+So these are just some statistics.
+00:58:52
+Here, but we'll see.
+00:58:56
+Any question about this.
+00:59:14
+So you remember when I did the multivariate Gaussian
+00:59:19
+And I showed that the maximum likelihood parameters is the you said the covariance to the empirical currents
+00:59:27
+I took the derivative of the log partition function. But I took the derivative of the love partition function with respect to sorry the love that they love the French version, but the the love determinant but respect to the inverse covariance, right, which is the precision.
+00:59:43
+So one of the reasons because it's indeed much better behave to work with the precision matrix because it precision matrix is the kind of thing called parameter in the, in the midst of regulation.
+00:59:53
+And as I said before, it turns out that the log likelihood is the negative log like you. There's always convicts in the clinical parameters.
+01:00:01
+And so in some sense, it was a way to kind of like have that the convicts city in this formulation
+01:00:09
+So it's not complex in sigma, but it is convicts in
+01:00:15
+capital lambda which is a personal matrix.
+01:00:21
+Okay, so let's talk about the last example for today, which is
+01:00:26
+Now I told you that basically any discrete
+01:00:31
+Under graphical model can be put in the expansion family.
+01:00:36
+Okay, so
+01:00:37
+Under the assumption that
+01:00:40
+You have a full
+01:00:44
+Well, it's the subset of the of the GM, which has full on these tricky positive potentials. So let p be a distribution in a huge GM where g is undirected.
+01:01:01
+And we suppose that or potential are all strictly positive
+01:01:12
+But then, Charles tricky positive. This is for all clicks and all possible assignment on the clique.
+01:01:20
+So then my density
+01:01:23
+What am I didn't see my PMS is one over z product over my colleagues.
+01:01:31
+Of my potential over exceed because they're strictly positive I can take the log of the potential and take the x, x is equal to the same thing as their potential. And so this is basically the same thing as x summation over my clicks of login of se si, si, si
+01:01:54
+Minus log of z. Right, so
+01:01:57
+That's where my partition function went because x minus log is like the same thing as one of the z.
+01:02:06
+And so now it's trying to identify the sufficient statistics. So, this is x
+01:02:12
+Summation over my clicks.
+01:02:15
+And then I can think of something over all possible assignment on my clique.
+01:02:22
+And then I will have the indicator function of whether x is equal to this assignment.
+01:02:31
+Log of size see YC
+user avatar
+Unknown Speaker
+01:02:38
+And minus legacy
+user avatar
+Lacoste-Julien Simon
+01:02:51
+That's kind of a trick to identify the dependence on x.
+01:02:55
+And so
+01:02:58
+You can think of.
+01:03:00
+This entry here.
+01:03:04
+To be one entry of my sufficient statistics. So for any click and any possible assignment I will have the indicator feature which says, Oh, is this x
+01:03:16
+Is the the click assignment for this joint X equals to YC. So that's basically one of our features.
+01:03:24
+This is just a translation of like the the multimedia example right they maintain the example I have keep us at ease.
+01:03:29
+Now I have replaced may keep us to meet these with oh well for every clicks I have all the possible assignments and they look at the integrator features of these assignment and these are my suspicions that this
+01:03:40
+And this will be the associated Canada called parameter with this sufficient statistic. So I will index the clinical parameter by the clique and the possible joint assignment YC
+01:03:51
+And so if I looked with this T of x looks like jointly well it has one dimension for every click and assignment. So it has a bunch of stuff.
+01:04:02
+And every dimension. It's just looking at the indicator of whether exceeds equal to I see. And I have one of these for every YC and for every case. So every YC
+01:04:15
+In my assignment on the clique and for every case.
+01:04:24
+And basically what's
+01:04:27
+Script X. See, it's just the possible set of joining us, I mean that they can have on a
+01:04:40
+Little bit confused. Now why did they write that.
+01:04:48
+Oh yeah, exactly.
+01:04:55
+Yeah so exceed is just a possible
+01:04:59
+Assignment on why
+01:05:04
+Basically
+01:05:06
+Why i for i be looking to see such that
+01:05:18
+For which wise belong to next.
+01:05:41
+And the mapping
+01:05:44
+Of mechanical parameter is simply log of size see
+01:05:50
+I see with the same dimension right
+01:05:54
+And so I see
+01:05:56
+Why, see for every possible. Why seek could be your which was the potential Pampers ation you can map it now to the love to the clinical position by taking the luxury of these
+01:06:10
+Okay.
+01:06:12
+Was there a question they hear a question.
+01:06:17
+So let me mentioned some notes.
+01:06:21
+So the first thing is that the multinational multi new example is a special exempt is a special case of that.
+01:06:30
+Where the complete graph.
+01:06:40
+Is used right so you just have one big clique.
+01:06:50
+By the way, so what I just showed. So this is here. This is not a minimal, not a minimal representation
+01:07:01
+Because they are relationship between the sufficient statistics, right, particularly because they have these indicator fate feature if I some overall possible assignment you will always be equal to one. So I have a dinner appreciation. So this is not the minimal
+01:07:15
+Representation. I'll give you the minimal representation in the case of a binary variables, very soon.
+01:07:24
+But the other thing I wanted to mention, which is important and that's also why we're talking about these international family and why his attention in Mike's book is that you can think about. Now the feature perspective to penetrate your family.
+01:07:41
+So instead of having all the possible indicator
+01:07:46
+stead of using
+01:07:50
+All possible
+01:07:53
+Indicators
+01:07:56
+As your features are your sufficient statistics.
+01:08:00
+Right. So I had this x equal to I see
+01:08:06
+You could actually use a subset
+01:08:14
+Depending on the task. Right. And so, for example,
+01:08:20
+Suppose
+01:08:23
+X is a sentence.
+01:08:28
+And x i is a word.
+01:08:32
+And so let's say I had a vocabulary of possible words.
+01:08:36
+Then
+01:08:38
+If you read, you could have say a edge between two words in the sentence that so you have a sequence model, for example. Well, here in
+01:08:49
+In general, you would have for every possible pair of words, you would have a feature. But let's say this 50,000 words in your vocabulary that will be 50,000 by 50,000 that's a lot of features and and so
+01:09:01
+To have a bit less number of features because also you might not care about all these pair of words which are called by ground. By the way, you could have a smallest to the feature like
+01:09:11
+You could have a feature on x and x plus one which could be
+01:09:19
+The indicator of x i is a verb.
+01:09:24
+And x i plus one is
+01:09:29
+A noun, for example.
+01:09:37
+So that could be an example of features which
+01:09:41
+Collapse, a lot of possible observation to the same value. Right.
+01:09:48
+And so for certain tasking and appeal that will be sufficient to do things you don't need the exact identity of the word.
+01:09:55
+And so from the expression of family. You can define these feature function which are busy. The sufficient statistics that you will use in your model.
+01:10:02
+Okay, so instead of thinking about all the possible drink observation, you could now say, okay, what are the properties of observational don't want to use it. My prospect model.
+01:10:16
+And then is it kale is asking if this representation is only for discrete random variables, a
+01:10:24
+Yeah, because the problem is here. I started with all the possible assignment. So basically, there was really no restriction on my distribution, a part that I put non zero mass everywhere.
+01:10:36
+And and now you couldn't do that for continuous random variable at because just random variable, you will have to decide already. Okay, what's your base measure what's, what's the shape of my distribution. So,
+01:10:49
+There's a lot of possible distributions in continuous world and you cannot 3D have a parametric model with fine number of parameters which covers all of them.
+01:10:59
+Whereas a mutiny young key objects with key parameters you cover all the distributions. When you have a graphical model, you have to to the key to the key you have pop up, up, up, up.
+01:11:14
+So if you have any variables. Each which are binary, you have to, to the end possible. So you have key calls to to the end.
+01:11:21
+So that's another parameters which is why you might want to use a feature parameter ization
+01:11:26
+To kind of reduce which is done here.
+01:11:30
+But in come to this world it's it's
+01:11:34
+You don't have this this relationship between generic and specific as as precise.
+01:11:50
+So let's talk about the Isaac model.
+01:11:53
+So the binary Isaac model.
+01:11:57
+Oops. So I already mentioned it in the past, I think.
+01:12:02
+The binary
+01:12:04
+Icing model.
+01:12:10
+So in this case, my component of my observation will be binary variable, so Dr zero or one.
+01:12:18
+And was suppose that the clicks are smaller equal to so basically you have kind of this
+01:12:28
+You never have more than
+01:12:31
+You never have these triangle, but so you can have this kind of grid structure that's a pretty standard Isaac model.
+01:12:40
+And I told you that a tree with of a grid was unfortunately scaling with the site, the site of the grid. So, and because in France is exponential in the size of the tree with in the truth. So that's why in France is intractable. And that's why we do approximate in France, but
+01:12:59
+Basically
+01:13:01
+We can change that to the minimalist much money. So the first thing is, suppose that we use nodes and pairs.
+01:13:16
+As geeks.
+01:13:18
+So I am also adding the note potential in this case.
+01:13:23
+This means that the dimension.
+01:13:27
+Of to vex in this case is, you have one dimension for each possible assignment on the node. So that's two number of nodes. And then you have four possibilities for an assignment on the click of size two and so you have four times number of edges.
+01:13:46
+Parameter okay and this is
+01:13:49
+Basically the overpayment tries
+01:13:53
+Formulation, or eight over metal pan transformation.
+01:13:58
+Because you have relationship between the submission statistics, as I mentioned, right. So you have in particular that the summation over YC of TC YC of x is equal to one for any kicks.
+01:14:15
+Okay, so you don't have a minimal expansion.
+01:14:20
+Because you have this linear relationship between the components of the surgery. So there's x. And so it turns out that a minimal representation
+01:14:33
+Can be obtained.
+01:14:39
+Is to have X, which just look at
+01:14:46
+The value of x is so instead of looking at all is x equals one over x, y equals zero and just look at what's the value of excited
+01:14:53
+For all nodes.
+01:14:57
+And the product of excited and xj for all edges.
+01:15:07
+So basically, you only need the indicator is a node equal to one and the integrator or those two nodes, who's the two variables in an edge equal to one and this is sufficient to
+01:15:21
+The basically
+01:15:25
+Deduce all the possible value all the values of all the other possible edge and it's minimal. So this is basically the indicator of x equals one exchange equals one.
+01:15:40
+So the dimension here is
+01:15:44
+V plus he
+01:15:49
+And one way to see why this is actually a minimal
+01:15:55
+So is that
+01:15:58
+Let's say, look at the
+01:16:01
+The possible joint on two variables, right. So I have x is Jay and I could think value zero or one exec and think the various 01. And so I want to know what are the, the probability the marginal probability of all these
+01:16:19
+Possible pairs. Okay.
+01:16:24
+And so from
+01:16:27
+The parameter
+01:16:31
+In front of xi.
+01:16:35
+It will
+01:16:39
+Guess it's not really clear. What am I giving
+01:16:51
+Oh, yeah. So basically,
+01:17:02
+So if you remember we have that
+01:17:08
+The derivative of the lock partition function will give us these probabilities here. So it's basically that's what's going to happen here.
+01:17:20
+And so without going too much into details.
+01:17:26
+This representation will give us the probably T for each nodes. The marginal property for each nodes.
+01:17:33
+As well as the joint for x equals one and x equals one, which I would call a big. Okay, so I will have these three numbers specified by my parameters.
+01:17:45
+But these three numbers are sufficient to give me all the other
+01:17:50
+Properties that that are not explicitly given because. So this is the property that exciting. It's very cool to once I put it here.
+01:17:58
+Then the marginal tells me the probability that
+01:18:04
+X the property that x is equal to one.
+01:18:10
+So x is equal to one is the sum of the joint of x equals zero and x is equal one and x equals one and x equals one, right. So, so the some of those two entry SPI, which means that from from the marginal and from the joint of big I can deduce back this joined here by doing p minus PhD.
+01:18:36
+And similarly, if PJ here so I can reduce your PG minus P Aj
+01:18:43
+And now I can find this value here by having that the foreign trees as to some to one, so I get basically one minus p i minus Pj and then there was plus two big minus big which is plus one pH.
+01:19:01
+So basically, with these three numbers.
+01:19:06
+Are sufficient
+01:19:09
+To specify
+01:19:13
+These in some sense for a tables. There's four entries. There's only three degrees of freedom. And these were the three degrees of freedom.
+01:19:24
+Okay, well this is, I think, I don't think I made a great job of making this clear. But that's to give a bit of intuition why this is a minimal representation
+user avatar
+Unknown Speaker
+01:19:36
+But yeah
+user avatar
+Lacoste-Julien Simon
+01:19:55
+So Jacob is asking is it saying that knowing the edge potential. And one of the note potential till the other note potential
+01:20:03
+So what this is saying is that, first of all, if I can specify arbitrarily all the nodes potential and the edge potential there's multiple assignments, which give the exact same distribution.
+01:20:13
+And what I'm saying is that instead of saying what's the node potential for every binary value. And what's the node potential the edge potential for any pair of values, I could just specify. What's the potential for
+01:20:28
+For the node when it's equal to one, was the potential for the node which is equal to for the other nodes when it's equal to one.
+01:20:35
+And what's the potential for a pair of nodes equal to one. And with these three potentials I specified the joint unity or whatever the other potential because it will all be kind of like
+01:20:48
+Absorbed in the partition function.
+01:20:57
+And that's convinced that this is true. Actually, in terms of potential, but it is true for the clinical expansion of for the expansion of family formulation
+01:21:09
+Which has to be because I said that any way that their corresponding was lug
+01:21:17
+Think it should be true getting confused myself.
+01:21:24
+Yeah, so this is definitely using the fact that they're all binary
+01:21:28
+So I think, more generally, if you have keep us to be tease. I think you will need k minus one on the nodes.
+01:21:37
+And I'm not sure they props k times k minus one on the edge, rather than t square think it's that would be the dimensional UT
+01:21:48
+But I'm not completely sure replicate them ski minus one.
+user avatar
+Unknown Speaker
+01:21:54
+Minus one or something.
+user avatar
+Lacoste-Julien Simon
+01:21:57
+What I forgot these details.
+01:22:02
+Okay, so that's the amino representation for the pricing model. So perhaps before doing estimation. The last thing I will say, I don't have time to tell to you about the company generating function because we're kind of getting a bit behind in this class. So I will just say that
+01:22:20
+So the some properties of a
+01:22:27
+You'll see more in the scribe notes, but you have that. So I already said that the the gradient of a of it was the expectation
+01:22:39
+Oops, I'm having difficulties. It's the expectation of the sufficient statistics.
+01:22:49
+And I said, I called this like view of
+01:22:53
+Like the moment vector
+01:22:59
+When we talked about the expression family and the maximum entropy. And this is valid when it dies in the interior of the domain, because of the derivative. It's tricky to get rid of our honorees
+01:23:12
+And then there's also the it's true for the history of to. So basically, if you look at the history of the league partition function with respect to at the i n at J.
+01:23:25
+And if I looked at the
+01:23:27
+Entry of that this is basically the the entry of the covariance have to have x. So it's expectation p of x at have to have x minus, you have
+01:23:42
+To have x minus mute of at a transpose
+01:23:51
+This is for all possible it right so this is as a matrix. When I take this question. This is basically the covariance have to fix.
+01:24:03
+And the proof is in existence.
+01:24:12
+And so it turns out that these are called components. So the first component is the mean, the second command as the covariance. The third component is something which is just called the third component
+01:24:22
+That's why a of it is called a commitment generating function, but they they taking its derivatives, you get all the commitments.
+01:24:34
+Okay, and that will. All I will say about the expansion of family things today.
+01:24:42
+Let's move to estimation
+01:24:45
+Of parameters in the GM
+01:25:13
+A big M.
+01:25:19
+And
+01:25:22
+Let's start with the GM
+01:25:27
+So now, suppose I have a parametric family.
+01:25:38
+I'll use P capital theta.
+01:25:42
+Which will be specified by these PMS for PDF on x.
+01:25:49
+Which are in the form of a DGA so I will have probably, at the product over my nodes and then they specified the conditional
+01:26:01
+And these depends on some parameters.
+01:26:04
+And I will have a different parameters for every piece of my
+01:26:09
+Daejeon
+01:26:11
+So every note, I'm not doing parameter sharing in this case.
+01:26:18
+And so then
+01:26:21
+This is for theta.
+01:26:25
+Belongs to
+01:26:27
+Yeah so theta basically
+01:26:32
+As
+01:26:37
+One entry per node.
+01:26:44
+Sorry. So, so it has one parameter per node, which could have. We could be multi dimensional, but the importance is that each of these entry, I will see
+01:26:54
+Will belong to theta, where there's no constraints on these parameters. I will say I have a parameter set for first know the parameter set for a second node and there's no relationship between this parameter set
+01:27:05
+Okay, so that's kind of like the simplest way to have an independent transition. So, because both. I have one parameter per node and there's no relationship between my constraints on the parameters. So this is what we call an independent
+01:27:21
+Parameter ization
+01:27:25
+And that makes estimation, much simpler because basically
+01:27:31
+When you do maximum likelihood in this thing. It will separate in
+01:27:38
+The number of nodes as independent problem. So, this will be couples in V independent
+01:27:46
+Emily problems.
+01:27:48
+So you can basically estimate every little family independently.
+01:28:00
+So we're not tying the parameters and so that simplify things
+01:28:17
+And so, for example, suppose my observation are I have an observation of these joint multi dimensional variable.
+01:28:28
+So if a computer likelihoods I have my data given my parameter, this will become
+01:28:35
+The product.
+01:28:37
+Over my observation, probably to have my observation.
+01:28:42
+Given data and then becomes product over i.
+01:28:47
+Product over my nodes.
+01:28:53
+Of probably T of exchange I given x by G. I. N.
+01:29:03
+G. Right.
+01:29:08
+And so if I take the log of this
+01:29:13
+I can first compute the sum over my nodes.
+01:29:20
+And then I get
+01:29:22
+Basically summation over my training example.
+01:29:27
+Of the lug of p x j i
+01:29:33
+X by Jay, I
+01:29:36
+Data
+01:29:38
+And so you can just call this some function which only depends on data, J. There's no other theta there because this is data G.
+01:29:51
+And so if I try to maximize the lug respect to my joint data of a some of only function of theta. Jay, I can. And because my constraints.
+01:30:04
+Here are separated like their products. I can independently optimize over every parameter for every element of myself. So that's why it means that the couple
+01:30:15
+So let's say for example X one given expired. I was a Gaussian with some mean and coherence and perhaps another one was originally right doesn't really matter.
+01:30:25
+Then I can just, you know, look at this data independently to estimate my mean in my current. Oh my gosh. In and in the same thing for the other family for member to do so.
+01:30:36
+So if you so basically it's reduces to problems, you already know if these pieces or standard piece that you've looked at before.
+01:30:43
+So it's pretty easy in a fully observed so fully observed demographic Amal is actually not super hard. Now if you add a bit of constraints, then it becomes a constraint of division problem and then things ties, but also when it's fully observed, it's still not too hard.
+01:30:58
+When it is not fully observe. So basically, for the observed
+01:31:06
+The GM is relatively easy.
+01:31:15
+But if you have latent variable.
+01:31:21
+So you have some unobserved variable.
+01:31:26
+Then
+01:31:28
+You can use em instead
+01:31:38
+Then you use em.
+01:31:41
+Like we did for. Hmm. Right. Hmm, was an example of the D GM where we did explicit parameter estimation that you're doing for think for this assignment, right, which is you in two weeks, think that this Tuesday. Tuesday night.
+01:31:59
+And so in general into each step of. Yeah. And you'll need to compute some probably tease on your on your variable and your latent variable.
+01:32:07
+And how do you compute the properties of latent variable in the DJ, DJ, and will you do basically some product or junction three algorithm that's how you do it. Exactly. And if you can do it. Exactly. Well, then you can use sampling or virtual methods which will see next. Okay.
+01:32:24
+So that's for the GM
+01:32:27
+So that's what about you, GM
+01:32:36
+You GM as other difficulties here.
+01:32:55
+And so
+01:32:58
+We can think of in the case of discrete variable to simplify will look at, for example, Gaussian random networks later in the class, but like, we can then think of the exponential family.
+01:33:15
+Because I said that basically any you GM could be putting the exposure family when you have positive potential
+01:33:23
+So I want to do maximum likelihood
+01:33:26
+When my distribution or of this form.
+01:33:33
+And so it's a bit more complicated than in the D GM part. Oh, I guess I didn't finish something in the DGA sorry. And so in
+01:33:44
+One thing which is a very important special case.
+01:33:49
+Is
+01:33:53
+It's moved this down.
+01:33:57
+Sorry about that.
+01:33:59
+Is that
+01:34:01
+Oops, I also want to move you down. Mr.
+01:34:05
+Fully observed the GM is relatively easy.
+01:34:16
+And so as an example. Suppose that all these conditional or discrete or discrete random variable for discrete
+01:34:24
+Random variable, you can think of them each of them as routinely
+01:34:29
+So you'll have that the maximum likelihood estimation for every of your parameter will be basically the proportion of
+user avatar
+Simon Demeule
+01:34:49
+Just me. Or we lost Simon
+user avatar
+jacob louis hoover
+01:34:54
+I've also Boston
+user avatar
+Breandan Considine
+01:34:56
+Yeah, I can't hear me.
+user avatar
+Abdelrahman Zayed
+01:35:05
+Or I think he hasn't felt good.
+user avatar
+Lacoste-Julien Simon
+01:37:46
+So who was the host while I was gone.
+01:37:51
+Nobody
+01:37:54
+Anyway, so sorry about that. I guess there was a electricity surge which stop my router. And so I had to wait for the internet to come back.
+01:38:08
+Fortunately, the recording.
+01:38:10
+Then stop.
+01:38:14
+So let me share my screen again.
+01:38:18
+Too.
+user avatar
+Unknown Speaker
+01:38:28
+People
+user avatar
+Lacoste-Julien Simon
+01:38:31
+Okay, so am I still recording. Yes, it's still recording
+01:38:36
+Yeah, so I was saying that
+01:38:42
+To compute, for example, in the case of a discrete random variable. I want to know what's the conditional probabilities for every possible assignment of
+01:38:52
+value for x j and for the parents and I can just compute that by doing ratio of accounts. Right. So I looked at the proportion of time I've seen
+01:39:04
+A specific value for xj in a specific value for the parents divided by number of time I've seen the value for their parents with any value of exchange. So that's just a total comp. Okay.
+01:39:15
+So it's pretty easy to to do for these. So it's basically ratio of counts of local accounts, right. So that's how you you would do is I'll make you an A. D. GM on discrete random variable.
+01:39:27
+Alright, so let's go back to the UGA em.
+01:39:32
+So basically, I said that you would have this shape. So you have sufficient statistics vector for every clicks I have my log partition function.
+01:39:46
+And so unfortunately here because of this log partition function which ties all the parameters together.
+01:39:56
+The log likes you. It does not separate like in the gym. So unlike in a Daejeon
+01:40:05
+Because of the normalization. Unlike in a the GM
+01:40:09
+The log likelihood does not separate
+01:40:15
+In
+01:40:17
+Individual optimization problem.
+01:40:21
+As summation
+01:40:24
+Over clique see FC of
+01:40:27
+Deceit
+01:40:30
+So it's a bit more complicated to do maximum naked in this case.
+01:40:38
+And so there's this algorithm that is in Mike's book called iterative proportional fitting, which is kind of a cute algorithm, but I don't think it's super relevant in modern machine learning.
+01:40:51
+So basically, the more standard approaches, would you, you would do gradient descent on the log like yet, right.
+01:41:03
+And so it's a bit like logistic regression. This is there a generalization of logistic regression, you know, when you talk about the special family.
+01:41:10
+There's just a progression, you have this x for two possibilities. Now we just have to keep us in. He's in 72 and there's no close bond formula for the maximum likelihood for logistic regression. That's why you need numerical methods like gradient descent.
+01:41:27
+And as I mentioned last time you had
+01:41:33
+So if I looked at the likelihood. So, summation over my train example log of p of x i given a fair
+01:41:41
+So I can separate that as a summation of critiques. I have a parameter for every click and then I have one over n summation over my training examples of the sufficient statistics for dis clicks of the trainings simple right
+01:42:00
+And then I have minus n times A of data divided by n. So the end cancels out. So that's the normalized log like here over my old training set. So you can think of this
+01:42:15
+Empirical. This is an empirical expectation of my sufficient statistics and the key right so I could call this my empirical moment on the clique.
+01:42:25
+So when I take the gradient respect to enter
+01:42:28
+Of my normalized like like you and I'll get so basically
+01:42:34
+For every clicks. This will just go away. I will be back with this. So I will get
+01:42:41
+I get if I take the greeting respect to FRC to make it more
+01:42:50
+Specific with respect to block at the sea, I will get basically
+01:42:56
+The empirical moment on my click minus the gradient of a meta respect to the clinic.
+01:43:04
+Which is the expected suspicious that this sticks.
+01:43:07
+Which is basically just a problem, right. So, so I call this the
+01:43:13
+The moment they
+01:43:16
+Have so that's basically Newseum, so that's by definition this is expectation over my whole distribution of TC of X. See
+user avatar
+Unknown Speaker
+01:43:31
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:43:33
+So I want that the model moment on a click matches the empirical moment.
+01:43:44
+And so to compute this just to complete the grading to do log likelihood as a center that look like you're the I need to compute this expectation. So to compute this, you need to do in France.
+01:43:57
+This you need influence
+01:44:06
+And, and, more specifically, if I looked at the Isaac model to make it more concrete.
+01:44:14
+Then we had that the kind of sufficient statistics we had
+01:44:18
+Was basically just the product between xi and exchange.
+01:44:24
+Were exciting exterior binary variable. So, if I take the expectation of this
+01:44:30
+All and get all I get is what I would call me i j, which is the probability that X is equal to one and exchange is equal to one, given my clinical power.
+01:44:43
+So I need to compute this edge marginal
+01:44:47
+To get what the gradient would be with respect my parameter and unfortunately in a grid Isaac model. I said this is on tractable to compute. Right. So, we will need approximate inference.
+01:45:02
+Approximate in France.
+01:45:07
+And so that could either be
+01:45:10
+Sampling, which is what we will see next or virtual method.
+01:45:17
+Which was where we'll see after sampling. So we'll see both these approaches and actually your assignment five will be to implement good sampling, as well as a simple
+01:45:29
+Mean field approach for for
+01:45:33
+Computing, a practice for competing these marginalizing ma
+01:45:41
+Okay, so the so the next things we will look at will be approximate in France.
+01:45:45
+And then in the in the big scheme of thing we will go back to model selection, like how to choose the graph, how to choose the the models or the Patrick family.
+01:45:54
+So we'll come back to that right now in terms of just estimating the the parameters in a in a graphical model that's most of the things I want to say is here.
+01:46:03
+It's a bit related. It's just a generalization of what I've we've seen in the first lecture is in this in this course right where we talked about like maximum likelihood principal maximum entropy this kind of stuff.
+01:46:15
+So the next class will start to do talk about sampling to approximate these properties. So is there any question about
+01:46:25
+Estimation in graphical model.
+user avatar
+ezekiel williams
+01:46:32
+And I have kind of been a question.
+01:46:36
+I was just wondering, are there any situations where you can have a latent variable model where you actually have
+01:46:42
+Where
+01:46:44
+We're like a maximum likelihood kind of estimate approaches actually concave
+01:46:49
+Or is it is it for me latent variable model do always have
+01:46:54
+non convex
+user avatar
+Lacoste-Julien Simon
+01:46:57
+Good question. So I think if
+01:46:59
+If the latent variable is discrete, I'm pretty sure that it's
+01:47:02
+All on in non border cases like I think like with measure zero mission like with poverty, one over the or like the big measure one over the parameters. My guess is that it's done Kochi. Now, if, if the latent variable that is continuous.
+01:47:21
+You might have things which are still fine, I think.
+01:47:25
+depends on how you define your joint
+01:47:31
+For discrete usually I think it wouldn't work now.
+01:47:35
+Spit inexpensive honey is clear. I think the next bunch of me these mixture model don't work. There are, they are not in mixed martial family.
+01:47:46
+Because it's always because I said, the next question for me, the maximum likelihood is always
+01:47:52
+convicts as the property will be convicts
+01:47:59
+Any other question.
+01:48:08
+Know,
+01:48:09
+Well, in this case, I'll see you on Tuesday and joy. Hopefully we can, which I don't know what's the weather forecast but ENJOY YOUR WEEKEND. It's important to take a break. Sometimes
+01:48:25
+Alright see everyone
+01:48:28
+Oh, and don't forget that there's a gatorade down social now if you want
+user avatar
+Unknown Speaker
+01:48:33
+With poker tables and

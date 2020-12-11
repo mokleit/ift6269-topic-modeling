@@ -1,0 +1,1553 @@
+Lacoste-Julien Simon
+00:00:10
+Alright so recording started. So, today we will continue the review.
+00:00:19
+And then start to look at the parametric models today. Oh, I want zoom
+00:00:28
+And effect percent
+00:00:32
+Today,
+00:00:34
+We will finish the project to review.
+00:00:42
+And start to talk about
+00:00:44
+plastic model with parameters. So parametric models.
+00:00:55
+Okay, so, and
+00:00:58
+So perhaps just something quickly I mentioned last class. If I go back to last class I finished with the continuous random variables. Yeah, so the recap was that's a very important recap so that
+00:01:14
+When we have a discrete random variable. So the sample space will have the
+user avatar
+Unknown Speaker
+00:01:22
+Other questions over there.
+user avatar
+Lacoste-Julien Simon
+00:01:27
+For those who are auditing will get solutions to the assignments. Yes, for the people in the email list and it should be late tech format so
+00:01:39
+It's not required. So wholesale indications where you want to have that your solution is legible very legible.
+00:01:50
+And so if you can write very teeny with no ambiguity, then totally fine to just like take pictures as, as long as they are good quality pictures.
+00:02:02
+Otherwise, if you're somebody who writes, like a doctor, I can medical doctor, then it's better to do it in Natick, and by the way, doing also late tech is good practice because when you write papers, but you don't have to do it, then they take if you can, but you have to do it legible.
+00:02:18
+Alright, so
+00:02:21
+That was the questions which I had to notice. So let's go back to what I was saying. Yeah. So if I have a discrete random variable, the sample space will have
+00:02:32
+Either most comfortable number of possibilities. So it could be finite or it could be like the natural number or something like that.
+00:02:40
+And in this case, the distribution is characterized by a probability mass function which tell me what's the probability of each possible value right we call just will use the digital PR expert.
+00:02:51
+And so, as that before, as I told you the probability distribution is a is a function on sets right set of possibilities, right. So I use annotation here curly braces.
+00:03:03
+But if you just use a single 10 as reset. That's called an elementary event. And so then you get the PMs
+00:03:10
+Okay, but if if you would have multiple events. You could use the the love qualities to add
+00:03:16
+The individual priority of this joint possibility. So that's what I had mentioned earlier here, right. So if I have two possibilities. I could just have say x and x prime and I could just add the PMs of each individual
+00:03:34
+Elementary facilities. Okay, so, but for PMS for discrete everything is simple. And by the way, for simplifying our presentations, often in this class I will be assuming discrete
+00:03:47
+Distribution to avoid a lot of like the complications, though, I will explain how to generalize a lot of the results to continuous distribution.
+00:03:56
+But let's keep this nine. Now the tricky cases when you have a random variable, where the number of
+00:04:03
+Possible values is uncomfortable. Like if I measure the temperature I measure the height. This is a real number.
+00:04:11
+So there's an uncomfortable number of values and now you cannot just talk about a PDF. So instead what we use is we'll talk about the property density function.
+00:04:21
+A quality density function is always defined with respect to in measure theory to what it's called a base measure in this class. You can think of it as
+00:04:33
+This is just the big measure on the real life for a single simple continuous run a variable in one dimension or if it's in multiple dimension, it will be with respect to do the big picture in dimension D, but we won't go to more crazy stuff.
+00:04:48
+And so then
+00:04:50
+The, the, the meaning is I get the property of events of set of points by integrating the density over this, right. So, for example, the priority of being in an interval
+00:05:02
+Around X of length A over to is the integral from x minus eight OVER TO two x plus over to have the density, the x, right. And so in one dimension, this is a simple integral when we haven't built to various
+00:05:18
+Random variable. We could also have a density and and these will be these these integral would become volume integral, but we'll see that today when we talk about the distribution
+00:05:29
+Okay, and the side note, I mentioned at the end of the last class, which is very important is that the density function by itself does not at any point
+00:05:39
+Single point does not mean that much because everything is the final me using integrals. And so if I change a function at only one point, the integral doesn't change.
+00:05:51
+So that's the one of the mystery of
+00:05:54
+You know when you go to uncomfortable number of things. And so you can always change the density function at a finite number of points or a comfortable number of points and this one change the distribution
+00:06:07
+And so this terminologies call it's it's defined uniquely almost everywhere, almost everywhere mean everywhere except on a set of measures zero IE accountable number of points, for example.
+00:06:25
+Okay, but that's just a subtlety about continuous variable. So today, let's now talk about joint distribution. So the first thing is, let's talk about
+00:06:37
+The joint. The marginal etc. So what are we talking when we were talking about these objects. So this is in the context of a multivariate random variable routine. Very it
+00:06:55
+Or random vector. So I guess the V here was more like a victor. But there's a bit of ambiguity. When you talk about the random variable, the traditional definition of random variable is that the the outcome are real numbers. So it's a one dimensional thing.
+00:07:12
+But then, more generally, you can have that the outcome can be a vector. It could be a function. It could be any object you want. So that's a bit a generalized version of random variable.
+00:07:23
+More classically when you have a vector, you will talk about a random vector, rather than a random variable, but be mindful that people can use still random variable, even if it's not a escape.
+00:07:37
+So let's start. Let's say, for example, Z or random vector is formed of like two components x and y.
+user avatar
+Unknown Speaker
+00:07:48
+So,
+user avatar
+Lacoste-Julien Simon
+00:07:49
+And so tonight I have. It's a two dimensional random vector, and we could use as our sample space in this context.
+00:08:01
+For this random variable Z just the product of the sample space of our individual random variable x and y.
+00:08:11
+Okay, so every pair of values where I pick one and x in the sample space of x and one in the simple simple space of why is possible for for this sample space of z.
+00:08:25
+And so if I am in the discrete case.
+00:08:30
+Then we will talk about a PMS for this random variable.
+00:08:35
+So the PMs of z. So, in this case, this because it's a random vector we can call it about. We can call this probably the mass function, the joint PMS to be called a joint
+00:08:51
+Is joining multiple components. It's joined PMS.
+00:08:57
+And we can see on see on x and y.
+00:09:01
+So it's a reference on which are the components.
+00:09:04
+And in this case, so we can still use P will use P little p everywhere in this class so little p. Now we have to work too.
+00:09:13
+Far any possible outcome we need to specify the two components. So the joint will be
+00:09:21
+I need to tell what's expert. Why so the two key of x, y. That's the joint PMS evaluated as positive as possible outcome.
+00:09:29
+And in this case, it's just the probability that capital X is little x and capital Y is equal to little life okay and this big P here is the joint distribution by joined because it's a distribution on multiple variables.
+user avatar
+Unknown Speaker
+00:09:49
+I'm having issues here. Whoops.
+user avatar
+Unknown Speaker
+00:09:53
+Okay, yes, this is the joint distribution.
+user avatar
+Lacoste-Julien Simon
+00:10:01
+And there was a question, but incur can we see random vector can have made of multiple random variables. Yes, definitely. So that's what I've just done here.
+00:10:11
+The random vector z can be seen as the concatenation of the random variable X and the random verbal way.
+00:10:24
+Okay.
+00:10:26
+And so why don't we have discrete random variable, the number of possibilities, or a discrete
+00:10:37
+And we could represent and for a joint one, we could represent as a multi dimensional table. And in the case of two is just to the table. Right, so I could represent the elementary events.
+00:10:56
+Of z or the computation of x and y as a table.
+00:11:08
+And so, for example, I would have, what are the values of x.
+00:11:15
+And what are the values of why right
+00:11:21
+And so this entry of the table here would be x equals zero, n y equals zero.
+00:11:28
+And so now I could ride the PMs
+00:11:33
+All the entries of my PMS for each of these possible values in this table.
+00:11:39
+And to make a concrete example say that x is encoding whether oops I'm having issues with my pen whether a di result.
+00:11:56
+Is even
+00:11:59
+So 246 and let's say why is encoding whether the same die.
+00:12:09
+Is
+user avatar
+Unknown Speaker
+00:12:12
+OK.
+user avatar
+Lacoste-Julien Simon
+00:12:14
+So I roll the die and then I have one random variable, which says is this die result even another another random variable is saying the same diet. It's not a different diets, the same day. Is it
+00:12:27
+Right. So in some sense, these two random variable are definitely correlated, they're related to each other because they're talking about the same thing.
+00:12:35
+And so in this encoding the probability that
+00:12:40
+X equals zero to x equal one mean that the die is even and y equals one means the die is odd. And so if one is true. The other one is, is if one is one of the other one is zero. Okay, so basically
+00:12:54
+The probability of both being zero both being one is zero. So, this is the probability the PMs that each has value one, right.
+00:13:06
+And the property that one is zero and the other one is one is a policy that the die result is even. So it's one half. So this is one half. This is one
+00:13:17
+And so here is the joint PMS for this situation, you have to check that each the some of the entries is equal to one, because we need, we know that the sum of all possibilities has to be equal to one, too, because we have this correct distribution.
+00:13:36
+Any question about this.
+00:13:49
+So,
+00:13:51
+Now, what about the continuous case. So in the continuous case.
+00:13:57
+We don't have a PD PMS anymore. We have a PDF. Okay, so. Suppose that X and Y or continuous. And this, by the way, means n right
+00:14:11
+Is a shorthand for it. And I like to use this little
+00:14:15
+Curly whatever it's called, and
+00:14:19
+So in this case, the probability will be determine for for an event is determined by an integral right so let's say the probability of
+00:14:34
+Some bucks region.
+00:14:39
+Will be updated by integrating over the box. The pdf
+00:14:46
+And then we do in the case of to variable, it's a it's an area integral, the sky. And so this key here is the joint pdf
+00:15:00
+The giant quality didn't security functions.
+00:15:03
+Which could be updating the same way as I mentioned before, you could take the, the original priority.
+00:15:10
+Over balls or boxes, doesn't really matter. And then
+00:15:16
+Compute the ratio around the point x of these these these balls.
+00:15:22
+At the property of a ball give divided by the volume of the ball. In this case it's the area as the ball gets smaller and smaller. So that gives you the, the density
+00:15:37
+Okay, so now
+00:15:41
+What about the march. So these are the joint. So that's the joint.
+00:15:47
+Alright, so somebody asked a question, why is p one zero, not one as if x equal one p one
+00:15:56
+OK, so the person understood. So that's fine. Actually, now we'll talk about the marginal so because right now. These were to join. Right. So I was only talking about
+00:16:04
+Both assigning the value of x and the, the value of white together the marginal distribution is when I only look at components of my vector I don't look at the joint vector together. Right. So the marginal distribution.
+00:16:21
+The marginal only makes us the wrong.
+00:16:25
+Server. So the marginal only makes sense in the context of a joint distribution.
+00:16:36
+Mean, because if I only have one variable, normally we won't talk about marginal, we'll just talk about
+00:16:43
+The variable itself. And so this is always in the context of a joint
+00:16:57
+So this is basically the distribution
+00:17:03
+Of a
+00:17:05
+Component of the victim.
+00:17:11
+Of a random Victor
+00:17:23
+And so, in the context of a discrete random variable. For example, if I want to know what's the marginal
+00:17:31
+Distribution for
+00:17:35
+x being equal to us specifically view little x. Well, I just need to some overall possibilities of my other random variable, which is why after
+00:17:52
+X equal little x y equal to y.
+00:17:57
+So this is just a PMS. So this is the two p of x, y.
+00:18:02
+And this is called the some rule.
+00:18:09
+So you can obtain back the marginal by summing over all the possibilities of the other variables in the joint.
+00:18:19
+And this is what we mean when we talked about marginalizing out. Right. Well, we use the terminology marginalizing we need computing the marginal by sending out the values of the other random variables which make out the the joint. So in this case, you could you could see that you're marginalizing
+00:18:39
+Out.
+00:18:41
+Why the random variable. Why, because you're, you're not looking at you don't care. When you look at the marginal for x, you don't care about what's happening to why
+00:18:54
+Okay, so that's the marginal. We have the joint. We have the marginal. We don't have to be the marginal you basically some over all the possible values of the other components of the vector
+00:19:04
+So now let's talk about independence and feel free to interrupt at any point if you have questions, but given that this is all review Alice I'll goes relatively fast.
+00:19:16
+Now this talk about independence.
+00:19:22
+I having issues with my pen.
+user avatar
+Unknown Speaker
+00:19:28
+Dependence
+user avatar
+Lacoste-Julien Simon
+00:19:32
+Oh, I mean, I'm not connected. That's why.
+user avatar
+Unknown Speaker
+00:19:37
+We plug in my laptop.
+user avatar
+Unknown Speaker
+00:19:43
+Make sure and
+user avatar
+Unknown Speaker
+00:19:48
+maximum performance.
+user avatar
+Unknown Speaker
+00:19:53
+Okay. GOOD COPS THAT WILL BE BETTER.
+user avatar
+Lacoste-Julien Simon
+00:19:56
+Okay, independence of random variable.
+00:20:00
+We will say,
+00:20:04
+That x
+00:20:07
+Is independent the random variable X is independent of the random variable, why
+00:20:17
+If and only if
+00:20:21
+In the case of continuous or discrete that the the PMs or the joint that's already the joint PMS, or the joint PDF is factor rising as the product of the marginal
+00:20:38
+For all x, y in the
+user avatar
+Unknown Speaker
+00:20:43
+Simple sample space.
+user avatar
+Lacoste-Julien Simon
+00:20:51
+So for discrete random variable. This is fine because the emf is sufficient for continuous. It's a bit tricky because I could make this false for a bunch of points which are comfortable and it still works fine.
+00:21:05
+But let's not worry about these technical issues for companies so
+00:21:11
+Basically just if if the PDF factor is then they're independent, it could be independent, even if the PDF doesn't really factor is nicely, the right way. But we won't go into these technical details for the continuous case.
+00:21:26
+And the annotation in this case means that
+00:21:32
+We will use this notation that x is independent of why. So it's basically this upside down pie. That's the independence location.
+00:21:46
+And so the nice thing here is that
+00:21:55
+You can see here that the
+00:22:01
+In the pen dent. Sorry, I don't know how to write
+00:22:17
+And the rough meaning of when to random variable or independent means that
+00:22:23
+Knowing the value of one doesn't change anything for the for the other random variable, right.
+00:22:32
+Because
+00:22:35
+And we'll see, actually, when we do conditioning. So if I condition on one it doesn't change the the the posterior distribution on the other one. And so in some sense, I could think of them as, indeed, as
+00:22:50
+Two different things which have nothing to do with each other.
+00:22:56
+Alright, so let's be forgetting to conditioning. Let's just mentioned something important that if I have a lot of random variables.
+00:23:06
+X one up to x enter
+00:23:11
+We can talk about mutual independence which is stronger than just pairwise independence would say they are mutually independent
+00:23:31
+If and only if
+00:23:34
+The joint on all these variable.
+00:23:38
+Factor is as full product.
+00:23:44
+Of the margins.
+00:23:52
+And this here is the product. This is the direct product of sets. That's notation for direct product of sets here. Dear do simple space.
+00:24:07
+Somebody asked a question, is there a geometric interpretation of independence.
+00:24:13
+So yes, like if you would look at an in a plane, you would have things that are basically like the the
+00:24:25
+You would have stuff like more like rectangular like where where knowing the value of one should show an influence, so it's it's constant across lines for
+00:24:37
+Proper. Like if I change the value of one variable. Nothing changed for the other one. So you would have these kind of like rectangular style densities.
+00:24:49
+But I would need to think more carefully him to give you a more complete answer and then somebody does Mitchell independence also hold for conditions this mutual
+00:25:00
+Independence also hold for conditional independence.
+00:25:10
+Well, first of all, I haven't talked about conditional dependence yet. So let's get back to, let's get back to your question, one child will have defined conditional independence.
+00:25:21
+What's the difference between mature enough neutral. So the difference is more that we will see an example later on in the course, today.
+00:25:31
+Of
+00:25:33
+An example where you could have three random variables which are pairwise independent. So I could have for every pair, if I look at them by themselves. I don't care about the other value. I look at the at the marginal of those to
+00:25:45
+The are independent, but they're not mutually independent because if I look at the three together, then there's some dependence that happens. So that's the difference.
+00:26:00
+Somebody is asking about my notation. So why is
+00:26:05
+Oops. Okay, I want this.
+00:26:13
+So this is the product. And this is a product. So why am I using two different occasions, because this is actually a product of scanners.
+00:26:23
+Whereas, this is a product of sets. So it's a very different. I mean, it's both our product, but it's not the same kind of objects. Right. So there's actually a direct product of sets.
+00:26:39
+What is the best way of finding the joint distribution between a continuous and a random variable.
+00:26:46
+I do not understand the phrasing of the question.
+00:26:51
+please rephrase
+00:26:55
+Joins division between a continuous variable and the discrete random variable.
+00:27:03
+Hmm.
+00:27:08
+Well so so already, that's when you start to get in tricky situations because the first. First of all, when you talk about their countries random variable, you need to talk about their
+00:27:20
+PDF, the density function. And now if I have one component which is discrete in one component which is continuous. I won't be able to talk about the density function respect to the bag measure dimensions.
+00:27:33
+Okay, so it gets a bit trickier but you know okay so So somebody's asking about, let's see, I have
+00:27:43
+So let's say z.
+00:27:47
+Okay. Is x, y, where this is continuous and this is discrete, what do I do with that right well. So in this case, you could talk for example, about the probability that
+00:28:05
+Whoops. So an example of things you can talk about would be the probability that
+00:28:12
+X belongs to a box.
+00:28:15
+And y equals to some value aid for example. Okay, so actually I could put little by
+00:28:23
+So this is a meaningful this this will be kind of the, the sets for which you can assign value which one just be zero because if for X, capital X any specific value will have zero quality. Right, so I need
+00:28:35
+To have an extent to have non zero qualities. And in this case, you will both have a PDF and you will have
+00:28:43
+A PMS part. So, this will basically be the integral for x in the box of the joint of little x for at fixed value why
+00:28:59
+The next day, so basically this is kind of like a PMS part
+00:29:06
+Whereas this one is the PDF
+00:29:11
+So when you have hybrids like this. There's one component which behave like a PMS, ie, if I if I want to know the protein for multiple why I will just some over them. Right. It's a discreet some was the other part, the PMs the PDF part, I will need to integrate
+user avatar
+Unknown Speaker
+00:29:27
+So that, that's still feasible.
+user avatar
+Lacoste-Julien Simon
+00:29:35
+And in terms of terminology like somebody is asking. Oh, do you call it the PDF. PDF
+00:29:41
+Yeah.
+00:29:43
+Good question.
+00:29:45
+So I
+00:29:48
+I would call it like a hybrid PDF PMS, for example, that's an example. So when you do measure theory, this would still be called a PDF party density function where the base measure would be a not
+00:30:01
+A simple measure it will be a cross between the bag measure and the contact measure. So it would be a bag of X and counting on one so you can define these kind of like fancy based measure which are not just the bag or discreet and this enables you to easily handle these hybrid object.
+00:30:27
+Okay, so hopefully this clarifies that and I was talking about conditioning because somebody asked about mutual conditional independence and we need first to talk about conditioning and that's super important. That's one of the most important
+00:30:42
+Construction, we will our objects will talk in this class.
+00:30:48
+Because we talk about conditional independence everywhere so conditioning.
+00:30:54
+And the idea of conditioning is I am kind of like computing a new distribution, knowing that something already happened.
+00:31:05
+And so
+00:31:08
+First, let's talk about events and let's talk about random variable, okay. So suppose I have events A and B.
+00:31:21
+And so these are a set of outcomes. That's an event is a set of outcomes. Right. So it's a set of elements of mice and sample space.
+00:31:30
+And we will suppose that the quality of one event is non zero so that something can happen something in this event can happen.
+00:31:41
+Then the definition of the conditioning the conditional on the event a given even be so the vertical bar means given by definition will be the joint of A and B, or at the intersection when it says read normalize by the margin calls by the quality of
+user avatar
+Unknown Speaker
+00:32:04
+So this is basically a normalized
+user avatar
+Lacoste-Julien Simon
+00:32:14
+And so
+00:32:16
+Basically what's happening here is suppose that we have this is our sample space all the possible values right and then suppose that I have a set of possibilities which is B.
+00:32:32
+And now I have another set of possibilities which is a okay
+00:32:40
+And so, and suppose, in this case, for example, we had uniform distribution to simplify so that everything is proportional to the area I put on this.
+00:32:50
+On this to the plane here. And so the the the intersection of A and B is this little piece of area here.
+00:32:58
+Okay, and
+00:33:01
+Then I want to know what's the probability of being in a when i know that i mean be well then it will be basically proportional to this area but re normalized by the total area be right. And so that's the reality of being in a once i knew i mean
+00:33:26
+Shame shouts. So what is the equal sign with a triangle. That means definition. So it's a terminology to use. It's a
+00:33:36
+Notation to indicate definition.
+00:33:46
+And so
+00:33:50
+Basically
+00:33:54
+By the you have by the some rule that P B is equal to summation over all possible sets a
+00:34:06
+So we have that P of B is equal to the some over all set. A in the partition of my sample space.
+00:34:19
+Of the joint of a and right
+00:34:26
+And so that's why I call POV. The normal Iser is if you think of the conditional as a new distribution where I'm allowed to change what I will put as my first argument like this argument here could be different sets.
+00:34:43
+Well, I will want that this conditional is proportional to the joint of A and B.
+00:34:53
+And then I need to
+00:34:56
+Make sure that this is a distribution that need to be normalized by dividing by the sum of all these properties, which is this thing here, which is
+user avatar
+Unknown Speaker
+00:35:05
+OK.
+user avatar
+Lacoste-Julien Simon
+00:35:11
+OK, so somebody we. There's a lot of questions greener so mean definition in these notes so green is a convention I will use to to talk about definition, indeed.
+00:35:24
+In words. But usually I will use the equal with a triangle to means define when I when I use equations.
+00:35:35
+Is a cap be the same as a comma be
+00:35:43
+High enough so
+00:35:47
+So a
+00:35:53
+Intersection be means
+00:35:56
+Because he was a set of lemons and he was a set of elements. So when I think the intersection. I'm saying, Well, the thing which happened was, both in the end. Right.
+00:36:08
+Which also means that I am in a and I am in be right. So I could say that.
+00:36:15
+Something like
+00:36:17
+The simple
+00:36:20
+belongs to A and the sample belongs to be
+00:36:25
+That's why the comma here could be when when I have like x equals little x and y equals it away. That basically means that
+00:36:37
+The event.
+00:36:39
+That of what's happening is in the intersection of those two events of the event that exit was equal to little x in the event of white quote was equal to little more. So it's, that's why they're come on the intersection are very similar notation.
+00:36:59
+Alright. Finally, I'm a bit confused between the ratio between property functions. For example, a gas ocean and the area of planes, what would it look like in terms of area.
+00:37:08
+Okay, so when I'm talking about an area.
+00:37:12
+It's just, both because
+00:37:15
+If we have a uniform distribution, then this will be exactly how the probability distribution will behave when we have a uniform distribution.
+00:37:24
+And also because the axioms that proteins satisfy are similar to how area work I E. If I split into this joint event.
+00:37:34
+The area of those of the whole thing is the sum of the area of individual thing which is the same thing that the priority of a whole thing happening is some of the policy of each element thing.
+00:37:46
+But if it's not even from the submission. This will have nothing to do with the area right so a Gaussian, you could think of it that scene one d
+00:37:54
+Um, let's see, I have
+00:37:58
+Are
+00:37:59
+All right, and then I will have my PDF. This is my PDF
+00:38:07
+And I guess I'll put a zero here. And so this is whoops.
+00:38:12
+Is a Gaussian and well the nice bell shaped version of what I drew
+00:38:21
+And so
+00:38:24
+Here you can see that I don't have. If I would look at the length so area and when these length. So the length of an interval
+00:38:34
+Is not proportional to its, its property right because it's not a uniform distribution, right, in this case, though, when you add the PDF as a new access, you do have that the probability of being an interval is an area that's the area under the curve right
+00:38:51
+So this let's say this is a a b. And so this here would be the the area here under the curve which is the integral of px, the X from A to B. This is the probability of being
+00:39:08
+Of x being between AMD right
+00:39:12
+Okay, so that's so yeah so so you have to distinguish the area under the curve versus just area on on the rectangle, like I've done
+00:39:23
+Which would be appropriate for a uniform distribution like the bag measure like the bag measure is just saying that everything that the probability of finding
+00:39:31
+Somewhere is just proportional to the area of the space and then you need to read normalize to get it protein distribution, which is a new phone.
+00:39:39
+Okay, hopefully this answers the question.
+00:39:42
+So now I decided to define how to condition on sets. Now let's talk about random variable because I'm just talking about sets right now. So do now for this treatment and variable.
+00:40:05
+We will define a conditional PMS. Right. So when we talk about this variable. We talked about PMS. Now we want to talk about the conditional distribution of a random variable, so will actually use something called conditional PMS.
+00:40:21
+On the show no
+00:40:25
+PMS.
+00:40:27
+Which would be no by the two p of x given why
+00:40:32
+And by definition is a simple. It's the same thing as a event thing because that's the magic of adding
+00:40:41
+Discrete outcome. This is the event that capital X is equal to little x. That's a singleton elementary event, given that capital Y is equal to the right.
+00:40:55
+And so by the division of conditional priority. This is the intersection of the event, divided by the marginal right so this is the probability that
+00:41:07
+X equals little x and y equals y
+00:41:13
+Divided by the marginal of y equals little I
+00:41:21
+Saying it's right. And so this is
+00:41:26
+You take the joint PMS.
+00:41:30
+And then you realize by the marginal penis.
+user avatar
+Unknown Speaker
+00:41:39
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:41:45
+And so we can see that the conditional PMS p of x given why we will often right or it's proportional to the joint p of x it away. What do we mean by by by this as well.
+00:42:01
+Why is fixed, right, because why is conditioner little Why is fixed. And so we can. This is a distribution over x. So, we will just make sure that it's read normalize to make sure it's some to one. And so the normalization constantly is what is the marginal. So the normalization.
+00:42:24
+Constant is the summation of x of the joint.
+00:42:30
+Which is equal to the marginal try and so that gives back the same formula as above.
+00:42:41
+So why do I mentioned that is because often the normalization constant is kind of a pain in the butt to compute. For example, you need to some or you need to integrate in the case of conscious when a variable.
+00:42:54
+And but it doesn't really matter too much. It's just a constant. And so what you can do is you can do a lot of computation, making sure we looking at only what is proportional to and you just we normalize idea.
+00:43:06
+And so, for example, you could notice while doing some computation that all this is a Gaussian, so like the joint is a Gaussian. And so then the normalization constant will be the normalized or by Joshua, but you don't need to explicitly computer because it doesn't really matter.
+00:43:23
+So we'll see when we do Bayesian updates. This is very
+00:43:30
+This is very
+00:43:33
+Useful as a trick. And what do you mean P of why is fixed.
+00:43:42
+Ah, yes. So like vicious, they said p of why is a constant in the, in the context of computing the conditional p of x given why when I will change x
+00:43:57
+Pure Why because, why is fixed and pure white is
+user avatar
+Unknown Speaker
+00:44:01
+20
+user avatar
+Lacoste-Julien Simon
+00:44:07
+Alright, so finally, this is for discrete so then for continuous
+00:44:14
+For continuous random variable, instead of PMS will have a PDF. So the conditional
+00:44:26
+PDF
+00:44:30
+And it's defined similarly, as in the
+00:44:37
+In the discrete case, but I am not going to talk about events because it gives some issues. So I'm only working directly with the PDF. So by definition the conditional PDF of p of x given. Why is the joint pdf p of x, y divided by the marginal pdf P away.
+user avatar
+Unknown Speaker
+00:44:58
+Yeah.
+user avatar
+Lacoste-Julien Simon
+00:45:04
+And here, a subtle point
+00:45:13
+Is that the conditional p of x given. Why is undefined.
+00:45:21
+Which, in other words, you can put any value you want when the marginal and y is equal to zero. And I'm not talking about
+00:45:31
+The event capital Y equals it or y, which we know for continuous distribution, this is zero. I'm saying the density on for the marginal why you could have zero problem. You could have zero density on some region.
+00:45:46
+In this grace conditioning and it doesn't make any sense.
+00:45:52
+But
+00:45:54
+It doesn't really matter anyway you can just define to anything.
+00:46:07
+And you can define to anything because it will never happen anyway because the priority of adding this y is zero. So it won't become relevant somewhere.
+00:46:20
+Okay.
+00:46:22
+And so these are the definition
+00:46:27
+And be aware of that. The for continuous random variables conditioning is a much more rich concept than what I just wrote here. I gave you the, the, sorry, the simplest version by going directly with the PDF
+00:46:44
+But there's this there's a bunch of paradoxes which talk about conquering
+00:46:50
+counterintuitive.
+00:46:52
+Behavior of conditioning when you're not careful. Okay, so, so actually the true measure of theory definition of a conditional is is not just a value like this. It's actually a random variable. It's a random object.
+00:47:06
+Which is only defined up to a measure set of zero, a measure of set of measure zero
+00:47:14
+And basically normal you you when you condition, you have to talk about how you will split the events and depending on how you will spend the events, you could get
+00:47:21
+Different results and I forgot. There's a name for this paradox, which I forgot the name, but I'll put it back on the notes later after I find it.
+00:47:31
+How does kind of shooting works when one variable is continuous out very transparent X know. Is it the one with the circle. I'm talking about the one with the circle if me google it quickly.
+00:47:42
+So he says it's Bertrand.
+00:47:44
+Russell Bertrand Russell's paramedics
+user avatar
+Unknown Speaker
+00:47:48
+King I'm having issues. I don't see anything.
+user avatar
+Lacoste-Julien Simon
+00:47:53
+So he says, Bertrand.
+user avatar
+Unknown Speaker
+00:48:00
+Now this is any kind of mix.
+user avatar
+Lacoste-Julien Simon
+00:48:07
+Ah, interesting. So it's a different, it's the same paradox. I was talking about, but it has a different name.
+00:48:25
+Okay, so perhaps it's transparent.
+00:48:29
+So the products on I'm referring to is basically that if you have a uniform distribution on the sphere. And now you talked about
+00:48:38
+Conditioning on a great circle, depending on how you manipulate this conditioning, you will get two different answers, even though it should be the intuitively you think it should be the same because it's just a great circle, who cares. And now I lust. Where are the people. Oh, can I see
+00:49:05
+Okay. Well, anyway, see myself over there.
+00:49:08
+So last thing before the break.
+00:49:15
+It's not Simpson's paradox. And it's not the Buffon needle. But anyway, I'll find it. So yeah. So two things.
+00:49:24
+First is, as I mentioned earlier. So note that if I have independent random variable.
+00:49:37
+So if I have x independent of why
+00:49:42
+Then if I computed conditional of X given why
+00:49:47
+This is, by definition, the joint of x and y divided by the marginal wine but because of independence. I have that the joint is the product, right. So I have p of x times y by independence.
+00:50:03
+By independence divided by poi and so I have a pair of white consoles and I get that the conditional of X given. Why is the same as the marginal so knowing why doesn't change anything. It's like if I didn't know anything about why
+00:50:17
+So that's kind of like a nice
+00:50:21
+Kind of consequence of when you haven't been variable which kind of just to find a meme of independence. Oh, actually, I find it there there there below that my group chat.
+user avatar
+Unknown Speaker
+00:50:31
+Okay, cool.
+user avatar
+Lacoste-Julien Simon
+00:50:42
+And
+00:50:45
+You know, an example of conditioning.
+00:50:49
+Where it could be very useful. And, you know, we'll, we'll see it all over the place in this class is
+00:50:57
+You know, let's say I have a model of symptoms and diseases. Well, I would want to compute the probability of having cancer.
+00:51:07
+Given that I made some for example tumor measurement
+00:51:13
+Which is equal to Italy.
+00:51:19
+Right.
+00:51:23
+And so probably temporary measurement could be the screen when there's multiple types or it could be, say, a size, in which case it will be a continuous value. And so then we will be talking in this in this conditional will be talking about the PDF. Right.
+00:51:40
+Well actually having cancer is just an early but we could still, I guess that's the question. So somebody had this conditioning works when when the variable is continuous. This one is discrete
+00:51:50
+Well, you can just reuse. Look at these thing and it still makes sense. So, for example,
+00:51:58
+Let's see why is continuous, an X is discrete, like my cancer example.
+00:52:05
+So x is whether you have whoops, blah, blah.
+00:52:13
+Sorry, I'm just trying to get my pen. Alright, so let's say why is the measurement of my tumor, which is continuous and x is a binary variable which says I have cancer or not.
+00:52:26
+Well, then this joint here will be a hybrid PM F on X PDF on why and that's fine. Right, so I can still just do that here.
+user avatar
+Unknown Speaker
+00:52:48
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:52:50
+So somebody is asking if you have a mix continuous discreet distribution. I have seen a direct delta function uses it appropriate
+00:53:01
+Yes, it's kind of a device like basically a very good affection is actually, it's called a distribution in mass. That's the proper theory of it. It's an object that
+00:53:12
+When you integrate you get value so so point wise. It doesn't make any sense because it's everywhere, everywhere. It's infinite that the point. But then we integrated, you will get the, you know, you will select value at the point where it was supposed to be infinite.
+00:53:26
+And this actually comes from the fact that, you know, I said we could define PDF respective based measure if the base measure is discrete, then it's basically you get these direct delta for integrals at the value, which are the the discrete
+00:53:46
+The discrete possible values of your random variable. And so you can think of it as a PDF for discrete random variable is something that will integrate
+00:53:57
+But where you will have the direct delta function at every possible values of the random variable, times the actual PMS of this random variable. It's a when you integrate, then you just get the song like like in the standard discreet
+00:54:11
+So if you don't want to distinguish between some an integral and just having two goals everywhere, then this direct is very useful. And actually, I think we might use this device at some point in this comes
+00:54:24
+In wouldn't a calculation of poi the injectable often poi is indeed and tractable. It's an integral or it could be an infinite some or etc. So, indeed. That's why in this class will talk about approximate
+00:54:39
+Techniques to compute marginals, and finally, can a distribution and self be treated as a random variable, and if so, how would you describe independent distributions.
+00:54:49
+So a distribution itself is
+00:54:54
+For example, let's talk about
+00:54:57
+Let's say we have a discrete random variables, right, a discrete random variable is represented by its PM, if suppose, for example, we have
+00:55:06
+Key possible values. So we need key numbers which are positive and which some to one. And so to describe this random
+00:55:17
+Distribution on key values. I just need to specify. What's the quality of each of the key values. So it's a vector of dimension key which is
+00:55:25
+Actually called the property simplex. So they're all positive. There's some to one. Okay, so if I did find a distribution over the property simplex. Now I have a distribution distribution and sometimes because these are the parameters of distribution. So, you can still talk about that.
+00:55:41
+And then the question is, how do you define independent submission. Well, you can say that, let's say I have two different
+00:55:51
+Also, this doesn't really make much sense as is what it means to be independent. This case but
+00:56:00
+You could have, let's say, Okay. So a good example would be, I have
+00:56:08
+Two different
+00:56:12
+Distributions.
+00:56:14
+Of x and y.
+00:56:17
+Are these it or actually I define a joint distribution of x and y. And is this distribution in as independent components right
+00:56:26
+And I could put a distribution over this distribution and I could say, what's the probability that when I sample from this distribution. I have that x and y are independent.
+00:56:34
+So that could be an example of question which would make sense in this in this setup. And I think the answer would be zero because
+00:56:42
+If you sample from most joints. Usually, you will have some dependence and to get independence. Perhaps you will have only zero mess, but it would be this is getting a bit beyond the scope of this class.
+00:56:57
+Alright, so it's 332. So we'll take a 10 minutes break
+00:57:04
+And be back at 342. And in the meantime, I'm going to grab some coffee and put some music.
+00:57:18
+Okay, so we have a few questions. First question in the chat a private question, whereas in the assignment I use a TI upside down instead of a pie upside down.
+00:57:37
+Is this the same thing. Yeah, kind of its. This is latex late tech laziness. Normally, the, the T upside down might mean uncorrelated rather than independent like perpendicular. It's actually kind of like a translation of perpendicular, but
+00:57:57
+We will in the assignment. I mean, independent. Okay, so this is just a latex laziness.
+00:58:07
+Alright, so then
+00:58:09
+Another question which was asked in private is
+00:58:14
+The protein distribution for random variable describe how the priorities are distributed over devalue of the random variable. How are the distribution falling practice. So that's a really good question.
+00:58:24
+And we will get back to that later in class. So this is basically a statistical questions. It is that, oh, I am a phenomenon, what should be
+00:58:35
+The description of this phenomena. So I observations of phenomenon, what should be the distribution describing this spin amount and
+00:58:43
+And that's a statistical question which is not easy. You could use maximum likelihood you could use your prior information prior knowledge. If you're Beijing this kind of stuff. So we'll see different tools to do that later in class.
+00:58:56
+Right now we're focusing more on properties, which is that suppose I know what the distribution is how to compute some quantities.
+00:59:03
+That's kind of the framework and Omar says in of course we're not going over measure theory details can be considered, it doesn't really matter for practical applications or is it mainly because the go over the scope of the class.
+00:59:17
+Well,
+00:59:23
+So I think for a lot of practical applications. They don't really matter, but not all. So that's why I won't say it's it's just
+00:59:33
+So the main reason is because it's over the scope of the class because you can get an entire class just one major theory was here, we're covering other things.
+00:59:43
+It's also more than that. So what happened is when you talk about distribution over much more complicated object like something call stochastic processes.
+00:59:53
+So we were you have a discussion over an infinite number of elements like a function
+00:59:58
+Or something or distribution over distribution where this distribution is for a consistent variable, so that's
+01:00:05
+Starting to get very hairy object and then the measure theory starts to become more relevant to make sure you don't say CD things. So, for example, we'll see when we talk about
+01:00:16
+Non parametric Bayesian methods, towards the end of the class. So basically non parametric mean an infinite number of parameters, basically, that's kind of what it means, doesn't mean there's no parameters just means there's a lot of parameters and includes an infinite number of them.
+01:00:31
+So the existence of these objects often are very
+01:00:36
+non trivial to prove. Like sometimes we can define things which don't make any sense. If you don't know enough about Misha theory.
+01:00:43
+So there's this thing called like the coma Grove extension theorem, I think, which says that, oh, if I have
+01:00:50
+Defined all the marginals of my joint there is exist and the satisfy some rigor. The condition then exists a joint, but this is already like some very powerful theorem coming from that major theory.
+01:01:04
+And so, so the short story is
+01:01:08
+Beyond the scope of the class. And for a lot of simpler applications. You don't have to worry too much about it.
+01:01:15
+It's always good at some point to, you know, learn about it to make sure you so if you go more events more advanced topics you need to learn about it to make sure that you don't see something see
+01:01:27
+Is there a course on stochastic processes at Mina, not sure, actually think in the math department. There might be some as Parker think Dr Zhou I was teaching something with dynamical systems. I'm not sure if he does the classic processes as well.
+user avatar
+Unknown Speaker
+01:01:45
+So, yeah.
+user avatar
+Lacoste-Julien Simon
+01:01:48
+Okay, any other question.
+01:02:00
+So for these kind of questions. I also recommend perhaps like there's a lot of you from different universities. So you can just ask it on the slack and like we already have a few questions, answers like apparently there's one technique and somebody mentioned the math department.
+01:02:15
+Sector so so we can use our collective intelligence to answer these questions. When I should have put my pen here so that it's charge suit.
+01:02:29
+Okay, so we saw conditioning.
+01:02:34
+Now let's talk about base rule, which is kind of related
+01:02:39
+And then we'll see parametric models, very soon.
+01:02:45
+Alright, so now we have base rule.
+01:02:50
+What's based rule. Well, it's just a simple manipulation of the definition of conditional property to invert the conditioning. So this enables to invert.
+01:03:03
+Conditioning
+01:03:10
+And so by definition I have that
+01:03:15
+P of X given. Why is the joint divided by the marginal so I can multiply the marginal on one side and so
+01:03:26
+Then I have that I could use this to join to just define the conditional in the other direction P of why given x divided by PX and so
+01:03:38
+The base rule is simply
+01:03:42
+P of X given why
+01:03:47
+Is the same thing as p of why given x times p of x divided by POS
+01:03:59
+So basically,
+01:04:04
+If I know what's psi given x
+01:04:07
+I can obtain p of x given why so reverse the conditioning by multiplying by p of x and dividing my PR
+01:04:19
+And so basically I had that
+01:04:24
+By definition,
+01:04:27
+Of the p of why given X was p of x, y divided by p of x.
+01:04:37
+And so this implies something called the product rule.
+01:04:43
+Which is that the joint is the conditional times the marginal so pure why given x times p of x, just the same thing as p of x given why fans.
+01:04:58
+So this is called the product rule.
+01:05:06
+And then you can see easily how I can obtain the bays rule by just
+01:05:13
+Taking this piece and sending it on this. Like, that's how I get, please.
+01:05:22
+Alright, so now
+01:05:25
+There is something very powerful and very important in this class called the chain rule.
+01:05:32
+Which is just
+01:05:35
+Applying the product rule multiple things.
+01:05:39
+The chain rule. What you do is you do a successive
+01:05:48
+Replication
+01:05:52
+Of the product rule.
+01:05:54
+On multiple random variable.
+01:05:58
+To get that the joint.
+01:06:01
+On x one, two, x n.
+01:06:06
+We can say, well, this is by the product rule. It's the conditional of accent, given everything before
+01:06:15
+Times the marginal on one up to minus one, right, and then I can expand this joint here again, using the product rule. This is the conditional n minus one, given one up to n minus two times the marginal x one to n minus two. Well, then they get the same thing here. And so you keep doing this.
+01:06:43
+And you get that the joint can always be written as the product from icons n to the conditional of x i, given everything before
+01:07:05
+So I have that the joint can be written as this product of conditions.
+01:07:09
+So this is always true.
+01:07:18
+And moreover, here the one up to end was a bit arbitrary. You can also choose
+01:07:27
+Any of the n factorial
+01:07:30
+Permutation
+01:07:35
+And I could have
+01:07:37
+Instead of starting at accent I could have decided to start exploring and then go x seven or whatever. So you can just per minute, all the variables and just reapply the same kind of
+01:07:49
+Statement statements that and you get just a different factorization.
+01:07:56
+And so here, know that if I apply if I look at if I looked at this quantity here when I equals one, I get one up to zero.
+01:08:09
+Right, so the convention here. So that's removed this so the convention here my limitation is that if I have one up to zero or tend to zero. Whatever is some
+01:08:24
+On the right, it's smaller than the left. This is the empty set right this empty set of index and I have that P of X one given X the empty set is just the same thing as p of x, right. It's like if I didn't condition on anything. So this is just like the station convention.
+01:08:43
+In order to not have to have a specific term separately with different notation. So that's kind of to go faster.
+01:08:50
+And so now when a key aspect is that these conditional here. The can be simplified.
+01:09:01
+When making
+01:09:04
+Conditional independence assumptions.
+01:09:17
+And this is where, when we talk about a directed graphical model that's what we'll do.
+01:09:23
+In a
+01:09:26
+In a directed graph Kemal that will see later in a few lectures. So not not that soon. We basically see that will have that p of x i given x one up to i minus one will be equal to p of x i given x where these are the parents in a graph.
+01:09:51
+In particular, if I have a chain. It could just be x minus one. Okay, so when I have that the the conditional
+01:10:01
+Of a lot of variables reduces to a smaller conditional. This is basically conditional independence assumption assumption, right. So let's define it formally
+01:10:12
+But before I defined formally, just to be clear that
+01:10:18
+This is true for all distribution and I can. But the problem is, here I have a lot of variables. So, these are very complicated factors and particular the I will have the XM given
+01:10:29
+Everything before. And so that's a huge, huge, huge table with an exponential number of entries. So it's super complicated
+01:10:36
+And so when we talk about that a graphical model, we will make assumption which will centrify these factors too much smaller factor, where the parents here could have one or two nodes are not a very small number. So that's basically the assumptions woman.
+user avatar
+Unknown Speaker
+01:11:07
+Times p of x one.
+user avatar
+Unknown Speaker
+01:11:11
+There's some question.
+user avatar
+Lacoste-Julien Simon
+01:11:22
+Is there a connection here to the chain rule in differentiating function composition
+01:11:40
+I mean in math, often you have a decrease the level abstraction. You can make links with a lot of things right, so here
+01:11:46
+The idea of a chain rule in general is just you chain a bunch of operations that's I think the biggest link so you know there's a train rule for derivatives. There's a chain rule for
+01:11:57
+Conditioning. There's a few different channels. So here
+01:12:01
+This is a chain rule for
+01:12:05
+Basically expanding a joint into a product of terms. I'm not sure if it's directly related related to
+01:12:14
+Differentiating a function positions. But I think at the some abstract level, it could be
+01:12:22
+Alright so conditional independence. That's where I was going to get conditional. What's the definition of conditional independence.
+01:12:36
+It's just a generalization of independence, where now we look at conditional statements. So we'll say that x is the random variable X is conditionally independent
+01:12:51
+Of the random variable why given Z. So it's the difference between independence and I will talk about given and the notation is like independence. But with a little twist. So, this is x conditionally dependent of why given Z. So I add the little vertical bar to talk about conditioning.
+01:13:13
+And this is if and only if there's multiple equivalent definition. So here I just think that the joint of x, y given Z factor is so it's basically like the the independence, but it's just that I will replace with conditional statements I have p of x, given z times P of why given
+01:13:35
+This, this has to be true for all x, and their sample space. Why in their sample space and Z. It's simple space and I need to condition on something which is not which is possible. So, such that the marginal is not here.
+01:13:58
+Okay, so that's the definition of conditional dependence. It's very similar to independence, but now I'm making these statements conditioned on a variables.
+01:14:08
+And now you can as an exercise to the reader.
+01:14:15
+To the reader.
+01:14:18
+You can try to prove by using the definition of conditional dependence that if I have x conditional independent of Y given Z.
+01:14:28
+Then I also have that when I condition on y AMP z x given y and z is actually the same thing as just p of x, given z. So, knowing why doesn't change anything on my conditional x, given z.
+01:14:45
+So this is the direct analog. So this is the conditional
+01:14:52
+Analog
+01:14:54
+Of x independent of why implies that the conditional of X given. Why is the same thing as the margin politics.
+01:15:03
+But here I added conditioning Wednesday.
+01:15:12
+Oh, somebody is paying attention, such that p AMP z is not equal to zero.
+01:15:19
+Thanks.
+01:15:21
+Man.
+01:15:28
+Okay, so let me give you an example to make this more concrete would have
+01:15:37
+Something which would make sense to talk about conditional independence.
+01:15:41
+So let's have that Z is the indicator
+01:15:46
+Of whether some mother.
+01:15:50
+carry genetic disease.
+01:15:57
+We take disease.
+01:16:01
+And then I have that x is whether son one has the same disease.
+01:16:16
+And
+01:16:19
+And perhaps it's in the
+01:16:25
+Lab. It's not too crazy biology. So
+01:16:29
+Someone has disease. And then, why will be son to has disease. Okay, and a typical assumption is that whether once I know that the mother has a disease, there's a certain probability that the that she transmitted to the sun, but
+01:16:50
+The quality that
+01:16:53
+One son has it versus the sun is independent, you could you could think that
+01:16:59
+Once I know I have the disease when I transmitted. There's, there's, it's, it's like a flip of a die each time whether you get it or not, or a flip of a coin Tobias queen.
+01:17:09
+And but they're independent. Okay, so this would be an example where you'd say that x given x will be independent of way given Z.
+user avatar
+Unknown Speaker
+01:17:21
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:17:24
+But
+01:17:28
+It's not true here that x is independent of why marginally. Okay, so here you have that x is not
+01:17:39
+marginally
+01:17:43
+Independent
+01:17:45
+Of why
+01:17:49
+Is he
+01:17:51
+It's not the case that x that's we've been an annotation. So it's not that x x or not just and here we say marginally to just say, well, we have marginalize opposite. So we don't care about it but just look at a joint of x and y.
+01:18:03
+And in this case, they're not independent, which would mean that there exists x and y, such that the marginal and x and y is not equal to the product.
+01:18:18
+And the reason here from just a modeling perspective is is because
+01:18:24
+When I know that X has a disease. It gives me information that the mother had the disease.
+01:18:31
+And if I know that the mother has a disease. It also gave me information about the other son, having the disease.
+01:18:36
+So for example, if the mother doesn't have the disease, then the property of the sun, having a disease is basically zero whereas if
+01:18:44
+The sun has a disease, then it increase the probability that the mother had the disease. I mean, actually, it's pretty high, which increases probably that the other son has the disease. So there's a relationship here.
+01:18:56
+And so in graphical model notation. This condition depends statement will be like this, I will have that x y here and z.
+01:19:06
+Z will be the parent and I will have two children.
+01:19:09
+And we will see when we talk about graphical model that this means that p of x, y, z factories in a way which is just that p of x, given z times p of y given Z and then times the marginal z.
+01:19:29
+And so from this factorization, it is clear that once I condition and z z is just a constant, then the marginal the p of x, y given Z factories as p of x, given z times PA y given
+01:19:47
+Which is the conditional
+01:20:12
+Alright, so now let me give you an example of pairwise independence, which is not maturing the bend and
+01:20:19
+That's what I told you earlier.
+01:20:22
+Of pairwise
+01:20:25
+Independent
+01:20:29
+Random variables.
+01:20:33
+That are not
+01:20:37
+mutually independent
+01:20:44
+And so I could define X to be a coin flip.
+01:20:54
+And then I could have wide to be another independent
+01:20:59
+coin flip.
+01:21:05
+And so by definition here I have the X is marginal independent of why
+01:21:10
+And I could define
+01:21:14
+Z to be x four x or y
+01:21:22
+Okay.
+01:21:24
+So x or. So these are binary values. So, x or have to binary values. It's one when only one of the two is one. So, one, zero, and gives you one but one gives you zero
+01:21:38
+And exercise to the reader, you can show that Zed, in this case is marginally independent of x, y and Zed is marginally independent of why
+01:21:48
+But you don't have that said is jointly independent of x and y. This is not true, because if I know x and y. I know z by because it's a it's a deterministic function of
+01:22:03
+X and Y.
+01:22:08
+Okay.
+01:22:13
+And so here when I only knew two of the three variables.
+01:22:18
+The looked like independent, but if I knew three variable. If I know if I like to i can i can actually predict the third value of the third, the value of the third variable which is why they're not all Mitchell be independent.
+01:22:30
+That's what's that, so that's the difference between pairwise independence and which one the pennies.
+01:22:38
+Okay.
+01:22:41
+So let's talk about other annotation.
+01:22:46
+So that we all have the same terminology
+01:22:51
+Will talk about
+01:22:57
+Expectation mean
+01:23:02
+Of a random variable.
+01:23:09
+Expectation of mean of a random variable. So the notation is this little bar capital e mail us bracket.
+01:23:19
+It's like a sexually linear operator acting on random variables. So I put x in the bracket. And so by definition, this thing is either if it's a discrete random variable, it will be the sum over my simple space.
+01:23:34
+Of x px
+01:23:37
+This for discrete random variable.
+01:23:44
+And it will be the enter goal or my space X P of X the X four continents.
+01:23:58
+And the expectation operator.
+01:24:03
+Which is basically an integral
+01:24:06
+Is a linear operator.
+01:24:12
+Is a linear operator.
+01:24:17
+Which means that if I take expectation of a capital X plus capital Y. Where is a Skinner, and X and the Y or random variables.
+01:24:33
+I have this is the same thing as a time expectation of X plus expectation of. That's what we mean by hitting your perimeter. So it looks like a
+01:24:44
+Well, it behaves linearly on these vectors. If you think of x and y as vectors.
+01:24:52
+And that's basically a property of some or integrals.
+01:24:56
+And then somebody asked a question.
+01:25:00
+In private should we make the leap from conditional statements to graft surgery. For example, in the assignment, not necessarily in this case.
+01:25:09
+This is more for illustrating the concepts that I'm showing it right now. But in the assignment you should use directly the definition of conditional independence and you can just use the graph.
+01:25:19
+Because we will cover the properties of graph later in the class. But, you know, use them for the first time.
+01:25:28
+Alright so expectation. We also have the variants of parameter
+01:25:35
+The variance. I will use VA and bracket. So by definition this is the expectation of X minus expectation of X squared. Yes, there's a bracket here.
+01:25:55
+So it's the the expectation of the deviation from the mean this quick
+01:26:04
+And if you expand that and you use the linearity of the expectation, you get that this is the same thing as expectation
+01:26:14
+Of x square minus expectation of X.
+01:26:19
+Square.
+01:26:25
+And this is basically a measure of dispersion
+01:26:30
+Right it tell us how spread out your distribution is
+01:26:36
+And so for example if I have some kind of like bell shaped random variable, this would be the expectation of my random variable.
+01:26:46
+And I would have
+01:26:48
+Some standard deviation
+01:26:53
+Which basically tells you, like how wide the bump is and this standard deviation, which we could use sigma will be the square root of the variants of x.
+01:27:08
+That's the standard deviation
+01:27:12
+So the variance is square and then to get the standard deviation, you take the square
+01:27:17
+To give you the scale of the dispersion of the distribution.
+01:27:23
+Okay. So that covers that probably T concepts. I wanted to review.
+01:27:30
+So let's shift gear. Oh, why
+01:27:36
+We are not normalizing E x
+01:27:44
+Alright, so somebody is asking about normalization. So the thing is, then the polity distribution is normalized, so this is already rescaling things properly.
+user avatar
+Unknown Speaker
+01:27:53
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:27:56
+And then why do we call expectation invariance and operator.
+01:28:03
+So this is me can call them that, because
+01:28:10
+You could think of the expectation as operator, which takes as input a random variable or its distribution that see on a fixed space and as output as killer. Okay.
+01:28:24
+And why is it useful to talk. Think of it as an operator. Well, because then there's some properties of this operator, which you can talk about like linearity, which I just described. Right. So I can take
+01:28:34
+Linear combination of my random variable than the expectation of the linear combination is the same as the linear combination of expectation. And so this is some kind of properties. You can talk about
+01:28:46
+So it's a useful mathematical abstraction.
+01:28:58
+Is an expectation and variance or properties of our distribution. I feel confused cutting it operator.
+01:29:09
+So if I fixed my distribution, then it's expectation variance or fixed yes I talked about them as an upgrade or because I can now consider how the expectation varies when I change its input in terms of distributions are random variable.
+01:29:27
+That's, that's all.
+01:29:32
+Okay, so let's talk about parametric models I have 13 minutes
+01:29:40
+Oh, I guess I'm answering a lot of questions this year. Well, that's, that's good. But I'm going a bit slower. That's okay.
+01:29:48
+Parametric
+01:29:52
+Models.
+01:29:56
+Alright, so now we're talking about instead of a fixed distribution. We'll talk about a family of distribution and so apparently model is a family.
+01:30:09
+Of distributions.
+01:30:15
+And I will use the annotation curly p
+01:30:21
+As a set of distributions and I will use
+01:30:26
+My set of parameters as its index.
+01:30:30
+For example, I mean this is just notation.
+01:30:33
+And so this is a set of distribution.
+01:30:37
+And basically, I will have to mention the PM effort, a PDF of my distribution. And so these would be either a PDF or PMS and I will each of these will have a parameter of theta and parameter theta will vary in my set of parameters. They were called capital theta.
+01:31:01
+And so these are the possible
+01:31:06
+PMS.
+01:31:08
+Or PDF, depending on whether I'm talking about a parametric is apparently family of distributions, which are continuous or discreet
+01:31:16
+Depending on parameter a sale.
+01:31:21
+So the, the, the column semi colon notation is just
+01:31:27
+Come out or semi colon don't really mean the city that much different is just often I use semi colon to because the two elements will have very different nature. Right. So the first argument here.
+01:31:39
+This is like the, the, this is where I will put the variable which present my outcome was this is a parameter. So it's kind of a very different
+01:31:49
+Nature, so we'll see that a few times in this class. So depending on parameter data.
+01:31:57
+And
+01:32:00
+When we talk about a family of distributions will always have implicitly from the context.
+01:32:08
+What is it on so from the context.
+01:32:15
+Will have what is the support of the distribution.
+01:32:27
+He. What is the sample space for my random variable.
+01:32:32
+And it's usually fixed
+01:32:40
+For all the panelists.
+01:32:46
+So for example, if I talk about a model for coin flips my sample space would be 01
+01:32:59
+And then
+01:33:02
+I would have different protein distribution on 01 which will be presented by. What's the quality of ahead, for example, so I will have one sinker scale or parameter which did represent my distribution.
+01:33:16
+My quality of seeing ahead.
+01:33:19
+Or another example is if I have a gamma distribution my support will be the positive number.
+01:33:27
+And then the gamma distribution will have two
+01:33:33
+Parameters describing the shape of the distribution.
+user avatar
+Unknown Speaker
+01:33:38
+Funding
+user avatar
+Lacoste-Julien Simon
+01:33:44
+What's this support means in math, usually the support of a function is where it is non zero
+01:33:53
+And so depends on the context, but so in this case the support of random variable is where its quality is not zero, which depends also. Okay, are we talking about the density about the PMs etc etc.
+01:34:07
+But so in this case.
+01:34:10
+There's already a bit of ambiguity, because you could say that the support which is the sample space.
+01:34:17
+And then, normally you could also have that the density zero at some element of the support if you wanted, because you put a parameter which tells you that the policy zero. In which case, they're not normally excluded from the support of the distribution.
+01:34:30
+Then somebody's asking about the notation.
+01:34:36
+Yeah, so the this the semi colon, as I mentioned, is, is basically like a comma. But it's a comma between things which are perhaps quite different. And I want to highlight it, so I'll use a semi covenants that
+01:34:49
+So often used it.
+01:34:52
+By the way, there's an abuse of notation here that I will often use so abuse of notation.
+01:34:58
+I could
+01:35:01
+describe this family as p of little x theta theta, you know, getting to my set of parameters. So this is not correct notation, because if I have a fixed x here.
+01:35:15
+So if this access fix this is a scheduler. So this would be a set of skills. Right. I don't want to set of skills. What I want is basically that this x berries.
+01:35:23
+I want to represent the whole PMS for the PDF for all x right just why here. I use a duck. The duck means I consider the whole PMS as a function, not at a specific point
+01:35:35
+And so a better notation which is still not ideal but
+01:35:40
+Is to use, which I think I'll use often.
+01:35:44
+Is to use the capital value instead. So we use capital.
+01:35:51
+Data
+01:35:53
+And basically the semantic here is that I'm talking about the distribution for random variable capital X, so the the
+01:36:03
+Letter here is just telling me what's the name of my random variable. What's the letter I will use for it.
+01:36:08
+And the fact that I use a capital letter here means that I'm not looking at this value for a fixed little X. I'm thinking of it as you know all. It's not us, but it's still a bit ambiguous. Yep. So this is really a better notation, because now it's clear and I'm looking at the whole function.
+01:36:31
+Is capital he possesses space. I don't see oh the so there's no capital H here. It's this is capital feta. Alright, so this thing here is a circle with an agent at this is capital data.
+01:36:46
+And capital theta is the set of parameters.
+01:36:51
+So there's no age anywhere.
+01:36:55
+Okay, so now let's talk about some example of these parametric model.
+01:37:00
+So the notation that will use to talk about these Patrick model, I could say capital X. Is there any of our x is distributed according to Bruno he
+01:37:15
+With parameter theta, right. So this means. So the little squiggly line here means that the random variable X is distributed
+01:37:26
+So the squiggly mean distributed as a
+01:37:31
+Bernie.
+01:37:34
+distribution with parameter theta.
+user avatar
+Unknown Speaker
+01:37:40
+That's basically what it means.
+user avatar
+Lacoste-Julien Simon
+01:37:44
+And then I could use annotation that the PMs
+01:37:49
+I guess let's use this
+01:37:52
+Again, more notation. So I could use that the PMs on X with parameter theta.
+01:37:59
+For my random variable is a bird new EP and f of x with birthday.
+01:38:06
+Okay. And so this is to indicate the variable for my PF
+01:38:17
+And this will be the parameter
+01:38:21
+Of my distribution.
+01:38:27
+And this is what this is data to the X one minus data to the one minus x. So we'll see it very soon. So let's define it Bernie.
+01:38:43
+It's the quality of a coin flip.
+01:38:50
+So the sample space is just 01
+01:38:55
+And the probability of X equals little x that, sorry.
+01:39:01
+Policy that my conflict is one and I'm using here Bayesian notation. This notation.
+01:39:13
+Will come back to this later.
+01:39:15
+Is just data.
+user avatar
+Unknown Speaker
+01:39:18
+Right.
+user avatar
+Lacoste-Julien Simon
+01:39:20
+And so the parameter of a Bernie is just what's the probability of having head or having the result to be one and this is given by theta. And so because the property has to be between zero and one. I have that my possible parameters is just the interval between zero and one.
+01:39:42
+And I can quickly and because I have that the probability of having zero is one minus the quality of having one I will have that the priority of x equals zero is just one minus data.
+01:39:54
+That so quick way to write that is that the PMs for my brother. He is data rates of the x times one minus beta one minus x right
+01:40:06
+Which is where we where we mean by Bernie on X data. So, so when I write Bernie X semicolon data. This is a shorthand for this expression.
+01:40:21
+And so if the data if x equals one.
+01:40:24
+Only this will be one. So, I will just be left with data and if x equals zero, this will become one this will become one. And so we'll get left with the one nice data. So this works for both specific. So it's just a fancy way to write a very simple thing.
+01:40:52
+Okay, so I guess a lot of people are talking about notation. So indeed, you know, I use the new unique so I use for example like this notation here.
+01:41:03
+As a shorthand to talk about the PMs or PDF of a distribution. So another another short term that it will use later. So another example.
+01:41:12
+That we use later is I will use the notation normal on X given parameter new and sigma square right so this is a Gaussian with me new
+01:41:22
+And Pat and variance sigma square and then I'm talking about the pdf of this Goshen on the variable x. And that's basically what I mean by this thing when we get back to that.
+01:41:33
+And then when talking about decision function do we use small p or big P so small, P is for P MF PDFs.
+01:41:40
+Big P is for the actual quality of the event. And so that's why I use curly brace. Right. So when I when I use big P i use curly brace here when I use when I talk about PMS or PDF. I use it.
+01:42:01
+Okay, so
+01:42:03
+Just before we finish.
+01:42:08
+So guess next class. I'll talk about the Goshen, but
+01:42:15
+Just here quickly the expectation of
+01:42:20
+A bird new ye, it's just data. It's variance
+01:42:26
+Is data times one minus data you computed
+01:42:33
+And you know, that's what it looks like so. So if I put data and I write variants of x here.
+01:42:41
+Or I could use actually to kind of like highlight the dependence on data. I could put a semi colon data. So this way I can see how it varies as a function of data. And so the maximum value is one quarter, which is reached at one half. And so I get this kind of quadratic function here.
+01:43:02
+So the maximum variance of the brewery is when you have an unbiased coin flip.
+01:43:09
+And and finally the last example, the gosh, and I mentioned to you.
+01:43:17
+Was
+01:43:19
+In this case it as a PDF
+01:43:22
+The parameter or demeaning, the variance
+01:43:25
+And so I will say this is just a PDF of a gash in with
+01:43:31
+Me and Mew and variants sigma square
+01:43:36
+Or I could use. In addition, X given using my square that's like a more Bayesian way.
+01:43:42
+Either way, that's the same meaning. And so this means the pdf of a gash in which is minus x minus new square divided by two sigma square square
+01:43:53
+one over square to pies sigma square. So, that's the density of aggression. And so when I don't want to write this whole expression with a lot of things I could just say, oh, well,
+01:44:04
+This thing I could write it in a full equation and just right. Oh, this is the cash the pdf of. Gotcha.
+01:44:13
+And somebody asked, Why is this equal to data because I told you that by definition in a bird new ye the probability of x equal being one is just data.
+01:44:27
+And this notation here was just saying, well I when I know the parameter of theta of my distribution that's the
+01:44:38
+That's the PMA for my burden.
+01:44:42
+Okay, so I have to run. It's a time's up.
+01:44:48
+And so great. So
+01:44:51
+Don't forget the assignment is up, but you know you have time to do it. They have two weeks.
+01:44:57
+And I'm going to see you on Friday.
+01:45:01
+You do.

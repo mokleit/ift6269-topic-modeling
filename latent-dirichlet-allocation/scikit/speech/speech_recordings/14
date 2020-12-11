@@ -1,0 +1,1639 @@
+Lacoste-Julien Simon
+00:00:02
+Okay. So, and, and do not forget that next week. There's no lectures, right, so next week is, it's time for you to spend on your, your assignment on your project and other
+00:00:15
+things you have to do so.
+00:00:18
+Today we're going to continue talking about properties of directed graphical model and we will define the underrated graphical model and after that you already have all the material to do assignment three
+00:00:34
+So,
+00:00:36
+Let's go back. So at the end of the last lecture to do this lecture.
+00:00:43
+We saw that adaptive Africa model is a family of distributions, which
+00:00:54
+satisfy some factorization properties. Right.
+00:00:58
+And so now I will give you the the clinical three nodes version graphical model. And as I had hinted last time the factorization properties.
+00:01:12
+Relate to conditional independent statement.
+00:01:15
+Right, so I think let's go through last class. Let's see.
+00:01:20
+I think I
+00:01:23
+Review some
+00:01:25
+Conditional dependence. Yeah. So remember there was these, these two equivalent definition for conditional dependence variable x a conditional covenant of XP given X, see if the conditional factors as a product or if I condition on both x and x. See, it's the same thing as conditional access
+00:01:45
+So so knowing exceed gives you all the information you need to talk about X A, you don't need to also know it's that's kind of the
+00:01:53
+The semantic. And so, so these like is factorization. And because the the joint have a distribution, which is in the doctor graphical model factories and the specific way. There will be also associated conditional independent statements for all the members in defending
+00:02:08
+And as you remember at the end of last class, or perhaps you don't remember, but I'll remind you, I told you about two extremes. So there was when you have no edge in a graph, then the associated Dr graphic model is only containing the fully independent distributions.
+00:02:28
+So that means
+00:02:33
+And I said, when you add edges you add distribution. So that means that the independent distributions are in order to overcome all basically
+00:02:42
+So even if you have a bigger graph. So,
+00:02:46
+So that means that, so why am I talking about this. Well, it means that
+00:02:51
+We will talk about
+00:02:53
+For a specific graph. What are the conditional independence properties which are satisfied by all members of the family.
+00:03:00
+But it doesn't mean that there's specific members of the family, which could have more independence and particular you will always have the fully independent distribution.
+00:03:09
+It's an all directed graphical model. So, so this is always in a directed graph model. So whereas, usually it's not the case that all members of the family.
+00:03:18
+Are fully independent except if it's the empty edge but it's very specific. Did you okay so it's important to keep in mind that
+00:03:28
+There's a difference between properties of specific distributions and properties that all distributions and the family share GUESS YOU WANT TO HAVE THIS WILL I will come back to that.
+00:03:47
+Okay, so that's a good question from Jacob. So not all distributions are represented will with a graphical model directed undirected right
+00:03:57
+Like summarization of larger models, for instance, we will be discussing a way of specifying for a given distribution model where it can be assigned a graphical representation. So
+00:04:09
+I think I mentioned the the
+00:04:14
+The life. The plucking property right. So there was this thing here why I said up if I have
+00:04:24
+A directive graphical model. And if I marginalize the one node which is a leaf, then the distribution, I get the joint I get is a member of a different director graphical model where I just remove the leaf from the graph.
+00:04:42
+And and this, this implies that not only the marginal is have this memory in place that if I look at the collection of distribution which are obtained by marginalizing the specific node.
+00:04:54
+I obtained that collection of distribution, which is exactly the same family as the one for this graph here. So there's a there's a
+00:05:05
+This smaller. The gym is exactly characterizing all the marginals I obtained from the bigger graph.
+00:05:14
+And we'll see that, indeed, not all operations yield family which are exactly characterized by a graph. So there's some
+00:05:24
+Families, which are not obtained from there to graphical model. On the other hand, any distribution can all be can be seen as a member of a family, in particular, I said at the end of the class, the DEF CON I considered the complete graph.
+00:05:38
+If I use their company graph, then by the chain rule. It's actually satisfied the correct factorization on the graph, which means that any distribution is part of this family.
+00:05:50
+And so any distribution can always be seen as into Dr graphical model where everything is connected that's different, saying that I get a family, which is characterized by the graph, and we'll get back to them.
+00:06:03
+As an answer your question, Jacob.
+00:06:07
+Are you you can voice your
+user avatar
+jacob louis hoover
+00:06:09
+Application.
+00:06:10
+Sounds like yes yes it does. I wanted to just like ask
+00:06:14
+This team is very similar to something I asked last lecture, which was and you answered it by saying that there is a turret this concept of faithfulness.
+00:06:22
+If it could, if this was like the best model for the best graphical model. So is this exactly represented concept, similar to the concept with the graph being faithful because, of course, you could always represent something with the super
+user avatar
+Lacoste-Julien Simon
+00:06:39
+So you need to do this. Okay, so, so, so, just so that we're on the same page or demographic a model is a family of distributions.
+00:06:46
+And so we need to distinguish when we're talking about a specific distribution or a family of distributions. And so now the concept of faithfulness will be for specific distribution. And I think the idea there is, it will be the smallest graph.
+00:07:01
+Which contain this distribution. So the complete graph always contain any distribution, but there are smaller graphs and so for example, if I consider the independent distribution any independent is fully independent solution, then the faithful grafted that is the empty graph.
+00:07:19
+Okay so faithfulness will be a concept defined for a specific distribution. Whereas, when we talk about families, for example, like, Can this set of distributions be obtained by a specific graph. And that's a question about a set of distributions.
+00:07:40
+And
+00:07:42
+You could not have that. And it's not the case that all the members of this family.
+00:07:49
+So if I consider let's say I have a graph G and I looked at the set of distribution LG
+00:07:56
+Then this graph won't be faithful to all the members of the family because I told you that the fully independent distribution is always a member of the family.
+00:08:05
+And then the only graph which is faithful to that is the empty graph. So, so there's some distribution in your family for which the graph is not faithful because there are smaller family which contains it
+00:08:16
+And you will have a good this sense that without loss of generic if you if you randomly pick the parameters of your distribution.
+00:08:23
+Then the graph would be faithful in some sense, did the family that gets in order to to get
+00:08:29
+These fully independent submission or something you need to specify the conditional in very specific ways and there will be a notion that the set of parameters for which does arise as measure zero in the set of all parameters. So there's a very specific families.
+00:08:45
+We get back to that when we talk about pattern ization and conditions. Okay.
+00:08:53
+Alright, so
+00:08:56
+Let's talk about these three nodes graph.
+00:08:59
+Conditional
+00:09:03
+So yeah, so basically, now we'll talk about what are the conditional independence property in a directed graphical model.
+00:09:09
+And before going in general, we will start with the basic three node graph.
+00:09:15
+Which will also give you a bit more intuitions about the properties of these TGF
+00:09:27
+Alright.
+00:09:28
+So the first basic graph will be called a mark of Shane.
+00:09:36
+And basically encodes Markov chains. And so in this case you have arrows in there in all the same direction. So, I will have the z. And then I have why and use it usually here I will use z is will be observed, just to get a sense of what's happening.
+00:09:54
+And you could think of.
+00:09:58
+X, for example, like this could be a good model where x is
+00:10:04
+The past.
+00:10:07
+Z is the present.
+00:10:10
+And why is the future.
+00:10:14
+We get what I mean here is you could think of all, there was a time step for that was an observation at each time step and X was the first Z's. The next one. And why was the third one. Okay, so, so that was also kind of market changes and nice model.
+00:10:29
+And it turns out that for all the members of the demographic a model, you will have the following conditional independence, you will have that x is conditionally dependent of
+00:10:41
+Sorry. Why I mean the same this symmetry, but I prefer to talk about the future as condition, they didn't have the past, given the present.
+00:10:53
+Future.
+00:10:54
+Is conditioned dependent of the past, given the present.
+00:11:01
+Okay and this is often called
+00:11:04
+Markov chain assumption. So it's a Marco via an app such assumption. So that's a bit also like where the these names come from.
+00:11:12
+And so you can think that often like physics has this property like if I know all the state of the system right now and there's no memory aspect, then I can already
+00:11:21
+Predict or I can already make my model of what should be the next steps. So what will happen next should not depend on stuff, which was
+00:11:27
+Happening in the past. If there's no memory property. So, so usually you have these models like if I give you like you follow like Newtonian mechanics, I give you the initial condition, I tell you.
+00:11:38
+What are the, the force of motions or whatever, then you know how the particle will evolve by just using the law.
+00:11:46
+Newton's laws, basically, but all I need is to this initial speed and initial position and and I'm fine. I don't need anything else, whereas I don't need to know where where this position. And where was the particle like 1010 years ago, doesn't matter. It's
+00:12:00
+fairly natural assumption. It doesn't cover all speed. I mean, I, of course, especially if there's a phenomena of like his services or memory where the behavior to system in the future depend on the what happened in the past, not just what's this current state.
+00:12:15
+So that's what you have for all members of the family, but
+00:12:21
+You don't have that x is marginally independent of why
+00:12:28
+For some member of the family.
+00:12:32
+Okay, so
+00:12:35
+So the fully independent distribution is is an all graphical model. So it turns out that if I look at the fully independent submission on x, z and why it will be the case that x is independent of by
+00:12:45
+So there are some distribution in is that that directed graph model which have that x is margin independent right
+00:12:52
+But it's not the case for all Members, which is why we say it doesn't hold for all Members.
+00:12:57
+Okay. And the reason in some senses that there's this this because of these these arrows here in some sense there's there's interaction between these variables intuitively. And so when I don't observe said I was still get a connection between x and y.
+00:13:13
+They're not separated when things are separated
+00:13:17
+You basically get the dependence, we'll, we'll see that towards in the middle of this class when we talk about the notion of graph the separation, which translate into conditional independence.
+00:13:30
+Okay, so that's one simple graph and that the thing is exercise to the reader, you could prove from the factorization. So here, what you have is that the joint p of x, y, z.
+00:13:46
+By the definition of a graphical model has to be able to form p of why given z p of z given x and p of x. So there's this factorization property.
+00:14:00
+And so here
+user avatar
+Lizaire Maude
+00:14:05
+Thank you.
+user avatar
+Unknown Speaker
+00:14:10
+So hear
+user avatar
+Lacoste-Julien Simon
+00:14:12
+You clearly see
+00:14:18
+So you don't care what you see. But from this factorization. You could prove that P of x, y, z is equal to
+00:14:29
+You know exercise.
+00:14:32
+That p of x, y, z is equal to p of x, given z times P of why givens. It's like two steps in some sense.
+00:14:40
+So that's why I'm saying that
+00:14:43
+This condition independence assumption holds for all members of the family because of this factorization, which implies this one, which is what the condition independence statement is saying.
+00:14:54
+And basically how you do that. You basically take this joint and and you flip it around and then you see that it works.
+00:15:05
+Okay.
+00:15:08
+So be new Laila is asking if the order mother.
+00:15:14
+So if I put
+00:15:17
+The arrows this way.
+00:15:20
+I get the exact same set of distributions. So indeed, the desert graphical model with these two arrows is the same, that when the arrows on the other way.
+00:15:29
+So the order does not matter from a demographic model perspective and I'll come back later on, on this property when I talk about reversing edges. But if I if I flip the arrows like this, then it's a different one. This is called a V structure. And that's the third graph.
+00:15:46
+But before getting there. Let's talk about the second graph.
+user avatar
+Unknown Speaker
+00:15:49
+Which
+user avatar
+Lacoste-Julien Simon
+00:15:51
+Actually has the exact same statements above. So it's the same set of distribution.
+00:15:57
+But it has a different name. So this is called the latent cause. Oops.
+00:16:05
+Or the hidden variable model.
+00:16:11
+And basically, what you have is you have, say, one variable which influence two variables. So that's the x and y and this would be Z.
+00:16:23
+And this will be the shoe size. And so, okay.
+00:16:28
+So that's the, that's the, you know, that's a darker governance model. And so basically the joint was separate as, oh, what's the probability of A, Z, and then given Z i looked at what's x, given z and then why given separately.
+00:16:42
+And and this thing says the same thing as above. You still have the same statements as above, ie X is condition dependent of z given sorry X is conditionally been in a way, given the
+00:16:54
+Same statements.
+00:16:58
+As above
+00:17:00
+So even though there's a different name because there's a different structure, it has the same set of distributions.
+00:17:06
+And let me give you a concrete example of a situation where this could be an appropriate model. Let's say z is the age of a person and X would be the shoe size.
+00:17:20
+And why is whether they have great air.
+00:17:29
+Okay, so what happened is
+00:17:33
+If you know the age of a person, there's a specific distribution of shoe size because if there are kids, they're still growing.
+00:17:40
+And there's also a specific disposition of gray hair, like, you know, the older, they are more likely to have to have gray hair.
+00:17:46
+Now if I don't observe age.
+00:17:50
+There's a relationship between gray hair and shoe size because indeed if I know that the the have gray hair. The have normally a bigger issue because they have finished growing. They're not kids.
+00:18:01
+Right, and so there's some relationship. But when I know the age I there's, it's basically dependent the shoe size of a person and whether they have gray hair are totally independent
+00:18:11
+Once I know the age so age is kind of the common factor which influence the correlation between gray haired shoe size. So once observed
+00:18:19
+Age than the are independent. When I don't observe age, there is some dependence, even though there's no you know direct relationship to them it's mediated through the age. Okay.
+00:18:33
+Alright, so that's little cars and and by the way this is also like Correlation does not imply causation. So Dr. Africa model. There's no, there's nothing calls all about them.
+00:18:45
+Inherently and a good example also was by by by the fact that you can reverse edges here, right. So I told you you could have the direction the edge the arrows in the other direction. It's the same family.
+00:18:57
+There's nothing which change in terms of the family. So you can have that these arrows, should the causal. In this case, what do we mean by causal will a good model of causality. So that's also getting philosophical but their cause all would be that there's a kind of like
+00:19:14
+If you intervene on one variable, and they're the cause of something else, then it will transmit the interaction was if you intervene in an effect, which was caused by something else. The thing that caused them won't be influenced by
+00:19:30
+Intervening on effect right and so
+00:19:34
+Under intervention, because it kind of appear. Whereas when you don't have intervention when you just observe. Well, you see this correlation between the two variables. So, in both directions. Okay.
+00:19:45
+So, for example, the temperature of a city and it's altitude. Right. So the altitude is influencing the
+00:19:58
+The temperature
+00:20:00
+But if I change the temperature, it doesn't change the altitude of the city. So I could move the city up and then the temperature would change. But if I just say heat the city. It's one change the altitude. And so there's a causal direction from altitude to
+00:20:18
+Temperature, which means that when a intervened. Isn't that symmetry. So this is not capture by graphical model is captured by what is called causal graphical model. And we'll come back later in the class on this topic.
+00:20:34
+So,
+00:20:36
+Alright so that was
+00:20:46
+Okay, so first, there's a question about why do they give a different name for the different structure is just because even though the characterize the same set of distributions.
+00:20:56
+The can be
+00:21:00
+More naturally described in different ways. So for example. So because the way you you specify the model here would be to give the conditional of why given Z and then the conditional of z given x right and
+00:21:19
+Using the quality of age, given gray hair.
+00:21:24
+Or age given shoe size is kind of like the wrong direction from a modeling perspective.
+user avatar
+Unknown Speaker
+00:21:32
+And so
+user avatar
+jacob louis hoover
+00:21:34
+So it's just that.
+user avatar
+Lacoste-Julien Simon
+00:21:35
+There's some conditions on
+user avatar
+Unknown Speaker
+00:21:37
+Its
+user avatar
+Lacoste-Julien Simon
+00:21:39
+So the thing is, indeed, like when you have a causal property in the world, it also kind of like makes more sense to to express something in the distribution using the same direction, it would be more natural. Yes.
+00:21:58
+But it doesn't have to
+user avatar
+ezekiel williams
+00:22:02
+The series may have just done.
+00:22:04
+Yeah, speak up for a second. So then, basically the reason that we're doing. This is just for effectively because it seems more natural. Even though, mathematically, there isn't really any difference.
+user avatar
+Unknown Speaker
+00:22:15
+Correct.
+user avatar
+Lacoste-Julien Simon
+00:22:17
+Yes, it's to give a bit of intuition.
+00:22:28
+Okay, so
+00:22:30
+I kind of forgot that I had to go upstairs because we are crazy, Doug.
+00:22:35
+So we'll take a five minutes break now we'll move up and I'll be back in five minutes. Let's do that.
+user avatar
+Unknown Speaker
+00:22:46
+I'll do it.
+user avatar
+Unknown Speaker
+00:22:52
+Zoom recording
+user avatar
+Lacoste-Julien Simon
+00:22:55
+Alright, so let's see why do we drafted graph different 50 represented the same mathematical model.
+00:23:02
+And so already mentioned is that some of these have more natural conditional distribution, which makes more sense. So the way you define the joint is different.
+00:23:13
+For the, the way you patronize a joint is different depending on this graph, even though it's the same set of distribution. That's the difference.
+00:23:31
+Yeah, so another place where you will see later on when we talk about characterization of the conditional
+00:23:35
+So instead of having opposite or conditional. You could start to have say it's a Gaussian distribution with a specific noise model.
+00:23:42
+Then the direction will matter a lot because if I say X is gushing giving why with a specific independent noise model. It's not the city of symmetric
+00:23:50
+Model, I can just flip things around. Okay, so there's also when we start to put Patrick distribution assumption on the conditional. It will change something
+00:23:59
+But we'll get it right now. We're just saying, Okay, let's talk about a family of distribution as a whole.
+00:24:05
+And I'm talking. I'm telling you what are the conditional. And I guess here. I went a bit beyond by also giving you a bit of intuition for the semantic of model. What kind of natural conditional distribution which these graphical model could be a model for
+00:24:26
+And somebody asked if factorization one one implies factorization to
+00:24:34
+Yes.
+00:24:35
+Because as I said, if the all the all have because they're all part. It's the same set of distributions, then indeed you can be factored in both ways. The same way and you know you can easily prove it as well.
+00:24:48
+Okay, so hopefully clarify things a lot. And now let's get to the third graph where everything is different. And so this is called the explaining and we
+00:25:05
+Or competing effect.
+00:25:08
+Phenomena
+00:25:13
+And this as a name called a V structure because when you put when you draw the graphical model with the arrows going down. It looks like a V. OK. So the model here is I will have x i will have y. And now the arrows are going down like this. So,
+00:25:32
+The arrows are both incoming the, the, the middle node and I will still use z here.
+00:25:42
+And here the conditional depend statements are opposite of the one above. So here, this graphical model will have that x is marginally independent of why. So when I don't observe z, then x and y are independent.
+00:25:58
+But if I observe z, you have that x is no more independent of why given Z again for some distribution, because the joint. The fully independent is also in this model.
+00:26:12
+For something because what's happening is that. So, in the previous model like in the late and coast. There's one cause which has to phenomenon which are independent. Here's different there's two things which are influencing something
+00:26:27
+So those two things might be independent, but because they they're influencing something once I observe something happening, then there's some kind of like relationship with them. And let me give you another concrete example. Suppose that X is whether I have been abducted by an alien.
+00:26:48
+Why is whether my watch is broken.
+00:26:54
+And z is I'm late to my class.
+00:26:59
+Okay. And so if you're observed that I'm late. Well, perhaps I'm late. Because my watch was broken. I didn't really see the time was passed.
+00:27:10
+But it could also be because I was abducted by aliens. Okay.
+00:27:14
+And the fact that I've looked at, and by the end or not with my broken. Watch. Let's say they're independent that fit alien. There's nothing against Western I'm trying to smash them. And so these are independent, but whether I'm late, or not depends on these two things. Okay, and
+00:27:33
+If I'm and basically now I can exit give you an example why there's dependence. Okay. And I'll tell you, and at the same time this will highlight something which is called the non monotonic property of conditioning mode know tonic.
+00:27:49
+Property
+00:27:52
+Of conditioning.
+00:27:58
+And I have trouble because there's a big
+00:28:02
+Set of buttons, where I'm trying to write from zoom and I'll try to move it. OK, so the nothing property of conditioning just says that when you condition and more and more stuff the protein can go up or down. It's not just in one direction. And so in this case, for example, like
+00:28:17
+A nice model for this phenomenon. So what I mean by a nice model. I'm just saying you could define meaningful conditional distributions to characterize this phenomena.
+00:28:27
+And what would be a nice model is normally that the probability that I'm abducted by an alien would be tiny right this is kind of a very unlikely phenomenon.
+00:28:38
+We don't even know if alien exists, but yeah.
+00:28:42
+Yeah, so this is a property that I'm abducted by aliens is very small. Okay.
+00:28:46
+Now, if I consider what's the, what's the property that I've been abducted by an alien if all I know is that I'm late.
+00:28:56
+Well, this will actually be bigger than a protein that I've noted by me, because now I have some evidence, I'm late. So perhaps I'm late, because I was abducted by you. So we increase a bit of property that I was abducted balian because I saw a consequence of it right
+00:29:11
+And so the protein increase. But now if I add the information that oh, well, I actually also have my watch. I know that my watch is broken.
+00:29:21
+Now the party will go down again because the
+00:29:24
+Fact that I was late is most likely do that my watch was broken, not from the alien. Okay, so when you don't observe whether the branches broken. You don't know. Well, perhaps you know you observe something so it increases property that I was alien
+00:29:37
+Alien but if now I looked at was a policy that abducted by aliens given an am late and that the watch is broken.
+00:29:46
+Now this normally in the a good model for this phenomenon will be this will be actually smaller than the property that I was a bit about it. And when I just know that I'm late. Okay.
+00:29:56
+And so here, what's happening is you started the property when up and then when down. That's why I'm saying I condition and more and more information and then they're probably just went up and down. So there's no more than two. There's no
+00:30:06
+Mana not only city in when I condition because there's something I mean on like the entropy. The entropy. When a condition, more and more can only increase. And we'll see that later.
+00:30:23
+So there I think exit is a hidden variable we want observe it. No. Yes. By definition of a non observer variable. So, but in this case.
+00:30:34
+So when we don't observe X and basically also remember the leaf plucking property. If I remove this node.
+00:30:43
+All I do is just, it's a leaf. So I just remove all these edges. So I'm left with a fully disconnected graph. That's why x and y.
+00:30:50
+Are independent marginally and then when we talk about marginal independence, what we mean, like, okay, we don't know. Z. It's not there. Now what's happening.
+00:30:58
+Was in the previous model when you had the latest Cause when I marginalize out Z. It's not the least, so actually this there's still no there's still a connection which should have been excellent.
+00:31:17
+So now the property again.
+00:31:22
+So somebody. So Martin is asking whether this property.
+00:31:28
+Should be smaller than the marginal quality of alien. I don't know.
+00:31:36
+I don't, I wouldn't need to put it in the marginal quality I think different models could have either that it's smaller or not. I think there are these still make sense.
+00:31:49
+Okay.
+00:32:01
+Well, okay. So, tomorrow is saying is going to do the calculation and see the problem though is I didn't define any of these numbers. And so depending on how I define these numbers I think different things can happen. And all I'm saying is that it does make sense that
+00:32:20
+Okay, somebody says it's Michael Jordan. I don't know. So I think it helps to clarify that.
+00:32:27
+They like I'm saying that from a defining these conditional, in particular the model here would be defined by saying what's the priority of x, which is
+00:32:38
+The marginal quality of being abducted was a party of why the marginal quality.
+00:32:42
+Of being that My watch is broken and then the next part of the model will be okay. Knowing whether or not. My watch is broken, or whether I'm abducted by aliens was uploaded that I'm late.
+00:32:52
+Okay, so that's the PMC given x, y. So you could define the stables and then you could compute everything. And I'm saying is, given this phenomenon. It would make sense to have this property, but
+00:33:03
+Okay. So, tomorrow is clarifying. It's not joking. And this is joking again saying is not joking. We're getting into meta level.
+00:33:12
+So all right, so let me, I would like to cover something else before the break.
+00:33:19
+This there's a burning question on this topic.
+00:33:22
+Will have time to go a lot on more properties of these objects. So to get a more familiar aspect, but let's talk about what are the conditional independent statements that we could derive from a graphical model.
+00:33:39
+So more conditional independence.
+00:33:47
+Statements.
+00:33:51
+In a directed graph.
+00:33:57
+Alright, so the first thing
+00:33:59
+Is
+00:34:03
+Is will define another set of of nodes, we call them the non descendant of I
+00:34:10
+This is the set of nodes which are not basically children or grandchildren of. So basically these are the know, Jay, which are different and I such that there is no path.
+00:34:27
+From Jay to I
+00:34:35
+And they're called the non descendants
+00:34:44
+Of I
+00:34:46
+Just have a concrete example. So let's say
+00:34:51
+These are parents of a node.
+00:34:54
+And this would be i. And so the set here, this would be the parents of is, we call them pie, right, then perhaps I has a child.
+00:35:05
+Which also has a child. So in some sense, you could think that this node. If you keep the analogy this node could be the grandchild of AI and is definitely a descendant of AI in the sense there's a path from I to this node like this that's the path.
+00:35:25
+And then perhaps the child of I has another parent
+00:35:29
+And by the way, here you can have more than two parents in a three parents. The parents, it's not like a biological thing.
+00:35:36
+And then perhaps this parent also has a pet.
+00:35:41
+And now the non descendant of i, or all the nodes where there's no path directed path from these notes to it so it's it's the parents of I and the parents of the children of i. So these would be the done this in in July.
+00:36:03
+Yes, sir. I have made a mistake in my definition. Thanks for noticing. So it's definitely there's no path from i to Jay. Thank you.
+00:36:17
+Okay, so what am I talking about that. Well, because a set of conditions independent statement which are derived from the graph factorization. I see it as a proposition. So if I have a member of a doctor graphical model.
+00:36:35
+Then, actually it's a if and only if
+00:36:40
+So it will imply that x is condition dependence of X on the non descendant of I given the parent of I
+00:36:51
+This is for all
+00:36:54
+So if I have a distribution for which all these conditional depends statements are true that x is dependent on the non decision I given the parent
+00:37:05
+So basically what, that's what I'm saying here is that if I condition on these nodes then
+00:37:17
+What's happening here doesn't matter for excite
+user avatar
+Unknown Speaker
+00:37:21
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:37:23
+Now what's happening here definitely matter with excited because there's there's a direct link within right so that's also why there's, it's the non dissonant that you look at
+00:37:32
+And and if all these conditions event statements are true. It also implies that piece in the isn't the graphical model. So it goes in both directions. So if
+00:37:43
+That's prove that
+00:37:47
+And that's where we give you an example of
+00:37:52
+Of how we use the properties of the factorization or something. And by the way, so already here you notice something. So the parents are also non descendant.
+00:38:02
+Alright, so I am repeating variable here. So that's what I meant in the notation notes that I can repeat variable for convenience.
+00:38:10
+It doesn't do anything. So because I could have been said, Done here non descending by minus parent of I. But then it's just annoying because anytime is right now.
+00:38:19
+They might respond to that. So it's just number two, right. So, but because I'm allowed to repeat in this is in the conditioning part in the non conditioning part is true. And then the other property that I mentioned also before was that by decomposition
+00:38:37
+We have that if x is conditional dependent of X non descended I given the parent. This also implies that x i is commercial benefit of xj given x by I
+00:38:50
+for all j in another set of eyes or any subset. Actually, you could have also the subset, but in particular for the singleton for any j in and understand the way
+00:39:02
+Okay, so by the composition. So we have a stronger independence statement. It also implies all the subset of these
+user avatar
+Unknown Speaker
+00:39:10
+Non this event.
+user avatar
+Lacoste-Julien Simon
+00:39:13
+Okay, especially the proof.
+user avatar
+Unknown Speaker
+00:39:17
+Proof.
+user avatar
+Lacoste-Julien Simon
+00:39:19
+So the first will I'll show the implication
+00:39:23
+To the right. So I want to, I have that P factor is the right way. According to the GM and I want to show that the conditional dependence works. So the key property that we use is that
+00:39:39
+If I fix. I
+00:39:44
+Then, there exists a topological ordering
+00:39:51
+Such that the non descendant of I
+00:39:59
+Appear or exactly before I
+00:40:07
+Right. So what I mean by that is I have then in my order, I will have all the non descendant of I, then I would have I, and then I would have the descendant of I
+user avatar
+Unknown Speaker
+00:40:24
+OK.
+user avatar
+Lacoste-Julien Simon
+00:40:27
+So you could also
+00:40:30
+Add. Let's see.
+00:40:38
+So you need the arrows to go like this.
+00:40:44
+So you could not have a dissonant of I before I
+00:40:54
+Because then there would be a past like this and then poof, like this. Okay, so, so you have been the descendant of I have before.
+00:41:04
+At all. After I
+00:41:26
+Okay, so there's a bit of fun happening in the chat. So somebody asked whether you had the marginal independence of excited given an understanding of I
+00:41:36
+So if I don't condition on the parents.
+00:41:41
+Is it the case.
+00:41:45
+That
+00:41:47
+Alright, so it is true that this know the here.
+00:41:53
+Would be so perhaps then I need to add some more nodes to make it clear. So let's go back here.
+00:42:00
+I will add some parents to the not to the parents.
+00:42:05
+Because there's two types of non descendant. So let's say I have other nodes here, right, blah, blah, blah.
+00:42:12
+So all these are also non descendant.
+00:42:17
+And so it is true. Actually, that this non descendant is marginally independent of exile, because I can pluck all these leaves.
+00:42:28
+And then I'm just left with a disconnected graph. So this is independent of that. So that's true. So there are some definitive by which are Molly marginally independent of excited, but these are also on the on the Senate of I and these are definitely
+00:42:40
+Connected to I, if I don't observe pie. So that's the difference.
+00:42:47
+It does who asked the question. All right. Yeah. So that answers your question. Dora. Great.
+00:42:57
+Alright, so we have. So this is by a topological sort ordering. So that's, I told you that we always have. We often use this from the deck property.
+00:43:06
+And then, the point is, remember, we can always pluck the children the leafs and remove them from the graph and nothing happens. So that's what we do. So we will pluck these using the
+00:43:18
+Leaf plucking property of their Africa. Africa, all that I proved last class. So we pluck all these
+00:43:24
+And so after we do that what we're left is we'll have that the joint of X I end the non dissonant ally.
+00:43:35
+Is just the product of all the other terms. So I will have x i, given its parents
+00:43:43
+And then I have all the G in the non descendant of I
+00:43:48
+Have p of x j given expired, Jay.
+00:43:55
+But now all the non this event. I've been
+00:43:59
+All the descendants. Sorry, has been have been marginalized out right so that's by the leaf clicking property.
+00:44:05
+Okay, so now if I compute the probability of x i given
+00:44:12
+The non personal device.
+00:44:18
+Which included parents, by the way.
+00:44:22
+Like the parents also know this. And then, so this is the joint divided by the condition the marginal. So this is the joint.
+00:44:33
+Problem with my numbers didn't
+00:44:38
+Understand by, divided by the marginal onyx I
+00:44:47
+Know the wrong marginal and need to condition on the non the sentences. The marginal of the non descendant.
+00:44:56
+Here we go. And so let's just write it down. So by the factorization property of the graph. It's the conditional x i live in the parent, then I have product over the non descendant of I
+00:45:11
+Exchange given explain J.
+00:45:15
+And then I some over x i prime. Same thing, p of x i given x by I
+00:45:25
+Product over j
+00:45:29
+Of p of x j
+00:45:31
+J.
+00:45:34
+Now, the whole point is
+00:45:37
+I don't have
+00:45:39
+I appearing anywhere in the non descendant.
+00:45:46
+So there is no I
+00:45:49
+Also, it's exciting time. Right, so there is no x i appearing here.
+00:45:54
+No x prime here.
+00:46:09
+And so I can just put parentheses in the sun, because there's no xi on the riots, I could just factor it. And so now, what I get is that this sums to one.
+00:46:21
+And so now, these things cancels out.
+00:46:23
+And I'm just left with the quality of x i given X parent
+00:46:32
+And that I'm done. So I showed that the conditional x i given x by an ex non dissonant lie minus by, let's say, let's just remove that is the same as just p of x i given expired. So that's the conditional DEPENDS WHERE WE'RE TALKING SO WHEN I condition on the parent
+00:46:54
+Anything happens in here is not important. It's removing the conditional right
+00:47:05
+So that's this direction. So that shows the the conditional depends statement and I'll prove the other direction, that if I have all the conditional statement.
+00:47:15
+I also have that P is the correct directory difficult is a part of this has a factorization, a cryptographic yes that's what I want to say. So now we suppose that P satisfies
+user avatar
+Unknown Speaker
+00:47:32
+Satisfies
+user avatar
+Lacoste-Julien Simon
+00:47:38
+All conditional independent statement.
+00:47:47
+And then we want to show it as override factorization. And so now we let one up to n be without loss of generality, a topological sort.
+00:48:01
+Of je
+00:48:03
+Je je je je je je
+00:48:11
+And so if one up to end is not the correct order just rename the node. So that, that's one up to him. That's what we mean by without doesn't generally t
+00:48:20
+Then
+00:48:22
+We have to have that the node before I are included in the non descendant of I
+00:48:32
+For all I
+00:48:34
+By
+00:48:36
+Political sort property.
+00:48:44
+Rights of because if there is and the lemon before i which is not a non this and and I, that means it's a descendant ally. Well, it can appear
+00:48:59
+It see
+00:49:02
+So we're saying, Where was my order.
+00:49:20
+So I'm saying they're kind of be a descendant of I before
+00:49:25
+I
+00:49:27
+Yeah. So if I put that. So that's exactly the same argument I mentioned here, right, so I cannot have a descendant here because it means there would be a path.
+00:49:37
+Back to this notes there will be a edge to the left, which is a the wrong direction. So you would have a package.
+00:49:51
+Okay, so that's all right. So I have that
+00:49:56
+The nodes. Before I in my topological sort or non descendants. So because they're non descendant that will imply that x i given
+00:50:07
+X expired i is independent of one of x i want up to a minus one. So, one up to i minus one.
+00:50:19
+So this is by the composition
+00:50:22
+Right, so
+00:50:24
+The set one up to a minus one is a subset of the non descendant. We already have that it's conditional dependent given in the parent or with all the non descendant. And so that's implied
+00:50:34
+And so now what we do is we use the chain rule. So I have that p of x v always is equal to product over I have p of x i given x one up to i minus one.
+00:50:46
+This is by chain rule.
+00:50:49
+Always true
+00:50:52
+And
+00:50:57
+We have that
+00:51:02
+By the way, also the parents have, I have to be to the left. So this differently includes the parents of it. So this includes the parents ally.
+00:51:16
+And now by conditional independence.
+00:51:19
+We will have the property that
+00:51:23
+This is just product from one up to n of p of x i given x just apparent by conditional independence. Right.
+00:51:39
+And so we have that the factors, according to the graph right this is pi.
+00:51:44
+And so, that implies that P belongs to the directory Africa model as we want to show
+00:51:57
+Jacob by decomposition. That's a property that I define last class in the middle. So there was conditional independence properties. Where was this that that
+00:52:14
+Yeah, so that's this one here.
+00:52:17
+So we call the the composition property is that if I have independence on the on several variables. I also have independence on the subset of these variables.
+00:52:28
+So, this implies that
+00:52:31
+Okay.
+00:52:39
+X.
+00:52:41
+Y z. So, where there's, I don't see any bar. I don't know which, in addition, you're talking about
+00:52:49
+Because I didn't write it properly. Oh, haha. And this was a typo. Thank you. Yes, this is very complicated. I mean, that doesn't make any sense. That's what I meant it was a typo.
+00:53:04
+No. Yeah, that makes sense was too fast. Okay, think it's time for a break.
+00:53:11
+There any question about this.
+00:53:16
+So better after after the break, we'll talk about the separation, which will tell us all the other condition independence properties of integral
+00:53:28
+Alright, so let's take a 10 minute break. It's 240
+00:53:35
+So let's go until
+00:53:41
+The separation.
+user avatar
+Unknown Speaker
+00:53:44
+My recording. It's
+user avatar
+Lacoste-Julien Simon
+00:53:48
+Okay, so then
+00:53:51
+So I already gave you a bunch of conditional statements. So what other conditional independent statements. There are
+00:54:03
+And that's from the separation, which you can basically get all the conditional depends statements which holds for all members of the family. There may be other which holds for specific but
+00:54:16
+We're only talking about the conditional in the band statements which hold for all distribution in there too difficult.
+00:54:22
+So let's define the chain.
+00:54:26
+Between two node which is basically the undirected version of other directed path. So a chain from A to B is just a undirected path.
+00:54:40
+Between a B.
+00:54:44
+And so that means we're allowed to go in any direction of the arrows.
+00:54:48
+Graph.
+00:54:51
+From a to b.
+00:55:02
+So now we'll define a notion of separation in the graph, which we call the separation for directed separation.
+00:55:14
+And so we will say that the definition is we will say that two sets of nodes. So set a
+00:55:23
+And B are said
+00:55:27
+To be dispirited
+00:55:48
+See here will take the role later of the observe variable in the conditional statements but my. Now this is just a graph separation notion we don't have talked about the observed variable.
+00:56:01
+If and only if
+00:56:04
+All the chains.
+00:56:07
+From a to b.
+00:56:10
+From a
+00:56:12
+An element of capital ache to it will be an element of capital B or blocked.
+00:56:24
+By a given
+00:56:27
+Seat. So in some sense, the observation said, See will will basically create some kind of blockage rule in if there's no path between A and B. They're basically decent narrative.
+00:56:42
+And
+00:56:45
+will define now the blockage rule and and the intuition for the blockage rule.
+00:56:51
+Is to avoid the V structure which introduce some
+user avatar
+Unknown Speaker
+00:56:57
+Connection.
+user avatar
+Lacoste-Julien Simon
+00:57:02
+So we do not want
+00:57:13
+This situation.
+00:57:17
+Where you will have, let's say, the structure and then at the bottom of the structure that would be some kind of like observable.
+00:57:28
+Okay, so what's happening is if when you have this kind of structure.
+00:57:33
+In a directed graph. Our Kamala, if I observed here, then it said this is a this is be then there is actually an interaction between me
+00:57:44
+And so this basically is not blocking the. That means that I would have a path going like this.
+00:57:57
+Alright, so what do we mean by the blockage and and basically the disapprobation kind of encode these three nodes structure that I talked about.
+00:58:06
+Alright, so basically we will say that a chain.
+00:58:12
+From a to b.
+00:58:14
+is blocked.
+00:58:19
+At node. And I guess I'll say block, given see because there's always in the context of
+00:58:27
+The sea set
+00:58:30
+At a node. I'll call D.
+00:58:36
+If there's two possibilities. Either
+00:58:41
+D is an element of see so d is an observed
+00:58:46
+Random variable and you have the mark of style structure right you have Vi minus one de VI plus one.
+00:58:57
+And that's the kind of like the sub path of the chain.
+00:59:05
+So you have that Vi minus one D and VI plus one is not a very structured
+00:59:16
+Yeah. So for example, you either have the latest costing so you even have the Markov chain property where you would have for example like this.
+00:59:29
+D and then they would be VI in the chain.
+00:59:33
+Or
+00:59:34
+You could have an actually, it could be also the other direction as well. You could have either one of these two direction or you can also have the
+00:59:43
+The the the latent cause structure, right, because this, this introduce independence. That's why it blocks the chain.
+00:59:54
+Or the other possibility, which is the weird part is when you have the structure, then you say d does not belong to see
+01:00:04
+And
+01:00:07
+Vi minus one de VI plus one is a the structure
+01:00:16
+So now if I have a V structure indeed does not belong to see
+01:00:23
+Then it will not, it will block it. If all the descendants are also not NC
+01:00:31
+Know descendant.
+01:00:34
+Of D is in seek
+01:00:39
+So basically here we have the situation where we could have Vi minus one. Then there's d which is not shaded. Then there's VI. It's not in see then I also have a bunch of descendant, but none of them are observed. So there's no distance descendant.
+01:00:59
+Hoops of the sea. So I there's no condition.
+user avatar
+Unknown Speaker
+01:01:08
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:01:09
+That's basically the rules.
+01:01:13
+And as I said, we saw before, like the see you could think of, see as
+01:01:18
+For the interpretation that we want to see this is the set
+01:01:24
+Of observed
+01:01:34
+Random variable.
+01:01:38
+Conditioning
+01:01:49
+So for example, if I have a V structure.
+01:01:55
+And so, in particular, here I have a V structure D is not observed, but a descendant is absurd. So that means that it's not blocked, that means my chain will be able to go through and a will be dependent of
+01:02:09
+Be this case. So it's, there's no independence. This is a if there's a chain, which is going from A to B, which is not blocked. Then you have dependents.
+01:02:19
+And same thing. If I would have observed
+01:02:23
+The first one here. It also created depends
+01:02:29
+Okay. And so, then why are we talking about the separation. So now there's a proposition.
+01:02:35
+Which is that
+01:02:39
+Which I won't prove, but it's basically not too hard to derive so you have that, if P. Welcome. So you have the P belongs to l j if and only if x A given is conditionally Bennett of x be given exceed for all ABC.
+01:03:03
+subset of V such that A and B or
+01:03:11
+D separated
+01:03:15
+Given see. So this notion of separation is characterizing exactly all the conditional dependence properties that we have in a directive graphical
+01:03:26
+By the way, we will soon various will see very soon undirected graphic Amal
+01:03:31
+And the underserved Africa model the graph separation is sufficient is the one that characterizes independence. It's much simpler.
+01:03:38
+For the data graphical model because of the weird V structure, then you need this more complicated the separation. So, and then there's graphs separation property, which is a bit weirdly define is the one would characterize the conditional defense statement.
+01:03:53
+And then in order to figure out whether to variable or a disparity. There's an algorithm which is called the baseball algorithm.
+01:04:01
+That baseball. But these ball.
+01:04:05
+Algorithm.
+01:04:11
+And it is basically an intuitive or rhythm.
+01:04:17
+To check disappears.
+01:04:27
+And the idea is you will have balls bouncing around which represent the possible chain and they will be blocked by the rules of when chains are black and if there are some ball which is able to reach another know that means they're not independent.
+01:04:43
+So it's basically a rules for balls, which basically represent chains to be black.
+01:04:59
+And so
+01:05:02
+What are the rules.
+01:05:05
+So basically, there's so there's the situation. A in the separation.
+01:05:12
+That was the non the structure. So you could either have like something like this, where the node.
+01:05:22
+So when you have a Markov chain. Instructor So you either have something is observed in the middle or something is not observed
+01:05:29
+And so if it's not observed the chain goes through. It's not blocked. But if the thing in the middle is observed, then
+01:05:37
+The ball is blocked. Right. So if the ball is coming from this it will be blocked so then it couldn't go through the chain will be blocked.
+01:05:43
+And so that's what I mean by the arrows arrows his direction of the ball and if if there's a if there's a blockage. That means it's blocked.
+01:05:51
+Now in the Layton cause model. It's the same kind of idea if it's not observe it goes through. So the ball here would be able to go through like this and if it's observe. It's blocked so like this.
+user avatar
+Unknown Speaker
+01:06:07
+And then it would basically hoops and
+user avatar
+Lacoste-Julien Simon
+01:06:12
+So then I would have the ball here is blocked and the bug when there is blocked doesn't go
+01:06:19
+Then there's the weird restructure
+01:06:23
+So that's the situation be in this variation
+01:06:29
+Perhaps I'll keep it like this C. B. And so basically, now it's the V structure.
+01:06:41
+And then the situation is opposite in the Wii structure, right. So when I don't observe it, the balls are blocked. So in this case,
+01:06:53
+The balls, if the ball is coming like this, it would be blocked and if the ball is coming like this, it would be blocked.
+01:07:00
+Whereas when it's observed it's going through. So let's say I have this
+01:07:07
+Then it will be able to go through
+01:07:12
+And actually, we're allowed to
+01:07:15
+So we can think of the balls can bounce. By the way, so you can also think of just this structure.
+01:07:21
+And you could think of a structure where the, the two parents are collapse.
+01:07:27
+And so it turns out here that you're allowed to kind of like switch direction. So we'd be able to do this. So it's like, think of a ball state was going down and then it's bouncing back up. So you're allowed to do that.
+01:07:37
+And so why do we do this kind of weird one know thing is is for these change situation, right. So let's say I had this situation.
+01:07:48
+Well, the ball will be able to go through, because here it's allowed to go like this set out to go like this, not allowed to dance.
+01:07:57
+Then it's allowed to go like this and then it's an article, like this, like this. Right. And so that's why there's a dependence here Bollywood be able to go through
+01:08:09
+And clearly, then if it's not observe it doesn't bounce rate. So for example, if I had this thing here, then I would have that ball here. Get up, go back
+01:08:26
+Okay. And so for this you can see if you want more detail. I mean, I think here there's already enough detail to. It's kind of like
+01:08:33
+Have the intuition and to use it. For example, the assignment. You can use it if you want to figure out the conditional depend statement that I will ask that you can also see more detail in the
+01:08:46
+Definite Color. Color and Freeman book.
+01:09:22
+Alright, so let's see.
+01:09:25
+Let me review some properties of doctrine graphical model.
+01:09:32
+And then let's define the under to graphical model because this would be useful for the assignment, and then we'll talk about more properties of undeterred graphical model.
+01:09:41
+After the break,
+01:09:44
+See how much time doing for that.
+user avatar
+Unknown Speaker
+01:09:58
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:10:00
+So properties of 32 co directed graph model.
+01:10:16
+So the first one is, I already mentioned in the past its inclusion, you have that if the edge sets are included in each other. So if I add edges then I just increase the number of distribution. So there's an inclusion property of my dark graphical mode.
+01:10:34
+And then there's the reversal. That's something we asked was asked before, if what happens if I reverse the edges.
+01:10:42
+And so the thing is if G is a director tree.
+01:10:52
+So if I have a directive tree.
+01:10:54
+Or a forest. So what a forest is just a collection of trees, but they're not really connected
+01:11:02
+So when I have a direct to treat means that a node as at most one parent
+01:11:07
+So that, so that means that pie is a smaller equal to one for all i. And that means that there is no the structure
+01:11:16
+There is no the structure. The structure need at least two parents
+01:11:22
+Right. So when you have no fee structure actually there is not no difference between directed under the graphical model.
+01:11:30
+And
+01:11:33
+Basically
+01:11:37
+You can have any other direction of the tree on this tree and it will give the same set of distribution. So basically, I will describe it like this so
+01:11:50
+Let's see. Oops, I'm having issues with my pen. Alright, so let's say this is my director tree.
+01:12:02
+And in blue are my headset. Okay, now I can define a new directive tree by just choosing a route that say this is my new route and then
+01:12:14
+Moving away from the root for the direction of the edges. So this is the same edge, this will be flipped this will be flipped and this is the same edge. Okay, so let's call this, this is a new route and now these new edges that Scott he prime
+01:12:31
+And so and so basically generally let he prime be another
+01:12:41
+Director tree.
+01:12:46
+With
+01:12:48
+Same undirected edges.
+01:12:53
+So I know how to introduce a new edge.
+01:12:57
+But I can flip some arrows.
+01:13:01
+By basically choosing a different route right choosing a different
+01:13:11
+Day. So basically the idea is I will reverse some edges for that.
+01:13:17
+But I still keep that it's a directed tree.
+01:13:30
+So you have to be careful when you flip things around because you could create a V structure. So for example, if I instead I had put. Oops.
+01:13:39
+So if instead
+01:13:43
+I had flipped this edge here, then I have the structure. So I'm not allowed to do that.
+01:13:49
+So then if I just get a different director tree with the same set of edges in the same with without looking at direction, you will have that it's the same there to graphical model so LG will be the same as LG. Okay.
+01:14:06
+And so rephrasing hoops temporary ink.
+01:14:11
+So we have that L of G is equal to Hell of G.
+01:14:17
+So rephrasing
+01:14:19
+What we're saying is that all the directed trees.
+01:14:27
+For from obtained from another at a dream.
+01:14:38
+Give the same directed graphical
+01:14:48
+So that's also why the direction of edges.
+01:14:56
+So, so, you know, this is why
+01:15:01
+The direction of edges are not causal, right, because I can sit them around.
+01:15:20
+And so the the two nodes version is the simplest to look at it. Right, so I could have y and x like this or I could have
+01:15:29
+Y and X like this and you have that the joint here p of x, y is equal to p of x given why thanks Pierre why which is equal to p of why given next time p of x, right. So both directions, give the same thing.
+01:15:51
+Okay.
+01:15:52
+So when you have trees.
+01:15:55
+The things are pretty simple. So basically things only thing which makes things interesting industry graphical in interesting. I mean, also different than under the graphical model, which will see in a few minutes is the fee structure.
+01:16:09
+And now, something that I mentioned earlier was, when we marginalize
+01:16:17
+So if you marginalize a leaf.
+01:16:21
+So marginalizing a leaf just gives a smaller graphical model.
+01:16:28
+A leaf node and it gives us
+01:16:34
+A smaller
+01:16:37
+The GM
+01:16:41
+And so what I mean by that, I mean, let S be the set of distribution. Q.
+01:16:50
+On the node on the variable one up to n minus one.
+user avatar
+Unknown Speaker
+01:16:57
+On
+user avatar
+Lacoste-Julien Simon
+01:17:00
+X two minus one such that q is the marginal
+01:17:09
+one up to n minus one for some p in my original bigger graphical model. So I get a new family of distribution by marginalize out any P
+01:17:22
+Then you have
+01:17:24
+That s is just a graphical model on G prime where g prime is G with the leaf and
+01:17:37
+Plucked or removed.
+01:17:41
+So that was the leaf plucking property I mentioned in the past.
+01:17:46
+But if you marginalize things which are not leaves you can get something different. So this is not true for all marginalization.
+01:17:55
+For all marginalization and particularly when you have the structure
+01:18:03
+And so an example of something which gives a set of distribution, which is not exactly characterized by any graphical model. So let's say I have this structure here of those two v structure. And now I decide to marginalize this node.
+01:18:28
+You basically get
+01:18:32
+From this you will get a set of distribution.
+01:18:39
+Which is not equal to any
+01:18:44
+graphical model, the set of distribution for some
+01:18:48
+Cheaper
+01:18:52
+And so you can think mathematically, you can say that marginalization.
+01:19:02
+Is not a closed operation.
+01:19:11
+On dark
+01:19:14
+Because you can sometimes marginalized and get something which is not a dark day before tomorrow.
+01:19:19
+And actually there's a bit there. There are, there's an extension to graphical model, which will capture this
+01:19:27
+The sort of distribution and basically it's mentioned in I think in the color and Freeman book. I'm actually not super familiar with it, but I think is the put these double agents, so it's it's still directed, but then you have these double digits.
+01:19:42
+Those marginalizing this node kind of creative direction in both directions of this point.
+01:19:51
+Okay.
+01:19:59
+So this only applies to monetizing leaf nodes. The question was the closure of democratization.
+01:20:05
+Yeah, so, so your clothes, only four leaf. I think
+01:20:12
+It's not only leaves. So for example, let's say I have this graphical model, let's say, a marginalized out this one, then you get a one graphical model which is still fine. So it's so it's not only true for leaves, but
+01:20:28
+You know, you have to be careful with which part you're marginalize
+01:20:34
+Okay, let me define the other from Africa models, too, because then you have everything you need for the assignment.
+01:20:42
+So let's talk about directed
+01:20:46
+graphical model.
+01:20:50
+And I'll use you GM instead of do D GM
+01:20:56
+And it's also known as
+01:21:00
+Marco random field.
+01:21:06
+Like MRF or also just mark off network.
+01:21:10
+So all these are the same thing, they're all talking about under a good graphical model.
+01:21:15
+So in this case, now we're considering g to be a Ji Ji. Yes, to be a underrated graph. So,
+01:21:27
+The GB and on directed graph.
+01:21:32
+So now we don't talk about DAG anymore.
+01:21:37
+And we'll also have another thing that will define which is the set of clicks and we use a notation script. See, so we'll say that script. See, to be the set
+01:21:50
+Of clicks.
+01:21:55
+Of G.
+01:21:57
+So what's a click, click, is just a set of nodes which are fully connected in the graph.
+01:22:03
+It's a fully connected
+01:22:07
+Set of note.
+01:22:15
+Alright, so he if
+01:22:22
+If the set see
+01:22:27
+Is a click.
+01:22:30
+This implies that for all my element of see such that is not equal to Jay. Then I need the edge I to Jay in my headset.
+01:22:46
+And you know the clicks basically
+01:22:51
+On one know there's just one node a click on to know there's only one edge on three node. It's basically the cycle.
+01:22:58
+On for know that looks a bit like a tetrahedron. Right. So there's an edge between everything, so I need these kind of like to triangle thing.
+01:23:07
+And then when you start to go with more nodes. Well, there's just a lot of agents. Right, so I connect everything here, then this one is connected to everything else.
+01:23:18
+And then this one will be this and this, then it will have this. That's it.
+01:23:29
+OK.
+01:23:31
+So now when we talk about a under a graphical model associated with another graph.
+01:23:39
+It's the same thing as in the gym that will talk about distribution which factor is according to the graph. So, and now we'll use the same notation.
+01:23:49
+Script L of G, and then to know am I talking about adaptive graphical under a phenomenal well is G D GM or Eugene. So that's kind of the type quotation here.
+01:24:01
+And so by definition this is p
+01:24:06
+Is
+01:24:08
+A distribution.
+01:24:10
+Over x v.
+01:24:14
+Such that the joint.
+01:24:19
+Is equal to the normalized product.
+01:24:24
+Of potentials, which are defined over the clicks.
+01:24:31
+For
+01:24:35
+Some we call them potentials function.
+01:24:39
+So remember, in the case of the GM we had these factors here. We'll talk about potential. You can also call them factor if you want. So I see such that the only property, they don't need to be normalized. All we need is that these are positive for all that you have exceeded.
+01:24:59
+And we also define z z is the normalization function constant, by definition, it's basically summation of all my nodes of the product for my potentials. Right. So it's just to make sure that this is a true distribution. I need to normalize it.
+01:25:18
+And this has a name. It's called the partition function.
+01:25:24
+partition function is coming from statistical mechanics, the terminology
+01:25:32
+And this is basically the normalization constructed
+01:25:42
+Alright, so if P can be written
+01:25:46
+In this product of potential where, where is the graph. Well, the graph comes into fact that I'm only allowed to have the potential which depends on the variables on the specific click in my graph.
+01:26:02
+And so that's where so see is basically telling me what where the graph is coming from.
+01:26:15
+Okay. And this was a temporary ink. Let's go back. I said, This is my definition.
+01:26:28
+And remember that.
+01:26:32
+When we talk about some over x v x visa sets of this means some over x one, x two, x three, blah, blah, blah. Right, there's this huge expansion.
+01:26:43
+So we'll have to see using properties of
+01:26:48
+The graphical model. How can we compute this part this partition function efficiently.
+01:26:54
+In general, it's actually NPR, but we'll get back to that.
+01:27:00
+Okay.
+01:27:01
+So,
+01:27:07
+I'll mention something quickly because I don't have time to go over. So we'll see that
+01:27:15
+Basically
+01:27:17
+Will see you next class.
+01:27:23
+That
+01:27:25
+When
+01:27:27
+The submission factors like rank of g will have that x is conditionally been to x be given x s when s separates
+01:27:40
+A from be in the graph. Okay, so this so we replaced the separation that we use in in the gym with just standard separation. Right.
+01:27:52
+And separation just mean you know there's no path under the path between end in the graph. And so, for example, let's say I have a bunch of
+01:28:04
+Edges here. And I have a here and then I have s there might be edges like this and then there is
+01:28:12
+Be there might be edges. But there's no edges between be an A or neighbors have a the all all the past from A to B have to go through so so as a separation sex. So if I condition. And so then I'm cutting all these path. And so now I get comes from dependence. Okay.
+01:28:33
+And you can derive this property from the fact from this factorization. And actually, that's what we'll do in the next plus
+01:28:46
+Okay, so is there.
+01:28:53
+What does potential
+01:28:59
+Mean here.
+01:29:03
+What's the potential. So say, See, it's just a function. So I see
+01:29:10
+Is a function from the sample space on
+01:29:15
+xe to basically the positive real number that is just a function on the positive numbers which give positive numbers and the semantic
+01:29:25
+Yeah, so it's a different semantics. So in dark graphical model, you will specify are the conditional know given parents. And so from a modeling perspective. You say, Oh, okay. If I know my age, what should be the distribution of my shoe size.
+01:29:39
+In a other half of them are all you don't talk about conditional at all. You talk about potential. And the idea is you would give high probability
+01:29:47
+To configuration for which the potential value is our high end because we take product of positive numbers.
+01:29:55
+So basically, you could say you could give say low value or perhaps zero to configuration that you don't like that are not likely.
+01:30:04
+And you could give high value to the one that you like. So a good example of that coming from
+01:30:11
+Physics would be you have spins up and down, there's actually something called the icing model, which is a special case of that and then you will say I will encourage the spins to be either the same or in opposite directions. So you could have see an attractive or oppose it.
+01:30:28
+Either a repulsive or attractive potential then depending on whether it's attractive or repulsive, you will
+01:30:35
+Put higher value and the potential for configuration. If you want to encourage. So for example, if it's attractive you want things in the same direction.
+01:30:42
+You will say when this is one and when this is one and the key is actually just the edge of the two notes here, you'll say, I don't know, potentially stand when they're opposite the potential will be one, for example.
+01:30:53
+And and that's basically kind of the model. And we'll see the will power tries these potential perhaps with like X have some W times features like this is like these exponential family thing and then we'll learn this parameters. But basically, that's the idea.
+01:31:11
+I don't know what S H I T is what she
+01:31:17
+But his script. See all maximal clicks are just all the clicks. So script see is without loss of generality, you only need all the maximal clicks.
+01:31:27
+So that's something I will revisit next class because if you haven't clicked, which is not a maximum click, you could always just absorb its own potential in a bigger click potential. You can just redefine
+01:31:39
+Potential as a product of the bigger click potential and the smaller keep potential because it's a subset
+01:31:54
+Oh you Brendan, your question is a hard to
+01:31:59
+It's a bit difficult to answer the baseball or within seems like a kind of state machine. Is there a connection to political dynamic with the meta
+01:32:06
+I. Not that I know of, but one would have to think very deeply about this question because the baseball has nothing paralysis. In this case, it's just reach ability or rather
+01:32:18
+Just not defining a polity, but the fact is you use to define separation in a graph and us you know that's the link with but it's not the same thing as a thing of plastic.
+01:32:28
+But to Matt Dan would be something more where you define the transition with probabilities and stuff like the baseball right now it says 01 aspect or either your reach or you don't.
+01:32:39
+I said, what, what is a good way to think of a random walks and they're coming from.
+user avatar
+Breandan Considine
+01:32:42
+Model and how this is different from under the graphical
+user avatar
+Lacoste-Julien Simon
+01:32:48
+Let's revisit that once we see the under to go from a lot more in detail.
+user avatar
+Breandan Considine
+01:32:53
+Okay, thank you.
+user avatar
+Lacoste-Julien Simon
+01:32:55
+Okay so SH I perhaps somebody was talking about.
+01:32:59
+Side, which is psi, which is the Greek letter. I'm using site.
+01:33:06
+And
+01:33:09
+It was fools. Ah, OK. So does sigh for those property rule like put priorities know. So for example, you don't need you know
+01:33:19
+You don't need that the summation overall XE upside see of x, z is equal to one, right. So this could be anything.
+01:33:34
+So the summation of sight seek XE could be any number doesn't matter. They're not normalized probabilities. Unlike the factors in a directed graph model, which actually are conditional
+01:33:46
+And size see takes instead of pointing belongs to click as its input.
+01:33:52
+Alright, so I see take the value assignment to the nodes to it's some it's clear right because, indeed, like the argument upside see is exceed X is basically x
+01:34:07
+For I NC right so so it will be a joint assignment to multiple random variable. All the one associated with a specific. So for example, you know, for example, I could have just those two know this would be one in two. Then I would have
+01:34:26
+A potential for this click one, two, which will take the variable assignment on X one, two, right.
+user avatar
+Unknown Speaker
+01:34:39
+So that's the nature of things.
+user avatar
+Lacoste-Julien Simon
+01:34:42
+And you could use index instead of like a set to
+01:34:46
+Index. The, the potentials. It's just pure it's for notation purpose.
+01:34:53
+Right. Is there any other question about the uncertain graphical model I mean we've covered them in much more detail, give you a bit more intuition.
+01:35:00
+Next class. One of the main aspects of under the graphical model is that because the normalization is global. It's not local.
+01:35:08
+And it's much more complicated to think about it intuitively, like, like, in particular, it's not the case that, you know, if I remove a node then then nothing changes. Unlike in a directed graph model, right. So, for example,
+01:35:30
+In in a D GM
+01:35:34
+If I have, you know, this V structure here I am marginalize out this node and I'm just left with this independent set right
+01:35:45
+When you marginalize out
+01:35:48
+This note was in under Africa model when I will marginalize out this note and I will keep an edge between they will be interactions between my notes.
+01:36:02
+Coming from basically this
+01:36:03
+This global factor of normalization.
+01:36:09
+Can I scroll a little bit before deficient have a huge em associated with
+user avatar
+Unknown Speaker
+01:36:12
+G.
+user avatar
+Lacoste-Julien Simon
+01:36:13
+Okay, here we go. Any other question. I mean,
+01:36:17
+I think it's time to
+user avatar
+Breandan Considine
+01:36:18
+Get
+user avatar
+Lacoste-Julien Simon
+01:36:19
+I didn't get my coffee today.
+01:36:22
+Thank to go for the things got it's Friday social
+user avatar
+Breandan Considine
+01:36:26
+I just have a quick question about
+01:36:29
+How would you
+01:36:32
+Encode some other operators on on this graph, right, it seems like each node has a single up operator kind of just mixes the two distributions from it's
+01:36:44
+It's an ancestors, so
+01:36:49
+I was wondering, will maybe, is there a way to choose like or assign
+01:36:55
+Either or rather than a mixture or do some kind of computation on
+01:37:02
+On, on, say, to to distributions, you want to, I don't know, add or divide or doing some other operator.
+user avatar
+Lacoste-Julien Simon
+01:37:09
+You're talking about the DGA right now. That'd be huge.
+user avatar
+Breandan Considine
+01:37:11
+Yeah, for the DG. I'm like, how would you yeah
+user avatar
+Lacoste-Julien Simon
+01:37:13
+Yeah, so for the new GM. Basically, it's always like the conditional of a node, given its parents
+01:37:20
+So the way you combine things is very specific. So I think the way to answer that is there was actually when I was at Berkeley. There was a guy from electrical engineering
+01:37:31
+Define other kinds of structures on distribution that could be exploited. So right now, here, there's a factorization structure that we use.
+01:37:40
+And it's a very specific way related with conditional dependence and there's other structure that are not captured by these the GM that you want to want to explore from a commercial perspective.
+01:37:51
+Other symmetries or combination and I forgot. What's the name of the thesis. If you send me an email. I can try to dig it up.
+user avatar
+Breandan Considine
+01:37:58
+Thank you.
+user avatar
+ezekiel williams
+01:38:00
+Cool. May I ask a quick question. Yeah, I'm, I'm still
+01:38:05
+Confused with the idea of these kind of like to see kind of
+01:38:11
+Graphs.
+01:38:13
+And just how how you can end up having this dependence. When you condition on the on the graph of it on the note at the bottom of the V. I was wondering if you could do. Um,
+01:38:25
+Yeah, I was wondering if you have any specific kind of like reading recommendations to understand these a little bit better.
+user avatar
+Lacoste-Julien Simon
+01:38:33
+So, so the the V structure is P AMP z given x y times p of x and feel right. Right. So this would be z x and y. So the joint whenever we structure is from this right so now if I want to compute
+01:38:52
+The marginal of p of x.
+01:39:01
+Yes. So when you don't observe. So, so now it's clear that if I don't observe z i just some over z.
+01:39:08
+Then what happened is I will some of resist. So this will become one. And I'm just left with a product and marginal, which is why it's
+01:39:15
+marginally independent. So it's clear from this factorization. That is margin independent. Now, why is it not conditionally independent is because if I want to compute P of x, y given Z. Now,
+01:39:27
+What I'll do is I'll basically compute
+01:39:34
+What I want to do. So I will have
+01:39:39
+I will have to basically define I will have the joint p of x, y, z divided by the marginal results.
+01:39:49
+And now what I will get is basically P AMP z given x y p of x poi and I will have summation over X summation of why of P AMP z given x y p of x. These are primary px Brian pure white pants. Now the problem is is
+01:40:13
+Because of this dependence here.
+01:40:16
+There's no easy cancellation. So I cannot just say, oh, I will cancel out my p of x in my
+01:40:25
+Because what I would like here.
+user avatar
+Unknown Speaker
+01:40:29
+Is
+user avatar
+Lacoste-Julien Simon
+01:40:32
+Yeah, because I want to have a factorization right at the end of the day, what I would like is something like P of x, given z times P of why given and what's happening here is because of this interaction here in the sun. There's no easy factorization that you can use to get back this
+01:40:50
+So this is a bit too fast, and I'll perhaps not the best way to explain it.
+01:40:55
+So I think the the the reading from
+01:40:59
+Colon Fremont will hopefully explain more diffuse structure aspect, but if you just work it out just tried to prove if you just try to prove the condition pants. You see why it's not working. It's because of the just the way it's
+01:41:14
+Okay.
+user avatar
+ezekiel williams
+01:41:15
+Okay, awesome. Thanks, and I'm calling Freeman taxes do you give the full name of this text on the
+user avatar
+Lacoste-Julien Simon
+01:41:21
+On the website. It's one of the main textbook.
+user avatar
+ezekiel williams
+01:41:23
+Oh, wonderful. Excellent.
+user avatar
+Lacoste-Julien Simon
+01:41:25
+And perhaps I'll stop the recording.
+user avatar
+Unknown Speaker
+01:41:27
+Now,
+user avatar
+Lacoste-Julien Simon
+01:41:29
+The loops.
+user avatar
+Sarthak Mittal
+01:41:30
+So I wanted to stop the recording.
+user avatar
+Unknown Speaker
+01:41:33
+Doing to that step because

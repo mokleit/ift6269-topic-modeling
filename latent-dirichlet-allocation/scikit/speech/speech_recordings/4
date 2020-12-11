@@ -1,0 +1,1663 @@
+Lacoste-Julien Simon
+00:00:02
+Actually didn't have to stop the recording.
+00:00:05
+Okay, this is recording so hi everyone
+00:00:10
+Welcome to yet another chapter of this wonderful journey into the land of multivariate probabilities. So today.
+00:00:22
+Move my notes today today.
+00:00:26
+What are we going to do today. Now, first of all, zoom, I didn't think about that.
+user avatar
+Unknown Speaker
+00:00:35
+See 125 good
+user avatar
+Lacoste-Julien Simon
+00:00:39
+Alright so today.
+00:00:43
+The plan is to
+00:00:47
+Look at statistical
+00:00:50
+I guess we'll finish.
+00:00:54
+Some quality distribution notion
+00:00:59
+And look at
+00:01:02
+Frequently just
+00:01:05
+Vs Bayesian approach.
+00:01:09
+Will do a bit of statistics.
+00:01:11
+We talked about also
+00:01:15
+The philosophy of frequencies versus Beijing ism.
+00:01:20
+And give an example of Asian
+00:01:26
+Okay. And, and so, just so that we are
+00:01:32
+on the same wavelength. So basically, for the current lectures like there's another two or three lectures, where we talked about
+00:01:44
+Basically basic statistical concepts decision theory maximum like you how to analyze estimators etc. Okay. And so that's to get the
+00:01:55
+The fundamental concept or polities statistics just set up and then after that, we'll start to do lectures of first like we go like classification and regression
+00:02:09
+So I talked about them as example of two node graphical models of specific graphic come over. We have two variables. And so I talked about journey was a descriptive approach in this case. And we'll talk about logistic regression versus, say,
+00:02:23
+Discriminate analysis, this kind of approaches.
+00:02:27
+And
+00:02:28
+Then later on in class to structure quality distribution with like
+00:02:37
+Andre and and directed graph. So that's kind of the, the plan.
+00:02:43
+So last class I talked about already, the Bernie distribution and Gaussian distribution. So, let's talk now about the binomial distribution, just as an example of a
+00:02:58
+How to build another distribution, because that's a fairly standard one
+00:03:06
+And so this is us this binomial distribution. It's normally it can be used for example to model.
+00:03:14
+The, the result of an independent
+00:03:20
+coin flips. Right. So the burner. He distributions, as I mentioned as fast. So let's see.
+00:03:26
+Let's, let's close so brilliantly. You can think of it as modeling one single coin flip, because there's only two possible values, heads or tails.
+00:03:36
+head or tail and now the binomial will be that. Okay. Well, now I will flip anytime a coin and you can define the binomial distribution as the son of an independent
+00:03:52
+Burden he random variable.
+00:03:56
+With the same pattern random room right
+00:04:01
+And know that usually the the the parameter for a birdie distribution can be you know that P
+00:04:10
+Just convention but will you stay that just because so that we're using it. This is the parameter or distribution.
+00:04:17
+And so in terms of notation. Suppose that I will have n random variable indexed by i. And so the notation we often use is you see x I or II ds, which is
+user avatar
+Unknown Speaker
+00:04:34
+Me right it's currently so
+user avatar
+Unknown Speaker
+00:04:37
+There.
+user avatar
+Lacoste-Julien Simon
+00:04:39
+I guess we don't even put the dots. Yeah, I don't even put the dots in this class. Yes, I just put I the okay so I say
+00:04:49
+Burden with burner you theta.
+00:04:52
+And
+00:04:54
+So, so this ID means that the random variable or independent
+00:05:01
+With their mutual independent. It's not just pairwise independent Mitchell independent. So I guess it would surely let's write it down to make sure
+user avatar
+Oumar Kaba
+00:05:12
+I hear you. This person. Here we go.
+user avatar
+Lacoste-Julien Simon
+00:05:17
+Unless you had a question. You had a question.
+00:05:20
+Well, I forgot who I muted because it's already moved out to the way
+00:05:27
+So Mitchell independence and identically be and they typically distributed. So that's what the, the second identically distributed
+00:05:40
+So in this case, each run a verbal has the same distribution as the other one.
+00:05:45
+In terms of marginal so they're all Bernie's with the same time we're feta.
+00:05:50
+If I wanted to have different conflicts with different bias, then it could still be independent, if I want, but I would not be identically distributed
+00:05:59
+So I need this notation will appear a lot, especially in the context of machine learning. Usually we assume that
+00:06:06
+The observations or ID when we do learning, though it doesn't have to always be the case. Let me just do a
+user avatar
+jacob louis hoover
+00:06:17
+Sorry, I'm just changing the screen display here, may I ask a question.
+00:06:23
+Yeah, so when you when you when you return right here are the x i a set of random variables or is x, I just, I'm just, I just like to have clarification on what is x i.
+user avatar
+Lacoste-Julien Simon
+00:06:36
+Yeah, that's a very good question.
+00:06:37
+So that's lazy notation.
+00:06:40
+So,
+00:06:43
+What you could have written normally like to be more more precise, you would have written for example like x one, blah, blah, blah. To x n.
+00:06:54
+Or ID. So that's another way to be a bit more specific. But this is fairly common statistics, where you just put the index and you put the squiggly ID. And that means that when you range over the index each of these variable or. So this basically implicitly
+00:07:14
+Is talking about
+00:07:18
+This set of of random variable, okay.
+00:07:23
+But yeah, but that's so that's one thing to keep in mind, by the way. So in in in protein statistics. There was a lot of very implicit notation often
+00:07:34
+And in machine learning, there's there's even another layer. So because you lose. Often the bid the formality of math.
+00:07:42
+Like you're not perhaps as rigorous that people are in mathematics. And you also have much more complicated object to talk about all the times. So you cannot just
+00:07:51
+Spell out all the details, each time. So, so one has to get trained to have this implicit parsing, but it's definitely the first time you see that it's not here. So you need to ask about it to make it on the biggest
+00:08:06
+Alright, so we have these n random variables and actually already and was implicit here like so. You know, so
+00:08:15
+Normally, it would be from the context, you would also like it's ID, ranging from one to something in this case and
+00:08:22
+So now, let a new random variable be defined as the some of these individual burner you random variable. Okay, so this x will have a binomial distribution, then we have
+00:08:38
+That X, capital X is distribute according to binomial and you will have the number of flips and the parameter of the flips so binomial. Okay, so you call this binomial distribution.
+00:08:57
+With parameter and and data.
+00:09:05
+Which, by the way, and is not the same kind of type of parameter for these distribution usually
+00:09:12
+I mean, it's still a pattern in the sense of, I can change channels to get a different distribution, but so it has a much bigger effect and data because it changed the output space, right. So the values of x. So the sample space of x is
+00:09:30
+02 n, right, because basically X is counting the number of times I had one as my result which could be, for example, counting the number of times I had had
+00:09:42
+And so we've actually n times the max is n. And so in some sense in this case and controls the support of my distribution or it can control what are the possible outcome.
+00:09:55
+And if you remember when I talked about parametric family. Usually the support will be fixed. And then when you change the parameter you want don't want to change your support. That's why, usually in this in this
+00:10:05
+From a parametric feminity perspective, say, that will be the partner and and will be fixed from the phenomena and, in particular, usually what would happen is from observation you would like to estimate fair but envelope. Yes, you will be fixed.
+00:10:22
+A right so and you can derive the distribution of the distribution of the binomial. So this is the PMs of the binomial, which I write
+00:10:35
+With a comma here. So the PMs here.
+00:10:40
+Is actually coming from. It's the product of an independent burglaries so I can actually look. So if I have observed X time head. I can actually use the product of the PMs of the brewery because they're independent distribution. Right. So you have that the joint of
+00:11:05
+The joint factories is a product of marginal in this case.
+00:11:10
+The joint over all possible outcomes of my head or tail with have, for example, the probability of head race to the number of seen head.
+00:11:21
+And then I will have the probability of Tail racing number five seed tail which if the x is the number of times we'll see head, then n minus x is the number of signups detail.
+00:11:33
+So what I'm just road there is that would be the joint distribution where I forgot about the individual conflicts. I don't care about with the indigo conflict and now I missing a term which is that
+00:11:47
+What I wrote here is the joint. If I would have told you the first coin flip is not a tail. The second contract is a head is it is a tail.
+00:11:57
+I'm missing, actually. So I'm cutting the heads. So the first and fifth is the head. The second is not a head or whatever, that's a possible outcome. But here, all I'm saying is that I have x head. I'm not saying what's the order
+00:12:08
+And so you need to some over all the possible ordering which can could have given you X heads and so that given by the binomial coefficient, basically. So it's x choose n
+00:12:23
+Or n choose x sorry that's always the problem. I don't know how to say this thing. So this is the number of ways.
+00:12:34
+To choose
+00:12:37
+X elements.
+00:12:41
+Out of n choices, right. So this is call
+user avatar
+Unknown Speaker
+00:12:46
+And choose x
+user avatar
+Lacoste-Julien Simon
+00:12:50
+Very standard
+00:12:54
+Community element. So I have that and choose x by definition is n factorial divided by x factorial n minus x factor.
+00:13:08
+Okay.
+00:13:10
+And of course this PMS is valid for x in the sample space, so x belongs to omega typical x
+00:13:21
+And what I told you is that this thing here was basically could be seen as theta. Some over i X i.
+00:13:31
+One minus data. Some over i one minus x where x i are the individual observations of heads or tails. Right.
+00:13:40
+And this is the product.
+00:13:43
+Of my brewery.
+00:13:47
+Payments on X i with Banner theta.
+00:13:51
+Which was a joint on all x one to accent.
+00:13:59
+Right. So I started so just give me a bit confusing here. So I started with these independent random variable. So for every i add a capital X i and now each the could take little excited
+00:14:14
+And the density of this joint because they're independent is just the product, sorry, the PMs of the joint. This is a product of the PMs of each individual
+00:14:24
+PMS. And so, so that's what I wrote here. So that's this product. Now it happens that for the binomial. I don't care about the individual trips I only Sunday. So the ordering of how the quick fix happened. Doesn't matter.
+00:14:39
+Only the account matters which is why you get this extra binomial coefficients. And I'm not sure why this things. It's kind of
+user avatar
+Unknown Speaker
+00:14:49
+Showing in TV.
+user avatar
+Lacoste-Julien Simon
+00:14:52
+Alright, so any question about the binomial.
+00:14:59
+Door asked if n is sort of like a hyper parameter
+user avatar
+Unknown Speaker
+00:15:04
+Hmm.
+user avatar
+Lacoste-Julien Simon
+00:15:10
+So we'll see hyper parameter later.
+00:15:15
+In the often come
+00:15:18
+In the context of
+00:15:22
+So usually you talk more about hyper parameter in the context of Bayesian distribution. So you have a because we put distribution of our distribution and these distribution will have parameters which will call hyper parameters.
+00:15:33
+And then you could put also distribution over these hyper parameters which then you have hyper hyper parameters.
+00:15:38
+Hmm, so
+00:15:41
+Right under the hyper parameter here I would call it more like a description of the contextual description of what I'm modeling.
+00:15:51
+Right.
+user avatar
+Unknown Speaker
+00:15:55
+Yeah.
+user avatar
+Lacoste-Julien Simon
+00:16:00
+It's a bit like saying, what is the problem solving, so that you could say, oh, I have a choice but to prom between some problem of five, eight ID or time. See, and I'm saying okay and problem solving a pipe and then I have some model for typing. So here it's like
+00:16:15
+I need to say how many coin flips. I am using my model.
+00:16:21
+But indeed, if you would like to model something where somebody
+00:16:26
+An unknown number of points.
+00:16:28
+And then you can also put a distribution and on how many times he will flip a coin, then
+00:16:36
+You could put a distribution over and as well. And then it becomes a parameter and and you can have a hyper parameter for the distribution which will be put on the value of it will see that that again when we talk about Beijing minutes
+00:16:50
+Any other question.
+00:16:57
+If not,
+00:17:00
+Let me now. Alright, so this is the binomial. And so some properties of the binomial, will that mean about a binomial because it's the sum
+00:17:12
+Over these burglaries, I can easily use the linearity of the mean to say that, well, the mean of X is by very tedious. Some over I have the mean of the exercise.
+00:17:26
+And so we know that the meaning of a burglary is data. The property of the burglary. So this is an times data. And so that's easy to compute. And similarly,
+00:17:42
+We can have that the variance of some of x i. So, it turns out that when you compute the variants of so the variants of A. It's not a linear period or in general.
+00:17:55
+So if I have the variants of a somewhat random variable. It's not the sum of the random, but it's not the some of the violence but if they're very they're in a variable or independent
+00:18:03
+So by independence, you will have that it is the case that it's just a some of the variants of the excise so this is true when the excise are independent.
+00:18:15
+And so this is just n times the variants of a brand new, which is theta one mistake.
+00:18:24
+Alright so this allowed us here to just to play with standard
+00:18:29
+Properties of distribution. And so I will mention now other distributions, just so that you have the names. I encourage you to look at them on Wikipedia, for example.
+00:18:40
+If you have never seen them to look at their properties. So there's a parasol distribution which has pander lambda and lambda is the mean of the distribution.
+00:18:51
+And so this is a distinction us on natural number. Alright, so the sample space here is 012 blah, blah, blah. Just, just the natural number. And so this is often used to model count data.
+user avatar
+Unknown Speaker
+00:19:10
+Right, so
+user avatar
+Unknown Speaker
+00:19:12
+For example,
+user avatar
+Lacoste-Julien Simon
+00:19:14
+How many times a detector has detected some some academic particle. So, the physics happens all the time. The person distribution.
+00:19:25
+Or it could be number of accidents at intersection, so could use a parcel.
+00:19:33
+So the Goshen, we already mentioned it, but I will write it again. So in one d
+00:19:40
+I will use the notation and and then we have the mean and the variance sigma square. So that's the mean
+00:19:49
+And the distant variance and here the sample space is the all the real numbers.
+00:20:01
+And somebody pointed out that I screwed up.
+00:20:06
+Ah. Alright, so this person says, I should have
+00:20:15
+A
+00:20:17
+So here I should have some of n minus x side.
+00:20:24
+That's the claim. And the answer is no, because here.
+00:20:30
+I had the, the distribution for a burden, yet I will remove this right so the distribution for a burden. He is just a theta race to the x i one minus data race to one minus x, because that's one coin flip.
+00:20:46
+And and what happened is when I will some this n times I will have you know that's why here. This is the same thing as n minus summation over i X i.
+00:21:02
+And this is x, right. So, everything works.
+00:21:11
+OK, so that was a little clarification, we go back to our distributions.
+00:21:16
+Are put space for Yashin is the real number. There's the gamma distribution. That's another standard distribution. So, gamma
+00:21:25
+Is actually
+00:21:28
+A distribution on the positive number. So, r plus
+00:21:33
+And it has two parameters the scale and the sorry the shape and the inverse scale. So this is the shape parameter
+00:21:44
+And this is the inverse
+00:21:49
+And verse scale.
+00:21:53
+Also known as the rate editor.
+00:21:58
+And you know this distribution looks something like like this.
+00:22:06
+So it's not like gosh it's like ish shifted think it's not symmetric
+00:22:11
+And then able to draw it.
+00:22:15
+Is it some kind of gamma distribution.
+00:22:18
+As a mean
+00:22:21
+I think alpha divided by beta square
+00:22:27
+But I'm not sure if I put it in the right place. So perhaps I won't put it
+00:22:31
+Mean of alpha divided by A square, but you can see all the nice properties of that in the
+00:22:39
+In the
+00:22:41
+In Wikipedia.
+00:22:43
+On the core any place where you describe us distribution.
+00:22:49
+So we'll see the gamma later they're pretty important a gamma with shape parameter. One is an exponential
+00:22:57
+Variable. It's called an exponential that special case and you can combine independent games together and we normalize them to get a dish a distribution.
+00:23:05
+And the version distribution is a distribution over the property simplex. And so it's super important when we talk about distribution over parameters of the distribution. I can move on. So we'll get back to that.
+00:23:21
+So, somebody asked what's the difference between a gamma and a better distribution. So,
+00:23:27
+Gamma is this mission on positive real number, a better distribution.
+00:23:33
+Do I have it here. Yeah. So let's talk about it. I'll just write down other distribution and then I'll answer your question at the same time. So other distribution or the Laplace distribution, which is kind of like a Gaussian, but instead of a
+00:23:45
+X squared dependence. It has a absolute minus x dependence or perhaps this is cushy and kind of mixing up now.
+00:23:54
+cushy distribution exponential i said this is the special case of a gamma and exponential decision not to be confused with the exponential explosion of family is much more general than exponential distribution.
+00:24:08
+The gamma distribution is a special case of the exponential family a Gaussian is an extension of me. So he all these that I mentioned here are all exponential families was the exponential distribution is a very specific type of gamma. So
+00:24:23
+So this is basically a gamma with shape one and then rate better
+00:24:32
+And then now we talked about the better distribution. So, somebody asked about the better description. What's the difference with a gallon. Well, a better is actually a dairy sugar distribution.
+00:24:41
+In dimension to okay so and so this is
+00:24:48
+This is dairy Schleyer
+00:24:53
+On two elements.
+00:24:57
+And the sample space for the beta is the unit interval 01
+00:25:04
+Okay, so that's the big difference. So the sample space for a gamma is all positive numbers. The simple space for a Becca is a number between zero and one. Okay.
+00:25:14
+And. And basically, if you have a coin flip. You want a parameter for your conflict, like a brewery. Right. So, and this parameter has to be between zero and one.
+00:25:23
+So now if I want to put a distribution amateur I wanted distribution on Joel one and a bit dies the natural
+00:25:30
+Now the direction is the same thing instead of adding parameter for one conflict. It's actually a parameter for key sided
+00:25:37
+Die. And so you need a proxy for every of the key outcomes and you have into some of these properties has to be equal to one. So it's a pretty simple. It's and to this day is actually a distribution on the participants.
+00:25:49
+Sense. If you have only two possibilities. You don't need to put the party of one and the other one because you know that it's data for one possibility has to be one minus data for the other one. So that's why you only need to put the property on the 01 interval for the better.
+00:26:13
+Alright, so somebody says, I screwed up my mean of my gamma selecting it's just check that. Because that's kind of important. So
+user avatar
+Unknown Speaker
+00:26:24
+You should
+user avatar
+Lacoste-Julien Simon
+00:26:27
+I think you might be quite right, actually.
+00:26:32
+Yes, yes, yes, that's right. It's kind of normalize the scale, the rate
+00:26:39
+Very good. So this is actually the mean good thing that people know their Gemma or parties is alpha or beta and the variance is
+00:26:52
+Alpha, beta square
+00:26:55
+Yeah, thank you.
+00:27:01
+What would be the input space of the Irish layer. It's the property simplex. Indeed, so it's it's it's so that the Irish layer.
+00:27:10
+Will come back when we talk about the multi normal in more detail. So I will formalize it but for now I think of it as the participants.
+00:27:19
+Which are key elements which seems to one, there are positive.
+00:27:24
+Okay, so these are some distribution. Let's talk about now frequencies invasion.
+00:27:32
+And let's talk about statistics.
+00:27:37
+And okay so somebody asked an important question question related to that statistical concepts.
+00:27:45
+So the question was, how do you know which decision to use to model a given problem.
+00:27:52
+And that's what will have hint of answering in this class.
+00:28:01
+And but it's, you know, this is a very difficult question to answer. In general, because this is basically this is like I have a
+00:28:08
+Problem that I'm trying to model. And I want to know what's their good distribution tomorrow this problem. Okay.
+00:28:15
+And I send it was a ill defined problem. So so the so the, the short answer is that it's hard and statistics are trained for it and they will use various
+00:28:28
+Knowledge. We have about modeling things to kind of, like, for example, like a good starting point is, oh, what's the range of the thing I'm trying to model if it's
+00:28:38
+On the interval 01 well then you need to have a distribution with range on 01 so you couldn't use a Gaussian, or you can say, well, you could not use a normal guy because this is all real numbers. So
+00:28:53
+That's a starting point, or if it is a discrete thing. I'm trying to move. So that's the first step. And then there's other properties of the thing you're observing that you could use.
+00:29:03
+But this is basically a statistical question and that's what we're going to cover now also. So, a reminder, the cartoon that I had mentioned at the beginning of class was that
+00:29:16
+Let's say I have a model and I will use data to characterize a specific choice of model because, for example, I could have seen a movie with Pandora theta is an example model and then I can use property theory.
+00:29:32
+To
+00:29:35
+Answer a question about data. And so I'll use capital X or random variable. And if I have instead of observations of a random variable like the output of n coin flips inverting this process is that this site.
+user avatar
+Unknown Speaker
+00:30:00
+Statistics.
+user avatar
+Lacoste-Julien Simon
+00:30:03
+So this is ill defined
+00:30:09
+Define inverse problems.
+00:30:17
+Was this is very well defined because you gave the models so
+00:30:22
+You just use rules of properties to get whatever policies, you want to compute the problem is that these might be intractable to compute to you need approximation, but at least philosophically, there's, there's no problem with that.
+00:30:35
+And I mentioned here by the way that you know this inverse calm of doing statistics. I have observation I want to figure out the model which explained his operation that's at the heart of epistemology of science, right.
+00:30:48
+System ology is the study of what what do we know the piece de mala G, we don't know how to write rewrite that
+00:30:58
+The piece de mala G, the study of what we know and how do we know what we know, in particular, right. So,
+00:31:09
+I have I made a bunch of innovation. I figure out a model how good my model is do I know that this is the right model. Like how do I know that right
+00:31:17
+And so that's really super fundamental because how do we know that we have quote a good model of the world. And actually, you know, you never know. You can never be sure unless you have an infinite number of observations which you never have so
+00:31:33
+That's why we cannot guarantee that tomorrow the earth won't explode. For example, and we have very good knowledge that it probably won't be the case, given the current scientific knowledge and prediction, but we cannot be sure with 1700 percent
+00:31:54
+Okay.
+00:31:57
+So now let's give a very concrete example. That's why I talked about the New Year. Yes. The binomial. So let's say I want a model and independent coin flips.
+user avatar
+Unknown Speaker
+00:32:13
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:32:16
+And actually I model them as, oh, I only look at I know in this case actually model them as an independent conflict so i don't i looked at how I get it.
+00:32:27
+And so from the theory.
+00:32:34
+If I say the are the same coin flip that I'm keeping all the time and I say, it's, it's, I have
+00:32:42
+The same coin. So it's a Bernie like a Bernie theta model is pretty good for that. And so then I can compute, what's the probability of k heads in a row.
+user avatar
+Unknown Speaker
+00:32:56
+Right.
+user avatar
+Lacoste-Julien Simon
+00:32:58
+And that would be actually theta race to the key that's the reality of observing K reds and the role, but that's actually not the priority of observing them among and flips. So I want to put the the end flip, because I don't want to compute it, but you could compute it.
+00:33:13
+What's the property of if I did envelopes of observing a sequence of k heads in a row.
+00:33:19
+And then statistics instead will answer question like, Okay, I have observed
+00:33:30
+k heads.
+00:33:33
+And n minus k tails. So in this case I removed the order information notice before I talked about order, but now there's no order. And now what is data, right, what is the correct parameter modeling this
+user avatar
+Unknown Speaker
+00:33:50
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:33:56
+And
+00:33:58
+Now let's look at the frequent is versus the Bayesian answer to that. Okay, so, so the short story is a frequent. This will estimate data with various tools.
+00:34:09
+Whereas a Bayesian will not estimate data, they will quantify their uncertainty about the parameter using a distribution. Okay. But let's before going to this formalization of this approach. Let's just talk about the meaning or probabilities for a frequent is resuscitation.
+00:34:47
+And by the way, so
+00:34:51
+Or La La asked what amount of data points. Do we need to sufficiently model the underlying distribution. So this is already a successful question.
+00:35:00
+And it's a question of as a lot of things you need to answer before being able to answer period this question. So what does it mean to sufficiently model.
+00:35:09
+And so, in, in particular when we talk about statistical decision theory, we will talk about that. So if we formalize what we mean by by
+00:35:20
+Evaluating the, the quality of our model if a loss, and then you can talk about things which are called sample complexity, which is how many samples. Do I need to guarantee a specific error. And this is according to my mind my surgical procedure.
+00:35:38
+But it takes a bit of
+00:35:41
+It takes a bit of setup before answering
+00:35:52
+And says, probably theory deals with in France. Yes, whereas statistics is about model fitting. If I were to independence with mission terminology
+00:36:03
+Sure.
+00:36:06
+That's, that's, you know, these are correct key words.
+00:36:11
+Yet
+00:36:15
+From his vision. Alright, so what is a priority.
+00:36:21
+What is a property. What does it mean, okay.
+00:36:29
+So,
+00:36:32
+IE. What I mean by semantic so semantic in language is talking about meeting. So what is the meaning
+00:36:40
+Of a property. So now we're a bit more in philosophy again. But if you're a traditional
+00:36:51
+I mean, so the frequent this perspective is more classical let's put it this way. So the frequent his perspective.
+00:36:59
+On Property is basically that the property. When we say the property of capital X is little x
+00:37:08
+This represents
+00:37:11
+The limiting frequency
+00:37:20
+Oh, am I sharing my song.
+user avatar
+Unknown Speaker
+00:37:23
+Yes, it's not sure
+user avatar
+Lacoste-Julien Simon
+00:37:27
+The limiting
+00:37:29
+Frequency
+00:37:33
+Observing
+00:37:39
+Capital X equals little x if and that's a huge if
+00:37:45
+I could repeat
+00:37:50
+An infinite number of times.
+00:37:55
+The ID experiments.
+00:38:00
+Which were characterized by this red number
+00:38:04
+Right, in some sense, so so capital X equals little x, it's it's modeling some phenomenon like I flipped in coins independently or I could actually flip
+00:38:15
+Coins in a way that are dependent, if I want. But let's say I have a distribution and on this capital X.
+00:38:21
+Well, this character is a phenomenon. Now I say, oh, I will make observation in this phenomenon.
+00:38:26
+repeating this experiments such that it's always the same phenomenon. So it's always the same distribution and the results are all independent. So, because if there are dependencies. Then of course there's there's no repetition.
+00:38:41
+So for example, I could flip a coin and times.
+00:38:45
+And then I start again flip a coin and times then start again 50 times and all these are independent. So that's what the ID. So that works. And then I looked at the fraction of time I observed that I fit Kate heads.
+00:38:57
+And when I looked at the proportion of time I observed key heads. This will be the policy of observing tickets
+00:39:06
+Okay, so that's what the meaning of her. That's why it's called for this perspective, because it's looking at frequencies of observations over infinite repetition of a fundamental
+00:39:18
+And we'll see later in this class that this can be justified from the law of large number and central limit theorem day. But so, but first
+00:39:27
+Let's talk about. By contrast, the Bayesian
+00:39:32
+Perspective.
+00:39:34
+And so as a Bayesian and this is actually the subjective Bayesian version.
+00:39:42
+So the probability is not a limiting frequency. The property is actually encoding or subjective belief about something.
+00:39:52
+In codes and you know if I'm getting a bit AI ish artificial intelligence, like we talked about in agent. Because actually in artificial intelligence often use will have artificial agent and so it's the belief
+00:40:09
+That capital X is equal to little ticks from
+00:40:14
+And basically, so why are we carrying about qualities. When revision. Well, what happens is if you pick any Bayesian textbook, it will start about
+00:40:26
+How to act rationally what it means to combine information about events in a rational way and they will say that the laws of probability, like the combo grab axioms.
+user avatar
+Unknown Speaker
+00:40:38
+would characterize
+user avatar
+Lacoste-Julien Simon
+00:40:43
+A rational
+00:40:47
+Way to combine beliefs.
+00:40:56
+Beliefs and evidence
+user avatar
+Unknown Speaker
+00:41:04
+Which are the observations.
+user avatar
+Lacoste-Julien Simon
+00:41:10
+Okay and this, this notion of rational way to combine beliefs using the laws of properties. So it has motivation.
+00:41:21
+In terms of
+00:41:25
+Gambling
+00:41:30
+Utility Theory.
+00:41:33
+So utility
+00:41:35
+Or decision theory.
+00:41:42
+Etc. And basically, when you read these details treatment they will show that, oh, if you don't combine your so there's always an operational ization I have these belief and then I will act according to this belief. And if I don't use a lot of properties to combine them.
+00:42:04
+Then you get a quote screwed up somewhere like you you somebody could win money against you if you gamble using these beliefs or
+00:42:14
+You know you won't act optimally according to this.
+00:42:18
+To the framework of utility theory. So, so there's so you would put a lot of like properties that you want to what it means to act rationally and to do things and then a good example is, okay, well if if I if I gamble.
+00:42:32
+In a phenomenon where there's uncertainty and if I use it as a properties in my candle well on the long term, I won't be silly newsman I will be even
+00:42:42
+Game, but you won't lose money. Whereas if if you don't use the laws of priorities and somebody else is then they will win against you on the long term. So they will make money on it, right. So that's the justification.
+00:42:57
+Alright, but the bottom line is, in this case for them.
+00:43:00
+Then where you get this distribution comes from encoding your belief and then how to combine them in a in a
+00:43:09
+In a good way. And let me make this a bit more concrete now.
+00:43:16
+By saying that operationally what happens. Okay. So in practice.
+00:43:26
+So the Bayesian approach.
+00:43:36
+What they do.
+00:43:38
+Is
+00:43:40
+It's actually very simple philosophy. So Bayesian statistics is actually trivial from a philosophical perspective, just very neat. And that's why, by the way, Asians often are very opinionated in their viewpoint, because they have such an elegant theory.
+00:44:01
+Feel us physically
+user avatar
+Unknown Speaker
+00:44:05
+Very simple. That's simple philosophically.
+user avatar
+Lacoste-Julien Simon
+00:44:10
+So you treat all uncertain quantities.
+00:44:17
+With as random Berber
+00:44:21
+IE, you put a distribution of them and the distribution represent your beliefs right as random variable.
+00:44:31
+And so the idea. So the way you go about the world is you encode
+00:44:37
+All knowledge.
+00:44:41
+About the system.
+00:44:47
+Which are basically your beliefs.
+00:44:52
+As a prior
+00:44:58
+On probabilistic models.
+00:45:06
+And then
+00:45:11
+You use the law, probably to
+00:45:17
+Rule, which is a bit where the name come from.
+00:45:24
+To get
+00:45:27
+Updated beliefs.
+00:45:34
+And answers.
+00:45:55
+You're flipping a coin. I don't know what data is well then you put a distribution of everything.
+00:46:01
+You don't know what the distribution of data should be well then you put a distribution over this distribution that you could ever say that so you know you encode anything which you're not sure about anything which is uncertain. You need to put a distribution.
+00:46:13
+Above it, and then you can, once you have distribution, you can just use laws or policies to actually
+00:46:19
+Update your information. So, for example, we'll see later that I will have my prior theta i have my observation Model X given data. Now I have observed x when they can update my
+00:46:32
+Distribution or theta, which was we call the first year. So I'll show that in a few minutes. Yeah, I'll get back to that.
+00:46:43
+But that's here, just the general kind of like philosophical approach.
+00:46:51
+Then let's see if there's some questions. I don't want to go too much into details of this yet, because I want to illustrate it with an example because it will become much care right now. It's a bit abstract,
+00:46:59
+Let's see. So, so as a Bayesian subjective based on who the agent is while frequent. This is absolute objective truth for everyone. So the subjective viewpoint is differently.
+00:47:08
+Subjective I mean the beige viewpoint is subjective. So it depends on who it is. And that's what makes it kind of problematic when you try to do science with it.
+00:47:18
+The frequent. This is not to see that objective is just that.
+00:47:25
+It's objective in the sense of, we think there's a quality of something and the meaning of that is if I take your limit of repeating the same experiments, it will give me the the correct frequency
+00:47:38
+But there's a question there, which is, well, how do you make sure that their experiments is really properly repeated. And so there's a bit of uncertainty about the experiments itself. And so it's hard to kind of like characterize that. But I guess the role the the the frequent this
+00:47:55
+Goal is indeed to be a bit more objective.
+00:48:03
+Okay, so how do we update
+00:48:06
+Or or belief about data will sit very soon it's using the bedroom, but just before I get there.
+00:48:14
+Let's go back to the to the frequent is justification.
+00:48:19
+So,
+00:48:22
+I think. Let me just see.
+00:48:27
+Yeah, so
+00:48:29
+So if we go back to the we're doing statistics. Right. So I said,
+00:48:37
+So we want to do statistics on a bit annoyed disappear so fast. Perhaps there's it's sitting for that.
+00:48:44
+It's kind of weird. So
+00:48:49
+Basically, if you have observation as a Bayesian all you do to do statistics is just compute conditional priorities over your data because data is also model by a distribution. So there's
+00:49:00
+Because everything is in the prostate model you can just use the probably the last property to do statistics.
+00:49:06
+If you're a frequent this you need to use went from observation to estimate the parameters you need to use some principles. So it will be maximum likelihood
+00:49:15
+method of moments maximum entropy will see a few of those. Okay. But there's no unique clinical way to get your, your method. Okay, so that's the frequencies approach, but now a bit of justification for the frequencies semantic of problem D.
+00:49:30
+Because I said so justification.
+user avatar
+Unknown Speaker
+00:49:40
+For frequent just
+user avatar
+Unknown Speaker
+00:49:44
+Semantic
+user avatar
+Lacoste-Julien Simon
+00:49:52
+So,
+00:49:54
+If I have four discrete
+00:50:00
+Oh yeah, I'm not able to write what's happening.
+00:50:04
+For a discrete
+00:50:07
+Random variable capital X. Suppose that the probability that x equals little x is equal to theta, right.
+00:50:18
+So by the laws of morality, it means that the probability that X is not equal to x. This the compliment event is just one minus state.
+00:50:29
+And so now if I define a new random variable capital B which is the indicator of the event X equals little x
+user avatar
+Unknown Speaker
+00:50:40
+So this is the indicator function.
+user avatar
+Unknown Speaker
+00:50:45
+indicator function.
+user avatar
+Lacoste-Julien Simon
+00:50:49
+So, normally the notation. Is this funny one with us set as subscript. And then it's a function of
+00:51:00
+So I guess this is the preps. To be clear, this set should be a subscript
+00:51:07
+Okay. And so this thing is equal to one if you belongs to set and it's equal to zero. Other words,
+00:51:18
+Right and so capital B will be equal to one when what I've observed is that capital X is equal to little x and it will be equal to zero otherwise. And so then be as possibilities, zero and one. And that means that be is actually model. According to a movie.
+00:51:44
+With parameter theta, right, because that's the quality of capital X equal equal to x. So it's a very random variable.
+00:51:51
+And so now if I repeat my experiment that I said, so if I repeat, I ID experiments.
+00:52:03
+I he
+00:52:05
+I will have that. Now I have big eyes which are ID Bernie's with parameters data.
+00:52:15
+There's this thing called the law of large number in property theory. The law of large number
+00:52:23
+Which says that when you look at empirical frequencies of some of independent variable.
+00:52:31
+Of large numbers that converse to the expectation
+00:52:35
+Of large numbers.
+00:52:38
+So in this case you have that one over n summation over i.
+00:52:44
+Have BI. So, this
+00:52:48
+Frequencies of observing bi equals one converge. And this is actually almost sure convergence to the expectation of any BI. So let's just be one and this is a brilliant use of equal to theta.
+00:53:05
+So this is by the law of large numbers and this is basically what I said was the limiting frequency
+00:53:14
+Okay, so this is what we said we said that the cementing reality is that if I observed this thing and if it number of time that this limiting frequency will be equal to quality because data was a problem.
+00:53:27
+And there's another thing which is quite useful in property theory is the central limit theorem.
+00:53:34
+And then in this case will have that if I re scale, the deviation of the summation of bi, which is basically one over n a binomial and data. So this is basically what this is.
+00:53:49
+And I, and I guess I'll put
+00:53:57
+I will subtract the mean, which is data. Well, this converge in distribution to a normal with means zero and the variance of my random variable, which is this case is theta one minus data.
+00:54:15
+And if you notice here I have scaled by square with. And so basically it means that if I divide both sides by score and I will divide by n, the variance. And so I get
+00:54:27
+So we'll divide here by and if I remove this thing here. And so I get that as an increases, I get a very concentrated normal around
+00:54:37
+So not only I have that the
+user avatar
+Unknown Speaker
+00:54:42
+This
+user avatar
+Lacoste-Julien Simon
+00:54:45
+Yeah, so this also tells you how fast it converges to to this deterministic universe. Okay. But so
+00:54:53
+Some I mentioned these just to give you useful to remind you, or to put pointers on useful tools from standard property theory like law of large numbers in central
+00:55:02
+We theorem are very important concepts in terms of synthetic behavior of independent random variables. And here it's also to justify the
+00:55:12
+The meaning of frequencies property. Now there's some questions and see
+00:55:19
+Are there any message that involve updating beyond the parents.
+00:55:33
+OK, so somebody asked
+00:55:37
+The deep question. So the sign says all the Bayesian approach and codes more about pattern because it gives a whole distribution was a frequent this approach only good point estimates, which is true the frequent is only tried to give you evaluate for theta.
+00:55:50
+What would be reasons where one would want to use frequently instead of vision.
+00:55:56
+So I will go back on this question and more details. Once we see properties of estimates. Okay, but the gist of it is if you have a good idea about what is the phenomenon that you're trying to describe. So for example, I have, you know, I have
+00:56:19
+flipped a coin and times. What is your prior about the quality of this coin like what the parameter of this coin. Right.
+00:56:28
+Have you observed a lot of time coins in the world in the past and and so well in my experience, most coins are close to be unbiased and so I should you put a distribution which is fairly concentrated around one half.
+00:56:40
+Well, if this is a good information using this in your estimating procedure will give you usually better performance than just
+00:56:48
+A pure frequent this approach, which is a bit more agnostic about this prior beliefs. Okay, so if you have good knowledge about the world, being a Bayesian usually will be
+00:57:00
+Will give you much better result if your, if your knowledge is wrong or if you have not included it correctly, then you will do worse than
+00:57:08
+A method, which was a bit safer and it's put it this way, but we'll come back like usually Beijing methods, even when you have wrong beliefs are
+00:57:15
+So good properties was the frequent this methods like maximum likelihood is actually extremely bad in
+00:57:23
+Some perspective in particular we'll see we'll talk about admissibility the procedure later and the maximum likelihood estimator is not accessible. So that's pretty pretty bad, but we get back to that.
+00:57:36
+Okay, now there's a lot of questions.
+00:57:41
+Oh what is in the parents assists of. Yes. Okay. So, this is
+00:57:49
+feta one mistake that
+00:57:54
+Perhaps I'll just put here.
+00:57:58
+Okay.
+00:58:02
+These are the buyer system either here.
+00:58:08
+Well, if you want to use the to estimate the probability of x equal little X. Yes, it's I'm biased because an expectation. It has stayed out which is the truth.
+00:58:19
+Okay, so
+00:58:25
+The plan now is we'll take a break a break and then I will illustrate the Bayesian approach in this coin flip example.
+00:58:33
+But just before we get there, is there any other burning question on this so so
+00:58:39
+I will get. I think it's important to see a few examples to kind of be able to to answer.
+00:58:44
+These questions that you have. I think all these a lot of the questions you're asking right now are extremely natural and they're important questions. It's just that also you have to be a bit patient because we need a bit of setup to be able to to
+00:58:59
+To be able to formalize the answers to this question.
+00:59:04
+And be as a random variable. Yes, capital B zero numbers.
+00:59:18
+Okay, so let's do a break. It is 232. So let's come back at 242 me
+00:59:36
+The zoom recording
+00:59:38
+Welcome back.
+00:59:44
+So there were some questions during the break.
+00:59:49
+So there's shank Darshan sorry says that if you're Asian and there's a wreck or recall that you trust. Hundred percent and give you the value of the quantity for which you were uncertain. How would you update
+01:00:04
+As well. So this if like basically the Oracle would have to be encoded in a way that it updates your belief, according to the laws of properties in a meaningful way. So either. I know record could be I have observed that number of times something, and that will
+01:00:23
+Basically concentrate your posterior to the correct value. So, and we'll see that very soon. But basically the idea is as a Bayesian you could tell you have a posterior which is contracted
+01:00:34
+On a value when you're searching, because that just includes your belief. Now that you're searching about something, just like
+01:00:42
+In a command for that guy who mentioned about can trigger prayers. You don't have to use to get prayers for as a patient. So it's more a
+01:00:52
+It's a. How could I see
+01:00:56
+A convenience or it's a simplification tool, but
+01:01:01
+You could only be a Bayesian and still not use conjugate prayers. That's fine.
+01:01:11
+Okay, so let's put this into practice. Let's be put our Beijing hat and how does that work. Okay.
+01:01:19
+So, oh, I don't want to put a yes here.
+01:01:24
+Let's delete. Oops. Okay, let's not do that.
+01:01:31
+Oh, yeah, yeah. What did they do.
+01:01:34
+Okay, well, I'll have to fix that later.
+01:01:38
+Alright so coin flips, let's say, now we're going through this conflict example.
+01:01:45
+And we are be a big
+01:01:53
+Alright.
+01:01:55
+So suppose that we're basically modeling a bias coin flips.
+01:02:08
+And so we believe that
+01:02:14
+There are an ID coin flips.
+01:02:17
+Already that's an assumption. Right. That's a belief in some sense.
+01:02:22
+So busy are likely model is already some kind of belief as evasion and so will say, oh, well,
+01:02:29
+Capital X is model as a binomial with n conflicts and Pamela feta. The problem is
+01:02:36
+And we'll assume to be known, but theta is unknown. Right. That's where we have uncertainty. So I observed my confess I don't know what's the correct time. And so then, as a Bayesian if this is a noun, you need to model it
+01:02:50
+As a random verb.
+01:02:55
+Eight random variable. And so we need to define a distribution on data. So we need to we need a distinction of repeat data will use P of data that's a density because data here is a continuous value and this thing is called a prior distribution.
+01:03:17
+Usually when we have parameters and models will talk about the distribution we have on these parameters which is basically our belief about this.
+01:03:26
+Parameters will be our prior belief because it's before any observations. So the sample space of this random variable, which I'll use a capital version of theta, which is capital theta is the interval 01
+01:03:40
+So already, the beta that we talked about earlier becomes convenient for them.
+01:03:45
+So now the question is, okay, if I observed something. How do I update my belief. Right. That was the question of doing statistics. So suppose we observe
+01:03:57
+Capital X equal equal x which is the result of an flips.
+01:04:05
+Then we can update
+01:04:11
+Our belief about data.
+01:04:18
+Using Israel.
+01:04:26
+Right. So originally marginally I might believe about what's the bias of my coin is p of theta. Now I have observed capital X equal little x
+01:04:38
+And so I can use the joint to update my belief. So what I would compute is I have observed capital X equal intellects, so I would compute the posterior, which is, what's the probability that
+01:04:49
+Theta as a value capital theta is equal to little theta. When I have conditioning that I've observed capital X that's a conditional positive
+01:04:58
+And so by based rule. This is the same as the probability that typical X equals X given data. So I can invert a conditional and then times the prior
+01:05:11
+And then you to read normalized by the margin all over x just
+01:05:19
+All right, and so this is where we call the posterior believe. So this is the belief. After observing something
+01:05:29
+Which is basically or updated belief.
+01:05:33
+Which could be, by the way, us as a prior for further experiment because this is our updated prior because we, you know, see more stuff.
+01:05:41
+This is call our prior belief.
+01:05:47
+And this thing here is called the observation model.
+01:05:54
+For the like you
+01:06:01
+Like you're observing capital X equals X.
+01:06:05
+And this thing, the little p of x here.
+01:06:09
+This is basically a normalization factor to make sure we have a distribution, but it's in Beijing terminology. It's also called the marginal like you, because you can obtain p of x by integrating the joint.
+01:06:22
+respect to theta and marginalizing out basically theta and just be left with x. So, this is called the marginal like to
+01:06:53
+So,
+01:06:55
+Theta was a continuous variable. So, a bit of notes. Right. So I already mentioned that in the past but P of X given data. In this case, this is a PMS because f x was the screen but PA feta. That was a PDF because
+01:07:14
+Theta is a continuous
+01:07:17
+Random variable in this case I kids values in their, in their continuum on 01 right
+01:07:23
+And so the joint. I can still define the joint on x and data by multiplying these two together, by definition, and so this is actually a mixed distribution. Right. So it's, it has a PMS part and it has a PDF part but that's fine. I told you earlier that this is totally fine. Just
+01:07:46
+Okay.
+01:07:49
+So that's the mechanism of updating our beliefs. And so let's do an example.
+01:08:01
+So if we use a uniform prior
+01:08:06
+Suppose that we choose as our prior it's uniform
+01:08:12
+On zero
+01:08:13
+Okay, because let's say after Yuri. We have no idea what should be the bias of our coin. So we just say, Are we just choose uniform passivity zones around. So this is kind of like, quote, no specific preference.
+01:08:39
+But, you know, why is really uniform no specific, it is a bit of that. Then the question of when you don't have any information about something, what should be the uniform
+01:08:49
+Version of it is actually not that clear. And we'll see that when we do maximum entropy later in the class.
+01:08:58
+maximum entropy is another way to have no specific prior about something, but it's still some kind of pride.
+01:09:05
+But we'll get back to that. So this is a very subtle point anyway. But this thing at least very natural. At first sight. I don't know what's the value that's put the uniform distribution of 01
+01:09:16
+Okay, so now we have that the posterior of data given x, this will be proportional to the joint which will be delighted. So what's the likelihood for binomial, we said it was feta race to the x.
+01:09:30
+One minus data race to the n minus x. There's a constant, but which is the binomial put coefficient. But this doesn't depend on theta, it only depends on an x, so I don't need to put it. And so this is basically my life to P of X given data. This is cheap, up to a constant.
+01:09:49
+That's very important.
+01:09:53
+Because here. That's something I told you, like, one quick way to do
+01:09:58
+Posterior or Bay's rule computation is you don't care about the constant because at the end of the day you will read normalize to make sure it's some to one. And so that would tell you what the value of that constant. So that's a way to do quick
+01:10:11
+Quick computation. So recall that this is proportional to
+01:10:19
+An X here is fixed, so X doesn't vary so anything which has x in it is a constant for the, the, the purpose of this competition beta, we want to compute the distribution of our data. And so now we want to see how those data that are used with x fixed
+01:10:37
+And then we have the prior and the prior is basically
+01:10:42
+The indicator on the intervals are one.
+01:10:47
+Because it's basically one when
+01:10:53
+Data belongs to 01 and zero otherwise. It's just a
+01:10:58
+constant density and zero.
+01:11:03
+Okay, so that's our that's our distribution for a given x. And so that we can compute what the scaling, you know, what's the normalization right so let's do that. So the scaling. I need to integrate
+01:11:17
+This thing on all possible values of theta. So that's the integral on 01 of the joint data rest of the X one minus data and minus six, and then the indicator disappear because I only integrate between seven one d theta.
+01:11:37
+And what is this. This is actually the beta function. So this is a this is an integral, which doesn't have any clear, simple value. So this is actually, it's a special function is called the beta function and it has to
+01:11:51
+Argument the beta function. So it was an issue. This is called beta of x plus one and and minus x plus one.
+01:12:01
+Okay. And so this is the normalization constant
+01:12:09
+So that the integral of pure theta.
+user avatar
+Unknown Speaker
+01:12:15
+You know,
+user avatar
+Lacoste-Julien Simon
+01:12:17
+P theta to have failed I given x the data equals one. Right. And I don't need to put it. So because we have this problem.
+01:12:29
+Somebody asked a question.
+01:12:32
+And minus x plus one.
+01:12:37
+No, it's n minus x plus one.
+01:12:43
+Because basically, you know, you have a minus one in the in this game.
+01:12:49
+And so
+01:12:54
+The so the better function in origin or also, by the way, the better function. So be
+01:13:02
+Capital be a little a big. This is the better function, by definition, you can actually obtain it from the gamma function which is gonna have a schema be divided by gamma of A plus B.
+user avatar
+Unknown Speaker
+01:13:17
+So this is called a bit of function.
+user avatar
+Unknown Speaker
+01:13:20
+Oops.
+user avatar
+Lacoste-Julien Simon
+01:13:24
+Just, you know, giving you a bit of a crash course on special functions. This is the beta function. And that's the gamma function.
+01:13:33
+And other special function. And by definition the gamma function of a is in the integral from zero to infinity of you a minus one e minus you be
+01:13:48
+And turns out that when you put a natural number. In this case, you get two factorial. So, gamma, and I think is an n plus one factorial, one of these two I forgot which one
+01:14:01
+Okay. And so that's or normalization folks constant. And so it turns out that this distribution PFA like given x that I wrote above is actually called a beta distribution. So, that's the density of a bit that distribution that I
+01:14:21
+Mentioned earlier, it's a distribution on 01
+01:14:24
+And what's the beta distribution. Well, it has a density. So beta on theta. So the density on theta with parameter alpha and beta of my beta distribution is defined as data race to the alpha minus one one minus data raised the beta minus one. I have the
+01:14:47
+Indicator on 01 because it has to be between zero and one and it's normalized by beta, the beta function.
+01:14:55
+Right so and so now you see why I had
+user avatar
+Unknown Speaker
+01:15:01
+The
+user avatar
+Lacoste-Julien Simon
+01:15:03
+Plus one here, right. So, because I have this minus one here. So I take my my coefficients. And I have to to get minus way to add one on each of these
+01:15:19
+So the alpha and the beta or the actual parameters of the beta distribution.
+01:15:32
+Okay and so
+01:15:37
+By the way, so that's it. So, so if I had a uniform prior and I have a binomial likelihood model.
+01:15:46
+And then I just use the base rule to update my prior to the posterior, I get that. My posterior is now not a uniform. It's a beta with some parameters which are given by the number of times I've observed heads.
+01:16:01
+And to make these relationship, a bit more clean. So note that the uniform distribution.
+01:16:09
+On 01
+01:16:11
+Is obtained by using a beta with parameter one in one, right. So if I put one in my
+01:16:20
+If I put alpha equals one, I get one minus one which is you right so I don't. So I get. And if I put one for beta i get that these disappear. I just get one.
+01:16:29
+Turns out of the beta function one one is also one. And so I just left with the uniform distribution. So the uniform distribution is a special case of the beta distribution.
+01:16:41
+And the post. So the prior was a beta distribution and in this case here to put steer is also a beta distribution. So that's why you also you call them conjugate
+01:16:53
+And as
+01:16:56
+So the posterior
+01:17:00
+Is a beta with observation x and then I added one in an n minus x, which was my observation plus one. And so now exercise to the reader exercise to the reader.
+01:17:17
+And actually, I think this is a special case of your assignment. By the way, which would you do with the direction. So if you use instead of beta one
+01:17:28
+beta alpha zero, beta zero as the prior
+01:17:33
+Because the uniform was beta one one, right. So,
+01:17:37
+Then the posterior
+01:17:40
+Will be
+01:17:43
+Beta with x plus alpha zero
+01:17:49
+And n minus x plus beta zero
+01:17:54
+Right, so the parameters of your bed on your prior or like prior counts. And so when I observe X, which are the count of time I see heads. I will now have a theater with new counts in my editor, which will be the prior counts, plus the observe counts. It's actually pretty cool.
+01:18:15
+Intuitive updates.
+01:18:30
+So, somebody asked
+01:18:32
+How would you update the prior based on further results.
+01:18:37
+Well then you could take this posterior as your new prior and let's say now, we observed another bunch of flips and then
+01:18:44
+You would
+01:18:46
+You know, just get a new post here and here by the way you do notice that because each time you observe
+01:18:54
+A head you add one to the parameter of your beta, you can think of. I've done and flips and I will observe X ends and that gives me the update I just wrote, or you could have done it.
+01:19:07
+And updates. Right, so I observed one fit and then I get one and zero. So then I update as my new posterior, I would just have
+01:19:14
+Plus one on the on either the alpha parameter or the beta Pamela depending if it's a head or tail and then. I repeat,
+01:19:21
+And then I do the End Times. I would get the exact same posterior and then if I just do it in one shot. Like, I've done so.
+01:19:27
+That makes sense, because why should it matter how you split things up. And yeah, that's one of the beauty of the, of the, probably stick framework which is fairly consistent in this regard.
+01:19:40
+Any question about this.
+01:19:52
+Okay, so, um,
+01:19:56
+So that now I have my posterior okay and as a Bayesian the posterior
+01:20:04
+So the posterior
+01:20:08
+P of Theta, given my observation. I'll use annotation little capital X little, little x just to emphasize what was my
+01:20:17
+My random variable that I observed
+01:20:20
+This thing actually contains all the info.
+01:20:26
+From the data.
+01:20:30
+That we need
+01:20:33
+As a Bayesian to answer.
+01:20:38
+New queries.
+01:20:41
+About data.
+01:20:43
+Right, so basically a Bayesian had some prior information about data was uncertain, but, you know, it had some prior information, then you made an experiment you have observations about X and then you update your
+01:20:58
+belief about data, then you can just get discard this data because you're all all the information from the data is already coded into position.
+01:21:08
+And so now, what kind of queries that could ask. So, for example, a question, I could ask
+01:21:15
+A question that I could ask is what is the probability
+01:21:22
+Of head.
+01:21:25
+On the next clip.
+01:21:27
+And it's called an F equal one.
+01:21:31
+Random variables. So let's say the F is the flip outcome. So it's a brilliant year in a variable on the next
+01:21:39
+I'd say I've observed a bunch of flips from my
+01:21:44
+From my coin and I say, Okay, now what should be the probability of getting head on the next clip. Okay.
+01:21:57
+And so as a frequent this if you're a frequent is
+01:22:05
+You would basically say, well, the quality that f equals one, given my data.
+01:22:11
+Is just data that we're theta is some data hat is an estimate of failure. So, so this is basically notation.
+01:22:24
+To mean
+01:22:27
+Estimate and so we'll see. We'll see that very soon. When we talk about estimator and theory of estimators but basically the Hatton location is often used for an estimate of a very of quantity
+01:22:39
+But as a Bayesian
+01:22:42
+You don't do point estimate as a Bayesian
+01:22:47
+You only use probabilities. Right. So here I'm asking about it. Probably piece or you're asking actually about uncertainty of something. So now you just look
+01:22:54
+OK, well, the quality of capital F equals one given capital X equal little x. This is just a problem statement, this is just something I can use allows the qualities to compute a while so then I will just
+01:23:12
+Obtain that by integrating that out the uncertainty about data, right, so this is by definition of laws or policies. This is the joint of ethical one and
+01:23:22
+Theta.
+01:23:24
+Given
+01:23:28
+X equal little x the theta.
+01:23:32
+And so then by the product rule.
+01:23:38
+Then this is just p of f equals one given data and capital X equals little x times be a theta.
+01:23:50
+given x equals x the theta. So now the magic is this is the posterior that's something I already computed
+01:23:59
+And this by our model.
+01:24:03
+We said that all the coin flips. We're in I. D. Right. So, so what's the semantic of this. Well, the property of my next coin flip. When I know that the parameter of my coin flip is data and I've observed
+01:24:16
+Stuff in the past. Well, the thing is, when I know my parameter feta, what I observed in the past doesn't matter anymore. I know. Was the parameter, right, because that's by the model that we had, we had that this is just equal to say that by or model. That's how we modeled the data.
+user avatar
+Unknown Speaker
+01:24:32
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:24:34
+And so as a Bayesian
+01:24:37
+We would compute this marginal probably to hear marginal Overwatch lover theta and this turns out that this is also just the integral of our data of Seta the posterior
+01:24:51
+And so it's actually the hysteria me. Okay. So, by definition, this will be the conditional mean of feta, given my observation.
+01:25:02
+This is called the posterior mean of data.
+01:25:17
+And so
+01:25:21
+So this is just to tell you if I want to compute the property of the next coin flip, using the laws of properties. That's what I get. Right. And so, but because the property of a conflict is represented by feta. So you could say that a meaningful.
+01:25:38
+Bayesian estimator.
+01:25:43
+If I force you to give me a point value for theta.
+01:25:51
+And I'll use the annotation data base and then it's a function of the observation, so that all x would be the posterior me
+01:26:42
+Good questions.
+01:26:44
+They will be partially answered with what I'm seeing. Next, so I'll first say, the next thing and it will answer these questions.
+01:26:59
+So to make these things concrete in our current example.
+01:27:05
+Oh yeah, so the notation.
+01:27:10
+So the notation.
+01:27:14
+Is data hat is a function of the observation to the parameter space.
+01:27:22
+So here, capital theta represents a parameter space, not the random variable, but I'm using the same notation, or two different things. Again context that will happen a lot in this class. So in our coin example.
+01:27:41
+And
+01:27:43
+We had that the posterior
+01:27:47
+Was a beta distribution over a theta get with parameter
+01:27:54
+Alpha is x plus one and beta is n minus x plus one, right. These were the parameters. When we use the uniform prior
+01:28:05
+And so the mean of a beta random variable.
+01:28:11
+Turns out is alpha divide by alpha plus beta. So it's the normalization proportional to alpha and you normalize by the two parameters.
+01:28:20
+And thus,
+01:28:22
+The base estimator.
+01:28:26
+The posterior mean estimator of our random variable in this case is
+01:28:35
+If I have x plus one.
+01:28:38
+Divided by x plus one plus and minus x plus one x cancels out. And so I get
+01:28:46
+N plus two. They have two plus one.
+user avatar
+Unknown Speaker
+01:28:51
+Plus two
+user avatar
+Lacoste-Julien Simon
+01:28:53
+So in this framework with a uniform prior. This is my estimator of the property.
+01:29:01
+And so
+01:29:03
+The first thing that
+01:29:07
+You notice is that this is actually something called a biased estimator.
+01:29:16
+And usually Bayesian estimator will always be biased because they come from your prior bias in some sense.
+01:29:24
+Meaning that when I think the expectation over the possible observation.
+01:29:29
+Of the estimate based on this observation. So, theta hat is a mapping, which they observation to a possible value of the parameter. And so now if capital X is my random observation and I look in average what is
+01:29:44
+My estimate value of the parameter. So that's what I just wrote, and this is not equal to the true value of the pattern because
+01:29:54
+The expectation
+01:29:56
+Of
+01:29:59
+So the expectation of over x because this thing here.
+01:30:07
+So here, this is equal to expectation of capital X plus one divided by n plus two. So by linearity. This is just expectation of X plus one divided by n plus two.
+01:30:21
+Plus, and we set the expectation of a binomial is n times data. So it's n theta plus one little by n plus two.
+01:30:29
+Okay and so
+01:30:33
+This is not equal to theta. So there's, it's a bit. It's a bit smaller than data, but it is a sensibly as synthetically unbiased as sent particularly
+01:30:49
+Unbiased
+01:30:53
+Because this converge as n goes to infinity to just data right so so when you have more and more observations in expectation your estimator will be the correct value.
+01:31:05
+And so you can compare
+01:31:08
+Or and contrast
+01:31:11
+To with the maximum likelihood estimator, which will we read arrive later. But it turns out that the the maximum likelihood estimator is a very nice frequent just count. So it's just x divided by n. And so this is actually unbiased right an expectation
+01:31:31
+I get that expectation of X divided by n. This is just equal to end data divided by n, which is equal to Kate right so the maximum I could estimator here is unbiased.
+01:31:48
+Okay, so
+01:31:55
+Sorry. So there's a few questions. So if two people have different priors. It is the case that a lot observation there posterior will converge to the same if their prior are consistent with a phenomenon. I need to put nonzero probably t
+01:32:09
+On the correct parameter of the phenomenon, then the posterior will contract towards the true value and so
+01:32:19
+Yes, whatever the prior you had if it's a meaningful prior when you have an infinite number of observation you converse the right value. So you get to the same conclusion as the other person, which is the right I get a peek was there on the correct that.
+01:32:44
+So somebody is asking about uncertainty about the property of f equals one estimate
+01:32:50
+So in this case,
+01:32:54
+I
+01:32:56
+Yeah, so that's a good question. So basically,
+01:33:02
+There's a question of estimating the property versus what's your belief about the probably team with our. What's the probability
+01:33:15
+Let me say so, the outcome is I will flip a coin on the next point I will do another confit. Okay. And so then it will either be one or zero.
+01:33:26
+But I have on something about that. So I need to encode this uncertainty with a property.
+01:33:29
+So as a Bayesian that it's clear. You just put probably to for that. And you can use a lot of property with is what I've just done to compute that. Okay, so
+01:33:39
+Here, there's no estimation or property because the property is already included by your belief.
+01:33:45
+Nice. You say instead of saying, Oh, well, I will flip a coin and this actually has a property. And now I want to estimate this property. So that's a different question intubation question. I just answered.
+01:33:55
+And actually what I've done here doesn't tell you that right because then you will need.
+01:34:02
+Probably t over this property and this is included by the posterior, in some sense, because the posterior or tell you what's the posterior over theta.
+01:34:12
+Which is actually what the property of the connects conflict is and
+01:34:17
+It's a distribution. It's not actually not a point estimate right so so if some data has very high quality will you're more certain about that. So, so the posterior is encoding this uncertainty about the quality of the next clip.
+01:34:37
+Is just a quick overview or we will revisit this technique in more depth. I'm a bit less in the calculation terminology here.
+01:34:48
+Alright, so now why is there an n
+01:34:52
+So what happened there is that we were doing n coin flips. That was the observation and I'm asking something else which is what the property of the next concept. So it's not the same thing as what's the priority of having
+01:35:05
+Some result for n conflicts. So that's why there was an end and observation, but when I look at capital F. There was no no anymore because it's just one conflict.
+01:35:15
+And whether we will review these in more depth. Yes, we will review it more in more depth in the Bayesian lecture which will come much later in class.
+01:35:26
+And so right now. This is considered to be, you know, like already giving them the basics of the Bayesian operational approach, but we'll see a bit more information when we talk about properties of estimator.
+01:35:43
+About what are the properties of Asian methods.
+01:35:49
+Does a better distribution always have to be the posterior case of concepts.
+01:35:55
+No.
+01:35:59
+It depends, of
+01:36:04
+The know because if you put a really, really weird prior on feta, then the posterior or want this to be a beta distribution. Right, so
+01:36:14
+So it turns out that the the bangle y'all. It's called an IQ of model and the beta prior or conjugate, which means the posterior will also be a beta, but if I use a different prior like I don't know a Gaussian normalize on 01 well then the procedure is definitely not a bit a bit of distribution.
+01:36:46
+So there's a bit of a mix of terminology here in this last question, which is, if we start with a uniform prior and we choose data had to be the maximum likelihood and austere, then the estimate would be unbiased so
+01:36:58
+What he means it's not maximum likely what what you mean is if I take my posterior which has a Bayesian and cold all the information I want about the also the data.
+01:37:08
+But then there's a frequency, which comes with you with a gun and says, Hey, give me an estimate a point estimate
+01:37:15
+It says, No, no, I have a whole distribution. It says, No, I want to point us to and that is a question of what's the point estimate to us given up austere and the post to your mean is actually
+01:37:26
+One of the very meaningful one and we'll see when we talk about sensical decision theory. Why is it meaningful.
+01:37:32
+But another one that people often do is, oh well, give me the most likely value, according to my post here, which is the map the maximum AP story you value.
+01:37:43
+And so if you do the map in a poster where the prior was uniform, then it's the same thing as a maximum likelihood. And does the answer will be the same as makes makes you and does it would be biased because makes I'll make it wasn't based so that can answer this question.
+01:38:01
+Okay, so let's
+01:38:04
+Wrap up here and I'll start. So the maximum liquid principle and then I guess we'll have to finish next class.
+01:38:13
+And where was I so to recap, to summarize, to summarize,
+01:38:20
+All these concept.
+01:38:25
+As a Bayesian
+01:38:28
+All you care about is to get a posterior
+01:38:33
+And then from the posterior you will use pen battery no plus US law. I need to charge my pen between things use law of probabilities
+01:38:55
+Whereas
+01:38:57
+In frequent is statistics.
+01:39:01
+Which is basically more the traditional statistics.
+01:39:09
+What you do is you consider multiple possible estimator.
+01:39:20
+An example would be a maximum likelihood estimator, you can use the moment matching principle which could give you a different value, you could use a Bayesian austere mean that's another point estimator. Right.
+01:39:35
+Which will depend on your prior. So for each party will have a different estimator, you could do map, you could do regularize Emily. So that's something you've seen admission earning you add LT realization to your maximum likelihood estimator.
+01:39:49
+And many more. All these are different estimation procedure. So then the question is, well, which one to choose.
+01:39:56
+Right. And so in order to get a bit more order the frequent is statistic has spent a lot of energy to analyze the properties
+01:40:08
+Of these estimated their statistical properties.
+01:40:16
+So in particular, what's the biased or is it unbiased.
+01:40:22
+What's the variance of the estimator. How does it vary when when you change the data.
+01:40:28
+Or D, consistent it when you have infinite data does it convert to the right thing different.
+01:40:35
+So we'll talk about these
+01:40:37
+In the next lecture when we talk about statistical decision theory was formalized what we're trying to do and then properties.
+01:40:44
+And so this with this tool bag of like another sis then statisticians builds kind of a kind of a sensor.
+01:40:54
+A library of oil in this situation, it makes more sense to use this procedure and this intuition. It makes more sense but
+01:41:00
+It's kind of an arbitrary. There's no absolute certainty of there's no notion of a best method in frequent the statistics was as evasion.
+01:41:10
+If you can correctly encode your belief, then the best method is simple use bedroom. The big problem is, well, how do you include your belief. Where did he come from and it's super hard, so that's
+01:41:22
+Probably one and problem two is also computing this posterior or using polities usually you get these intellectual intractable integral
+01:41:33
+And so you need that proximate methods and so everything has approximate anyway. So even though they have this optimal procedure.
+01:41:38
+First their beliefs come from a bit random places. And second, they use a lot of approximation. Anyway, so, so it's even though, in, in theory, it's very elegant and practice, it's really hard to make it work very well.
+01:42:06
+Okay. I think people have inserted their own questions. So let me briefly.
+01:42:12
+Website it to
+01:42:15
+What does it mean for an estimator to be consistent. I will formally defined that again in the future. But it basically mean the intuition. It means that as n ghosts and VT the estimator convert to the right quantity
+01:42:32
+So it's a symbiotic result. So let's talk about the maximum likelihood principal
+01:42:42
+Maximum likelihood
+01:42:48
+Principal
+01:42:51
+An elite.
+01:42:53
+Why do I I heard some sound of God.
+01:42:59
+Come from
+01:43:03
+So the setup is
+01:43:11
+I'm given a parametric family.
+01:43:20
+P of X data so that could be a PMA for a PDF, depending on the setup or a mixed. If you want to go more complicated. And then I have some parameters in some set of parameters and then we want the goal is, we want to estimate
+01:43:38
+Or learn. That's the machine learning terminology theta from observation.
+01:43:45
+From x x will be the observation.
+01:43:49
+And by definition the maximum likelihood estimator as a function of the observation, the data sufficient of X is simply the value of data which maximize the property of the observation. So it's a max overall my parameters of the probability of X given data.
+01:44:12
+And this p of x given theta.
+01:44:17
+We call this a function of data because right now X Division is fixed. So given us observation, what should the data. So it's a function of data. This is called the likelihood function. So I will use capital L for the likelihood function. This is the likelihood
+user avatar
+Unknown Speaker
+01:44:34
+Function.
+user avatar
+Lacoste-Julien Simon
+01:44:37
+And it's a function of data. It's not a function of x. Well, I mean, some sense you could think of it is also a function of x, but
+01:44:44
+Normally access fix. And so in other words we have that the maximum likelihood estimator.
+01:44:52
+Maximizes
+01:44:57
+The property of the data.
+01:45:02
+It's, it's the solution of a situation.
+01:45:09
+You know, so it's fairly intuitive. It's like, okay, I'm on all these parameters which one, give me the problem parameters, such that the quality of whatever I'm observing is maximum and makes sense because I observed it
+01:45:22
+And in the case of n conflicts, I said it was x divided by n.
+01:45:28
+But we will derive it formally next week. And so basically, now we're starting to do optimization right to solve the maximum likelihood problem. I need to optimize a function
+01:45:38
+So then we will. This will give us an excuse to review optimization theory. Like, how can we maximize function. Look at the derivative. Look at the stationary points, it should
+01:45:50
+And so we will first look at unconstrained optimization when there's no constraint of my parameter and then we'll look at constrained optimization. For example, in the case of them will turn on it. So that's the menu for the next lecture.
+01:46:03
+Any question before I end up this
+01:46:11
+Now, so
+01:46:15
+Semicolon will
+01:46:18
+Oh, good question.
+01:46:23
+So not all these semi colon is
+01:46:31
+It's not a joint normally I don't use semi colon for joint. But note that the joint and the conditional a proportional and but here, this is given. Yeah, so they are proportional and
+01:46:46
+And so
+01:46:49
+Max, by the way. So if I had p of x theta.
+01:46:59
+Oh yeah, no, no. So, this is this V, the conditional this case.
+01:47:02
+Okay, sorry. So somebody asked p of x comma theta, this is this is a if I was a Bayesian, this would be p of x given them.
+01:47:12
+Because as soon as you had a prior well if unless the power is uniform, then it will change the destination.
+01:47:20
+And some of our X given data equals one. Correct, yes.
+user avatar
+Unknown Speaker
+01:47:28
+That's a good question.
+user avatar
+Lacoste-Julien Simon
+01:47:36
+All right. I think that's also one note is that for the assignment for the last question when I talk about on bias and bias in the variance and consistent etc will will see that next week so so so right now you don't haven't seen for me enough information to DO do the last
+01:48:01
+Assignment. But after next week in the middle of next week you'll, you'll have enough information to do most of it.
+01:48:09
+Okay, so enjoy your weekend and I'll see you next week.

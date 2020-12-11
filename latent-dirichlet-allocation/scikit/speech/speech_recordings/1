@@ -1,0 +1,1557 @@
+Lacoste-Julien Simon
+00:00:05
+Okay, recording started
+00:00:08
+Alright well. Hi, everyone. Welcome to ifta six to 69 privacy graphical models. So if this is the wrong zoom room, feel free to just leave. It's fine. Or you can just stick around and
+00:00:23
+Enjoy the discovery of a random class. So first topic as you notice I am
+00:00:31
+Speaking in English. So this is University Montreal class, but this is a grad level class in machine learning, where we have a very international audience, which explains why we teach in English.
+00:00:48
+There's also a scientific reason I teach discuss in English is that if you are doing grad level studies in
+00:00:59
+Machine Learning undergrad. That's a different thing. But, you know, now you're going either doing a master or PhD in machine learning at basically something affiliated with Mila
+00:01:12
+And in order to
+00:01:15
+Be able to interact with the scientific world. You also need to improve your English skills. So either practice. You're lucky in your native English speaker.
+00:01:24
+Or you're like me and most of the world who don't speak English as a first language, but it's very important, actually for participating in the scientific world in machine learning that conferences.
+00:01:38
+Like visiting you know my
+00:01:43
+Wife actually just got married.
+00:01:46
+I was being sent my girlfriend. But my wife. We just got married last week, so is from Germany, and we speak English with each other because I don't speak German.
+00:01:56
+Well, I mean, I speak now look more German but I don't speak as much German and English. So, so, English is very important for communicating. And so yeah, so that's also an important aspect of
+00:02:12
+Of, you know, learning, doing a PhD in machine learning, for example, is also to improve your English language. So if
+00:02:19
+So off how say see was evidence critic long layer.
+00:02:25
+Avoid away ma emailing your progress on the security.
+00:02:30
+Profile is that common Marco Polo cool etc etc.
+00:02:36
+Can you read the name for pleasure. A unless you live.
+00:02:42
+With a writer pool informational
+00:02:46
+Mayor we're collecting was C serum long lead for the facility PRC to be the the corner. So that was a I just say in French, that if you have trouble with English, we can try to find accommodations, given the diverse material is a French speaking University.
+00:03:06
+So perhaps another house rules. So I'm happy to have this class very interactive.
+00:03:15
+So I guess for now.
+00:03:20
+You could try to raise your hand. Can somebody just okay Jose. Can you raise your hand. See if it just pop out.
+00:03:29
+So normally, if you go oh yeah okay you pop up at the top of the participants. So yeah, so if you raise your hand. I can call you and you can ask your question. I think that will be better than writing in the chat. Because I see that something people are having fun in the chat.
+user avatar
+Jose Gallego
+00:03:42
+Thank you for some activity, just to make sure that people know how to do this. You click on participants and then you'll see a little window that shows up raise hand.
+00:03:52
+And that's what you do it.
+user avatar
+Lacoste-Julien Simon
+00:03:56
+Yeah so zoom one on one, I think in the interface. There's a button claw participant and there at the bottom you have a few buttons like
+00:04:06
+Yes. No. When I asked question go slower go faster. That's just a warning to tell me that you're totally lost or I'm totally bored. Feel free to use that you get him in clap.
+00:04:19
+Need a break or see your Hawaii. And I guess. Oh, I don't have the one because I'm the host, but I guess as a non host, you can raise the and I'm lowering the hand of course
+00:04:34
+And so you can click the this button to raise hand anybody as trouble finding this
+00:04:45
+So if you have trouble and you don't know how to raise a hand and you know no to say yes or no. You could the other button at the bottom is chat.
+00:04:55
+And in this way, you can also
+00:05:00
+Send a message to everyone or just to me.
+00:05:03
+I think you can also send message to individual people. If you want to talk behind my back.
+00:05:11
+Which you know use use sparingly.
+00:05:15
+That's fine. Um, so, no. So everybody is fine with the raise hand option, let's let's practice that. So let's do a yes. Click on the Yes button in the chat thing. Whoa. Impressive all these yes
+00:05:33
+So now if you click again. I guess it will just remove it, or I guess Kinane, wow.
+00:05:39
+Wow, this is cool.
+00:05:41
+The one. There's a zoo.
+00:05:46
+As the host can access all the transcript of personal chat after the end of the session. I was wondering about that. So the chat or when you do a private chat that's private to everybody else except the host. Is that correct,
+00:06:00
+Yeah. Do you want to
+00:06:02
+Take the mic and just tell us about this.
+user avatar
+Bhavya Patwa
+00:06:05
+Yeah, so I I read it somewhere like a few days ago on the internet that who's connected it after the session. And so I'm not very affordable. I read it somewhere. Yes.
+user avatar
+Lacoste-Julien Simon
+00:06:16
+Yeah, so don't say something you don't want to read
+00:06:22
+But yeah, that's good. So, by the way. So zoom has a bit of a security, privacy issues, blah, blah, blah. So I think my understanding is a lot of these have been fixed.
+00:06:36
+But I guess I was also trying to figure out to learn like again. What do people see in stuff and it's a bit hard to see. And actually, I was also able to hack into
+00:06:44
+Connecting to this meeting without
+user avatar
+Mojtaba F
+00:06:46
+Registering which I think it's a bit stupid but anyway.
+user avatar
+Lacoste-Julien Simon
+00:06:50
+But that's the main tool of us in Montreal, and I also heard that for people, for example, from Iran, it was easier to to connect to this tool than others. For example, bluejeans
+00:07:02
+Alright so alright so now we know how to raise hand. We know how to say yes and how to remove the yes of people
+user avatar
+Unknown Speaker
+00:07:12
+Guess I can clear all
+user avatar
+Unknown Speaker
+00:07:15
+Oh, I haven't been clear on. That's wonderful.
+user avatar
+Lacoste-Julien Simon
+00:07:19
+And even do Paul, but I guess I'll do politer okay so language is solve class.
+00:07:29
+So their website.
+00:07:32
+Is here at the top and an easy way to find a website, if your loss is to Google my name and then you find my homepage first hit on the top will be my homepage. And then I have a teaching section teaching section. And so then prophecy graphical models. Bring me back to this wonderful pitch.
+00:07:55
+So actually, that's what I do when I want to go to my page. Okay, so
+00:08:01
+Let's have fun. How many people have
+00:08:07
+already read the web page.
+00:08:12
+So yes, worry I have read it. No, I have not.
+00:08:20
+Wow. I love this quick poll.
+00:08:24
+Do you see the result.
+00:08:27
+Okay so 56 people see yes 12 people say no. Okay, good. So I'm glad that people have already looked at it. So basically, it's a very detail page. By the way, so
+00:08:39
+It sells everything about the evaluation.
+00:08:43
+The textbook will be using the homework logistics, the detailed outline etc etc. So I'll go quickly over a few of these items today as an introductory lecture but you know all the details, or are there.
+00:09:01
+So I guess the first thing is, what is this class about right so
+00:09:08
+Here the description. It says this course provides a unifying introduction to statistical modeling of multi dimensional data through the framework of prophecy graphical model.
+00:09:17
+Together with their associate and learning and in France learning. So, the key word here is multi dimensional data. So basically in this
+00:09:27
+Class will look at how to make modeling of data with many components.
+00:09:35
+And so basically we'll use the language of quality theory. So this will be random vectors.
+00:09:40
+Where they will be multiple components. And so a good example is that say, I have an image each pixel in the image could be one of the component of this random vector. So, the image could be million pixels. So we're talking about how to model of distribution over a million dimensional
+00:09:55
+Vector and and so this is fairly complex in the sense of
+00:10:02
+You know, traditional statistics that say a few
+00:10:07
+Decades ago people were more used to work with, say, five variables or seven variable. Let's uh, let's say, let's say we we studied population of people will look at their I don't know their age, their gender,
+00:10:20
+Their height or something. So you have a few of these variables and you could model them. But that's, you know, that's five or eight variables. So not million right
+00:10:29
+And so in order to go to a million. You will need to use or it's good to use tools from computer science tools like that that structure.
+00:10:41
+In order to be able to efficiently both
+00:10:45
+manipulate these complicated distribution as well as just to encode them. Okay, it will it will see already today in this lecture what I'm talking about, about how to encode them efficiently.
+00:10:57
+But a nice aspect of this is basically will
+00:11:02
+Will have tools like graph theory come from computer science which enables to efficiently have data structures which can
+00:11:13
+encode these distributions. So basically graphical model. And I'll go into much more details on the stuffing very soon but graphical model is a is a merging of property theory and graphs.
+00:11:27
+In order to encode family of distributions in a unified manner for that you can efficiently manipulate thanks to the graph properties. So you can use graph algorithms like this.
+00:11:40
+Message passing over them or you can use
+00:11:46
+You know the find the shortest path shortest path in in a in a graph, for example. So all these ideas come into handy. Okay. And so, so the nice thing about Africa ball. I think it's a nice mix between computer science and statistics and party theory. Okay, so that's the topic of this class.
+00:12:06
+It has a lot of topics in there are other classes which I will mention actually very soon.
+00:12:15
+But one key aspect.
+00:12:18
+Of this class to keep in mind. And let's look at the prerequisite. So the prerequisite is. Oops. How do I guess I cannot sit ups with my mess and I can see very quickly.
+00:12:31
+So I say previous course worse than linear algebra, there will be a lot of linear algebra.
+00:12:37
+You know, you have to know what the matrix is if you don't know what the matrix is you'll have trouble in this case multivariate calculus, you know, gradients partial derivative basic proteins statistics.
+00:12:49
+You know, what is a marginal distribution. What is a random variable, what's the expectation. So all these A, you should have a background in all these in order to take this class, otherwise you'll struggle. Okay, and the
+00:13:05
+There will be programming. So it's also a computer science class, so they will be programming.
+00:13:11
+Is so familiar with some matrix oriented programming language will be useful and will actually use Python with numbers. So if you don't know Python. That's fine if you know like if you do MATLAB or if you do other matrix oriented programming languages. It's totally fine.
+00:13:27
+You can learn Python. But, you know, as long as you know a bit of programming a fair amount of programming.
+00:13:35
+And then I have this morning. This class is quite mathematical. Okay, so I think that's also one differentiator with other machine learning class, which are around here.
+00:13:46
+So you might have heard the reputation of my class. It is quite math heavy
+00:13:53
+Both because of my interest and also I think because of interest of many students. So if you don't love math.
+00:14:02
+And if you're looking for a lot of applications and machine learning, but don't want to look at the fundamental theory behind it and
+00:14:12
+The beautiful mathematical applications or applications of math, then do not think discuss right. You don't have to think, discuss anyway. It's not a Sufi required class. And so let me go through other classes but
+00:14:27
+Before getting to the other tests. And I said, the amount of work is significant. So I write that. Because a lot of. So in the past. Students mentioned. Oh, it's a lot of work. It's another work.
+00:14:36
+And some people said it's a lot of work for three credits class will, by the way, it's not a three grids class. It's a fortress, guys. Okay, so it's at least eight hours of work per week. In addition to the lectures.
+00:14:48
+And so it's not an easy class. It's not a class where you can just like
+00:14:55
+breeze through on their, their hand in the feedback I got from previous years, people love this class, like they find it extremely rewarding, we find that the the
+00:15:06
+The concepts. The like that I go in with rigor three concepts, so I will really give present to the a lot of different concepts from protein statistics, but also optimization linear algebra, etc. In a more rigorous way which helps you to get to have a firm.
+00:15:24
+grounding in machine learning. So, so this class. It's a bit old fashion in the sense that this is stuff you know that, for example, I, I took a version of this class as a PhD student at UC Berkeley, which was like almost 17 years ago.
+00:15:43
+And and actually. So, by the way. So, so I did my PhD with with my Jordan and we will be using his book for this class, which I will distribute via email.
+00:15:56
+Because it's still not public. So the thing about the textbook, so that we go back to the textbook. Guess I'm
+00:16:03
+Moving around on different topics here. But so, the course will follow the unpublished district and introduction for significant models by Michael Jordan.
+00:16:12
+That will be made available to the students, but do not distribute. So that's here I email, Mike. I said, So I found your book online. Do you still want me to keep it private. Because now I found it online. He says, yes, please.
+00:16:26
+You know, keep it private. For now I'm on sabbatical. And I'm tending to finish the book this year.
+00:16:35
+So I emailed him again.
+00:16:38
+Yesterday, and I said, Oh, have you updated his book, and we'll see if he replies. But the point is, the book is not finished.
+00:16:46
+Beta nice three. Okay. So what I mean by a nice read. So Mike is actually a very great author writer.
+00:16:53
+And it's the kind of book where you can go on the side of the beach and just read it, you know, like with the palm trees and like
+00:17:00
+before going to sleep. It's, it's a nice casual pace and he's very like explaining things in a nice way. Okay.
+00:17:07
+And so it's not in the previous state because exercise are missing some references are missing. So, you know, you'll have to bear with it. But, but at least most of the concepts are there and we follow
+00:17:21
+This the basically kind of like it's kind of general approach. So the reason I was talking about that, as I was saying, well, this is old. Alright, so I have of course updated. A lot of this material with more modern perspective.
+00:17:36
+But still, because it's such fundamental concepts. A lot of these are almost like
+00:17:44
+The Immortal. But, you know, these, these are stuff which is still whoops still be useful in 20 years
+00:17:49
+Basic properties statistics will still be useful in 20 years
+00:17:52
+Yes, the latest of the Python library to us. You know, I don't know, like the implementation of empire torch of some algorithm will change in the next year, actually. But the math behind it. And a lot of these concepts are actually you know quite long term.
+00:18:09
+And so while I'm on the topic of textbooks. There's a few others. So if you want to detail and rigorous reference. So there's promising graphical models principal and things by definitely color.
+00:18:22
+So this book. Do not really on the side of the beach, unless you're a masochist or you just love very hardcore book.
+00:18:30
+So, I mean, it's not that bad, but it's it's it's much is the kind of book where you can kill somebody with so it's quite heavy. It's very thick.
+00:18:40
+But it's complete. So the nice thing is it's very thorough. So if you want the details of something that you do in understanding like Jordan book or you felt it was a bit a bit fuzzy. So you can go in this book.
+00:18:50
+There's the deeper learning book which is available online for free, which is very nice. So this can give you, you know, a very gentle review of applied math useful for this class, you know, an emphasis of the gentle review. That's a different style.
+00:19:06
+And I say, part one isn't useful chapter five continues, it's useful presentation of measuring basics. And so I will sometimes refer in the detail schedule as do in the planet, you know,
+00:19:20
+And then another classical book with the more Beijing perspective that Mike's book, but at least competed is pattern recognition and machine learning by Chris Fisher.
+00:19:29
+And here it is actually a cool anecdote, which is that Chris and Mike started to write their book together because Chris had written a
+00:19:38
+Christmas edition of this book, like in the 70s or 80s, and he wanted to make a new version in the beginning of 2000 or end of the 90s.
+00:19:46
+And then we were writing chapters with Mike. But Mike was much slower. And so at some point. Chris was like, well, this is not moving fast enough. I think I'll just finish the book by itself, you know,
+00:19:57
+Thank you and goodbye. And so basically split so Chris went on in finished writing this book. So, and Mike did his own book and never finished it, but perhaps it will be conditional. He had a sabbatical this here and
+00:20:11
+So you'll see that some of the chapters or fairly similar because, you know, they started from the same, but the whole thing is now different.
+00:20:20
+And in particular, the approach of Chris bishop is much more Bayesian. Okay, so are in one lecture, I'll explain to you more in details. This version Beijing philosophy perspective on priorities versus frequencies. So Mike is a mix between Beijing and frequent. This was Christmas pure Beijing.
+00:20:40
+Are right so that's for the textbooks.
+00:20:45
+Where was the prerequisites. What else didn't want to cover. Oh, yeah. The other Texas.
+00:20:51
+Let me find out the other classes. So if you go if you google Mila and you go for. There's a section like training courses.
+00:21:02
+You have a bunch of relevant classes for Mina
+00:21:08
+Which are mostly about machine learning and so whilst in French.
+00:21:14
+Look at the description is in English, but it gives the name is in French because this is diverse much. So this is my class with the link and then you see there's a few others. So there's
+00:21:22
+This class is 56 3690 for mom and pop session. I think this is his websites fundamental of machine learning. So this is a much more
+00:21:35
+introductory class then proceed graphical model. Okay, so there will be some topics overlap.
+00:21:43
+About, you know, perhaps linear regression. Let's look at the cost that the notion covered
+00:21:51
+So multivariate gushing density, there will be a bit of overlap maximum likelihood vision in France regression in your
+00:21:59
+Discussion. So we'll also cover some of that we won't cover neural network architectures decision trees or any of these things. So this is different. So the difference with my class is my class will go in a much more advanced level.
+00:22:14
+So if you have followed this class and you want to take my class, you know, it would be very helpful. It would be much easier.
+00:22:21
+If you want to follow my class as a first class and machine learning. I would advise against it, unless you have a good math background and you, you're fine to go with the rigor right from the start. Okay. But keep in mind that, you know,
+00:22:38
+That's the difference between those two classes. So this is more a required basic class that anybody should take my class it as a bit of a different
+00:22:46
+focus much more on the probability theory and the plus of graphical model of it monetization rather than just general machine learning.
+00:22:54
+And also it's it's a higher level. So this class as students. Today's session is 36 390. There's also an underground version. So it used to be the same.
+00:23:02
+Both undergrad and grad, which is also why it's a bit easier, though. Now they're trying to push it a bit harder because it's split, but still, it's not the same.
+00:23:11
+Difficulty as my class. And then I don't want I've seen
+00:23:16
+Is from
+00:23:22
+Which was from semak a new faculty at McGill University. It's called applied machine learning. This course will cover that topic and new development is that the mining and applying machine learning.
+00:23:32
+And so for example, if you're looking for applications of machine learning. I think that's that should be probably a good, a good test for you.
+00:23:42
+So in my class I will motivate the theory from applications, but I want to focus too much on applications. The main place where you will have the chance to also play with applications will be through the projects.
+00:23:55
+But the the assignment that kind of assignment to give you are much more. It's more like to understand the concepts.
+00:24:02
+So that's another class, you want to have a look. And then there's there's many, many, many classes, actually.
+00:24:09
+Like Sarath class. This is a technique class. I think it's probably a bit similar to mine. I don't actually know.
+00:24:16
+And then you have optimization class like it did your programming.
+00:24:20
+Oh, here. That's a cool new class from peeling back on reinforcement learning. It's more topic base Iran is teaching a class on an incredible class on self supervisor position learning. So that's basically like a very specific advanced topic class from from his days.
+00:24:37
+So yeah, so. So have a look at this at this website if you didn't have the chance to. I think it's a good you
+00:24:43
+Good idea of other classes which you might be interested in and and perhaps also more appropriate than Mike. Okay, I just want to make sure that if you stay in my class, you know, you know what you're signing up to and you can appreciate it.
+00:24:57
+Is there any questions so far about the topics and
+user avatar
+Unknown Speaker
+00:25:03
+What I've covered
+user avatar
+Lacoste-Julien Simon
+00:25:07
+Oh, somebody asked as anyone found the Jordan takes in a single PDF right and and separate into chapters. Yeah, I think that's what I distribute to you, is it one PDFs.
+00:25:20
+Any other question.
+00:25:28
+No.
+00:25:30
+No, of course, there's no cool actually. There's a fun stuff to make things interactive. So this was
+00:25:37
+I have not. Okay. So Jacob asked me, have you already distributed the text know and how can people who are editing acts as a PDF
+00:25:48
+Good point. So I am going to post a link. Actually, let me do it now.
+00:25:58
+Let's see, how do I do that.
+00:26:05
+So,
+user avatar
+Unknown Speaker
+00:26:07
+Good.
+user avatar
+Lacoste-Julien Simon
+00:26:16
+Alright so this I'll post it in the chat. This is
+00:26:20
+Class, this is a link which links to a class survey. So if I go there. I go to the email sign up for this class. So everybody here.
+00:26:33
+Who's remotely considering attending this class, even if you're not sure at all. Perhaps you're just shopping around or perhaps would just curious.
+00:26:44
+You should sign you should fill the survey, it takes like three minutes by tomorrow, and then I will add you to email this and that's basically what I'll use to manage
+00:26:55
+Them, it's originally to have the class. So some people are in studios. Some people did not have access to student yet.
+00:27:02
+Some people are getting into threat, so that then I can send you in particular that's what I'll use to send you the link to the pdf of my. Jordan Okay, and give you announcements, which are relevant to everybody and not just the people to do it.
+00:27:19
+So do other thing people have access to the homework assignment.
+00:27:25
+So the people were other thing I have access to do the homework, but they won't have their homework graded because there's already way many of you or registered and that's enough work for Jose.
+00:27:42
+So you will be grading the people who are just addicted.
+00:27:51
+Any other questions.
+00:27:56
+So something else in terms of format of the class. So it's a two hours class what i'll do normally is after 15 minutes or an hour, I'll take a 10 minutes break so you can, you know, stretch your legs, grab coffee review, something which was a bit fast and then reconvene okay
+00:28:15
+Will you discuss what topics are acceptable for the finals course project. Yeah, I'll go briefly I think today on this, or perhaps next class. But yes, I will.
+00:28:28
+Very soon.
+00:28:32
+Alright, so that's the email signup
+00:28:35
+Let's go back to the class website.
+00:28:41
+So I told you what this class was about
+00:28:52
+Okay, perhaps, uh, let's take a break on the logistics and tell you a bit about myself.
+00:28:59
+And then we'll go back on the logistics of the class and and I'll tell you more about the class. So I think I have some slides here. Let's see.
+00:29:08
+And then I do slideshow.
+user avatar
+Unknown Speaker
+00:29:11
+How do I present
+user avatar
+Unknown Speaker
+00:29:15
+Oh, it's not the right screen.
+user avatar
+Unknown Speaker
+00:29:20
+Okay, it's
+user avatar
+Unknown Speaker
+00:29:25
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:29:27
+You go and Premier monitor
+00:29:31
+Boom. Here we go. Oh, that's shitty format, sir.
+00:29:38
+Okay. And so because some people said you wanted to learn a bit of French Dora. So the slides are in French.
+00:29:49
+But these are pretty easy slides. So yeah, just a bit a bit about myself.
+00:29:56
+So basically I'm a. Now take your faculty since two years ago, actually, I forgot at USC Montreal.
+00:30:05
+But I actually come from Montreal. So I did my undergrad at McGill University, and then I left.
+00:30:14
+Quebec for 13 years I did a little tour around the world. So I did my PhD at UC Berkeley with my Jordan.
+00:30:21
+Then I did a postdoc at University of Cambridge with zoom in Germany. You might have heard another Bayesian and then I went to Paris.
+00:30:30
+join forces backs group. This is where I did a little bit to position. So I'm kind of a specialist on complex organization. I was actually sharing there an office with
+00:30:43
+The Colorado who who's a Google brain researcher, you might know in Montreal and Mark Schmidt, who's a faculty in UBC
+00:30:53
+Which was a lot of fun. And then I became a research scientist in Paris and in your yes it was economists who and
+00:31:00
+Mixing things economist superior engineer. Yeah, I was there for a few years, starting my research group there enjoy life in Paris good food strikes. I had a view on the fly tower from my apartment. So it was pretty nice.
+00:31:18
+And then in 2016 there was an opening at university Montreal. Actually, I even had apply for my friend citizenship. I was planning to stay in France forever.
+00:31:28
+Was like I I'll become a French citizen, because I was tired after 13 years abroad. I was tired of not being a citizen, being a foreigner was kind of the idea
+00:31:38
+And you know my ancestors come from friends. So I have some French roots. Anyway, so there was an opening and he was in Montreal.
+00:31:46
+Which was looking for a faculty at the intersection of optimization and missionary, which is basically my expertise. So it was almost like my name was written.
+00:31:56
+On this faculty offering and I was meeting with your show Banjo at nervous about it and I was like, I'm not sure. You know, I'm pretty happy to Paris.
+00:32:06
+But yesterday I was very convincing saying that they would be amazing things happening in Montreal. They were trying to build critical mass. This was 2016 so it was like
+00:32:18
+When the deep learning was kind of like an exponential growth and starting to be super hot and having amazing successes and particularly neural machine translation.
+00:32:28
+Which came so some of this word came from in Montreal.
+00:32:33
+And so he convinced me to leave my my position in Paris and come back to my roots in Montreal and joined the faculty of years in Montreal.
+00:32:42
+And actually, I was very happy with this move because both. I love Montreal. My family's from here and this was the start of an explosion of investment in Montreal, like in fall 2016 is when you receive a trial got 100 million dollar grant
+00:33:02
+In safe. It's, it's called Safe for forgot was the name in English.
+00:33:09
+But this, these, these were these huge investment and this was for machine learning and optimization
+00:33:17
+In collaboration with the technique in order to do these people
+00:33:23
+And that was just a start of more investment than there was the Canadian Canadian AI initiative where a CFR invested 125 million their own Canada to create three center of excellence of AI. And so there was Mila which was created vector in Toronto and
+00:33:43
+Amy in Alberta and they're on the same time.
+00:33:48
+A lot of big companies started to
+00:33:52
+Create labs in Montreal to be close to Mila including
+00:33:57
+Google brand I think was first and there was deep mine. There was also Facebook. Yeah. Research Microsoft Research
+00:34:06
+Some, some
+00:34:08
+Both through there's two labs actually from Samsung there's eliminate the I, as a startup, it should register for this AI to all these are research lab in machine learning.
+00:34:19
+Which are quite connected with with Mina, and so actually doing machine learning in Montreal is quite fun. It's so very nice ecosystem.
+00:34:30
+Yeah. And so, so that's the story and my expertise of research is structured prediction.
+00:34:38
+Optimization. And also, I do applications and various domain computer vision that's running processing information retrieval completion biology. I'm not an expert on any of these some applications. I know a bit better than others.
+00:34:54
+But, you know, my main core expertise is in core machine learning. So what structure predictions, just so that you know as little parenthesis. It's quite related to purposely graphical. Oh, it's not the same thing. So structured prediction.
+00:35:10
+Basically the idea is
+00:35:15
+Well, first, before telling you. What's your prediction is that's just look why we care about search of addiction. Suppose you want to recognize words. Okay, so here's a character.
+00:35:28
+Oh, yeah. So here's a
+00:35:32
+Here's a character, so perhaps you can tell me in the chat which letter. Do you think it is.
+00:35:44
+Six. I love the 6611 is crazy.
+00:35:53
+Yeah okay but six. I love the six because this is a very strong m&s prior. Okay, so, because people who look at me as digits, all the time. They think everything is a digit was this was actually a character right so it's it's actually a letter, not a digit. So this was
+00:36:11
+It was a C and actually here. I also cheated, because the the I copied pasted the are twice, I think. So these are
+00:36:20
+Two ours but one is a seat because we basically look the same and another example application is word alignment in machine translation. It's a bit less use nowadays, but
+00:36:32
+Earlier it was a much more. It was an intermediate step use machine translation. Now it has been replaced by attention mechanism.
+00:36:40
+But the idea was, I have sentences which are transitioning to each other.
+00:36:45
+Like French and English. And I want to know which words are transitioning of each other. And why do I want to do that is because I want to build probabilistic dictionaries of translations. So I've been access to large corpus of data have
+00:37:00
+Translated text in French in English, then you can train your mission physician system. So, for example,
+00:37:07
+The French parliamentary procedure, sorry, the
+00:37:10
+Canadian Parliament through proceeding are all in English and French because it's the two official languages.
+00:37:14
+So you have this huge amount of text, which is both in French and English. And it's pretty easy to align the sentence at the which are transitioning each other.
+00:37:22
+At the sentence level it's harder at the word level. And that's the word I'm in
+00:37:26
+So, for example, Oh, are these two words, should we be translation and if you know English and French say, Yeah, sure, why not.
+00:37:32
+But if you look at the whole sentence you realize, actually this was not necessarily in this case in the context. This was not supposed to be aligned to man, it was supposed to be aligned to move it. Okay. And so the big
+00:37:48
+The big motivation here and the
+00:37:53
+There's the scope of the story is that context, help to make these classification decisions.
+00:38:00
+Intuition make them independent again so stretcher prediction. The problem is to have a structured object as input, like here a sequence of characters images.
+00:38:10
+And as output you want a whole structured object. So here a sequence of so it's a sequence of images and you want a sequence of character as the upload. Okay, so you don't want to classify each character independently, because the tasks.
+00:38:24
+Is actually a joint prediction and so
+00:38:28
+I there was word recognition. I gave an example. The other one was word alignment.
+00:38:33
+Where you have the Spirit sentences as input, which are concentrated each other and the output in this case is a set of edges which correspond to which word partnership each other. Okay.
+00:38:44
+And one aspect of structure prediction.
+00:38:47
+Is that the, the number of output is exponential like when you do m&s specification def 10 classes. It's easy to imagine that
+00:38:56
+You have 1000 classes or something like that. It's still pretty small. When you do structure prediction, the number of output is 10 to 23 right I will get those number it because
+00:39:07
+You know, yeah, you have to multiply each facility for each component and you have multiple components. Right. And so you need to find ways to handle this exponential blower.
+00:39:18
+And promising graphical model isn't is one way to do that when you will focus on having probability distribution on the app.
+00:39:28
+In structure prediction and traditional structure prediction. You don't care about having a policy decision of all you care as a decision. Okay. And then you would have a lot of
+00:39:37
+Techniques, which have nothing to do with priorities and which still perform very well like generalization of support vector machines. Yeah.
+00:39:45
+So other example is machine translation. So, the input is a sentence in one language and the output is a sentence in your language. You can see it as a sequence of word or a sequence of characters or there is this
+00:39:58
+3D object recognition. So this is like a little robot with a laser or the meter which is able to measure depth and so it goes around the world and it make measurements of depth and you want with this map of depth.
+00:40:14
+Oops. Interesting. You want to identify where the building are wider the tree. So to each pixel, which is a measurement of that is needs to be classified multiple
+00:40:27
+Classes like road building tree. And of course, you don't want to do it in an independent fashion here because you know if there's a specific piece of tree here. Usually there's a piece of tree just decided because
+00:40:39
+Trees and extended object, right. So that's why you can think of it also as a searcher prediction problem. Okay. And finally, and I last aspect of structure prediction, which is
+00:40:52
+Which is kind of like different just standard classification is this structured error function.
+00:40:58
+So, which tells you the cost of predicting white crime when the ground truth when a labeled example from a human would be why. Okay.
+00:41:08
+And so when you do, and this discussion, usually either your writer, Europe is it that you said seven months was a fan is like, okay, it's not them actually nine he said seven instead of nine.
+00:41:19
+No big deal. Like, it's like the cost you get is either zero or one. So that's the kind of customer should people use called the 01 their
+00:41:28
+Admission translation in the whole sentence is wrong. It's not the same thing is only one word is wrong or if one word was replaced by a synonym.
+00:41:35
+So in this case you want to encode these different errors in a much more
+00:41:40
+Rich way than just. Are you right or wrong. So you'll get the scriptwriter function which could count the number of mistakes or could even be something more fancy like initially natural language processing blue score is used
+00:41:53
+It's some kind of metric on distance of sentences which is supposed to correlate a bit with human translation, even though it creates a bit, but it's still not perfect either
+00:42:06
+But anyway, but the point is you want to have this structured arrow function and you want to take that in consideration and you're learning algorithm because it's important. Insert your prediction.
+00:42:15
+Alright, so I guess.
+00:42:18
+That's the end of the practices. So that's what certification. That's one of my specialty. So
+00:42:23
+In in this class I will cover it a bit using prognostic methods. So you could use a prospect graphical model to solve this problem, but
+00:42:34
+In a class which which I teach in the winter semester, which is a an advanced. It's called Advanced for sure prediction and optimization. I think if I go to my website. Here you can see the link in the teaching so advanced structure prediction and optimization
+00:42:52
+So there I cover such a prediction much more detail and particular journey ization of support vector machines to search your prediction.
+00:43:00
+And and and what happens in this case is you get very difficult optimization problems because of the complicated structure of the problem.
+00:43:11
+Like if you do as VM. You have aquatic program which is fairly simple to solve. But if you go structure. If you do the structure prediction version of
+00:43:19
+SDN, you get a credit program was an exponential number of variables. And so how do you handle
+00:43:25
+Such a big optimization problem right so then you need to do fancy optimization tricks, and so this, this is why the in the title is also an optimization in this class because it's a it's a good way to see applications optimization
+00:43:39
+So, just so that you know if you're interested in this class next semester.
+00:43:44
+So now I'll get back to unless there's a. Any question on this.
+user avatar
+Unknown Speaker
+00:43:54
+Question.
+user avatar
+Lacoste-Julien Simon
+00:44:00
+I love it when people say no.
+00:44:03
+Great. That's interactivity so
+00:44:09
+Let me now talk finish this thing where I want to go.
+00:44:14
+Oh, yeah. So, a bit of sexiness of
+00:44:18
+Data Science. So this, this is from the why is it okay I guess I didn't do the animation properly so yeah
+00:44:29
+Machine learning is a really hot field right now.
+00:44:33
+It's been a rough field for a while. This is from 2012 I didn't even know
+00:44:37
+So this was in the Harvard Business Review. It said that that scientists, the success job of the 21st century. So, indeed.
+00:44:46
+Combining computer science and you know protein statistics machine learning this kind of stuff. This is basically what the science is doing. So this kind of job is indeed extremely
+00:45:01
+In Demand nowadays.
+00:45:05
+And here, I'm not sure if I'll be able to do that. Let's see if I can do it. So I want to show you some cool application.
+00:45:16
+Which is a bit old but still interesting
+00:45:20
+So if I follow this link, let's go here and now, how do I share my sound it's share computer sound lucky destroy it. And now,
+00:45:33
+Let's try this, see if this works.
+00:45:41
+New people here my sound of the computer. Good. Okay. Melissa said yes.
+00:45:49
+Welcome to prices. So how many people have seen this devil
+00:45:59
+I agree.
+00:46:01
+So basically, this was, I think, in 2015. Let me see, what did I send my
+00:46:07
+Tech days doesn't 15. Yes. So this was
+00:46:12
+I think it was called the Star Trek translator, because in if you know about Star Trek.
+00:46:20
+You were able to just speak in one language, and then it would be automatically translate into the other language. Right.
+00:46:26
+So to do that you need to do first speech recognition. So I'm speaking
+00:46:32
+Let's say in English, then speech recognition is used to get the sequence of words in English that I've spoke then measuring pronunciation is used to translate that in French as a sequence of word then speech synthesis is used to alter
+00:46:49
+The sequence of French words in French. And so, and this was a this is implemented in Skype, which is owned by Microsoft. So you can use it. Now, if you talk to somebody in a different language. It's actually pretty cool.
+00:47:00
+And this was a live demo, which I think is pretty impressive. And in particular, 10 years ago. If you had asked me that this would be possible. Five years later, I would have not
+00:47:15
+Thought so. This was basically because of quantum leap in performance in speech recognition.
+00:47:23
+And also mentioned translation thanks to different
+00:47:28
+But let's see how how it works. Are you ready to start this demo.
+user avatar
+Unknown Speaker
+00:47:38
+Demonstration of striking translator using the language.
+user avatar
+Unknown Speaker
+00:47:48
+This guy on YouTube. He's on a single
+user avatar
+Lacoste-Julien Simon
+00:47:59
+Speak French. Actually, it was a pretty good translation and it was almost real time right so so that's very impressive. And so that's the kind of technology that now machine learning enables
+00:48:13
+So in this class you'll be able to see some of these components, in particular the speech recognition system use a structure call hidden Markov model. Hmm, which I will cover quickly today.
+00:48:27
+And now with a lot more bells and whistles, but that the hard, there was an HTML structure.
+00:48:34
+So you won't see in this class. The deep learning aspect because we can't cover everything, but at least you'll see the structure aspect of it.
+00:48:43
+Anyway, so that the slides will be posted online. The so you will be able also to find back this link.
+00:48:55
+Thing and let's stop sharing my sound.
+00:49:01
+Let's kill this thing.
+00:49:03
+And let's go back. I think I was done. Yes, was done with my presentation.
+00:49:10
+Let's just kill this but bye
+00:49:14
+Let's go back to the website. So I think
+00:49:17
+It's time for a break.
+00:49:20
+So can I go coffee break.
+user avatar
+Unknown Speaker
+00:49:23
+And we
+user avatar
+Lacoste-Julien Simon
+00:49:25
+Got
+00:49:27
+On coffee break. So let's take a 10 minute break. So it's 323 I'll be back at 333 so I'll just pause the recording. It's due to pause the recording.
+00:49:50
+I was muted. So 333 that's continue I'll still have my coffee.
+00:50:00
+So, somebody asked a question saying that in private to me saying the did 6135 last semester. So I think that's the deep learning class. Do you think my math level is appropriate for this class.
+00:50:17
+I think they don't really do that much math necessarily in these classes. It's not the same kind of math level that we're talking about, because they don't go in as much bigger but there's still a lot of math because the printing, you know, a lot of the inner entrepreneur.
+00:50:31
+So I would say that, you know, you should have a decent math level to do this class, but more importantly is. Do you love to go more in mathematical rigor.
+00:50:44
+That would be the question asking. So what you want for this class is a bit of mathematical maturity. What does it mean. It means you can learn new mathematical concept with no problem, like, or you're fine with it, you can
+00:50:55
+Say, Oh, you've never heard about singular value decomposition, you can just take a book or Wikipedia and read about singularity decomposition and now you're like okay. I'm fine. I don't have me the teacher to teach you something good about the composition
+00:51:09
+So that's the kind of of mass level that we're talking about.
+00:51:14
+Because the other thing which is important to keep in mind is that this is a grad level class. So I'm really teaching it as a actually I teach it as a PhD level class.
+00:51:24
+Even though the master take it through. But I teach this class at the PhD level in a sense of autonomy that you're expected to have it through your learning and so
+00:51:38
+There's a lot of assignments and and there's a bit of a hand holding in this in this learning with that which is good.
+00:51:44
+But on the other hand it's you know it's it's up to you to if you're interested in learning this topic and to do the work for that and to go, you know, read Mike's book or to go a bit deeper and some topics.
+00:52:02
+So that's what I want to say about that. And then there's more question. When you go for more recent research and Jim in this class to
+00:52:10
+Yes, so somebody asked about recent research and CGM in this test to
+00:52:16
+Yeah. So, for example,
+00:52:18
+I'll talk about version alone coders.
+00:52:22
+I'll talk about property also structure learning causality and these kind of topics which a bit more recent Mila
+00:52:33
+And somebody asked about having access to Stadium, Stadium, Stadium in studio that's universal Montreal Moodle.
+00:52:44
+You know, to speak with about this.
+00:52:47
+Actually Jose. You know who to speak with about students
+user avatar
+Jose Gallego
+00:52:52
+imagined that it would probably be Celine would be the person to contact but likely
+00:53:00
+If, if you already have your form. I don't know if you personally can add people to to the course from the, from the the websites so likely if they already have their registration form approved for for the course we could just ask them.
+00:53:19
+I don't know exactly. But that would be the two suggestions that have either go through the limb or we could figure out on our own.
+user avatar
+Lacoste-Julien Simon
+00:53:28
+Yeah so CNN is the grad contact for grad students affairs at, you know, some Montreal. So let's say you're registered from the gills through the enter university stuff at some point it will get to her will add you in the class.
+00:53:47
+And the thing is anybody who's registered for the class should be able to should be automatically added to studio at some point, it could take some time.
+00:53:56
+And so if you're a bit less about it. You could ask city not actually just other thing that class. I'm a bit wary to add you to studio because I like to keep the studio for the people are registered to make a distinction. Okay, so
+00:54:14
+I think I'm not sure if I can create a new group in studio to remember which one are we just started, which one are just auditing.
+00:54:23
+But yeah, so basically the all the material for the class is
+00:54:29
+Online on the website and also why I use the website. Where's my website.
+00:54:34
+And so, you know what, I'll like I posed a website in sorry the assignment. I also post them online tutor to drop the thing I don't post online or the solution, but I can send them by using the email list. And so in this way, people who are editing can also have them.
+00:54:56
+What is studio us for so studio is basically a university and platform for classes. It's kind of a big Moodle. And then if you know about Moodle.
+00:55:09
+And so it has been tailored for us in Montreal and so for doing online class management for doing class management online numerous material used to do. So anybody who's registered in this class should be added to studio automatically and
+00:55:30
+If you don't know how to login into studio. That's something else. You could also ask silicon about now while you should have instructions when you're created as a new students
+00:55:42
+And then in studio will have the interface to handle the assignment online. There's also a forum that you can use. So we can use the the
+00:55:55
+The stadium for discussion. So somebody asked can we use Piazza for discussion and no
+00:56:03
+Think that discussion will be either studio for a registered people's was about when you're looking for project partners or slack. I think slack is actually very good for
+00:56:12
+Discussion. So there's a general channel. People can also create new channels like wholesale normally create a channel per assignment.
+00:56:21
+So that you can ask questions about the assignment children, children.
+00:56:24
+And actually, while we're here, I would like to present Jose, who's our TA I have his, his website here will say is a third year PhD student at Mila supervised by me.
+00:56:38
+So perhaps will save you want to say a few words about yourself.
+user avatar
+Jose Gallego
+00:56:42
+Sure. Thanks. Hi. Welcome, everyone, and happy to see a lot of people registered for the course. It's going to be a lot of work.
+00:56:50
+But this is, I think, if you are interested in doing research in machine learning.
+00:56:56
+Even though maybe you might not be using the sun product algorithm, every day of your life. I think this is one of the courses that is useful to have a background knowledge.
+00:57:06
+Because it helps you solidify a lot of the understanding of the required for thinking about other stuff.
+00:57:12
+I will be your point of contact regarding the grading of the assignments. I will set up office hours that we will decide some time at some point this week in which you can come and ask questions either regarding the material, the course.
+00:57:27
+The, the assignment, the assignments and yeah, feel free to reach out to me on the on the slack. And yeah, good luck, it's gonna be a lot of work, but it will be worth it.
+user avatar
+Lacoste-Julien Simon
+00:57:46
+Thanks for say so.
+00:57:49
+Jose is extremely talented PhD student with me.
+00:57:55
+He is doing interesting work on a new version of information theory, which includes a notion of geometry between objects like similar to measure between objects. So we'll do a bit of information during this class, I think it is lecture and see on the schedule, blah, blah, blah.
+00:58:22
+Information Theory October 30 so
+00:58:27
+I'll probably do a bit of advertisement of closest work at that time as well. So, for example, having a kale divergence, which takes in consideration the the symmetry measure between objects will see why this is important.
+00:58:40
+But yeah, I'll say it was a TI last last year. So is now an expert on this class.
+00:58:46
+In particular, you also have revamped the assignments, so that it's much easier to submit them and grade them.
+00:58:53
+And he's he's really good at explaining things so I really encourage you to attend his office hours and also ask question on Slack. He also has been very good.
+00:59:02
+At hanging out there and answering questions and. And one thing I really appreciate about to say is that he has a very precise mathematical mind so it's perfect for this class.
+00:59:12
+Because I said like we are fairly rigorous. We're not too rigorous in the sense well too rigorous, what I mean is often I will
+00:59:22
+Like a good example is
+00:59:25
+To be rigorous about continuous probably distributions, you need to know about measure theory.
+00:59:31
+And we won't be covering measure theory in this class because it's not really needed and it just makes things more complicated. So we won't go at this level of rigor.
+00:59:39
+But at least you know making sure that the fear is or have the right conditions. This is the kind of rigor, we're talking about. And Jose is very good enough.
+00:59:48
+And we have somebody who's not muted.
+user avatar
+Rishabh Agarwal
+00:59:52
+You
+user avatar
+Lacoste-Julien Simon
+00:59:53
+Unless he has a question.
+00:59:55
+And then somebody asked a question. So I'm a researcher internet Mina, am I allowed to attend this class. Also, is there any kind of restriction
+01:00:02
+So there's no restriction to audit because auditing. Now, there's no physical space restriction is just, you know, space and zoom. So yeah, you're anybody can have it. That's fine.
+01:00:13
+Especially because as an auditor, you won't be having your assignment graded. So it's not more workforce.
+01:00:22
+But the project. Where are we supposed to discuss about it, forming a team topical so yeah
+01:00:30
+Good question. So the advantage of studio is that everybody is we just started will be there.
+01:00:36
+I'm not sure if everybody would go on Slack, so we'll see. So I think
+01:00:44
+It depends on how many people are on Slack. I think you can choose whichever is the most popular
+01:00:53
+Does the horse a minute auditor. Ask questions during office hours. Haha.
+user avatar
+Jose Gallego
+01:00:59
+Personally, I don't mind but just try to be mindful of the other people that are registered for the course.
+01:01:07
+Just because you're I appreciate your curiosity, but some people might be having some stressful moments because they need to submit an assignment.
+01:01:16
+Or they need to, I don't know. Prepare for the for the final exam or something like that. So feel free to come by just tried to keep in mind the other students as well.
+user avatar
+Lacoste-Julien Simon
+01:01:28
+Yeah, so the key, a key word here is mindful.
+01:01:31
+So be aware that there's already 96 people in the zoom session. Right.
+01:01:37
+And so if everybody asked a question in office hour. We're already overwhelmed. Right. So same thing like you've already sent me an email about the class.
+01:01:48
+gets crazy. So you want to be mindful with giving party to people are registered for getting support for the class because that's kind of the purpose of this if nobody's there and, you know, there you waited after the people who are just third install the fun
+01:02:10
+Recommended materials for measure theory.
+01:02:14
+I will follow up on this.
+01:02:17
+Either by email or on Slack.
+user avatar
+Jose Gallego
+01:02:20
+Quick this. There's this new reading group like a study group on measure theory at Mila so during the Mila slack lectures, look for some posts regarding measure theory.
+01:02:32
+Is something that is getting started. Now, so that could be a useful recommendation for those that are interested
+user avatar
+Lacoste-Julien Simon
+01:02:39
+In to say. So where are we, I told you about the textbooks.
+01:02:52
+I told you about the TA Jose.
+01:03:03
+It's a bit more about the logistics of the class.
+01:03:09
+So the content there is a detailed outline that I put
+01:03:15
+In the on the website. So basically this is a copy paste of the lectures from last year.
+01:03:22
+And you can see basically I actually write on my tablet PC during the lecture. Like, like a board because it's a very methodical class. I think it's the right pace, we can see, you know, you have the time to see things. I think it's actually, it's very nice to follow.
+01:03:39
+Us slides for the intro, but I was the exception. And so if you, you know, you can look for example to look at what it looks like.
+01:03:47
+And so these are from last year, lectures, right. So, so you can actually already have a look at them to help you follow
+01:03:55
+And then I update at the end of the day, usually within one day I usually upload the the the slides for the lecture. Sorry. Number slides, but the scribbles that I've done for every lecture there are scribe notes so scribe notes is basically a clean version of my scribbles
+01:04:14
+And I need to still clean up the one from previous year and post them online. So this so my to do list. So I might sometime asked for scribble volunteer scribe notes volunteer.
+01:04:27
+So what this means is you will basically do a later version of the lecture, I have a template for you and they tick.
+01:04:34
+And usually, you also have material, which was already tweeted from previous years, so it's not really that much work.
+01:04:40
+And this is a good way for you to really master the material and also learn how to use Natick, and is a way to
+01:04:46
+Help other people in the class and adding a paid version of the of the notes for the class. And when you do that, you get a bonus point at the end of the year. So that's kind of the incentive
+01:05:02
+Yeah, so you have the topics here and you have when the homework are do an out. So let's talk about the homework logistics. So basically, there will be so that yeah the evolution of the class. So there is 40% for the homework. There's five homework.
+01:05:22
+So 8% each there's a project which is 430 percent. I'll talk more about the project. Very soon, then the take home final exam 30%
+01:05:32
+Which is
+01:05:34
+In the last week of the class. So it's due on December 23 basically what happened is for the project. You have a few milestone.
+01:05:46
+I guess I could go right now quickly about it.
+01:05:49
+And so
+01:05:52
+So the, the, the milestone for the project is you will choose a group and us give your project choice on stadium by November 3
+01:06:05
+And then on November 24 you will send a one page update on what's up with your project that motivation for that. This can make sure that you don't wait to the last minute, because sometimes
+01:06:18
+People wait to the last minute and then nothing works, and then they have nothing to present and which is a bit sad. So I please you know this forces you to start something and then you will know what's not working. Early then on December 15 they will be a poster session.
+01:06:34
+So it used to be a physical poster session before coven. The idea there is to simulate kind of like a research presentation at conferences, because this is actually pretty cool. If you go to conferences.
+01:06:46
+you present your work to other peers and you get feedback on your work. It's a very nice experience actually and we kind of
+01:06:52
+Simulate that in this class. So you would present your project to the other people in the class, rather than doing a physical poster presentation this year will use gator town.
+01:07:02
+So it's basically a 2D world where you move around your little character and then you go to a poster board and you can see the poster and then you see the video feed of the person who's close to you can then talk to you about the poster so
+01:07:16
+I'll come back on the logistics of this interface or do I need to figure it out. But that's a kind of a nice way to have virtual poster sessions. Now,
+01:07:25
+And so the idea there is you will have to present your in six minutes to me your project and in anytime you want for the other people will pass by.
+01:07:37
+And then
+01:07:40
+The same day, I think I give you the take home final exam. So you have about eight days to take on final exam. And then on the 23rd, which is the last day of the term.
+01:07:51
+You can give it before, if you want. Like if you want to go on vacation or do Christmas I don't know scheme or something, you have your project report to heading on studio, as well as your take on final
+01:08:06
+And the project report is 48 eight pages I CML formats pretty short doesn't have to be long.
+01:08:14
+So what's the project about right. So, somebody asked me about the the question for for the project.
+01:08:23
+And so the idea of the project is just to go in greater depth on some concepts of the close of the course. Right. So the topic has to be linked with algorithm concepts or method presented in class. But beyond this requirement. The choices quite open
+01:08:37
+And particular, it may be and it should be tailored to interests. We encourage you to choose a paper that's closely fit your address, and any personal original contribution is value.
+01:08:46
+You don't have to have something novel in your research on your project. It doesn't have to be in your research, but you can if you want like you can say, hey, here's a research idea. I'm trying to work on. Could it be a good topic for this project with pasture.
+01:09:02
+And basically the standard test projects will have the following three components. One is that it will have some kind of like review on the topic from an article. Okay. So that's the idea that I want.
+01:09:21
+Unless exception. Sometimes there. You can also do it without. But usually I would like you to have your test project Robin, at least one article
+01:09:30
+And the reason for a research article. And the reason for that is so that you have a starting point you have something which makes sure that you won't go crazy or, for example, you could just try to reproduce some results in this paper or
+01:09:42
+You know, just understand the paper that's already interesting for the project was if you say, oh, I want to just do X, which has nothing to do with any papers and then you get lost in x, then it could be very challenging as a project.
+01:09:56
+And so normally you will have some kind of article or multiple articles and I give below a list of tentative projects.
+01:10:04
+But, you know, so there's a bunch of different topics here like
+01:10:11
+You know applications of graphical model implementation of algorithms. So I have I have kind of like, put them in different categories.
+01:10:19
+If interested in deep learning and gender models for example like D this kind of stuff. So these are give you example of papers, you might want to look but you can choose any other paper. It doesn't have to be chosen from this list, just to give you an idea.
+01:10:33
+And so then you will have an article review. You will then also normally have an implementation and then experiments. Okay, so depending on the nature of your project. You can have
+01:10:46
+Real data experiments or a synthetic data experiment, depending on if your project is more surgical or it's more applied. So, for example,
+01:10:57
+Let's say your project is more theoretical you're trying to understand some kind of
+01:11:01
+Extension of the concepts in class and perhaps you have an article and then you implement what happened in this article you just re implement it and then you just test it on
+01:11:11
+Sending the data and perhaps analyze these results. So that's also an important aspect of the project is to learn to teach you to to do research and or
+01:11:20
+Think critically and so analyzing the results and why does it not work, or what does it mean is kind of an important part of the project. And so that that could be the least efficient. You don't have to
+01:11:31
+Get new data sets, for example.
+01:11:34
+On the other hand, let's say your project is more applied, like you say, oh, I want to take the hmm and just apply it on on this like our real natural language processing tasked with some hardcore data. Well then, you know,
+01:11:47
+Your focus might be more on the implementation and just getting the results on this data, then on covering the concepts and everything, because you know that's where you put your focus. OK.
+01:11:59
+So the project will be in groups because there's a lot of you. I don't know how many are registered, but he's at. I think so. The groups are at least three or four people so that we don't have too many projects, because otherwise it's possible to grade.
+01:12:16
+So yeah, so go back over the website about the detail about the project that gives should give you any idea, any question about the project.
+01:12:29
+Okay, so somebody asked or normalizing flows. I personally consider as graphical models at all also acceptable for a project.
+01:12:40
+I think it's a bit similar to v. So v is nice because it has links with em that we see in this class normalizing flows, the main link with this class is the fact that you're defining fancy property fear probably is probably the distribution
+01:12:57
+What aspect is the usually and obviously have a graphical model component. It's just like, you know, here's the distribution on on listings
+01:13:08
+But if you really care about normalizing so shirt. You can have it as a project.
+01:13:14
+Any other question.
+01:13:30
+No question. So, so I've covered the projects. Now let's go back to the evaluation. So there's five, homework, homework, logistics below.
+01:13:47
+So the homework will be handled online in studio. So I think Jose will send you more detailed instructions as well because he makes a very nice like submission interface. So I don't want to go too much in details in this class because it's already made.
+01:14:03
+But a few key things. One is that
+01:14:11
+There's a late homework policy.
+01:14:14
+So that you know it's manageable to grade the work. We don't want to have homework like weeks after the deadline, because it's possible to greatest.
+01:14:22
+And so you have a budget of six late days that you can spend on the five homework and then you need to allocate them however you wish, so that you have some flexibility. Please read the website on how to do that.
+01:14:35
+No assignment accepted more than one we played and it was also we have a collaboration policy so so that's very important here is that we're happy for you to collaborate with other students in class. It's a very good way to learn like, by the way. So for me, you know,
+01:14:52
+The philosophy. I have for teaching and I think the philosophy, you should have a stake as a student is what's important is that you learn right it's not getting a new checkpoint on your site on you know on your degree or something, right.
+01:15:09
+Which means that
+01:15:11
+I'm happy for you to collaborate with other people. That's a good way to learn. On the other hand, you're going to just like copy on the other people that won't be helpful for your learning experience right
+01:15:21
+So the first thing is when you collaborate with other people. You need to mention it on your homework. Here are my it's like it's like
+01:15:31
+You know when you write a paper, you will have acknowledgments of, you know, other people and you also need to write your own independent writer because if you just copy the right of somebody else that's not super helpful for you to actually, you know, learn mature. Okay.
+01:15:49
+And
+01:15:50
+And that everything is virtual. By the way, I think it's important to to to stress, kind of a, of a horn or cool. Okay, so, so I Stanford, you have this thing called the Stanford hundred cold, basically, which is a reminder for you that you know
+01:16:10
+It's important for your own integrity in the and your own scientific carrier to uphold the highest standard and, you know, just not cheat and
+01:16:21
+We won't be there and actually it's not practical for us to put like crazy.
+01:16:28
+Traps everywhere to make sure you don't cheat and by the way science. It's really hard to
+01:16:37
+To also
+01:16:39
+Track. Cheers.
+01:16:42
+And it's not super feasible. So what I mean by that I mean that, let's say you made an experiment and you falsified your data, right, it can. It's super hard for other people to to
+01:16:54
+Realize it unless they have access to it and somebody tried to reproduce it and stuff like that. Right. And so
+01:17:01
+Science actually based on trust. It's based on peer review, but also trust and so fortunately people who tend to do this work, usually are trustworthy, though, there's a few bad apples and
+01:17:13
+Often they're caught, but sometimes are cut 10 years later. And so what I'm saying here is that, you know,
+01:17:19
+This is a ground level class. Now you're supposed to be mature enough to understand the importance of
+01:17:27
+Your own integrity and they won't help you. It will help you in the short term too cheap, but they won't help you in the long term.
+01:17:34
+And especially like okay you cheat. Now on the assignment and then you know you're a bit late on the paper deadline and, oh, well, why not just my experience on that would be working. Why not just
+01:17:46
+A few numbers there and, you know, the next step. You're also, you know, making up scientific results.
+01:17:54
+And
+01:17:56
+And if you're caught by the way, cheating. This will hurt your scientific carrier, like, you know, we're
+01:18:00
+For grad school applications for later. It's recommissioned letters. And so I would highly recommend you already lose some of the habits that undergrads had to kind of like perhaps cut corners and uphold the highest standards for for your scientific carrier okay so
+01:18:24
+Just a reminder. I mean, what I care about any ways that you learn
+01:18:29
+If I could not have if I mean, ideally, I would not even want to give you a great so then you would not have to worry about all these these like
+01:18:38
+hoops to jump through to get a grade. And then you can just focus on your learning. Fortunately, we have a system where we need to put grade. So
+01:18:46
+We'll but by the way we're usually pretty nice in this class like super hard grading, I need to coach Jose a bit closer, sometimes is a bit strict, I think.
+01:18:59
+We had feedback last year that he might be too strict will will perhaps relax this a bit so that also you can focus more on the learning aspect, rather than worrying about oh you know this. I spent all this time on this work and it's not recognized
+01:19:16
+So yeah, so that's the for the long rant. Sorry about that. It's also like I guess with the coven really key and everything is virtual like we can even check with somebody taking the exam.
+01:19:27
+Like it's it's getting tricky for these evaluation.
+01:19:31
+So that's why the homework logistics. What else do I need to cover
+01:19:41
+I think the last thing to cover is that
+01:19:47
+If you want to be to john Lieber I can receive my Montreal. So you're registered for the class, but you're not in a program like you know the master students or whatever.
+01:19:55
+You have to have my authorization, because I had bad experience in the past were some issues only
+01:20:02
+cause a lot of problems in my class. So I just want to make sure you know what you're getting into. And you belong to this class. So basically if if I have not already authorized you to be in the woods john label, send me an email saying why you're taking this class and you think you
+01:20:21
+You belong in this class. And then I could just say, Yes, fine. And then you get for district by city.
+01:20:28
+And last, logistics aspect in the schedule. Remember that October 20 and 23rd, there is no lecture. This is like the break for lectures in Montreal.
+01:20:41
+And then there's also the lectures during their ups and usually I'm traveling to conferences.
+01:20:48
+Like in Korea or something like that. So, usually there's two classes which are not there.
+01:20:54
+But this year because I'm not traveling, because everything is virtual so I have now two
+01:20:57
+Bonus lectures. So still we'll see how things go. During the year, I might create new lectures for that, or perhaps I'll decide that I'm just too lazy and I'm just more time for your projects. We'll see. But yeah, so that's the schedule. So any remaining questions about the logistics.
+user avatar
+Rishabh Agarwal
+01:21:20
+Are there, like to student. The ideal week
+user avatar
+Lacoste-Julien Simon
+01:21:24
+Yes, there will be, I mean I clear because this is not the new reps deadline. This is the new reps conference.
+01:21:32
+Okay, so, so I clear, there's a deadline as as as deadline, yet you distill lectures, because you can work around these things.
+01:21:43
+So you could use your late days for the homework during it. Here, for example, that's a good use of your they
+01:21:52
+Can one more team have the same project. Sure. It's usually happen. I wouldn't want everybody to have the same project, but let's say two or three, it's fine, because you know there's a lot of news. So I kind of expect everybody to have different
+user avatar
+Unknown Speaker
+01:22:06
+Projects.
+user avatar
+Lacoste-Julien Simon
+01:22:10
+Any other question.
+01:22:14
+Was something else I want to mention
+01:22:16
+Oh, yeah. So, um, these lectures are recorded
+01:22:21
+In particular, it's useful if you miss something and you want to come back. It's also useful if, for example, I have some students in Japan.
+01:22:32
+Which is in the middle of the night, right now, so you can't really watch live so then you can watch it later. I would hope that a lot of you would still come to the live presence, you know, you can ask questions. It's attractive. I think it's kind of nice.
+01:22:48
+But, you know, you have the flexibility to to do things.
+01:22:56
+By which they do recommend to have the projects team created by. Yeah, so I think by end of October, what I mentioned here in the milestones, I said.
+01:23:09
+Choose your group and give your own choose a project three or four students per project by end of October.
+01:23:15
+So right now it's always good to have your group people in mind. Perhaps your tour, you're hesitating between two or three projects, then yard field November 3 to choose your project.
+01:23:24
+But you'll have to interest to them, your project description, like a very short one saying, Well, here's the papers, we're
+01:23:31
+Decided to work with will be implementing this algorithm on this data set. That's kind of the idea and then the idea there is if you're in the wrong track. I can also tell you wrong track being when you're trying to do is impossible.
+01:23:47
+Perhaps you could try to do this instead. As a first step.
+01:24:01
+Are the video recordings week to be on the course website.
+01:24:05
+Good question. So I'm still I still need to figure out the logistics of getting this this cloud recording. I will send the link
+01:24:15
+Perhaps by email. First, perhaps on studio them. I'm not sure if I'll put it on the website at the beginning because it's a bit new to have all these like funny videos to the whole world to see.
+01:24:28
+But anybody is on the email. This will have the information on the website under recordings
+01:24:48
+So I think I covered most of the logistics. So perhaps it's time to get some material. What do you think
+01:24:56
+Where's my pen.
+user avatar
+Unknown Speaker
+01:24:59
+Outside
+user avatar
+Lacoste-Julien Simon
+01:25:06
+Good. I got a thumbs up. And yes,
+01:25:08
+The spirit of participation.
+01:25:11
+Alright, so
+01:25:14
+Let's start scribbles
+01:25:18
+So a reminder to email the signup
+01:25:29
+To feel this email signup
+01:25:32
+Survey by tomorrow to make sure you're on the
+01:25:39
+email list and then I'll send you the link to the Mike's books, my book. And also, I'll send you the link to the recording. So it's bit
+01:25:52
+If t
+01:25:55
+6269 F 20
+01:26:01
+And I'm not sure why this was
+01:26:09
+So let's talk about what promising graphical model are
+01:26:14
+Probabilistic
+01:26:17
+graphical models.
+01:26:23
+Right, find them this thing.
+01:26:28
+So,
+01:26:31
+I mentioned that this is to model.
+01:26:36
+Multivariate data.
+01:26:42
+And actually using property theory. Okay, so I said that graphical model.
+01:26:51
+Is a mix.
+01:26:56
+Between
+01:26:59
+Of graph theory. That's the graphical part of the name so graph here as nothing to do with the graphics. It's rough in the sense of graphs.
+01:27:12
+Graph theory. So this is like the CS part and probably the theory.
+01:27:27
+So the way I like to
+01:27:30
+To display it is this with this Venn diagram I would have CS here, I would have quality and statistics.
+01:27:40
+And I'll even put machine learning, by the way, and
+01:27:46
+What's the part of machine learning, which is not CS abroad in statistics. That's a good question. Perhaps signal processing Allah
+01:27:54
+Physics this super like machine learning is very multidisciplinary just kind of interesting aspect and graphical model is basically here.
+01:28:14
+And, um,
+01:28:20
+It's also also talk about probably T versus statistics. So basically,
+01:28:28
+Probably stick model.
+01:28:31
+Detail you stories about the world.
+01:28:36
+Okay, and using the. So for example, you can say, all I suppose that when I flip a coin. It's ideal random coin flip, with quality of one half, one half on each side. So that's a model of the world, middle of an experiment and then using the laws of property theory.
+01:29:01
+You can get answers to questions about the world and, in particular, you can also simulate possible observations that one could
+01:29:16
+View. If the would to perform the experiment. Right. So for example, you could say you could simulate flipping a coin six times and then you would see
+01:29:27
+The result of six coin flips and then you could repeat that multiple times to see what are the possible sequence of six conflicts, you can observe when you just flip a coin. Right.
+01:29:38
+And so using the laws are probably theory. You can simulate and you can also ask questions about the data, like for example.
+01:29:45
+The quality of seeing this data, right, you can say, what's the priority of having six six head in a road if I have a unbiased going to use property theory to answer that.
+01:29:57
+And the inverse process, which is to go from observations from data to a model.
+01:30:04
+Is what statistics is about
+01:30:10
+Statistics. Okay.
+01:30:14
+So I have observed thousands of coin flips.
+01:30:19
+And I want to know, is this the bias coin a are the coin flips independent perhaps I was actually not always flipping the coin, the same way, perhaps a, you know, I decided to just keep the result of the purpose time so they're not independent anymore.
+01:30:36
+And so then the question is, okay, what's the model for for this observation. Oh, that's the inverse problem.
+01:30:44
+You don't have to have a plastic models, but in this in this class we will mainly focus on models which are problematic.
+01:30:50
+What I mean by models in this case is just, you know, something which describes the world plastic models will use policy theory to describe the world. But there's other ways to describe the world which are not PC pro stick
+01:31:03
+And unfortunately this inverse problems is it'll be fine.
+01:31:07
+So we'll see when I go more in in in protein statistics, but
+01:31:12
+The direction from a probably stick model to data is very well defined. That's the beauty of property theory, it's just, you know, you pull the crank or for the theory. Sometimes it's intractable. You might need to compute
+01:31:23
+intractable integrals and you need to approximate things, but at least in theory you know how to do it.
+01:31:30
+Whereas, to go from data to prospect models. It's an it's what is called an inverse problem. And this is not well defined in the sense that there are many models which could give the same data. And so how do you know which one is the right one. Okay. And we'd come back when we talk about
+01:31:47
+Occam's Razor principle prior regularization these kind of tools to help you know Orient. What kind of models, we get from data, but
+01:31:57
+You also talk about no free lunch, which basically means that without more assumptions you can never be sure
+01:32:04
+From finite data. What's the model, which created it, because there's many models which are different and which would mean different prediction in the future, but which explain executive same the data.
+01:32:16
+The current observed data. And so without more assumptions you can under which one of these models, the correct
+01:32:24
+Omar asked what is the model that is not realistic deterministic. Yes, so
+01:32:30
+Let me give you something quite
+01:32:33
+Relevant or close to the computer science department. So the default is the pattern monochromatic either refresh or better soon as operational research.
+01:32:43
+So people in operational research often use optimization to model the world. So basically, they will have the observation, the constraints of a
+01:32:53
+You know, a phenomenon encoded in up to this problem. And if you want to make a prediction say what should be the, the, the value of something happening, you will solve this problem. And so there. There's no plastic model, necessarily, it's just using like
+01:33:12
+optimization tools and constraints to kind of like model the world. So that's an example of a model which has no problem teasing.
+01:33:23
+And let's say you want to do classification, like in machine learning, you were trying to classify input in like you're doing testify digits and all you care about is just having
+01:33:34
+An answer you don't care about the quality of answer. You could use a support vector machine to do that and there's no penalties there. So it's, that's a model, you know, that could be a pacifier model and there's no problem.
+01:33:50
+So usually, having policies is useful for
+01:33:55
+If you want to use this decision somewhere else and you want to propagate uncertainty, then it's good to know. Are you sure about the decision or, you know, this is just like a flip of a coin.
+01:34:04
+So that's an example of where the policies would be useful. Even if you classify things. So usually when you do decision theory in even international research you will include a bit of qualities, but sometimes needed
+01:34:19
+Okay, so that's just a high level perspective on property theory and statistics and we'll come back on these topics, of course, in much more detail, but I just wanted to give you a feel for prostate graphical and particularly to talk about applications. Right, that's
+01:34:36
+I mentioned earlier that
+01:34:40
+graphical models are applied in many different applications. And one of the beauty of machine learning is that the same graphical model, the same structure can be using very different applications.
+01:34:52
+And so let's talk about the hidden Markov model because that's kind of one of the most classical
+01:35:00
+graphical model.
+01:35:03
+And so in a market model is used to model sequential structure, right. And so let's have a look at what a graphical model could look like. So we'll have rounds, which are nodes in a graph arrows are the directed edges.
+01:35:21
+And what happened is I will have these random variable associated with notes. Okay.
+01:35:28
+So why
+01:35:30
+One way t y t plus one way to close to our different random variable. So if I delete them. It will be a random vector
+01:35:38
+And you're just index with time.
+01:35:41
+And the inner and a graphical model, the random variable or associated with a node. So a node is basically associated with a random variable.
+01:35:52
+So that's a semantic in a graphical model is that just another any grass. It's a graph where actually the know have the meaning of being representing some some properties of a random variable.
+01:36:05
+And
+01:36:08
+And the arrows that we have in the graph.
+01:36:13
+The meaning in a graphical model is the arrow gives you some potential statistical dependence.
+user avatar
+Unknown Speaker
+01:36:31
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:36:34
+And the potential here is some kind of big caveat, because it's not because you have a narrow that there will necessarily be
+01:36:43
+Statistical independence, because you could be lucky and put the parameters in this in these distribution, such that it's still independent
+01:36:51
+But usually what it means when you have an arrow between two variable, it means that they are kind of correlated
+01:36:57
+So, so the distribution of white t plus one and white t plus two, as some kind of dependence between each each each parts.
+01:37:06
+The absence of arrows will usually mean some kind of independence statement and actually it will be conditional independence statements.
+01:37:15
+And I'll review next class conditional independence. Independence so that we're all on the same page for that. But basically, that's the semantic of a graphical model.
+01:37:24
+And in particular, here you can actually start to have fun here. So, this, this, this, this structure here in a graph basically means that
+01:37:38
+If I know the value of y t plus one and I condition on the value of white t plus one.
+01:37:44
+whitey plus two NYT gets separated, right, because the only path between those two variable go through white t plus one.
+01:37:51
+So, what, what it means is that why two plus two is conditionally dependent on whitey given white t plus one in particular, the future is independent on the past. Given the present. So that's the mark of assumption. Okay.
+01:38:06
+And welcome back and much more details of this again if you don't follow yet. That's just to give you a feel on these topics and another
+01:38:17
+Kind of like notation that we use in graphical models is the shading and so we could have other pieces of random variable.
+01:38:28
+And in this case, will use x so XD 60 plus 160 plus two and here the shading means that we have observed the value of these random variable in the data.
+01:39:03
+And so basically the hidden Markov model usually will have a backbone, which has this mark of assumption which are the wise here which are not observed. That's why it's called hidden
+01:39:16
+These might be not observed and then these will be observed that would be the data we have. And then we might want to infer these pieces to get more information about the test.
+01:39:28
+Though sometimes you also observe everything. So let me give you some examples.
+01:39:36
+Let's
+01:39:38
+So in speech recognition.
+01:39:48
+Basically the whitey pieces will be fundings
+01:39:57
+Which are basically phonetic pieces which makes words and the XT will be sound waves.
+01:40:06
+Right. And so the idea here is you will observe the sound waves.
+01:40:12
+And from the sound waves, you will want to infer what are the hidden for means, which are the things that people have said so by by solving this task by by finding people the most likely the most probable sequence of things you can do speech recognition from that. Okay.
+01:40:32
+And then this structure in this application would mean that oh if I knew which is actually not true fully true, but it's a good first order approximation to get a simplest model is you say, oh, Wi Fi know what I've said here.
+01:40:46
+Whatever I see here is independent of what I said there. Okay. So that would be the semantic of the mark of assumption.
+01:40:58
+But again, we'll go back in much more detail in future lectures on on these kind of conditional independence assumptions.
+01:41:06
+And so
+01:41:12
+Do I am a bit too slow today.
+01:41:17
+I won't have time to give you the punch.
+01:41:21
+So,
+01:41:26
+So perhaps let's see it for 25 minutes
+01:41:34
+Can I give you the punch.
+01:41:50
+I'll keep the punch for next semester. So for next class. It will make you look forward for
+01:41:56
+What's the point. So the punches. Basically, why do we need graphical model. Why do we need this this this graph structure. And the answer is to handle the exponential explosion of possibilities, because the number of full name sequence is exponential in the length of the sequence. Right.
+01:42:13
+And so if I want to define the distribution overall possible funny the sequence. I need to describe describe the distribution of an exponential number of objects and that's difficult and the graphical
+01:42:24
+Model will help you do that. Okay, so I'll answer how to do that in the next class. But let me just finish with three more applications.
+01:42:34
+So parts of speech tagging is another application. Hmm.
+01:42:44
+We're in this case the whitey will be sparks of peach. So I'll already write them like as possible and sanitation. So let's say determinant verb determinant adjective and noun. So the whities here will be parts of speech.
+01:43:06
+Or pause the abbreviation.
+01:43:12
+And the X. These
+01:43:15
+Are words in a sentence, right. So for example, I could have had the sentence. This is
+01:43:25
+A red box.
+01:43:29
+Then you can still model them as arrows. I was just too lazy to draw the arrows. That's why I just put straight lines.
+01:43:36
+So this would be x one, x two, blah blah blah, and then why one, two, blah, blah, blah. And DT VTT or just possible values for this random variable because we're in a variable can take multiple values that are these sensations. In this case, perhaps dtb to draw
+01:43:53
+So you could also use hmm model to model this
+01:43:58
+Identification of what are the parts of speech from a sentence.
+01:44:03
+So here's a third application. Totally different. Now we're commercial biology gene finding
+01:44:10
+And so in this case, you would have that the whities or binary variable which says whether
+01:44:21
+Pieces of the DNA or coding versus non coding
+user avatar
+Unknown Speaker
+01:44:28
+Region.
+user avatar
+Lacoste-Julien Simon
+01:44:31
+And you would have so so whitey basically belong to a binary variable. It's either 011 encoding zero means non coding
+01:44:41
+And then XD would be the DNA sequence.
+01:44:47
+So DNA pieces.
+01:44:50
+I think usually they're in triple but I'm lazy. Here, I'll just do some kind of I forgot what are the DNA.
+01:45:01
+Company components, but it's stuff like GTA CG, for example, but even sure if this makes sense. And so here the STS would be these possible. I even forgot the name
+01:45:15
+Of what a god or it is and then the whities would be this backbone.
+01:45:23
+hidden variable. And here you could have values like zero or one, which says that, oh, this is the piece which is actually does this make sense I think from a biological perspective, but I don't. I forgot these things so
+01:45:38
+Just to give you an idea. And so basically I want to know which piece of the DNA is quoting for a gene, because a lot of parts of the day. It has nothing to do with jeans. It's just like the support and he's kind of stuff.
+01:45:49
+But there are some pieces which are gene, and we want to identify them because it might be used for something in particular, we could then identify if somebody has a mutation and that the might have problems with this gene.
+01:46:01
+And it can also help you to start to do now synthetic biology and trying to fix it.
+01:46:08
+But again, you can model as a seat as hmm sequence. And you can use similar
+01:46:14
+Models that you use for part of speech tagging. But now with the DNA instead
+01:46:20
+And the last example I give because all these words discrete right so so the whities were always like discrete multiple choices. It's not like a continuous signal. So I can actually have also a continuous version of these application in control.
+01:46:37
+Where you could say, for example, white t plus one.
+01:46:42
+Is just some linear transformation of white t plus some control term the transform with the matrix be and some plus noise. Right. So you would have these would be matrices, the A and the B.
+01:47:02
+And this is the noise. Oops.
+01:47:10
+Okay, well I screwed up. It's just erase this
+01:47:18
+Let's just put in purple. So this is the noise, it will be see like a Gaussian random variable, and that will be the the the hidden states.
+01:47:31
+And then it would be the observation which could be obtained by a linear transformation of the hidden state plus more noise.
+01:47:39
+Okay. And so here
+01:47:43
+X and y te are continuous vectors right there. They're vectors in which are real numbers, which could be, for example, this whitey could model the position of airplane.
+01:47:57
+Like x, y, z position and X could be their radar reading the reading and on the radar right now. I'm trying to track where the plane is. And there's some noise because of the sensor has some nice
+01:48:09
+And if
+01:48:12
+epsilon t and Ypsilanti prime or independent gershenz
+01:48:20
+There gushing random variables. So, this model, which are linearly transformed. Gosh, and random variable and VT here was actually
+01:48:28
+Started this was a fixed input to the system. These are the controlled term, right. So you could say, perhaps we know how we were that kind of like forces we were applying to the system.
+01:48:40
+And so then the hmm becomes something called the cabin filter.
+01:48:46
+When it's continuous and you have these Goshen when a variable. The hmm becomes something called the Kalman filter.
+01:48:55
+Which is basically the simplest states constant state space model you can have. So it's a time series model with
+01:49:04
+Goshen model. Gosh, and random variable and linear transformation and the UT. The beautiful thing is that when you transform a gash in with our linear transformation, you get a gotcha. So everything is. Gotcha. That's why it's the simplest
+01:49:18
+Busy the gushing distribution is the simplest continuous distribution of continuous vectors. And that's why
+01:49:24
+And you can get it from this. Hmm.
+01:49:27
+Okay and. And then the question is, how do you do in France in the system. Right. I have observations of my radar and readings. I want to know where the plane is how do I do that well.
+01:49:37
+You will use message passing all over them, then we'll talk about in this class coming from the graphical model framework and
+01:49:45
+That's what it Kalman filter is basically doing
+01:49:49
+Filters is both the model is also called the the influence mechanism behind it. Sometimes the terminology is not super cute.
+01:49:57
+All right, so I'm already a bit over time. Is there any pressing question about what I've covered
+01:50:10
+So this Shang says he has a question. You have a question. This would mean by the yes
+01:50:20
+If you have a question, just ask him.
+01:50:28
+Clear repeat the mark of assumption. And so the the mark of assumption.
+01:50:36
+That it was from before. Okay, clear all let me clear things. So the mark of assumption.
+01:50:45
+So the mark of assumption actually is much more general and we'll see later on. But the in a time series context. When we say that there's a mark of assumption. It's only mean that
+01:51:00
+When I condition on
+01:51:02
+An element that's actually use a bit of a notation. So let's say I would condition on
+01:51:14
+This variable here. I know the value the hidden value of this variable like if it's coating on on coding. What happens if I have the mark of assumption is that the
+01:51:24
+All these variables here the future isn't is conditionally independent of the past, these ones, given this value. Okay, so it's a conditional independence statement. So I will revisit that next class when I will redefine what kind of shown depends me
+01:51:42
+Any other pressing question.
+01:51:56
+Okay. So, if not sorry I went a bit over time still getting a hang on this zoom thing. So, do not forget to fill the survey by tomorrow, and I will see you on Friday.
+user avatar
+Unknown Speaker
+01:52:14
+See
+user avatar
+Lacoste-Julien Simon
+01:52:17
+And I will stop the recording.

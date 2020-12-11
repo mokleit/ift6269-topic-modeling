@@ -1,0 +1,1929 @@
+Lacoste-Julien Simon
+00:00:00
+The cloud that's when I would enter. Okay, so this is recording. So today, we're going to look at maximum likelihood estimation
+00:00:14
+And statistical decision theory. Oops. Oh, are you serious, this is kind of like having issues.
+00:00:23
+Statistical
+user avatar
+Unknown Speaker
+00:00:26
+Decision.
+user avatar
+Lacoste-Julien Simon
+00:00:29
+Theory.
+00:00:31
+And that's when we can talk about formal analysis tools for different estimators like if we want to compare maximum latitude estimators versus, say map estimate. Right. And we talked about which one is better for example.
+00:00:49
+And already today will be a good example of reviewing some interesting mathematical techniques and particularly how to compute the how to optimize a function, right. So, because that's important when we do maximum likelihood
+00:01:06
+And so that will be one of the first one example, among a long series of interesting examples of like math techniques that you learn in class. Okay.
+00:01:16
+So,
+00:01:18
+Yeah. So just a little review of last class at the end of last class I talked about the maximum likelihood principle which is
+00:01:27
+One way to estimate the the primer. The parameter for
+00:01:34
+From data to model data. Right. So I have a parametric family of distributions and I want to know what is the best parameter for my distribution which
+00:01:46
+Describe my data. So the idea is to find the perimeter of the distribution which maximize the probability of the observation. So that will be x
+00:01:59
+And so that's why we call the, the maximum likelihood estimator. So no, no notion often only talk about an estimator will be will have a hack notation and it's a function of the observations of the data.
+00:02:13
+Okay, so let's do an example.
+00:02:16
+In today. Let's start with an example.
+00:02:22
+Ml he
+00:02:24
+Example,
+00:02:26
+One.
+00:02:28
+So let's do the binomial example. Okay.
+00:02:34
+So suppose that
+00:02:38
+I have n coin flips.
+00:02:45
+So we know that
+00:02:48
+If I flip always the same coin. I can count the number of heads versus tails and this random variable capital X will be distributed according to binomial.
+00:03:02
+With parameter theta.
+00:03:05
+Theta is the unknown quality of head.
+00:03:11
+Here the sample space is 02 N, okay.
+00:03:16
+And we had that the PMs
+00:03:19
+For the binomial was the binomial coefficient
+00:03:24
+Excuse n know entries X always say the runway and then data race the x and one minus data and minus six. So that's the PMS. And so now, suppose I observe X I want us to make theta. Okay.
+00:03:42
+So I need to maximize over theta, the probability of X given data or proteomics.
+00:03:50
+So the PMs year is a funny function of failure because it's data race to the x. So it's kind of pointed me a function of data.
+00:04:00
+And so there's a trick that we use all over the place in priorities this sticks, which is that instead of maximizing the likelihood. We will maximize the log likelihood
+00:04:12
+Okay, so we will maximize the log of the likelihood instead
+00:04:19
+Of the likelihood
+00:04:22
+And the log of the likelihood. I will use annotation little l of theta for that. And this is called basically to log like you
+00:04:36
+And
+00:04:38
+First of all, why do we do that well because when we have. So when you have independent friend of variable you multiply the densities together the PMs together. So you often have these product.
+00:04:50
+Of simple functions. So here you have failed I raised the X that came from a product of theta, theta theta.
+00:04:56
+And so when you hit it with a log, then you get the x becoming a coefficient in front and then you just get log of failure. So it's a bit better behave as a function of state and we'll see when we try to optimize
+00:05:10
+Whites much nicer. But before looking at that, why can we do that well the justification for district is because the lug is a strictly monotone
+00:05:23
+Function. So the log function is strictly monotone in this case strictly increasing
+00:05:36
+And so what this means is that if I have some number which is smaller than other one that implies that log of A is smaller than log of be supposing that these numbers are in the domain of the function for for this is for a be positive.
+00:06:02
+And so because i. So, basically, which means that if
+00:06:08
+I have if I maximize
+00:06:14
+The lug of p of x data.
+00:06:19
+So the arg max notation means the maximizers have a function. So there could be many doesn't have to be unique. So it's a set
+00:06:29
+But in this case, if some feta star is maximizing log it means that log of p of x data star.
+00:06:37
+Is bigger or equal than all the other ones. And so by the minute. The city of lug. It also implies that p of x data stars is bigger than all the other one. So it's also maximizers you have the same arguments are max.
+00:06:54
+Of p of x.
+00:06:58
+So that's a cool trick. So it's not only the log, you can do that with any strictly monotone function.
+00:07:06
+But the log is convenient when you have products.
+00:07:09
+And so now let's look at the log of the PMs of a binomial. So the log of the binomial.
+00:07:19
+What I get is,
+00:07:21
+So, the product of terms become a son, right. So that's the nice thing. So I've logged of the binomial coefficients.
+00:07:28
+And this is just a constant for
+00:07:33
+Theta right respect to data. So with respect to theta.
+00:07:39
+And then I have x log of theta because the log of data to race to the x, the exponent goes in front of the log. So I just get excellent data plus and minus x.
+00:07:52
+log of one minus data.
+00:07:56
+That was the last time. Okay, so this is my my leg leg to you and for the
+00:08:04
+As a function data for the binomial distribution.
+00:08:09
+OK, so now I want to maximize this
+00:08:14
+This function over the
+00:08:17
+Correct parameter
+00:08:20
+So a bit of review so have have some function. If I have a end it's differentiable, what happens is if I have a local max inside the domain of my function or inside my constraints, then a local max will be a point where the derivative is equal to zero.
+00:08:42
+And then what happened is in one dimension is that the derivative before will be positive and then
+00:08:55
+And then here the derivative will be negative. Right.
+00:08:59
+So if you have a local max. You know when you come from the left, you will first increase
+00:09:05
+And I'm not sure if I'm doing in the right direction. So you will first increase then reach a plateau and and decrease right so that's a local max.
+00:09:14
+And so
+00:09:17
+You want to look at the zero of the derivative. So you want to look
+00:09:22
+For theta, such that the derivative of the log like you to respect to theta is equal to zero.
+00:09:31
+Okay.
+00:09:32
+So let's take the rate of of LLC. So the first term will give me the derivative of log, which is one of our theta and x is just a constant. So I get x of theta.
+00:09:44
+And. And then the second term, I will get the derivative of
+00:09:50
+Let's see. So the derivative of this thing here is one divided by one minus data and then I have the constant in front of it. Right, so I get. Oh, and then I need the derivative inside the parentheses, which is minus one. So I get minus
+00:10:08
+Minus x divided by one minus data.
+00:10:13
+Okay. And so this is the derivative of the likelihood. So we want this expression.
+00:10:20
+To be equal to zero. So you want to solve for theta so that it's equal to zero. So what I can do is just
+00:10:28
+Multiply everywhere by theta and one minus data, we assume that these are non zero for now. So we have x times y minus data minus n minus x times theater. So I've just multiply both sides by theta and women's data and then zero doesn't do anything. So this is equal to zero.
+00:10:51
+And so now I can
+00:10:55
+regroup things together. So I have
+00:10:58
+Minus x data.
+00:11:02
+And then here I have plus x data.
+00:11:08
+And so then I'm only left with x and minus and data. OK, so now I can solve it. So I get basically that say the star is equal to x divided by
+user avatar
+Unknown Speaker
+00:11:23
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:11:25
+So just solving for theta. So that's the only statuary points here.
+00:11:32
+I eat only point where the derivative is equal to zero, which is not surprising, because the lug this function here as a function of theta is actually strictly concave
+00:11:44
+Would come back to these properties of functions later on.
+00:11:49
+Note, by the way, from a notation perspective, I will often use the star to indicate
+00:11:57
+That it's the solution to an optimization problem. It was often as
+00:12:03
+Solution.
+00:12:05
+In optimization
+00:12:07
+So the hat. I use often to say, oh, it's a
+00:12:12
+Misty mater and the star because it's the solution to an optimization problem.
+00:12:19
+Okay. And so from that. I mean, to be formal. Now we need to prove that this is the correct global max.
+00:12:28
+I will come back very soon on this. But for now, just trust me that this is the and, in particular, here it's it's it's a global max because the function that actually strictly concave, which means that it as a unique stationary point and this district point is a global max if it exists.
+00:12:50
+And so here, and we have that our maximum likelihood estimator for the binomial is just a relative frequency
+00:13:03
+Okay, so what I already had mentioned before, it's the relative frequency
+00:13:09
+Of the time I've observed heads.
+00:13:13
+That's the reality of it which kind of makes sense. It's pretty natural
+00:13:20
+OK, so
+00:13:27
+Somebody asked about first versus second order. So first order. So you can think of the order. It's coming. The terminology is a bit coming from a tailor expansion.
+00:13:37
+So if you do at Turner expansion of a function, the first term initiative expansion is called zero order. It's a constant and the second therm will have the derivative and linear term.
+00:13:49
+And so it's it's the call. And that's the first order part. The second order will have the second derivative and it could Radek term and the third are there will be third derivative which is Richard. So that's kind of the idea
+00:14:04
+What is the interpretation of it, of a million conflict. I didn't get it clearly.
+00:14:15
+OK, so somebody asked if the arguments of fed I had should be x and n
+00:14:20
+Map up up up up soul basically
+00:14:26
+Yes and no. So I would say more know the reason being that end is kind of like from the context, it's kind of in the context of the problem.
+00:14:33
+So all this. The only thing which matters here is, is what's the possible output in this experiment, the possible input and experiment. The observation.
+00:14:42
+And that's x was n is a fixed object given from the content.
+00:14:48
+But in general, yes. When we we start to look also about the behavior of an estimator when the the sample size very then we'll have a sequence of estimator.
+00:14:58
+And then we can actually put a subscribe to the estimate usually would. We won't put it as an input would just put like say that at little subscript and for example. So with so that when we talk about consistency, for example.
+00:15:12
+And now, somebody's asking about the interpretation of this. So to be clear, so the setup here is I have observed a bunch of coin flips.
+00:15:22
+And I'm asking the question, what would be a good distribution to model. My observation and as I said in the last class, there is no universal principle for that.
+00:15:38
+And so actually we never know what's the correct answer to that. Okay.
+00:15:41
+But there is a bunch of different principle that frequent this consider and one is the maximum likelihood principle. And that's what I'm describing here, which means that you will choose the parameter or redistribution.
+00:15:53
+In a family. So first you have to have chosen your family. And then in this family you'll choose the parameter which maximize the probability of the observation.
+00:16:01
+And so here are Patrick family, which was pretty natural. It's the binomial.
+00:16:08
+And that's basically coming from assuming that each coin flips are independent, and also that the probability of every flip is the same in terms of head or tail right so from that actually you get the binomial distribution and then deriving the maximum likelihood
+00:16:26
+Parameter in the context of the observation of see x heads. We got that the value of the property of the coin flip. Basically, which is given by feta is just the proportion of time we saw heads among and flips, which kind of makes sense.
+00:16:49
+So Allah will a ask about different estimated four different sample size will get back to that when we do statistical decision theory.
+00:17:01
+And Jacob. Yes, you're correct. If you are flipping for you two coins and you observe 13 heads, then your estimate of the probably to head as a maximum likelihood estimator will be 13 over 42
+00:17:17
+Okay, so
+00:17:20
+Let's
+00:17:22
+Talk more about optimization and
+00:17:26
+So basically, that the plan right now is we'll talk more about optimization. I'll give you yet another example on multinational
+00:17:33
+Distribution and sentence out. Now we can talk about Lagrange multipliers, which is kind of cool.
+00:17:38
+And then we'll, we'll talk about statistical decision theory and statistical decision theory will really clarify the setup of
+00:17:46
+How do we evaluate an estimator. What is the goal of an estimator. And how do we know something is good or bad. And also, and Sir Allah. Allah is question about like estimator for different simple sense. Okay, so that's the program.
+00:18:00
+So step one, let's talk about optimization, because we need to
+00:18:05
+Have the correct tools so
+00:18:08
+A bit of a review.
+00:18:12
+And we'll go in the mid more rigorous details about optimization. When I will review like Ranjan duality in the context of a super interesting and amazing equivalence between maximum entropy
+00:18:27
+And maximum likelihood in the exponential family, and we'll see actually these two problems are
+00:18:33
+Like orange and do all of each other, which is really cool. But that's a lot of fancy words. I just said, and you'll see that in a few lectures, I forgot. What's the lecture number, but it's a bit later in class and then I will you like orange do it and then I'll talk a bit more about
+00:18:47
+Fancy optimization, but right now already get the basics.
+00:18:54
+Alright, so let's say I want to minimize a function over some
+00:19:00
+set of parameters. Right, so, so, so that's constrained optimization ever theta.
+00:19:06
+So we've been doing like okay I was maximum missing the likelihood, usually in music in convicts optimization we talked about unionization because but you can just replace maximization with musician by putting a negative sign in front of the objective
+00:19:23
+So the important aspect is that when your function is differentiable, the derivative or if it's a multi variant function, the gradient a theta equal to zero.
+00:19:39
+And this is called a stationary points of f.
+00:19:46
+So when we talk about stationary points of a function
+00:19:50
+We're talking about in the case, it's differentiable. We talking about zero gradient point. So this is a necessary condition. So,
+00:20:00
+If f is differentiable
+00:20:05
+Then
+00:20:13
+This is a necessary condition. Let's put perhaps a star here.
+00:20:20
+This is Sir re
+00:20:23
+Conditions.
+00:20:28
+For
+00:20:29
+theta star being
+00:20:33
+A local men.
+00:20:39
+When
+00:20:40
+theta star is in the interior of the constant set
+00:20:51
+Okay.
+00:20:58
+And so
+00:21:02
+Very important to distinguish necessary and sufficient condition so sufficient mean that if you have that, then it implies whatever you want to imply, here's the three points is necessary, which means that
+00:21:17
+Any local men will have to have this property, but there's some
+00:21:23
+Points which will have this property which are not local men, right. So that's the big difference here.
+00:21:29
+And to make sure that it is a local men.
+00:21:34
+So to have the sufficiency. You can look at the second derivative, right, so you can check
+00:21:42
+The second derivative which in the case of multivariate will be the history and
+00:21:49
+The SDN of f.
+00:21:51
+At theta star to be strictly positive definite for a local min. So this would be sufficient.
+00:22:02
+So if you both have the zero gradient and the husband, which is tricky positive in a neighborhood.
+00:22:09
+Then
+00:22:10
+You get a local
+00:22:14
+Okay. And so this is basically just a generalization of the, the second derivative is positive.
+00:22:22
+It because now we're talking about minimum. So, second derivative positive mean that the slope start
+00:22:28
+Was negative or because there was a decreasing function, then it's zero. And then it's positive. And so the slope is increasing. Right.
+00:22:35
+Because if I go the other direction. That would be a local maximum level comment, or it could be especially point that sorry so subtle point. Okay, so basically the little
+00:22:47
+You know, here's a function
+00:22:52
+And so that's a local men. That's a local max. That's a local men. So that's local men local max.
+00:23:04
+Local men.
+00:23:08
+Local max. That's the global men.
+00:23:15
+And this is a settlement.
+00:23:20
+And all these were especially points all these had zero diverted. Right. And so what distinguish between local men or local max or a subtle point was the second derivative. So the second derivative was a positive at a local men negative at a local max and zero at a subtle point
+user avatar
+Unknown Speaker
+00:23:45
+In this case,
+user avatar
+Lacoste-Julien Simon
+00:23:52
+And just so that we're on the same
+00:23:57
+Page. The
+00:24:00
+When we say that the SDN is tricky positive definite. So we say a matrix is tricky. Positive definite if and only if, so that's one characterization. If I make a quadratic form out of it. I get positive number for all you have equal to zero in Rd
+00:24:24
+Okay, see if there are questions now.
+00:24:30
+Do we want to local maximum. This case. Well, I'm talking here about minimizing a function. And so I'm we're not talking about. So come next year, but sure. I mean,
+00:24:42
+Here I described both local max and local men for local men. You want the hesitant to be strictly positive PS tricky positive definite. And for a local max. It's just you want it to be negative different
+00:25:01
+I feel like I've already answered a question for any disagreement is not a distribution distribution.
+00:25:17
+I'm not sure I understand your question, so perhaps you can rephrase
+00:25:27
+Yeah, I still don't understand the question. So
+00:25:31
+So welcome to rephrase this question if he still has it.
+00:25:36
+Is there any other question about optimization
+00:25:41
+Oh, I have more comments. So let me give you more comments and then I'll see if there's more questions. So
+00:25:46
+So here I gave you necessary condition for
+00:25:52
+local optimum, which is that you need to have the degree is equal to zero, and I give you sufficient condition for a local max or men by looking at the, the question or the secondary right
+00:26:05
+So what about global result because this is kind of annoying. These are just local result again. So in general, all you have our local result on the local if you only look at one point, and it's there. If you can only get local results.
+00:26:25
+So in order to get a global results, you need to look at properties of the function everywhere, right. And so for example if the Halcyon of the function
+00:26:41
+Is a semi positive definite.
+00:26:46
+Are which is the same thing as
+00:26:50
+This definition here, but instead of a of a could put an equality on both sides. Right. That's what it means, then
+00:27:00
+If I have that the his in his PSD for all theta in my parameter space.
+00:27:08
+Then the function is said to be
+00:27:11
+Convex
+user avatar
+Unknown Speaker
+00:27:17
+Whoops.
+user avatar
+Lacoste-Julien Simon
+00:27:19
+These are nice functions.
+00:27:25
+Basically their function which which are Ball, ball shape. Because the derivative is always positive in any direction. So it's always increasing. So you get like this kind of bowl behavior. And so in this case.
+00:27:42
+Having the gradient of f data equals zero.
+00:27:47
+Is sufficient
+00:27:52
+For
+00:27:53
+feta star.
+00:27:57
+To be global.
+00:28:01
+A global minimum.
+00:28:05
+So that's the beauty of context function if you find a saturation point, then you know the discussion point is a global
+00:28:12
+Min, max depending if it's convex concave
+00:28:24
+Okay, so let me find the question of
+00:28:25
+Kinetic for Emily, if we're trying to find the light to you the view.
+00:28:31
+Of a Gaussian
+00:28:37
+Yes. So, so the likelihood. So if you have, if you. Okay, so here I had that
+00:28:51
+So the binomial here could also be have been seen as the result of n coin flips and then just looking at the likelihood of the end conflicts, right.
+00:29:01
+Of the observer income as a function of the parameter theta. So for the next question is, okay, well, instead of having and conflicts. Let's say I have an observation from a Gaussian
+00:29:13
+And then what's the likelihood of
+00:29:17
+These an observation of a gotcha. And so then what you would do, because you're suppose their ID, it would take the product of the densities and then when you take a look like to you get the sun. So, and will actually see that I think of it later when we do linear regression
+00:29:35
+Okay.
+00:29:44
+Yes. No problem.
+00:29:50
+Ah,
+00:29:52
+So in order to get a global result either you you have a context function and then you're you're happy, or I mean this is not exhaustive and you can also have non smooth.
+00:30:04
+Function which is like non differentiable function and it gets a bit more hairy. I don't think we've covered them in this class, but in my advanced search or prediction method. I'll talk about some gradient and generalization of derivative
+00:30:18
+But in this fast. We'll talk about smooth function, and in particular in the assignment. You'll also I think at some point have to deal with that, but
+00:30:30
+Basically
+00:30:32
+If you have a smooth function.
+00:30:35
+IE differentiable continuity differentiable
+00:30:43
+I mean an optimization usually smooth means that the derivative is as Lifshitz gradient, but here I'm a bit
+00:30:49
+Let's talk about
+00:30:52
+continuously differentiable, then what you want is you want to look
+00:30:59
+At the point with zero gradient
+00:31:09
+And
+00:31:11
+The boundary points.
+00:31:17
+So you want both the story points and the boundary points.
+00:31:22
+To
+00:31:24
+Will basically give you
+00:31:27
+enough information to find the global max or global man.
+00:31:42
+I'll just call them the global optimum.
+00:31:45
+Okay.
+00:31:47
+Um, so let's look at an example.
+00:31:55
+And for example,
+00:32:00
+Here's a function
+00:32:05
+Here's a co log likelihood function.
+00:32:09
+Just actually concave, but it doesn't have any history books. I mean, let's keep
+00:32:16
+This and the point here is that, let's say this is my constant set right the interval 01 was my constraints.
+00:32:24
+And so theta star, the max. In this case, so the max.
+00:32:32
+And so feta star in this case is equal to zero. That's the arg max.
+00:32:40
+Of theta in the constraint set of theta, even though that f prime of theta star here is not equal to zero, right, because it appears at the boundary
+00:32:52
+So let's say you in one day. It's actually pretty simple, like you look at all this sensory point of the function, even if it wiggles around like this.
+00:32:59
+Look at all the century points and you look at the value of the boundary. And then you take the max over these finite number of points, hopefully, if it's a will be a function and I will have a finite number of story points.
+00:33:09
+Though there are crazy function which could have an infinite number of them anyway let's
+00:33:13
+Keep it on the simple case where you have a finite number of them, you can just take then the max over all these tertiary points and the boundary. And then you find the global max and same thing for the global me
+00:33:25
+Okay. Now, when you're in in multivariate it's much more complicated because then the boundary will be a an infinite set
+00:33:34
+And so then you might also need to solve in the problem of the boundary. So, but often by inspection. You can show, for example, that when the norm of the parameter goes to infinity. So it's anywhere. For example, let's say I'm doing an unconstrained position of a function
+00:33:50
+Over all the art to the D. Okay, so then you look at the zero gradient of the function and then you also look at the value of the infinity.
+00:34:00
+And often, you can say, well, the value of infinity smaller than the associate point, I found so I found a global max. That's another way to find a global, even if the function is concave
+00:34:10
+OK, but so you have to be careful about the boundary cases. Right. So you have to be careful.
+00:34:17
+With
+00:34:19
+Boundary
+00:34:23
+Cases.
+00:34:25
+IE when the data star belongs to the boundary of your constraints, it
+00:34:37
+And that's why, by the way, I was
+00:34:41
+Specific here to say that
+00:34:47
+The fishery point condition is necessary, only when the point is in the interior of the constraints that because
+00:34:54
+You could have local men or local max at the boundary. Just because you're not allowed to go farther outside of the boundary. So this becomes a local me. Right. And so in this example, I could still
+00:35:09
+It could still increase the function by going this way, but I'm stuck because I need to stay in the constraints and that's why you didn't have a stationary point
+user avatar
+Unknown Speaker
+00:35:18
+Even though it was an optimal. Okay.
+user avatar
+Lacoste-Julien Simon
+00:35:23
+And I know the example of this would be if the boundaries that infinity. So another example.
+00:35:30
+Is
+00:35:33
+Let's say
+00:35:35
+You know, here's an example of like likelihood
+00:35:41
+And let's say it keeps increasing, and then never reaching this assembly.
+00:35:49
+And so statuary points here would be this one and this one, so their local max local men, but no global
+00:35:57
+That would be one of the boundary. And then the other boundary would be at infinity. And that's where the the point will be maximized. But this is not a point. There's no like point at infinity. And so in this example, you would say that the
+00:36:12
+The art max doesn't exist. So this example.
+00:36:16
+Is an example where the Emily.
+00:36:19
+Does not exist.
+00:36:27
+I mean, you could argue that oil. The plus infinity extended real number is there are the LD. In this case, but usually that's consider as not
+00:36:43
+That can get some statistics, often by convention, they will talk about the existence of an elite when you have a finite value, not these extended real number, especially because in the case of a
+00:36:52
+real number, it's fine, because you can just have one. But then if you have your in multiple dimension, then the plus infinity one is a bit weird, because it depends on the direction
+00:37:03
+So, yeah.
+00:37:08
+So, so that's the simple notes about Emily and so that highlights some properties of the Emily. So let's give some notes about me, Emily.
+00:37:26
+So it does not always exist.
+00:37:28
+You need to rigorously condition to ensure its existence.
+00:37:32
+Of the likelihood function of the construct set
+00:37:36
+And so example where it does not always exist example where it doesn't exist is when the
+00:37:43
+The solution would be at the boundary of your constraint set but
+00:37:50
+The constraints that is open.
+00:37:52
+So, for example, suppose you decided that you would consider only these parameter which are 01. So this is a French notation of internal so the
+00:38:04
+This
+00:38:05
+open bracket like this this bracket here that the the wrong direction is means opening in French rotation know in English use parenthesis, but I don't like parenthesis. I think it's confusing with brackets. So I use the French notation for intervals. That's the open interval 01
+00:38:23
+And so that's one example. Or another example. When say that star.
+00:38:30
+Is basically plus infinity. I put it in quotes, and that's the example about. Okay, so these are two examples where we would say that the maximum likelihood estimator does not exist. An example of that is, let's say you have a Gaussian
+00:38:45
+Patrick family and you only have one observation or all your observation fall or equal then and you estimate the variance, you would say that the variance is actually
+00:38:57
+In this case will be zero, which exists.
+00:39:01
+So that's fine though. You might perhaps decide that a variants of zero is not good because then the gushing does not have a density. So you would have excluded the zero variance case in your parameter set for example. And in this case, and it will not exist.
+00:39:20
+Okay, interesting question from the shunt
+00:39:23
+If the optimum does not exist. Couldn't we just take the second best optimum. Okay.
+00:39:35
+The question here is, when you have a continuum of possibilities. The second best or usually not existing either, right. So for example, let's look at
+00:39:49
+The case here, right, so the the best is basically at infinity, the second best is basically the point just beside infinity, which is also infinity. So, so there's no second best or third best here. Right, so it doesn't really help.
+00:40:05
+So that's the match. So a lot of protein statistics, by the way, is analysis. So, it's called analysis and math sense. So I know this. This is the branch is the formal branch of calculus.
+00:40:17
+Like limits and real numbers and epsilon delta eyes and sequences of it and yeah and the you know the rigor, there is there's a lot of these you know boundary cases when you talk about infinite number of things.
+00:40:35
+And then somebody asked. Oh, well, the maximum feeling is an example, a bad mix.
+00:40:53
+Okay. So Jacob is being a bit formal now. So for you, he says that the max that infinity is also the boundary of open set.
+00:41:06
+Because the real numbers is open set, but it's also a tool sets. It's a bit weird.
+00:41:12
+So,
+00:41:14
+The boundary of a set is the intersection of it's closer with it's
+00:41:20
+Open its interior us. I don't think that works.
+00:41:25
+Because all the real numbers is in the closure so yeah so I don't think you could say that the person field is is is a boundary in the usual sense of bunk.
+00:41:36
+But now we're getting into fancy math.
+00:41:41
+Are you happy with that Jacob.
+00:41:47
+Are there necessary sufficient conditions for theta stars to exist. Sure. I mean, so basically there. What's happening is
+00:41:55
+It's similar to conditions of
+00:41:59
+Existence of
+00:42:03
+Global max to function and then condition function and so example of that is if the
+00:42:12
+Salt put in a min because I'm more used to min. But if the function goes to infinity at the, let's say it's unconstrained and the function goes to infinity in all directions. So it's called courses, then there exists a global min
+00:42:29
+And so in this case there will always be
+user avatar
+Unknown Speaker
+00:42:34
+minimizer
+user avatar
+Lacoste-Julien Simon
+00:42:41
+So yeah, so that's an example. And so basically these are regarding the conditions for making sure that they exist a solution to an institution problem.
+00:42:52
+Okay, so other properties their properties of the MLS so it doesn't always exist, though. That's a bit like
+00:43:00
+I mean, I could argue that, you know, data star plus infinity is sufficient. And we can see that in practice. Also, this does happen sometimes. And that's fine for us. We'll get back to that.
+00:43:10
+Particular like depends how you prioritize things so you so plus infinity could mean one divided by plus and CD, which is zero and zero is a nice finite number. So depending on how you paraphrase your distribution.
+00:43:22
+You could say that that well the maximum likelihood founder is just zero. And that's fine. So I think this is more like
+00:43:28
+A technicality, but something else which is my brand is that is it's not necessarily unique
+00:43:38
+Right, so you can have multiple maximum like you parameter
+00:43:46
+Can have multiple global max.
+00:43:50
+And this happens in particular, when you look at mixture models.
+00:43:55
+I can mixture of gosselin's and particular you can start to have permutations of your labels which all have the same maximum likelihood value, but we'll get back to that.
+00:44:08
+And more another interesting properties that it is not admissible in general.
+00:44:20
+And to formally defined what isn't admissible estimator, I will have to do statistical decision theory, which is what we do.
+00:44:28
+At the end of this class. So that may not be formal. But I'll just give you the intuition of what this means that it means yes I say see later. But what it means is that there exists strictly
+00:44:42
+Better estimators
+00:44:45
+And that from a specific perspective that will formalize which is basically with the risk of an estimator, there exists. Other estimator, which have better risk everywhere.
+00:44:57
+And so there's no one better or equal everywhere and strictly better somewhere and which means that they're dominating the maximum likelihood estimator, which means that, well, this is kind of a stupid estimator it from this perspective. Okay.
+00:45:12
+Which is a bit surprising and actually the an example of that is the James Stein estimator that will see later, I'm just giving you the keywords. Now, just to satisfy your curiosity. But that gives you an example which dominates.
+00:45:25
+The maximum effectiveness debater and then you say, well, if it's dominated. Why then, it's still common and standard well
+00:45:34
+There's a few things. One is that in
+00:45:39
+It has a very natural interpretation, like the the the relative frequency for the binomial. So that's why it's often mention first just for pedagogical reason and
+00:45:55
+But in practice, I guess you should never really you escaped. So, and then standard statistics, you will need to to
+00:46:04
+regularize in order to avoid the bad properties of maximum likelihood estimator, but there's a question of how you regularize and that's non trivial and so
+00:46:13
+I guess, even though it can be strictly the minute. Sometimes people still use it. And then there's a third part which is much more advanced topic is we realized that in modern machine learning.
+00:46:26
+Even though maximum likelihood estimator will overfit that's also why it's not that great.
+00:46:32
+Because of other reasons, often, it does not overfit and so just trying to maximize the likely you can still give good results. But that's because there's many in this case there was actually many maxima and you will pick the correct Mac, the best good maximum in terms of performance.
+00:46:51
+But we'll get back to that.
+00:46:53
+In particular, when we talk about physical destructive.
+00:47:00
+Okay, so I then had manner is asking a good question. It says, well, how it can be nothing unique don't we just have one global max for any function.
+00:47:11
+And depends what we're talking about right. So the value of the global max in terms of f is always unique because it's it's a global max of a of a, you know, set of real numbers.
+00:47:23
+But the art Max, the maximum the parameter which will maximize the function. These could be non unique. Right. So for example, if I have a function like this.
+user avatar
+Unknown Speaker
+00:47:38
+Oops. Okay. It's making them.
+user avatar
+Lacoste-Julien Simon
+00:47:42
+Here's one global next. Here's another global next. So I have say that one star.
+00:47:52
+And I have stayed a two star. I have through global I have to maximizing parameter, even though the value here of the global Max's unique right
+00:48:10
+Okay, so that's some thoughts on the Emily.
+00:48:15
+Now let's jump to
+00:48:18
+The multi Naomi muting new meal example will step our optimization tools, another notch.
+00:48:29
+So me that is saying we should not use Emily and practice.
+00:48:38
+I would say, unless you know what you're doing. Yes. Do not use a million practice.
+00:48:44
+Think that would be a wise advice.
+00:48:47
+But we'll get back to this notion, when we talk about properties of estimators and we'll talk about overfitting. And these kind of things but but the maximum likelihood estimator can overfit the data that's one of this problem.
+00:49:06
+Alright so example.
+00:49:16
+Multi normal
+00:49:22
+Distribution.
+00:49:28
+Perhaps I should take a break. Now, what do you think
+00:49:31
+I think a break now or after putting the setup of demands normal
+00:49:36
+Now, you say yes.
+00:49:46
+Oh yeah, there's a fight between the yes and no. So 1113 yes, it knows
+00:49:55
+Oh, then those are winning are going up. That's funny.
+00:50:02
+So yes means I am giving I'm taking a break and no means I putting the setup.
+00:50:10
+And, well, that's funny. Okay, well I choose I put it, I already started to do the setup so I'll do the setup. Oh yeah, it's too. It's too close. Oh, yeah, yeah.
+00:50:21
+Oh. Why are there no is being keen. Okay. Well, yeah. So let's let's let's do a 10 minute setup and then I take a break and you can think about a setup.
+00:50:31
+So,
+00:50:35
+Suppose
+00:50:37
+That x i is a discrete
+00:50:43
+Random variable.
+00:50:46
+On K choices.
+00:50:50
+Okay, and will often call this in
+00:50:55
+This class, but this is also a terminology which is used. Now it's called a mutiny. So when you have capabilities you call this a move to New York.
+00:51:05
+And it's a basic. It's the generalization of the new year. That's why it's called booty new a new year's two possibilities capabilities like I'm rolling a die with case sides.
+00:51:16
+Some new new
+00:51:18
+And so we could choose in this case as simple space.
+00:51:26
+The number one, two k, which are the capabilities. That's just an encoding.
+00:51:31
+Of the capabilities. So for example, let's say you're modeling words and you have a vocabulary, you could have that the first word in your vocabulary will be, I don't know. It could be not sabbatical normal in dictionary. Right. And you could just have the index encoding the possibilities.
+00:51:48
+But
+00:51:51
+We will use a different encoding now because it's very convenient and we see why.
+00:51:58
+But it's just a different way to encode the same object. Right, so it is convenient.
+00:52:07
+To encode the capabilities.
+00:52:13
+As a vector in our to the key. Okay, so we're basically map each passivity as the unit basis vector in our to the key.
+user avatar
+Unknown Speaker
+00:52:24
+Okay.
+user avatar
+Lacoste-Julien Simon
+00:52:25
+This is basically called the one hot encoding.
+00:52:29
+in machine learning term.
+00:52:36
+And so, or simple space in this case will be
+00:52:42
+k vectors.
+00:52:46
+Whoops. So I'll use AI for the
+00:52:51
+Basic vector
+00:52:53
+In our to the case. So I have
+00:52:56
+Cave actors.
+00:52:58
+Were EJ belongs to our to the gay and what's EJ. Well, it's the eighth basic vector. What is that it's just a vector.
+00:53:08
+Where you have zeros everywhere and you have a one in the eighth coordinate, which is why it's called a one hot encoding is because it has zeros everywhere. And there's only one
+00:53:20
+One which is weird indicate in the position of where the one appear is is encoding. What's the bus. What's the choice.
+00:53:34
+Okay, so that's your discrete number of choices.
+00:53:39
+And
+00:53:42
+We want to describe probably t
+00:53:47
+Over these k choice. So I need to have k numbers which are a non negative and which some to one. Okay, that's, that's the possible. That's all the possible PMS for this. And so we'll use just a vector in our to the k as well to describe the parameter. So the parameter
+00:54:08
+For an arbitrary discrete
+00:54:11
+Random variable on key choices. It's just out, we'll use pie instead of data, I guess. Not sure why.
+user avatar
+Unknown Speaker
+00:54:22
+Standard
+user avatar
+Lacoste-Julien Simon
+00:54:23
+Unit nation.
+00:54:27
+And it will belong to the property simplex. Right. So once it probably simplex that's a useful set that will appear a lot
+00:54:37
+So by definition, and I use as index the number of objects that they use to define a property on or the number of components. So this is a set of vector in Arcade. So by belongs to arcane
+00:54:57
+Such that
+00:54:59
+The pages are positive for all
+00:55:04
+Coordinates and the summation of my coordinates is equal to one, right.
+00:55:12
+This way, this then the page is really encode valued properties for all the option.
+00:55:18
+Which are possible. So this is called the property simplex
+00:55:30
+On key choices.
+user avatar
+Unknown Speaker
+00:55:34
+I guess in dimension.
+user avatar
+Lacoste-Julien Simon
+00:55:38
+And so here are parameter space for the multi new he
+user avatar
+Oumar Kaba
+00:55:41
+Will be the priority siblings.
+user avatar
+Lacoste-Julien Simon
+00:55:43
+Right. These are all valid.
+user avatar
+Unknown Speaker
+00:55:45
+Probably these
+user avatar
+Lacoste-Julien Simon
+00:55:54
+somebody's asking if we cannot instead
+00:55:58
+encode the parameter using only k minus one number instead of key numbers with some to one. And the answer is yes. And we'll see why this is useful somewhere else. But for now, we'll just use this power position.
+00:56:16
+And so
+00:56:18
+Let's display just a little drawing to just see what it looks like, let's say in dimension three. So in dimension three
+00:56:28
+It's actually the convex hall of the three bases vector. So it looks like that.
+00:56:34
+That would be data, right, so these are all numbers which are all in the positive orphaned because they have to be negative.
+00:56:44
+In the some of them is equal to one. That's why there's a plane constraints, right. So, and then more dimension, you get a hyper plane constraint. So it's the intersection of the some to one hyper plane and the positive. Awesome. That's what the property sentences.
+00:57:00
+And I'm not able to drive in dimension for because unfortunately I'm only able to do dimension three
+00:57:08
+Okay, and so we will write
+00:57:13
+The notation, we will use for a multimedia will be x i is distributed
+00:57:19
+Accordingly, according to a multi Neue with parameter pay
+00:57:24
+So that's the parameter of my Latino you
+00:57:28
+And this is called him into new district distribution.
+00:57:35
+Generalization of the Bernie.
+00:57:38
+OK, so now let's do the Milton Romeo, which is a generalization of the binomial.
+00:57:44
+So,
+00:57:49
+Now, if we consider like the binomial, we consider
+00:57:56
+And
+00:57:58
+roll dice dice roll.
+00:58:02
+Or dice for them. So I have x i, which are ID.
+00:58:07
+Routine UI with parameter pay
+00:58:10
+And then I define X to be the sum
+00:58:15
+Of all my mood to New Year in a variable. And here, this only works because of my encoding right if I had us one to the k and coding summing
+00:58:26
+The possibilities doesn't make any sense because something for somebody to with something possibly three to five. That doesn't make any sense. But because I have encoded
+00:58:34
+Each possibility within dimension k, then when I some the vector together. I just add the count of how many times I've observed each
+00:58:45
+Possibility, right, because I have a one for every time I've chosen this unit vector right
+00:58:52
+So this really tells you
+00:58:54
+The component of the vector x here tells you how many times I've chosen every possibility among and
+00:59:03
+Viral case sided dice roll right
+00:59:07
+And this is the severe according to the multi normal so like the binomial. You see how many throws I've done which is n and you you give a parameter pie, instead of just p. So, this is called the multi normal distribution.
+00:59:26
+So if you put n equals one. It's like a multi new you, by the way.
+00:59:30
+Is the multi normal
+00:59:36
+Distribution.
+00:59:41
+And it's PMS is a generalization of the binomial. So first of all, I have that x in this case.
+00:59:49
+Papa, so x we is a vector in our to the k
+00:59:55
+Actually, it's even natural number the k because there is our accounts and the sample space.
+01:00:03
+Of x is all integer vector and one blah blah blah and key such that NJ belongs to the natural number and the summation over Jay
+01:00:19
+And NJ is equal to n. Right, so
+01:00:24
+Basically the
+01:00:28
+I have observed n di role, and I'm counting how many times I've observed each possibilities and so because I have n di role, each person, the sum of all possibilities has to be right. So that's what the NJ represents
+01:00:43
+And the PDF
+01:00:46
+For x
+01:00:48
+So the probability of X given pie. I could also use semi colon by the same is I use the
+01:00:58
+Mucho mucho coefficient. So that's a generalization of the binomial coefficients are using station here, x one, blah blah blah, x n ke sorry
+01:01:10
+X x is a vector here. So using the parent is this subscript is busy to get the components.
+01:01:16
+And then I have the product.
+01:01:20
+Of the page G raised to the x.
+01:01:28
+And x was in one blah blah blah to NK
+01:01:33
+And Mitch nominal coefficient. So, this thing here is called mu t normal
+01:01:41
+Coefficient.
+01:01:44
+Just basically counting the number of ways I can
+01:01:50
+Per mutes things around when they have like in one, two NT such that the have a
+01:01:56
+Specific signature. So, okay. So, what I mean is,
+01:02:02
+Like the binomial coefficient was counting the number of ways I can choose
+01:02:07
+Cake heads among n possibilities here I it's I need to choose any one possibilities for the first choice among an
+01:02:16
+End to for the second choice. I'm on an end three to try and and I can compute all these together, right. So that's counting this, it turns out that it's actually a simple computer or coefficient, you have that the
+01:02:30
+Not sure if it's n one blah blah blah and k choose n you call this, but perhaps this is n factorial divided by and one factorial
+01:02:42
+Blah, blah, blah. And factorial. And so you can see that the binomial coefficient is the material coefficient when you only have two possibilities.
+01:02:51
+And you have that this you have k and n minus k because they have to some to him.
+01:02:57
+So that's the multi normal any question about it.
+01:03:10
+And so you can see the usefulness of the encoding is that now I can simply, you know, raise
+01:03:20
+The, the, probably t to the value the components of my vector right so it was if I hadn't going in a different way. It would have been difficult to express the PMs
+01:03:35
+Okay, so I'll let you think about this over the coffee break. So I'll take a 10 minute break. So it's 337 I'll be back at
+01:03:45
+347
+01:03:49
+Put some music. Oh, and that's posed the recording.
+01:03:57
+Okay. Is there any question in the break about the multi normal distribution.
+01:04:18
+Also, if you think I'm speaking too fast or too slow. You can go in the go slower go faster feedback. You can write in the chat.
+01:04:29
+You can
+01:04:31
+Attend I think sometimes to speak too fast, but I'm
+01:04:35
+Gonna give me the feedback. So that's the Mr normal
+01:04:41
+And alright so now let's do the maximum like you in this case. So let's do
+01:04:50
+Like the binomial, but
+01:04:53
+No, he
+01:04:59
+So,
+01:05:03
+The login so we want to. Suppose x is our observation and we want to maximize the likelihood of x.
+01:05:12
+Well, the likelihood of pipe. Right. So we want to find the pie which maximize and quality of the data. So let's construct the log likelihood as before the law like you'd
+01:05:24
+Like
+01:05:35
+So as a function of by little by
+01:05:41
+Oops. This is the log of p of x given pie.
+01:05:47
+So this is basically as before the log of a constant. The material coefficient in one blah blah blah to NK
+01:05:58
+Suppose again that I use annotation and one to n k for the components. The key components of my vector x right
+01:06:08
+This is a constant.
+01:06:11
+So I don't care about it when I optimize respect to pi. And then they have summation from G equals one, two k of NJ log of pages.
+01:06:25
+So, this we can ignore
+01:06:28
+When computing the enemy.
+01:06:37
+So what's the MLS here. Well, the Emily pie hat.
+01:06:43
+Of x
+01:06:47
+Is the arg max for pie in the property simplex. So I would write it like this, I will have buy in RK such that pie belong to the property simplex
+01:07:03
+Of the login so so this is so probably simplex here is capital theta is the set of parameters. I'm just using pie for some reason.
+01:07:14
+And so now what's separating is we have constraints which are
+01:07:20
+fairly important to take in consideration. So this is really a constrained optimization problem.
+01:07:25
+How do we handle that. Okay, so that's so this is kind of an excuse for me to talk about constraint of position.
+01:07:33
+And so there's actually two options at least
+01:07:39
+The first option, which was already mentioned by somebody, a while ago, or for
+01:07:47
+A video and actually send that file to Vivian.
+01:07:51
+Is to re prioritize the model in a full dimensional parent parameter space. So we read parameter eyes.
+01:08:00
+The problem.
+01:08:03
+To be
+01:08:06
+So that basically so that theta is full dimension.
+01:08:17
+What I mean a full dimensional okay so so basically here.
+01:08:24
+I played again my property simplex
+01:08:28
+That was data three. So I'm in three dimension because I my vector on dimension three
+01:08:35
+But it's actually a two dimensional object of privacy centric, so it's it's so, so the the property simplex is not full dimensional it's it's a two dimensional object in the sense that they can repel tries it with only two parameters.
+01:08:49
+Even though I mean dimension.
+01:08:52
+And so what I can do is I can say, well, I don't care about PK because I can just say pi key is one minus the summation from Jay equals one.
+01:09:07
+Two K
+user avatar
+Unknown Speaker
+01:09:09
+Minus one of by Jay
+user avatar
+Lacoste-Julien Simon
+01:09:12
+And I will just use
+01:09:15
+As parameters of my model k minus one number pie one, two pi k minus one.
+01:09:22
+Which have to be in 01
+01:09:26
+And with the constraint.
+01:09:29
+Which is now inequality constraint.
+01:09:35
+summation over j
+01:09:37
+K minus one by Jay
+01:09:40
+To be smaller than one. So if the summation of the key minus one coordinates small equal to one.
+01:09:48
+Then I can define the last coordinate as a valued probably t because then one minus that will be positive. If it's bigger than one, then that's not a valid. There's no way I can get the correct point of the policy kicks. Okay.
+01:10:04
+And so when we do that in some sense where like projecting the policy simplex
+01:10:12
+It's smaller equal
+01:10:16
+Because
+01:10:18
+These are close it smaller or equal
+01:10:22
+So what I've sold. So, this
+01:10:25
+Here would be the projection on the to the plane. So, this set here are pie one, pie to
+01:10:35
+Such that
+01:10:38
+Pie j is in 01
+01:10:41
+And summation of by Jay is small equal to one. Okay, so that's a full dimensional version of the property simplex, in particular in dimension to this is the set of numbers, right.
+01:10:55
+So this is 01
+01:10:57
+And you have this is basically pie one plus by two equals one.
+user avatar
+Unknown Speaker
+01:11:04
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:11:09
+So now you don't need to worry about this like annoying any equality constraint which reduce the effective number of degrees of freedom by one
+01:11:19
+And then the magic, you still have constraints, you said have boundary constraint of 01 but here the magic is there's actually some magic.
+01:11:29
+Is that log of by
+01:11:34
+Jay,
+01:11:35
+X.
+user avatar
+Unknown Speaker
+01:11:38
+I mean issues.
+user avatar
+Unknown Speaker
+01:11:44
+Acts
+user avatar
+Lacoste-Julien Simon
+01:11:46
+As a barrier function.
+01:11:52
+Away.
+01:11:54
+From pie J equals zero.
+01:11:59
+Okay, so what I mean by that is if we talk about sort of maximizing that he will will will minimize the negative log like you
+01:12:09
+So if I look at minus log of pi j
+01:12:15
+It looks like this. And so close to zero.
+01:12:23
+In this region here, I get a huge penalty. And so if I'm trying to minimize
+01:12:29
+Some of these kind of function like weighted some of these kind of function. This will make sure that I will never put page equals zero. It's something that will make sure that the pages stay positive.
+01:12:43
+And so because of that, it turns out that if you just do
+01:12:47
+Unconstrained optimization. So you can try.
+01:12:52
+Unconstrained
+01:12:56
+Optimization.
+01:12:59
+On by one
+01:13:01
+Two pi k minus one of
+01:13:05
+The log like to have as a function of these numbers.
+01:13:11
+Hoping
+01:13:15
+That's the solution.
+01:13:19
+Is in the interior
+01:13:23
+Of the constraints that
+01:13:30
+Will
+01:13:40
+Okay, so we'll
+01:13:42
+When we solve the problem. I'll show you why it's actually the case. But that's, by the way, that's what we've done already.
+01:13:49
+In the bird new you kicks in the brand new case. I only have one parameter, even though there was two options. So you can just think
+01:13:57
+Through New Years and machinery with cake was too. And so I already use the full dimensional pasteurization could have used that I wanted to such that the some to one, but I just use
+01:14:08
+And then this data had to be between zero and one. So let's go back to the Bernie, blah blah blah, or the sorry the binomial, but it's same with some liberties. Where was my
+01:14:20
+Maximum like you parameter. Here we go. So
+01:14:25
+Oh, I forgot here that I didn't want to have these hoops. The way he rates.
+user avatar
+Unknown Speaker
+01:14:34
+Issues now.
+user avatar
+Lacoste-Julien Simon
+01:14:37
+Ah,
+user avatar
+Unknown Speaker
+01:14:40
+Let's try something.
+user avatar
+Lacoste-Julien Simon
+01:14:43
+Oh, Alex.
+01:14:47
+Okay.
+01:14:50
+So you raise
+01:14:53
+Success. Success.
+01:14:58
+So,
+01:15:00
+Oops.
+01:15:03
+So this ratio here is always
+01:15:07
+In 01 right. So X is between is a bit between zero and and so the ratio of X Men is always between zero and one and so
+01:15:18
+Even though I forgot about the constraint that data has to belong to 01 I just treated this as an unconstrained optimization problem.
+01:15:26
+It turns out that when I said the derivative equals zero. And I looked at the solution, it was still fine was always feasible.
+01:15:33
+So, and that's because of the lug magic of the barrier thing. And so, so that's the binomial version of what's happening for the Middle East. And so it turns out that you know one way to do that would be indeed to just re penetration in a full dimensional set
+01:15:52
+Forget about these positivity constraints and boundary constraints, because you had you were lucky you had these function which push you away from the boundary. And when you do unconstrained optimization and you get a global men.
+01:16:05
+Adding constraint and if there's noblemen is feasible adding the constraint won't change anything, right, the constraint only change something when the solution will be outside of the constraints set and then the boundary will like clap things in
+01:16:19
+What's the word on the line before solution hoping. Good question.
+user avatar
+Unknown Speaker
+01:16:25
+Right, this
+user avatar
+Lacoste-Julien Simon
+01:16:28
+So, hoping
+01:16:32
+And the solution is in the interior
+01:16:35
+And that's okay so and so. So this, this approach is what we actually done for the binomial.
+01:16:41
+And it will work. And that's fine just said the great equals zero, you'll see it's working, but because I want to be pedagogical I wanted to show you to teach you about Lagrange multiplier. Let's do the second approach, which is to deal directly with the equality concerns.
+01:16:57
+Okay, so you use the method which is of Lagrange multiplier.
+01:17:07
+Approach.
+01:17:11
+To handle the equality concerns.
+01:17:31
+On the project simplex
+01:17:34
+And we will still ignore
+01:17:39
+The boundary
+01:17:42
+The positivity constraint like that the payday belongs to 01 constraint.
+01:17:49
+Because the the long term will take care of them.
+01:17:52
+Okay, then I don't think in this class I will talk about
+01:17:59
+The I forgot. I think when I will talk about maximum entropy to its maximum likelihood in the expansion of me duality.
+01:18:09
+I'm not sure I will talk about inequality constraints handling with Lagrangian approach. But anyway, I will formalize the language and method later here. We'll just give you the intuition.
+01:18:21
+But what's the setup the setup is that we want to maximize some function of pie.
+01:18:31
+Such that we have an equity constraint on pay, which is equal to zero.
+01:18:37
+And so in this case.
+01:18:40
+You know, I had summation over j KJ equals one. So I can translate it to one minus summation over j
+01:18:51
+Of by J equals zero, right. So that's the, that's the equity constraint that we will
+01:18:58
+So this is what we call
+01:19:02
+So,
+01:19:04
+That's the one we were trying to use for the maximum likelihood estimator.
+01:19:12
+In the multi normal case.
+01:19:15
+And so what's the Lagrangian multiplier approach. Well the idea is to define this language and function which is both a function of the original parameter and the Lagrange multiplier.
+01:19:30
+And normally, you would have one leverage multiplier for constraint here does only ones which will be a skater.
+01:19:35
+This is the Lagrange multiplier.
+01:19:40
+And will define the luggage and function as the original function where maximizing or minimizing
+01:19:48
+And the sign. Doesn't matter for equality construct. So I'll just use. Plus, if you look at the Wikipedia article usage minus, though I think they might be minimizing
+01:19:58
+But you'll see that in the case of equal he constraint, the sign doesn't matter at all. So you can just put a plus or minus, doesn't matter. And then you put the constraint, you
+01:20:08
+And the method is to look
+01:20:14
+At discretionary points.
+01:20:18
+stationary points.
+01:20:21
+Which are to zero gradient
+01:20:24
+Of this leveraging function.
+01:20:29
+Okay. And these points will be necessary conditions.
+01:20:36
+These will be necessary.
+01:20:40
+Supposing that everything is differential
+01:20:45
+For local optimum.
+01:20:49
+And then you can check
+user avatar
+Unknown Speaker
+01:20:53
+You
+user avatar
+Lacoste-Julien Simon
+01:20:57
+Can check
+01:21:00
+The something called the bordered Hession I won't go into detail of that.
+01:21:06
+To
+01:21:09
+Get
+01:21:11
+Local men.
+01:21:13
+Are max information.
+01:21:17
+The same way as before you check stationary points that these aren't necessary and then if you want to know if it's a local mean our local Max, you need to look at the second derivative in general.
+01:21:25
+Unless you know stuff about your function like if if f is concave and we're maximizing it. Well, then the story points here, supposing G, for example, is linear, like it is here, then the point of the of the Lagrangian function that I just define will indeed be the global max.
+01:21:46
+And so what are the century point of that. So if I take the derivative of J respect to pi.
+01:21:54
+R Us this notation here. So the gradient of g respect to buy
+01:21:59
+This has to be equal to zero and the derivative of Jay respect to lambda
+01:22:07
+Has to be equal to zero. This is just
+01:22:10
+G of pie. When you take the derivative of Jay respect to lambda, all you get a j phi. And so, all you're saying is that Jeff by equals zero, which all it means is that pie is a positive is it satisfies the constraint, right, because these are the feasible.
+01:22:38
+Okay, there's a few questions from the past. Do we need to push the pages away from one as well. I'm
+01:22:48
+In a pop up.
+01:22:53
+No big. Well, yes, you need to. But this is done by the the reprivatisation right so if you look at the log likelihood here.
+01:23:03
+So when I looked at
+01:23:06
+lug of pie K. This is one minus summation of OJ of pages, right. So I have loved of this. And so if any pages close to one, this will be
+01:23:18
+basically giving zero in the argument of the login, will it will be pushed away. OK, so the so the case term of my log likelihood will actually handle the pushing away from one
+01:23:52
+So start back, ask the question, if you can tell in advance whether solving the unconstrained version.
+01:24:00
+should satisfy the constraint or you need to solve it. And in general, you need to solve it.
+01:24:07
+And actually, that's fine, right, that usually the unconstrained version is simpler. So it's I think it's a if you're if it's kind of a nice approach to just
+01:24:17
+Forget some constraints solve it, see what it does. And that gives already some insights on the problem. And then if you're lucky.
+01:24:25
+It satisfies the constraint and you're like, Okay, I'm done. If you're unlucky will then you need to go through like Grinch and approach to handle the constraints or other constraint of tradition.
+01:24:37
+Now if you know something about the function like in this case there are barrier function, then you could have concluded that
+01:24:43
+The unconstrained optimization will likely satisfy the constraint, because here. What happens is, you know, you know the the objective blows up at the boundary. And so, you know, you'll you'll stay away from the boundary from just a look like you shake
+01:25:11
+Check. So somebody is asking about what is this, this is
+01:25:16
+Something called the bordered
+01:25:21
+Has him. So it's a test yet have mentored with the constraints.
+01:25:26
+Which actually I learned today. By the way, because I was curious, like, okay, what are the second order tests in these equality constrained by grunge and stuff and Wikipedia told me or check the board edition.
+01:25:39
+But as you notice, if I didn't know about that before. This is not like this is outside the scope of the class.
+01:25:46
+But it's just for curiosity.
+01:25:51
+And somebody asked are there constraint on the constraint that can be handled by the leveraging multiply, multiply method.
+01:26:01
+Yes. So first of all, like,
+01:26:04
+It has to be so the one I'm talking about here. I'm taking the story points. I'm thinking the gradient. So it has to be differential
+01:26:11
+And then if you only care about local men and local Max, then that's fine as long. I mean, as long as you're able to find a string points, it might be intractable to find the stitching points because you might have to solve.
+01:26:23
+A transcendental equation for example. And so then you need numerical techniques which you know will come back later. Right now I'm doing analytical techniques, basically, that's what I'm doing.
+01:26:33
+But yeah, so there's no other constraints. If you want to have easily global men are global, Max, then you need more regulated conditions. For example,
+01:26:44
+You need the the equality constrained to be linear. Basically, if it's, if it's a nonlinear function. Usually you you get trouble because you basically get a non complex problem to work with.
+user avatar
+Unknown Speaker
+01:26:58
+So we'll come back to that. Q.
+user avatar
+Lacoste-Julien Simon
+01:27:03
+Okay, well let's just do it in practice, to see how it works.
+01:27:07
+So I have my leg leg. Good.
+01:27:13
+elif pie. But it's summation over j
+01:27:19
+Of NJ log of ag
+01:27:23
+Right, I forgot the constant
+01:27:26
+Remove my mug away.
+01:27:31
+And know that is so this is actually a concave
+01:27:35
+Function.
+01:27:37
+Is in pi j. So, if you compute the person
+01:27:42
+For feasible pie.
+01:27:45
+Basically pies, which are
+01:27:49
+In the interior of your property simplex
+01:27:53
+This will be negative different. So this is why it's a 68 strictly crew came to me it's tricky could give
+01:28:03
+Which means that if it's strictly concave, it will have unique
+01:28:07
+stationary point
+01:28:11
+So I think that the partial derivative of Jay, we expect to pay J.
+01:28:16
+Remember that Jay is my augment my leg arrangement, the language and function. Right. So I want to find the pies, such that this is equal to zero.
+01:28:25
+So, so I take the derivative of l with respect to pi. And I will just get
+01:28:34
+NJ divided by Jay
+01:28:39
+So there's, there was a some of key terms. So here I had to some of our key terms now I'm looking at pi j. So, there's only the N G that that will look at
+01:28:49
+And I also have this constraint to to consider.
+01:28:56
+And
+01:28:58
+The constraint was written here. So it's one minus some of the pages. So if I think the derivative of this respect to pay. Jay, I just get a minus one.
+01:29:09
+And this was times, London, so I get
+01:29:12
+Minus lambda. And I want this to be cool to see
+01:29:18
+That pretty simple equation to solve. So, this implies that page A star is just NJ divided by lambda
+01:29:26
+So that's pretty standard in Lagrange multiplier method. You'll often have that this lambda is some scaling.
+01:29:38
+Such that the constraint is satisfied. Right. And so in particular.
+01:29:44
+Now I want to solve the other part of the especially constraint which is that g of Python star is equal to zero.
+01:29:53
+IE, that the summation over j of by Jay
+01:29:58
+Is equal to one.
+01:30:01
+And so if I some
+01:30:04
+Of the pages start I wrote above that imply that this is summation over j of NJ divided by lambda I want this to be equal to one.
+01:30:15
+Which implies that my optimal Lagrange multiplier is just a summation over j of the engine.
+01:30:23
+Which is equal to 10
+01:30:26
+Okay, so we get that the optimal
+01:30:32
+Parameter value for the multi normal is just also, it's the relative frequency of the observation. So it's NJ, divide by. So this is the Emily.
+01:30:45
+For a multi month for a multinational also very natural.
+01:30:58
+Okay, so notice
+01:31:01
+So notice
+01:31:03
+That pages star because it's ratio of energy divided by n. So it's always between zero and one. So, it is like I said, this is
+01:31:15
+Belong to 01 so it satisfy the constraint already
+01:31:21
+Been by the constraint on the observation set that the sum of the energy divided by n. This that some of the energy is equal to end. So then I know that the some of the pages is equal to one.
+01:31:41
+OK, so now somebody is asking about, oh, what about the boundary cases. So if the page j is equal to so if NJ is equal to zero for some
+01:31:55
+J. Then I get that page, the stars to zero which is up the boundary, but that's fine. So this formula is still valid. Even though.
+01:32:06
+You know, you need a bit more work to kind of prove that everything is fine.
+01:32:11
+Because
+01:32:17
+Because basically, the well I guess what happens here is in the if you look at the log lacunae which is here.
+01:32:30
+When this is equal to zero hoops.
+01:32:39
+When this is equal to zero here, then this any value of pay doesn't enter in the objective
+01:32:52
+But what will happen.
+01:32:54
+Is that
+01:32:58
+The other terms will basically set all their value to be the ratio and which implies that the remaining terms will be zero, that still works.
+01:33:21
+And okay I guess everybody is fine. So perhaps
+01:33:28
+A little drawing to illustrate the semantics of the language with the buyer. So why does works. So there's actually a nice subtle point interpretation that I will talk about later, when I talk about the ingenuity, but there's a picture behind this approach.
+01:33:54
+To player.
+01:33:56
+Technique.
+01:33:58
+So the idea is, I have some objective that I'm trying to, let's say, maximize. Okay, so these are the sub level set of
+01:34:08
+So these are the
+01:34:10
+level sets.
+01:34:12
+Of f of x. Okay, so IE.
+01:34:17
+It's the set of points which all have the same value. So
+01:34:22
+Set Point.
+01:34:24
+X such that f of x is equal to some by. You see, and as I barely see I get different levels.
+01:34:34
+And
+01:34:36
+Let's say, now I have my
+01:34:44
+Set the feasible point which is determined by the curve, such that g of x equal to zero.
+user avatar
+Unknown Speaker
+01:34:52
+Okay.
+user avatar
+Lacoste-Julien Simon
+01:34:55
+Which basically means that these points are on the level set
+01:35:01
+Of g of x at values you. So this is also a level set right so I could you know probably like if I could.
+01:35:10
+Perhaps I'll I can complete the curve. Let's compete curve, this is g of x equals zero, and perhaps it looks like an ellipse as well. It's, it's a quadratic
+01:35:18
+Right, and so I could have
+01:35:23
+And now the magic is you know that in calculus that the gradient
+01:35:30
+The gradient is perpendicular to the level set so graph of f is perpendicular to the level set at any point when the function is smooth. You have that the gradient is the direction of maximum increase and it's perpendicular to the constant value of the function
+01:35:51
+And and so
+01:35:54
+Same thing here, the gradient of Jay will be
+01:36:00
+Perpendicular
+01:36:06
+At
+01:36:09
+Any point
+01:36:17
+And it turns out that that the optimum point you will have that
+01:36:23
+The gradient of f.
+01:36:26
+Should be parallel should be pampered the color to the possible variation
+01:36:33
+Of
+01:36:35
+In the physical set because the directional derivative is the duck product between the gradient and the direction
+01:36:42
+And so if the duck product between the direction and the greatest zero. That means that basically I have a special report so so moving in any direction. Any feasible direction from x is not increasing or decreasing my my function and does. I have a status report.
+01:37:01
+And so it's critical to level set but the grid of jays also preparing to go to the level set. And so it turns out that they're parallel. And that's what the leveraging
+01:37:10
+Is basically telling you because I have here that grant of Jake is perpendicular to the level set and granted this is perpendicular to the level set as well.
+01:37:24
+And so I have that, you know, this is a star. And so I have that graph of f of x star.
+01:37:32
+Is basically parallel to ground up Jay star. And so I put some factor when they're palo you put a factor. It could be negative. By the way, it would be positive. Doesn't matter. Once you have j of extra day I eat you have graph of f and g or parallel
+01:37:52
+So basically this this is German Kiki what's happening. And that's what this arrangement supplier approaches.
+01:38:01
+I guess here my star was a bit
+01:38:25
+Any quality constraint, you will have a similar picture, but instead of having just level set, you'll have some level set and you'll just want to make sure that the
+01:38:33
+The gradient of Jay points in the right direction, compared to the visibility set of the sub level set of the of the of the inequality constraints. So then that just means that you'll have constraints on the
+01:38:50
+You'll have constraints on the sign of the Lagrangian multiplier to make sure it's it works.
+01:38:57
+But we'll get back to that when we talk about any coffee culture.
+01:39:02
+All right. Any question about this.
+01:39:13
+Isn't beautiful
+01:39:15
+I like this. I mean, this is kind of ugly picture, but I think it's
+01:39:19
+I think it's cool that bridge with the player. Cool.
+01:39:24
+Marvelous. Oh yeah, like that. Alright. So let me start statistical decision theory because it's
+01:39:32
+It's important for the assignment as well, I guess. Let's talk about the square less lifetime in six minutes, hopefully.
+01:39:40
+Statistical
+01:39:43
+Decision.
+01:39:46
+Theory.
+01:39:51
+And I will. I'll go through the false formalization next class right now. I'll just give you the bias variance, the composition, which is what you will need to do
+01:40:01
+So the bias variance
+01:40:05
+The composition
+01:40:11
+For the squares.
+01:40:16
+Squared loss.
+01:40:21
+an estimator.
+01:40:25
+Is a function
+01:40:28
+From the data.
+01:40:32
+I Ed observation.
+01:40:36
+Two parameters that we're trying to estimate
+01:40:40
+And more generally, you could think of a parameter as a complicated object parameter could be the parameter of a function. So it could be a whole function. But right now, let's think about say deployment of a Gaussian. So it's a finite dimensional vectors of simple
+01:40:56
+And example of estimator, or the estimator, which I already mentioned. So this is
+01:41:05
+The arg max.
+01:41:08
+Over my parameters of the likelihood
+01:41:14
+And we also talked about the map estimator.
+01:41:17
+The map estimator maximum epic story theory is instead the art max.
+01:41:24
+Or my parameter of the posterior be afraid. I give an x.
+01:41:29
+Which is the same thing, removing the constant marginal look like you'd have the joint p of x given data times P of theater. Right. So I had both the
+01:41:42
+The likelihood
+01:41:45
+Like the hood.
+01:41:48
+And the prior
+01:41:50
+It's kind of a weighted like version.
+01:41:54
+Okay. And so now let's say I want to compare this to estimator. So how do we evaluate an estimate. So how
+01:42:02
+Do we
+01:42:04
+Evaluate
+01:42:07
+And for these estimators
+01:42:18
+And so as I said it estimator is a function
+01:42:22
+From the observation to the parameter. So I'll use delta for this function. That's pretty standard and statistics to use delta as the estimator. So it's a estimator. It's a function from the observation. So omega to the parameter space. Okay.
+01:42:38
+And in terms of notation, we could say theta hat. So the value of our estimate is just the mapping
+01:42:46
+With delta of and using or random variable capital X as so theta hat is a random verb because it depends on the random observation capital X. So think of, you know, x could be the observation of a binomial or multi normal or a gash in random variable.
+01:43:07
+And so in the next class I will formalize all this framework, but now let's just look at the most standard tool.
+01:43:15
+To evaluate
+01:43:18
+It's called the frequent this risk.
+01:43:26
+Of an estimator.
+01:43:36
+And so it's the noted as our. It depends on the value of the true parameter theta.
+01:43:44
+And on the estimator that I'm considering so delta and by definition, it will be the expectation over the random observation of something which is called the loss which tells me
+01:43:59
+When the true value of the parameter is data and I have predicted
+01:44:04
+Data hat or delta x.
+01:44:09
+how bad this is and I think the expectation over the
+01:44:15
+The possible data. Okay, so, so this L.
+01:44:19
+Here is called the statistical loss function.
+01:44:25
+And we'll go more into details next class.
+01:44:32
+And so what we do here is an average over possible data. So, so this is basically tell you mean you this estimator, how well does it do an average over all possible observation from
+01:44:50
+Okay, so that's the frequencies risk.
+01:44:55
+And so now if the statistical last that we use is a square loss.
+01:45:00
+Just want to talking about the square less. So the square last will use when we estimate theta and we predicted a prime
+01:45:12
+It's just the LT not so that's the multivariate generalization of the one dimensional squared us
+01:45:20
+So it's the norm square
+01:45:24
+Yeah.
+01:45:26
+And so
+01:45:30
+Now there's a square less. So if I compute the frequent this risk of the square less. Let's do that expectation over X of norm of theta minus
+01:45:43
+And I'll use data hat for my let's use that a hat, remember, is the decision we make
+01:45:51
+Don't have X. So I have stayed on my in a state of hat. They'll to Nome square. I'm all Google slightly over time, but I'll try to wrap up every like two or three minutes so
+01:46:05
+If you have to go he will have the recording. Sorry about that.
+01:46:09
+So yes, I want to take the expectation of X of data miner state. I had to norm squared. So what I do is I do something which has done a lot in math is at zero. So this is theta minus expectation of Theta hat.
+01:46:26
+Plus expectation of Theta hat minus beta hat sell to an arm square right so this thing is just, I've just added zero. So it doesn't do anything. But it's very convenient.
+01:46:42
+And now.
+01:46:46
+I can expand the Sturm. So this is basically a quadratic term. So I can have the first term square. So, this is the expectation of the norm of theta minus expectation theta.
+01:47:01
+Square.
+01:47:04
+Plus, so that's basically
+01:47:08
+This first term that I did a squared, that then I have the other term squared. So expectation of
+01:47:18
+norm of theta hat minus expectation of data hat.
+01:47:34
+Yes.
+01:47:38
+Squared.
+01:47:41
+And then I have the cross term so plus two.
+01:47:45
+And then expectation and then I use the because it's these are vectors. I'm using the inner product validation. So we'll have the first term theta minus expectation of Theta hat.
+01:47:59
+And the other term which is expectation of data hat minus data.
+01:48:07
+Okay, so these were the cross term. They had two of them.
+01:48:12
+And so now
+01:48:15
+I can use the linearity of the expectation on
+01:48:22
+On the product because this is linear. So, so this thing here. So theta is a constant data is there is a true parameter which that constant expectation of data is also constant because I do the expectation. So this is a constant. And so I can move this inside right because it's a linear
+01:48:42
+That's the unity of expectation. So what I get then is this becomes to expectation and not the expedition inside this becomes
+01:48:58
+Data minus expectation of data hat.
+01:49:02
+And then expectation of feta hat.
+01:49:06
+minus expectation of data.
+01:49:10
+And so this is so basically the crust term vanishes.
+01:49:16
+So I'm left with two terms.
+01:49:19
+And these two terms are the bias and the variance read. That's why it's called the bias against the competition. So I have that the risk
+01:49:27
+Of a the squared, the frequent this risk of an estimator. When I use the square loss which is the expectation over x of the data minus data hat.
+01:49:41
+Square this split into pieces.
+01:49:46
+It's the norm of theta minus expectation of beta hat.
+01:49:53
+Square.
+01:49:56
+Plus the variance
+01:50:01
+beta hat minus expectation of beta hat.
+user avatar
+Unknown Speaker
+01:50:06
+Square.
+user avatar
+Lacoste-Julien Simon
+01:50:08
+Okay, so, and here, by the way, there was a there was an expectation, but this is a constant. This is a constant. So, this expectation doesn't do anything. That's why there's no expectation
+01:50:21
+Here. Okay. And so this first term.
+01:50:24
+Is called the bias square
+01:50:29
+And this term is called the variance
+01:50:34
+And so and so bias here.
+01:50:38
+By definition, will be the norm.
+01:50:42
+Of theta minus expectation of data hat. So you look at what's the average value of your parameter and is an average over a possible observation is your estimate the correct value. That's what the bias means
+01:50:57
+And so the
+01:51:00
+So the, the risk. Oops.
+01:51:04
+Four Square loss.
+01:51:08
+Is equal to buy a square plus variance and all these are positive value. And that's why there's a. It's called the bias variance decomposition
+01:51:22
+Just very fundamental and statistics.
+01:51:27
+And I think I'll come in more in this next class. And I'll put in quotes trade off.
+01:51:33
+Because usually the trade off. But now, the important thing is in the assignment I talked about is the estimator consistent. So let's talk about this so consistency.
+01:51:47
+Informally, what it means.
+01:51:51
+Is that you do the right thing.
+01:51:57
+As n goes to infinity.
+01:52:01
+Where n
+01:52:03
+Is the training set size.
+01:52:14
+So you can think here now x will be
+01:52:19
+Some idea observation from one up to n and theta can be indexed by data and which basically mean
+01:52:32
+What's the estimate using data of size in
+01:52:37
+Okay. And so in the assignment. We want to know when is the Emily estimator consists of the money, but I give you example of estimators and to tell you is this estimate or consistent, which
+01:52:50
+Formally would normally mean that in a theta and a hat in quality will converge to the right value, but in the assignment is just sufficient to look at the bias in the variance
+01:53:02
+So if the bias of theta and hat.
+01:53:07
+Goes to zero as n goes to infinity and the variants
+01:53:14
+Of theta and a hat goes to zero, then that implies by the band's variance decomposition, that the risk of theta, theta and hat.
+01:53:27
+Goes to zero as n goes to infinity. And we would call this, then that data and hat is consistent
+01:53:37
+Okay, because this also implies that data and hat converge to in probably two theta, which is a more the standard standard notion of consistency.
+01:53:49
+And then to show that it's not consistent. Well, you need to show that it does not converge to theta in property or that these biases and parents will always be positive. So I think
+01:53:59
+In general, like the bias in the variance not going to zero is not sufficient to show that it's not consistent, but in the assignments. If it's sufficient, you can just use that
+01:54:09
+Okay, so sorry for going over time. I just want to make sure I show you that so that you can do the last part of the assignment.
+01:54:17
+next class I will
+01:54:19
+formalize more what statistical decision theory is and give you an example of estimators and properties of estimates.
+01:54:26
+So is there any lingering important questions.
+01:54:44
+So somebody is asking question about the assignment.
+01:54:50
+So I'm thinking the assignment. I'm talking about random variable. So if I have x condition independent
+01:54:58
+Why W given Z. The y comma W means to join factor.
+01:55:08
+Is the conscience of the property respected by the Beijing distribution and parameters.
+01:55:13
+So map will be a constant estimator, as long as your prior satisfy some regard he condition. The Emily usually will be a consistent estimator as well on the record the conditions.
+01:55:31
+And somebody asked a question whether
+01:55:34
+If you don't use the log and you try to maximize the non log version.
+01:55:41
+Well, you just get very messy derivative, basically because you get like
+01:55:45
+Theta x. So you have a product of terms right so then when you take the derivative product, you need to have like the
+01:55:52
+First term product all the other terms, they would have second term times all the terms. So you get a very messy derivative. And so just looking at certain conditions will be a bit hairy. That's why the adventure of the log is to make everything linear
+01:56:11
+Okay, so I think I went way over time. So I think I will wrap it up here so well.
+01:56:20
+See you all on Friday.
+01:56:25
+Oh, and importantly, there is a deadline on Thursday, which is to drop the class. If you want to drop the class. The deadline is to
+01:56:34
+Do it on Thursday. So don't forget
