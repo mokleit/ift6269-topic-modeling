@@ -1,0 +1,20 @@
+Topic: 0
+  matrix, transpose, inverse, conditional, sigma, covariance, analysis, factor, gaussian, parameter
+Topic: 1
+  mixture, people, algorithm, latent, step, conditional, assignment, learning, non, gaussian
+Topic: 2
+  potential, graph, message, tree, gm, node, algorithm, edge, marginal, messages
+Topic: 3
+  matrix, vector, linear, square, sigma, inverse, half, delta, transpose, covariance
+Topic: 4
+  graph, conditional, graphical, independent, independence, marginal, parents, directed, definition, variables
+Topic: 5
+  theta, log, expectation, max, local, likelihood, parameter, global, concave, em
+Topic: 6
+  prior, parameter, theta, estimate, observation, risk, theory, learning, bayesian, likelihood
+Topic: 7
+  square, transpose, gradient, method, regression, sigma, conditional, linear, solution, step
+Topic: 8
+  sample, sampling, chain, proposal, state, approximate, conditional, samples, expectation, markov
+Topic: 9
+  entropy, family, log, respect, kale, summation, parameter, expectation, observation, constraints
