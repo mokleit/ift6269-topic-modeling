@@ -1,0 +1,458 @@
+IFT 6269: Probabilistic Graphical Models Fall 2017 
+
+Lecture 3 — September 12 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Philippe 
+Brouillard 
+and 
+Tristan 
+Deleu 
+
+
+Disclaimer: These notes have only been lightly proofread. 
+
+3.1 Parametric Models 
+3.1.1 Family of distributions 
+A parametric model is a family of distributions that is defined by a fixed finite number of 
+parameters.1 
+
+
+A family of distributions is formally defined as follows: 
+
+P = {p(·; ) |  2 } 
+
+where p(·; ) is the possible pmf or pdf (understood from context) depending on the parameter
+  and  is the set of all valid parameters.2 
+
+
+The support of distribution X is usually fixed for all . For example, the support 
+of a distribution modelling a coin flip could be X = {0, 1}. Similarly, for the gamma 
+distribution, the support is X = [0, +1[. 
+
+3.1.2 Notation 
+To indicate that a random variable is distributed as a known distribution, we use the symbol 
+””. For example, to indicate that the random variable X is distributed as a Bernoulli 
+distribution of parameter , we would write: 
+
+X  Bern() 
+
+This notation is a shorthand for: 
+
+p(x; ) = Bern(x; ) 
+
+where p(x; ) represents the pmf for X, and Bern(x; ) indicates that we refer to the pmf (on 
+
+x) for the Bernouilli distribution. 
+1We will see later in the class non-parametric models, which basically means that the number of parameters
+ is (potentially) infinite. These models are usually fit from data with a number of (effective) parameters 
+growing with the size of training data.
+
+2Using p(x; ) instead of p(·; ) would be an abuse of notation since p(x; ) is only a scalar for a specific 
+x and not a pmf/pdf. 
+
+3-1 
+
+
+Lecture 3 — September 12 Fall 2017 
+
+To take another example, if the random variable X is distributed as a Normal distribution 
+with parameters μ and 2, we would write: 
+X N (μ, 2) 
+that is similar to say that it has a pdf (as now X is a continuous R.V.): 
+p(x;(μ, 2)) = N (x | μ, 2) 
+
+3.1.3 The Bernoulli distribution 
+The pmf of a Bernoulli random variable X is given as follows: 
+
+p(x | )= x(1 − )1−x 
+
+The support of the distribution is X = {0, 1} and the space of the parameters is  = 
+[0, 1]. From the pmf, we can see that P{X =1 | } = .3 
+The expected value and the variance of a Bernoulli random variable X are: E[X]=  Var[X]= (1 − ) 
+We can see from the figure below that the variance is at its highest point when  =1/2. 
+
+ Var[X | ] 
+1 
+4 
+1 
+2 
+
+Intuitively, the Bernoulli distribution models a situation where there are only two possible 
+outcomes: either a success or a failure. The classical example is a coin flip: if getting a head 
+is a success, X will equals 1. In this case, the parameter  would be the probability to get 
+a head. 
+
+3.1.4 The Binomial distribution 
+A binomial distribution Bin(n, ) can be defined as the sum of n independent and identically 
+distributed (i.i.d.) Bernoulli random variables with parameter . Formally: 
+
+3Note that instead of , p is also often used as a parameter for the Bernoulli and the Binomial distribution. 
+
+3-2 
+
+
+Lecture 3 — September 12 Fall 2017 
+
+Let Xi iid Bern() 4 
+
+
+P 
+
+n
+
+Let X = 
+
+i=1 Xi 
+then we have that X  Bin(n, ) 
+The support of the distribution is X = {0, 1, ..., n} and the space of the parameters is 
+
+ = [0, 1]. 
+The pmf is given as follows: ! 
+p(x; ) = n 
+x x(1 − )n−x   
+
+n
+
+The term x is equal to the number of ways to get x successes out of n trials. Formally, 
+this is defined as follow: 
+
+! 
+
+nn! 
+
+x , 
+x!(n − x)! 
+
+As for the term x(1−)n−x, we can notice that it is the product of the pmf of n Bernoulli 
+random variables, since: 
+
+n 
+= xi 
+(1 − )(1−xi) Y 
+
+x(1 − )n−x = Bern(xi; ) 
+i=1 
+
+The expected value and the variance of a Binomial random variable X can be deduced 
+
+n
+
+from the Bernoulli’s expected value and variance, since X = P 
+i=1 Xi : 
+
+X 
+
+E[X]= E[Xi]= n 
+
+i 
+
+X 
+
+Var[X]= Var[Xi]= n(1 − )
+
+by 
+indep. 
+
+
+i 
+
+Intuitively, the Binomial distribution can be seen as a model for n independent coin flips. 
+
+3.1.5 Other distributions 
+• The Poisson distribution is often used to model count data: the pmf is Poisson(x|), 
+where  is the mean parameter. X = N. 
+• The Gaussian distribution is the most common distribution for real numbers. The pdf 
+is denoted N (x|μ, 2), where μ is the mean and 2 is the variance parameters. X = R 
+here. 
+4 
+Implicitly, Xi refers to X1, ..., Xn 
+
+3-3 
+
+
+Lecture 3 — September 12 Fall 2017 
+
+• The gamma distribution is often used to model positive numbers. The pdf is denoted 
+Gamma(x| , ), where is the shape parameter and is the rate parameter. X = R+. 
+Here is a list of other common distributions (look them up on Wikipedia): Laplace, Cauchy, 
+exponential, beta, Dirichlet, etc. 
+
+3.2 Statistical Concepts 
+Probability theory can be used as a way to infer or generate data from a model. This is a 
+well defined problem. On the contrary, statistics is a way to infer a model based on observed 
+data. This is an inverse problem that is unfortunately ill-defined. 
+
+Probability Theory 
+
+
+X
+
+model data 
+
+
+Statistics 
+
+To illustrate the difference between probability and statistics, suppose we have a model 
+that can generate n independent coin flips. A classical probability theory problem would be 
+to calculate the probability of k heads happening in a row. In this case, the model would be 
+given without data. In the case of statistics, we would only have observed data (e.g. k heads 
+on n trials) and the model wouldn’t be accessible. A classical statistics problem would be 
+to infer the parameters of a model that explains the observed data (e.g. what is the bias of 
+the coin flip in this example). 
+
+3.2.1 The Frequentist and the Bayesian 
+As stated earlier, the statistics problem is ill-defined. Furthermore, even the meaning of 
+a probability can differ from different philosophical point of views. Two major schools of 
+thought using different meaning of probability have arisen: The Frequentist and the Bayesian. 
+
+1. The traditional Frequentist semantic is the following: 
+P(X = x) represents the limiting relative frequency of observing X = x if we could 
+repeat an infinite number of i.i.d. experiments. 
+
+2. The Bayesian semantic is the following: 
+P(X = x) encodes an agent ”belief” that X = x. 
+3-4 
+
+
+Lecture 3 — September 12 Fall 2017 
+
+The laws of probability characterize a ”rational” way to combine ”beliefs” and ”evidence”
+ (i.e. observations). This approach has many motivations in terms of gambling, 
+utility, decision theory, etc. 
+
+3.2.2 The Frequentist interpretation of probability 
+To illustrate the view of the Frequentist interpretation, we will analyze an example. For a 
+discrete random variable, suppose that P {X = x} =  then P{X 6= x} =1 − . 
+
+Let B , 
+1{X = x} Bern(), which encodes the event that X takes the value x. 
+Suppose we repeat the i.i.d. experiments a large number of times, i.e. Bi iid Bern(). 
+By the law of large numbers, we have that the empirical average i.i.d. R.V.’s will converge 
+
+to its expected value: 
+
+1 X 
+
+Bi ! E[Bi]=  
+
+n!1
+
+n 
+
+i 
+
+We can also show that the empirical average will concentrates tightly around the value  (by the central limit theorem). 
+Consider the R.V. which represents the sum, it has the distribution: 
+
+n
+
+X 
+
+Bi  Bin(n, ) 
+
+i=1 
+
+The expected value and the variance of the average are the following: 
+
+1 X n 
+
+E[ Bi]= =  
+
+nn
+
+i 
+
+1 X 11 (1 − )
+
+Var[ Bi]= Var[Bin(n, )] = 2 n(1 − )= .
+
+2
+
+nn nn
+
+i 
+
+We thus see that the variance of the empirical average goes to zero as n !1, showing the 
+concentration. 
+More precisely, we have by the central limit theorem that: 
+
+ 1  
+
+p
+
+n Bin(n, ) −  ! N−d (0,(1 − ))) 
+
+n 
+
+Notice the scaling of the difference by p
+n. For large n, the distribution of the empirical 
+average is close to a Gaussian distribution with mean  and variance (1 − )/n. 
+
+3.2.3 The Bayesian Approach 
+The Bayesian approach is very simple philosophically: it treats all uncertain quantities as 
+random variables. 
+
+3-5 
+
+
+Lecture 3 — September 12 Fall 2017 
+
+In fact, it encodes all the knowledge about a system (the ”beliefs”) as ”prior” on probabilistic
+ models and then uses laws of probabilities (and Bayes rule) to get answers. 
+
+The simplest example to illustrate the Bayesian approach is the result of n coin flips 
+of a biased coin. We believe that X  Bin(n, ). Since  is unknown, we model it as a 
+random variable. Thus, we need a ”prior distribution” p() with a sample space defined as 
+
+ = [0, 1]. 
+Suppose we observe X = x (the result of n flips), then, we can ”update” our belief about  using Bayes rule: 5 
+
+
+p(x | )p() 
+
+p( | X = x)= 
+
+p(x) 
+
+where, 
+
+p( | X = x) is the posterior belief, 
+
+p(x | ) is the likelihood or the observation model, 
+
+p() is the prior belief and 
+
+p(x) is the normalization or ”marginal likelihood” 
+
+To illustrate the bayesian approach, suppose that p() is a uniform on [0, 1], i.e. the prior 
+doesn’t encode specific preferences. 
+
+p( | x) / x(1 − )n−x1[0,1]() 
+
+(where x 2 0: n) The symbol ”/” means that it is proportional to, i.e. we can drop any 
+term that doesn’t contain . 
+
+The scaling factor is: 
+
+Z 1 
+
+x(1 − )n−x d = B(x +1,n − x + 1) 
+
+0 
+
+The beta function is defined as: 
+
+􀀀(a)􀀀(b)
+
+B(a, b) , 
+
+
+􀀀(a + b) 
+The gamma function is defined as: 
+
+Z 1 
+
+􀀀(a) , 
+u a−1 e −u du 
+0 
+
+5Note that if p(x | ) is a pmf and p() is a pdf, then the joint 
+p(x, ) will be a mixed distribution. 
+
+3-6 
+
+
+Lecture 3 — September 12 Fall 2017 
+
+p( | x) = Beta(; x +1,n − x + 1) is a beta distribution defined as: 
+
+ −1(1 − ) −1 
+
+Beta(; , ) , 
+1[0,1]()
+
+B( , ) 
+
+As a Bayesian, the posterior distribution p( | X = x) contains all the information we 
+need to predict the likelihood of an event. 
+
+For example, what is the probability that the next coin flip is F = 1? 6 
+
+
+p(F =1 | )=  
+
+By using the marginalization over , we get:
+
+Z 
+
+P (F =1 | X = x)= P(F =1, | X = x) d 
+
+ 
+
+By using the chain rule, we get:
+
+Z 
+
+= P(F =1 | , X = x)P ( | X = x) d 
+
+ 
+
+Now we have P(F =1 | , X = x)=  by the definition of our model, and thus we get: 
+
+Z 
+
+P( | X = x) d = E[ | X = x] 
+
+ 
+
+Where the conditional expectation is called the posterior mean of . 
+
+7
+
+A meaningful Bayesian estimator of  is ˆ Bayes(x) , 
+E[ | X = x]. 
+Since p( | x) is a Beta and the expected value of a Beta is: 
+
+E[Beta(; , )] , 
+
+
++ 
+
+then the Bayes estimator is: 
+
+x +1 
+
+E[ | X = x]= Bayes(x) 
+
+n +2 =ˆ 
+
+If we compare it to the ML estimator from the Frequentist approach: 
+
+x
+
+ˆ
+
+MLE(x)= 
+
+n 
+
+We can see that while the MLE is unbiased, the Bayesian estimator is biased, but asymptotically
+ unbiased. Furthermore, the Bayesian estimator encodes an uncertainty: even if the 
+data contains only head flips, the estimator gives a small probability to flip a tail. This, 
+however, is not the case with the MLE estimator (which tends to overfit). 
+
+6By convention, a lowercase  is used even if it’s a random variable because  is already used for the 
+parameter space. 
+
+7Notation: ˆ is a statistical estimator of . Based on the observations, ˆ is a value included in the valid set 
+of parameters . The Frequentist statistics consider multiple possible estimators: MAP, Bayesian posterior 
+mean, MLE, moment matching. After selecting an estimator, we can analyze their statistical properties: 
+bias, variance, consistency. 
+
+3-7 
+
+

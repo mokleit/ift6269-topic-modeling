@@ -1,0 +1,3334 @@
+Introduction to probabilistic graphical models 2015/2016 
+
+Lecture 10  December 3, 2015 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribes: 
+Gauthier 
+Gidel 
+and 
+Lilian 
+Besson 
+
+
+Note: These scribed notes have only been lightly proofread. 
+
+10.1 
+Bayesian 
+Method 
+10.1.1 
+Introduction 
+Vocabulary: 
+
+• 
+a priori or prior: p 
+() 
+• 
+likelihood: p 
+(xj) 
+
+
+• 
+marginal likelihood: p 
+(xj) 
+p 
+() 
+dθ 
+• 
+a posteriori or posterior: p 
+(jx) 
+Caricature Bayesian vs Frequentist: 
+1. the Bayesian is optimistic: he thinks that he can come up with good models and 
+obtain a method by pulling the Bayesian crank (basically a high dimensional integral), 
+2. the frequentist is more pessimistic and uses analysis tools. 
+The Bayesian formulation enables us to introduce the a priori information in the process 
+of estimation. For instance , let's imagine that we play heads or tails. The Bayesian model 
+is: 
+
+Xi 
+2f0, 
+1g;Xijθ 
+∼ 
+Ber();p(xij)= 
+xi 
+(1 
+− 
+)1􀀀xi 
+
+
+the graphical model associated is represented on Figure 10.1. 
+
+xiN
+θ 
+
+
+Figure 
+10.1. 
+Graphical 
+model 
+of 
+the 
+biased 
+coin 
+game 
+
+
+10-1 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+Now we can compute the posterior: 
+
+p(jx1:n) 
+∝ 
+p(x1:nj)p() 
+
+
+then 
+
+p(jx1:n)= 
+n1 
+(1 
+− 
+)n􀀀n1 
+1[0;1]()= 
+Beta(, 
+)
+
+P n
+
+where n1 
+= 
+i=1 
+xi 
+is the number of 1, β 
+= 
+n 
+− 
+n1 
++1 
+and α 
+= 
+n1 
++1. 
+Question: what is the probability of head on the next ip? 
+
+• 
+Frequensist: ˆ 
+ML 
+= 
+n1=n 
+by a maximum likelihood approach. 
+
+
+• 
+Bayesian: p(xn+1jx1:n)= 
+p(xn+1j)p(jx1:n)d, where p(jx1:n)dθ 
+is the posterior 
+distribution. Then, 
+n1 
++1 
+
+
+^
+
+B 
+== 
+
+
+α 
++ 
+n 
++2 
+
+
+hence, 
+
+   
+
+n1 
+n 
+12
+
+^^
+
+B 
+= 
++= 
+nML 
++ 
+(1 
+− 
+n) 
+ˆ 
+prior 
+
+
+nn 
++2 
+2 
+n 
++2 
+
+
+is a convex combination of ˆ 
+ML 
+and ˆ 
+prior. Then we can notice that for n 
+=0, the 
+quantity ˆ 
+B 
+= 
+1
+2 
+whereas ˆ 
+ML 
+is not dened. It underlines the importance of the prior 
+distibution: 
+
+ with an unknown coin, we've got the information a priori : we'll use the uniform 
+law for p 
+(). 
+
+ with a normal coin , we'll use a distribution with an important concentration of 
+mass around 0,5 for p 
+(). 
+
+For a Bayesian, oering a limited estimator, as the maximum likelihood estimator, 
+which gives a unique value for , is not enough because the estimator itself do not 
+translate the inherent uncertainty of the learning process. Thus, its estimator will be 
+the density a posteriori, obtained from the Bayes rule, which is written in continuous 
+notations as: 
+
+p 
+(xj) 
+p 
+() 
+
+
+p 
+(jx)= 
+´ 
+
+
+p 
+(xj) 
+p 
+() 
+dθ 
+
+
+The Bayesian species the uncertainty with distributions that form its estimator, rather 
+than combining an estimator with condence intervals. 
+
+If the Bayesian is forced to produce a limited estimator, he uses the expectation of the 
+underlying quantity under the a posteriori distribution; for instance for : 
+
+
+
+post 
+= 
+E[jD]= 
+E[jx1;x2;:::;xn]= 
+p 
+(jx1;x2;:::;xn) 
+dθ 
+
+
+10-2 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+For more details about Bayesians see subsection B.1 and B.1.1 in annex. 
+We then need to show that ˆ 
+ML 
+→ 
+∗ 
+. Its variance is the variance of a Beta law 
+
+ 
+
+  
+
+β 
+n1 
+n1 
+11 
+
+
+=1 
+􀀀· 
+O 
+= 
+ˆ 
+ML 
+1 
+− 
+ˆ 
+ML 
+O 
+
+
+(α 
++ 
+)2 
+(α 
++ 
+β 
++ 
+1) 
+nnn 
+n 
+
+
+then the posterior covariance vanishes and 
+
+a:s. 
+a:s:
+ˆ 
+→ 
+ˆ 
+→ 
+θ 
+∗ 
+
+
+B 
+ML 
+where ∗ 
+is the true parameter of the model. 
+
+10.1.2 
+Bernstein 
+von 
+Mises 
+Theorem 
+It says that if prior puts non-zero mass around the true model ∗ 
+, then posterior asymptotically 
+concentrate around ∗ 
+as a Gaussian. 
+
+Revisiting example Consider repeating several times the experiment above: T 
+coins 
+picked randomly each ipped n 
+times. (Figure 10.2) 
+
+tx(t)iN 
+T 
+Figure 
+10.2. 
+Graphical 
+model 
+of 
+the 
+biased 
+coin 
+game 
+repeated 
+T 
+times 
+
+
+As a frequentist, empirical distribution on x1:n 
+will converge (as T 
+!1) to 
+
+! 
+
+p 
+(x1, 
+. 
+. 
+. 
+, 
+xn) 
+= 
+θ 
+nY p(xij) 
+i=1 
+p()dθ 
+where p() 
+is the distribution of coins of parameter θ 
+in the jar and 
+mixture distribution. Note that X1, 
+. 
+. 
+. 
+, 
+Xn 
+are NOT independent. 
+Qn 
+i=1 
+p 
+(xij) 
+is the 
+On the other hand, for all π 
+∈ 
+Sn 
+􀀀  
+p 
+(x1, 
+. 
+. 
+. 
+, 
+xn) 
+= 
+p 
+x(1), 
+. 
+. 
+. 
+, 
+x(n) 
+
+
+10-3 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+10.1.3 
+Exchangeable 
+situations 
+Exchangeablility 
+
+The random variables X1, X2, ..., Xn 
+are exchangeable if they have the same distribution 
+as X(1),X(2), ..., X(n) 
+for any permutation of indices π 
+2Sn. 
+
+Innite Exchangeablility 
+
+The denition naturally generalizes to innite families (indexed by N). The random variables 
+X1;X2;::. 
+are exchangeable if every nite subfamily Xi1 
+;:::;Xin 
+is exchangeable. 
+
+de Finetti's theorem 
+
+X1, X2, . . . are innitely exchangeable, if and only if 9! 
+p() 
+(on some space ) such that 
+
+! 
+
+ˆ 
+n
+
+Y 
+
+8n 
+∈ 
+N;p 
+(x1;x2;:::;xn)= 
+p 
+(xij) 
+p()dθ 
+
+
+i=1 
+
+
+Why do we care about exchangeable situations? 
+
+The i.i.d. variables are a particular case of the situation of exchangeable variables, that we 
+see in practice. However when the i.i.d. data are combined with non scalar observations, 
+the dierent components are no longer independent. In some cases, those components are 
+nonetheless exchangeable. For instance in a text, words are shown as sequences that are not 
+exchangeable because of the syntax. But if we forget the order of the words as in the bag 
+of word model, then the components are exchangeable. It's the basic principle used in the 
+LDA model. 
+
+Multinomial example 
+
+Let Xjθ 
+∼ 
+Mult(, 
+1) 
+where θ 
+∈ 
+k 
+i.e. 
+
+k
+
+X 
+
+p(X 
+= 
+lj)= 
+l 
+and l 
+=1, 
+0 
+≤ 
+l 
+≤ 
+1. 
+l=1 
+
+
+for that distribution we have, 
+
+^ML 
+nl 
+
+
+= 
+
+
+l 
+
+
+n 
+ML 
+
+
+hence if k 
+≥ 
+n 
+there exists a l 
+such that ˆ 
+l 
+=0. 
+
+In that case this frequentist model overts. In the Bayesian model one puts a prior on 
+k 
+=, but which one? A convenient property of prior families is conjugacy, introduced 
+below: 
+
+10-4 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+Conjugacy Consider a family of distribution 
+
+F 
+= 
+fp(j): 
+α 
+∈ 
+A} 
+. 
+
+
+One says that F 
+is a conjugate family for the observation model p(xj) 
+if the posterior 
+p(xj)p(j) 
+
+
+p(jx, 
+)= 
+
+
+p(xj) 
+belongs to the same family F 
+than the prior, i.e. 
+
+∃ 
+0 
+2A 
+s:t 
+p(jx, 
+)= 
+p(j0) 
+
+
+For the multinomial distribution it gives us 
+
+nn
+
+YY 
+
+nl
+
+p(x1:nj)= 
+p(xlj)= 
+l 
+l=1 
+l=1 
+
+
+QQ
+
+l
+
+so if p() 
+∝ 
+n 
+, then p(x1:nj) 
+∝ 
+n 
+l 
+.
+
+ll 
+l=1 
+l=1 
+
+
+Dirichlet Distribution 
+
+The Dirichlet distribution is the conjugate of the Multinomial law (see on Wikipédia for 
+more details). 
+
+􀀀(1 
++ 
+2 
++ 
+::. 
++K 
+) 
+
+
+1􀀀12􀀀1 
+:::K 
+􀀀1 
+
+
+p 
+(1;2;:::;K 
+)= 
+dµ 
+()
+
+12 
+K
+
+􀀀(1)􀀀(2) 
+::. 
+􀀀(K 
+)
+
+P 
+
+Where µ 
+stands for the uniform measure on K 
+= 
+s 
+∈ 
+RK 
+| 
+si 
+= 
+1; 
+8i, 
+si 
+≥ 
+0 
+(K-dim
+
+i 
+
+
+simplex). 
+
+• 
+E[lj1;:::;K 
+], 
+ 
+
+• 
+V(l) 
+≡ 
+O 
+PK 
+1 
+j 
+, 
+j=1 
+
+
+• 
+If l 
+=1 
+for all l 
+then one gets an uniform distribution, 
+• 
+if k 
+=2 
+one gets the Beta distribution, 
+• 
+if there exists l 
+such that l 
+< 
+1 
+one gets a ∪ 
+shape distribution, 
+• 
+if l 
+≥ 
+1 
+for all l, one gets a ∩ 
+(unimodal bump). 
+10-5 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+For the multinomial model, if the we assume that the prior is 
+
+p()= 
+Dir(j) 
+
+
+then the posterior is 
+
+K
+
+Y 
+
+nl+l􀀀1 
+
+
+p(jx1:n) 
+∝ 
+l 
+
+
+l=1 
+
+
+and the posterior mean is 
+
+nl 
++ 
+l
+
+E[ljx1:n]= 
+
+
+K
+
+P 
+
+n 
++ 
+j 
+
+
+j=1 
+
+
+for instance with l 
+=1 
+for all l 
+it adds 1, smoothing the maximum likelihood estimator. 
+nl 
++1 
+
+
+E[ljx1:n]= 
+
+
+n 
++ 
+K 
+
+
+NB One can consider that posterior can be used for prior of next observation. This is the 
+sequential approach. 
+
+10-6 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+10.2 
+Bayesian 
+linear 
+regression 
+Let us assume that 
+
+y 
+= 
+!T 
+x 
++ 
+(10.1) 
+where 
+N 
+(0;2). Then the observation issue 
+
+ 
+
+p(yjx)= 
+N 
+y 
+| 
+!T 
+x, 
+2 
+Then if we also choose a Gaussian prior on !. 
+
+
+
+ 
+
+In 
+
+
+p(!)= 
+N 
+ω 
+;0, 
+
+
+λ 
+
+
+then the posterior is also a Gaussian with the following parameters 
+
+• 
+covariance: ˆ 
+n 
+= 
+In 
++ 
+X
+σ 
+T 
+2 
+X 
+
+
+ 
+
+• 
+mean: ^n 
+= 
+ˆ 
+n 
+􀀀1 
+XT 
+→ 
+y 
+=2 
+where 
+X 
+
+
+= 
+
+
+0 B@ 
+
+x1 
+
+
+. 
+
+. 
+
+. 
+
+1 CA
+
+and 
+
+→ 
+
+
+y 
+= 
+
+
+0 B@ 
+
+y1 
+
+
+. 
+
+. 
+
+. 
+
+1 CA 
+
+xn 
+yn 
+
+
+the covariance and the mean are the same as the ones for the ridge regression with ~
+= 
+2 
+. 
+As a Bayesian: compute predictive distribution 
+
+
+
+jxnew;x1:n;y1:n)= 
+
+
+ 
+
+;!)p(!jdata)dω 
+= 
+N 
+ynewj^T 
+xnew;2 
+
+
+n 
+predictive 
+
+
+where 
+
+2 
+)= 
+2 
+T 
+^
+
++ 
+x
+predictive(xnew 
+newnxnew, 
+the real number σ 
+comes from the noise model and the second quantity of the right hand 
+side comes from the posterior covariance. 
+
+p(ynew 
+
+
+p(ynew
+
+jxnew 
+
+
+ω 
+
+
+10-7 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+10.3 
+Model 
+Selection 
+10.3.1 
+Introduction 
+Let's consider two models M1 
+⊂ 
+M2 
+with 1 
+⊂ 
+2. We dene: 
+
+b
+
+Mi 
+= 
+arg 
+max 
+log 
+(pθ 
+(x1;x2;:::;xn)) 
+
+
+2i 
+
+
+where i 
+2f1, 
+2g. 
+
+x1 
+x1 
+
+
+x3x2
+Figure10.3.ExampleofModelSectionforn=2(M1onthel.h.sandM2onther.h.s)
+
+We can't use the maximum likelihood as a score since we have by denition: 
+
+
+x2 
+x3 
+
+
+  
+
+log 
+pb 
+≥ 
+log 
+pb 
+:
+
+M2 
+M1 
+
+
+We are interested in the capacity of the generalisation of the model: we'd like to avoid 
+over-tting. Commonly, one way of dealing with that task is to select the size of the model 
+by cross-validation. Here, we'll not develop it furthermore. 
+
+In this part we present the Bayes factors, which gives us the main Bayes principal for 
+selecting models. Also we will show the link with the penalised version BIC, (Bayesian Information 
+Criterion) which is used by the frequentists so as to correct the maximum likelihood 
+and which has good proprieties. The issue with the selection model ask is the issue with 
+the selection of the variables which are an active topic of research. There are others ways of 
+penalising the maximum likelihood and of selecting models. 
+
+If p0 
+is the distribution of the real data, we wish to choose between dierence models 
+(Mi) 
+by maximising Ep0 
+[log 
+(pMi 
+(XjD))], where X∗ 
+is a new test sample distributed as
+
+i2I 
+
+
+p0 
+(in fact, it's still the maximum likelihood principle but we take the expectation on new 
+data). 
+
+In the Bayesian framework, we can compute the marginal probability of data for a given 
+model 
+ˆ 
+
+
+p 
+(x1;x2;:::;xnj) 
+p 
+(jMi) 
+dθ 
+= 
+p 
+(DjMi) 
+
+
+10-8 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+and, by applying the Bayes rule, compute the a posteriori probability of the model: 
+
+p 
+(DjMi) 
+p 
+(Mi) 
+
+
+p 
+(MijD)= 
+
+
+p 
+(D) 
+
+
+10.3.2 
+Bayes 
+Factor 
+Let's introduce the Bayes factors, which enables us to compare two models: 
+
+p 
+(M1jD) 
+p 
+(DjM1) 
+p 
+(M1) 
+
+
+= 
+
+
+p 
+(M2jD) 
+p 
+(DjM2) 
+p 
+(M2) 
+
+
+The marginal probability of data 
+
+p 
+(DjMi)= 
+p 
+(x1;x2;:::;xnjMi) 
+
+
+can decompose itself in a sequential way by using: 
+
+
+
+p 
+(xnjx1;x2;:::;xn􀀀1;M)= 
+p 
+(xnj) 
+p 
+(jx1;x2;:::;xn􀀀1;M) 
+d. 
+
+
+Indeed, we get: 
+
+p(DjM)= 
+p(xnjx 
+− 
+1;:::;xn􀀀1;M) 
+p(xn􀀀1jx 
+− 
+1;:::;xn􀀀2;M) 
+::. 
+p(x1jM) 
+
+
+Such as 
+
+X
+
+11 
+n 
+
+
+log 
+p 
+(DjMi) 
+= 
+log 
+p(xijx1;:::;xi􀀀1;M) 
+' 
+Ep0 
+[log 
+pM 
+(XjD)] 
+
+
+nn 
+
+
+i=1 
+
+
+10.3.3 
+Bayesian 
+Information 
+Criterion 
+The Bayesian score is approximated by the BIC: 
+
+K 
+
+
+log 
+p 
+(DjM) 
+= 
+log 
+pb 
+(D) 
+− 
+log 
+(n)+ 
+O 
+(1)
+
+MV 
+
+
+2 
+
+
+With pb 
+MV 
+(D) 
+the data's distribution when the parameter is the maximum likelihood estimator 
+b MV 
+, K 
+is the number of parameters of the model and n 
+the number of observations. 
+In the following section, we outline the proof of this result in the case of an exponential 
+family given by p 
+(xj) 
+= 
+exp(h, 
+φ 
+(X)i− 
+A 
+()). 
+
+10-9 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+10.3.4 
+Laplace's 
+Method 
+ˆ 
+n
+
+Y 
+
+p 
+(DjM)= 
+p 
+(xij) 
+p 
+() 
+dθ 
+
+
+i=1 
+
+
+ˆ 
+
+
+􀀀
+ 
+
+= 
+exp 
+, 
+n¯ 
+− 
+nA 
+() 
+p 
+() 
+dθ 
+
+
+h, 
+ni− 
+nA()= 
+hb i− 
+nA(b , 
+ni
+
+, 
+n 
+¯ 
+)+ 
+hθ 
+− 
+b 
+1 
+
+
+2
+
+− 
+n(θ 
+− 
+b)T 
+rA(b) 
+− 
+(θ 
+− 
+b)T 
+nrA(b)(θ 
+− 
+b)
+
+2 
+
+
++Rn 
+where Rn 
+is a negligible rest. 
+But the maximum likelihood is the dual of the maximum entropy: max 
+H(p) 
+such that 
+¯ 
+
+
+()= 
+. 
+¯ 
+
+
+(b)= 
+φ 
+ˆ 
+ 
+
+1 
+
+
+b
+
+p(DjM) 
+' 
+exp(h, 
+nb i− 
+nA(b)) 
+× 
+exp 
+− 
+(θ 
+− 
+b)T 
+n(θ 
+− 
+b) 
+p()dθ 
+
+
+2 
+
+
+However: 
+
+1. the information of sher is equal to b􀀀1 
+v 
+ˆ 
+u
+
+T 
+ ub
+
+1 
+
+
+k
+
+2. exp 
+− 
+θ 
+− 
+b nb θ 
+− 
+b p 
+() 
+dθ 
+' 
+ct(2)
+􀀀1 
+2 
+n 
+
+
+Thus: 
+
+! b􀀀1
+
+1 
+
+
+log 
+p 
+(DjM) 
+= 
+log 
+pb 
+(X) 
++ 
+log 
+(2)k 
+
+
+θ 
+
+
+2 
+n 
+
+
+!
+
+k
+
+k 
+11 
+
+
+= 
+log 
+pb 
+(X) 
++ 
+log 
+(2)+ 
+log 
+b􀀀1 
+
+
+22 
+n 
+
+
+
+
+kk 
+1 
+
+
+b􀀀1 
+
+
+= 
+log 
+pb 
+(X) 
++ 
+log 
+(2) 
+− 
+log 
+(n) 
++ 
+log
+
+2 
+22 
+
+
+The main reason why presenting the BIC is that a theorem prove the consistency of the 
+BIC. In other words, when the number of observations is sucient, thanks to this criterion 
+we choose with a probability that converges to 0, a model that satises: 
+
+h i 
+
+Mk 
+∈ 
+ArgmaxM 
+log 
+(X 
+; 
+M)
+
+Ep0 
+pbMV 
+
+
+10-10 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+To bring a quick clarication about the notations used in this part (model selection), 
+please read below. The notation is a bit confusing (it was used for example in Bishop's 
+book, but is a bit sloppy). 
+
+From the Bayesian perspective, we could treat the model choice as a random variable 
+
+M. In the M1 
+vs. M2 
+vs. M3 
+example, there are only 3 
+models, and thus M 
+is a discrete 
+variable with 3 
+possible values (M 
+= 
+M1, M 
+= 
+M2 
+or M 
+= 
+M3). 
+Therefore, when we were writing quantities like the Bayes factor p(M1jD)=p(M2jD), 
+It really meant p(M 
+=M1jD)=p(M 
+=M2jD). It did not mean that M1 
+and M2 
+were two 
+dierent random variables which can take complicated values (someone asked what space 
+M1 
+was in and it seemed very complicated  what is meant is just that M 
+is an index in 
+possible (few) models). 
+
+D 
+was the data random variable as usual. The mixing of random variables (here M) 
+vs. their possible values (M 
+=1, 
+2 
+etc) in the same notation (like p(M1jD)) is usual but 
+confusing; better to use the explicit p(M 
+= 
+M1jD) 
+notation to distinguish a value vs. a 
+generic random variable::. 
+. 
+
+However, in general, M 
+could be as complicated as we want. For example, it could 
+be a vector of hyper-parameters for the prior distributions. Or it could also have binary 
+component indicating the absence or presence of an edge in graphical model, etc. It does 
+not have to just be an index. It could even be a continuous objects ! 
+
+It is also ne to have innite dimensional objects1 
+. For example, consider the latent 
+variable model: x 
+is observed, θ 
+and α 
+are latent variables; and M 
+decides the prior over . 
+
+I.e. suppose p(xj, 
+, 
+M)= 
+Multi(, 
+1), p(j, 
+M)= 
+Dir(j), and p(jM)= 
+M() 
+i.e. M 
+ranges over possible distributions over the positive vector . M 
+here is quite a complicated 
+object, but this is ne::. 
+1 
+This would be in the non-parametric setting  non-parametric = innite dimensional. 
+
+10-11 
+
+
+Appendix 
+A 
+
+
+A.1 
+Example 
+of 
+model 
+A.1.1 
+Bernoulli 
+variable 
+Let's consider random variables Xi 
+2f0, 
+1g. We'll assume that the Xi 
+are i.i.d. conditionally 
+to . Then they follow a Bernoulli law: 
+
+p 
+(xj)= 
+x 
+(1 
+− 
+)1􀀀x 
+
+
+A.1.2 
+Priors 
+Let's introduce the distribution Beta whose density on [0, 
+1] 
+is 
+
+p(; 
+, 
+)= 
+1 
+􀀀1(1 
+− 
+)􀀀1 
+
+
+B(, 
+) 
+Where B(, 
+) 
+is a short-name of the Beta function: 
+
+ˆ 
+1 
+
+
+8> 
+0, 
+8> 
+0;B 
+(, 
+)= 
+􀀀1 
+(1 
+− 
+)􀀀1 
+dθ 
+
+
+0 
+
+
+And the Gamma function: 
+
+ˆ 
++∞ 
+
+
+􀀀(x)= 
+tx􀀀1 
+exp 
+(􀀀t) 
+dt 
+
+
+0 
+
+
+We can show that B 
+(, 
+) 
+is symmetric and satises: 
+􀀀()􀀀()
+
+B 
+(, 
+)= 
+
+
+􀀀(α 
++ 
+) 
+We choose as the prior distribution on θ 
+the Beta distribution: 
+
+12 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+p 
+() 
+∝ 
+􀀀1 
+(1 
+− 
+)􀀀1 
+􀀀1 
+(1 
+− 
+)􀀀1 
+
+
+p 
+()= 
+
+
+B 
+(, 
+) 
+
+
+A.1.3 
+A 
+posteriori 
+p 
+(x, 
+) 
+
+
+p 
+(jx) 
+= 
+p 
+(x) 
+∝ 
+p 
+(x, 
+) 
+But: 
+􀀀1
+
+􀀀1 
+(1 
+− 
+) 
+
+
+p 
+(x, 
+)= 
+x 
+(1 
+− 
+)1􀀀x 
+
+
+B 
+(, 
+) 
+
+
+Hence: 
+
+1􀀀x+􀀀1
+
+x+􀀀1 
+(1 
+− 
+) 
+
+
+p 
+(jx) 
+∝ 
+
+
+B 
+(, 
+) 
+
+
+1􀀀x+􀀀1
+
+x+􀀀1 
+(1 
+− 
+) 
+
+
+p 
+(jx)= 
+
+
+B 
+(x 
++ 
+, 
+1 
+− 
+x 
++ 
+) 
+
+
+Thus, if instead of considering a unique variable , we observe an i.i.d. sample of data, 
+the joint distribution can be written as: 
+
+n
+
+Y 
+
+􀀀11􀀀xi
+
+􀀀1 
+(1 
+− 
+) 
+xi 
+(1 
+− 
+) 
+. 
+i=1 
+
+
+Let's introduce: 
+
+n
+
+X 
+
+k 
+= 
+xi 
+i=1 
+
+
+Then we get: 
+
+k+􀀀1 
+(1 
+− 
+)n􀀀k+􀀀1 
+
+
+p 
+(jx1;x2;:::;xn)= 
+
+
+B 
+(k 
++ 
+, 
+n 
+− 
+k 
++ 
+) 
+
+
+A.2 
+Special 
+case 
+of 
+the 
+Beta 
+distribution 
+We remind that: 
+
+θ 
+∼ 
+Beta 
+(, 
+) 
+
+
+For α 
+= 
+β 
+=1, we get a uniform prior. 
+
+For α 
+= 
+> 
+1, we get a bell curve. 
+
+For α 
+= 
+< 
+1, we get a U curve. 
+
+10-13 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+E[]= 
++ 
+
+β 
+β 
+β 
+1
+
+V[]= 
+= 
+× 
+
+
+(+)2(++1) 
+(+)(+)(++1) 
+
+
+For > 
+1 
+and > 
+1, we get the mode: 􀀀1 
+.
+
++􀀀2 
+
+
+In the case, let's write D 
+for the data: 
+
+α 
++ 
+kα 
+(α 
++ 
+) 
+nk 
+
+
+post 
+= 
+E[jD]= 
+= 
+× 
++ 
+× 
+
+
+α 
++ 
+β 
++ 
+n 
+(α 
++ 
+)(α 
++ 
+β 
++ 
+n)(α 
++ 
+β 
++ 
+n) 
+n 
+
+
+We can see that the a posteriori expectation of the parameter is a convex combination 
+of the maximum likelihood estimator and the prior expectation. It converges asymptotically 
+to the maximum likelihood estimator . 
+
+If we use a uniform prior distribution, E[jD]= 
+k+1 
+. Laplace proposed to correct the 
+
+n+2 
+
+
+frequentist estimator, it seemed odd to him that he was not dened in the absence of data. 
+He proposed to add two virtual observation (0 
+and 1) such that in the absence of data the 
+estimator equals 1
+2 
+. This correction is known as Laplace's correction. 
+
+The variance of the a posteriori distribution decrease in n 
+1 
+. 
+
+1
+
+V[jD]= 
+M 
+(1 
+− 
+M 
+) 
+
+
+(α 
++ 
+β 
++ 
+n) 
+
+
+We have chosen a sharper distribution around M 
+, in the same way than in a frequentist 
+approach, the condence intervals narrow around the estimator when the number of 
+observations increase. 
+
+A.2.1 
+Playful 
+propriety 
+B 
+(k 
++ 
+, 
+n 
+− 
+k 
++ 
+) 
+􀀀(α 
++ 
+k)􀀀(β 
++ 
+n 
+− 
+k)􀀀(α 
++ 
+) 
+
+
+p 
+(x1;x2;:::;xn)= 
+= 
+(A.1)
+
+B 
+(, 
+) 
+􀀀(α 
++ 
+β 
++ 
+n)􀀀()􀀀() 
+
+
+Let's use this well-known property of the Gamma function: 
+
+􀀀(n 
++1) 
+= 
+n! 
+
+
+and 8x> 
+􀀀1, 
+􀀀(x 
++1) 
+= 
+x􀀀(x) 
+
+
+such that 
+
+􀀀(α 
++ 
+k)=(α 
++ 
+k 
+− 
+1) 
+(α 
++ 
+k 
+− 
+2) 
+:::􀀀() 
+
+
+let's write [k] 
+= 
+α 
+(α 
++ 
+1) 
+::. 
+(α 
++ 
+k 
+− 
+1) 
+and simplify the expression A.1: 
+
+[k][n􀀀k] 
+p 
+(x1;x2;:::;xn)= 
+
+
+[n]
+
+(α 
++ 
+) 
+
+
+10-14 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+We shall note the analogy with the Polya urn model: let us consider (α 
++ 
+) 
+balls of 
+colour: α 
+are black, β 
+are white. When drawing a rst black ball, the probability of the 
+event is: 
+
+
+
+P(X1 
+= 
+1) 
+= 
+
+
+α 
++ 
+β 
+
+
+After the drawing, we put back the ball in the urn and we add a ball of the same colour. 
+Let's imagine that we draw again a black ball then the probability of this event is: 
+
+α 
++1 
+
+
+P(X1 
+=1;X2 
+= 
+1) 
+= 
+P(X1 
+= 
+1) 
+P(X2 
+=1jX1 
+= 
+1) 
+= 
+× 
+
+
+α 
++ 
+α 
++ 
+β 
++1 
+
+
+However: 
+
+
+
+P(X1 
+=1;X2 
+= 
+0) 
+= 
+× 
+
+
+α 
++ 
+α 
++ 
+β 
++1 
+
+
+In more general case , we show by recurrence that the marginal probability of obtaining 
+some sequence of colours by drawing from a Polya urn is exactly the marginal probability of 
+obtaining the same result from the marginal model, obtained by integrating on a priori theta. 
+First, this show that drawings from a Polya urn are exchangeable; Secondly, the mechanism 
+of this type of urn, and its exchangeability, we'll be useful for the Gibbs sampling and for 
+the same type of Bayesian models. 
+
+A.2.2 
+Conjugate 
+priors 
+Let F 
+be a set. We assume that p 
+(xj) 
+known, we deduce from that: p 
+() 
+∈ 
+F 
+such that 
+p 
+(jx) 
+∈ 
+F. We say that p 
+() 
+is conjugated to the model p 
+(xj). 
+
+Exponential model 
+
+Let's consider: 
+
+p 
+(xj) 
+= 
+exp(h, 
+φ 
+(x)i− 
+A 
+()) 
+p 
+() 
+= 
+exp(h, 
+i− 
+A 
+() 
+− 
+B 
+(, 
+)) 
+
+
+For p 
+(xj), θ 
+is the canonical parameter. For p 
+(), α 
+is the canonical parameter and θ 
+is the sucient statistic. Let us note that B 
+do not stand for the Beta distribution. 
+
+p 
+(jx) 
+∝ 
+p 
+(xj) 
+p 
+() 
+∝ 
+exp 
+(h, 
+φ 
+(x)i− 
+A 
+()+ 
+h, 
+i− 
+A 
+() 
+− 
+B 
+(, 
+)) 
+
+
+Let us dene: 
+
+X
+
+1 
+n 
+
+
+
+
+φ 
+= 
+φ 
+(xi) 
+
+
+n 
+
+
+i=1 
+
+
+Then: 
+
+p 
+(jxi) 
+∝ 
+exp 
+(h, 
+α 
++ 
+φ 
+(xi)i− 
+(τ 
++ 
+1) 
+A 
+() 
+− 
+B 
+(α 
++ 
+φ 
+(xi) 
+;τ 
++ 
+1)) 
+
+
+10-15 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+􀀀
+ 􀀀
+
+¯ 
+
+
+p 
+(jx1;x2;:::;xn) 
+∝ 
+exp 
+, 
+α 
++ 
+nφ 
+− 
+(τ 
++ 
+n) 
+A 
+() 
+− 
+Bα 
++ 
+n, 
+τ 
++ 
+n 
+
+
+􀀀􀀀 
+
+¯ 
+
+
+p 
+(x1;x2;:::;xn) 
+∝ 
+exp 
+B 
+(, 
+) 
+− 
+Bα 
++ 
+n, 
+τ 
++ 
+n 
+
+
+Since the family is an exponential one, 
+
+􀀀
+
+
+
+post 
+= 
+E[jD]= 
+rBα 
++ 
+n, 
+τ 
++ 
+n 
+MAP 
+results from: 
+rp 
+(jx1;x2;:::;xn)=0 
+
+
+α 
++ 
+nφ 
+=(τ 
++ 
+n) 
+rA 
+()=(τ 
++ 
+n) 
+µ 
+() 
+Thus we get MAP 
+= 
+µ 
+() 
+in the previous equation. Consequently: 
+
+α 
++ 
+n¯ 
+τ 
+n 
+
+
+MAP 
+== 
+× 
++ 
+¯ 
+
+
+τ 
++ 
+n 
+τ 
++ 
+nτ 
++ 
+n 
+
+
+Univariate Gaussian With and a priori on µ 
+but not on 2 
+
+
+! 􀀀 1 
+1(x 
+− 
+)2 
+
+
+pxj, 
+2 
+= 
+√ 
+exp 
+− 
+
+
+2
+
+22 
+2 
+
+
+! 
+
+􀀀 1 
+1(µ 
+− 
+0)2 
+
+
+pj0;τ 
+2 
+= 
+√ 
+exp 
+− 
+
+
+22 
+2 
+τ 
+2 
+
+
+Thus: 
+
+􀀀􀀀  
+
+pDj, 
+2 
+= 
+px1;x2;:::;xnj, 
+2 
+
+
+!
+
+nn 
+2
+
+X
+
+1 
+1(xi 
+− 
+) 
+
+
+= 
+√ 
+exp 
+− 
+
+
+2 
+2
+
+22 
+i=1 
+
+
+p 
+(jD)= 
+p 
+(jx1;x2;:::;xn) 
+
+
+!!
+
+X
+
+1(µ 
+− 
+0)2 
+n 
+(xi 
+− 
+)2 
+
+
+= 
+exp 
+− 
++ 
+
+
+2 
+2 
+2 
+
+
+i=1 
+!! 
+2 
+X 2
+
+1 
+2 
+− 
+20 
++ 
+0 
+n 
+2 
+− 
+2xi 
++ 
+xi 
+
+
+= 
+exp 
+− 
++ 
+
+
+2 
+2 
+2 
+
+
+i=1 
+!!! 
+2 
+X 2
+
+1 
+µ 
+n 
+x 
+
+
+= 
+exp 
+− 
+µ 
+2Λ 
+− 
+2η 
++ 
+0 
++ 
+i 
+
+
+2 
+2 
+2 
+
+
+i=1 
+
+
+10-16 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+Where: 
+1 
+n 
+Λ 
+= 
+2 
++ 
+2 
+η 
+= 
+0 
+τ 
+2 
++ 
+nx 
+2 
+1 
+nX 
+x 
+= 
+xi 
+n 
+i=1 
+Thus: 
+post 
+= 
+E[jD] 
+η 
+= 
+Λ 
+= 
+0 
+2 
++ 
+nx 
+2 
+1 
+2 
++ 
+n 
+2 
+
+
+20 
++ 
+n2x 
+
+
+= 
+
+
+2 
++ 
+n2 
+2 
+n2 
+
+
+= 
+0 
++ 
+x 
+
+
+2 
++ 
+n2 
+2 
++ 
+n2 
+
+
+And: 
+
+b
+2 
+= 
+V[jD]
+
+post 
+
+
+1 
+
+
+= 
+
+
+Λ 
+
+
+22 
+
+
+= 
+
+
+2 
++ 
+n2 
+Indeed, the variance decreases in n 
+1 
+. 
+With an a priori on 2 
+but not onµ 
+We get p 
+(2) 
+as an Inverse Gamma form. 
+With an a priori on µ 
+and 2 
+Gaussian a priori on x 
+and , Inverse Gamma a priori on 
+2 
+. Please refer to the chapter 9 of the course handout (Jordan's polycopié). 
+
+10-17 
+
+
+Appendix 
+B 
+
+
+B.1 
+A 
+posteriori 
+Maximum 
+(MAP) 
+MAP 
+= 
+arg 
+max 
+p 
+(jx1;x2;:::;xn) 
+
+
+θ 
+
+
+= 
+arg 
+max 
+p 
+(x1;x2;:::;xnj) 
+p 
+() 
+
+
+θ 
+
+
+Because, with the Bayes rule: 
+
+p 
+(x1;x2;:::;xnj) 
+p 
+() 
+
+
+p 
+(jx1;x2;:::;xn)= 
+
+
+p 
+(x) 
+
+
+The a posteriori maximum is not really Bayesian, it's rather a slight modication brought 
+to the frequentist estimator. 
+
+B.1.1 
+Predictive 
+probability 
+In the Bayesian paradigm, the probability of a future observation x 
+∗ 
+will be estimated by 
+the Predictive probability: 
+
+p 
+(x 
+jD)= 
+p 
+(x 
+jx1;x2;:::;xn) 
+
+
+
+
+= 
+p 
+(x 
+j) 
+p 
+(jx1;x2;:::;xn) 
+dθ 
+
+
+p 
+(jx1;x2;:::;xn) 
+∝ 
+p 
+(xnj) 
+p 
+(x1j) 
+p 
+(x2j) 
+:::p 
+(xn􀀀1j) 
+p 
+() 
+∝ 
+p 
+(xnj) 
+p 
+(jx1;x2;:::;xn􀀀1) 
+p 
+(x1;x2;:::;xn􀀀1) 
+p 
+(x1;x2;:::;xn􀀀1)
+
+∝ 
+p 
+(xnj) 
+p 
+(jx1;x2;:::;xn􀀀1) 
+
+
+p 
+(x1;x2;:::;xn) 
+
+
+18 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+A sequential calculus is possible since: 
+
+p 
+(xnj) 
+p 
+(jx1;x2;:::;xn􀀀1) 
+
+
+p 
+(jx1;x2;:::;xn)= 
+
+
+p 
+(xnjx1;x2;:::;xn􀀀1) 
+
+
+Vocabulary: 
+
+• 
+a priori information: p 
+(jx1;x2;:::;xn􀀀1) 
+• 
+likelihood: p 
+(xnj) 
+• 
+a posteriori information: p 
+(jx1;x2;:::;xn) 
+ˆ 
+n
+
+Y 
+
+p 
+(x1;x2;:::;xn)= 
+p 
+(xij) 
+p 
+() 
+dθ 
+i=1 
+
+
+B.2 
+Naive 
+Bayes 
+B.2.1 
+Introduction 
+Remarque: Contrary to its name, Naive Bayes is not a Bayesian method. 
+
+Let's Consider the following problem of classication x 
+∈ 
+Xp 
+7􀀀→ 
+y 
+2f1, 
+2;:::;Mg. 
+Here, x 
+=(x1;x2;:::;xp) 
+is a vector of descriptors (or features): 8i 
+2f1, 
+2;:::;p} 
+;xi 
+∈ 
+
+
+X, with X 
+= 
+f1, 
+2;:::;K} 
+(or X 
+= 
+R). 
+Goal: Learn p 
+(yjx). 
+A very naive method will trigger o a combinatorial explosion: θ 
+∈ 
+RKp 
+. 
+Bayes formula gets us: 
+
+p 
+(xjy) 
+p 
+(y) 
+
+
+p 
+(yjx)= 
+
+
+p 
+(x) 
+
+
+The Naive Bayes method consists in assuming that the features xi 
+are all conditionally 
+independent from the class, hence: 
+
+p
+
+Y 
+
+p 
+(xjy)= 
+p 
+(xijy) 
+
+
+i=1 
+
+
+Then, the Bayes formula gives us: 
+
+pp
+
+QQ 
+
+p 
+(y) 
+p 
+(xijy) 
+p 
+(y) 
+p 
+(xijy) 
+
+
+i=1 
+i=1 
+
+
+p 
+(yjx)= 
+= 
+
+
+p
+
+p 
+(x) 
+PQ 
+
+p 
+(y0) 
+p 
+(xijy0) 
+
+
+y0 
+i=1 
+
+
+10-19 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+We consider the case where the features take discrete values. Consequently the new 
+graphical model contains only discrete random variables. Then, we can write a discrete 
+model as an exponential family. Indeed we can write: 
+
+log 
+p 
+(xi 
+= 
+kjy 
+= 
+k0)= 
+δ 
+(xi 
+= 
+k, 
+y 
+= 
+k0) 
+ikk0 
+
+
+and 
+
+log 
+p 
+(y 
+= 
+k0)= 
+δ 
+(y 
+= 
+k0) 
+k0 
+
+
+We can see that the dummy functions (xi 
+= 
+k, 
+y 
+= 
+k0) 
+and (y 
+= 
+k0) 
+are the sucient statistics of the joint distribution model for y 
+and the variables xi, where ikk0 
+and k0 
+are 
+canonical parameters. Thus , we can write: 
+
+XX 
+
+log 
+p(y, 
+x1;:::;xp)= 
+(xi 
+= 
+k, 
+y 
+= 
+k0)ikk0 
++ 
+(y 
+= 
+k0)k0 
+− 
+A((ikk0 
+)i;k;k0 
+, 
+(k0 
+)k0 
+) 
+
+
+i;k;k0 
+k0 
+
+
+Where A((ikk0 
+)i;k;k0 
+, 
+(k0 
+)k0 
+) 
+is the log-partition function. 
+
+We have rewritten the joint distribution model of (y, 
+x1;:::;xp) 
+as an exponential family. 
+Given that the maximum of likelihood estimator of an exponential family, where the 
+canonical parameters are not combined, is also the maximum entropy estimator; as seen in 
+a previous course and provided that the statistical moments of the sucient statistics equal 
+their empirical moments. 
+
+Thus, if we introduce 
+
+Nikk0 
+=# 
+f(xi;y)=(k, 
+k0)g
+
+X 
+
+N 
+= 
+Nikk0 
+, 
+
+
+i;k;k0 
+
+
+The maximum likelihood estimator must satisfy the moment constraints 
+
+P 
+
+Nikk0 
+i;k 
+Nikk0 
+
+
+pb(y 
+= 
+k0)= 
+et pb(xi 
+= 
+kjy 
+= 
+k0)= 
+P ;
+
+NNik00k0 
+k00 
+
+
+which dene them completely. 
+
+Then, we can write the estimators of the canonical parameters as: 
+
+b ikk0 
+= 
+log 
+pb(xi 
+= 
+kjy 
+= 
+k0) 
+et b k0 
+= 
+log 
+pb(y 
+= 
+k0) 
+. 
+
+
+However, our goal is to obtain a classication model, that is to say, a model of only 
+the conditional probability law. From the approximated generative model and applying the 
+Bayes rule we can get: 
+
+10-20 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+! 
+
+pp
+
+X XY 
+log 
+pb(y 
+= 
+k0jx) 
+= 
+log 
+pb(xijy 
+= 
+k0) 
++ 
+log 
+pb(y 
+= 
+k0) 
+− 
+log 
+pb(y 
+= 
+k0) 
+pb(xijy 
+= 
+k0) 
+
+
+i=1 
+k0 
+i=1 
+
+
+We can re write the conditional model as an exponential family 
+
+XX 
+
+log 
+p 
+(yjx)= 
+(xi 
+= 
+k, 
+y 
+= 
+k0)ikk0 
++ 
+(y 
+= 
+k0)k0 
+− 
+log 
+p(x) 
+
+
+i;k;k0 
+k0 
+
+
+Its sucient statistics and canonical parameters are equal to those of the generative 
+model, but seen as functions of the random variable y, given that x 
+is xed (we could write 
+x;i;k;k0 
+(y)= 
+(xi 
+= 
+k, 
+y 
+= 
+k0)). As for the log-partition function, it is now equal to log 
+p(x). 
+
+Warning: b ikk0 
+is the maximum likelihood estimator in the generative model which, usually, 
+is not equal to the maximum likelihood estimator in the conditional model. 
+
+B.2.2 
+Advantages 
+and 
+Drawbacks 
+Advantages: 
+
+• 
+Doable in line. 
+• 
+Computationally tractable solution. 
+Drawbacks: 
+
+• 
+Generative: generative models produce good estimator whenever the model is true, or 
+in statistical words well specied, which means that the process that generate the real 
+data induce a distribution equal to the one of the generative model. When the model 
+is not well specied (which is the most common case) we'd better use a discriminative 
+method. 
+B.2.3 
+Discriminative 
+method 
+The problem that we have considered in the previous section is the generative model for 
+classication in K classes. How to learn, in a discriminatory way , a classier in K classes? 
+Is it possible to use an exponential family? 
+
+We have already seen the logistic regression for 2 classes classication: 
+
+􀀀 
+
+exp 
+!T 
+x 
+
+
+p 
+(y 
+=1jx)= 
+
+
+1 
++ 
+exp(!T 
+x) 
+
+
+Let's study the K-multiclass logistic regression: 
+
+10-21 
+
+
+Cours 10  December 3, 2015 2015/2016 
+
+P  
+
+p 
+PK 
+
+
+exp 
+δ 
+(xi 
+= 
+k) 
+ikk0
+
+i=1 
+k=1 
+
+
+p 
+(y 
+= 
+k0jx)= 
+P 
+
+PMp 
+PK 
+
+
+k00=1 
+exp 
+δ 
+(xi 
+= 
+k) 
+ikk00
+
+i=1 
+k=1 
+
+
+!!! 
+
+pK 
+MpK
+
+XX XXX 
+
+= 
+exp 
+δ 
+(xi 
+= 
+k) 
+ikk0 
+− 
+log 
+exp 
+δ 
+(xi 
+= 
+k) 
+ikk00 
+
+
+i=1 
+k=1 
+k00=1 
+i=1 
+k=1
+
+!! 
+
+M
+
+X􀀀  
+
+= 
+exp 
+k
+T 
+0 
+φ 
+(x) 
+− 
+log 
+exp 
+k
+T 
+00 
+φ 
+(x) 
+k00=1
+
+􀀀 
+
+exp 
+k
+T 
+0 
+φ 
+(x) 
+
+
+= 
+
+
+PM 
+
+
+exp 
+(k
+T 
+00 
+φ 
+(x))
+
+k00=1 
+
+
+Although we have built the model from dierent staring consideration, the resulting modelling 
+(that is the set of possible distribution) is of the same exponential family than the 
+Naive Bayes model. 
+
+Nonetheless, the tted model in a discriminatory approach will be dierent from the one 
+tted in a generative approach: the tting of the K-multiclass logistic regression results from 
+the maximisation of the likelihood of the classes y(j) 
+of a set of learning, given that x(j) 
+are 
+xed. In other words, the tting is obtained by computing the maximum likelihood estimator 
+in the conditional model. Unlike what happens in the generative model, the estimator can't 
+be obtained in a analytical form and the learning requires solving a numerical optimisation 
+problem. 
+
+10-22 
+
+

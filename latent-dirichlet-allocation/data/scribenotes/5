@@ -1,0 +1,619 @@
+IFT 6269: Probabilistic Graphical Models Fall 2016 
+
+Lecture 5 — September 19 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Sébastien 
+Lachapelle 
+
+
+Disclaimer: These notes have only been lightly proofread. 
+
+5.1 Statistical Decision Theory 
+5.1.1 The Formal Setup 
+Statistical decision theory is a formal setup to analyze decision rules in the context of uncertainty.
+ The standard problem in statistics of estimation and hypothesis testing fit in it, 
+but we will see that we can also the supervised learning problem from machine learning in 
+it (though people are less used to see this in machine learning). 
+
+Let D be a random observation (in ML, it would be a training dataset, which is why we 
+used D). Let D 
+be the sample space for D (the set of all possible values for D). D P D. We 
+say that D ∼ 
+P where P is a distribution over the set D. We suppose that P belongs to a 
+certain set of distribution P. We sometimes have that the distribution is parametrized by a 
+parameter  in which case we note this distribution P. P represents the (unknown) state 
+of the world (there is the source of uncertainty). 
+
+Let A 
+be the set of all possible actions. We will denote a a certain action in A. 
+
+
+
+Let L : PA 
+ÞÑ R 
+be the (statistical) loss function. So LpP, aq is the loss of doing action 
+a when the actual distribution is P (when the world is P). 
+
+Let  : D 
+ÞÑ A 
+be a decision rule. 
+
+Less formally, we observe something (D) from nature (P), but we do not actually know 
+how mother nature generates observations (We don’t know P ). Even so, we suppose that P 
+belongs to a certain set of distribution (P). We are in a context where we have to choose an 
+action (a) among a certain set of actions (A). Given the facts that we choose action a and 
+that the actual reality is P , we must pay a certain cost LpP, aq. Since we get to observe a 
+realisation of P, it makes sense to base our action on this observation. This decision process 
+is described by . 
+
+Important subtle point: often P will describe an i.i.d. process, e.g. D pX1, ..., Xnqwhere Xi siid P0. In this case, we often just write the dependence of the loss in terms of 
+P0 instead of the full joint P, i.e. LpP, aq LpP0,aq. Note that the framework also works 
+
+5-1 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+for non i.i.d. data, but in this lecture we only consider i.i.d. data, and so when we write 
+LpP, aq, we mean P as a distribution on Xi, not the joint one... 
+
+Examples 
+
+A) Estimation: 
+Suppose P belongs to a parametrized family of distribution we call P. We say that  
+belongs to a parameter space denoted by . We pose A 
+ . In this context,  is an 
+estimator of . We pose the following loss function (the famous "squared loss"): 
+LpP,aqk  ak
+2 
+
+2 
+
+We sometimes note Lp, aq instead of LpP,aq where this simplification applies. Remember
+ that pDq a. In this specific case, we can write pDq ˆ. 
+We can suppose more specifically that D pX1, ..., Xnq where Xi siid P. This mean 
+we would have: 
+
+Lp, pDqq k  pDqk
+2 
+
+2 
+
+As a concrete example, suppose that P belongs to a Gaussian family P 
+tN 
+p ; μ, 1q| μ P Ru. It would mean that   R. For example, we could choose our decision function to 
+
+° 
+
+
+be pDq 1 Xi. 
+
+ni 
+
+B) Hypothesis Testing: A 
+t0, 1u where 0 might mean not rejecting the null hypothesis 
+and 1 might mean accepting it. In this context,  describes a statistical test. 
+C) Machine Learning for prediction: 
+Let D  ppX1,Y1q, ..., pXn,Ynqq. We have that Xi P X 
+and that Yi P Y 
+for all i. We call 
+X 
+the input space and Y 
+the output space. Let pXi,Yiq siid P0. Then D ∼ 
+P where P 
+is the joint over all the i.i.d. pXi,Yiq couples. A 
+ YX 
+(the set of functions who maps 
+X 
+to Y). 
+In the prediction setting, we define a prediction loss function l : Y2 ÞÑ R. This function 
+is usually a measure of the distance between a given prediction and it’s associated ground 
+truth. 
+The actual loss function we would like to minimize is 
+LpP, fq EP0 
+rlpY, fpXqqs 
+
+This is traditionally called the generalization error, and is also often called the risk in 
+machine learning. Simon calls it the Vapnik risk to distinguish it from the (frequentist) 
+risk from statistics that we will define later. 
+
+In this context, the decision rule  is actually a learning algorithm that outputs a function 
+fˆ P YX 
+. Equivalently, we can write that pDq fˆ. 
+
+5-2 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+5.1.2 Procedure Analysis 
+Given this framework, how can we compare different rules (ie. procedures)? Given 1 and 2, how can I know which is better for a given application? 
+
+(Frequentist) Risk 
+
+The first property to analyze a procedure is called the risk (or the frequentist risk): 
+
+RpP, q ˝ 
+EDsP rLpP, pDqs 
+
+Remarks: The risk is a function of P and we don’t know what P is (in practice). So we 
+never really know what’s the value of this function for a given rule . On the other hand, this 
+property is a theoretical analysis device: we can make statement like for P in some family 
+P, procedure 1 has lower risk than procedure 2 (and is thus better in some sense). Also it 
+is important to distinguish the (frequentist) risk from the generalization error (the Vapnik 
+risk). 
+
+In the next graph, we expose the risk profiles of two rules. For simplicity, we suppose 
+that P is a parametrized distribution and that  P R. 
+
+
+This picture illustrates the fact that sometimes, there is no clear winner when comparing 
+two rules. In this case, it seems that 1 is the best choice for values of  near 0. But for 
+values of  far from 0, 2 is the best choice. The problem is, we don’t know the value of , 
+so we don’t know the best rule to pick. We will see later that there are, in fact, ways to 
+"bypass" this problem. 
+
+Domination and Admissibility 
+
+We say that a decision rule 1 dominates another decision rule 2 for a given loss function L 
+if 
+
+RpP, 1q¤ RpP, 2q@P P P 
+and 
+DP P P,RpP, 1q  RpP, 2qWe say that a decision rule  is admissible if E0 s.t. 0 dominates . 
+
+5-3 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+PAC theory 
+
+(Aside point for your culture). An alternative to the (frequentist) risk approach, is the 
+PAC approach, which is common in machine learning theory. PAC stands for "probably 
+approximately correct", and instead of looking at the average loss over datasets like the 
+frequentist risk does, it looks at ‘tail bound’ of the loss, i.e. a bound B such that we know 
+that the loss will be smaller than ‘with high probability’ (this is why it is called PAC). Given 
+a certain loss function L, a decision function , a distribution P over all possible D and a 
+small real number  ¡ 0; PAC theory seeks to find a bound B such that: 
+
+PrtLpP, pDqq ¥ Bu¤  
+Note that we could have write BpP, q instead of B to emphasize the fact that this bound 
+depends on P,  and . 
+Next graph shows the density of LpP, pDqq given P. Remember that LpP, pDqq is a random 
+variable since D is a random variable. It allow us to compare the frequentist risk (mean) 
+approach vs. the PAC approach (tail bound). 
+
+
+Comparing Decision Rules 
+
+We would like to be able to compare rules together to figure out which one to choose. If we 
+could find a rule that dominates all the other rules, we would choose this rule. But often, we 
+can’t find such a rule. This is why there is no universally best procedure. The frequentist 
+approach is to analyze different properties of decision rules, and the user can then choose 
+which one they prefer according to which properties is better to them. 
+
+We now present two standard ways in statistics to reduce a risk profile curve to a scalar, 
+and so we can then compare rules together and get a notion of "optimality": 
+
+A) The Minimax Criteria: 
+Following this criteria, the optimal rule  is given by:  
+
+ arg min max RpP, q
+
+minimax 
+
+P PP 
+
+
+In words, the minimax optimal rule is the rule who minimizes the risk we would obtain 
+in the worst possible scenario. 
+
+5-4 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+B) Weighting: 
+This criteria requires that we define a weighting over  (can be interpreted as a prior). 
+Formally: » 
+  arg min RpP,qpqd
+
+weight 
+
+ 
+
+ 
+
+Intuitively, when considering a certain rule, we are averaging the risk over all the possible  by putting more weight on the  we believe are more important for the phenomenon 
+that we are studying. After that, we can compare them with each other and pick the 
+rule corresponding to the lowest average. 
+
+C) Bayesian Statistical Decision Theory: 
+The last two criteria were not making any use of the fact that we observed data (that 
+we observed a realization of D). The bayesian optimality criteria makes use of this 
+information. Before defining this criteria, let’s define what we call the bayesian posterior 
+risk: » 
+RBp|Dq ˝ 
+LpP,qpp|Dqd, 
+
+ 
+
+where pp|Dq is the posterior for a given prior pq. 
+
+The optimal rule following the bayesian criteria is: 
+
+ 
+
+bayespDq arg min RBp|Dq
+
+ 
+
+As you recall, in the Bayesian philosophy, we treat all uncertain quantities with probabilities.
+ The posterior on  summarizes all the information we need about the uncertain 
+quantity . As a Bayesian, the statistical loss Lp, aq then tells us how we can act optimally:
+ we simply need to find the action that minimizes the Bayesian posterior risk 
+(as  is integrated out, there is no more uncertainty about !).  is thus the only
+
+bayes
+
+procedure to use as a Bayesian! Life is quite easy for a Bayesian (no need to worry about 
+other properties like minimax, frequentist risk, etc.). The Bayesian does not care about 
+what could happen for other D’s, it only cares that you are given a specific observation 
+D, and want to know how to act given D. 
+
+But a frequentist can still decide to analyze a Bayesian procedure from the frequentist
+ risk perspective. In particular, one can show that most Bayesian procedures are 
+admissible (unlike the MLE!). Also, one can show that the Bayesian procedure is the optimal
+ procedure when using the weighted risk summary with weight function pq which 
+matches the prior ppq. This can be seen as a simple application of Fubini’s theorem, 
+and from the diamond graph below: 
+
+5-5 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+³ 
+
+
+where pp|q stands for D’s pdf conditional to , where ppq   pp|qpqd and 
+where p|Dq denotes the posterior on . The bayesian procedure has the property that 
+it minimizes the weighted summary. 
+
+Exercise 
+: 
+
+
+Given A 
+  and Lp, aqk  ak
+2 , show that  
+bayespDq Er|Ds (the posterior mean). 
+
+Examples of Estimators 
+
+1. Maximum likelihood estimator (MLE) 
+MLEpDq ˆ MLE  arg max LDpq
+
+ 
+
+where LDpq is the likelihood function given the observation D. 
+
+2. Maximum a posteriori (MAP) 
+MAP pDq ˆ MAP  arg max p|Dq
+
+ 
+
+where p|Dq is the posterior distribution over all the possible . 
+
+3. Method of Moments 
+Suppose we have that D pX1, ..., Xnq with Xi siid P being scalar random variables 
+where  is a vector (i.e.  p1, ..., kq). The idea is to find an bijective function h 
+that maps any  to the "vector of moments" (i.e. MkpX1qpErX1s, ErX12s, ..., ErX1 
+ksq). 
+Basically, 
+hpq MkpX1qSince h is bijective, we can invert it, 
+h1pMkpX1qq   
+The intuition is that to approximate , we could evaluate the function h1 using as 
+
+ˆ ˆˆˆ
+
+input the empirical moments vector (i.e. MkpX1qpErX1s, ErX12s, ..., ErX1 
+ksq where 
+
+ˆ 1 ° 
+j
+
+ErXj x for a given j). This would be our method of moments estimator:
+
+1 s ˝ 
+n ii 
+
+h1pMˆ kpX1qq  ˆ MM 
+
+5-6 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+Example: 
+
+
+Suppose that Xi siid N 
+pμ, 2q. We have that, 
+
+ErX1s μ 
+
+2
+
+ErX12s 2 􀀀 μ 
+
+This defines our function h. Now, we invert the relation: 
+
+μ  ErX1s 
+
+2  ErX12s􀀀 E2rX1s 
+
+Then, we finally replace the moments by the empirical moments to get our estimator: 
+
+μˆMM  Eˆ
+rX1s 
+2  Eˆ
+rX22
+
+ˆMM 1 s􀀀 Eˆ rX1s 
+
+Here, this MM estimator is the same as the ML estimator. This illustrates a property 
+of the exponential family (we will see this later in this class). 
+
+Note: The method of moment is quite useful for latent variable models (e.g. mixture 
+of Gaussian), see “spectral methods” or “tensor decomposition” methods in the recent 
+literature1. 
+
+4. ERM for prediction function estimation 
+In this context, A 
+ F 
+ YX 
+and the decision rule is a function  : D 
+ÞÑ YX 
+. F 
+is 
+called the hypothesis space. We are looking for a function f P YX 
+that minimizes the 
+generalization error. Formally, 
+f  arg min EDsP rlpy, fpxqqs
+
+fPYX 
+
+
+Since we don’t know what is P, we can’t compute EDsP rlpy, fpxqqs. As a replacement, 
+we consider fˆ ERM an estimator of f: 
+
+ˆ
+
+fˆ ERM  arg min Erlpy, fpxqqs
+
+fPF 
+
+
+° 
+
+
+1 n
+
+where Eˆrlpy, fpxqqs  i1 lpyi,fpxiqq. ERM stands for empirical risk minimizer 
+(here, the Vapnik risk).n 
+
+1See: “Tensor Decompositions for Learning Latent Variable Models”, by Anandkumar et al., JMLR 2014 
+e.g. 
+
+5-7 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+5.1.3 Convergence of random variables 
+Convergence in distribution 
+8
+
+In general, we say that a sequence of random variable tXnun1 converges in distribution 
+towards a random variable X if 
+
+lim Fnpxq Fpxq@x 
+
+nÑ8 
+
+where Fn and F correspond the cumulative functions of Xn@n and of X respectively. In such 
+a case, we note Xn Ýd
+
+Ñ X 
+
+Convergence in Lk 
+
+8
+
+In general, we say that a sequence of random variable tXnun1 converges in the Lk norm 
+towards a random variable X if 
+
+lim Er kXn  Xkkks 0 
+
+nÑ8 
+
+Lk
+
+In such a case, we note Xn ÝÑ X 
+
+Convergence in Probability 
+
+8
+
+In general, we say that a sequence of random variable tXnun1 converges in probability 
+towards a random variable X if 
+
+@ ¡ 0, lim P tkXn  Xk 
+¥ u 0 
+
+nÑ8 
+
+In such a case, we note Xn Ýp
+
+Ñ X. 
+
+Note: It turns out that L2 convergence implies convergence in probability. (The reverse 
+implication isn’t true) 
+
+5.1.4 Properties of estimator 
+Suppose that Dn pX1, ..., Xnq and that Xi siid P. We will note ˆ n  npDnq an estimator 
+of . The subscript stands to emphasize the fact that the estimator’s value depends on the 
+number of observation n. 
+
+Bias of an estimator 
+
+Biaspˆ nq Erˆ n  s 
+
+5-8 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+Standard Statistical Consistency 
+
+We say that an estimator ˆ n is consistent for a parameter  if ˆ n converges in probability 
+toward  (i.e. ˆ n Ý
+
+Ñp ). 
+
+L2 Consistency 
+We say that an estimator ˆ n is L2 consistent for a parameter  if ˆ n converges in L2 norm 
+
+L2
+
+toward  (i.e. ˆ n ÝÑ ). 
+
+Bias-variance decomposition 
+
+Consider Lp, ˆ nq   ˆ n 
+2 . We will express the frequentist risk as a function of the bias 
+
+2 
+
+and variance of ˆ n. 
+
+Remark: Other loss functions would have potentially led to a different function of the bias 
+
+RpP, nq  EDsP r   ˆ n 
+2 
+s 
+ Er   Erˆ ns 􀀀 Erˆ ns  ˆ n 
+2 
+s 
+(5.1) 
+(5.2) 
+2  Er   Erˆ ns s 􀀀 Er Erˆ ns  ˆ n 
+2  Er   Erˆ ns s 􀀀 Er Erˆ ns  ˆ n 
+ˆ 2 ˆ 2    Erns 􀀀 Er Erns  ˆ n s 
+2 ˆ ˆs 􀀀 2 Er x  Erns, Erns  ˆ nys2 ˆ ˆ ˆs 􀀀 2x  Erns, Erns  Ernsy 
+(5.3) 
+(5.4) 
+(5.5)  biaspˆ nq 
+2 ˆ􀀀 V arrns (5.6) 
+
+and the variance, thus expressing a different priority between the bias and the variance. 
+
+
+The James-Stein estimator 
+
+The James-Stein estimator for estimating the mean of a Xi siid Ndpμ, 2Iq dominates 
+the MLE estimator for the squared loss when d ¥ 3 (and thus showing that the MLE is 
+
+5-9 
+
+
+Lecture 5 — September 19 Fall 2016 
+
+inadmissible in this case). It turns out that the James-Stein estimator is biased, but that its 
+variance is sufficiently smaller than the MLE’s variance to offset the bias. 
+
+Properties of the MLE 
+
+Assuming sufficient regularity conditions on  and ppx; q, we have: 
+
+p
+
+1. Consistent: ˆ MLE Ñ 
+Ý 
+? d
+
+ˆ 1
+
+2. CLT: npMLE  qÑ N 
+p0,Ipqq where I is the Fisher information matrix.
+Ý 
+
+3. Asymptotic optimality: 
+Among all unbiased estimator of a scalar parameter , ˆ MLE is the one with the lowest 
+variance asymptotically. 
+This results follows from the Cramér-Rao bound result, which can be stated like this: 
+Let ˆ be an unbiased estimator of a scalar parameter . Then we have that, 
+1
+
+ˆ
+
+V arrs¥ 
+
+Ipq 
+
+Note that this result can also be stated in the multivariate case. 
+
+4. Invariance to reparametrization: 
+Suppose we have a bijection f : ÞÑ , then, 
+ˆ
+
+fypq fpMLEq
+
+MLE 
+
+This result can be generalized to the case where f isn’t a bijection. 
+
+Suppose g : ÞÑ  (bijective or not). We define the profile likelihood: 
+
+Lpq ˝ 
+max ppdata; q
+
+|gpq 
+
+Let also define the generalized MLE in this case as: 
+
+ˆMLE 
+˝ 
+arg max Lpq
+
+Pgpq 
+
+Then we have that 
+
+ˆ
+
+ˆMLE  gpMLEq
+
+this is called a plug-in estimator because you are simply “plugging in” the value ˆ MLE 
+in the function g to get its MLE. 
+
+Examples 
+
+
+22
+
+(a) pMLE pˆMLEq 
+ˆ
+
+(b) psin{2qMLE  sinp2 
+MLEq 
+
+5-10 
+
+

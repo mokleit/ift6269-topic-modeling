@@ -1,0 +1,1064 @@
+Approximate inference, Sampling & Variational inference Fall 2015 
+
+Cours 9 — November 25 
+
+Enseignant: 
+Guillaume 
+Obozinski 
+Scribe: 
+Basile 
+Clément, 
+Nathan 
+de 
+Lara 
+
+
+9.1 
+Approximate 
+inference 
+with 
+MCMC 
+9.1.1 Gibbs sampling 
+Let us consider an undirected graph and its associated distribution p 
+from which we want 
+to sample (in order to do inference for example). It is assumed that: 
+
+• 
+It is difficult to sample directly from p. 
+• 
+It is easy to sample from Pp(Xi 
+= 
+:jX􀀀i 
+= 
+x􀀀i) 
+The idea consists in using the Markov property so that: 
+Pp(Xi 
+= 
+:jX􀀀i 
+= 
+x􀀀i)= 
+Pp(Xi 
+= 
+:jXNi 
+= 
+xNi 
+) 
+(9.1) 
+
+Where Ni 
+is the Markov blanket of the node i. Based on this, Gibbs sampling is a process 
+that converges in distribution to p. 
+
+The most classical version of the Gibbs sampling algorithm is cyclic scan Gibbs sampling. 
+
+Algorithm 1 Cyclic scan Gibbs sampling 
+
+initialize t 
+=0 
+and x0 
+while t<T 
+do 
+
+for i 
+=1::d 
+do 
+
+tt􀀀1 
+
+
+x 
+∼ 
+Pp(Xi 
+= 
+:jX􀀀i 
+= 
+x 
+)
+
+i 
+􀀀i 
+xj
+t 
+= 
+xjt􀀀1 
+8j 
+6
+= 
+i 
+t 
+= 
+t 
++1 
+
+
+end for 
+end while 
+return xT 
+
+
+Another version of the algorithm called random scan Gibbs sampling consists in picking 
+the index i 
+at random at each step t. 
+
+9-1 
+
+
+Cours 9 — November 25 Fall 2015 
+
+Algorithm 2 Random scan Gibbs sampling 
+
+initialize t 
+=0 
+and x0 
+while t<T 
+do 
+Draw i 
+uniformly at random in f1;:::;dg
+
+tt􀀀1 
+
+
+x 
+∼ 
+Pp(Xi 
+= 
+:jX􀀀i 
+= 
+x 
+)
+
+i 
+􀀀i 
+xt
+j 
+= 
+x 
+t
+j 
+􀀀1 
+8j 
+6
+= 
+i 
+t 
+= 
+t 
++1 
+
+
+end while 
+return xT 
+
+
+9.1.2 Application to the Ising Model 
+Let us now consider the Ising model on a graph G 
+=(V, 
+E). X 
+is a random variable which 
+takes values in f0, 
+1gd 
+with a probability distribution that depends on some parameter : 
+
+01 XX 
+
+p(x) 
+= 
+exp 
+@ ixi 
++ 
+ijxixj 
+− 
+A()A (9.2) 
+
+i 
+fi;jg2E 
+
+
+To apply the Gibbs sampling algorithm, we need to compute P(Xi 
+= 
+xijX􀀀i 
+= 
+x􀀀i) 
+We have 
+
+1 
+XXX  P(Xi 
+= 
+xi;X􀀀i 
+= 
+x􀀀i) 
+= 
+exp 
+ixi 
++ 
+ijxixj 
++ 
+jxj 
++ 
+jj0 
+xjxj0 
+
+
+Z() 
+
+
+j2Ni 
+j6=i 
+fj;j0g2E, 
+j;j06=i 
+
+
+and thus 
+
+1 
+XXXX  P(X􀀀i 
+= 
+x􀀀i) 
+= 
+exp 
+iz 
++ 
+ijzxj 
++ 
+jxj 
++ 
+jj0 
+xjxj0 
+
+
+Z() 
+
+
+z2f0;1} 
+j2Ni 
+j6=i 
+fj;j0g2E, 
+j;j06=i 
+
+
+Taking the ratio of the two previous quantities, the two last terms cancel out and we get
+
+
+
+P 
+
+exp 
+xii 
++ 
+j2Nj 
+xixjij 
+P(Xi 
+= 
+xijX􀀀i 
+= 
+x􀀀i)= 
+
+
+P 
+
+1 
++ 
+exp 
+i 
++ 
+j2Nj 
+xjij 
+
+
+In particular: 
+
+
+
+P 
+
+exp 
+i 
++ 
+xjij
+
+j2Nj
+
+
+
+P(Xi 
+= 
+xijX􀀀i 
+= 
+x􀀀i)= 
+P 
+
+1 
++ 
+exp 
+i 
++ 
+xjij
+
+j2Nj 
+!!􀀀1X 
+
+= 
+1+exp 
+􀀀(i 
++ 
+ijxj) 
+
+
+j2Ni
+
+X 
+
+= 
+i 
++ 
+ijxj 
+, 
+
+
+j2Ni 
+
+
+9-2 
+
+
+Cours 9 — November 25 Fall 2015 
+
+􀀀z)􀀀1
+
+where σ 
+is the logistic function σ 
+: 
+z 
+7
+→ 
+(1 
++ 
+e 
+. 
+
+Without surprise, the conditional distribution P(Xi 
+= 
+xijX􀀀i 
+= 
+x􀀀i) 
+only depends on 
+the variables that are neighbors of i 
+in the graph and that form its Markov blanket, since 
+we must have 
+
+P(Xi 
+= 
+xijX􀀀i 
+= 
+x􀀀i)= 
+P(Xi 
+= 
+xi 
+| 
+XNi 
+= 
+xNi 
+). 
+
+
+Since the conditional distribution of Xi 
+given all other variable is Bernoulli, it is easy to 
+sample it, using a uniform random variable. 
+
+Proposition 1 Random scan Gibbs sampling satisfies detailed balance for π 
+the Gibbs distribution
+ of interest (i.e. the distribution of the graphical model). 
+
+Proof Let us consider one step of the random scan Gibbs sampling algorithm starting from , the distribution of the graphical model. The idea is to prove the reversibility. We first 
+prove the result for an index i 
+fixed, that is we prove that the transition qi;Gibbs(xt+1 
+| 
+xt) 
+that only resamples the ith coordinate of xt 
+is reversible for . We write p(xijx􀀀i) 
+the
+
+P 
+
+conditional distribution p(xijx􀀀i)= 
+(xi;x􀀀i)=( 
+x 
+(xi;x􀀀
+0 
+i)) 
+of the Gibbs distribution
+
+0 
+􀀀i 
+
+
+. Using the Kronecker symbol δ 
+defined by (x, 
+y)=1 
+if x 
+= 
+y 
+and (x, 
+y)=0 
+else we 
+have: 
+
+(x 
+t) 
+qi;Gibbs(x 
+t+1 
+| 
+x 
+t)= 
+(x 
+t) 
+(x 
+t+1 
+;x 
+t 
+) 
+p(x 
+t+1 
+| 
+x 
+t)
+
+􀀀i 
+􀀀i 
+ii 
+t 
+ttt+1 
+tt+1 
+t 
+
+
+= 
+(x􀀀i) 
+p(xijx􀀀i) 
+(x􀀀i 
+;x􀀀i) 
+p(xi 
+| 
+x􀀀i) 
+t+1 
+tt+1 
+tt+1 
+t+1 
+t+1 
+
+
+= 
+(x􀀀i 
+) 
+p(xi 
+| 
+x􀀀i 
+) 
+(x􀀀i;x􀀀i 
+) 
+p(xi 
+| 
+x􀀀i 
+) 
+
+
+= 
+(x 
+t+1) 
+qi;Gibbs(x 
+t 
+| 
+x 
+t+1). 
+
+
+Detailed balance for qi;Gibbs 
+is valid for any i. In the random scan case, the index i 
+being 
+chosen at random uniformly with probability 1 
+d 
+, the Gibbs transition is in fact: 
+
+d
+
+X
+
+1 
+
+
+t+1 
+| 
+x 
+t)
+
+qi;Gibbs(x 
+
+
+d 
+
+
+i=1 
+
+
+The result is then obtained by taking the average over i 
+in the previous derivation. Thus 
+π 
+is a stationary distribution of the random scan Gibbs transition. 
+
+Proposition 2 If the Gibbs transition (e.g. random, cycle, etc.) is regular, then the MC 
+defined by the Gibbs sampling algorithm converges in distribution to , the Gibbs distribution. 
+
+Exercise 1 Extend Gibbs method to Potts model. 
+
+Exercise 2 Prove that the Gibbs transition is a special case of Metropolis-Hastings proposal 
+that is always accepted. 
+
+9-3 
+
+
+Cours 9 — November 25 Fall 2015 
+
+9.2 
+Variational 
+inference 
+9.2.1 Overview 
+The goal is to do approximate inference without using sampling. Indeed, algorithms such as 
+Metropolis-Hastings or Gibbs sampling can be very slow to converge; besides, in practice, it 
+is very difficult to find a good stopping criterion. People working on MCMC methods try to 
+find clever tricks to speed up the process, hence the motivation for variational methods. 
+
+Let us consider a distribution on X 
+finite (but usually very large) and Q 
+an exponential 
+family with q(x) 
+= 
+exp(T 
+(x) 
+− 
+A()). Let us assume that the distribution of interest p, 
+that is for example the distribution of our graphical model that we are working with, is in 
+
+Q. The goal is to compute Ep 
+[(x)]. 
+Computing this expectation corresponds to probabilistic inference in general. For example,
+ for Potts model, using the notation [K] 
+:= 
+f1;:::;Kg, we have 
+
+ 
+
+(xik)i2V;k2[K]
+
+(x)= 
+(XikXjl)ij2E; 
+k;l2[K] 
+
+
+We recall that: p 
+= 
+argmin 
+D(qjjp) 
+where:
+
+q 
+
+
+X 
+
+q(x)
+
+D(qjjp)= 
+q(x) 
+log 
+= 
+Eq 
+[− 
+log 
+p(X)] 
+− 
+H(q) 
+
+
+p(x)
+
+x2X 
+
+
+Since p 
+is in Q, it is associated with a parameter : 
+
+ 
+
+Eq 
+[− 
+log 
+p(X)] 
+= 
+Eq 
+􀀀T 
+(X)+ 
+A() 
+= 
+􀀀T 
+Eq 
+[(X)] 
++A()
+
+| {z } 
+
+(q) 
+
+
+where (q) 
+is the moment parameter (see course on exponential families). Thus we have: 􀀀D(pjjq)= 
+T 
+(q)+ 
+H(q) 
+− 
+A() 
+This quantity is always negative (≤ 
+0) thus, for all q, A() 
+≥ 
+T 
+(q)+ 
+H(q). Maximizing 
+with respect to q 
+in the exponential family leads to: 
+
+T
+
+A() 
+= 
+max 
+(q)+ 
+H(q) 
+
+
+(9.3) 
+
+q2Q 
+
+
+and the unique value of q 
+that attains the maximum is p. 
+
+Remark 9.2.1 It is possible here to get rid of q 
+and express things only in terms of the 
+moment. It is indeed a way to parameterize the distribution q 
+: for a µ 
+realizable in the 
+exponential family there is a single distribution q. The maximization problem becomes: 
+
+max 
+T 
+µ 
++ 
+H~(), 
+
+
+2M 
+
+
+9-4 
+
+
+Cours 9 — November 25 Fall 2015 
+
+where H~()= 
+H(q) 
+and where M 
+is called the marginal polytope and is the set of all possible 
+
+
+
+moments1 
+. The maximum is only attained for µ 
+= 
+(p)= 
+Ep[(X)], which is exactly the 
+expectation that needs to be computed. 
+
+It turns out that it is possible to show that H˜ 
+is always a concave function, so that the 
+optimization problem above is a convex optimization problem. 
+
+It is interesting to note that we have thus turned the probabilistic inference problem, which, 
+a priori, required to compute expectations, that is integrals, into an optimization problem, 
+which is furthermore convex. Unfortunately this convex optimization problem is NP-hard to 
+solve in general because it solves the NP-hard probabilistic inference problem, and it is not 
+possible to escape the fact that the latter is NP-hard. This optimization problem is thus in 
+general intractable and this is because of two reasons: 
+
+• 
+For a general graph the marginal polytope M 
+has number of faces which is exponential 
+in the tree width of the graph. 
+• 
+The function H~() 
+can be extremely complicated to write explicitly. 
+9.2.2 Mean field 
+In order to approximate the optimization problem it is possible either to change the set of 
+distribution Q, the moments M 
+or to change the definition of the entropy H˜ 
+. The mean 
+field technique consists in choosing q 
+in a set that makes all variables independent: 
+
+For a graphical models on variables x1 
+:::xd, let us consider: 
+
+Q 
+⊥ 
+= 
+fq 
+| 
+q(x)= 
+q1(x1) 
+:::qd(xd)g, 
+
+
+the collection of distributions that make the variables X1;:::;Xd 
+independents. 
+We consider the optimization problem (8.3), but in which we replace Q 
+by Qπ 
+
+
+max 
+T 
+(q)+ 
+H(q). 
+(9.4) 
+
+q2Q 
+⊥ 
+
+
+Note that in general p 
+2=Qπ 
+so that the solution cannot be exactly (p). 
+
+In order to write this optimization problem for a Potts model, we need to write explicitly T 
+(q) 
+and H(q) 
+
+
+1We have seen in the course on exponential families that the distribution of maximum entropy q 
+under 
+the moment constraint Eq[(X)] 
+= 
+µ 
+is also, when it exists, the distribution of maximum likelihood in the 
+exponential family associated with the sufficient statistic . This essentially – but not exactly – shows that 
+for any moment µ 
+there exists a member of the exponential family, say q, such that µ 
+= 
+(q). In fact, to 
+be rigorous one has to be careful about what happens at points of the boundary of the set M: the correct 
+statement is that for every µ 
+in the interior of M 
+there exists a distribution q 
+in the exponential family 
+such that (q)= 
+. The points on the boundary of M 
+are only corresponding to limits of distributions of 
+the exponential family that can be degenerate, like the Bernoulli distribution with probability 1 
+(or 0) for 
+example in the Bernoulli family case, which are themselves not in the family. 
+
+9-5 
+
+
+Cours 9 — November 25 Fall 2015 
+
+Moments in the mean field formulation 
+
+T 
+(q)= 
+T 
+Eq 
+[(X)]
+
+XX 
+
+= 
+ik 
+Eq 
+[Xik]+ 
+ijkl 
+Eq 
+[XikXji] 
+i2V;k2[K](i;j)2E 
+
+
+We have 
+
+Eq 
+[Xik]= 
+Eqi 
+[Xik]= 
+ik(q) 
+
+
+On the other hand, the independence of the variables lead to: 
+
+Eq 
+[XikXjl]= 
+Eqi 
+[Xik] 
+Eqj 
+[Xjl]= 
+ik 
+jl 
+
+
+Note that if we had not constrained q 
+to make these variables independent, we would in 
+general have a moment here of the form Eq 
+[XikXjl]= 
+ijkl. This is the main place where 
+the mean field approximation departs from the exact variational formulation (8.3). 
+
+Entropy H(q) 
+in the mean field formulation 
+
+By independence of the variables: H(q)= 
+H(q1)+ 
+· 
++ 
+H(qd). Recall that qi 
+is the distribution
+ on a single node, and that Xi 
+is a multinomial random variable: 
+
+KK
+
+XX 
+
+H(qi)= 
+− 
+Pqi 
+(Xik 
+= 
+1) 
+log 
+Pqi 
+(Xik 
+= 
+1) 
+= 
+− 
+ik 
+log 
+ik 
+
+
+k=1 
+k=1 
+
+
+Mean field formulation for the Potts model 
+
+In the end, putting everything together the optimization problem (8.4) can be written as 
+
+XX X 
+
+max 
+ik 
+ik 
++ 
+ijklikjl 
+− 
+ik 
+log 
+ik 
+
+
+µ 
+i;k 
+i;j;k;l 
+i;k 
+
+
+s.t. 8i;k, 
+ik 
+≥ 
+0 
+K
+
+X 
+
+8i, 
+ik 
+=1. 
+k=1 
+
+
+The problem is simple to express, however we cannot longer expect that it will solve 
+our original problem (8.3), because by restricting to the set Q 
+?, we have restrained the 
+forms that the moment parameters ijkl 
+:= 
+E[XikXjl] 
+can take. In particular since p 
+is not 
+in Q 
+⊥ 
+in general, the optimal solution of the mean field formulation does not retrieve the 
+correct moment parameter (p). The approximation will be reasonable if (p) 
+is not too far 
+from the sets of moments that are achievable by moments of distributions in Q 
+?, since the 
+moments of p 
+are approximated by the moments of the closest independent distribution. Note 
+
+9-6 
+
+
+Cours 9 — November 25 Fall 2015 
+
+however that the mean field approximation is much more subtle than ignoring the binary 
+potentials in the model, which would be a too naive way of finding an “approximation" with 
+an independent distribution. 
+
+One difficulty though is that the objective function is no longer concave, because of the 
+products ikjl 
+which arise because of the independence assumption from the mean field 
+approximation. Coordinate descent on each of the i 
+(not the ik) is an algorithm of choice 
+to solve this kind of problem. To present the algorithm we consider the case of the Ising 
+model, which is a special case of the Potts model with 2 
+states for each variable. 
+
+Mean field formulation for the Ising model 
+
+When working with the Ising model is simple to reduce the number of variables by using 
+the fact that if i2 
+=1 
+− 
+i1, we therefore write i 
+for i1 
+and the mean field optimization 
+problem becomes 
+
+XXX􀀀  
+
+max 
+µ 
+i 
+i 
+i 
++ 
+i;j 
+ij 
+ij 
+− 
+i 
+i 
+log 
+i 
++ 
+(1 
+− 
+i) 
+log(1 
+− 
+i) 
+s.t. i 
+∈ 
+[0, 
+1]. 
+
+
+The stationary points for each coordinate correspond to the zeros of the partial derivatives:
+ 
+
+X
+
+df 
+i 
+
+
+= 
+i 
++ 
+ijj 
+− 
+log
+
+di 
+1 
+− 
+i
+
+j2Ni 
+
+
+So that 
+
+X
+
+df 
+
+
+=0 
+⇔ 
+log 
+i=(1 
+− 
+i)= 
+i 
++ 
+ijj
+
+di 
+
+
+j2Ni
+
+X 
+
+⇔ 
+µ 
+∗ 
+i 
+= 
+(i 
++ 
+ijj), 
+j2Ni 
+
+
+􀀀z)􀀀1
+
+where σ 
+is the logistic function σ 
+: 
+z 
+7
+→ 
+(1 
++ 
+e 
+. 
+
+t+1 
+P 
+
+Note that in Gibbs sampling xi 
+=1 
+with probability (i 
++ 
+j2Ni 
+ijxj). This is called 
+mean field because the sampling is replaced by an approximation where it is assumed that 
+the sample value is equal to its expectation, which for the physicist correspond to the mean 
+field in the ferromagnetic Ising model. 
+
+Finally, lets insist that the mean field formulation is only one of the formulations for 
+variational inference, there are several other ones, among which structured mean field, expectation
+ propagation, loopy belief propagation (which can be reinterpreted as as solving a 
+variational formulation as well), tree-reweighted variational inference, etc. 
+
+9-7 
+
+

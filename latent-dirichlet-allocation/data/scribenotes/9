@@ -1,0 +1,1816 @@
+IFT 6269: Probabilistic Graphical Models Fall 2018 
+
+Lecture 9 — October 2 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Eeshan 
+Gunesh 
+Dhekane 
+
+
+Disclaimer: These notes have only been lightly proofread. 
+
+9.1 (Fisher) Linear Discriminant Analysis 
+Let us consider the problem of binary classification! In the last class, we considered Logistic 
+Regression, which is a discriminative (conditional) approach to binary classification. In 
+this class, we consider Linear Discriminant Analysis1 
+(LDA), which is a Generative 
+approach to binary classification. Recall that a conditional approach models only the predictive
+ distribution p (Y | X) of labels given the input data. On the other hand, the generative 
+approach of LDA models the input data as well. Specifically, LDA models the entire dataset 
+distribution p(X, Y ) through Gaussian Class-Conditional Distributions p (X | Y ) and 
+Bernoulli Prior Distribution p (Y ). The parameters involved in this modeling can be easily
+ learned from a training dataset using closed-form Maximum Likelihood Estimates. 
+Having learned the parameters, predictions can be easily made for test dataset through predictive
+ distribution p (Y | X). In the following sections, we will consider the LDA approach 
+in detail. However, we begin with a brief introduction to Vector/Matrix Calculus followed 
+by the Plate Notation and the Graphical Representation of Probabilistic Approaches. 
+
+9.2 Vector and Matrix Calculus 
+9.2.1 Motivation 
+Recall that the definition of the derivative of a real-valued function of a real-valued variable 
+can be given as follows : 
+
+A function f : R 
+! R 
+is said to be differentiable at x0 2 R 
+f(x + h) − f(x)
+
+() limh!0 exists (and has a finite value). (9.1)
+
+h 
+
+f(x+h)−f(x)
+
+The value of the limit limh!0 h is often denoted by f0(x0) and is called the Derivative
+ of f at x0. The notion of derivative of a function is extremely useful for modeling 
+its rate of change, points of extrema, linear approximation etc. Thus, we want to extend 
+
+1Note that Linear 
+Discriminative 
+Analysis 
+generalizes the Fisher’s Linear Discriminant method, 
+which uses a linear combination of features for data classification. For simplicity, we will denote the (Fisher) 
+Linear Discriminative Analysis by LDA 
+throughout the notes. 
+
+9-1 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+this notion to a broader class of functions. Specifically, we want to define the derivative of 
+vector/matrix valued functions of vector/matrix argument. 
+
+It is clear from [9.1] that the same definition can not be used directly for generalization 
+because it involves the limit of a fraction. For vectors and matrices, the notion of fraction 
+and division is not always well-defined. However, we can rewrite [9.1] as follows : 
+
+f(x + h) − f(x)
+
+limh!0 = f0(x0) is equivalent to: f(x + h) − f(x)= f0(x0) · h + e(h),
+
+h 
+
+where e(h) is an error function that satisfies limh!0 
+e( 
+hh) = 0 (9.2) 
+
+This form of the definition of derivative is easier to generalize to the desired broader category 
+of functions. It involves writing the change in the value of the function f asthe sum ofa 
+linear operator2 
+f0(x0) acting on the change h in the argument of the function and an error 
+function e(h). Note that the linear operator f0(x0) is defined entirely in terms of x0 and 
+it acts on the change h in the argument. Also, as h ! 0, the error function must satisfy 
+limh!0 
+e( 
+hh) . With these observations, we can generalize the definition of derivative. 
+
+9.2.2 Generalizing Differentiability 
+We first consider the vector-valued functions of vectors. 
+
+Definition [Differentiability] : Consider function f such that f : Rm ! Rn. 
+f is Differentiable at x0 
+2 Rm () 9 a Linear Operator dfx0 
+: Rm ! Rn 
+
+such that 8  2 Rm,f(x0 
++ ) − f(x0)=dfx0 
+() + o (kk) (9.3) 
+
+h(kk)
+
+Here, o (kk) represents Error Function h(kk) such that limkk!0 kk = 0. 
+The term o (kk) is usually called and is read as the “little oh” of . 
+
+The linear operator dfx0 
+is called the Differential of f at x0. 
+The differential is a linear operator 
+
+() dfx0 
+(1 + b · 2)=dfx0 
+(1)+ b · dfx0 
+(2) 8 1, 2 2 Rm , 8 b 2 R 
+
+
+Remark : The differential operator dfx0 
+can be thought of as a “machine” or a “processor” 
+which inputs vectors from Rm, processes them and generates an output vector in Rn. It 
+should be noted that this operator is entirely defined in terms of x0 
+and it should be linear. 
+
+2An operator can be thought of as a “machine” that inputs a variable from the domain space, processes 
+it and yields an output in the target space. We will briefly consider the exact meaning of an operator in the 
+next subsection. However, we will describe the form of these operators for the specific cases of interest. 
+
+9-2 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+Remark : In the case of f : Rm ! Rn, the differential dfx0 
+takes the form of a matrix with 
+order n × m and the operation dfx0 
+becomes the matrix multiplication of dfx0 
+and . The 
+details are as given below : 
+
+If f : Rm ! Rn, then dfx0 
+2 Rn×m and dfx0 
+() = dfx0 
+· (8  2 Rm) 
+The differential represented as a matrix of order n × m is called the Jacobian Matrix. 
+Let (dfx0) denote the (i, j)−th component of dfx0. Then, (dfx0)= @@f 
+x 
+ij 
+(9.4)
+
+i,j i,j 
+
+x0 
+
+
+where fi is i−th component of f and xj is j−th component of x 
+(1  i  n, 1  j  m). 
+
+Remark : This definition of differentiability (and of differential) from [9.3] gives a way to 
+define the derivatives not only for the cases of vectors but also for matrices and tensors. It is 
+easy to see that exactly the same definition will continue to hold for the more general cases 
+of matrices and tensors. However, one needs to be careful about the form of the differential! 
+
+Remark : Another important case to consider is that of real-valued functions of square 
+matrices. It is important as it is required a lot for MLE and MAP estimations corresponding 
+to Gaussian distributions. In the case of f : Rn×n ! R, the differential dfx0 
+takes the 
+form of a matrix with order n × n and the operation dfx0 
+becomes the Trace of matrix 
+multiplication of dfx0 
+and . The details are as given below : 
+
+ 
+
+If f : Rn×n ! R, then dfx0 
+2 Rn×n and dfx0 
+()=tr dfx0 
+>(8  2 Rn×n) 
+
+9.2.3 Chain Rule 
+One of the most important and frequently used formula for evaluation of differentials of 
+composition of function is the Chain Rule. It expresses the differential of the composition 
+of functions in terms of the differentials of the individual functions as follows : 
+
+Let f : Rm ! Rn and g : Rn ! Rq. Then, d(g  f)x0 
+=dgf(x0) · dfx0 
+(9.5) 
+The term dgf(x0) · dfx0 
+is the product of the Jacobians dgf(x0) 2 Rq×n and dfx0 
+2 Rn×m. 
+
+Remark : It is easy to extend the chain rule to composition of more than two functions 
+(Exercise!). Also, note that the resultant product of Jacobians will always be well-defined. 
+
+9-3 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+9.2.4 Important Examples 
+In this subsection, we consider some examples that not only help demonstrate the use of the 
+definition from [9.3] in order to calculate the differentials of certain important functions, but 
+build the required tool-kit for the analysis of LDA in the subsequent sections! 
+
+Differential of Squared Mahalanobis Distance : Let f : Rd ! Rd such that 8 x 
+2 Rd, 
+we have : f(x)= x 
+− μ, where µ 
+is a constant vector in Rd. Now, in order to evaluate the 
+differential of f at x, consider the following manipulations for any h 
+2 Rd : 
+
+f(x 
++ h) − (x) = ((x 
++ h) − μ) − (x 
+− μ)= h 
+= Id×d · h 
++ 0 
+where 0 
+is the d−dimensional zero vector. Clearly, limkhk!0 kh0 
+k = 0. 
+Thus, by definition, we have dfx 
+= Id×d 8 x 
+2 Rd (9.6) 
+where Id×d is the d−dimensional identity matrix. 
+
+Now, consider g : Rd ! R 
+such that 8 x 
+2 Rd, we have : g(x)= x>Ax, where A 2 Rd×d is a 
+fixed matrix of order d × d. Now, in order to find the differential of g at x, we consider the 
+following manipulations for any h 
+2 Rd : 
+
+ 
+
+g(x 
++ h) − g(x)=(x 
++ h)>A(x 
++ h) − x>Ax 
+= x>Ah 
++ h>Ax 
++ h>Ah 
+>
+
+Now, h>Ax 
+2 R 
+) h>Ax 
+= x>A>h. Also, x>Ah 
+2 R. 
+
+ 
+
+) g(x 
++ h) − g(x)= x> A + A> h 
++ h>Ah 
+
+
+h>Ah
+
+Now, it is easy to prove that limkhk!0 =0. (Try this as an Exercise! 
+
+khk
+
+ 
+
+Thus, by definition, we have dgx 
+= x> A + A> 8 x 
+2 Rd (9.7) 
+
+Now, we consider the matrix A to be the inverse of Covariance Matrix  of some Gaussian
+ Distribution N (μ, ), with µ 
+2 Rd ,  2 Rd×d. Then, the Squared Mahalanobis 
+
+Distance3 
+with respect to the given Gaussian Distribution, denoted by ` : Rd ! R, is 
+defined as follows : ` μ,(x) = (x 
+− μ) −1 (x 
+− μ) 8 x 
+2 Rd (9.8) 
+
+Note that the term ` μ,(x) appears in the log-likelihood expressions involving Gaussian 
+distributions and hence, we need to evaluate its differential in order to solve for MLE, MAP 
+estimates! Consider the following manipulations for getting the required differential : 
+
+3For extra information, please refer to the Wikipedia page on [Mahalanobis 
+Distance]. 
+
+9-4 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+Define ` : Rd ! R 
+such that `(x)=(x 
+− μ)> A (x 
+− μ) 8 x 
+2 Rd 8 x 
+2 Rd, we have : `(x)=(g  f)(x) where,  denotes function composition. 
+Here, f and g are the functions defined above. 
+Thus, the differential for ` can be computed using the chain rule as follows : 
+
+  
+
+d` x 
+=dgf(x) · dfx 
+=(x 
+− μ)> A + A> · Id×d 
+
+Now, since −1 is symmetric, we have −1 = (−1)>. Thus, we get : 
+
+ 
+
+d` x 
+=(x 
+− μ)> A + A> and d(` μ,)x 
+=2(x 
+− μ)> −1 (9.9) 
+
+Remark : In any calculation of differential, we must ensure that the error function (denoted 
+by h(kk)) tends to 0 strictly faster than kk. In almost all our cases, we will deal with 
+vector, matrix (or tensor) values of . Thus, by default, we will consider kk to be the 
+Frobenius Norm4 
+of . For any matrix (including a vector), it is defined as follows : 
+
+The Frobenius norm of a vector or a matrix T is denoted by kTkF . 
+
+qPd 2
+
+Frobenius norm of vector v 
+2 Rd is defined as : kvkF = i=1 |vi| (9.10) 
+
+qP P 
+
+nm 2
+
+Frobenius norm of matrix M 2 Rn×m is defined as : kMkF = i=1 j=1 |Mi,j| 
+
+Differential of Determinant of a Square Matrix : Another important function that 
+appears whenever we consider the log-likelihood involving Gaussian Distributions is the 
+logarithm of the determinant of the covariance matrix. Thus, it is important to consider the 
+differential of the log-determinant of a matrix. 
+
+Let function f : Rd×d ! R 
+be defined as : f(A) = log |A|8 A 2 Rd×d. Consider any 
+matrix  2 Rd×d. Then, f(A +) − f(A) = log |A +|− log |A|. For simplicity, we restrict 
+our proof to symmetric matrix A 2 Rd×d that is strictly positive definite i.e. A  0. This 
+implies that A is invertible and that its matrix square roots exists (by the spectral theorem): 
+
+i.e. 9 B 2 Rd×d such that B · B = A. We denote B by A21 
+and call it Square Root 
+of Matrix5 
+A. Note that we can always find the square root for a real-valued symmetric 
+matrix and hence, our proof will work for the cases when A equals the covariance matrix of a 
+Gaussian distribution or its inverse. Now, for a matrix M 2 Rd×d, let i (M)(i 2{1,...,d}) 
+denote the d eigenvalues of M, in decreasing order, with multiplicity counted. Then, we will 
+4For extra information on Frobenius Norm, please refer to the Wikipedia pages on [Matrix 
+Norm] and 
+[Frobenius 
+Inner 
+Product].
+
+5For more information on the Square Roots of Matrices, their existence and construction, please refer to 
+the Wikipedia page on [Square 
+Root 
+of 
+a 
+Matrix]. 
+
+9-5 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+use the following standard linear algebra properties in our derivation : 
+For matrices B, C 2 Rd×d, we have : |B · C| = |B|·|C|. 
+
+Pd Qd
+
+For matrix M 2 Rd×d that is diagonalizable, we have : tr (M)= i=1 i(M) and |M| = i=1 i(M). 
+For any matrices B, C, D 2 Rd×d, we have : tr(B · C · D) = tr(D · B · C). 
+For matrix M 2 Rd×d, we have : M ! 0 ) i(M) ! 0 8 i 2{1, 
+
+...,d}. 
+
+P1 i 
+
+
+i=1(−1)i+1 x 
+
+i 
+
+2For 1log(1+ )R 
+x2||)−=<xxxx, 2 
+
+3 
+
+3+ x 
+
+− ... = 
+
+(9.11) 
+
+Now, we consider the derivation to obtain the differential of log-determinant of f : 
+
+ 
+
+ 
+
+log |A +|− log |A| = log A 
+
+ 
+
+12
+
+I + A−
+
+12 
+
+
+12
+
+A 
+
+12 
+
+
+12
+
+A 
+
+12
+
+A− 
+
+12 
+
+
+− log A 
+− log 
+
+ 
+
+
+
+12 
+
+
+12 
+
+
+12 
+
+
+12
+
+A 
+
+12
+
+= log 
+
+A 
+
+A−
+
+I + A− 
+
+A 
+
+A 
+
+Yd 
+
+
+
+
+
+12
+
+A−
+
+12 
+
+
+12
+
+A−
+
+12
+
+= log I + A− 
+
+= log 
+
+I + A−
+
+i
+
+i=1 
+
+ 
+
+ 
+
+Xd 
+
+
+
+Xd
+
+12 
+
+
+12 
+
+
+12 
+
+
+12
+
+log 
+
+A− 
+
+log 1+ i 
+
+A−
+
+I + A− 
+
+A−
+
+= 
+
+=
+
+i
+
+i=1 
+
+i=1 
+
+ 
+
+
+
+12
+
+A−
+
+12
+
+k A− 
+
+i
+
+ 
+
+
+
+Xd 
+
+X1 Xd
+
+12 
+
+
+12
+
+(−1)k+1
+
+A−
+
+A− 
+
++
+
+= i
+
+i=1 
+
+k=2 i=1 
+
+k
+
+ 
+
+ 
+
+
+
+Xd
+
+12 
+
+
+12 
+
+
+12
+
+A−
+
+12
+
+A− 
+
++ o (kk) = tr 
+
+ 
+
++ o (kk)
+
+A− 
+
+A−
+
+= i
+
+i=1
+
+ 
+
+ 
+
+ 
+
+= tr 
+
+A−
+
+12
+
+A−
+
+12
+
+A−1
+
++ o (kk) = tr 
+
++ o (kk) 
+
+Thus, by definition, the differential of log-determinant of A is A−1. 
+Using the standard notation, we have : d log|A| = A−1 (9.12)
+
+dA 
+
+Remark [Optional] : 
+
+12 
+
+
+12 
+
+
+The proof above has a small jump! After expanding the terms of 
+log(1 + i(M)), we get an error function e(kk) in terms of ki (M), where M = A− 
+
+A− 
+
+e(kk)
+
+and k> 1. We need to prove that limkk!0 kk = 0. We can prove this as follows : 
+
+ 
+
+
+
+ 
+
+k
+
+Observe that ki are eigenvalues of Mk. Thus, Pdi=1 k 
+
+i 
+
+A−
+
+12
+
+A−
+
+12
+
+= tr Mk = tr 
+
+. 
+
+p
+
+Pd Pd qPd
+
+Now, for any square matrix B 2 Rd×d, |tr (B)| = i=1 Bi,i  i=1 |Bi,i| d i=1 Bi,i 
+2  
+
+p
+
+dkBkF . The second-last inequality follows from the Root-Mean-Squares Inequality6. 
+For matrices B, C 2 Rd×d, Cauchy-Schwarz Inequality gives : kB · Ck kBk ·kCk .
+
+F FF 
+
+6The so-called Root-Mean-Squares Inequality forms a special case of a broad category of important inequalities
+ involving the Generalized 
+Mean. A concise reference for these inequalities can be found at the 
+Wikipedia page on [Generalized 
+Means 
+Inequality] 
+
+9-6 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+Pd 
+i=1 k 
+
+= 
+
+ 
+
+k  
+
+k 
+
+k 
+
+k 
+
+tr 
+
+A−
+
+12
+
+A−
+
+12
+
+ 
+
+p
+
+d 
+
+A−
+
+12
+
+A−
+
+12
+
+p
+
+12
+
+· 
+
+12
+
+kkk
+
+∴ 
+0  
+
+dA− 
+
+A−
+
+ 
+
+· 
+
+.
+
+i 
+
+F
+
+FF
+
+F 
+
+This gives us the required limit for every k> 1 by using Squeeze Theorem of limits. We 
+
+Pd p 
+
+k
+
+12 
+
+
+k 
+
+dA−
+
+12
+
+have : 0  
+
+i=1 ki  
+
+·kkk 
+
+. 
+
+Since k> 1 from the derivation, we 
+
+A−
+
+· 
+
+F
+
+FF
+
+have : 
+
+Pd 
+i=1 
+ki 
+
+
+ limkkF 
+
+
+!0 
+
+p
+
+dA−
+
+12 
+
+
+k
+
+12 
+
+
+k 
+
+·kkk−1
+
+0  limkkF 
+
+
+= 
+
+0. Thus, we get
+A− 
+
+!0 
+
+· 
+
+kkF 
+
+
+F
+
+FF
+
+Pk 
+
+k 
+
+
+i
+
+limkkF 
+
+
+!0 
+
+=0 8 k> 1. This completes the proof that the error function indeed 
+
+i=1 kkF
+
+tends to zero strictly faster than kk and we can simply replace the ugly expression of the 
+error function by o (kk). 
+
+References : For details related to matrix calculus, please refer to the book [Matrix Differential
+ Calculus with Applications in Statistics and Econometrics] by Neudecker 
+and Magnus7. 
+
+9.3 Plate Notation and Graphical Representation 
+9.3.1 Motivation 
+Before we begin with the analysis of LDA, let us take a look at the method for Graphical 
+Representation of probabilistic approaches and the so-called Plate Notation8. Here, our 
+aim is to represent any probabilistic approach in a graphical format so that it is easy to 
+visualize (“A picture is worth a thousand words!”). In any probabilistic model, we want 
+to model the uncertainty in some of random variables/vectors and parameters, and then 
+learn the corresponding underlying distributions. We assume that the rest of the random 
+variables/vectors and parameters are fully known and hence, we do not want to model 
+uncertainty in these variables. In our graphical model, we need rules to represent these 
+different sets of variables clearly. Further, the dependencies between various random variables 
+and parameters under consideration should be clearly represented. In addition, it might 
+happen that the scenario has a huge number of random variables or parameters that need to 
+be considered (e.g, dataset with N = 1M samples). Then, we need to represent the repeated 
+variables in our diagram in a concise as well as precise manner. Towards this, we consider 
+the following set of rules to define our graphical representation method9. 
+
+7Note that there are multiple conventions for setting the dimensions of the derivatives and it is imperative 
+that we stick to one particular convention in order to get consistent results. The definition from [9.3] results 
+in the answers that abide the so-called Numerator 
+Layout. In this context, a good reference point for 
+checking the final answers for expressions of derivatives is the Wikipedia page for [Matrix 
+Calculus].
+
+8For more information, please refer to the Wikipedia page on [Plate 
+Notation].
+
+9Note that the rules for graphical representation for probabilistic models vary a lot from different sources. 
+The Wikipedia reference on [Plate 
+Notation] gives one of such sets of rules for graphical representation. 
+
+9-7 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+9.3.2 Rules for Graphical Representation and Plate Notation 
+1. Random variables and parameters for which we want to model the uncertainty are 
+represented by circular nodes with the variable names. 
+2. Random variables and parameters that are assumed to be known and for which we do 
+not model the uncertainty are represented by square blocks with the variable names. 
+3. The dependencies in between various random variables and parameters are represented 
+using directed arrows. 
+4. If a random variable is observed, then the circular node corresponding to it is shaded. 
+If it is not observed, then the circular node corresponding to it is not shaded. 
+Note that the rules above help fix a convention for graphical representation of probabilistic 
+approaches. However, we need to cater for cases where variables repeat. The so-called Plate 
+Notation help fix conventions for concisely representing the repeated variables in a model. 
+
+1. We use a rectangle (also called a Plate) to group together inside it all the random 
+variables and parameters that repeat together. 
+2. Each of the variables in a plate is indexed and the range of the index is mentioned on 
+the plate. In order to expand the representation, we repeated the contents of the plate. 
+3. Arrows that cross the plate represent one directed arrow per repetition of the plate. 
+The Figure [9.1] illustrates these rules with the help of an example. 
+ 
+
+Xi 
+Zi 
+i=1,...,NXi 
+Zi 
+X1 
+Z1 
+XN 
+ZN 
+. . . . . . 
+Figure 9.1: An example of a graphical representation involving the plate notation. Note that 
+the parameter  is assumed to be known and the uncertainty in it is not modeled. There 
+are N random variables Zi,Xi (i2{1,...,N}) for which we want to model uncertainty. Xi 
+is dependent only on Zi. The random variables Zi is dependent on parameter . The only 
+observed variables are Xi; Zi are not observed. Note that the figure to the left represents this 
+model concisely using the rules of graphical representation and plate notation. An equivalent 
+expanded graphical representation is shown on the right. 
+
+9-8 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+9.4 Analyis of LDA 
+9.4.1 Formulation 
+We now consider the analysis of the generative LDA model for binary classification. Let X 
+denote the random vector corresponding to the input data such that X 2 Rd. Let Y denote 
+the random variable corresponding to the binary label of input X. We represent the two 
+labels by 0, 1 and thus, Y 2{0, 1}. We model the input data by modeling the entire dataset 
+p(X, Y ) in terms of Class-Conditional Distributions p(X | Y ) and Prior Distribution 
+P(Y ). Now, we assume the following forms of distributions for p(X | Y ) and p(Y ): 
+
+Y  Bernoulli () for some  2 [0, 1] ) p (y | )= y(1 − )1−y 8 y 2{0, 1}
+
+ 
+
+1 − 1 
+)>−1(x−μj 
+(9.13)
+X | Y = j N μj,  ) p (x | y = j)= p q e 2 
+(x−μj 
+) 
+2 
+d 
+||
+Here, μj 2 Rd is the mean of the j−th class 8 j 2{0, 1} and x2Rd and  represents the covariance matrix with  2 Rd×d. 
+Notice that LDA assumes that the covariance matrix  is the same for both classes. 
+
+× ×× 
+× 
+× 
+×× 
+××× 
+× 
+××× 
+×× ××× 
+× 
+×××××× 
+××× ×× 
+××××× 
+× 
+××× 
+μ1 
+μ0 
+Class 0 
+Class 1 
+Figure 9.2: The schematics of a scenario which can be best modeled by LDA. Note that the 
+two class-conditional distributions have different means but the same covariance matrix. 
+
+n o 
+
+x(i)(i)
+
+Now, let D = ,y | x(i) 2 Rd and y(i) 2{0, 1} , 8 i 2{1,...,n} be the input dataset. 
+Then, the problem of modeling the dataset becomes the problem of estimating the parameters
+  =(, μ0, μ1, ) that define the class conditional and prior distributions. We will use 
+joint Maximum Likelihood Estimation to estimate these desired parameters. 
+
+9-9 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+9.4.2 Maximum Likelihood Estimation [Optional] 
+We can formulate the maximum likelihood problem as follows : 
+
+ˆMLE, (μˆ0)MLE, (μˆ1)MLE, ˆ
+MLE 
+
+  
+
+x(i)(i) 
+
+}1
+
+= arg max2[0,1],μ02Rd 
+,μ12Rd 
+,2Rd×d 
+p ,y 
+n 
+| , {μjj=0,  
+
+i=1
+
+ 
+
+n  arg max2[0,1],μ02Rd 
+,μ12Rd 
+,2Rd×d 
+log p x(i),y(i) | , {μj}1 
+j=0,  
+
+i=1
+
+  
+
+x(i)(i) 
+
+}1
+
+= arg max2[0,1],μ02Rd 
+,μ12Rd 
+,2Rd×d 
+log p ,y | , {μj (9.14)
+
+Xni=1 j=0,  
+
+The likelihood of i−th datapoint (i 2{1,...,n}) is : 
+
+   
+
+x(i)(i)(i)
+
+p ,y | , {μj}1 
+j=0, = py(i) |  · p x(i) | y, {μj}1 
+j=0,  
+
+0 >  1 
+
+ − 1 
+x(i)−µ 
+−1 
+x(i)−μ
+
+1
+
+(i)(i)
+y B 2(i)(i) 
+C 
+
+y
+
+= · (1 − )1−y · @p q e y 
+A 
+2 
+d 
+|| 
+
+Thus, the log-likelihood of each of the datapoints is : 
+
+  
+
+x(i)(i)(i)
+
+log p ,y | , {μj}1 
+j=0, = y(i) log  +1 − y log(1 − ) 
+
+p d q 1 >  
+
+− log 2 − log ||− x(i) − µ 
+−1 x(i) − μ
+
+(i)(i)
+yy
+
+2 
+
+Thus, the log-likelihood L of the entire dataset is : 
+
+n   nn 
+
+X XX
+
+(i)(i)
+L = log p x(i),y | , {μj}1 
+j=0,  = log y(i) + log(1 − )1 − y 
+i=1 i=1 i=1 
+
+p X > 
+
+d n 1 
+
+− n log 2 − log ||− 
+n 
+x(i) − µ 
+−1 x(i) − µ 
+(9.15)
+
+y(i)(i)
+
+y
+
+22 i=1 
+
+Now, to optimize L, we find its Stationary Points with respect to all the parameters. We 
+will use our results of differentials of important functions in evaluating the formulae. 
+
+!P 
+
+nn  n (i)
+
+@L @ XX 
+
+(i) i=1 y
+
+=0 ) log y(i) + log(1 − )1 − y =0 ) ˆ
+
+MLE = 
+
+@ @ n
+
+i=1 i=1 
+
+Let number of datapoints with label y(i) be equal to ni, 8 i 2{0, 1}. Thus, 
+
+P 
+
+n (i) 
+i=1 y 
+
+n1
+
+ˆMLE = = (9.16) 
+
+nn 
+
+9-10 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+X >  
+
+@L =0 ) @ x(i) − μ0 −1 x(i) − μ0 =0 
+
+i:1in,y(i)=0
+
+@μ0 @μ0 
+
+
+
+X > > ) x(i) − μ0 −1 +−1 = 0 with −1 = (−1)> 
+
+i:1in,y(i)=0 X >  
+
+) x(i) − μ0 2−1 =0. Post-multiplying by  gives : 
+
+i:1in,y(i)=0 X > 1 X 
+
+x(i)
+
+) 
+i:1in,y(i)=0 x(i) − μ0 =0 ) (μˆ0)MLE = 
+i:1in,y(i)=0 . Thus, 
+
+n0 
+
+XX 
+
+x(i)
+
+(μˆ0)MLE =1 x(i) and (μˆ1)MLE = 1 (9.17)
+
+i:1in,y(i)=0 i:1in,y(i)=1
+
+n0 n1 
+
+The derivation of ˆ
+MLE needs some manipulations. The standard properties needed for this 
+are listed below. We will also use the expression for differential of log-determinant of . 
+
+1. A scalar is its own trace. Thus, (x − μ)> −1 (x − μ) = tr  
+(x − μ)> −1 (x − μ)  
+2. tr(AB) = tr(BA), provided the products are well-defined. Thus, 
+   
+
+tr (x − μ)> −1 (x − μ) =tr −1 (x − μ)(x − μ)> 
+
+
+
+DE  
+
+3. tr(AB)= A>,B . Thus, tr −1 (x − μ)(x − μ)> =−1
+> 
+, (x − μ)(x − μ)> 
+ > D E 
+
+4. −1 is symmetric. Thus, −1 , (x − μ)(x − μ)> =−1 , (x − μ)(x − μ)> 
+5. MLE is reparametrizable. We will evaluate MLE for −1 rather than for  (it’s easier!). 
+!
+
+X > 
+
+@L 1 @ 
+
+−1
+
+=0 )−n log ||− 
+n 
+x(i) − µ 
+x(i) − µ 
+=0
+
+(i)(i)
+yy
+
+@−1 2 @−1 
+i=1 
+
+n  !
+
+  
+
+@ X> 
+
+)−n log −1 − −1 , x(i) − µ 
+x(i) − µ 
+=0.
+
+(i)(i)
+yy
+
+@ i=1 
+
+Since −1 = I, |||−1| = |I| = 1. Thus, − log || = log |−1|
+
+ ! 
+
+n   
+
+@ X>
+
+Thus, @−1 n log −1 − −1 , x(i) − µ 
+x(i) − µ 
+=0
+
+(i)(i)
+yy 
+
+i=1 
+
+ n   
+
+−1 X> ) n −1 − x(i) − μy x(i) − μy =0. Thus, 
+
+(i)(i) 
+i=1 
+
+n   
+
+1 X>
+
+ˆ x(i) − µ 
+x(i) − μ
+
+(i)(i)
+MLE = yy
+
+n 
+
+i=1 
+
+9-11 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+Remark : Note that it still remains to be proved that these estimates indeed maximize the 
+objective (Exercise!). For details related to optimization and numerical computation, please 
+refer to [Convex Optimization] by Boyd, Venderberghe and the [Deep Learning] book 
+by Goodfellow, Bengio and Courville. 
+
+9.4.3 Predictive Distribution and Inference [Optional] 
+Now, having modeled the entire dataset by estimating all the required parameters, the next 
+step is to apply this model to predict the class of test data. This Inference can be carried 
+out using the Predictive Distribution p(Y | X) as follows : 
+
+( 
+
+1 if p(y =1 | x)  p(y =0 | x)
+
+For test point x, the predicted label y = 
+
+0 otherwise 
+
+Thus, we need to find the expression for p (y =1 | x), which we do below : 
+
+p(y =1,x) p(y =1,x) 
+
+p(y =1|x)= = 
+
+p (x) p(y =1,x)+ p(y =0,x) 
+1 11 
+
+== = 
+
+− log p(y=1,x) 
+−f(x)
+
+1+ p(y=0,x) 
+p(y=0,x) 
+1+ e 
+
+p(y=1,x) 1+ e 
+
+Thus, from the previous equation, we get : 
+
+1 1 
+
+p(y =1|x)= = (f(x)) where (z) = is the Sigmoid function (9.18)
+
+−f(x) 1+e
+
+1+ e −z 
+
+
+Here, f(x) is the Log-Odds Ratio (also called the Scoring Function) and is defined as follows 
+: 
+
+p(x|y = 1)
+
+f(x) = log p(y =1,x) + log p(y = 1) (9.19) 
+
+p(y =0,x) = log 
+
+p(x|y = 0) p(y = 0)
+
+| {z } |{z}
+
+Class-Conditional Ratio Prior Odds Ratio 
+
+Now, from [??], we have : 
+
+
+
+log pp 
+(
+( 
+yy 
+=
+= 
+1)
+0) = log (9.20)
+
+1 −  
+
+9-12 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+and we also have : 
+
+1 − 21 
+(x−μ1)>−1(x−μ1)
+
+p
+
+d
+
+2 ||
+
+log pp 
+(
+( 
+xx 
+|
+| 
+yy 
+=
+= 
+1)
+0) = log p e 
+
+1 − 12 
+(x−μ0)>−1(x−μ0)
+
+p
+
+p e
+
+d
+
+2 ||
+
+11 
+
+= − (x − μ1)> −1 (x − μ1)+ (x − μ0)> −1 (x − μ0)
+
+22 
+
+
+
+1 
+
+>−1 >−1 >−1 >−1 >−1 >−1 >−1 >−1
+
+= −xx + x μ1 + μ1 x − μ1 μ1 + xx − x μ0 − μ0 x + μ0 μ0
+
+2 
+
+  
+
+1 
+
+>>−1 >−1
+
+= x >−1 (μ1 − μ0)+ μ1 > − μ0 −1 x − μ1 μ1 − μ0 μ0
+
+2 
+
+> −1
+
+Now, observe that x >−1 (μ1 − μ0) ,  
+μ1 > − μ0  
+x are scalars. 
+
+>  
+
+>
+
+Further, x >−1 (μ1 − μ0)= μ1 > − μ0 −1 x, because −1 = (−1)> . 
+
+>
+
+Thus, x >−1 (μ1 − μ0)=  
+μ1 > − μ0  −1 x 
+
+ 
+
+>−1 >−1
+
+) log p(x|y = 1) > − μ0 >)−1 x − μ1 μ1 − μ0 μ0 (9.21) 
+
+p(x|y =0) =(μ1 21 
+
+From [??], [9.20] and [9.21], we get : 
+
+1  
+
+f(x)=(μ1 > − μ0 >)−1 x −  
+μ1 >−1 μ1 − μ0 >−1 μ0  
++ log 
+
+21 −  
+
+ >  
+
+ 1 
+
+=−1
+> (μ1 − μ0) x + log −  
+μ1 >−1 μ1 − μ0 >−1 μ0
+
+1 −  2
+
+ >   
+
+> −1
+
+= wx + b with w =(μ1 − μ0)=−1 (μ1 − μ0) 
+
+ 
+
+ 
+
+ 1 
+
+>−1 >−1
+
+and b = log − μ1 μ1 − μ0 μ0
+
+1 −  2 
+
+1 >
+Thus, p(y =1|x)= −f(x) , where f(x)= wx + b
+
+1+ e 
+
+ 
+
+ 
+
+ 1
+
+with w =−1 (μ1 − μ0) and b = log − μ1 >−1 μ1 − μ0 >−1 μ0
+
+1 −  2 
+
+(9.22) 
+
+Remark : Note on Linear Decision Boundary. Had the two covariances been different, the 
+decision boundary would have been a Quadratic Curve (Conic Section). 
+
+Remark : Note that Fisher LDA models is a generative approach (models p(X | Y )), 
+whereas logistic regression is a discriminative approach (models p(Y | X)). For both the 
+approaches, the predictive inference rule is based on evaulating p(y =1 | x) for test input 
+
+9-13 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+Lecture 9 — October 2 Fall 2018 
+The previous exercise shows that despite difference in the approaches, the predictive 
+inference rule for Fisher LDA and logistic regression have essentially the same form. 
+The form of p (y =1 | x) for logistic regression (x 2 Rd) is p(y =1 | x)=  (g(x)), where 
+
+>
+
+g(x)= vx for some v 2 Rd. We can further incorporate a bias constant in logistic regression 
+
+>
+
+to make the scoring function g(x)= vx + b a generalized linear scoring function. We set 
+b)> 2 Rd+1
+
+ 
+v =(v1 ... vd and  
+x =(x1 ... xd 1)> . It is easy to see that  
+v > 
+x  = 
+
+Pd  >
+
+> 
+
+i=1 vi · xi = vx + b. Thus, we can replace g(x) with  
+g(x )= vx to get the equivalent 
+
+
+
+ 
+g(
+
+generalized logistic regression : p(y =1 | x)= x) . Thus, we get that (generalized) 
+logistic regression and Fisher LDA both have the same for the inference rule 
+
+>
+
+p(y =1 | x) (sigmoid of a linear function wx + b of datapoint x). Also, the inference 
+rule p(y =1 | x) for the basic logistic regression and Fisher LDA is essentially the same 
+(except for the bias term in scoring function). 
+
+Remark : The graphical representation for LDA can be given as done in Figure [9.3], where  =(, μ0, μ1, ). (As an exercise, try to find graphical representations for Linear and 
+Logistic Regression approaches!) 
+
+  
+Yi Xi 
+i=1,...,n
+Figure 9.3: The graphical representation of LDA using plate notation. 
+
+9.5 Unsupervised Learning 
+9.5.1 Two Views for Unlabeled Data 
+Till now, we have consider the scenarios for modeling datasets of input data points and the 
+corresponding labels. However, there are numerous real-life problem settings where we do not 
+have access to the labels corresponding to data. Thus, without any labels, we want to model 
+the data. There are two ways to consider the unlabeled data : i. Mixture Distribution 
+Approach and ii. Latent Variable Approach. 
+
+In order to understand these approaches better, consider the example of unlabeled data in 
+Figure [9.4]. The given data can be viewed as a mixture of several component distributions. 
+For instance, the data distribution in the figure can be viewed as a mixture of two Gaussian 
+
+9-14 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+× ×× 
+× 
+× 
+× 
+× 
+××× 
+× 
+× 
+×× 
+×× ××× 
+× 
+×××××× 
+× × 
+× ×× 
+×××× 
+× 
+× 
+×× 
+× 
+Cluster 0 
+Cluster 1 
+Figure 9.4: There are two views of unlabeled data. We can view it as a mixture distribution 
+or consider the data in terms of latent variables. In the example, it appears as though the 
+data is coming from two different “groups” or “clusters” and hence, we can aim at finding 
+the characteristics of these structures in order to learn the underlying structure. 
+
+distribution. However, we can easily visualize the data to be coming from two groups, or 
+Clusters, such that the points from the same cluster are very similar to one another and 
+those from different are different from one another. Thus, we can understand the structure 
+in the data in a better manner by trying to model these clusters. However, since the cluster 
+assignment of data points are not available in the unsupervised problem, we call the clusters 
+Latent Variables and aim to learn the latent variables from the available data. The 
+difference in the two approaches can also be seen from their plate diagrams, which are given 
+in Figure [9.5]. In this scribe, we will only consider the latent variable approach. 
+
+Xi 
+i =1,...,n 
+
+Xi 
+Zi 
+i =1,...,n 
+
+Figure 9.5: Graphical Models for mixture distribution approach (on the left) and latent 
+variable approach (on the right). Here Xi represents the unlabeled data and Zi represents 
+the assumed latent variables for the corresponding data point Xi. 
+
+9-15 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+9.6 K-Means Algorithm 
+9.6.1 Motivation 
+Let us consider the problem of clustering the given unlabeled data. We want to learn 
+a Cluster Assignment Function that predicts the cluster to which each data point is 
+mapped. We assume that there are K clusters in the data, which are labeled {1,...,K}. 
+We represent each of the clusters i (i 2{1,...,K}) by its representative Cluster Center μi. 
+The idea is that the data points that belong to a particular cluster center should not differ 
+too much from the corresponding cluster center. We measure this extent of difference using a 
+Distortion Function, which is defined in terms of a chosen Distance Function. Since we 
+do not have any information about the cluster centers, we initialize them randomly. Then, 
+we perform an iterative algorithm starting with a guess of the cluster assignment function 
+which maps each data point to some cluster center. Then, we update the cluster centers so 
+that the distortion measure is minimized. Intuitively, this step makes our guess of cluster 
+centers better. However, now with the better guess for cluster centers, we can get a better 
+cluster assignment function! Thus, we repeat these two steps to decrease the distortion 
+function until we converge to the best cluster centers and cluster assignment function. 
+
+9.6.2 Formulation 
+We will use the following notations: xi 2 Rp,i 2{1,...,n} are the observations we want to 
+partition. μk 2 Rp,k 2{1,...,K} are the means where μk is the center of the cluster k. We 
+will denote μ the associated matrix. zi,k are indicator variables associated to xi such that 
+zi,k =1 iff xi belongs to the cluster k, zi,k otherwise. z is the matrix which components are 
+equal to zi,k. 
+
+n PK 2
+
+Distortion Function : we define the distortion J(μ, z) by: J(μ, z)= P 
+i=1 k=1 zi,kkxi − μkk2 
+
+Algorithm : The aim of the algorithm is to minimize J(μ, z). To do so we proceed with 
+Alternating Minimization or Block Coordinate Minimization : 
+
+• Initialize cluster centers μ. 
+• we minimize J with respect to z : zi,k = 1 if kxi − μkk
+2 = mins kxi − μsk
+2 , in other 
+words we associate to xi the nearest center μk. 
+P 
+
+i 
+zi,kxi
+
+• we minimize J with respect to μ : μk = P . 
+i 
+zi,k 
+
+
+• we come back to step 1 until convergence. 
+Remark : The step of minimization with respect to z is equivalent to allocating the xi in 
+the Voronoi cells which centers are the μk. 
+
+Remark : During the step of minimization with respect to μ, μk is obtained by setting to 
+zero the k−th coordinate of the gradient of J with respect to μ. Indeed we can easily see 
+that : rμk 
+J = −2 P 
+i zi,k(xi − μk) 
+
+9-16 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+9.6.3 Properties of k−means 
+• It converges in finite number of iterations to a local minimum. However, it is just a 
+local min. In general, it is NP-hard to find the best cluster assignment. In general 
+implies that there are cases which require time exponential in input size. There are 
+certain cases where we get there is very easy solutions. 
+• It is very fast and requires lesser number of iterations. 
+• Initialization is very important for k−means. There is an algorithm k−means++, 
+which gives a clever initialization scheme that guarantees that objective is within log k 
+of the global optimum with high probability (w.h.p.). (There is a theoretical guarantee).
+ Spread out the initial mean points as much as possible. This avoids the wrong 
+clustering (image in class). We select new means as per the inverse of their distance 
+from previous means. 
+• Choice of K : One of the heuristics is– 
+nK
+
+XX 2 
+
+J(μ, z, K)= xi − μj +  · K (9.23)
+
+zi,j | {z }
+i=1 j=1 Regularization 
+Term 
+
+
+ is the hyperparameter. We need to experiment with  to fix its value. (Later in the 
+class, we will see Non-Parameteric Models, where K is basically infinite and we can 
+get p(K | data). An example is Dirichlet Process Mixture Model).  has an effect on 
+the optimal value of K. 
+
+• K−means is very sensitive to the distance measure used. When we are using L2, we 
+are getting spherical clusters. Also, the choice of clustering depends on the problem 
+itself. The different objectives will have different best choices of clustering, which will 
+be decided by different distance measures. (Figure in class). The “bad clustering” is 
+actually a “good clustering” for the mail-box problem. The “problem” in the previous 
+figure is fixed by Gaussian Mixture Model. 
+• Convergence and Initialization : We can show that this algorithm converges in a 
+finite number of iterations. Therefore the convergence could be local, thus it introduces 
+the problem of initialization. A classic method is use of random restarts. It consists 
+in choosing several random vectors μ, computing the algorithm for each case and 
+finally keeping the partition which minimizes the distortion. Thus we hope that at 
+least one of the local minimum is close enough to a global minimum. One other well 
+known method is the K-means++ algorithm, which aims at correcting a major theoretic 
+shortcomings of the K-means algorithm : the approximation found can be arbitrarily 
+bad with respect to the objective function compared to the optimal clustering. The K-
+means++ algorithm addresses this obstacles by specifying a procedure to initialize the 
+cluster centers before proceeding with the standard K-means optimization iterations. 
+With the K-means ++ initialization, the algorithm is guaranteed to find a solution 
+9-17 
+
+
+Lecture 9 — October 2 Fall 2018 
+
+that is O (log K) competitive to the optimal K-means solution. The intuition behind 
+this approach is that it is a clever thing to well spread out the K initial cluster centers. 
+At each iteration of the algorithm we will build a new center. We will repeat the 
+algorithm until we have K centers. Here are the steps of the algorithm : 
+
+– First initiate the algorithm by choosing the first center uniformly at random 
+among the data points. 
+– For each data point xi of your data set, compute the distance between xi and 
+the nearest center that has already been chosen. We denote this distance Dμt 
+(xi) 
+where μt is specified to recall that we are minimizing over the current chosen 
+centers. 
+– Choose one new data point at random as a new center, but now using a weighted 
+probability distribution where a point xi is chosen with probability proportional 
+to Dμt 
+(xi)2. 
+– Repeat Step 1 and Step 2 until K centers have been chosen. 
+We see that we have now built K vectors with respect to our first intuition which was 
+to well spread out the centers (because we used a well chosen weighted probability). 
+We can now use those vectors as the initialization of our standard K-means algorithm. 
+More details can be found on the K-means++ algorithm in [A]. [A] Arthur, D. and 
+Vassilvitskii, S. (2007). k-means++: the advantages of careful seeding. Proceedings 
+of the eighteenth annual ACM-SIAM symposium on Discrete algorithms. 
+
+9-18 
+
+

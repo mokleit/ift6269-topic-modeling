@@ -1,0 +1,769 @@
+IFT 6269: Probabilistic Graphical Models Fall 2018 
+
+Lecture 11 — October 12 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Martin 
+Weiss, 
+Eeshan 
+Gunesh 
+Dhekane 
+
+
+Disclaimer: These notes have only been lightly proofread. 
+
+11.1 Graph Theory review 
+11.1.1 Directed Graph 
+Definition 11.1 A Directed 
+Graph 
+G consists of a set of Nodes 
+or Vertices 
+V = 
+{1,...,n} and a set of Edges 
+E such that E  V × V , i.e, E is a set of ordered pairs of 
+distinct vertices : E = {(i, j) | i, j 2 V, i 6= j}. 
+
+We will only consider graphs that do not have a self-loops, i.e., (i, i) 62 E 8 i 2 V . 
+
+1 
+2 
+3 
+4 
+5 
+Figure 11.1: Directed graph G with V = {1,..., 5} and E = {(1, 2), (2, 4), (1, 3), (3, 4), (3, 5)} 
+
+Definition 11.2 A Directed 
+Path 
+from vertex i to vertex j of directed graph G consists of 
+an ordered sequence of vertices (i, v1,...,vk,j), where k  0, such that (i, v1), (v1,v2),..., (vk−1,vk), 
+and (vk,j) 2 E. We denote this directed path from i to j by a squiggly arrow ij. 
+
+Equivalently, a directed path can also be viewed as sequence of edges mentioned above. The 
+same path can be represented as ordered sequence of edges : ((i, v1), (v1,v2),..., (vk−1,vk), 
+(vk,j)). The example given below shows a directed path P from 1 to 4 (Figure [11.2]). 
+
+Definition 11.3 The set of Parents 
+of a vertex i, denoted by i, is the set of vertices of 
+G from which there is an edge to i, i.e., i = {j | j 2 V, (j, i) 2 E}. Analogously, the set 
+of Children 
+of a vertex k, denoted by ch(k), is the set of vertices of G to which there is an 
+edge from k, i.e., ch(k)= {` | ` 2 V, (k, `) 2 E}. 
+
+Figure [11.3] below shows the parent of 2, which is 1 and the children of 3, which are 4, 5. 
+
+11-1 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+2 
+
+1 
+3 
+4P 
+5 
+Figure 11.2: A directed path P from 1 to 4 with vertices 1, 3, 4 and edges (1, 3), (3, 4). 
+
+1 
+2 
+3 
+4 
+5 
+Figure 11.3: 1 is the parent of 2 and 4, 5 are children of 3. 
+
+11.1.2 Undirected Graph 
+Definition 11.4 An Undirected 
+Graph 
+G consists of a set of Nodes 
+or Vertices 
+V = 
+{1,...,n} and a set of Edges 
+E such that E is set of 2−sets of V without any self-loops, 
+i.e., E = {{i, j}| i, j 2 V, i 6= j}. 
+
+Thus, the edge {i, j} is identical to the edge {j, i}. Since there are no self-loops, for any 
+edge e = {i, j}2 E, we have |e| = 2. The Figure [11.4] shows an example of an undirected 
+graph. 
+
+2 
+
+
+134 
+
+5 
+Figure 11.4: Undirected graph G, V = {1,..., 5}, E = {{1, 2}, {2, 4}, {1, 3}, {3, 4}, {3, 5}} 
+
+Definition 11.5 An undirected 
+Path 
+from vertex i to vertex j of directed path G consists 
+of an ordered sequence of vertices (i, v1,...,vk,j), where k  0, such that {i, v1}, {v1,v2},..., 
+{vk−1,vk}, and {vk,j}2 E. 
+
+Equivalently, an undirected path can also be viewed as sequence of edges mentioned above. 
+The example given below shows a directed path P from 2 to 3 (Figure [11.5]). 
+
+11-2 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+P1 
+2 
+3 
+4 
+5 
+Figure 11.5: Undirected path P from 2 to 3. 
+
+Definition 11.6 The set of Neighbors 
+of a vertex i, denoted by N(i), is the set of vertices 
+that are connected with i through an edge, i.e., N(i)= {j |{i, j}2 E}. 
+
+For an undirected graph, the neighbors replace the notions of sets of parent and children. 
+Figure [11.6] shows the neighbors of vertex 4. 
+32 
+14 
+
+
+5 
+
+Figure 11.6: Vertex 4 with its neighbors 2, 3. 
+
+11.1.3 Directed Acyclic Graph 
+Definition 11.7 A Cycle 
+in a (directed/undirected) graph G consists of an ordered sequence 
+of nodes v1,...,vk,v1 
+such that v1 
+=6 vk, there exists an (directed/undirected) edge from vi to 
+vi+1 
+8i 2{1,...,k − 1}, there exists an (directed/undirected) edge from vk to v1 
+and vi =6 vj 
+for i 6= j. 
+
+Equivalently, there exists a (directed/undirected) path in G from v to v for some vertex v. 
+In the examples of directed and undirected graphs above, there is no cycle in the directed 
+graph. However, there is a cycle in the undirected graph (namely, 1 − 3 − 4 − 2−). 
+
+Definition 11.8 A directed graph with no cycles is called a Directed 
+Acyclic 
+Graph. 
+
+Note that the directed graph considered in [11.1] is indeed a directed acyclic graph (DAG). 
+
+Definition 11.9 An ordering I : V !{1,...,n} on the vertex set V = {1,...,n} of a 
+directed graph G is said to be Topological 
+for 
+G if and only if: 1) I is bijective and 2) 
+a 2 b implies that I(a) <I(b). 
+
+11-3 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+What this deinition implies is that if we order (in the increasing manner) the vertices based 
+on the topological ordering, we will always have the parent of any node appearing before 
+the node itself (and all the directed arrows would “point to the right”, leaving no “back 
+edges”). Observe that for the DAG from Figure [11.1], the ordering of the vertices is already 
+a topological ordering, which is displayed in Figure [11.7]. 
+
+1 2 3 4 5 
+Figure 11.7: Example of Topological Ordering on DAG from Figure [11.1]. 
+
+Theorem 11.10 (Characterization of DAGs using Topological Ordering) A directed 
+graph G is a DAG () G has a topological ordering. 
+
+Proof 
+
+()) If G is given to be a DAG, perform Depth-First Search algorithm on it. Number in 
+descending order the nodes for which we run out of children while performing the DFS. 
+Because there is no cycle, you will always find nodes with no children during this algorithm 
+and thus this generate a topological ordering (in O(|V | + |E|) time). 
+
+(() (trivial) If there is a topological ordering of G, then G can not have any back edges and 
+hence, it can not have any cycles. Thus, G is a DAG. 
+
+11.2 Notation for Graphical Models 
+• Given n random variables X1,...,Xn. We assume that Xi are discrete random variables
+ for simplicity for this part of the class. This is because defining conditional 
+distribution on continuous random variables is challenging. (Please refer to [Borel-
+Kolmogorov Paradox] to see the challenges in defining conditional distributions.) 
+• Given a graph G =(V, E) such that V = {1,...,n}. We associate one random variable 
+per node of G and letting random variable Xi associate with node i. 
+• For any subset A  V of vertices, p(XA) is defined as : p(xA)= P {Xi = xi | i 2 A}.
+P
+
+It is easy to see that p(xA)= x p(xA,xAC ), where P 
+x denotes summing over all 
+
+AC AC 
+
+possible values of {xi}i2V \A. For instance, x1,2,4 
+represents {x1,x2,x4}. 
+
+• The joint probability is given by : p(X1 
+= x1,...,Xn = xn)= p(x1,...,xn)= p(xV ). 
+11-4 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+11.3 About Graphical Models 
+A Graphical Model is essentially a graph that models the dependencies between a set of 
+random variables. Graphical models lie at the intersection of probability theory and computer
+ science, in that they use graphs to model distributions over random variables. Graphs 
+are highly efficient data structures for storing information related to dependencies and thus, 
+they are extremely useful in the case of modeling distributions. For instance, consider 100 
+random variables {Xi}1i100 
+2{0, 1}. Then, in order to represent the distribution in table
+ format, we would require 2100 
+variables, which is intractable to represent explicitly in a 
+computer. In contrast, we can use graphical models (with certain assumptions) to keep the 
+problem tractable. 
+
+11.4 Conditional Independence Revisited 
+Let A, B, C  V be three subsets of vertices. 
+
+• We say that XA ? XB | XC () p(xA,xB | xC )= p(xA | xC )p(xB | xC) 8xA,xB,xC , s.t. p(xC ) > 0. This is the Factorization forumulation (F). 
+• An equivalent Conditional formulation (C) states that XA ? XB | XC () p(xA | xB,xC )= p(xA | xC ) 8xA,xB,xC s.t. p(xB,xC ) > 0. 
+• We can state the “marginal independence” of XA,XB as XA ? XB | . 
+11.5 Two Facts About Conditional Independence 
+1. Can repeat variables: you are allowed to repeat variables in a conditional statement 
+(for convenience). For example, X ? Y, Z|Z, W is fine to say. It is actually equivalent 
+to X ? Y |Z, W (the second Z on the left does not do anything). This will be useful 
+when writing generic theorems about conditional statements from a graphical model 
+(to avoid excluding the repition cases). 
+2. Decomposition: X ? Y, Z|W implies both X ? Y |W and X ? Z|W (it decomposes 
+in two conditional independence statements). 
+11.6 Directed Graphical Models 
+Definition 11.11 Let G =(V, E) be a DAG with V = {1,...,n}. A directed graphical model 
+(DGM) (associated with G), also known as a Bayesian network, is a family 
+of distributions 
+
+11-5 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+over XV defined as follows: 
+
+L(G) ,{p is a distribution over XV : 9 legal 
+factors fi’s (11.1) 
+
+n
+
+Y 
+
+
+s.t. p(xV )= fi(xi|xi ) 8xV } (11.2) 
+i=1 
+P 
+In the definition above, the legal factors are functions fi : Xi × Xi ! [0, 1] s.t. 
+
+xi f(xi,xi )=1 8xi (and thus fi is like a conditional probability table (CPT) – it could 
+be used to define a conditional distribution on Xi given the values of its parents Xi ). 
+
+Two notes: recall that i are the parents are node i. In the definition above, the factors 
+do not have to be unique (i.e. we do not rule out the possibility that the same distribution 
+could have two expansions with different factors). But it turns out that we can actually 
+prove that the factors are unique (as we will see when we show that p(xi|xi )= f(xi,xi ) 
+below, and thus the factors are uniquely specified by the distribution).
+
+Q
+
+n
+
+Terminology: if we can write p(xV )= i=1 
+fi(xi|xi ) where fi’s are legal factors and i’s 
+are determined from a DAG G, then we say that p factorizes according to G, and we denote 
+this by p 2L(G) (i.e. p is also a member of the DGM for G). We will also sometimes write 
+p(xV ) 2L(G) if we want to make which variables are considered for the distribution explicit 
+(see notation in the proofs below). 
+
+To give one example, see the three nodes graph from Figure 11.10. Then p 2L(G) 
+for this graph if and only if there exists some legal factors fx, fy and fz s.t. p(x, y, z)= 
+fx(x)fy(y)fz(z|x, y). 
+
+11.7 Leaf-Plucking Property 
+We first show a fundamental property of DGM which is used in a lot of proofs: 
+
+Proposition 11.12 (“Leaf-plucking” property) Let n be a leaf 
+in the DAG G (i.e. n 
+is not the parent of anything) and suppose p(xV ) 2L(G). 
+
+a) then p(x1:(n−1)) 2L(G −{n})
+QQ
+
+nn−1
+
+b) if p(x1:n)= i=1 
+fi(xi|xi ), then p(x1:n)= i=1 
+fi(xi|xi ). 
+Proof 
+
+Y 
+
+
+p(xn,x1:(n−1))= fn(xn|xn ) fj(xj| xj ) 
+j6 |{z}
+
+=n 
+
+no n in any j 
+
+01 
+
+
+X 
+X 
+BYC
+
+BC
+
+p(x1:(n−1))= p(xn,x1:(n−1))=( fn(xn|xn ) @ 
+fj(xj|xj )A
+
+| 
+{z 
+}
+
+xn xn j6=n
+
+| 
+{z 
+} 
+no xn there 
+1 
+by definition 
+
+11-6 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+We now use this property to show the important fact that the factors are the same as 
+conditional probabilities defined from the joint in a DGM G (and thus the factors are the 
+correct conditionals). 
+
+Proposition 11.13 If p(x) 2L(G) then, for all i 2{1,...,n}, p(xi|xi )= fi(xi,xi ). 
+
+Proof We prove this by induction on n = |V |, the cardinality of the set V . Since G is a 
+DAG, there exists a leaf, i.e. a node with no children. Without loss of generality, we can 
+assume that the leaf is labeled by n (if not, then just relabel the nodes so that it is true). 
+We first notice: 
+
+X 
+
+
+8x, p(x1,...,xn−1)= p(x1,...,xn) 
+
+xn 
+
+n
+
+XY 
+
+
+= fi(xi,xi ) 
+
+xn i=1 
+
+
+X 
+nY−1 
+
+
+= fn(xn,xn ) fi(xi,xi ) 
+
+xn i=1 
+(11.3) 
+
+nY−1 
+X 
+
+
+= fi(xi,xi ) fn(xn,xn )() 
+
+i=1 
+xn 
+
+nY−1 
+= fi(xi,xi ) 
+
+i=1 
+
+
+= g(x1,...,xn−1)() 
+
+The step () is justified by the fact that n is a leaf and thus it never appears in any of the i 
+for i 2{1,...,n−1}. Step () is also justified by the same kind of reasoning: since n is a leaf 
+it cannot appear in any of the i explaining why it is only a function, say g, of x1,...,xn−1. 
+From this result, we can use an induction reasoning noticing that G −{n} is still a DAG. 
+To conclude this proof, we simply need to show that, indeed, fn(xn,xn )= p(xn|xn )—this 
+property will automatically propagates by induction. We have: 
+
+01 
+XX 
+
+
+p(xn,xn )= p(x)= @ 
+g(x1,...,gn−1)A 
+fn(xn,xn ). (11.4) 
+
+xi,i/2{n}[n xi,i/2{n}[n 
+
+Noticing that P 
+xi,i/2{n}[n g(x1,...,xn−1) is a function of only xn , say h(xn ), we can derive: 
+
+p(xn,xn ) h(xn )fn(xn,xn ) 
+
+p(xn|xn )= P 
+)= = fn(xn,xn ). (11.5) 
+
+x0 
+p(xn 0 ,xn )
+
+n h(xn 
+
+Hence we can give an equivalent definition for a DAG to the notion of factorization: 
+
+11-7 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+Definition 11.14 (Equivalent definition of a DGM) A DGM on G is the set of distributions
+ p(x) that factorizes according to G, denoted p(x) 2L(G) iff: 
+
+n
+
+Y 
+
+
+8x, p(x)= p(xi|xi ). (11.6) 
+
+i=1 
+
+
+Why didn’t we start with the above definition for a DGM? The reason is that without 
+the proof above, we would not know whether our definition makes sense, as this definition 
+is circular. Indeed, the conditional p(xi|xi ) is defined from the joint p(x). So we are not 
+allowed (normally) to define a joint by multiplying its conditionals (as you might get no 
+distribution that satisfies this property). 
+
+Remark 11.7.1 Adding edges =) more distributions i.e. G=(V, E) and G’=(V, E’) with 
+E subset of E then L(G) subset L(G’) 
+
+11.8 DGM Examples 
+11.8.1 Trivial Graphs 
+Example 11.8.1 
+
+• (Trivial graph with empty edge set) Assume E = ;, i.e. there is no edges. Then 
+the DGM on this graph contains only fully independent distributions (i.e. p(x)= 
+Q
+
+n 
+
+i=1 
+p(xi)). (this is the “smallest” DGM). 
+
+• (Complete digraph) Assume now we have a complete graph (thus with n(n − 1)/2 edges
+Q
+
+n
+
+as we need acyclic for it to be a DAG), we have: p(x)= i=1 
+p(xi|x1,...,xi−1), the 
+so-called ’chain rule’ which is always true. Thus all distributions on xV belongs to the 
+DGM on the complete graph (this is the “biggest” DGM). 
+
+11.8.2 Graphs with three nodes 
+We give an insight of the different possible behaviors of a graph by thoroughly enumerating 
+the possibilities for a 3-node graph. 
+
+• The two first options are the empty graph, leading to independence, and the complete 
+graph that gives no further information than the chain rule. 
+• (Markov chain) A Markov chain is a certain type of DAG showed in Fig. 11.8. In this 
+configuration we show that we have: 
+p(x, y, z) 2L(G) ) X ? Z | Y (11.7) 
+
+I.e. we have that the “future” Y is conditionally independent on the “past” X given 
+the “present” Z (assuming the arrow would represent time). On the other, there are 
+11-8 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+some distributions p 2G(G) for which X is not marginally independent of Y (the 
+“dependence” flows through Z). 
+
+To show the conditional independence statement, we have: 
+
+p(x, y, z) p(x, y, z) p(x)p(y|x)p(z|y) 
+
+p(z|y, x)= = P 
+0 P 
+0|y)= p(z|y) 
+
+p(x, y) 0 
+p(z ,x,y)= 
+0 
+p(x)p(y|x)p(z
+
+zz 
+
+ Z YX
+Figure 11.8: Markov Chain 
+
+• (Latent cause) It is the type of DAG given in Fig. 11.9. We show that: 
+p(x) 2L(G) ) X ? Y | Z (11.8) 
+Indeed: 
+
+p(x, y|z)p(x, y, z) p(z)p(y|z)p(x|z)
+
+== p(x|z)p(y|z) 
+
+p(z) p(z) 
+
+
+Figure 11.9: Latent cause 
+
+• (Explaining away) Represented in Fig.(11.10), we can show for this type of graph: 
+p(x) 2 L(G) ) X ? Y (11.9) 
+It basically stems from: 
+p(x, y) = 
+X 
+X 
+p(x, y, z) = p(x)p(y) p(z) = p(x)p(y) 
+z z 
+
+On the other hand, in general we do not have that X is conditionally independent on Y 
+given Z (unlike for both the latent cause model and the Markov chain DGM). So here 
+X is marginally independent on Y , but observing Z induces some dependence between 
+
+11-9 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+
+Figure 11.10: Explaining away, or V-structure 
+
+X and Y . From this graphical model, we can get the so-called non-motononic property 
+of conditioning. For example, let X be “I’m abducted by alien”, Y be “my watch is 
+broken”, and Z be “I am late”. The v-structure explains this situation as there are 
+competing explanation for why “I am late”: I might have been abducted by aliens, or 
+my watch could be broken and I did not notice the time... In this example, a meaningful 
+distribution could yield that p(alien) is tiny; but then p(alien|late) >p(alien) (because 
+knowing that I’m late give some evidence that perhaps I have been adbucted by alien). 
+But p(alien|late, broken watch) <p(alien|late) (because now that I know that my watch 
+is broken, it gets unlikely again that I have been abducted by alien, as it’s more likely 
+that I’m late because of the watch). Thus conditioning on more things can increase or 
+decrease the probability of an event (hence the word “non-monotone”). 
+
+Remark 11.8.1 The use of ’cause’ is not advised since observational statistics provide with 
+correlations and no causality notion. Note also that in the ’explaining away’ graph, in general 
+X ? Y |Z is not true. Lastly, it is important to remember that not every relationship can 
+be expressed in terms of graphical models. As a counter-example take the XOR function 
+where Z = X  Y . The three random variables are pairwise independent, but not mutually 
+independent. 
+
+11.9 Conditional Independence Statements in DGMs 
+Definition 11.15 Let nd(i) , {j : no path from i to j}. Then j is said to be a nondescendent
+ of i. 
+
+Proposition 11.16 If G is a DAG, then: 
+
+p(x) 2L(G) , Xi ? Xnd(i)\i |Xi (11.10) 
+
+Proof We will only prove the forward implication. Assume (1,...,n) is a topological order 
+
+then:
+
+8 
+
+
+p(x) 
+
+p(xi|xi ) : because p(x) 2L(G)
+
+Y
+
+n 
+
+= 
+
+i=1 
+
+
+>< 
+
+
+Y
+
+n 
+
+= 
+
+i=1 
+
+
+p(x) 
+
+p(xi|x1,...,xi−1) : chain rule, always true
+
+>: 
+
+
+11-10 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+As we chose a topological order, we have i {1,...,i − 1}, and we show by induction that: 
+
+p(xi|xi )= p(xi|x1,...,xi−1)= p(xi|xi ,x{1,...,i−1}−i ). 
+
+This directly implies that Xi ? X{1,...,i−1}\i |Xi . The key idea now is to notice that for all 
+i, there exist a topological order such that nd(i)= {1,...,i − 1}. 
+
+11.10 D-separation 
+We want to answer queries such as, given A, B and C three subsets, is XA ? XB|XC true? 
+To answer those issues we need the d-separation notion, or directed separation. Indeed it is 
+easy to see that the notion of separation is not enough in a directed graph and needs to be 
+generalized. 
+
+Definition 11.17 Let a, b 2 V , a chain from a to b is a sequence of nodes, say (v1,...,vn) 
+such that v1 
+= a and vn = b and 8j, (vj,vj+1) 2 E or (vj,vj+1) 2 E. 
+
+We can notice that a chain is hence a path in the symmetrized graph, i.e. in the graph 
+where if the relation ! is true then $ is true as well. Assume C is a set that is observed. 
+We want to define a notion of being ’blocked’ by this set C in order to answer the underlying 
+question above. 
+
+
+Figure 11.11: D-separation 
+
+Definition 11.18 (d-separation) 
+
+1. A chain from a to b is blocked at node d “given C” if: 
+• either d 2 C and (vi−1, d, vi+1) is not a V-structure; 
+11-11 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+• or d 2/C and (vi−1, d, vi+1) is a V-structure and no descendants of d is in C. 
+
+2. A chain from a to b is considered blocked if it is blocked at some of the node d along it. 
+3. A and B are said to be d-separated by C if and only if all chains that go from a 2 A 
+to b 2 B are blocked by the rules above. 
+Example 11.10.1 • (Markov chain) If you try to prove that any set of the future is 
+independent to the past given the present with Markov theory, it might be difficult but 
+the d-separation notion gives the results directly. 
+
+
+Figure 11.12: Markov chain 
+
+• (Hidden Markov Model) Often used because we only observe a noisy observation of the 
+random process. 
+observationsetats
+Figure 11.13: Hidden Markov Model 
+
+Proposition 11.19 (All conditional independence statements in a DGM) p 2L(G) 
+iff XA ? XB|XC 8A, B, C such that A and B are d-separated by C in G. 
+
+11.11 “Bayes-Ball” Algorithm 
+This is an intuitive “reacheability" algorithm to determine all the conditional independence 
+statements in a DAG (via d-seperation). Suppose we want to determine if X is conditionally 
+independent from Z given Y . Place a ball on each of the nodes in X and let them bounce 
+around according to some rules (described below) and see if any reaches Z. X ? Z|Y is true 
+if none reached Z, but not otherwise (the balls implement the path rules from d-separation, 
+and are blocked accordingly). 
+
+The rules are as follows for the three canonical graph structures. Note that the balls are 
+allowed to travel in either direction along the edges of the graph. 
+
+11-12 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+
+Figure 11.14: Markov chain rule: When Y is observed, balls are blocked (left). When Y is 
+not observed, balls pass through (right) 
+
+1. Markov chain: Balls pass through when we do not observe Y , but are blocked otherwise.
+ 
+2. Two children: Balls pass through when we do not observe Y , but are blocked otherwise.
+ 
+Figure 11.15: Rule when X and Z are Y ’s children: When Y is observed, balls are blocked 
+(left). When Y is not observed, balls pass through (right) 
+
+3. V-structure: Balls pass through when we observe Y , but are blocked otherwise. 
+Figure 11.16: V-structure rule: When Y is not observed, balls are blocked (left). When Y 
+is observed, balls pass through (right). 
+
+11.12 Properties: Inclusion, Reversal, Marginalization 
+Inclusion property. Here is a quite intuitive proposition about included graphs and 
+their factorization. 
+
+11-13 
+
+
+Lecture 11 — October 12 Fall 2018 
+
+Proposition 11.20 If G =(V, E) and G0 =(V, E0) then: 
+
+E  E0 ,L(G) L(G0) (11.11) 
+
+Q
+
+n
+
+Proof We have p(x)= i=1 
+p(xi,xi(G)). As E  E0 it is obvious that i(G)  i(G0). 
+Therefore, going back to the definition of graphical models through potential fi(xi,xi ) we 
+get the result. 
+
+Reversal property. We also have some reversal properties. Let us first define the notion 
+of V-structure. 
+
+Definition 11.21 We say there is a V-structure (figure 11.10) in i 2 V if |i| 2, i.e. has 
+two or more parents. 
+
+Proposition 11.22 (Markov equivalence) If G =(V, E) isa DAG andif for (i, j) 2 
+E, |i| =0 and |j| 1, then (i, j) may be reversed, i.e. if p(x) factorizes in G then it 
+factorizes in G0 =(V, E0) with E0 =(E −{(i, j)}) [{(j, i)}. 
+
+In terms of 3-nodes graph, this property ensures us that the Markov chain and latent 
+cause are equivalent. Also, applying the reversal property multiplle times, we conclude that 
+all directed trees built from an undirected tree give the same DGM. 
+
+On the other hand the V-structure lead to a different class of graph compared to the two 
+others. 
+
+Definition 11.23 An edge (i, j) is said to be covered if j = {i}[ i. 
+
+
+Figure 11.17: Edge (i, j) is covered 
+
+By reversing (i, j) we might not get a DAG as it might break the acyclic property. We 
+have the following result: 
+
+Proposition 11.24 Let G =(V, E) be a graph and (i, j) 2 E a covered edge. Let G0 = 
+(V, E0) with E0 =(E −{(i, j)}) [{(j, i)}, then if G0 is a DAG, L(G)= L(G0). 
+
+Marginalization. The underlying question is to know whether the marginalization of 
+all distributions in a DGM yield another DGM. One can show that marginalizing the leaf 
+node in a DGM yield a DGM on the smaller graph, but marginalizing internal nodes might 
+yield a set of distributions which is not representable by a DGM. 
+
+/ 
+
+11-14 
+
+

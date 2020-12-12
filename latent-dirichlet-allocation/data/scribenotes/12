@@ -1,0 +1,599 @@
+IFT 6269: Probabilistic Graphical Models Fall 2018 
+Lecture 12 — October 12 
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Philippe 
+Beardsell 
+
+
+Based on the scribe notes from Jaime Roquero and JieYing Wu. 
+
+Proofread and quickly corrected by Simon Lacoste-Julien. 
+
+General themes in this class 
+
+(A) Modeling high dimensional distributions 
+• Representation: how to represent a family of distributions. ! Examples of convenient
+ families are given by graphical models (DGM, UGM). 
+• Parametrization: how to parameterize the members of the family of distributions ! an example for this that we will see is using the exponential family (but there 
+are many others) 
+(B) Inference ! how do we compute p(xQ | xE), where Q is the query and E the evidence? 
+• Lecture 13 : elimination algorithm 
+• Lecture 14 : sum-product algorithm (belief propagation) 
+(C) Statistical estimation: how do we estimate the model from observations? ! Examples 
+of principles that we see: maximum likelihood estimators, maximum entropy, method 
+of moments 
+12.1 Undirected Graphical Models (UGM) 
+(a.k.a. Markov random fields or Markov networks) 
+let G =(V, E) be an undirected graph 
+and let C be the set of cliques of G, where a clique is a fully connected set of nodes 
+
+(i.e. C 2C () 8i =6 j 2 C, {i, j}2 E) 
+Examples of set of nodes which are cliques from size 1 to 5 : 
+
+
+12-1 
+
+
+Lecture 12 — October 12 Fall 2018 
+
+12.1.1 UGM associated with G 
+
+
+1 Y 
+
+L(G) , 
+p : p(xV )= C(xC ) for some "potentials" C s.t. C (xC )  0 8xC
+
+Z 
+
+C2C 
+
+and where Z is the normalizing constant 
+
+!
+
+XY 
+
+Z , 
+C (xC ) "partition function" 
+xC2C 
+
+� 
+The functions C are potential functions and are not probability distributions ! Unlike 
+in a DGM, where we could think of C to be the node and its parents, which implies 
+C (xC )= p(xi,xi 
+), in a UGM, the potential C (xC ) is not directly related to the probability 
+distribution p(xC ). 
+
+Remark: 
+
+• We can multiply any C (·) by a constant without changing p (because we will re-
+normalize with a new Z) 
+Therefore, for some undirected graph G there are multiple ways to define the probability 
+p(xV ). For example, consider the following graph 
+
+we could write 
+
+P (A, B, C, D, E) / (A, B, E)(A, B)(A, E)(B, E)· 
+(B, C)(C, D)(D, E) 
+
+but we could also write 
+
+P (A, B, C, D, E) / 0(A, B, E)(B, C)(C, D)(D, E) 
+
+Note that in the second equation, we can rewrite (A, B)(A, E)(B, E) to the simpler 
+potential function 0(A, B, E), as (A, B, E) form a clique of 3 nodes. The potential function
+ 0(A, B, E) encompasses all the information about the dependencies between the nodes 
+(A, B, E), so there is no loss of generality in making that transformation. Therefore, it is 
+sufficient to consider only Cmax, the set of maximal cliques, where a maximal clique is a 
+clique that cannot be extended by including an additional vertex. We can restrict ourselves 
+to that case given that all cliques are subsets of one or more maximal cliques. 
+
+new old old 
+
+e.g. C0  C, then redefine C (xC )= C (xC ) C0 (xC0 ) 
+[Note: we will see later that it is sometimes convenient to consider the "over-parametrization" 
+of trees using both i(xi) and ij(xi,xj)] 
+
+Property 12.1.1 as before, E  E0 =)L(G) L(G0) 
+
+A 
+B 
+C 
+DE 
+12-2 
+
+
+Lecture 12 — October 12 Fall 2018 
+
+A 
+B C 
+D 
+Trivial graphs 
+
+• consider G =(V, E) with E = ; 
+A 
+B C 
+D 
+For p 2L(G), we get: 
+
+n
+
+Y 
+
+p(xV )= i(xi) as C = {{i}2 V }
+
+i=1 
+
+
+This gives us that L(G) is the fully factorized set 
+and that X1, ..., Xn are all mutually independent. 
+
+• consider G =(V, E) with 8i, j 2 V, {i, j}2 E (i.e. G is one big clique) 
+For p 2L(G), we get: 
+
+1 
+
+p(x)= V (xV ) as C is reduced to a single set V 
+
+Z 
+
+We make no conditional independence assumptions 
+between any of the xi; and any distribution is in 
+L(G). 
+
+Property 12.1.2 
+
+• if C (xC ) > 0 8xC 
+we can then see that p is in an exponential family: 
+
+( <C 
+,TC 
+(xC 
+)> )
+
+Xz }| { 
+
+p(xV ) = exp log C (xC ) − log Z 
+C2C
+
+| {z }
+
+negative 
+energy 
+function 
+
+
+Example: Ising model in physics : xi 2{0, 1} 
+
+xi 
+
+
+node potentials ! Ei = i(xi = 1) 
+
+
+edge potentials ! Ei,j = ij(xi =1,xj = 1) 
+
+
+Another example could be social network modeling. 
+
+12-3 
+
+
+Lecture 12 — October 12 Fall 2018 
+
+12.1.2 Conditional independence for UGM 
+As for the directed graphical models, we can view the undirected graphical models as encoding
+ a set of independence assumptions in their structure. 
+
+Definition 12.1 We say that p satisfies the global Markov property (with respect to an undirected
+ graph G) if and only if 
+
+8 disjoint A, B, S  V s.t. S separates A from B in G, then we have: XA ? XB | XS. 
+
+AB 
+
+S 
+Figure 12.1: The set S separates A from B. All paths from A to B must pass through S. 
+
+Proposition 12.2 
+
+p 2L(G)=) p satisfies the global Markov property for G 
+
+Proof: 
+Without loss of generality, we can assume A [ B [ S = V . 
+To see why, consider the case where A [ B [ S  V . Then, let 
+
+˜
+
+A , 
+A [{a 2 V : a and A are not separated by S} 
+
+and B˜ , 
+V \{S [ A˜}
+
+By definition, we have the disjoint union A˜ [ B˜ [ S = V , and we now show that A˜ and B˜ 
+are separated by S. By contradiction, suppose there is an a 2 A˜ and b 2 B˜ which are not 
+separated by S, i.e. there exists a path from a to b not passing through S. Then by definition, 
+b would be in A˜, contradicting the definition of B˜ (as b cannot be in A˜ and B˜ at the same 
+time). We also have that B  B˜ as the original B was separated from A by S. Thus we 
+have A˜ [ B˜ [ S = V and A˜ and B˜ are separated by S. If we can show that X ˜ 
+? X ˜ 
+| XS, 
+then by the decomposition property, this implies XA ? XB | XS for any subsets A 
+A of B 
+A˜ and 
+B of B˜, giving the required general case. We thus continue the proof with A [ B [ S = V . 
+
+12-4 
+
+
+Lecture 12 — October 12 Fall 2018 
+
+Let C 2C. We cannot have C \ A =6; and C \ B =6;, i.e. the clique C can’t intersect both 
+A and B at the same time (otherwise, part of B would be connected to A by direct edges 
+from this clique). Thus, 
+
+1 YY 
+p(x)= C (xC ) C0 (xC0 )= f(xA[S)g(xB[S)
+Z C2C C02C 
+CA[S 
+
+
+C0 * 
+A [ S 
+
+| {z } 
+
+)C0B[S 
+C0*S 
+
+
+X 
+
+p(xA|xS) / p(xA,xS)= f(xA[S)g(xB[S)
+
+| {z} 
+
+xB 
+
+
+xA[S 
+
+
+X 
+
+= f(xA[S) g(xB[S) 
+xB
+
+| {z } 
+
+cst 
+w.r.t 
+xA 
+
+
+f(xA,xS)
+
+=) p(xA|xS)= P 
+
+0 
+
+0
+
+x f(xA,xS)
+
+A 
+
+
+Similarly, 
+
+g(xB,xS) 
+
+p(xB|xS)= P 
+
+0 
+
+0
+
+x g(xB,xS)
+
+B 
+
+
+Thus, 
+
+f(xA[S)g(xB[S) p(xV ) 
+
+p(xA|xS)p(xB|xS)= PP = p(xA,xB|xS)
+
+00 
+
+00
+
+xx f(xA,xS)g(xB,xS)= 
+p(xS)
+
+AB 
+
+
+This proves XA ? XB | XS.  
+To converse of the above theorem is not always true (see assignment 3), but if we assume 
+that the probability is strictly positive, it holds as given in the following (deep) theorem. 
+
+Theorem 12.3 (Hammersley-Clifford) 
+
+if p(xV ) > 0 8xV 
+
+then, p 2L(G) () p satisfies the global Markov property. 
+
+Proof: see chapter 16 of Michael I. Jordan’s book 
+
+Property 12.1.3 Closure with respect to marginalization 
+
+12-5 
+
+
+Lecture 12 — October 12 Fall 2018 
+
+As for directed graphical models, we also have a marginalization notion in undirected graphs, 
+but it is slightly different. If p(x) factorizes in G, then p(x1,...,xn−1) factorizes in the graph 
+where the node n is removed and all neighbors are connected. 
+
+EE0 
+
+
+let V 0 = V \{n}
+E0 = edges in G \{n} + connect all neighbors of n in G 
+together (new clique) 
+
+nn 
+
+{marginal on x1:n−1 
+for p 2L(G)}= L(G0). 
+
+12.1.3 DGM vs UGM 
+Definition 12.4 Markov blanket The Markov blanket for a node i is the smallest set of 
+nodes M such that the node Xi is conditionally independent of all the other nodes (XV ) 
+given XM : 
+
+Xi ? XV | XM . 
+
+• for an UGM: M = {j : {i, j}2 E} = set of neighbors of i 
+• for a DGM: the Markov blanket of node i include its parents, its children and the 
+parents of all its children, i.e. 
+M = i [ children(i) [ [ j. 
+
+j2children(i) 
+
+
+iM 
+Table 12.1 summarizes the differences between DGM and UGM. 
+
+12.1.4 Moralization 
+¯
+
+Let G be a DAG; when can we transform G to an undirected graph G such that the DGM 
+
+¯
+
+from G is the same as the UGM on G? Before answering this question, we first define the 
+
+¯
+
+undirected graph G so that L(G) L(G ¯). 
+
+12-6 
+
+
+Lecture 12 — October 12 Fall 2018 
+
+Table 12.1: Summary of the main differences between DGM and UGM 
+
+Directed graphical model Undirected graphical model 
+Factorization 
+nY 
+p(x) = p(xi|xi 
+) 
+i=1 
+Y1 
+p(x) = C (xC )Z 
+C2C 
+Conditional 
+independence 
+d-separation 
+[Xi ? Xnd(i) 
+| Xi 
+] 
+and many more! 
+separation 
+[XA ? XB | XS] 
+Marginalization not closed in general, 
+only when marginalizing leaf nodes 
+closed 
+cannot exactly 
+capture some families 
+grid v-structure 
+
+¯
+
+Definition 12.5 for G a DAG, we call G the moralized graph of G 
+
+¯
+
+where G is an undirected graph with the same set of vertices V 
+
+¯
+
+and E = {{i, j} :(i, j) 2 E} [ {{k, l} : k =6 l 2 i for some i}
+
+|{z}| {z }
+
+undirected 
+version 
+of 
+E "moralization" 
+
+
+That is, the moralization1 
+can be explained less formally as connecting all the parents of 
+i (i) with i in a big clique. Note that we only need to add edges when |i| > 1, i.e. when 
+there is a v-structure. Here are two examples of this transformation : 
+
+G ¯ G G ¯ G 
+(A) 
+(B) 
+i 
+i i i 
+
+Note that in the conversion process from a Bayesian network to a Markov random field, we 
+loose the marginal independence of the parents. 
+
+We are now in position to answer the original question of when a DGM yields the same 
+as a UGM. 
+
+1Note that the terminology “moralization” come from the fact that we are “marrying” all the parents (by 
+adding edges between them), and thus from a traditional Christian point of view, we are making the “family 
+moral”. 
+
+12-7 
+
+
+Lecture 12 — October 12 Fall 2018 
+
+Proposition 12.6 for a DAG G with no v-structure [forest] 
+
+then L(G)= L(G ¯) 
+
+but in general, we can only say that L(G) L(G ¯)
+¯
+
+(note that G is the minimal undirected graph such that L(G) L(G ¯)) 
+
+Proof: This will be done in assignment! 
+
+Proposition 12.7 (Flipping a covered edge in a DGM) Let G =(V, E) be a DAG. 
+We say that a directed edge (i, j) 2 E is a covered edge if and only if j = i [{i}. Suppose 
+the edge (i, j) 2 E is covered and define G0 =(V, E0), with E0 =(E\{(i, j)})[{(j, i)}. Prove 
+that L(G)= L(G0). 
+
+Proof. Note that in order to identify the factors of the decomposition of the joint 
+distribution provided by G0 with conditional distributions, we need to show that G0 is indeed 
+a DAG! We know that G is a DAG, but must prove that flipping (i, j) did not introduce any 
+cycles for G0. 
+
+G0 is a DAG. Recall that a graph is a DAG if an only if it has a topological order. WLOG, 
+assume that the vertices of the original graph G are indexed with such a topological ordering 
+(1, . . . , i, . . . , j, . . . , n) and so j = i + k (for some k 2 N). 
+
+Now, the sequence (1, . . . , i, j, i +1,...,i + k − 1, j, i + k +1,...,n) is also a topological 
+ordering of G since j {1,...,i} and and (b) 8m> 0, if i+m {1,...,i + m − 1} then i+m {1,...,i + m − 1}[{j}. 
+
+Then, (1, . . . , j, i, . . . , n) is a topological ordering of G0 since everyone’s ancestors are to 
+their left. Therefore, G0 is a DAG. 
+
+Q
+
+n
+
+L(G) L(G0). Let p 2L(G). We thus have p(x)= k=1 
+p(xk | xk 
+), where k denotes the 
+parents of k in G. Consider any xi,xj,xi 
+such that p(xi,xj,xi 
+) 6= 0. Then by the chain 
+rule (valid for any distribution), we have 
+
+p(xi | xi 
+)p(xj | xi,xi 
+)= p(xi,xj | xi 
+)= p(xj | xi 
+)p(xi | xj,xi 
+). (12.1) 
+
+As (i, j) is a covered edge, we have j = i [{j}. Moreover, by definition of E0, we have 0 = i and 0 = j [{j} with 0 the parents of i in G0. So note that equation (12.1) can
+
+ji i 
+
+be interpreted as: 
+
+p(xi | xi 
+)p(xj | xj 
+)= p(xj | x
+
+0 
+
+j 
+
+
+)p(xi | x
+
+0 
+
+i 
+
+
+). 
+
+As k 0 = k for any k =6 i, j, we can simply swap the two terms for i and j in the product 
+factorization of p: 
+
+YY 
+
+p(x)= p(xi | xi 
+)p(xj | xj 
+) 
+
+k
+
+6
+
+=i,j 
+
+p(xk | xk 
+)= p(xj | x
+
+0 
+
+j 
+
+
+)p(xi | x
+
+0 
+
+i 
+
+
+) 
+
+k
+
+6
+
+=i,j 
+
+p(xk | x
+
+k 
+
+
+). 
+
+12-8 
+
+
+Lecture 12 — October 12 Fall 2018 
+
+If p(xi,xj,xi 
+) = 0, then both the LHS and RHS above are equal to zero and so are still 
+equal. We thus have p 2L(G0). By symmetry, we can reverse the argument, and thus 
+L(G)= L(G0).  
+
+
+12-9 
+
+

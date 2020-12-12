@@ -1,0 +1,563 @@
+IFT 6269: Probabilistic Graphical Models Fall 2018 
+
+Lecture 15 — October 20 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Samuel 
+Beland-Leblanc 
+
+
+Disclaimer: Lightly proofread and quickly corrected by Simon Lacoste-Julien. 
+
+15.1 HMM: Hidden Markov Model 
+The Hidden Markov Model (HMM) is a generalization of the latent variable model (such 
+as the Gaussian mixture model GMM for example) with an added time dependence on the 
+latent variables Zt. 
+
+Zt 
+Xt 
+T
+Figure 15.1: Latent variable model (GMM is an example) 
+
+Z1 Z2 . . . ZT 
+X1 X2 XT 
+Figure 15.2: Latent variable model with added dependence on Zt ) HMM 
+
+• Latent variable: Zt 2{1,...,k}, discrete 
+– Later, Zt  Gaussian ! Kalman Filter 
+• Observed variable: Xt 
+– Continous (e.g. speech signal) 
+– Discrete (e.g. DNA sequence) 
+15-1 
+
+
+Lecture 15 — October 20 Fall 2018 
+
+From DGM theory, we get the following joint probability: 
+
+TT
+
+YY 
+
+p(x1:T ,z1:T )= p(z1) p(xt|zt) p(zt|zt−1) (15.1)
+
+|{z} |{z}
+
+t=1 t=2
+
+emission 
+prob. 
+transition 
+prob. 
+
+
+Often, the emissision probabilities and the transition probabilities are homogeneous
+ (i.e. they don’t depend on t). Hence, we have that: 
+
+• pt(xt|zt)= f(xt|zt) 
+• pt(zt = i|zt−1 = j)= Aij 
+– A is named the Transition Matrix (or Stochastic Matrix) 
+– P 
+i Aij =1, 8j. A column j of the transition matrix can be seen as a probability 
+distribution over zt.1 
+15.1.1 Inference Tasks 
+There are multiple inference tasks of interest when using HMM’s. The general task is to 
+compute the probability of a sequence of hidden state z given an observable output sequence 
+
+x. But, there are also some marginal probabilities that are interesting to get : 
+• Prediction: p(zt|x1:t−1) ! Where next? 
+• Filtering: p(zt|x1:t) ! Where now? 
+– The term filtering comes from the interpretation that the output xt provides 
+"noisy" information about the underlying "signal" zt. So the "noisy" signals are 
+filtered based on the value of p(zt|x1:t). 
+• Smoothing: p(zt|x1:T ),t <T ! Where in the past? 
+In order to perform these inferences, we need to take advantage of the conditional independence
+ involved in the graphical model when conditioning on a latent variables. By 
+conditioning on zt, we make zt−1 independent of zt+1 (i.e. the future is independent of the 
+past given the present). This thus gives us the following : 
+
+1Note 
+that 
+some 
+textbooks 
+use 
+a 
+normalized 
+row 
+convention 
+instead 
+of 
+our 
+normalized 
+column 
+one. 
+Simon 
+prefers 
+the 
+column 
+convention 
+as 
+then 
+the 
+updates 
+are 
+matrix 
+vector 
+products 
+(see 
+the 
+HMM 
+message 
+passing 
+updates 
+later). 
+
+
+15-2 
+
+
+Lecture 15 — October 20 Fall 2018 
+
+p(x1:T |zt)p(zt) 
+
+p(zt|x1:T )= 
+
+p(x1:T ) 
+p(x1:t|zt)p(xt+1:T |zt)p(zt)
+
+= 
+
+p(x1:T ) 
+p(x1:t,zt)p(xt+1:T |zt)
+
+= 
+
+p(x1:T ) 
+(zt)(zt)
+
+= 
+
+p(x1:T ) 
+(zt)(zt)= P 
+zt 
+(zt)(zt) 
+
+Where and are two recursion that we will define. 
+
+-recusion 
+
+We will use the sum product algorithm here to derive recursions to compute the probabilities 
+(as a didactic example of sum product on UGMs – one can also derive these recursions directly 
+instead). 
+
+mzt−1!zt 
+(zt) 
+
+
+Zt−1 Zt . . . 
+Xt−1 Xt 
+mxt!zt(zt) 
+Figure 15.3: Visual representation of -recursion 
+
+Instead of computing the filtering distribution, we will compute the joint marginal p(zt,x¯1:t) /
+p(zt|x¯1:t) using message passing. Here we are using the x¯ notation to indicate that the observation
+ are fixed for the marginalization. So we get: 
+
+15-3 
+
+
+Lecture 15 — October 20 Fall 2018 
+
+1 
+
+p(zt,x¯1:t)= 1 · mzt−1!zt 
+(zt) · mxt!zt 
+(zt)
+
+Z
+
+X
+
+with mxt!zt 
+(zt)= p(xt|zt)(xt,x¯ t)= p(¯xt|zt) 
+xt
+
+X
+
+with mzt−1!zt 
+(zt)= p(zt|zt−1) mzt−2!zt−1(zt−1) · mxt−1!zt−1(zt−1)
+
+| {z }
+
+zt−1 
+p(zt−1,x¯1:t−1)= t−1(zt−1) 
+
+Note that Z = 1 above as we had a DGM; and the 1 in the first equation is because we did 
+not have any node potential. 
+
+Let’s then define : t(zt) , 
+p(zt,x¯1:t), which can be expressed using the above derivations 
+(making the recursion explicit) as : 
+
+X 
+
+t(zt)= p(¯xt|zt) p(zt|zt−1) t−1(zt−1) 
+
+(15.2) 
+
+zt−1 
+
+
+This is the -recursion (a.k.a forward recursion). It is like the collect phase in the sum 
+product algorithm using zt as the root. We can also express it as a matrix-vector product. 
+From the definition we just proposed, we can see that : 
+
+X 
+
+t(zt)= p(¯xt|zt) p(zt|zt−1) t−1(zt−1)
+
+|{z} |{z}| {z } 
+
+vector(zt) zt−1 
+matrix 
+vector 
+
+
+Let Ot(zt) , 
+p(¯xt|zt), then using the Hadamard product ( ) we can redefine the recusion
+ like this: 
+
+(15.3)
+
+t = Ot A t−1 
+
+The initialization for the -recursion is simply : 1(z1)= p(z1,x¯1)= p(z1)p(¯x1|z1). 
+Also, we can observe that if we renormalize t over zt, we get our filtering distribution 
+˜t , 
+p(zt|x¯1:t). From the , we can also get the evidence probability: 
+
+XX 
+
+p(zt,x¯1:t)= t(zt)= p(¯x1:t) (15.4) 
+
+zt 
+zt 
+
+
+Time complexity: O(t · k2)(k2 for the matrix/vector products over k states repeated t 
+times) 
+
+Space Complexity: We only need an extra storage of O(k) for the alpha recursion. Note 
+
+that it takes O(k2) to store the whole A matrix (i.e. transition matrix), but this is 
+
+given by the problem, so it is not “extra storage”. 
+
+15-4 
+
+
+Lecture 15 — October 20 Fall 2018 
+
+-recursion : smoothing 
+
+mzt+1!zt 
+(zt) 
+
+
+Zt Zt+1 . . . ZT 
+Xt+1 XT 
+. . . t(zt) 
+Figure 15.4: Visual representation of the -recursion 
+
+To get our smoothing probability, we need to also consider the information for T >t; this is 
+where the beta recursion is needed. To get the joint marginal on zt and all the observations, 
+we have : 
+
+1 
+
+p(zt,x¯1:T )= t(zt) · mzt+1!zt 
+(zt) (15.5)
+
+Z | {z } 
+
+, 
+t(zt) 
+
+From the conditional independence property we explained earlier, we get : 
+
+t(zt) , 
+p(¯xt+1:T |zt) 
+
+(15.6) 
+
+By expanding the message in equation 15.5, we can expose the actual recursion : 
+
+X 
+
+mzt+1!zt 
+(zt)= p(zt+1|zt)p(¯xt+1|zt+1)mzt+2!zt+1(zt+1) (15.7) 
+zt+1 
+
+
+X 
+
+t(zt)= p(zt+1|zt)p(¯xt+1|zt+1) t+1(zt+1) 
+
+(15.8) 
+
+zt+1 
+
+
+With the following initialization : T (zT )=1, 8zT .2 
+
+
+Finally, from the sum-product algorithm, we can obtain the edge marginal as : 
+
+p(zt,zt+1,x¯1:T )= t(zt) t+1(zt+1)p(zt+1|zt)p(¯xt+1|zt+1) (15.9) 
+
+2This 
+can 
+be 
+seen 
+as 
+we 
+do 
+not 
+observe 
+anything 
+for 
+t>T 
+, 
+so 
+marginalizing 
+all 
+the 
+leaves 
+of 
+a 
+DGM 
+there 
+just 
+yields 
+the 
+value 
+1. 
+(Leaf 
+plucking 
+property) 
+
+
+15-5 
+
+
+Lecture 15 — October 20 Fall 2018 
+
+15.1.2 Numerical Stability Trick 
+A big problem with doing inference in HMM’s is the amount of multiplication of values 
+<< 1, which makes it so that t and t can easily go to 1e − 100. This is bad as it can 
+underflow. There are 2 tricks that can be used in order to avoid this. 
+
+(A) (General) Store log( t) instead 
+Let: 
+
+a˜ , 
+max ai 
+
+i 
+
+imax , 
+arg max ai 
+
+i 
+
+Then we use the following : 
+
+! !!
+
+XX 
+
+ai
+
+log ai = log a˜ 
+ii a˜ 
+01 
+
+X 
+= log(˜a) + log @1 + exp (log(ai) − log(˜a))A 
+
+j6=imax 
+
+
+(B) Normalize the Messages 
+For the -recursion. we can use our previously defined ˜t(zt)= p(zt|x¯1:t) (filtering distribution).
+ We initially had t(zt)= Ot(zt) A t+1(zt−1). Now, we get: 
+
+Ot(zt) A˜t+1(zt−1)
+
+˜t = P 
+
+(15.10) 
+
+zt 
+(Ot(zt) A˜t+1(zt−1)) 
+
+It is possible to show that: 
+
+X
+
+(Ot(zt) A˜t+1(zt−1)) = p(¯xt|x¯1:t−1) 
+zt 
+
+
+, 
+ct 
+
+QT QT
+
+We hence get : p(¯x1:T )= t=1 p(¯xt|x¯1:t−1)= t=1 ct. 
+Now, for the -recursion, we define : 
+
+t(zt) t(zt)
+
+˜(zt) , 
+)= QT (15.11) 
+p(¯xt+1:T |x¯1:t 
+
+u=t+1 cu 
+
+Note here that P 
+zt 
+˜(zt)=6 1 in general, but it will have a reasonable value (not underflow), 
+and has the advantage of not requiring much extra computation by re-using the stored ct 
+values. Exercise: derive the ˜-recursion. 
+
+15-6 
+
+
+Lecture 15 — October 20 Fall 2018 
+
+15.1.3 Maximum Likelihood for HMM 
+First of all, let: 
+
+p(xt|zt = k)= f(xt|k), =(k)K (for some parametric model (e.g. Gaussian)) 
+
+k=1 
+
+p(zt+1 = i|zt = j)= Ai,j, (where A is the transition matrix) 
+p(z1 = i)= i (since z1 has no parents) 
+(i))N
+
+We want to estimate our parameters ˆ= {,ˆ A,ˆ ˆ} from the sequences of data (x i=1, 
+
+(i)(i)
+where x = x1:Ti 
+. As we have a latent variable model, we are going to use EM. 
+
+E-step 
+
+Let s be the sth 
+iteration. Then our E-step at time s + 1 is simply our − recursion with 
+our parameters at time s: 
+
+qs+1 = p(z|x, (s)) 
+
+(15.12) 
+
+M-step 
+
+We are trying to optimize : 
+
+ˆ(s+1) 
+
+= arg max Eqs+1[log p(x, z)] (15.13) 
+
+2 H
+For this we are going to use the complete log-likelihood: 
+
+"# 
+
+NT T
+
+XX X
+
+(i)(i)(i)(i)(i)
+log p(x, z|) = log p(z1 ) + log p(¯xt |zt ) + log p(zt |zt−1) (15.14) 
+
+i=1 t=1 t=2 
+
+Now if we look at each term individually, we will be able to maximize with respect to  
+after. 
+
+(i) P (i)
+1. log p(z1 ) ) k z log k
+1,k 
+
+(i)(i) P (i)(i)
+2. log p(¯x |z ) ) log f(¯x |k)
+tt k zt,k t 
+
+hi
+
+(i)(i)(i)
+• Eqs+1 
+zt,k = qs+1(zt,k = 1) , 
+t,k (soft counts) 
+(i)(i)(i)
+• qs+1(zt,k = 1) is our smoothing distribution p(zt |x¯ 1:Ti 
+) 
+(i)(i) P (i)(i)
+3. log p(zt |zt−1) ) l,m zt,l zt−1,m log Al,m 
+(i)(i)(i)(i)(i)
+• z t−1,m ) qs+1(z =1,zt−1,m = 1) , 
+ (soft counts) 
+t,l z t,l t,l,m 
+
+(i)(i)(i)(i)
+• qs+1(zt,l =1,zt−1,m = 1) is our smoothing edge marginal p(zt,l =1,zt−1,m = 
+1|x¯ 1:
+(i) 
+Ti 
+,(s)) 
+15-7 
+
+
+Lecture 15 — October 20 Fall 2018 
+
+Maximize with respect to  
+
+PN (i) PN (i) s+1 i=1 1,k i=1 1,k
+
+ˆ= X = (15.15)
+
+k PN 
+(i) 
+
+N 
+
+i=1 1,l 
+
+|l=1{z }
+1 
+
+PN PT (i)
+ˆ(s+1) i=1 t=2 t,l,m 
+
+Al,m = PPN PT (i) (15.16) 
+ui=1 t=2 t,u,m 
+
+As for ˆk, this will depend on the parametric model used, but you get them using soft 
+count maximum likelihood similar to how it was used in GMM (e.g. for Gaussians we had 
+the weighted empirical mean) 
+
+We just described what is called the Baum-Welch algorithm consisting of forward-
+backward using − recursion/sum-product with EM for HMM’s. 
+Finally, to find arg maxz1,...,zT 
+p(z1:T |x¯1:T ), we must use the Viterbi algorithm (i.e. max 
+product) seen earlier. 
+
+15-8 
+
+

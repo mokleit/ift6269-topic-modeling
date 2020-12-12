@@ -1,0 +1,1222 @@
+IFT 6269: Probabilistic Graphical Models Fall 2018 
+
+Lecture 8 — September 28 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Eeshan 
+Gunesh 
+Dhekane 
+and 
+Younes 
+Driouiche 
+
+
+Disclaimer: These notes have only been lightly proofread. 
+
+8.1 Logistic Regression 
+About Logistic Regression : Let’s turn our attention to the binary classification problem! 
+We define it as the problem of learning a map from the set of input data (usually a subset 
+of Rd for some d 2 N) to the set of two labels (usually denoted by {0, 1}). There are two 
+major approaches to the classification problem : Generative and Discriminative. The 
+generative approach models the distribution of the input data along with the distribution of 
+the labels given the input data. The discriminative approach, on the other hand, models only 
+the distribution of the labels given the input data. Logistic Regression is a discriminative 
+approach to the problem of binary classification. In this approach, we only model and 
+learn the required distributions of p (Y | X), where X and Y represent the random vectors 
+corresponding to the input data and the corresponding labels respectively. Despite this 
+simplicity in the modeling of the problem, logistic regression is a robust approach. This is 
+because many other models share the form of p (Y | X) with that of this model. Let us begin 
+our discussion of logistic regression with the mathematical formulation. 
+
+Formulation : Let X denote the random vector that corresponds to the input data. We 
+assume that X 2 Rd for some d 2 N. Let Y denote the random variable corresponding to 
+the labels of input data. For the binary classification problem, we assign values of 0 and 
+1 to the two labels. Thus, we have Y 2{0, 1}. Our goal is to model and learn p (Y | X), 
+which is the distribution of the labels given the input data. We model the distributions 
+p1 
+= p (Y =1 | X = x) and p0 
+=1 − p1 
+= p (Y =0 | X = x) as functions of x. The form of 
+the p1 
+distributions is chosen as the Sigmoid Function of linear transformation of x 
+(We 
+will see the reasons later). Thus, we have : 
+
+ 
+
+p (Y =1 | X = x)=  w>x 
+, where w 
+2 Rd is the parameter of the model (8.1) 
+
+This form of p(Y =1 | X = x) gives an expression for the target distribution p (Y | X): 
+
+ (1−y) 
+  
+
+p (Y = y | X = x)=  w>x 
+y 
+· 1 −  w>x 
+= Bernoulli  w>x 
+(8.2) 
+
+8-1 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+Now, let D = {(xi,yi)}ni=1 
+denote the given dataset with xi 2 Rd,yi 2{0, 1}8 i 2{1,...,n}. 
+Then, the goal of learning p (Y | X) becomes the problem of learning w 
+from the given 
+dataset D, which we will consider through the next sections. 
+
+Generative Motivation [Optional] : We stated earlier that logistic regression is a fairly 
+robust approach. We also defined p (Y =1 | X = x) as a function of x 
+in a particular form. In 
+this subsection, we provide a generative motivation that tries to justify these statements and 
+definitions. For this, we make no major assumptions except for the existence of probability 
+density functions p (x 
+| Y = 1) and p (x 
+| Y = 0) in Rd (These distributions are called as 
+Class-Conditional Distributions). Starting with the class-conditional distributions, our 
+goal is to obtain p(Y |X). We do in the following manner : 
+
+p(Y =1,X = x) p(Y =1,X = x) 
+
+p(Y =1|X = x)= = 
+
+p (X = x) p(Y =1,X = x)+ p(Y =0,X = x) 
+
+1 11 
+
+= = = (8.3)
+
+− log 
+p(Y 
+=1,X=x) 
+1+ e−f(x)
+
+1+ p(Y =0,X=x) 
+p(Y 
+=0,X=x)
+
+p(Y =1,X=x) 
+1+ e 
+
+Thus, from the previous equation, we get : 
+
+p(Y =1|X = x)= 1 = (f(x)) where (z)= 1 
+is the Sigmoid function (8.4)
+
+−f(x) 
+1+e
+
+1+ e −z 
+Here, f(x) is the Log-Odds Ratio and is defined as follows : 
+=1,X = x) =1) =1)
+f(x) = log pp 
+(
+( 
+YY =0,X = x) = log pp 
+(
+( 
+XX 
+=
+= 
+xx|
+| 
+YY = 0) + log pp 
+(
+( 
+YY = 0) (8.5) 
+
+| {z } |{z}
+
+Class-Conditional Ratio Prior Odds Ratio 
+
+Now, note that a major proportion of the common distributions used for modeling are special 
+cases of the Exponential Family of distributions (We will study this later in the course). 
+The distribution is specified by two functions h(x),T (x) and is defined as given below : 
+
+Linear in ,T 
+(x)
+
+Cannonical Parameter z }| {
+
+z}|{ h(x)
+
+ )= · exp( > T(x) ) (8.6)
+
+pexp-fam(x 
+| 
+
+exp( A()) | {z }
+
+| {z } 
+
+Sufficient Statistics
+
+Log-Partition Function 
+
+Let p(Y = 1) =  and p (X = x 
+| Y = y)= pexp-fam(x 
+|  ) 8 y 2{0, 1}. Then, we can
+
+y 
+
+write f(x) from [8.5] in terms of a Weight Vector w 
+and a Feature Map (x) as : 
+
+!! 
+
+1 
+− 0 
+T (x)
+
+f(x)= w>(x), with w 
+= and (x) = (8.7)
+
+A(0) − A(1) + log 1−  1 
+
+8-2 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+Thus a generative model with class-conditionals in the exponential family yield p(Y =1 |
+
+ 
+
+X = x)=  w>(x) , which is precisely the logistic regression model (with feature map (x)). As a concrete example (exercise to the reader), with p (X = x 
+| Y = y)= N (x 
+| μy, y) 
+(the multivariate Gaussians are an exponential family), then we have 1) if 0 
+=1, that
+
+! 
+
+(x)= x 
+1 – this is the linear regression model; 2) otherwise, if you use different covariances 
+
+01 
+
+xx> 
+
+for the different classes, then (x)= @B x 
+AC (see also assignment 2)! Note that h(x) in (8.6) 
+
+1 
+does not appear in the definition of f(x), even though it does influence the distribution given 
+by the class-conditional. This means that there are many different generative models which 
+
+ 
+
+gives the same  w>(x) model for p(Y =1 | X = x), and thus the logistic regression 
+model is robust to changes in these choices, which is what we meant by saying that logistic 
+regression is a more robust model than the generative model approach. 
+
+8.2 Sigmoid Function and Properties 
+In this section, we provide a (quick) review of some of the properties of the Sigmoid function. 
+It is formally defined as follows : 
+
+1 
+
+ :]−1, +1[ ! ]0, 1[ and  (z)= −z 8 z 2 ]−1, +1[ (8.8)
+
+1+ e 
+
+The figure [8.1] shows the graph of the Sigmoid function (over [−10, +10] ). 
+
+−10−8−6−4−2024681000.10.20.30.40.50.60.70.80.91xs(x)
+Figure 8.1: Sigmoid function. 
+
+Below are some important properties of the Sigmoid function (Prove using [8.8]. Exercise!) 
+
+8-3 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+Property 8.2.1 8z 2 R,(−z)=1 − (z) 
+Property 8.2.2 8z 2 R,0(z)= (z)(1 − (z)) = (z)(−z) 
+Property 8.2.3 limz!−1  (z)=0 and 
+limz!+1  (z)=1 
+
+8.3 Maximum Conditional Likelihood 
+Recap : From subsection Formulation [8.1], we have the following model for p(Y | X): 
+
+  
+
+p(y =1|x)=  w>x 
+,p(y =0|x)=1 −  w>x 
+= (−w>x) and thus, 
+
+ 1−y
+
+Y |X = x 
+ Bernoulli (w>x) . Equivalently, p(y|x)= (w>x) y (−w>x) 
+(8.9) 
+
+Maximum (Conditional) Likelihood : From the subsection Formulation [8.1], we also saw 
+that the problem of modeling p (Y | X) becomes the problem of learning w 
+from the dataset 
+
+D. We will use the method of Maximum Conditional Likelihood to estimate the parameter 
+w 
+of the model. Given the dataset D =(xi,yi)ni=1, the (conditional) log-likelihood is : 
+n
+
+X 
+
+`(w) = log(p(yi|xi; w) 
+
+i=1 
+n h i
+
+X 
+
+= yi log (w>xi) +(1 − yi) log (−w>xi) (8.10) 
+I=1 
+
+
+Now, in order to solve for w, we first need to find the Stationary Points of `(w), where 
+we have rw 
+`(w) = 0. Towards this, let us define vi as follows : vi = w>xi. Then, we have rw(w>xi)= rw(vi)= xi [(vi)(−vi)]. Now, we can evaluate rw 
+`(w) as follows : 
+
+23 
+
+nn
+
+X" (vi)(−vi) #X 
+
+67 
+
+rw 
+`(w)= xi yi − (1 − yi)(vi)(−vi)= xi 4yi((−vi)+ (vi)) − (vi)5 
+
+(vi) (−vi) | {z }
+
+i=1 
+i=1 
+
+
+=1 
+
+
+(8.11) 
+
+Thus, we get the required expression for rw 
+`(w): 
+
+n h i
+
+X 
+
+rw 
+`(w)= xi yi −  w>xi (8.12) 
+
+i=1 
+
+
+8-4 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+Solving for w 
+: It turns out that rw 
+`(w) = 0 is what is known as a Transcendental 
+Equation. Such equations are often hard to solve and do not have closed-form solutions. 
+Thus, we are left with the choice of using Numerical Methods to find the maximum conditional
+ likelihood estimate. 
+
+The next section provides a description of some useful numerical methods. 
+
+Remark 8.3.1 If 
+we 
+consider 
+Y = {−1, 1}, 
+then 
+we 
+can 
+encode 
+both 
+cases 
+in 
+one 
+equation 
+as 
+follows: 
+
+
+p(y|x)= (y · w>x) 
+
+Remark 8.3.2 In 
+contrast 
+to 
+the 
+transcendental 
+equation 
+obtained 
+for 
+the 
+logistic 
+expression 
+approach, 
+we 
+had 
+obtained 
+a 
+Linear 
+Equation 
+in 
+the 
+case 
+of 
+least 
+square 
+regression 
+
+
+n
+
+approach. 
+Recall 
+that 
+we 
+obtained 
+rw 
+`(w)= P 
+i=1 
+xi[yi − w>xi] and 
+hence, 
+solving 
+for 
+w 
+via 
+setting 
+rw 
+`(w)=0 is 
+essentially 
+solving 
+a 
+linear 
+equation 
+in 
+w! 
+
+
+8.4 Numerical Optimization 
+Let us start with a function f defined for some variable w 
+over a domain D. We want to 
+solve the problem of minimizing f(w) over this domain : 
+
+Minimize f(w) over D minw2D f(w) (8.13) 
+
+In our case w 
+2 Rd and thus, the domain is D = Rd. 
+
+Gradient Descent [1st Order Method] 
+
+Motivation: The motivation for this approach is the fact that the gradient of a function 
+points in the direction of the maximum increase in the function. Thus, in order to minimize 
+a function, the natural decision is to follow the direction of the maximum decrease in the 
+function. This can be achieved by traveling in the direction opposite to that of the gradient. 
+
+Algorithm : The gradient descent algorithm is described below : 
+
+1. Initialize : w0. 
+2. Update : wt+1 
+= wt − trf(wt). 
+3. Iterate : If not converged, go to Update step. 
+8-5 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+Here, t is the size step at iteration t. The t is a hyperparameter and needs to be chosen 
+appropriately. Note that if the t has a very small 
+value, then the convergence is very slow. 
+However, if t has a very large 
+value, then the algorithm may not converge at all (it may 
+diverge, for instance). Thus, we need to have conditions/heuristics to choose t properly. 
+
+Some Step Size Rules and Heuristics : 
+
+(a) We can set the step-size to be a constant. This constant is chosen to be equal to t = L 
+1 
+where L is the Lipschitz Constant of rf. The Lipschitz constant of a vector function rf is the smallest number L such that for all w, w0 in the domain of the function, we 
+have : 
+krf(w) −rf(w0)k L kw 
+− w0k 
+
+C
+
+(b) Decreasing Step-Size Rule : We can set t = where C is a constant. The heuristic 
+t
+
+behind this is that we we want to be able to cover all the domain (achieved by having P 
+tt = 1). However, we also want not to deviate far away so that we can converge on 
+
+2
+
+the solution (achieved by having P 
+tt < 1). 
+
+(c) We can choose t by solving : min 2R 
+f(wt + dt) where dt is the direction for update. 
+This method is called Line Search. However, since this approach is in general costly, 
+we can do approximate search1. 
+Newton’s Method [2nd Order Method] 
+
+Motivation : Here, we approximate the given function in terms of its Quadratic Approximation.
+ Now, it is relatively easy to optimize a quadratic function rather than the 
+given function, which might not have desirable convex/concave nature. We use Taylor 
+Expansion of the given function to obtain the quadratic approximation as follows : 
+
+f(w)= f(wt)+ rf(wt)>(w 
+− wt)+ 1(w 
+− wt)>H(wt)(w 
+− wt)+ O (kw 
+− wtk)3 
+
+
+2 | {z }
+
+| {z } 
+
+Taylor’s Remainder 
+
+Quadratic Approximation 
+
+= Qt(w)+ O (kw 
+− wtk)3 
+1
+
+where Qt(w)= f(wt)+ rf(wt)>(w 
+− wt)+ (w 
+− wt)>H(wt)(w 
+− wt) (8.14)
+
+2 
+
+Here, H(wt) is the Hessian of the function f and Qt(w) is a quadratic approximation 
+function for f(w) at w 
+= wt. The update formula for wt+1 
+is obtained by minimizing this 
+quadratic approximation Qt(w): 
+
+rwQt(w)=0 )rf(wt)+ H(wt)(w 
+− wt)=0 ) w 
+− wt = −H−1(wt)rf(wt) (8.15) 
+
+1For 
+example, 
+we 
+can 
+have 
+Armijo Line Search and Conditions. 
+For 
+more 
+details, 
+please 
+refer 
+to 
+the 
+book 
+Convex 
+Optimization 
+by 
+Stephen Boyd and 
+Lieven Vandenberghe 
+
+8-6 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+Damped Newton’s Method: in order to Stabilize Newton’s method, we incorporate a 
+step size of t. The update step is given as follows : 
+
+wt+1 
+= wt − tH−1(wt)rf(wt) (8.16) 
+Algorithm : The algorithm for (Damped) Newton’s method is given below : 
+
+1. Initialize : w0. 
+2. Update : wt+1 
+= wt − tH−1(wt)rf(wt). 
+3. Iterate : Until some condition is met (kwt+1 
+− wtk ). If not, go to Update 
+step. 
+Advantages and Disadvantages : 
+
+• Convergence : Newton’s method usually gives a much faster convergence (in terms 
+of the number of iterations) compared to the gradient descent method. However, each 
+iteration of Newton’s method is more costly than that of the gradient descent method. 
+Specifically, gradient descent update takes O (d) time and space because we need to 
+manipulate d−dimensional vectors and gradients. However, Newton’s method involves 
+calculation of inverse of Hessian, which requires O (d2) space and takes O (d3) time. 
+Thus, there is a trade-off in number of iterations till convergence versus the complexity 
+of each iteration. 
+• Affine Invariance and Role of H−1: Newton’s method is Affine Invariant, which 
+means that it is invariant to the re-scaling of variables. The reason behind this is that 
+the update term of Newton’s method has the inverse of Hessian, which transforms 
+the space to make it “well-conditioned”. We demonstrate the intuitive benefits of this 
+property and the effect of the presence of Hessian-inverse in the following (optional) 
+subsection. 
+The Role of H−1 
+[Optional] : We consider a very simple example, where we have w 
+2D = 
+
+R2 
+22
+
+. Let the function to minimize be given by f(w)= w1 
++ w2, where wi (i2{1, 2}) denotes 
+the i−th component of w. Let us try to minimize this function using gradient descent and 
+Newton’s method. We compute the gradient and the Hessian for f(w): 
+
+8-7 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+"# "#"#
+
+(wt)1 
+10 110 
+
+rf(w)=2 2 R2 
+and H(f(w)) = 2 , i.e.,H−1(f(w)) = 
+
+(wt)2 
+01 201 
+Gradient Descent : wt+1 
+= wt − 2 twt ) wt+1 
+− wt =wt = −2 twt 
+Newton’s Method : wt+1 
+= wt − twt ) wt+1 
+− wt =wt = − twt (8.17) 
+
+Since the Hessian-inverse is proportional to identity matrix, gradient descent and Newton’s 
+method have essentially 
+the same update steps (except for constants). Further, the update 
+terms wt are proportional to w 
+and thus, the updates from wt to wt+1 
+are both directly 
+along the direction from wt to the global minimum at (0, 0). However, let us re-parameterize 
+
+u1 
+u2
+
+w 
+using u 
+as w1 
+= a ,w2 
+= b (a 6= b). Thus, the same function f(w) is now a function 
+
+12
+
+g(u) with g(u)= ua22 
++ ub22 
+. Now, we compute the gradient and Hessian for g(u) as follows : 
+
+"# "#"#
+
+(ut)1 
+12 
+
+
+a2 
+a2 
+01 a 0 
+
+rg(u)=2 (ut)2 
+2 R2 
+and H(g(u)) = 2 1 
+, i.e.,H−1(g(u)) = 
+
+0 20 b2 
+
+
+b2 
+b2 
+
+
+"# "#
+
+(ut)1 
+(ut)1 
+a2 
+a2
+
+Gradient Descent : ut+1 
+= ut − 2 t ) ut+1 
+− ut =ut = −2 t
+
+(ut)2 
+(ut)2 
+b2 
+b2 
+
+
+" #"# "#
+
+2(ut)1
+
+a 0 u1
+
+Newton’s Method : ut+1 
+= ut − t b2(ua 
+t 
+2 
+)2 
+) ut+1 
+− ut =ut = 
+
+0 
+b2 
+u2 
+
+
+(8.18) 
+
+Now, we see that ut for gradient descent is not proportional to ut because a 6= b. Hence, 
+the direction of the update ut is not ideal 
+because it does not point towards the global 
+minimum at (0, 0). This is the effect of re-parameterization. However, note that the presence 
+of H−1(g(u)) makes the update term of Newton’s method proportional to ut. This makes 
+the direction of the update once again point towards the global minimum. Thus, we can see 
+that Newton’s method is affine invariant due to presence of the Hessian-inverse in the update 
+step. The figures [8.2] and [8.3] illustrate the comparison of gradient descent updates and 
+Newton method updates for an elliptic loss function and a circular loss function respectively. 
+
+8.5 IRLS : Iterative Reweighted Least Square 
+Formulation : Newton’s method applied to logistic regression is often called as IRLS. We 
+use Newton’s method to solve the transcendental equation we encountered earlier. Recall 
+
+8-8 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+
+Figure 8.2: For an elliptic loss function, Newton method updates point in the ideal direction, 
+whereas the gradient descent updates do not. This demonstrates the role played by the 
+inverse of the Hessian in Newton method updates. 
+
+
+Figure 8.3: The gradient descent updates and Newton method updates are essentially 
+identical
+ (except for a scaling constant). For a given initialization of the parameter, they both 
+point in the ideal direction and are coincident. 
+
+8-9 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+P
+
+from [8.12] that r`(w)= 
+
+n 
+
+i=1 
+xi[yi − (w>xi)]. Let v 2 Rd be any given vector. Then : 
+
+X 
+
+H = H(`(w)) = − 
+
+xixi >(w>xi)(−w>xi) 
+
+1in 
+
+1in 1in 
+
+X
+
+X 
+
+)v >Hv = − 
+
+3 
+
+(v 
+
+2 
+
+)v >Hv  0 8 v 2 Rd ) H (`(w)) is negative semi-definite )`(w) is concave) Newton’s updates would indeed maximize log-likelihood. 
+
+| 3
+
+2
+
+3
+
+2 
+
+(v >xi)(xi > v)(w>xi)(−w>xi)= − 
+
+>xi)2 
+
+
+{z 
+
+0
+
+}
+
+(w>xi)
+
+{z }
+|
+0> 
+
+}
+
+|
+
+(−w>xi)
+
+{z 
+
+>0 
+
+
+(8.19) 
+
+. .. 
+
+Let X 
+
+
+= 
+
+6664 
+
+.
+
+. 
+
+—xi >— 
+
+7775
+
+be the Design Matrix, y 
+
+
+= 
+
+6664 
+
+.
+
+. 
+
+yi 
+
+7775
+
+and μ = 
+
+6664 
+
+.
+
+. 
+
+μi 
+
+7775
+
+, 
+
+. ..
+
+. ..
+
+. .. 
+
+n×dd×1 
+d×1 
+
+
+where 8 i 2{1,...,n}, we have μi = (w>xi), xi is the i−th input data and yi is the label 
+corresponding to xi. Then, r`(w) and H(`(w)) can be expressed as : 
+
+n
+
+X 
+
+r`(w)= 
+
+xi(yi − μi)= X>(y 
+− μ) and H(`(w)) = −X>D(w)X 
+
+
+(8.20) 
+
+i=1 
+
+
+Here, D is the n × n diagonal matrix defined as : Dii = μi(1 − μi) 8 i 2{1,...,d}. Based 
+on this notation, the Newton’s method updates are given as follows : 
+
+wt+1 
+= wt − (−X>Dt
+
+h 
+
+X)−1X>(y 
+− μ 
+X)−1 
+
+
+t)
+
+i 
+
+=(X>Dt 
+
+(X>DtX)wt + X>(y 
+− μt) =(X>Dt
+
+X)−1(X>Dtzt
+
+) (8.21) 
+
+Here, zt is defined as follows : zt = Xwt + Dt 
+−1(y 
+− μt). This definition of zt along with 
+the update step expression from [8.21] indicate that at each time-step t, we are essentially 
+solving a (Weighted) Least Square Problem. This can be seen as follows : 
+
+8-10 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+Let Dt be the square matrix (matrix of square root of diagonal entries) of Dt 
+
+> 
+
+Since Dt is diagonal, so is Dt . Thus, we have Dt = D>,D = D (8.22)
+
+tt t 
+
+12 
+ˆˆˆXXXXXXThen, >>>>() w 
+= zw 
+= yDD+1+1ttttt 
+LeastSquaresEstimation From previousequationandthe frompreviousclass: 
+
+Let Xˆ be the new design matrix defined as : Xˆ
+= Dt X 
+(8.23) 
+
+Let yˆ be the new design matrix defined as : yˆ= Dt zt (8.24) 
+
+12 
+
+
+−1 
+ −1 
+ˆ 
+
+12 
+12 
+
+
+2 
+
+
+2 
+X (zt)i − xi >w 
+wt+1 
+= arg minw 
+ˆ Xw 
+2 
+= arg minw 
+D (zt − Xw) = arg minw 
+n 
+D−1
+
+y 
+− ˆ
+
+12 
+
+
+i=1 
+ii 
+
+Thus, wt+1 
+is the solution of the above weighted least squares problem. (8.25) 
+
+>
+
+((zt)i−x>w)2 
+w)2 
+
+
+i 
+
+
+has the form of (yi−xi 
+, which represents the Gaussian Noise Model 
+
+D−1 
+2 
+
+
+ii 
+
+
+Thus, Dii 
+−1 
+takes the form of Data-Dependent Noise. (8.26) 
+
+12 
+
+
+12 
+
+
+8.6 Logistic Regression for Big Data 
+Big Data and Constraints on Logistic Regression : The term Big Data often stands for 
+datasets with a large number of data points (large value of n), each element being a vector 
+in a high-dimensional space (large value of d). With big data, there are several constraints 
+on the methods used to model the dataset using logistic regression. 
+
+• We have seen that the second order Newton’s method incurs O (d3) time and O (d2) 
+space due to the computation of the inverse of the Hessian. In the case of big data, 
+d is a large number and thus, we cannot afford these order of computation. Thus, we 
+must resort to the first order methods. 
+• Now, we have also seen that the first order method of gradient descent has faster 
+iterations. However, the number of iterations till convergence is large. Thus, we need 
+to improve upon the gradient descent method. 
+• Batch Gradient Descent : We consider the so-called Batch Gradient Descent, the 
+update step of which is described as follows– 
+8-11 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+! 
+
+n
+
+1 X
+
+Update : wt+1 
+= wt − t rfi(wt) , 
+
+n 
+
+i=1 
+
+
+where fi(wt) represents the gradient at the i−the input feature (8.27) 
+
+However, the computation of each iteration involves O (d) computations for gradients 
+of n features. Thus, the overall computations per iteration are O (n · d), which can not 
+be afforded. Thus, we can not use batch gradient descent for big data. 
+
+Thus, we resort to the use of the Stochastic Gradient Descent and its variants/extensions. 
+We discuss some of the representative methods in the following subsections. 
+
+Stochastic Gradient Descent [SGD] : The update step of SGD involves randomly picking 
+up an input feature it at iteration t and plugging in the gradient descent formula the gradient 
+for that feature. Formally, the update formula for SGD is given by : 
+
+Update : Randomly pick it at iteration/time-instance t 
+Evaluate the gradient rfit 
+(wt) at the input feature indexed it 
+Update w 
+as follows : wt+1 
+= wt −rfit 
+(wt) (8.28) 
+
+Now, this approach has cheaper complexity; O (d) computations are performed at each 
+iteration. However, the convergence of this method is very poor when compared against the 
+batch gradient descent. The method also has a very high variance. This can be intuitively 
+seen as follows. If there are certain inputs for which the gradient takes abnormally large 
+values, then the update step will sway w 
+from its ideal 
+update direction by huge amounts. 
+This is not good for the convergence, since such samples will easily mislead the updates. 
+To some extent, we can try to cater for the high variance by using Stochastic Mini-
+Batch Gradient Descent. Here, instead of evaluating gradient at a single randomly 
+picked feature, we evaluate averaged gradient over a randomly selected batch of features 
+with indices B = {i1,...,ib}. The update step is described below : 
+
+Update : Randomly pick indices B = {i1,...,ib} at iteration t (8.29) 
+Evaluate the averaged gradient g = 1 
+b P 
+jb 
+=1 
+rfij 
+(wt) (8.30) 
+Update w 
+as follows : wt+1 
+= wt −· g (8.31) 
+
+8-12 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+The updates now incur O (b · d) computations per iteration and for appropriate choice of 
+b, we can afford these updates. Intuitively, averaging out of the gradients diminishes the 
+effects of abnormally large gradients on the update of w, which slightly improves (decreases) 
+the variance. Note that the convergence analysis of mini-batch SGD shows that there is no 
+advantage to use a mini-batch size bigger than 1 if 
+the 
+cost 
+of 
+a 
+mini-batch 
+step 
+is 
+b times 
+the 
+cost 
+for 
+one 
+gradient. The reason is that the variance decreases when b increases, yielding 
+a smaller total number iterations to reach a specific accuracy. However, this reduction of 
+number iterations is smaller than b and thus, if each step is b times more expansive, there 
+is no overall gain of using a mini-batch. The main 
+computational 
+reason 
+to use mini-batch 
+is when one has access to Parallel Processing. With parallel processors, the computation 
+of the b gradients can be made almost as fast as that of only one gradient and this yields an 
+overall speed-up. Note that SGD is an example of a set of approaches called Incremental 
+Gradient Methods in optimization. 
+
+In the last 5 years, a set of methods called Variance Reduced Incremental Gradient 
+Methods were proposed to further speed-up these methods. Their idea is to reduce the 
+variance by using “memory”. We now present the first one of these (which was a big breakthrough
+ in the optimization literature2), Stochastic Averaged Gradient (SAG), and a small 
+tweak called SAGA: 
+
+Stochastic Averaged Gradient [SAG] and SAGA : The idea of SAG is to use the memory 
+of the previous computations to calculate the update term. The update is : 
+
+n
+
+1 X
+
+Update : wt+1 
+= wt − vi (8.32) 
+
+n 
+
+i=1 
+
+
+Here, vi = rfi(wt) are called Memory variables. In every iteration, we update only one 
+of the memory variables vit 
+= rfit 
+(wt) for some randomly picked it. We keep all the 
+previously set vj memory variables unchanged and simply use their computed values from 
+previous iterations. This method of incrementally computing the approximated gradient 
+decreases the variance of the method considerably, and in particular, allows the use of a big 
+constant 
+step-size 
+like gradient descent which is why convergence is so much better than 
+SGD. A disadvantage of SAG was that in expectation over the random choice it, the update 
+direction is not equal to rf(wt) (it is Biased). Because of that, the convergence proof was 
+very complicated with tens of pages with numerically found quantities. 
+
+The SAGA method is a small change on SAG to make the update direction Unbiased, 
+significantly simplifying its convergence proofs (a few lines!). The update step for SAGA is: 
+
+2The 
+paper 
+Minimizing Finite Sums with the Stochastic Average Gradient won 
+the 
+Lagrange 
+prize 
+in 
+mathematical 
+programming. 
+
+
+8-13 
+
+
+Lecture 8 — September 28 Fall 2018 
+
+
+n
+
+1 X
+
+Update : wt+1 
+= wt − (rfit 
+(wt)+ vi − vit 
+) (8.33) 
+
+n 
+
+| i=1 
+{z }
+
+
+Variance 
+ReducingCorrection 
+
+
+One can see that the variance reducing correction term is zero in expectation over it, thus 
+yielding an unbiased update direction rf(wt) in expectation. SAGA is now the default 
+method for optimizing logistic regression in Scikit-learn library3. The figure [8.4] summarizes
+ the characteristics of the methods discussed above. 
+
+
+Figure 8.4: A comparison of the Batch Gradient (FG method, deterministic), Stochastic 
+Gradient method (SG method, stochastic) and SAG/SAGA (hybrid) methods. The FG 
+method converges faster, but each update is costly. The SG method has cheap updates, but 
+it converges slowly. The hybrid methods are the best of both worlds; these methods achieve 
+a faster convergence with cheap updates. 
+
+To go further : The above notes were just a quick introduction on the topic. These methods 
+are covered in greater details in the class IFT6132 -Advanced Structured Prediction 
+and Optimization. 
+
+3Scikit-learn 
+is 
+one 
+of 
+the 
+standard 
+libraries 
+for 
+python-based 
+machine 
+learning. 
+For 
+more 
+information 
+on 
+SAGA, 
+please 
+refer 
+to 
+the 
+original 
+NIPS 2014 Paper: 
+SAGA: A Fast Incremental Gradient Method 
+With Support for Non-Strongly Convex Composite Objectives. 
+
+
+8-14 
+
+

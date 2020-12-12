@@ -1,0 +1,653 @@
+IFT 6269: Probabilistic Graphical Models Fall 2018 
+Lecture 13 — October 16 
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Pravish 
+Sainath 
+
+
+Proofread and quickly corrected by Simon Lacoste-Julien. 
+
+13.1 Inference 
+13.1.1 Motivation 
+We have seen about different types of probabilistic graphical models, their properties and 
+how they model probability distributions by encoding the conditional independences. Let 
+us try to find out how we can put these graphical models to use to answer specific questions 
+about their distributions. 
+
+In many situations, we want to compute the following probabilities from PGMs : 
+
+(1) Marginal p(xF ) 
+for some F  V 
+(2) Conditional p(xF |xE) 
+for query 
+nodes 
+F  V and evidence 
+nodes 
+E  V 
+(3) Partition function (for UGM) (normalization constant) 
+XY 
+
+Z = 
+C (xC ) 
+xV 
+C C 
+
+
+Some situations that require inference 
+
+(1) Determining missing data : p(xunobserved|xobserved) 
+Example : Image infilling task in Computer Vision 
+(2) Prediction : p(xfuture|xpast) 
+Example : Prediction of next observation in a sequence / time series 
+(3) Identifying latent cause : p(xcause|xobservation) 
+Example : QMR Model (Quick Medical Reference of diseases -symptoms) -identify 
+presence of a disease from observed symptoms 
+
+(4) (Related to inference) Decoding : arg 
+maxxF 
+p(xF |xE) 
+Example : Speech Recognition -identifying the best sentence from speech data 
+13-1 
+
+
+Lecture 13 — October 16 Fall 2018 
+
+(5) Inference is also needed sometimes when estimating 
+parameters 
+Example : When doing MLE in a latent variable model, we need to compute p(z|x) 
+during the E-step of EM algorithm. 
+
+Remark 13.1.1 We 
+will 
+present 
+inference 
+algorithms 
+for 
+only 
+UGMs 
+as 
+they 
+are 
+simpler 
+and 
+more 
+general. 
+These 
+can 
+be 
+applied 
+to 
+DGMs 
+after 
+converting 
+them 
+to 
+UGMs 
+using 
+the 
+process 
+of 
+moralization 
+studied 
+in 
+the 
+previous 
+lecture. 
+The 
+joint 
+probability 
+distribution 
+represented 
+by 
+a 
+DGM 
+can 
+be 
+expressed 
+by 
+an 
+equivalent 
+UGM 
+as 
+follows 
+: 
+
+
+Y 
+
+p(x)= 
+
+
+p(xi|xi 
+) 
+
+
+i 
+
+?????y 
+
+moralization 
+
+
+1 
+
+
+p(x)= 
+
+
+Y 
+
+Ci 
+(xCi 
+)
+
+Z 
+
+i 
+
+where 
+
+
+Z =1 
+
+
+Ci , 
+{i}[ i 
+(xCi 
+) 
+, 
+p(xi|xi 
+)
+
+Ci 
+
+
+13.1.2 Key Idea for graph eliminate algorithm 
+The main trick to compute the marginalization efficiently is to re-organize the computation
+ using the distributivity 
+property 
+in a specific order (this will yield the graph eliminate 
+inference algorithm that we will describe soon) 
+
+Distributivity Property 
+
+We use the distributivity property to reorganize sum in the probability expression. 
+By the distributivity of  over , it can be stated for any a, b, c that : 
+c (a  b)= 
+ca  cb 
+For two functions f·) 
+and g(·), we have 
+
+!
+
+!
+
+X
+
+X
+
+X 
+
+f(x1)g(x2)= 
+
+
+f(x1) 
+
+
+g(x2) 
+
+
+x1,x2 
+x1 
+x2 
+
+
+13-2 
+
+
+Lecture 13 — October 16 Fall 2018 
+
+More generally, 
+
+!
+
+XY YX 
+
+fi(xi)= 
+fi(xi) 
+x1:n 
+i ixi 
+
+
+Suppose that each variables xi can take k values. Using this trick, we have transformed 
+a sum of kn terms, each including the product of n values (and thus O(kn · n) 
+complexity) 
+to a product of n terms, each which is a sum over k terms, thus a complexity of O(k · n)! 
+We now see how to generalize this idea to more complicated potentials. 
+
+13.1.3 Graph Elimination Algorithm (for inference) 
+The graph eliminate algorithm uses the idea of ditributivity to successively eliminate variables
+ (i.e. summing over their values) and infer the marginal probability of the query. This 
+is called the Variable 
+Elimination 
+(VE) or the Graph 
+Eliminate 
+(GE) algorithm. 
+
+We present the formal procedure for the Graph Eliminate (GE) algorithm to compute 
+the marginal probability p(xF ) 
+of the given query 
+corresponding to the set of nodes F from 
+the UGM G with set of cliques C. 
+
+Initialize 
+
+(a) Choose an elimination 
+ordering 
+such that the nodes in F are the last nodes. 
+(b) Put all the terms C(xC ) 
+in an active 
+list 
+Update 
+
+(c) Repeat in the order of variables to eliminate : 
+Pick the variable xi to eliminate from the active 
+list. 
+
+(1) Remove all factors from active list that contains xi as argument and take their 
+product. 
+Y 
+
+i.e. (x ) 
+s.t. 
+i 
+(2) Sum the product over the variable xi to get a new factor mi(xSi 
+) 
+where Si contains 
+all the variables in the factors except i 
+i.e. X 
+mi(xSi 
+) 
+, 
+Y 
+(x ) 
+xi 
+| {z } 
+
+new clique to sum over 
+
+!
+
+[/ 
+
+Si , 
+{i}
+
+s.t. 
+i 
+(3) Put back mi(xSi 
+) 
+in the active 
+list 
+(call it Si 
+(xSi 
+) 
+for consistency of notation). 
+13-3 
+
+
+Lecture 13 — October 16 Fall 2018 
+
+Normalize 
+
+(d) Last factors left have only xF terms. 
+The required probability p(xF ) 
+is proportional to this and needs to be normalized to 
+obtain the final value. 
+13.1.4 Illustrating example 
+We want to compute the probability distribution p(x4) 
+from the UGM whose graph is given 
+in Figure 13.1. 
+
+21 
+
+
+43 
+
+
+Figure 13.1: Graph G 
+
+Writing the joint distribution factorized by the UGM, 
+
+1 
+
+
+p(x1,x2,x3,x4)= 
+(x1,x2). (x1,x3). (x3,x4). (x2,x4)
+
+Z 
+The required probability p(x4) 
+can be expressed as a marginal of the joint probability by 
+summing over the remaining variables, 
+
+1 
+X 
+
+=) p(x4)= 
+(x1,x2). (x1,x3). (x3,x4). (x2,x4)
+
+Z 
+
+x1,x2,x3 
+
+
+1 
+XXX 
+
+=) p(x4)= 
+(x1,x2). (x1,x3). (x3,x4). (x2,x4)
+
+Z 
+
+x1 
+x2 
+x3 
+
+
+Splitting the summation by the distributive property, 
+
+1 
+XXX 
+
+=) p(x4)= 
+(x4,x3)(x2,x4)(x1,x2). (x1,x3)
+
+Z 
+
+x3 
+x2 
+x1 
+
+
+Let us choose an elimination ordering : 1 
+! 2 
+! 3 
+! 4 
+
+
+All the factors are currently in the active 
+list. 
+
+13-4 
+
+
+Lecture 13 — October 16 Fall 2018 
+
+Successively applying the updates in the chosen order, m messages are added to the 
+active 
+list, removing the factors containing the eliminated variables. 
+
+1 
+XXX 
+
+=) p(x4)= 
+(x4,x3)(x2,x4)(x1,x2). (x1,x3)
+
+Z 
+
+x3 
+x2 
+x1
+
+| {z } 
+
+m1(x2,x3) 
+
+
+1 
+XX 
+
+=) p(x4)= 
+(x4,x3)(x2,x4).m1(x2,x3)
+
+Z 
+
+x3 
+x2 
+
+
+1 
+XX 
+
+=) p(x4)= 
+(x4,x3)(x2,x4).m1(x2,x3)
+
+Z 
+
+x3 
+x2
+
+| {z } 
+
+m2(x3,x4) 
+
+
+1 
+X 
+
+=) p(x4)= 
+Z x3 
+(x4,x3).m2(x3,x4) 
+
+
+1 
+X 
+
+=) p(x4)= 
+Z x3 
+(x4,x3)m2(x3,x4) 
+
+
+| {z } 
+
+m3(x4) 
+
+
+1 
+
+
+=) 
+
+p(x4)= 
+m3(x4)
+
+Z 
+
+As p(x4) 
+is a probability distribution and it is proportional to the message m3(x4), Z can 
+be computed as : 
+
+X 
+
+Z = 
+m3(x4) 
+
+
+x4 
+
+
+The GE algorithm modifies the original graph by consecutively removing nodes and 
+passing messages to the other nodes that lead up to the query 
+node 4 as shown in Figure 
+13.2 
+
+
+Figure 13.2: Graph G with the computed messages 
+
+13-5 
+
+
+Lecture 13 — October 16 Fall 2018 
+
+13.1.5 Properties of the Graph Eliminate Algorithm 
+Memory Cost 
+(Suppose for simplicity that each xi can take 2 values (i.e. k = 
+2)) The memory cost can 
+be expressed in terms of the number of active variables at each stage Si and the number of 
+factors in the active 
+list 
+: 
+
+ 2maxi 
+|Si| 
+
+
+· (#factors) 
+
+
+Computational Cost 
+
+It can be expressed in terms of the number of active variables at each stage Si and the 
+number of nodes n in the graph : 
+
+ 2maxi 
+|Si|+1 
+
+
+· n 
+
+Augmented Graph is Triangulated! 
+
+It can be observed that new cliques 
+are formed as side effects while running the GE algorithm.
+ Running the algorithm, keeping track of all the edges added in between yields an 
+augmented 
+graph 
+that has the property of being a triangulated 
+graph. 
+
+
+Figure 13.3: Left: Non-triangulated graph Right: Triangulated graph 
+
+A chord 
+is an edge between two non-neighboring nodes in a cycle. Definition: A triangulated 
+graph 
+is a graph with no cycle of size 4 or more that cannot be broken by a chord. 
+In other words, any cycle of size or 4 can be broken by a chord in a triangulated graph, as 
+illustrated in Figure 13.3. 
+
+During the graph eliminate algorithm, new edges are added, and it turns out that enough 
+edges are added to ensure that the resulting augmented graph is triangulated. See an example
+ in Figure 13.4. Here, the black lines indicate the original edges and the blue lines 
+indicate the edges introduced by the GE algorithm during elimination. 
+
+13-6 
+
+
+Lecture 13 — October 16 Fall 2018 
+
+542F 31
+Figure 13.4: Augmented graph after Graph Eliminate 
+
+Treewidth of a graph 
+
+For an undirected graph G, its treewidth 
+is defined as : 
+
+treewidth , 
+min 
+{size of biggest clique − 1}
+
+over 
+all 
+elimination 
+orderings 
+
+
+The “minus one” convention is so that the treewidth of a tree is 1 : 
+
+treewidth(tree) = 
+1 
+
+
+• Both memory and running time of the GE algorithm are determined by the number of 
+variables in the largest elimination clique i.e. the term 2(size 
+of 
+biggest 
+clique+1) 
+For the GE algorithm to be tractable, we need to achieve an ordering giving minimum 
+size of the largest clique which is the treewidth 
+
+
+∴ 
+Best ordering gives the term  2(treewidth +2) 
+in the complexities. 
+
+• Not all orderings are good. 
+Example : 
+Removing the central node in the (n + 
+1)-node star graph gives a large clique of size n 
+leading to a very big factor in the active 
+list 
+which is not computationally efficient as 
+seen in Figure 13.5. 
+
+Whereas, removing the leaf nodes gives cliques of size 2, consistent with its treewidth 
+of 1. 
+
+Bad News about inference in UGM 
+
+(a) It is actually NP-hard to compute the treewidth 
+of a graph (or to find the best elimination
+ ordering). 
+13-7 
+
+
+Lecture 13 — October 16 Fall 2018 
+
+
+Figure 13.5: Bad ordering in a star graph 
+
+(b) It is NP-hard to do exact 
+inference in general. 
+We thus instead need to use approximate 
+inference methods in general. 
+Example : The treewidth of a grid 
+graph with |V | nodes is actually growing with the 
+
+q
+
+side of the grid |V | shown in Figure 13.6. We’ll see later that Ising models are 
+popular models in computer vision, and they often have this grid structure. In later 
+lectures, we will show how to do approximate inference in such UGM using Gibbs 
+sampling or a variational method (mean field). These terms will be defined in later 
+lectures. 
+
+
+Figure 13.6: Grid graph with |V | vertices 
+
+Good News about inference in UGM 
+
+(a) Inference in linear time (|V | + 
+|E|) 
+for graphs that are trees (treewidth 
+= 
+1). 
+Sum-Product 
+algorithm 
+can be derived for trees like Hidden Markov Models(HMM) 
+and Markov chains. 
+
+(b) Efficient for small 
+treewidth 
+graphs. 
+For general graphs, Junction 
+Tree 
+algorithm 
+is used. 
+13-8 
+
+

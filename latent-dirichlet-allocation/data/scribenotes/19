@@ -1,0 +1,589 @@
+IFT 6269: Probabilistic Graphical Models Fall 2018 
+
+Lecture 16 — November 2 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Tapopriya 
+Majumdar 
+
+
+Disclaimer: Lightly proofread and quickly corrected by Simon Lacoste-Julien. 
+
+16.1 Information Theory 
+16.1.1 Kullback–Leibler (KL) Divergence 
+For discrete distributions p and q, the KL divergence between p and q is defined to be 
+
+"#
+
+X 
+
+DKL(p || q)= 
+p(x) log pq(
+( 
+xx 
+)
+) = Ep log p(x) (16.1) 
+
+x2 q(x) 
+
+Motivation from density estimation 
+
+Let qˆ be an estimation of the given distribution. Recall the statistical decision theory setting. 
+The standard (Maximal Likelihood) loss is the log-loss, giving the following statistical loss 
+when the true distribution is p for action qˆ: 
+
+L(p,qˆ) = EXp [− log ˆq(X)] (16.2) 
+
+Note that above is called the cross-entropy. If we use the best action qˆ= p, then we get 
+the loss to be 
+
+X 
+
+− p(x) log p(x)= H(p), (16.3) 
+
+x2 
+
+the entropy of p (which is obviously the best we can do, as we are outputting the correct 
+distribution). Therefore, the excess loss in this case is 
+
+L(p, qˆ) − min L(p, q)= L(p, qˆ) − L(p, p)
+
+q 
+
+X qˆ(x)
+
+= − p(x) log 
+
+x2 p(x) 
+
+= DKL(p || qˆ) 
+
+So the KL divergence can be interpreted as the excess log-loss we get by outputting qˆ 
+instead of the true distribution p. 
+
+16-1 
+
+
+Lecture 16 — November 2 Fall 2018 
+
+Motivation from coding theory 
+
+We use the fact that in coding theory, the optimal length of a code is proportional to 
+− log2 p(x) bits. Then the expected length of the code is P 
+x p(x)(− log2 p(x)), where the 
+entropy is measured in bits.1 
+Then the KL divergence can be interpreted as the excess cost 
+(in terms of length of code) to use a distribution q for coding as opposed to the optimal 
+distribution p. 
+
+16.1.2 Examples 
+Example 16.1.1 (Entropy of a Bernoulli distribution) 
+
+Let X  Bern(p). Then 
+
+H(X)= −p log p − (1 − p) log(1 − p), (16.4) 
+
+which is largest when p =1/2. 
+
+Example 16.1.2 (Entropy of a uniform distribution on K states) 
+Let X  Uniform({x1,...,xK }. Then 
+
+X
+
+K 11 
+
+H(X)= − log = log K (16.5)
+
+KK
+
+i=1 
+
+It turns out that the uniform distribution on K states is the one with maximum entropy, 
+among all distributions over K states. 
+
+16.1.3 Properties 
+1. DKL(p || q) > 
+0. This can be shown using Jensen’s equality. 
+2. It is strictly convex in each argument. 
+3. It is not symmetric: DKL(p || q) 6= DKL(q || p). 
+4. DKL(p || p)=0 8p and DKL(p || q) > 0 when p 6= q. 
+16.1.4 Maximal Likelihood and KL Minimization 
+
+
+P
+
+1 n (i)
+
+Let {p}2 be a parametric family of distributions, and pˆn(x)= 
+x, x be the 
+
+ni=1  
+empirical distribution corresponding to n samples. Then 
+
+ML for  () min DKL(ˆpn || p). (16.6)
+
+2 
+
+1When using log 
+in the natural base, the entropy is measured in nats, when using log2, it is measured in 
+bits. 
+
+16-2 
+
+
+Lecture 16 — November 2 Fall 2018 
+
+Proof 
+
+DKL(ˆpn || p) = 
+= X ˆpn(x)ˆpn(x) log 
+p(x)x2 X 
+H(ˆpn) − ˆpn log p(x) 
+x2 
+= 
+n 1 X X (i)H(ˆpn) −  x, xlog p(x) 
+n x2 i=1 
+= 
+n 1 X (i)H(ˆpn) − log p xn i=1 
+= 
+n 1 Y (i)constant − log p x. 
+n i=1 
+
+16.2 Maximum Entropy Principle 
+Here the idea is to consider some subset of distributions over X according to some data-
+driven constraint, i.e. a subset M |X|. The principle is to pick pˆ 2M which maximizes 
+the entropy: 
+
+pˆ = argmaxq2MH(q) 
+= argminq2MDKL(q || uniform), 
+
+as DKL(q || uniform) = −H(q) + constant. 
+
+More generally, we can also consider the generalized maximum entropy principle where 
+we do: arg minq2M DKL(q || h0), for some distribution h0 that we want to favor (instead of 
+the uniform, which is used for the standard maximum entropy). We’ll see soon the role of 
+this h0 when we talk about the equivalence of maximum entropy with maximum likelihood 
+in the exponential family. 
+
+Example 16.2.1 (from Wainwright) If we observe pL =3/4 kangaroos are left-handed 
+and pB =2/3 kangaroos drink Labatt beer, then how many kangaroos are both left-handed and 
+drink Labatt beer? (Here the max. entropy solution is that p(B, L)= pB ·pL, by independence) 
+
+16.2.1 How do we get M? 
+A standard way to get M is through empirical “moments”: let the feature functions be 
+T1(x),...,Td(x) – the represent various measurements we want to make on the data. Then 
+define M = 
+{q : Eq[Tj(x)] = Eˆ [Tj(x)] 8 j =1,...,d}, that is, the set of distributions
+
+pn for which their model moments match the empirical moments. If we let j , 
+Epˆn [Tj(x)]. 
+Then the constraint becomes P 
+q(x)Tj(x)= j (some scalar), i.e. hq, Tji = j (it’s a linear
+
+x 
+
+16-3 
+
+
+Lecture 16 — November 2 Fall 2018 
+
+equality on q, when it is represented as a vector over |X | elements). Hence, finding q using 
+Maximal Entropy 
+
+min DKL(q || uniform) such that q 2M\ |X | 
+
+q2R|X| 
+
+becomes a convex optimization problem over q 2 |X |  R|X |. 
+
+16.2.2 Lagrangian duality segue 
+Let f, fj,j =1,...,m be convex functions and gk,k =1,...,n be affine functions. Here 
+these functions are extended real-valued functions, e.g. f : Rd ! R[ {1}. then dom(f) , 
+
+
+{x : f(x) < 1}. The primal convex optimization problem is: 
+minimizexf(x) 
+such that fj(x) 6 
+0 8j 
+and gk(x)=0 8k 
+
+We define 
+
+XX 
+
+L(x, , )= 
+f(x)+ 
+m jfj(x)+ 
+n kgk(x), 
+j=1 k=1 
+
+where j and k are Langrange multipliers. We will now present the saddle point interpretation
+ of the Lagrangian duality. It uses the following trick: 
+
+8 <
+
+f(x) if x is feasible 
+
+h(x) , 
+sup f(x, , ) = (16.7) 
+
+>0 :+1 if x is not feasible 
+
+ 
+
+so an equivalent problem to the (constrained) primal problem is the following (unconstrained) 
+problem using the fancy complicated function h(x): 
+
+! 
+
+inf sup f(x, , ) . (16.8)
+
+x 
+
+>0 
+
+
+
+| {z } 
+
+h(x) 
+
+The duality trick is to swap inf and sup: 
+
+ 
+
+sup inf f(x, , ) . (16.9)
+
+x
+
+>0 
+ 
+
+Lagrangian dual problem 
+
+Let infx f(x, , )= 
+g(, ), so that g is always concave in both components. The Lagrangian 
+dual problem is to solve 
+sup g(, ). (16.10) 
+
+>0 
+ 
+
+16-4 
+
+
+Lecture 16 — November 2 Fall 2018 
+
+The weak duality 
+
+sup inf f(x, , ) 6 
+inf sup f(x, , )
+
+xx
+
+>0 >0 
+ 
+
+= {infx 
+
+
+
+is always true (because sup inf  inf sup always). Let p
+
+ 
+
+f(x): x feasible}. Then  8  > 
+0,. The strong duality is when we have equality, i.e.
+
+g(, ) 6 
+p 
+
+d = sup g(, )= p  . (16.11) 
+
+>0 
+ 
+
+When the primal optimization problem is convex, a sufficient condition for strong duality is 
+Slater’s condition:2 
+9 x 2 int(dom(f)) such that fj(x) < 0 8 j where fj is nonlinear and x 
+
+ 
+
+is feasible. See the Chapter 5 in Boyd’s book http://stanford.edu/~boyd/cvxbook/ 
+for 
+more details. 
+
+Note that after solving the dual problem and obtaining ,, one can usually reconstruct
+ the primal optimal variables x(,) (when strong duality holds) using the KKT 
+conditions, which are a set of necessary non-linear equations that hold for the primal and 
+dual optimal variables. 
+
+16.3 Dual Problem for Maximal Entropy 
+= {q : q(x) > 
+0 8 x, 
+
+ 
+
+P
+
+Let u be the uniform distribution on X . 
+
+Let |X| 
+
+q(x)=1} and
+
+x 
+
+Then the primal form of the maximal entropy 
+
+P 
+
+M 
+
+q(x)Tj(x)= 
+
+j 8 j}.
+
+x 
+
+= {q 2 |X | : 
+
+problem is to find 
+
+X
+
+min q(x) log q(x) (16.12) 
+
+q2M 
+x u(x) 
+
+As we did in the lecture on deriving the maximum likelihood parameter for the multinouilli, 
+we will ignore the inequality constraints on q (q(x)  0), as the KL divergence is essentially 
+acting as a barrier function making sure that q stays positive. So we only form the Lagrangian 
+with  for the moment equality constraints, and we use a separate Lagrange multiplier c for 
+the sum-to-one equality constraint, as we’ll see later that we will treat it differently. 
+
+We thus introduce the corresponding Lagrangian 
+
+!
+
+XX X 
+
+L(q, , c)= q(x) log q(x) 
+j ( j − Eq[Tj(x)]) + c 1 − q(x) 
+x u(x)+ 
+jx 
+
+To get the dual function, we need to minimize the Lagrangian with respect to q (it is convex 
+in q, so we just need to find its zero gradient): 
+
+We have, @L = 1+log q(x) X jTj(x) − c 
+
+@q(x) u(x) − 
+j 
+
+2This is an example of constraint qualification condition; there are others. 
+
+16-5 
+
+
+Lecture 16 — November 2 Fall 2018 
+
+So 
+
+@L (x)
+
+() log q = h, Ti + c − 1 
+
+@q(x)=0 
+u(x) 
+() q  (x)= u(x) exp (h, Ti + c − 1) ,
+
+,c 
+
+so that q is part of the exponential family of distributions! 
+
+Dual Function 
+
+
+
+Plugging in this value of q in L, (we use the (abused) shorthand notation Eq below to 
+denote P 
+x q(x) even though q is not necessarily normalized):  
+
+ 
+
+g(, c)= L(q,c, , c) 
+
+= Eq [h, T (x)i + c − 1] + h, i− Eq [h, T (x)i]+ c − Eq [c] 
+
+= h, i + c − Eq [1] 
+
+X 
+
+= h, i + c − u(x) exp (h, T(x)i) exp(c − 1) 
+
+x 
+
+= h, i + c − Z() exp(c − 1), 
+
+P
+
+where Z()= 
+x u(x) exp (h, T (x)i). Therefore, 
+
+@g 
+
+=1 − Z() exp(c − 1). 
+
+@c 
+
+To maximize g(, c) with respect to c, 
+
+@g 
+
+=0 () 1 − Z() exp(c  − 1) = 0 
+
+@c 
+
+1 
+
+() exp(c  − 1) = 
+
+Z() 
+
+
+
+Plugging back c , we get 
+
+max g(, c)= h, i + c  − Z() exp(c  − 1)
+
+c 
+
+1 
+
+= h, i + c  − Z()
+
+Z() 
+= h, i + c  − 1 
+= h, i + log Z() 
+
+= 
+g˜() 
+
+
+
+By eliminating c from the dual problem, we ensure that q,c is normalized (which is why we 
+treated it differently). g˜ is the corresponding objective for the remaining dual problem. We 
+
+16-6 
+
+
+Lecture 16 — November 2 Fall 2018 
+
+now re-interpret this dual problem and link it with maximum likelihood for the exponential 
+family.  
+
+If = n 
+1 P 
+i Tx(i) = Epˆn [T (x)], then 
+
+1 Xh i 
+g˜()= 
+n h,T x(i) i− log(Z() 
+
+n 
+
+i=1 
+n 
+
+1 X 
+
+= log px(i)|, 
+
+n 
+
+i=1 
+
+where p(x|)= 
+u(x) exp (h, T (x)i− log Z()). Then the dual problem is 
+
+
+
+1 
+
+max g˜() = max log px(1):(n)|,
+
+ 
+
+n 
+
+which is the same as the maximal likelihood estimate! 
+
+To summarize, maximal likelihood in the exponential family with T (x) as the sufficient 
+statistics is equivalent to the maximal entropy problem with moment constraints on T (x), 
+where = Epˆn [T (x)]. They are Lagrangian dual of one another: 
+
+MLE in exponential family () maximum entropy with moment constraints 
+
+Note moreover that if we use the generalized maximum entropy principle arg minq2M DKL(q || h0) 
+with h0 instead of the uniform, then we get an exponential family with h0(x) as the reference 
+density instead of the uniform distribution! 
+
+Remark 16.3.1 
+
+1 X 
+
+r log Z()= u(x) exp(h, T(x)i)
+
+Z()r 
+
+x 
+
+X 1 
+
+= 
+Z()T (x)u(x) exp(h, T(x)i) 
+
+x
+
+X 
+
+= p(x|)T (x) 
+
+x 
+
+= Ep(x|)[T (x)] 
+
+= 
+μ(), the “model moment” 
+
+Therefore, 
+
+r g˜()= Epˆn [T(x)] − μ() 
+
+= 
+μˆn − μ(), 
+
+where μˆn is the “empirical moment”. We note that 
+
+rg˜()=0 ) μ()= μˆn, 
+
+i.e. the maximal likelihood parameters in the exponential family are also doing moment 
+matching (which is expected by the equivalence above). 
+16-7 
+
+
+Lecture 16 — November 2 Fall 2018 
+
+So in the case of the exponential family, we have that maximum likelihood is equivalent 
+to maximum entropy which is equivalent to moment matching. For other parametric families
+ (mixture models for example, which are not in the exponential family), then moment 
+matching could give a different estimator than maximum likelihood. 
+
+16-8 
+
+

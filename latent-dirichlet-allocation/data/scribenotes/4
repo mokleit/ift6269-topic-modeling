@@ -1,0 +1,607 @@
+IFT 6269: Probabilistic Graphical Models Fall 2017 
+
+Lecture 4 — September 15 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Philippe 
+Brouillard 
+& 
+Tristan 
+Deleu 
+
+
+4.1 
+Maximum 
+Likelihood 
+principle 
+Given a parametric family p(· ; ) for  2 , we define the likelihood function for some observation 
+x, denoted L(), as 
+
+L() , 
+p(x; ) (4.1) 
+
+Depending on the nature of the corresponding random variable X, p(· ; ) here is either the probability
+ mass function (pmf) if X is discrete or the probability density function (pdf) if X is continuous. 
+The likelihood is a function of the parameter , with the observation x fixed. 
+
+We want to find (estimate) the best value of the parameter  that explains the observation x. This 
+estimate is called the Maximum Likelihood Estimator (MLE), and is given by 
+
+ˆML(x) , 
+argmax p(x; ) (4.2) 
+
+2 
+
+This means ˆML(x) is the value of the parameter that maximizes the probability of observation 
+p(x; ·) (as a function of ). Usually though, we are not only given a single observation x, but iid 
+samples x1,x2,...,xn of some distribution with pmf (or pdf) p(· ; ). In that case, the likelihood 
+function is 
+
+n
+
+Y 
+
+L()= p(x1,x2,...,xn; )= p(xi; ) (4.3) 
+
+i=1 
+
+4.1.1 
+Example: 
+Binomial 
+model 
+Consider the family of Binomial distributions with parameters n and  2 [0, 1]. 
+
+X  Bin(n, ) with X = {0, 1,...,n} 
+
+Given some observation x 2 X of the random variable X, we want to estimate the parameter  
+that best explains this observation with the maximum likelihood principle. Recall that the pmf of 
+a Binomial distribution is ! 
+
+n 
+
+p(x; )= x(1 − )n−x (4.4) 
+
+x 
+
+Our goal is to maximize the likelihood function L()= p(x; ), even though it is a highly non-linear 
+function of . To make things easier, instead of maximizing the likelihood function L() directly, 
+we can maximize any strictly increasing function of L(). 
+
+4-1 
+
+
+IFT 6269 Lecture 4 — September 15 Fall 2017 
+
+`0() > 0 `0() < 0 `0() = 0 
+Since log is a strictly increasing function (ie. 0 <a<b , log a< log b), one common choice is to 
+maximize the log likelihood function `() , 
+log p(x; ). This leads to the same value of the MLE 
+
+ˆML(x) = argmax p(x; ) = argmax log p(x; ) (4.5) 
+
+2 2 
+
+Using the log likelihood function could be problematic when p(x; ) = 0 for some parameter . In 
+that case, assigning `()= −1 for this value of  has no effect on the maximization later on. Here, 
+for the Binomial model, we have 
+
+`() = log p(x; )
+
+! 
+
+n 
+
+= log + x log  +(n − x) log(1 − ) (4.6) 
+
+x 
+
+| {z } 
+
+constant 
+in 
+ 
+
+Now that we know the form of `(), how do 
+we maximize it? We can first search for stationary
+ points of the log likelihood, that is 
+values of  such that 
+
+r `() = 0 (4.7) 
+
+Or, in 1D, `0() = 0. This is a necessary 
+condition for  to be a maximum (see Section
+ 4.1.2). 
+
+The stationary points of the log likelihood are given by 
+
+@` xn − xx 
+
+= − =0 ) x − x − (n − x) =0 ) ? = (4.8)
+
+@  1 − n 
+
+The log likelihood function of the Binomial model is also strictly concave (ie. `00() < 0), thus ? 
+being a stationary point of `() is also a sufficient condition for it to be a global maximum (see 
+Section 4.1.2). 
+
+x
+
+ˆ
+
+(4.9)
+
+ML 
+= 
+
+n 
+
+The MLE of the Binomial model is the relative frequency of the observation x, which follows the 
+intuition. Furthermore, even though it is not a general property of the MLE, this estimator is 
+unbiased 
+
+hi 
+
+X n
+
+ˆ
+
+X  Bin(n, ) ) EX ML 
+= EX ==  (4.10) 
+
+nn 
+
+Note that we maximized `() without specifying any constraint on , even though it is required 
+that  2 [0, 1]. However, here this extra condition has little effect on the optimization since the 
+stationary point (4.8) is already in the interior of the parameter space  = [0, 1] if x 6= 0 or n. In 
+two latter cases, we can exploit the monotonicity of ` on  to conclude that the maxima are on 
+the boundaries of  (resp. 0 and 1). 
+
+4-2 
+
+
+IFT 6269 Lecture 4 — September 15 Fall 2017 
+
+4.1.2 
+Comments 
+on 
+optimization 
+• In general, being a stationary point (ie. f0() = 0 in 1D) is a necessary condition for  to 
+be a local maximum when  is in the interior of the parameter space . However it is not 
+sufficient. A stationary point can be either a local maximum or a local minimum in 1D (or a 
+saddle point in the multivariate case). We also need to check the second derivative f00() < 0 
+for it to be a local maximum. 
+flocal maximum 
+f00() < 0 
+stationarypoints 
+• The previous point only gives us a local result. To guarantee that ? is a global maximum, we 
+need to know global properties about the function f. For example, if 8 2 ,f00()  0 (ie. 
+the function f is concave, the negative of a convex function), then f0(?) = 0 is a sufficient 
+condition for ? to be a global maximum. 
+• We need to be careful though with cases where 
+the maximum is on the boundary of the parameter
+ space  (? 2 boundary()). In that case, ? 
+may not necessarily be a stationary point, meaning
+ that rf(?) may be non-zero. 
+
+f0(?) 6= 0 
+ 
+
+• Similar for the multivariate case, rf(?) = 0 is in general a necessary condition for ? to be 
+a local maximum if it belongs to the interior of . For it to be a local maximum, we need to 
+check if the Hessian matrix of f is negative definite at ? (this is the multivariate equivalent 
+of f00(?) < 0 in 1D) 
+@f(?)
+
+Hessian(f)(?)  0 where Hessian(f)(?)i,j = (4.11)
+
+@i@j 
+
+We also get similar results in the multivariate case if we know global properties on the function 
+
+f. For example, if the function f is concave, then rf(?) = 0 is also a sufficient condition 
+for ? to be a global maximum. To verify that a multivariate function is concave, we have 
+to check if the Hessian matrix is negative semi-definite on the whole parameter space  (the 
+multivariate equivalent of 8 2 ,f00()  0 in 1D). 
+8 2 , Hessian(f)()  0 , f is concave (4.12) 
+
+4-3 
+
+
+IFT 6269 Lecture 4 — September 15 Fall 2017 
+
+4.1.3 
+Properties 
+of 
+the 
+MLE 
+• The MLE does not always exist. For example, if the estimate is on the boundary of the 
+parameter space ˆML 
+2 boundary() but  is an open set. 
+• The MLE is not necessarily unique; the likelihood function could have multiple maxima. 
+• The MLE is not admissible in general 
+4.1.4 
+Example: 
+Multinomial 
+model 
+Suppose that Xi is a discrete random variable over K choices. We could choose the domain of this 
+random variable as = {1, 2,...,K}. Instead, it is convenient to encode Xi as a random vector,
+
+Xi 
+taking values in the unit bases in RK . This encoding is called the one-hot encoding, and is widely 
+used in the neural networks literature. 
+
+ 
+
+Xi 
+= {e1,e2,...,eK} where ej =0 ... 1 ... 0 T 2 RK 
+
+jth 
+coordinate 
+
+
+To get the pmf of this discrete random vector, we can define 
+a family of probability distributions with parameter  2 K . The parameter space  = K is called the probability 
+simplex on K choices, and is given by 
+
+89 < K =
+
+X 
+
+K , 
+ 2 RK ; 8jj  0 and j = 1 (4.13)
+
+:;
+
+j=1 
+
+The probability simplex is a (K − 1)-dimensional object in 
+
+PK
+
+RK because of the constraint j=1 j = 1. For example, 
+here 3 is a 2-dimensional set. This makes optimization 
+over the parameter space more difficult. 2 
+
+3 
+
+3 
+
+1 
+
+
+The distribution of the random vector Xi is called a Multinoulli distribution with parameter , and 
+is denoted Xi  Mult(). Its pmf is 
+
+K
+
+Y 
+
+xi,j
+
+p(xi; )=  where xi,j 2{0, 1} is the jth 
+component of xi 2 (4.14)
+
+jXi 
+j=1 
+
+The Multinoulli distribution can be seen as the equivalent of the Bernoulli distribution over K 
+choices (instead of 2). If we consider n iid Multinoulli random vectors X1,X2,...,Xn 
+iid
+ Mult(), 
+then we can define the random vector X as 
+
+89 
+
+nK
+
+X <X= 
+
+X = Xi  Mult(n, ) with X =(n1,n2,...,nK ); 8jnj 2 N 
+and nj = n
+
+:;
+
+i=1 j=1 
+
+The distribution of X is called a Multinomial distribution with parameters n and , and is the 
+analogue of the Binomial distribution over K choices (similar to Multinoulli/Bernoulli). Given 
+
+4-4 
+
+
+IFT 6269 Lecture 4 — September 15 Fall 2017 
+
+some observation x 2 X , we want to estimate the parameter  that best explains this observation 
+with the maximum likelihood principle. The likelihood function is 
+
+n
+
+Y
+
+1 
+
+L()= p(x; )= p(xi; )
+
+Z 
+
+i=1 
+
+23 
+
+"# Where Z is a normalization constant 
+
+nK Kn !
+
+1 YY 1 YY 
+
+xi,j 
+xi,j
+
+= 4 j 5 = j 1 nn! 
+
+== 
+
+Z i=1 j=1 Z j=1 i=1 Zn1,n2,...,nK n1! · n2! ...nK ! 
+K P 
+
+n1 Y 
+i=1 
+xi,j
+
+= j (4.15)
+
+Z 
+
+j=1 
+
+n
+
+Where nj = P 
+i=1 xi,j is the number of times we observe the value j (or ej 2 ). Note that nj
+
+Xi 
+
+
+remains a function of the observation nj(x), although this explicit dependence on x is omitted here. 
+Equivalently, we could have looked for the MLE of a Multinoulli model (with parameter ) with n 
+observations x1,x2,...,xn instead of the MLE of a Multinomial model with a single observation x; 
+the only effect here would be the lack of normalization constant Z in the likelihood function. Like 
+in Section 4.1.1, we take the log likelihood function to make the optimization simpler 
+
+n
+
+X 
+
+`() = log p(x; )= nj log j − log Z (4.16)
+
+| {z }
+
+j=1 
+
+constant 
+in 
+ 
+
+We want to maximize `() such that  still is a valid element of K . Given the constraints (4.13) 
+induced by the probability simplex K , this involves solving the following constrained optimization 
+problem 
+
+8 
+
+K
+
+X 
+
+max nj log j
+
+
+
+( j=1
+
+<
+
+max `() > 
+
+ 
+
+, s.t. j  0 (4.17)
+
+subject to  2 K 
+
+K
+
+X 
+
+> j =1
+
+: 
+
+j=1 
+
+To solve this optimization problem, we have 2 options: 
+
+PK−1
+
+• We could reparametrize (4.17) with 1,2,...,K−1  0 with the constraint j=1 j  1 PK−1
+and set K =1 − j=1 j. The log likelihood function to maximize would become 
+
+KX−1 
+
+`(1,2,...,K−1)= nj log j + nK log (1 − 1 − 2 − ... − K−1) (4.18) 
+
+j=1 
+
+The advantage here would be that the parameter space would be a full dimensional object cK−1  RK−1, sometimes called the corner of the cube, which is a more suitable setup for 
+optimization (in particular, we could apply the techniques from Section 4.1.2) 
+
+89 < KX−1 = 
+
+cK−1 = :(1,2,...,K−1) 2 RK−1 ; 8jj  0 and j  1; (4.19) 
+
+j=1 
+
+4-5 
+
+
+IFT 6269 Lecture 4 — September 15 Fall 2017 
+
+3 
+
+
+2 3
+
+3 
+is 
+a 
+2-dimensional 
+set 
+in 
+R3 
+
+
+c
+
+2 
+
+
+1 
+
+1 
+
+optimize 
+here 
+full 
+dimensional 
+set 
+in 
+R2
+
+2 
+
+• We choose to use the Lagrange multipliers approach. The Lagrange multipliers method can 
+be used to solve constrained optimization problems with equality constraints (and, more 
+generally, with inequality constraints as well) of the form 
+( 
+
+max f()
+
+ 
+
+s.t. g()=0 
+Here, we can apply it to the optimization problem (4.17); ie. the maximization of `(), under the 
+equality constraint 
+
+KK
+
+XX 
+
+j =1 , 1 − j = 0 (4.20) 
+j=1 j=1
+
+| {z } 
+
+= g() 
+
+The fundamental part of the Lagrange multipliers method is an auxiliary function J (, ) called 
+the Lagrangian function. This is a combination of the function to maximize (here `()) and the 
+equality constraint function g(). 
+
+01 
+
+KK
+
+XX 
+
+J (, )= nj log j +  @1 − jA (4.21) 
+
+j=1 j=1 
+
+Where  is called a Lagrange multiplier. We dropped the constant Z since it has no effect on the 
+optimization. We can search the stationary points of the Lagrangian, i.e pairs (, ) satisfying rJ (, ) = 0 and rJ (, ) = 0. Note that the second equality is equivalent to the equality 
+constraint in our optimization problem g() = 0. The first equality leads to 
+
+@J nj nj
+
+?
+
+= −  =0 ) = (4.22)
+
+j
+
+@j j  
+
+Here, the Lagrange multiplier  acts as a scaling constant. As ? is required to satisfy the constraint 
+g(?) = 0, we can evaluate this scaling factor 
+
+XKK
+
+X 
+
+? =1 )  == n
+
+j nj 
+j=1 j=1 
+
+4-6 
+
+
+IFT 6269 Lecture 4 — September 15 Fall 2017 
+
+Once again, in order to check that ? is indeed a local maximum, we would also have to verify that 
+the Hessian of the log likelihood at ? is negative definite. However here, ` is a concave function 
+(8, Hessian(`)()  0). This means, according to Section 4.1.2, that ? being a stationary point 
+is a sufficient condition for it to be a global maximum. 
+
+(j) nj
+ˆ 
+
+(4.23)
+
+ML 
+= 
+
+n 
+
+The MLE of the Multinomial model, similar to the Binomial model from Section 4.1.1, is the 
+relative frequency of the observation vector x =(n1,n2,...,nK ), and again follows the intuition. 
+Note that j
+?  0, which was also one of the constraints of K. 
+
+4.1.5 
+Geometric 
+interpretation 
+of 
+the 
+Lagrange 
+multipliers 
+method 
+The Lagrange multipliers method is applied to solve constrained optimization problems of the form 
+
+( 
+
+max f()
+
+ 
+
+(4.24)
+
+s.t. g()=0 
+With this generic formulation, the Lagrangian is J (x, )= f(x)+ g(x), with  the Lagrange 
+multiplier. In order to find an optimum of (4.24), we can search for the stationary points of the 
+Lagrangian, ie. pairs (x, ) such that rxJ (x, ) =0 and rJ (x, ) = 0. The latter equality is 
+always equivalent to the constraint g(x) = 0, whereas the former can be rewritten as 
+
+rxJ (x, )=0 )rf(x)= −rg(x) (4.25) 
+
+At a stationary point, the Lagrange multiplier  is a scaling factor between the gradient vectors rf(x) and rg(x). Geometrically, this means that these two vectors are parallel. 
+
+rf(x?) rg(x?) 
+g(x) = 0 
+x? 
+Levelsetsoff 
+4-7 
+
+

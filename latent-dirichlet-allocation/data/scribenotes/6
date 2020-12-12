@@ -1,0 +1,459 @@
+IFT 6269: Probabilistic Graphical Models Fall 2016 
+Lecture 6 — September 20 
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Zakaria 
+Soliman 
+
+
+Disclaimer: These notes have only been lightly proofread. 
+
+6.1 Linear Regression 
+6.1.1 Motivation 
+We want to learn a prediction function f : X !Y. Where X Rd and if: 
+
+(1) Y = {0, 1}, it’s a binary classification 
+(2) Y = {0, 1, ··· ,k}, it’s a multiclass classification 
+(3) Y R, it’s a regression problem. 
+There are several perspectives in modeling the distribution of the data: 
+generative perspective 
+
+Here, we model the joint distribution p(x, y). We make more assumptions in this case. This 
+leads it to be less robust for predictions (but is a more flexible approach if we are not sure 
+what is the task we are trying to solve). 
+
+conditional perspective 
+
+We only model the conditional probability p(y|x). Early 2000s, it was called the discriminative
+ perspective, but Simon prefers to refer to it now as the conditional approach. 
+
+fully discriminative perspective 
+
+Models f : X !Y directly and estimate the function fˆby using the loss `(y, y0) information. 
+This approach is the most robust. 
+
+6.1.2 Linear regression model 
+We take a conditional approach to regression. Let Y 2 R 
+and let’s assume that Y depends 
+linearly on X 2 Rd. Linear regression is a model of the following form: 
+
+p(y|x, w)= N (y|hw, xi,2) 
+
+6-1 
+
+
+Lecture 6 — September 20 Fall 2016 
+
+Where w 
+2 Rd is the parameter (or weight) vector. Equivalently, we could also rewrite 
+the model as 
+
+Y = w>X 
++  
+
+Where the noise  N (0,2) is a random variable that is independent of X 
+
+Remark 6.1.1 Note that if there is an offset w0 
+2 R, that is, if Y = w0 
++ w>X + , we will 
+use an "offset" notation for x: 
+
+! 
+
+x˜ 
+
+x 
+= ,
+
+1 
+
+where x˜ 2 Rd−1 
+and 1 is the constant feature. Thus, we have: 
+
+w>x 
+= w> x 
++ wd
+
+1:d−1˜ 
+
+Where wd is the bias/offset 
+
+Let D =(xn,yn)ni=1 
+be a training set of conditionally i.i.d. random variables i.e. Xi  
+whatever and Yi|Xi N (hw,Xii,2). Each yi is a response on observation xi. We consider 
+the conditional likelihood of all outputs given all inputs: 
+
+Y 
+
+p(y1, ··· ,yn|x1, ··· , xn; w,2)= 
+n 
+p(yi|xi; w,2). 
+
+i=1 
+
+
+
+
+indep 
+1 
+−(yi−w>xi)2
+
+And we have that Yi|Xi N (w>Xi ,2) (i.e. p(yi|xi)= p
+22 
+exp ) taking 
+
+22 
+
+
+the log-likelihood gives us the following expression: 
+
+X
+
+log p(y1:n|x1:n; w,2)= 
+n 
+log p(yi|xi) 
+i=1 
+
+
+X" (yi − w>xi)2 
+1 # 
+
+= 
+n 
+−− log(22) 
+i=1 
+22 
+2 
+n 1 X (yi − w>xi)2 
+
+
+= − log(22) − 
+n 
+.
+
+22 i=1 
+2 
+
+
+Notice that maximizing the likelihood comes down to the following minimization problem 
+
+w.r.t. w: 
+n
+
+find wˆ = arg minw 
+P 
+i=1 
+(yi − w>xi)2 
+. 
+
+Define the design matrix X 
+as 
+
+01 
+
+x> 
+
+1 
+
+
+.
+
+X 
+= BB . CAC 2 Rn×d 
+
+@ . 
+
+x> 
+
+n 
+
+6-2 
+
+
+Lecture 6 — September 20 Fall 2016 
+
+10 
+
+and denote by y 
+the vector of coordinates 
+
+BB@ 
+
+y1 
+
+
+.
+
+.
+
+. 
+
+CCA
+
+. 
+
+This notation allows us to rewrite the 
+
+yn 
+
+residual sum of squares in a more compact fashion as: 
+
+n 
+
+i=1 
+
+
+Thus, we can rewrite the log likelihood as: 
+
+ky 
+− Xwk2 
+n 
+
+− log p(y|x) = + log(22)
+
+22 
+2 
+Finally, the minimization problem over w 
+can be rewritten as: 
+
+find wˆ = arg minw 
+ky 
+− Xwk
+2 
+. 
+
+Remark 6.1.2 The minimization of ky 
+− Xwk
+2 
+w.r.t. w 
+can also be viewed geometrically 
+
+X 
+
+as choosing wˆ so that the vector Xwˆ is the orthogonal projection of y 
+onto the column space 
+of X 
+
+
+Now let us find wˆ: 
+
+(yi − w>xi)2 
+= ky 
+− Xwk2 
+
+
+@ 
+
+@w
+
+(y 
+− Xw)>(y 
+− Xw)= 
+
+@ @w 
+
+
+h 
+
+kyk2 
+− 2y>Xw 
++ w>X>Xw 
+
+
+i 
+
+=0 − 2X>y 
++2X>Xw 
+= 0 (using rw(w>Aw)=(A 
++ A>)w)) 
+
+(X>X)w 
+= X>y
+
+() 
+
+normal equation 
+
+• If X>X 
+is invertible, there is a unique solution wˆ =(X>X)−1X>y 
+• If n<d, then X 
+is not full rank and so X>X 
+is not invertible. In this case we 
+could use the pseudo-inverse of X, X† and choose the minimum norm kwk solution 
+amongst arg minw 
+ky 
+− Xwk
+2 
+. The problem we face is that the pseudo-inverse is not 
+numerically stable. 
+In the latter case, it would be better to use regularization techniques (see next section). 
+
+6-3 
+
+
+Lecture 6 — September 20 Fall 2016 
+
+6.1.3 Ridge regression 
+We can either interpret ridge regression as adding a norm regularizer to the least-square 
+EMR, or as replacing the MLE for w 
+with a MAP by adding a prior p(w): 
+
+log p(w|y, x) = log p(y1:n|x1:n; w) + log p(w)+ cst 
+
+Where p(w) is the prior over w 
+and: 
+
+I 
+
+
+p(w)= N (w|0, )
+
+ 
+
+So we have that: 
+
+
+
+log p(w|y, x) = log p(y1:n|x1:n; w)+ cst − 2 kwk
+2 
+
+
+and then, 
+
+rw 
+=0 ) (X>X 
++ I)w 
+= X>y 
+
+
+) wˆ MAP =(X>X 
++ I)−1X>y 
+
+
+Notice that (X>X 
++ I) is always invertible. 
+
+Remark 6.1.3 − log p(w|y, x) is strongly convex in w. So there is a unique global minimum 
+
+Remark 6.1.4 It is good practice to standardize or normalize the features. Standardizing 
+means make the features have empirical zero mean and unit standard deviation; normalizing 
+can mean different things, e.g. scale them to [0, 1] or to a unit norm. 
+
+6.2 Logistic Regression 
+Let’s turn our attention to classification problems. For this model, we will assume that 
+Y 2{0, 1} and X 2 Rd. We make no additional assumptions apart that p(x|Y = 1) and 
+p(x|Y = 0) are densities. Our goal is to model p(Y |X) 
+
+p(Y =1,X = x) 
+
+p(Y =1|X = x)= 
+
+p(Y =1,X = x)+ p(Y =0,X = x) 
+1 
+
+= 
+
+1+ p(Y =1,X=x) 
+
+
+p(Y =0,X=x) 
+
+
+1 
+
+= 
+
+1 + exp(−f(x)) 
+
+6-4 
+
+
+Lecture 6 — September 20 Fall 2016 
+
+−10−8−6−4−2024681000.10.20.30.40.50.60.70.80.91xs(x)
+Figure 6.1: Sigmoid function. 
+
+Where 
+
+=1) =1)
+
+f(x) = log p(X = x|Y + log p(Y 
+
+p(X = x|Y = 0) p(Y = 0)
+
+| {z } |{z}
+
+class-conditional 
+ratio 
+prior 
+odd 
+ratio 
+
+
+Is the log odds ratio. In general we have: 
+
+p(Y =1|X = x)= (f(x)) 
+where (z) := 1+
+1 
+e is the sigmoid function shown in Figure 2.1. 
+
+−z 
+
+6-5 
+
+
+Lecture 6 — September 20 Fall 2016 
+
+The sigmoid function has the following properties: 
+
+Property 6.2.1 
+
+8z 2 R,(−z)=1 − (z) 
+
+Property 6.2.2 
+
+8z 2 R,0(z)= (z)(1 − (z)) = (z)(−z) 
+
+Example 6.2.1 Finally, we make the following observation that a very large class of probabilistic
+ models yield logistic-regression types of models (thus explaining why logistic regression 
+is fairly robust). 
+
+Consider that the class conditional is in the exponential family: 
+
+p(x|)= h(x) exp(>T(x) − A()). 
+
+=1) =1)
+
+f(x) = log p(X = x|Y + log p(Y 
+
+p(X = x|Y = 0) p(Y = 0) 
+
+ 
+
+=(1 
+− 0)>T(x)+ A(0) − A(1) + log( )
+
+1 −  
+= w>(x) 
+
+  
+
+1−0 
+T(x)
+
+Where w 
+= and (x)= . Thus we have a logistic regression 
+
+
+
+A(0)−A(1)+log(1− )1 
+
+
+model with features (x): 
+p(y =1|x)= (w>(x)) 
+
+6-6 
+
+

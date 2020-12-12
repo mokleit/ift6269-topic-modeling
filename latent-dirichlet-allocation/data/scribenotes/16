@@ -1,0 +1,541 @@
+IFT 6269: Probabilistic Graphical Models Fall 2020 
+
+Lecture 16 — November 3 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Ismael 
+Martinez, 
+Abdelrahman 
+Zayed 
+
+
+Disclaimer: Lightly proofread and quickly corrected by Simon Lacoste-Julien. 
+
+16.1 Inference on trees 
+To do inference on a tree, we can use the graph eliminate algorithm as described in the 
+last lecture, using an appropriate elimination ordering as exemplified in Fig. 16.1. This 
+corresponds to marginalizing (16.1), using the distributivity trick. A good order to perform 
+graph elimination on a tree is to eliminate the leaves first (which makes sure that no new 
+edges are added in the augmented graph, achieving the treewidth of one (maximal clique 
+size of 2)). 
+
+nn
+
+1 YY 
+p(x)= i(xi) i,j(xi,xj) (16.1)
+
+Z 
+
+i=1 
+{i,j}2E 
+
+
+Figure 16.1: Applying graph elimination to compute p(xF ). 
+
+We can also apply the graph elimination by using F as a root as shown in Fig.16.2. The 
+messages that are passed from leaf nodes towards the root are computed according to (16.2). 
+
+XY 
+
+
+mi!j(xj)= i(xi) i,j(xi,xj) mk!i(xi) (16.2) 
+xi 
+k2children(i)
+
+| 
+{z 
+} 
+
+
+new 
+factors 
+containing 
+i on 
+active 
+list 
+
+
+where node i is the child of node j. 
+
+16-1 
+
+
+Lecture 16 — November 3 Fall 2020 
+
+
+Figure 16.2: Using F as the root node to compute p(xF ) 
+
+16.1.1 Sum-product algorithm for trees 
+The sum-product algorithm (SPA) is an algorithm to get all the node/edge marginals cheaply 
+by storing (caching) and reusing the messages using dynamic programming. 
+
+
+Figure 16.3: The collect and distribute phases to compute the marginal of any node. The 
+red arrows refer to the collect phase, whereas the green arrows refer to the distribute phase. 
+
+The message from node i to node j is computed as follows: 
+
+
+Figure 16.4: Passing the message from node i to node j. 
+
+XY 
+
+
+mi!j(xj)= j(xi) i,j(xi,xj) mk!i(xi) (16.3) 
+xi 
+k2N(i)\{j} 
+
+where N(i) is of set of neighbors of i. 
+
+16-2 
+
+
+Lecture 16 — November 3 Fall 2020 
+
+By using the green and red arrows as shown in Fig.16.3, we can compute the marginal 
+of any node. The goal is to compute mi!j(xj) and mj!i(xi) 8{i, j}2 E. Node i can only 
+send messages to its neighbour j when it has received all messages from other neighbours. 
+
+The message from node i to node j is computed according to Fig. 16.4. At the end, the 
+node marginal is proportional to all the factors left on the active list, and in this message 
+passing formulation, it is proportional to 
+
+Y 
+
+
+p(xi) / mj!i(xi) i(xi) (16.4) 
+j2N(i) 
+
+
+Therefore, 
+
+XY 
+
+
+Z =(mj!i(xi) i(xi)) (16.5) 
+xi 
+j2N(i) 
+
+
+The edge marginal probability of a pair of neighboring node i and node j (see Fig. 16.5 
+for an example) is computed as follows: 
+
+1 YY 
+p(xi,xj)= i(xi) j(xj) i,j(xi,xj) mk!i(xi) mk0!j(xj) (16.6)
+
+Z 
+
+k2N(i)\{j} k02N(j)\{i} 
+
+
+Figure 16.5: Computing the marginal probability of the edge between node i and node j. 
+
+If we want to compute the marginal on a pair of nodes which are not adjacent, then 
+we usually need to use the more general graph eliminate algorithm. See Fig. 16.6 for an 
+example. SPA only works to compute all the node marginals, as well as the edge marginals 
+for adjacent nodes.1 
+
+
+1You 
+could 
+generalize 
+the 
+argument 
+made 
+in 
+Fig. 
+16.5 
+to 
+compute 
+the 
+marginals 
+on 
+more 
+than 
+2 
+nodes 
+(if 
+they 
+are 
+all 
+connected) 
+by 
+taking 
+the 
+product 
+of 
+all 
+the 
+incoming 
+messages 
+to 
+the 
+boundary 
+of 
+the 
+connected 
+nodes, 
+as 
+well 
+as 
+all 
+the 
+potentials 
+connecting 
+the 
+nodes. 
+
+
+16-3 
+
+
+Lecture 16 — November 3 Fall 2020 
+
+
+Figure 16.6: Example of a case where we need to use the graph elimination algorithm to 
+compute the probability of the set of nodes in the box. In green is the added edge appearing 
+in the augmented graph when running graph eliminate (there is no node ordering that we 
+can choose with F at the end which would not add edges, explaining why the sum-product 
+algorithm cannot be used for this example). 
+
+Sum-product schedule 
+
+a) We can use the collect/distribute schedule as shown in Fig. 16.3. 
+b) We can also use the flooding parallel schedule, which works as follows: 
+1) Initialize all mi!j(xj) messages to a uniform distribution 8(i, j), (j, i) s.t. {i, j}2 E. 
+new
+
+2) At every step (in parallel), compute mi!j(xj) as if the neighbour messages were 
+correctly computed from previous step. 
+! One can prove that for a tree of diameter d, all messages are correctly computed 
+and fixed after d steps (they are fixed points of this update process) 
+
+16.1.2 Sum-product algorithm for graphs with cycles – loopy belief
+ propagation 
+Whereas parallel SPA iteratively computes messages on a tree, loopy 
+belief 
+propagation 
+provides
+ the general case for approximate inference for graphs with cycles. Loopy 
+refers to 
+cycles. 
+
+1. Initialise all mi!j(xj) messages (by uniform distribution) 8(i, j), (j, i) s.t. {i, j}2 E. 
+new
+
+2. At every step, compute mj!i(xi) using a convex combination (in the log domain) 
+between the previous message and the new calculation to stabilize the update. 
+01
+
+1− 
+
+new 
+old 
+@
+X 
+Y 
+old 
+A
+
+m (xj)=(m (xj)) i(xi) i,j(xi,xj) m (xi) (16.7)
+
+i!ji!jk!i 
+xi 
+k2N(i)\{j} 
+
+where 2 [0, 1] step-size. This approach is known as “damping”. 
+
+16-4 
+
+
+Lecture 16 — November 3 Fall 2020 
+
+Remarks 
+
+• This gives exact answer on trees (fixed point ! yields correct marginal). 
+• If G is not a tree, the algorithm doesn’t converge in general to the right marginal, but 
+sometimes (if not too loopy) gives reasonable approximations. 
+Getting conditionals 
+
+p(xi|x¯ E) / p(xi,x¯ E) (16.8) 
+
+The bar is used to indicate the fixed values we are conditioning on. We keep the variables 
+x¯ E fixed during marginalization for each j 2 E. 
+
+(Formal trick): by redefining the potential function, we don’t need to worry about fixing 
+the variables. Redefine ˜ j(xj) , 
+j(xj) · (xj,x¯ j).
+
+8 
+
+
+<1 if a = b
+
+Kronecker-delta function (a, b) , 
+
+
+:0 otherwise. 
+
+Computing mj!i(xi) for j 2 E: 
+
+X 
+
+
+˜ j(xj)stuff(xj,xi)= j(¯xj)stuff(¯xj,xi). (16.9) 
+
+xj 
+
+
+At the end, result of SPA will give 
+
+1 Y 
+
+
+p(xi,x¯ E)= i(xi) mk!i(xi) (16.10)
+
+Z 
+
+k!i 
+
+Normalize over xi to get conditional p(xi|x¯ E). 
+
+Lesson: 
+When we run graph-eliminate or SPA, we don’t sum over the observed variables. 
+
+Note: Sum-product is to compute the marginal; max-product is to compute the arg max! 
+
+16.1.3 Max-Product Algorithm 
+J 
+LJ
+
+For SPA, main property used was distributivity of L 
+over . We require that (R,, ) is 
+a semi-ring (i.e. don’t need additive inverses). 
+
+You can do “sum-product” like algorithms on other semi-rings, where we replace the 
+operations but use the same concepts: 
+
+(R, max, +) max(a + b, a + c)= a + max(b, c) (16.11) 
+(R+, max, ·) max(a · b, a · c)= a · max(b, c) (16.12) 
+
+The second example above is where we get the max-product algorithm. The distributivity 
+trick that I had mentioned previously to motivate the graph eliminate algorithm, using this 
+max-product semi-ring, takes the form: 
+
+16-5 
+
+
+Lecture 16 — November 3 Fall 2020 
+
+YY 
+
+
+max fi(xi) = max fi(xi). 
+
+x1:n 
+xi 
+
+
+ii 
+
+Analogous to SPA where we move the sum from outside the product to inside, we move the 
+max function from outside the product to inside. The message updates for max-product 
+algorithm become 
+
+23 
+Y 
+
+
+mi!j(xj) = max 4 
+i,j(xi,xj) i(xi) mk!i(xi)5 
+. (16.13)
+
+xi 
+
+
+k2N(i)\{j} 
+
+Example For the example in Fig. 16.7, maxx1:5 
+Z 
+1 
+Q 
+c(xc)= Z 
+1 
+maxx1 
+m2!1(x1). 
+
+
+Figure 16.7: Sequential message passing to compute the argmax. 
+
+To get the arg max, store argument of this max as a function of xj for every j. To get 
+arg max p(x1:n), run max-product algorithm forward, and backtrack the arg max pointers to 
+get the full arg max. This algorithm of “decoding” by backtracking is also known as the 
+Viterbi algorithm (see Fig. 16.8). 
+
+Property of tree UGM 
+
+Let p 2L(G), for G =(V, E) a tree with non-zero marginals. Then we have: 
+
+1 YY 
+p(xi,xj) 
+
+p(x1:n)= p(xi) (16.14)
+
+Z | 
+{z 
+} 
+p(xi)p(xj)
+
+i2V {i,j}2E | 
+{z 
+}
+
+i(xi) 
+
+
+i,j 
+(xi,xj 
+) 
+
+
+Proof idea: Similar to DGM, we define a set of factors {fi,j(xi,xj)}, {fi(xi)},fi,j  
+0,fi  0 such that “local consistency property” holds: 
+
+X 
+
+
+fi,j(xi,xj)= fi(xi) 8xi (16.15) 
+xj
+
+X 
+
+
+fi,j(xi,xj)= fj(xj) 8xj (16.16) 
+
+xi 
+X 
+
+
+fi(xi)=1. (16.17) 
+
+xi 
+
+
+Then, if we define joint 
+
+YY 
+f(xj,xi) 
+
+p(x)= fi(xi) (16.18)
+
+f(xj)f(xi). 
+
+i {i,j}2E 
+
+we can show we get the correct marginals, i.e. p(xi)= fi(xi). 
+
+16-6 
+
+
+Lecture 16 — November 3 Fall 2020 
+
+
+Figure 16.8: Store arg max values in a forward pass, and backtrack to pointers to get all 
+values. This is the “Viterbi” algorithm. 
+
+16.1.4 Junction tree algorithm 
+The junction tree algorithm is an algorithm designed to tackle the problem of inference 
+on 
+general 
+triangulated 
+graphs. It is a generalization of SPA to a clique tree with the junction 
+tree property. 
+
+Fig. 16.9 show a clique tree with the “running intersection property”: if j 2 C1 
+\ C2, 
+then j 2 Ck 8Ck along the path from C1 
+to C2. A tree that satisfies this property is known 
+as a “junction tree”. 
+
+Build a junction tree from triangulated graph 
+
+Use maximum weight spanning tree on the clique graph, where the size of separator sets 
+are the weights on the edges in the clique graph. In other words, a spanning tree with the 
+maximum number of nodes in common among neighbouring cliques. This tree will have the 
+running intersection property, and is therefore a junction tree. 
+
+Theorem 16.1 9 a 
+junction 
+tree 
+() the 
+graph 
+is 
+triangulated 
+graph 
+(decomposable 
+graph). 
+
+
+You can always turn a graph into a triangulated graph by running graph-eliminate algorithm. 
+Once you have a junction tree, you can show 
+
+Q 
+
+
+C p(xC ) 
+
+p(xV )= Q 
+(16.19) 
+
+S p(xS) 
+
+16-7 
+
+
+Lecture 16 — November 3 Fall 2020 
+
+
+(a) 
+Triangulated 
+graph 
+representation. 
+(b) 
+Clique 
+tree 
+representation. 
+Figure 16.9: A clique tree that follows the running intersection property is known as a 
+Junction tree. The junction tree is shown here with the non-dotted edges. The dotted edges 
+are additional edges present in the clique graph (where an edge is put between every pair of 
+cliques with some node in common). One can build a spanning tree which has the running 
+intersection property by running the maximum weight spanning tree algorithm on the clique 
+graph with weight on edges that is the size of the separator set. 
+
+where S is the separator sets in the junction tree. 
+
+Junction tree algorithm : 
+
+1. Reconstruct the above formulation by starting with 
+Q
+
+1 CC (xC ) 
+
+p(xV )= Q 
+(16.20)
+
+Z S ' S(xS) 
+
+where ' S(xS) = 1 at initialization. 
+
+new
+
+2. Do message passing on junction tree to update the potentials C and 'new 
+S . 
+3. Repeat step 2 until convergence. 
+At the end, we will have the correct marginals p(xC ) and p(xS). 
+
+16-8 
+
+

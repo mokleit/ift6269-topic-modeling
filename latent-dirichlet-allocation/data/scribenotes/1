@@ -1,0 +1,272 @@
+IFT 6269: Probabilistic Graphical Models Fall 2017 
+
+Lecture 1 — September 5 
+
+Lecturer: 
+Simon 
+Lacoste-Julien 
+Scribe: 
+Isabela 
+Albuquerque 
+
+
+1.1 
+Probabilistic 
+Graphical 
+Models 
+• 
+Goal: Model multivariate data 
+• 
+Mix of graph and probability theory. Or, more illustratively: 
+• 
+Probability vs. Statistics: 
+Probabilistic model Answers to queries, sampling: data 
+Probability 
+Statistics (inverse problem) 
+
+1-1 
+
+
+Lecture 1 — September 5 Fall 2017 
+
+1.2 
+Applications 
+Some illustrative examples of Hidden Markov Models (HMM) applications. 
+
+Notation: 
+
+
+-Xt: Observed random variable. Represented in the graphical model as a shaded 
+node. 
+
+-Yt: Not observed random variable. Represented in the graphical model as an empty 
+node. 
+
+-Graph edges (􀀀): Represents possible correlations between random variables in the 
+graphical models. Lack of edges in the graph will represent conditional independence
+ assumptions, as we will see later. 
+
+Important! 
+
+
+-When modeling a problem using graphical models, random variables represent the 
+quantities of interest. 
+
+-In the context of PGM, a random vector is often just called a random 
+variable 
+– thus 
+a random variable might be scalar or vector valued. 
+
+1.2.1 Example 1: Speech Recognition 
+Xt: Sound wave encoding for a small time window (e.g. as a spectral decomposition) Yt: Phoneme 
+
+Yt 
+Yt+1 
+Yt+2 
+
+
+XtXt+1Xt+2
+1.2.2 Example 2: Part-of-speech tagging 
+Xt: Word Yt: Part-of-speech (word grammatical classification) 
+DT Verb DT Adj N 
+This is a red box 
+
+1-2 
+
+
+Lecture 1 — September 5 Fall 2017 
+
+1.2.3 Example 3: Gene finding 
+Xt: Sequence of nitrogenous base Yt: Coding or non-coding (i.e. Yt 
+2f0; 
+1g) 
+
+G T A A C C G 
+1.2.4 Example 4: Control system 
+yt+1 
+= 
+Ayt 
++ 
+Bvt 
++ 
+t, 
+(yt 
+is the latent state) xt 
+= 
+Cyt 
++ 
+0 
+t, 
+(Observation) 
+
+where yt 
+and xt 
+are continuous vectors and vt 
+is a given control term. The terms  
+and 0 
+represent the noise in the system. If they are modeled as Gaussian noise, this HMM is a 
+Kalman Filter. 
+
+1.3 
+Why 
+Graphical 
+Models? 
+Back to the part-of-speech tagging example: 
+
+Notation: 
+-An observation of T 
+words is represented as (x1;x2;:::;xT 
+) 
+, 
+x1:T 
+-For a vocabulary of size k, xt 
+2f1;:::;k} 
+
+
+Problem: 
+We want to model p(x1:T 
+), which corresponds to an exponential size state space. 
+Thus, ≈ 
+KT 
+parameters have to be estimated to define a probability distribution on x1:T 
+
+
+Trick: make a factorization assumption about the distribution p(x1:T 
+). 
+
+p(x1;:::;xT 
+)= 
+f1(x1)f2(x2jx1)f3(x3jx2) 
+:::fT 
+(xT 
+jxT 
+􀀀1). 
+
+
+Each factor f 
+can be seen as a clique in the graphical model and needs ≈ 
+K2 
+parameters 
+to be specified. As we have T factors in this factorization, we reduce the total number of 
+parameters from KT 
+(exponentially grows with T 
+) to TK2 
+(linearly grows with T 
+). 
+
+1-3 
+
+
+Lecture 1 — September 5 Fall 2017 
+
+Now, back to our problem, say we want to compute the marginal probability of x1, p(x1)= 
+p(x1:T 
+). Using the factorization assumption, we can write p(x1) 
+as: 
+
+x2;:::;xT 
+
+
+X 
+
+p(x1)= 
+f1(x1)f2(x2jx1)f3(x3jx2) 
+:::fT 
+(xT 
+jxT 
+􀀀1). 
+(1.1) 
+
+x2;:::;xT 
+
+
+Applying the distributive property of the product over a sum (a(b 
++ 
+c)= 
+ab 
++ 
+ac), we can 
+rewrite equation 1.1 as 
+
+! !!
+
+XX X 
+
+p(x1)= 
+f1(x1) 
+f2(x2jx1) 
+f3(x3jx2) 
+::. 
+fT 
+(xT 
+jxT 
+􀀀1) 
+::. 
+. 
+(1.2) 
+
+x2 
+x3 
+xT 
+
+
+This organized and efficient way to compute the marginal p(x1) 
+is known as the Message
+
+X 
+
+passing algorithm. The term fT 
+(xT 
+jxT 
+􀀀1) 
+is named message and denoted as MT 
+(xT 
+􀀀1). 
+
+xT 
+
+
+The following figure illustrates MT 
+(xT 
+􀀀1) 
+(represented by the red arrow) passing through a 
+graph. 
+
+
+MT 
+(xT 
+􀀀1) 
+
+
+
+::. 
+
+
+
+x1 
+x2 
+x3 
+xT 
+􀀀1 
+xT 
+
+
+1.4 
+Key 
+Themes 
+1. Representation: how to represent structured probability distributions. 
+-Related to parameterization (e.g. 
+full table, exponential family) 
+2. Estimation: given data samples, how do we learn the parameters of the distribution 
+underlying the observations? 
+-Related to learning (e.g. 
+Maximum Likelihood Estimation) 
+
+3. Inference: answer questions about the data, as computing conditional distributions p(yjx) 
+or marginals p(x1). 
+-Efficient computation (e.g. 
+Message passing algorithm) 
+
+1-4 
+
+

@@ -1,0 +1,1827 @@
+Information Theory, Exponential families 2013/2014 
+
+Lecture 5 — October 30th 
+
+Lecturer: 
+Guillaume 
+Obozinski 
+Scribe: 
+Thomas 
+Belhalfaoui, 
+Lénaïc 
+Chizat 
+
+
+5.1 
+Information 
+Theory 
+5.1.1 Entropy 
+We will use the following properties (Jensen Inequality): 
+
+1. if f 
+: 
+R 
+→ 
+R 
+is convex and if X 
+is an integrable random variable : 
+EX 
+(f(X)) 
+≥ 
+f(EX 
+(X)) 
+2. if f 
+: 
+R 
+→ 
+R 
+is strictly convex, we have equality if and only if X 
+is constant a.s. 
+Definition 5.1 (Entropy) Let X 
+be a random variable taking values in the finite set X 
+. 
+We denote p(x)= 
+P 
+(X 
+= 
+x). 
+In information theory, the quantity 
+
+1 
+
+
+I(x) 
+= 
+log 
+
+
+p(x) 
+can be interpreted as a quantity of information carried by the occurrence of x. (This is 
+sometimes called self-information). Entropy is defined as the expected amount of information 
+of the random variable. 
+
+X 
+
+H(X)= 
+Ep(x) 
+[I(X)] 
+= 
+− 
+p(x) 
+log 
+p(x) 
+x2X 
+
+
+The base of the logarithm is the natural base or 2, the latter being more consistent with bit 
+coding interpretations of entropy. In this course we will use the natural logarithm. 
+
+5.1.2 Kullback-Leibler divergence 
+Definition 5.2 (Kullback Leibler Divergence) Let p 
+and q 
+be two finite distributions 
+on X 
+. The Kullback Leibler Divergence between p and q is defined by 
+
+X 
+
+p(x)
+
+D(p 
+k 
+q)= 
+p(x) 
+log 
+
+
+q(x)
+
+x2X 
+
+
+X
+
+p(x) 
+p(x) 
+
+
+= 
+log 
+q(x) 
+
+
+q(x) 
+q(x)
+
+x2X 
+ 
+
+p(X) 
+p(X) 
+
+
+= 
+EXq 
+log 
+
+
+q(X) 
+q(X) 
+
+
+5-1 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+ 
+KL Divergence is not a distance as it is not symmetric. 
+
+Proposition 5.3 D(p 
+k 
+q) 
+≥ 
+0 
+and equality holds if and only if p 
+= 
+q. 
+
+Proof If there exists x 
+2X 
+such that q(x)=0 
+and p(x) 
+6=0 
+then D(p 
+k 
+q)=+1. 
+Otherwise, we can without loss of generality assume that q(x) 
+> 
+0 
+everywhere. We make 
+this assumption in the rest of the proof. By convexity of the function y 
+7
+→ 
+y 
+log 
+y, and by 
+Jensen’s inequality, we have 
+
+    
+
+p(X) 
+p(X) 
+p(X) 
+p(X)
+
+D(p 
+k 
+q)= 
+Eq 
+log 
+≥ 
+Eq 
+log 
+Eq 
+=0 
+
+
+q(X) 
+q(X) 
+q(X) 
+q(X) 
+
+
+since  
+
+XX
+
+p(X) 
+p(x)
+
+Eq 
+= 
+q(x)= 
+p(x)=1. 
+
+
+q(X) 
+q(x)
+
+x2X 
+x2X 
+
+
+Furthermore, D(p 
+k 
+q)=0 
+iff there is an equality in Jensen’s inequality above which implies 
+that p(x)= 
+cq(x) 
+q-a.s., but summing this last equality over x 
+implies that c 
+=1, which in 
+turn implies that p 
+= 
+q. 
+
+Proposition 5.4 We have the following inequalities: 
+
+1. H(X) 
+≥ 
+0 
+with equality if X 
+is constant a.s 
+2. H(X) 
+≤ 
+log(Card(X 
+)) 
+Proof Since p(x)= 
+Pp(X 
+= 
+x) 
+≤ 
+1 
+then 􀀀p(x) 
+log 
+p(x) 
+≥ 
+0 
+which implies that H(X) 
+≥ 
+0 
+with equality iff 􀀀p(x) 
+log 
+p(x)=0 
+for all x 
+2X 
+, which proves the first point. Then 
+
+XX 
+
+D(p 
+k 
+q)= 
+− 
+p(x) 
+log 
+q(x) 
+− 
+(− 
+p(x) 
+log 
+p(x)) 
+
+
+x2X 
+x2X
+
+X 
+
+= 
+− 
+p(x) 
+log 
+q(x) 
+− 
+H(X) 
+
+
+x2X 
+
+
+We choose q0(x)= 
+1 
+. Then H(X) 
+= 
+log(Card(X 
+))􀀀D. Hence H(X) 
+≤ 
+log(Card(X 
+)).
+
+Card(X 
+) 
+
+
+Definition 5.5 (Mutual information) Let X, 
+Y 
+be two random variables of joint distri-
+
+P 
+
+bution pX;Y 
+(x, 
+y)= 
+P 
+(X 
+= 
+x, 
+Y 
+= 
+y) 
+and with marginal distributions pX 
+(x)= 
+pX;Y 
+(x, 
+y)
+
+P y 
+
+
+and pY 
+(y)= 
+x 
+pX;Y 
+(x, 
+y). The mutual information of X 
+and Y 
+is defined by 
+
+X 
+
+pX;Y 
+(x, 
+y)
+
+I(X, 
+Y 
+)= 
+pX;Y 
+(x, 
+y) 
+log 
+
+
+pX 
+(x) 
+pY 
+(y)
+
+x;y 
+
+
+= 
+D(pX;Y 
+k 
+pX 
+pY 
+) 
+
+
+5-2 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+Proposition 5.6 I(X, 
+Y 
+)=0 
+⇔ 
+X 
+?Y 
+
+
+Proof It directly follows from the fact that D(pX;Y 
+k 
+pX 
+pY 
+)=0 
+implies that pX;Y 
+(x, 
+y)= 
+pX 
+(x)pY 
+(y) 
+which is the definition of the independence of X 
+and Y 
+. 
+
+ 
+Independent ⇒ 
+not correlated but not correlated ; 
+independence 
+
+The first implication comes from the fact that if X 
+?Y 
+then E(X, 
+Y 
+)= 
+E(X)E(Y 
+) 
+and then Cov(X, 
+Y 
+)=0. 
+Counter-example for the reverse implication: if Θ 
+is a r.v. following the uniform distribution 
+on [0, 
+1] 
+and we define the random variables X 
+and Y 
+by X 
+= 
+sin(2) 
+and Y 
+= 
+cos(2) 
+then X 
+and Y 
+are not correlated but dependent. 
+
+Remark 5.1.1 The reverse is only true for Gaussian random variables. 
+
+5.1.3 Relation between minimum Kullback-Leibler divergence and 
+maximum likelihood principle 
+Definition 5.7 (Empirical distribution) Let x1, 
+:::, 
+xN 
+2X 
+be N i.i.d. observations of a 
+random variable X. 
+The empirical distribution of X 
+derived from this sample is 
+
+N
+
+X
+
+1 
+
+
+p^(x)= 
+(x 
+− 
+xn)
+
+N 
+
+
+n=1 
+
+
+Where δ 
+is the Dirac function, null everywhere except in 0 where it takes the value 1. 
+
+Proposition 5.8 Let pθ 
+be a parameterized distribution on X 
+. 
+Maximizing the likelihood p(x) 
+is equivalent to minimizing the KL Divergence D(^pjjp) 
+
+
+Proof 
+
+X 
+
+p^(x)
+
+D(^pjjp)= 
+p^(x) 
+log 
+
+
+p(x)
+
+x2X 
+X 
+
+= 
+􀀀H(^p) 
+− 
+p^(x) 
+log 
+p(x) 
+
+
+x2X 
+N
+
+XX
+
+1 
+
+
+= 
+􀀀H(^p) 
+− 
+(x 
+− 
+xn) 
+log 
+p(x)
+
+N 
+
+
+x2X 
+n=1 
+N
+
+X
+
+1 
+
+
+= 
+􀀀H(^p) 
+− 
+log 
+p(xn)
+
+N 
+
+
+n=1 
+
+
+The second term is equal to the opposite of the log-likelihood p(x). Hence the conclusion. 
+
+5-3 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+Remark 5.1.2 p(x)=0 
+⇒ 
+p^(x)=0, but p^(x)=0 
+; 
+p(x)=0. So we should not try to 
+compute D(pjjp^), because this would rule out all the values of x that we have not encountered 
+yet (i.e. such that p^(x)=0). 
+
+5.1.4 Maximum entropy principle 
+The maximum entropy principle is a different principle than the maximum likelihood principle 
+and solves a different kind of problem. It assumes that we use the data to specify a 
+constraint on the possible distribution we choose. The idea is to maximize the entropy H(p) 
+under the constraint that p 
+2P(X 
+) 
+where P(X 
+) 
+is a set of possible distribution typically 
+specified from the data. 
+
+Let ’s consider the following examples 
+
+1. A study on kangaroos estimated that p 
+=3=4 
+of the kangaroos are left-handed and 
+q 
+=2=3 
+drink Foster beer. What is a reasonable estimate of the fraction of kangaroos 
+that are both left-handed and drink Foster beer? The maximum entropy principle can 
+be invoked to choose among all distributions of pairs of binary random variables. In 
+particular, one way to formalize that we want to choose the least specific distribution 
+that satisfies these constraints is to find the distribution with maximal entropy that 
+satisfies the constraints on the marginals. If X 
+is the variable "is left-handed" and Y 
+"drinks Foster beer", then the problem is formalized as 
+max 
+H(pX;Y 
+) 
+s.t. pX;Y 
+(1, 
+0) 
++ 
+pX;Y 
+(1, 
+1) 
+= 
+p, 
+pX;Y 
+(0, 
+1) 
++ 
+pX;Y 
+(1, 
+1) 
+= 
+q. 
+
+
+pX;Y 
+
+
+What is the solution to this problem? (Exercise) 
+
+2. Among all distributions on f1;:::, 
+10} 
+what is the distribution with expected value 
+equal to 2 
+which has the largest entropy? (Exercise) 
+3. It is possible to show that the distribution on R 
+with fixed mean µ 
+and fixed variance 
+2 
+that has maximal differential entropy is the Gaussian distribution. 
+4. The principle of maximum entropy is also the principle invoked to construct distribution 
+on angles with fixed mean and variance. It leads to the so-called wrapped normal 
+distribution. A related distribution on angle which is also a maximum entropy distribution 
+is the von Mises distribution. 
+The maximum entropy principle is used often when working with contingency tables. 
+
+5.1.5 Entropy and KL divergence for continuous random variables 
+Let X 
+be a continuous random variable taking its values in the continuous space X 
+and let 
+p 
+be its probability density function. We have the following adapted expressions of entropy 
+and KL Divergence: 
+
+5-4 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+• 
+Differential entropy: Z Hdiff(p) 
+= 
+− 
+p(x) 
+log(p(x))d(x) 
+X 
+
+
+• 
+Differential Kullback Leibler Divergence: 
+Z 
+
+p(x)
+
+Ddiff(p 
+k 
+q)= 
+p(x) 
+log 
+d(x) 
+
+
+X 
+q(x)
+
+ 
+
+p(X) 
+
+
+= 
+EXp 
+log 
+
+
+q(X) 
+
+
+ 
+In the continuous case, the entropy is not necessarily non-negative. 
+
+Remark 5.1.3 The definition of Hdiff (p) 
+depends on the reference measure . This means 
+that Hdiff (p) 
+does not capture any intrinsic properties of p 
+any more, and loses its "physical 
+interpretation" in terms of quantity of information, at least in an absolute sense. By contrast 
+Ddiff (p 
+k 
+q) 
+does not depend on the choice of the reference measure and has therefore a 
+stronger interpretation. 
+
+5.2 
+Exponential 
+families 
+Let x1, 
+:::, 
+xN 
+2X 
+be N 
+i.i.d. observations of a random variable X. 
+
+Definition 5.9 A statistic Φ 
+is just a function of the data: x 
+7
+→ 
+(x) 
+= 
+(x1, 
+:::, 
+xN 
+) 
+
+
+Definition 5.10 (Sufficient statistic (statistique exhaustive in French)) A function 
+
+T 
+: 
+x 
+7
+→ 
+T 
+(x) 
+is a sufficient statistic for a model PΘ 
+if and only if 
+8θ 
+∈ 
+;p(x)= 
+h(x) 
+g(T 
+(x); 
+) 
+
+
+Note that in order to estimate θ 
+from data x 
+using the maximum likelihood principle the 
+information of the statistics T 
+(x) 
+carries all the information that is relevant. 
+
+Another way of interpreting what a sufficient statistic is is to take the Bayesian point of 
+view. In Bayesian statistics, the parameter θ 
+is modelled as a random variable and we then 
+have: 
+
+p(x, 
+)= 
+p(xj) 
+p()= 
+h(x) 
+g(T 
+(x); 
+) 
+p(), 
+
+
+which means that θ 
+?X 
+| 
+T 
+(X). 
+
+Definition 5.11 (Exponential family) Let X 
+be a random variable on X 
+. An exponential 
+family is a family of distribution of the form 
+
+no 
+
+p(x; 
+) 
+d(x)= 
+h(x) 
+exp 
+b()T 
+(x) 
+− 
+A~() 
+d(x), 
+
+
+where 
+
+5-5 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+• 
+h(x) 
+the ancillary statistic, 
+• 
+h(x)d(x) 
+the reference measure (or base measure), 
+• 
+(x) 
+the sufficient statistic (also called feature vector), 
+• 
+θ 
+the parameter, 
+• 
+η 
+= 
+b() 
+the canonical parameter, 
+• 
+Ã()= 
+A() 
+the log-partition function. 
+Proposition 5.12 
+
+Z 
+
+ 
+
+A() 
+= 
+log 
+h(x) 
+exp 
+T 
+(x) 
+d(x) 
+
+
+X 
+
+
+Proof ZZ 
+
+
+
+􀀀A()
+
+1= 
+p(xj)d(x)= 
+eh(x) 
+exp 
+T 
+(x) 
+d(x) 
+
+
+XX 
+
+
+Definition 5.13 (Canonical exponential family) A canonical exponential family is an 
+exponential family which such that b()= 
+θ 
+= 
+, 
+i:e:: 
+
+p(x; 
+)= 
+h(x) 
+exp(T 
+(x) 
+− 
+A()) 
+
+
+Definition 5.14 (Domain) The domain of an exponential family is defined by: 
+
+
+= 
+fη 
+∈ 
+Rp 
+| 
+A() 
+< 
+1} 
+
+
+Example 5.2.1 (Multinomial model) Let X 
+be a random variable on X 
+= 
+f0, 
+1gK 
+. X 
+follows a multinomial distribution of parameter π 
+∈ 
+[0, 
+1]K 
+. 
+
+K
+
+Y 
+
+xk
+
+p(x; 
+)= 
+k 
+k=1 
+
+
+K 
+= 
+exp 
+xk 
+log 
+k 
+k=1 
+ K 
+ 
+
+X  
+
+X 
+
+= 
+exp 
+xkk 
+k=1 
+
+
+= 
+exp(hx, 
+i) 
+
+
+In this expression we easily recognize: 
+
+5-6 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+• 
+η 
+= 
+(log 
+1, 
+log 
+2, 
+· 
+, 
+log 
+K 
+)T 
+; 
+• 
+(x)= 
+x; 
+• 
+d(x) 
+the counting measure 
+• 
+h(x)=1 
+the constant function equal to one; 
+But we don’t recognize A(). Let us find it using Proposition 5.12: 
+
+X  
+
+A() 
+= 
+log 
+exp(T 
+x) 
+x2X 
+ K 
+
+
+X 
+
+= 
+log 
+exp(k) 
+k=1 
+
+
+p(x; 
+) 
+= 
+exp(T 
+x 
+− 
+A()) 
+
+
+! 
+
+K
+
+X 
+
+= 
+exp 
+kxk 
+− 
+A() 
+k=1 
+! K
+
+X 
+
+= 
+exp 
+(k 
+− 
+A())xk 
+k=1 
+!!X
+
+K 
+exp 
+k 
+
+
+= 
+exp 
+log 
+PK 
+xk 
+exp 
+k
+
+k=1 
+k0=1 
+
+
+We see that in the first expression of the likelihood in its exponential form, we did not take
+
+P 
+
+into account the fact that k 
+k 
+=1. There was a hidden constraint on . Now we have a 
+new expression for k 
+and no more constraint over the values that η 
+can take: 
+
+exp(k)
+
+~k 
+= 
+P . 
+
+
+k0 
+exp(k) 
+
+
+Example 5.2.2 (Gaussian distribution (, 
+) 
+over R) 
+
+(x􀀀)2 
+
+
+− 
+
+
+22
+
+p(x; 
+, 
+2)= 
+√ 
+1 
+e 
+
+
+22 
+
+
+  2 
+ 
+
+2 
+􀀀1 
+µ 
+1 
+
+
+= 
+exp 
+x 
++ 
+x 
+− 
++ 
+log(22)
+
+22 
+2 
+22 
+2 
+
+
+We recognize an exponential family with: 
+
+• 
+(x)=(x, 
+x2)T 
+• 
+η 
+=(
+µ 
+2 
+, 
+􀀀2σ 
+1 
+2 
+)T 
+=(1;2)T 
+5-7 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+ 
+
+2 
+
+
+1 
+
+
+42 
+
+
+1 
+− 
+2
+
+• 
+A() 
+= 
+log 
+􀀀
+222 
+
+
+ 
+
+p(x) 
+= 
+exp 
+(x)T 
+η 
+− 
+A() 
+on the domain: fη 
+∈ 
+R2;2 
+< 
+0g. 
+Example 5.2.3 Many other common distributions are exponential families: Binomial law, 
+Poisson law (X 
+= 
+N), Dirichlet law, Gamma law, exponential law. 
+
+5.2.1 Link with the graphical models 
+XiXj
+Figure 
+5.1. 
+Ising 
+model 
+
+
+Example 5.2.4 (Ising model) 
+
+X
+
+1 
+
+
+p(x)= 
+
+
+exp 
+ ij(xi;xj;)
+
+Z() 
+
+
+(i;j)2E 
+
+
+1 CA 
+
+xixj 
++ 
+V 
+10
+
+ ij(xi;xj)= 
+V 
+11 
+xi(1 
+− 
+xj)+ 
+V 
+01(1 
+− 
+xi)xj 
++ 
+V 
+00(1 
+− 
+xi)(1 
+− 
+xj)
+
+ijij 
+ij 
+ij 
+η 
+=(V 
+kk0 
+
+
+ij 
+) 
+(i;j)2E 
+k, 
+k02f0;1} 
+
+
+(x)= 
+
+
+0 B@ 
+
+xixj 
+(1 
+− 
+xi)xj 
+
+
+. 
+
+. 
+
+. 
+
+(i;j)2E 
+
+
+This first expression is overparametrized. We can rewrite the expression with just one 
+parameter per pair (xi;xj): 
+
+Y
+
+Y
+
+
+
+1 
+
+
+p(x)= 
+
+
+exp 
+~ijxixj 
+exp 
+~ixi 
+. 
+
+
+Z 
+
+
+(i;j)2Ei2V 
+
+
+5-8 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+Example 5.2.5 (General discrete graphical model) In the general case of a discrete 
+graphical model such 
+that 
+p(x) 
+> 
+0 
+for all x 
+2X 
+, we have: 
+
+Y
+
+1 
+
+
+p(x)= 
+	c(xc)
+
+Z 
+
+
+c2C 
+()X
+
+1 
+
+
+= 
+exp 
+log 
+	c(xc)
+
+Z 
+
+
+(c2C 
+)XX
+
+1 
+
+
+= 
+exp 
+fyc 
+=xc} 
+log(	c(yc))
+
+Z 
+
+
+c2C 
+yc2Xc 
+
+
+Where Xc 
+= 
+{ 
+set of all possible values of the r.v. on the clique cg
+We recognize: 
+
+􀀀 
+
+(x)= 
+(xc 
+=yc) 
+yc2Xc 
+c2C 
+
+
+and 
+
+􀀀 
+
+η 
+= 
+log(	c(yc)) 
+yc2Xc 
+c2C 
+
+
+5.2.2 Minimal representation
+􀀀 
+
+Remark 5.2.1 Let p(x) 
+= 
+exp 
+>(x) 
+− 
+A() 
+h(x)d(x). 
+The set Nη 
+:= 
+fx 
+: 
+p(x)=0} 
+actually does not depend on η 
+but only on h(x). 
+
+Definition 5.15 (Common set of probability zero) 
+
+N 
+:= 
+fx 
+: 
+h(x)=0} 
+
+
+Definition 5.16 (Affinely dependent statistics) We denote (x)=(1(x);:::;K 
+(x))> 
+. 
+The sufficient statistics are said to be affinely dependent if: 
+
+9(c0;:::;cK) 
+6=0, 
+8x 
+6
+∈ 
+N 
+;c0 
++ 
+c11(x)+ 
+::. 
++ 
+cK 
+K 
+(x)=0. 
+
+
+Definition 5.17 (Minimal representation of an exponential family) A vector of sufficient 
+statistics provides a minimal representation of the exponential family these statistics 
+are affinely independent. 
+
+Theorem 5.18 Every exponential family admits at least one minimal representation (not 
+necessarily unique) of unique minimal dimension K. 
+
+Remark 5.2.2 We will quite often use redundant (i.e. not minimal) representations. 
+
+5-9 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+5.2.3 Exponential family of an i.i.d. sample 
+We consider an i.i.d. sample X1;:::;Xn 
+distributed according to p, which belongs to an 
+exponential family. Then 
+
+nn
+
+Y Y􀀀  
+
+p(x1;:::;xn)= 
+p(xi) 
+= 
+exp 
+>(xi) 
+− 
+A() 
+h(xi) 
+i=1 
+i=1
+
+
+
+ n 
+Y
+
+X 
+
+= 
+exp 
+> 
+(xi) 
+− 
+nA() 
+h(xi) 
+i=1 
+i 
+
+
+¯ 
+1 
+P n
+
+1. The sufficient statistics is n, where = 
+ni=1 
+(xi), 
+2. The canonical parameter η 
+and the domain 
+= 
+fη 
+| 
+A() 
+< 
+1} 
+remain the same as 
+for a single observation, 
+3. The log-partition function is nA(). 
+5.2.4 General exponential family 
+In general, in an exponential family, we can parametrize η 
+with a function b 
+such that 
+η 
+= 
+b() 
+and θ 
+in an open connected subset Θ 
+of Rd 
+. 
+
+Definition 5.19 (Curved exponential family) An exponential family is said to be curved 
+
+no 
+
+@bj 
+()
+
+if its Jacobian J 
+= 
+is not full rank. 
+
+@i 
+
+
+i;j 
+
+
+Example 5.2.6 p(x)= 
+N 
+(x; 
+, 
+2) 
+
+
+5.2.5 Convexity and differentiability in exponential families 
+Lemme 5.20 (Hölder’s inequality) 
+
+8x, 
+y 
+∈ 
+Rd 
+, 
+p;q 
+> 
+1 
+such that 1+
+1 
+=1 
+
+
+pq 
+
+
+!1 
+
+
+n 
+p
+
+X 
+
+jx 
+> 
+y| 
+6 
+jjxj| 
+jjyj| 
+where jjxj| 
+= 
+xp 
+. 
+
+
+pq 
+pk 
+k=1 
+
+
+Z Z1 
+Z 1 
+
+
+8f, 
+g 
+: 
+Rn 
+→ 
+R, 
+jf(x)g(x)jdx 
+6 
+jf(x)jpdx 
+p 
+jg(x)jqdx 
+q 
+. 
+
+
+Theorem 5.21 (Convexity) In a canonical exponential family, we have the following properties: 
+
+
+5-10 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+1. Ω 
+is a convex subset of Rp 
+R􀀀  
+
+2. Z 
+: 
+η 
+7
+→ 
+exp 
+>(x) 
+h(x)dx 
+is a convex function 
+3. A 
+: 
+η 
+7
+→ 
+log 
+(Z()) 
+is a convex function 
+Proof If 
+= 
+∅ 
+or Ω 
+is a singleton, the result is trivial. 
+If not, there exist 1;2 
+∈ 
+Ω 
+such that 1 
+6
+= 
+2. Let η 
+= 
+1 
++ 
+(1 
+− 
+) 
+2, α 
+2]0, 
+1[. 
+exp(>(x)) 
+6 
+α 
+exp(1 
+>(x)) 
++(1 
+− 
+) 
+exp(2 
+>(x))
+
+ZZ Z 
+
+:::h(x)d(x) 
+6 
+α 
+:::h(x)d(x) 
++ 
+(1 
+− 
+) 
+:::h(x)d(x) 
+Z() 
+6 
+Z(1) 
++(1 
+− 
+) 
+Z(2). 
+Thus Z 
+is a convex function. Moreover: 
+1;2 
+∈ 
+Ω 
+⇒ 
+Z() 
+6 
+Z(1) 
++ 
+(1 
+− 
+)Z(2) 
+< 
+1⇒ 
+η 
+∈ 
+Ω 
+which proves that Ω 
+is a convex set. 
+
+ZZ
+
+􀀀 
+
+Z() 
+= 
+exp 
+>(x) 
+h(x)d(x) 
+= 
+(exp 
+1 
+>(x))h(x)α 
+(exp 
+2 
+>(x))1􀀀h(x)1􀀀α 
+d(x)
+
+|{z}| {z } 
+
+f(x)α 
+g(x)(1􀀀) 
+
+
+By taking p 
+= 
+α 
+1 
+, we obtain: 
+
+Z Z1 
+Z 1 
+
+
+f(x)α 
+g(x)1􀀀d(x) 
+6 
+f(x)pd(x) 
+p 
+g(x)(1􀀀)qd(x) 
+q 
+Z() 
+6 
+Z(1)α 
+Z(2)1􀀀α 
+A() 
+= 
+log(Z()) 
+6 
+A(1) 
++(1 
+− 
+)A(2). 
+Hence A 
+is a convex function. 
+
+Corollary 5.22 In a canonical exponential family, the maximum likelihood estimator is the 
+solution of a convex optimization problem. 
+
+Proof The log-likelihood is concave: 
+
+`() 
+= 
+log 
+p(x)= 
+>(x) 
+− 
+A() 
++ 
+log 
+h(x). 
+
+
+5-11 
+
+
+Lecture 5 — October 30th 2013/2014 
+
+Remark 5.2.3 The theorem does not hold in any of those two cases: 
+
+1. The family is curved, 
+2. φ 
+is not fully observed and we consider the marginal likelihood of the observations. 
+Theorem 5.23 If η 
+∈ 
+Ω 
+◦ 
+, then Z 
+is C∞ 
+(and so is A) and: 
+@Z 
+
+
+= 
+E[k(x)]Z()
+
+@k 
+@m 
+
+
+Z()= 
+E[1(x)m1 
+:::K 
+(x)mK 
+]Z()
+
+@1 
+m1 
+. 
+. 
+. 
+@KmK 
+
+
+Proof It is a bit technical but standard to show using the dominated convergence theorem 
+that one can exchange differentiation and expectation in the computations of the differentials 
+of Z. One then has 
+
+Z 
+
+@Z 
+ 
+
+= 
+k(x) 
+exp 
+>(x) 
+h(x)d(x)
+
+@k 
+
+
+Z 
+
+ 
+
+= 
+k(x) 
+exp 
+>(x) 
+− 
+A() 
+h(x)d(x) 
+exp(A())
+
+| {z } 
+
+Z() 
+= 
+E[k(x)]Z(), 
+
+
+which proves the first formula (the general one can be deduced by induction). 
+
+5-12 
+
+
