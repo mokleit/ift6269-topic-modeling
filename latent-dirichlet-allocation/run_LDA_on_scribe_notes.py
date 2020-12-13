@@ -27,7 +27,7 @@ import re
 
 debug=False  
 
-folder = "C:/Users/rober/OneDrive/Bureau/etude/graph models udem/lectures/text"
+folder = "C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data/scribenotes" 
 
 n_features = 1000 #build a vocabulary that only consider the top max_features ordered by term frequency across the corpus.
 n_top_words = 20 #for prints
@@ -35,34 +35,11 @@ max_treshold = 0.9 # high frequency words
 min_treshold = 2 #low frequency words
 
 
-#prepare data
 
-files = [filename for filename in os.listdir(folder) if filename.isdigit()]
-files.sort(key=int)
-sorted_files = [folder + '/' + filename for filename in files]
-output_file = folder+"/corpus.txt"
-
-for index, filename in enumerate(sorted_files):
-    print(filename)
-    file = open(filename,"r", encoding="utf8")
-    document = file.read().replace("\n", " ")
-    document =document.lower()
-    document= re.sub(r'[^a-z]',' ',document )   
-    document = re.sub(r'\b\w{1,3}\b', '', document)
-    document = re.sub(r'\s+', " ", document)
-    
-    output = open(output_file, "a")
-    output.write(document)
-    #if index != (len(files) - 1):
-        #print(124)
-    output.write("\n")
-    output.close()
-    
-
+input_file = folder +"/corpus.txt"
 
 
     
-input_file ="C:/Users/rober/OneDrive/Bureau/etude/graph models udem/lectures/text"+"/corpus.txt"
 documents = []
 
 with open(input_file) as f:
@@ -130,7 +107,10 @@ stops = [
 "word","words","works","world","worry","write","writing","yield",
 "yields","want","ways","true","trying","turn","turns","types","zero",
 "october","december","cours","november","definition","variable" ,"variables" 
-"random" ]
+"random" ,"called","gives",'consider','example','know' ,'note' ,'random',
+'function' , 'means','given' ,'model','variables','data']
+
+
 
 cv = CountVectorizer(max_df=max_treshold, min_df=min_treshold,
                        max_features=n_features,
@@ -148,6 +128,7 @@ Vocab_per_Doc_count = DOC.toarray()
 M , V = DOC.shape
 K = 8
 
+print(len(Vocabulary))
 
 import gc
 gc.collect()
@@ -405,3 +386,18 @@ for topic in range(K):
     print("\n words for topic number",topic)
     for word in beta_sorted[topic]:
         print(Vocabulary[word],end =' ')
+        
+        
+             
+#arange list for presentation
+N_top_words =10
+words_presentation = ['' for i in range(10)]
+
+
+for topic in  (0,1,4,6,7):
+    for i in range(N_top_words):
+        words_presentation[i]  = words_presentation[i] + ' & ' + Vocabulary[beta_sorted[topic][i]]
+
+for i in range(N_top_words):
+    words_presentation[i]= words_presentation[i][2:] + '\\\\'
+    print(words_presentation[i])

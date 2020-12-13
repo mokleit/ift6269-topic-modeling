@@ -40,7 +40,7 @@ Vocab_per_Doc_count = DOC.toarray()
 
 # Number of Documents M/ Size of Vocabulary V
 M, V = DOC.shape
-K = 10
+K = 100
 
 if debug:
     print("shape of matrix counts for (doc,word)= " + str(Vocab_per_Doc_count.shape))
@@ -307,8 +307,21 @@ optimal_beta, optimal_alpha, optimal_phi, optimal_gamma = run_em(docs, K, nb_ite
 
 # print top topics
 
-beta_sorted = np.argsort(optimal_beta, axis=1)[:, V - 20:]
+beta_sorted = np.argsort(optimal_beta, axis=1)[:, V - 10:]
 for topic in range(K):
     print("\n words for topic number", topic)
     for word in beta_sorted[topic]:
         print(Vocabulary[word], end=' ')
+        
+#arange list for presentation
+N_top_words =10
+words_presentation = ['' for i in range(10)]
+
+
+for topic in (1,3,21,10,4):
+    for i in range(N_top_words):
+        words_presentation[i]  = words_presentation[i] + ' & ' + Vocabulary[beta_sorted[topic][i]]
+
+for i in range(N_top_words):
+    words_presentation[i]= words_presentation[i][2:] + '\\\\'
+    print(words_presentation[i])
