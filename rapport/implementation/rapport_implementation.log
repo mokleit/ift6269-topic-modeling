@@ -1,0 +1,168 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.14)  19 DEC 2020 14:44
+entering extended mode
+**./rapport_implementation.tex
+(rapport_implementation.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-09-03>
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
+File: size11.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count168
+\c@section=\count169
+\c@subsection=\count170
+\c@subsubsection=\count171
+\c@paragraph=\count172
+\c@subparagraph=\count173
+\c@figure=\count174
+\c@table=\count175
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+)
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2020/08/26 v1.2 Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen135
+\Gin@req@width=\dimen136
+)
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip49
+\enit@outerparindent=\dimen137
+\enit@toks=\toks16
+\enit@inbox=\box45
+\enit@count@id=\count176
+\enitdp@description=\count177
+)
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2020-09-01 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count178
+\l__pdf_internal_box=\box46
+) (rapport_implementation.aux)
+\openout1 = `rapport_implementation.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count179
+\scratchdimen=\dimen138
+\scratchbox=\box47
+\nofMPsegments=\count180
+\nofMParguments=\count181
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count182
+\MPscratchDim=\dimen139
+\MPnumerator=\count183
+\makeMPintoPDFobject=\count184
+\everyMPtoPDFconversion=\toks18
+)
+(C:\Users\rober\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+Overfull \hbox (59.1997pt too wide) in paragraph at lines 17--19
+\OT1/cmr/m/n/10.95 be found at the fol-low-ing link:  \OT1/cmtt/m/n/10.95 https
+://nlp.stanford.edu/software/tmt/tmt-0.4/
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--24
+
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 31.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 31.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 31.
+
+Overfull \hbox (121.79132pt too wide) in paragraph at lines 31--44
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--44
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--44
+
+ []
+
+[1
+
+{C:/Users/rober/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+<plot_delta_gamma_convergence.pdf, id=11, 389.18526pt x 265.12738pt>
+File: plot_delta_gamma_convergence.pdf Graphic file (type pdf)
+<use plot_delta_gamma_convergence.pdf>
+Package pdftex.def Info: plot_delta_gamma_convergence.pdf  used on input line 5
+3.
+(pdftex.def)             Requested size: 360.0pt x 245.2592pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[2 <./plot_delta_gamma_convergence.pdf>] [3] (rapport_implementation.aux) ) 
+Here is how much of TeX's memory you used:
+ 1495 strings out of 481199
+ 23602 string characters out of 2905595
+ 274222 words of memory out of 3000000
+ 17133 multiletter control sequences out of 15000+200000
+ 539854 words of font info for 45 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 36i,10n,33p,490b,268s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:
+\Users\rober\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.p
+k><C:/Users/rober/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb><C:/Users/rober/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb><C:/Users/rober/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi10.pfb><C:/Users/rober/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/rober/AppData/Local/Programs/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on rapport_implementation.pdf (3 pages, 86817 bytes).
+PDF statistics:
+ 68 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+

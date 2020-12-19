@@ -2,6 +2,8 @@ import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from scipy import special
 import os
+import nltk
+nltk.download('wordnet')
 
 # import resource
 
@@ -13,9 +15,11 @@ n_components = 10  # Number of topics.
 n_top_words = 20  # for prints
 max_treshold = 0.95  # high frequency words
 min_treshold = 2  # low frequency words
+convergence = 0.25
+nb_iter = 30
 
 # For debugging
-debug = True
+debug = False
 
 # Read data
 documents = []
@@ -23,12 +27,12 @@ documents = []
 with open('blei_samples.txt') as f:
     for line in f:
         inner_list = [elt.strip() for elt in line.split(r'\n')]
-        # in alternative, if you need to use the file content as numbers
-        # inner_list = [int(elt.strip()) for elt in line.split(',')]
+
         documents.append(inner_list[0])
 
 # Prepare data
-cv = CountVectorizer(max_df=max_treshold, min_df=min_treshold,
+cv = CountVectorizer(max_df=max_treshold,
+                     min_df=min_treshold,
                      max_features=n_features,
                      stop_words='english')
 
@@ -220,7 +224,7 @@ def m_step(phi_t, gamma_t, initial_alpha, V, docs):
 
     inputs:
        phi_t : phi paramters from the E-step, shape = [M x N[d] x K] (vary per document)
-       gamma_t: matrix of gamma parameter from the E-step,  shape  = 1 x K
+       gamma_t: matrix of gamma parameter from the E-step,  shape  = M x K
        initial_alpha: matrix of gamma parameter from the E-step,  shape  =N document X N topics
        V: n_features
        words: list of  list of word index present in each of the document ,shape = M document X N[d] words  (vary per document)
@@ -261,7 +265,7 @@ def m_step(phi_t, gamma_t, initial_alpha, V, docs):
 # =============================================================================================================
 
 
-def run_em(docs, K, max_iter, V):
+def run_em(docs, K, max_iter,stoping_metric, V ):
     '''
     run the E-step and M-Step iteratively until the log likelihood converges
     returns the final parameters
@@ -274,14 +278,16 @@ def run_em(docs, K, max_iter, V):
     '''
 
     # initialisation
-    optimal_beta = np.random.dirichlet(np.ones(V), K)  # 1/V * np.ones((K,V))
-    initial_alpha = np.random.gamma(shape=np.ones((K)), scale=0.01)
+    optimal_beta = np.random.dirichlet(np.ones(V), K)  
+    initial_alpha = np.random.gamma(shape=np.ones((K)), scale=1/K)
+    gamma_old = np.zeros((M, K))
     converged = False
     I = 0
+    delta_list= []
 
     # Run EM Algorithm
     while not converged:
-
+        I += 1
         # E-step
         print("E-Step, iteration:", I)
         optimal_phi, optimal_gamma = e_step(optimal_beta, initial_alpha, docs, K)
@@ -295,15 +301,45 @@ def run_em(docs, K, max_iter, V):
             print('alpha:', optimal_alpha)
             print('beta:', optimal_beta[:, 0])
 
-        if (I >= max_iter):
+        delta = np.sqrt(np.mean(np.square(optimal_gamma-gamma_old)))
+        delta_list.append(delta)
+        
+        print("delta_gamma:", delta, 'iteration:', I) 
+        gamma_old=optimal_gamma
+        if (I >= max_iter or delta <= convergence):
             print('CONVERGED')
             converged = True
-        I += 1
-    return optimal_beta, optimal_alpha, optimal_phi, optimal_gamma
+        
+        
+
+    return optimal_beta, optimal_alpha, optimal_phi, optimal_gamma,delta_list
 
 
-nb_iter = 30
-optimal_beta, optimal_alpha, optimal_phi, optimal_gamma = run_em(docs, K, nb_iter, V)
+optimal_beta, optimal_alpha, optimal_phi, optimal_gamma, delta_list= run_em(docs, K, nb_iter,convergence, V)
+
+
+#print chart for convegence
+import matplotlib.pyplot as plt
+%matplotlib inline
+plt.style.use('ggplot')
+
+
+
+
+y = delta_list
+
+x_pos = [i for i, _ in enumerate(range(len(delta_list)))]
+f = plt.figure()
+plt.bar(x_pos, y, color='green')
+plt.xlabel("Iterations")
+plt.ylabel("L2 Delta")
+
+plt.xticks(x_pos)
+plt.plot([0 ,len(delta_list)],[convergence, convergence] )
+
+
+plt.show()
+f.savefig("C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/rapport/plot_delta_gamma_convergence.pdf", bbox_inches='tight')
 
 # print top topics
 
