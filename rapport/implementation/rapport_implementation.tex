@@ -31,20 +31,19 @@ Finally, Due to the limited memory of our hardware and for runtime reasons, we l
 We chose our topic vector $\alpha$ to be of size 100 to match the original implementation of the author. 
 
 \subsection{Parameter   Initialization}
-As stated in section xxxx, LDA with with variational EM has 4 sets of parameters to estimate. The parameters are randomly initialized to the following value:
+As stated in section xxxx, LDA with with variational EM has 4 sets of parameters to estimate. The parameters initialized to the following value:
 
 \begin{tabular}{ |p{2cm}||p{3cm}|p{10cm}| }
  \hline
  Parameter & Dimension  & Initialization\\
  \hline
-  $\alpha$ & [K]   & np.random.gamma(shape=np.ones((K)), scale=1/K)\\
-  $\phi$  & [M x N[d] x K]  & 1 / K * np.ones((N[d], K)) (per doc)\\
+  $\alpha$& [K]   & np.random.gamma(shape=np.ones((K)), scale=1/K)\\
   $\beta$  & [K x V]  &  np.random.dirichlet(np.ones(V), K)\\
-  $\gamma $  & [M x K]  &  alpha + np.max((N[d] / K, 0.2)) \\
+  $\gamma $  & [M x K]  &  alpha + (N[d] / K)  \\
+  $\phi$  & [M x N[d] x K]  &   np.ones((N[d], K))/ K \\
   \hline
 \end{tabular}\\
 \\
-We added a second term to the initial $\gamma $ to ensure that we don't encounter overflow in the first iterations of the variational inference algorithm.
 \\
 \subsection{Stopping Criteria }
 In the paper, the author doesn't state very clearly the stopping criterion used in its implementation. So we chose to stop the model once the parameter L2 norm of $\gamma$   from one iteration to the next is is below a given threshold. 
@@ -73,24 +72,24 @@ The canonical use of topic modeling is to find a list of topics across a corpus 
  \multicolumn{5}{|c|}{Topic Sample} \\
  \hline
  Topic 1: & Topic 2:   &  Topic 3: & Topic 4:  & Topic 5: \\
-   New York & Finance & Public System  & Africa & Politics\\
+   Politics & Finance & Trial  & Crime & Korea\\
  \hline
- club & new & child & ago & american\\
- year & percent & people & africa & states\\
- york & yen & having & leaders & union\\
- old & economy & report & france & told\\
- building & rate & education & people & political\\
- business & rates & aids & african & leaders\\
- years & said & children & french & conference\\
- new & prices & said & south & president\\
- city & market & care & police & said\\
- said & dollar & health & said & soviet\\
+ trade & york & years & authorities & roh\\
+ committee & shares & guilty & city & hostages\\
+ senate & board & case & injured & guard\\
+ new & million & trial & shot & officials\\
+ time & exchange & prison & hospital & coast\\
+ abortion & trading & said & night & korean\\
+ bush & stocks & judge & killed & korea\\
+ president & index & court & people & south\\
+ souter & market & attorney & police & north\\
+ said & stock & charges & said & said\\
  \hline
 \end{tabular}}
 \end{table}
 
 \subsection{Document Classification}
-LDA can also be used to classify previously unseen document to one of the K-topics by performing variational inference on the unseen document and using the trained gamma parameter to assign the document to the most likely topic. We scored our holdout documents and made a manual comparison of document vs topics and where pleased to see that make sense. Full results of the test set can be found in the following file: \begin{verbatim}
+LDA can also be used to classify previously unseen document to one of the K-topics. First, we need to perform variational inference on the unseen document and use the trained gamma parameter to assign the document to the most likely topic. We scored the holdout documents and made a manual comparison of document vs topics. Overal, the topic made sense. Full results of the test set can be found in the following file: \begin{verbatim}
 classification_holdout.csv 
 \end{verbatim}
 \end{document}
