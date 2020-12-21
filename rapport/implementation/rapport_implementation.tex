@@ -1,32 +1,37 @@
 \documentclass[11pt]{article}
 \usepackage{graphicx}
 \usepackage{enumitem}
-
+\usepackage{amsmath}
 \begin{document}
 
 \section{Implementation}
-In this section we present our implementation of LDA in python and discuss our results.
+In this section we present our implementation of LDA in \textit{Python} and discuss our results on real data. 
 \subsection{Library Used}
 	
     \begin{itemize}[noitemsep]
-		\item numpy
-		\item scikit learn for pre-processing
-		\item scipy probability distributions
+		\item \textit{scikit learn}  for pre-processing.
+		\item \textit{scipy} for probability distributions.
  	\end{itemize}
 \subsection{Dataset Description}
 The dataset used is the same one used in the authors implementation. it can be found at the following link: \texttt{ https://nlp.stanford.edu/software/tmt/tmt-0.4/}
-It consist of 2246 small documents. 
+It consist of 2246 small documents. We used 2000 documents for training our model and kept the rest for testing (classification).
    
 \subsection{Pre-processing}
-\textbf{Tokenization of the documents:}  LDA use the bag of word assumption (the order of words apparitions in a document is ignored). This allows us to use a compact representation of every documents in a matrix of M x V.  Each line in the matrix represent a document and the values are integer that represent the number of occurrence of a word in the vocabulary. This is similar to the one hot encoding trick that we used in the class. \\
+\textbf{Tokenization of the documents:}  LDA uses the bag of word assumption (the order of words apparitions in a document is ignored). This allows us to use a compact representation of documents in a matrix of M x V.  Each line in the matrix represents a document and the values are integer that represent the number of occurrences of a word in the vocabulary. This is similar to the one hot encoding trick that we used in the class. \\
 \\
-In addition  to tokenization, we included the following filters to remove words that have either a too low or too high frequency: 
+In addition  to tokenization, we included the following filters: 
     \begin{itemize}[noitemsep]
-		\item Removed  words with only 1 occurrence across the corpus.
-		\item Removed words that occur in 95 \% of the document or more. 
+   	    \item Removed non-alphabetical characters.
+		\item Removed words with only 1 occurrence across the corpus.
+		\item Removed words that occur in 95 \%  or more of the documents. 
 	\end{itemize}
-\subsection{Parameter Initialization}
-As stated in section xxxx, LDA with with variational EM has 4 set of parameters to estimate, each  of the parameters are randomly initialized to the following value:
+Finally, Due to the limited memory of our hardware and for runtime reasons, we limited the vocabulary to only the 3000 most frequent words of the corpus. 
+
+\subsection{Hyperparameter Selection}
+We chose our topic vector $\alpha$ to be of size 100 to match the original implementation of the author. 
+
+\subsection{Parameter   Initialization}
+As stated in section xxxx, LDA with with variational EM has 4 sets of parameters to estimate. The parameters are randomly initialized to the following value:
 
 \begin{tabular}{ |p{2cm}||p{3cm}|p{10cm}| }
  \hline
@@ -39,13 +44,11 @@ As stated in section xxxx, LDA with with variational EM has 4 set of parameters 
   \hline
 \end{tabular}\\
 \\
-We added a second term to the innitial $\gamma $ to ensure that we dont encounter overflow in the first iterations of the variational inference algorithm.
+We added a second term to the initial $\gamma $ to ensure that we don't encounter overflow in the first iterations of the variational inference algorithm.
 \\
-\subsection{Stopping Criterion}
+\subsection{Stopping Criteria }
 In the paper, the author doesn't state very clearly the stopping criterion used in its implementation. So we chose to stop the model once the parameter L2 norm of $\gamma$   from one iteration to the next is is below a given threshold. 
 \\
-stopping metric:
-in the paper
 
 \begin{figure}[ht]
 \vskip 0.2in
@@ -57,18 +60,20 @@ in the paper
 \vskip -0.2in
 \end{figure}
 
-\subsection{Results}
-%here is a sample of 5 topics from our implemtention with the top 10 words from 
+\section{Empirical Results}
+\subsection{Topic Extraction}
+The canonical use of topic modeling is to find a list of topics across a corpus of text. We can attempt to understand the meaning of a topic using the words with the highest probability for the given topic. %$\argmax_{ p(\beta \mid \alpha)}$
 \begin{table}[h]
-\caption{Topic Sample from LDA model: each column represent the top 10 words from the topic }
+\caption{Topic Sample from LDA model: each column represents the top 10 words from the topic. We can see that the topics are easy to interpret. for full list of topic, see: }%Topics_list.csv
 
   \scalebox{0.6}{
     \begin{tabular}
-    { |p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}| }
+    { |p{2cm}|p{2cm}|p{2.5cm}|p{2cm}|p{2cm}| }
  \hline
  \multicolumn{5}{|c|}{Topic Sample} \\
  \hline
- Topic 1 & Topic 2  &  Topic 3 & Topic 4 & Topic 5\\
+ Topic 1: & Topic 2:   &  Topic 3: & Topic 4:  & Topic 5: \\
+   New York & Finance & Public System  & Africa & Politics\\
  \hline
  club & new & child & ago & american\\
  year & percent & people & africa & states\\
@@ -83,4 +88,9 @@ in the paper
  \hline
 \end{tabular}}
 \end{table}
+
+\subsection{Document Classification}
+LDA can also be used to classify previously unseen document to one of the K-topics by performing variational inference on the unseen document and using the trained gamma parameter to assign the document to the most likely topic. We scored our holdout documents and made a manual comparison of document vs topics and where pleased to see that make sense. Full results of the test set can be found in the following file: \begin{verbatim}
+classification_holdout.csv 
+\end{verbatim}
 \end{document}

@@ -2,21 +2,21 @@ import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from scipy import special
 import os
-import nltk
-nltk.download('wordnet')
-
+import matplotlib.pyplot as plt
+import re
+import pandas as pd 
 # import resource
 
-os.chdir(
-    'C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data')
+os.chdir('C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data')
 # inputs;
-n_features = 1000  # build a vocabulary that only consider the top max_features ordered by term frequency across the corpus.
-n_components = 10  # Number of topics.
+n_features = 3000  # build a vocabulary that only consider the top max_features ordered by term frequency across the corpus.
+K = 100 #num topics
 n_top_words = 20  # for prints
 max_treshold = 0.95  # high frequency words
 min_treshold = 2  # low frequency words
-convergence = 0.25
-nb_iter = 30
+convergence = 0.25 #convergence stopping value for EM
+nb_iter = 30  #maximum number of itteration for EM
+train_size = 2000 # numer of document in the traininh algorithm
 
 # For debugging
 debug = False
@@ -27,8 +27,9 @@ documents = []
 with open('blei_samples.txt') as f:
     for line in f:
         inner_list = [elt.strip() for elt in line.split(r'\n')]
+        inner_list = re.sub(r'\d+', '', inner_list[0]) #remove numbers
+        documents.append(inner_list)
 
-        documents.append(inner_list[0])
 
 # Prepare data
 cv = CountVectorizer(max_df=max_treshold,
@@ -36,27 +37,20 @@ cv = CountVectorizer(max_df=max_treshold,
                      max_features=n_features,
                      stop_words='english')
 
-DOC = cv.fit_transform(documents)
+DOC_train = cv.fit_transform(documents[0:train_size])
+
+DOC_holdout = cv.transform(documents[train_size:])
+
 
 Vocabulary = [str.strip('_') for str in cv.get_feature_names()]
 # get a matrix of counts for each element of vocabulary
-Vocab_per_Doc_count = DOC.toarray()
+
+Vocab_per_Doc_count_train = DOC_train.toarray()
+
+Vocab_per_Doc_count_holdout = DOC_holdout.toarray()
 
 # Number of Documents M/ Size of Vocabulary V
-M, V = DOC.shape
-K = 100
-
-if debug:
-    print("shape of matrix counts for (doc,word)= " + str(Vocab_per_Doc_count.shape))
-    print("size of vocabulary set = " + str(len(Vocabulary)))
-
-import gc
-
-gc.collect()
-''' 
-Doc_words :list of words for each document d (words are represented by their index in Vocabulary) [M x N[d]]
-N :list of size of each document (number of words)
-'''
+M, V = DOC_train.shape
 
 
 def DataTrans(x):
@@ -78,7 +72,8 @@ def DataTrans(x):
     return doc
 
 
-docs = list(map(DataTrans, Vocab_per_Doc_count))
+docs_train = list(map(DataTrans, Vocab_per_Doc_count_train))
+docs_holdout = list(map(DataTrans, Vocab_per_Doc_count_holdout))
 
 
 # ===========================================================================================================
@@ -314,50 +309,97 @@ def run_em(docs, K, max_iter,stoping_metric, V ):
 
     return optimal_beta, optimal_alpha, optimal_phi, optimal_gamma,delta_list
 
+#run em 
+optimal_beta, optimal_alpha, optimal_phi, optimal_gamma, delta_list= run_em(docs_train, K, nb_iter,convergence, V)
 
-optimal_beta, optimal_alpha, optimal_phi, optimal_gamma, delta_list= run_em(docs, K, nb_iter,convergence, V)
-
-
-#print chart for convegence
-import matplotlib.pyplot as plt
-%matplotlib inline
-plt.style.use('ggplot')
+# =============================================================================================================
+#extract results for report an presentation
 
 
 
-
-y = delta_list
-
-x_pos = [i for i, _ in enumerate(range(len(delta_list)))]
-f = plt.figure()
-plt.bar(x_pos, y, color='green')
-plt.xlabel("Iterations")
-plt.ylabel("L2 Delta")
-
-plt.xticks(x_pos)
-plt.plot([0 ,len(delta_list)],[convergence, convergence] )
+# =============================================================================
+# beta_sorted = np.argsort(optimal_beta, axis=1)[:, V - 10:]
+# for topic in range(K):
+#     print("\n words for topic number", topic)
+#     for word in beta_sorted[topic]:
+#         print(Vocabulary[word], end=' ')
+# 
+# =============================================================================
 
 
-plt.show()
-f.savefig("C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/rapport/plot_delta_gamma_convergence.pdf", bbox_inches='tight')
-
-# print top topics
-
-beta_sorted = np.argsort(optimal_beta, axis=1)[:, V - 10:]
+# extract  top words from each  topics
+beta_sorted = np.argsort(optimal_beta, axis=1)[:, V - 10:] #sort beta
+top_words_per_topics = []
 for topic in range(K):
-    print("\n words for topic number", topic)
-    for word in beta_sorted[topic]:
-        print(Vocabulary[word], end=' ')
+    top_words_per_topics.append([Vocabulary[word] for word in beta_sorted[topic]])
         
-#arange list for presentation
-N_top_words =10
-words_presentation = ['' for i in range(10)]
+
+#save
+top_words_per_topics_table =pd.DataFrame(top_words_per_topics)
+top_words_per_topics_table.to_csv("C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/rapport/implementation/Topics_list.csv")
+  
+#predict on new document
+phi_holdout, gamma_holdout = e_step(optimal_beta, optimal_alpha, docs_holdout, K)
+
+predictions_holdout = (gamma_holdout/gamma_holdout.sum(axis=1,keepdims =True)).max(axis=1)
+topic_holdout =gamma_holdout.argmax(axis=1)
+
+# =============================================================================
+# 
+# for topic in topic_holdout:
+#     print("\n words for topic number", topic)
+#     for word in beta_sorted[topic]:
+#         print(Vocabulary[word], end=' ')
+# =============================================================================
 
 
-for topic in (1,3,21,10,4):
-    for i in range(N_top_words):
-        words_presentation[i]  = words_presentation[i] + ' & ' + Vocabulary[beta_sorted[topic][i]]
+output_holdout = pd.DataFrame({
+                                "text": documents[train_size:],
+                                "topic_id" : topic_holdout , 
+                                "prediction": predictions_holdout})
 
-for i in range(N_top_words):
-    words_presentation[i]= words_presentation[i][2:] + '\\\\'
-    print(words_presentation[i])
+
+output_holdout = pd.merge(output_holdout,  pd.DataFrame(top_words_per_topics_table),left_on = 'topic_id', right_index=True)
+
+#save
+output_holdout.to_csv("C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/rapport/implementation/classification_holdout.csv")
+# =============================================================================
+# 
+# #create  chart to illustrate  convegence
+# %matplotlib inline
+# plt.style.use('ggplot')
+# 
+# 
+# 
+# 
+# y = delta_list
+# 
+# x_pos = [i for i, _ in enumerate(range(len(delta_list)))]
+# f = plt.figure()
+# plt.bar(x_pos, y, color='green')
+# plt.xlabel("Iterations")
+# plt.ylabel("L2 Delta")
+# 
+# plt.xticks(x_pos)
+# plt.plot([0 ,len(delta_list)],[convergence, convergence] )
+# 
+# 
+# plt.show()
+# f.savefig("C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/rapport/plot_delta_gamma_convergence.pdf", bbox_inches='tight')
+# 
+# =============================================================================
+
+# =============================================================================
+# #arange list for latex presentation
+# N_top_words =10
+# words_presentation = ['' for i in range(10)]
+# 
+# 
+# for topic in (1,3,21,10,4):
+#     for i in range(N_top_words):
+#         words_presentation[i]  = words_presentation[i] + ' & ' + Vocabulary[beta_sorted[topic][i]]
+# 
+# for i in range(N_top_words):
+#     words_presentation[i]= words_presentation[i][2:] + '\\\\'
+#     print(words_presentation[i])
+# =============================================================================
