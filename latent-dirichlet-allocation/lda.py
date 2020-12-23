@@ -331,7 +331,7 @@ for topic in range(K):
         
 #save
 top_words_per_topics_table =pd.DataFrame(top_words_per_topics)
-top_words_per_topics_table.to_csv("C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/rapport/implementation/Topics_list.csv")
+top_words_per_topics_table.to_csv("C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/rapport/implementation/TopicsList.csv")
   
 #predict on new document
 phi_holdout, gamma_holdout = e_step(optimal_beta, optimal_alpha, docs_holdout, K)
@@ -343,8 +343,8 @@ topic_holdout =gamma_holdout.argmax(axis=1)
 
 output_holdout = pd.DataFrame({
                                 "text": documents[train_size:],
-                                "topic_id" : topic_holdout# , 
-    #                            "prediction": predictions_holdout
+                                "topic_id" : topic_holdout , 
+                                "prediction": predictions_holdout
     
                                 })
 

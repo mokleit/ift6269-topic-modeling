@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage{hyperref}
 \begin{document}
 
 \section{Implementation}
@@ -89,7 +90,10 @@ The canonical use of topic modeling is to find a list of topics across a corpus 
 \end{table}
 
 \subsection{Document Classification}
-LDA can also be used to classify previously unseen document to one of the K-topics. First, we need to perform variational inference on the unseen document and use the trained gamma parameter to assign the document to the most likely topic. We scored the holdout documents and made a manual comparison of document vs topics. Overal, the topic made sense. Full results of the test set can be found in the following file: \begin{verbatim}
+LDA can also be used to classify previously unseen document to one of the K-topics. First, we need to perform variational inference on the unseen document and use the trained gamma parameter to assign the document to the most likely topic. We scored the holdout documents and made a manual comparison of document vs topics. Overal, the topic made sense. See table 2 for a sample of document.  Full results of the test set can be found in the following file: \begin{verbatim}
 classification_holdout.csv 
 \end{verbatim}
+
+
+\hyperref{ https://nlp.stanford.edu/software/tmt/tmt-0.4/}
 \end{document}
