@@ -1,15 +1,14 @@
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from scipy import special
-import os
 import matplotlib.pyplot as plt
 import re
-import pandas as pd 
+import pandas as pd
 
+#TODO
+#REFACTOR!
 
-#set path to the imput file folder
-os.chdir('C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data')
-# inputs;
+#set path to the input file folder
 n_features = 3000  # build a vocabulary that only consider the top max_features ordered by term frequency across the corpus.
 K = 100 #num topics
 n_top_words = 20  # for prints
@@ -374,8 +373,6 @@ plt.plot([0 ,len(delta_list)],[convergence, convergence] )
 
 
 plt.show()
-f.savefig("C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/rapport/implementation/plot_delta_gamma_convergence.pdf", bbox_inches='tight')
-
 
 #arange list for latex presentation
 N_top_words =10

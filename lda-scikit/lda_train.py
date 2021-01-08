@@ -14,7 +14,7 @@ blei = True
 num_features = 200
 
 if blei:
-    corpus_path = '../data/blei_samples.txt'
+    corpus_path = '../lda-python/data/blei_samples.txt'
     vocabulary_path = 'blei/blei_vocabulary.csv'
     pickle_path = 'blei/lda_model.pkl'
 else:

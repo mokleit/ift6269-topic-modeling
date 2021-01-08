@@ -1,7 +1,8 @@
-LDA/venv/*
-venv/*
-LDA/.idea/*
-.idea/*
+*LDA/venv/*
+*venv/*
+*LDA/.idea/*
+*.idea/*
 
-/latent-dirichlet-allocation/venv/
-/latent-dirichlet-allocation/.idea/
+*/latent-dirichlet-allocation/venv/*
+*/latent-dirichlet-allocation/.idea/*
+*.DS_Store*

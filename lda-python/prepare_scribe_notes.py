@@ -11,7 +11,7 @@ import os
 import re
 
 
-folder = "C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data/scribenotes"
+folder = "C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/lda-python/data/scribenotes"
 
 
 

@@ -1,9 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Implementation}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Library Used}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{Dataset Description}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{Pre-processing}{section.1}% 4
-\BOOKMARK [2][-]{subsection.1.4}{Hyperparameter Selection}{section.1}% 5
-\BOOKMARK [2][-]{subsection.1.5}{Parameter Initialization}{section.1}% 6
-\BOOKMARK [2][-]{subsection.1.6}{Stopping Criteria }{section.1}% 7
-\BOOKMARK [1][-]{section.2}{Empirical Results}{}% 8
-\BOOKMARK [2][-]{subsection.2.1}{Topic Extraction}{section.2}% 9

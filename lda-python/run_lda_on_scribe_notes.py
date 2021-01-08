@@ -27,7 +27,7 @@ import re
 
 debug=False  
 
-folder = "C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/latent-dirichlet-allocation/data/scribenotes" 
+folder = "C:/Users/rober/OneDrive/Bureau/etude/graph models udem/Projet/ift6269-topic-modeling/lda-python/data/scribenotes"
 
 n_features = 1000 #build a vocabulary that only consider the top max_features ordered by term frequency across the corpus.
 n_top_words = 20 #for prints
